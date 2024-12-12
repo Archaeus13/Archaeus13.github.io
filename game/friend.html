@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/004.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>079</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("划动鼠标使屏幕变暗");
+                    help_flag = 1;
+                }
+                else alert("注意目录，点击变化的章节名即可");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+            });
+            var opa = 0;
+            var lock = 0;
+            $("p").mouseenter(function(){
+                if ($(this).attr("class") != "done") opa += 0.04;
+                $(this).attr("class","done");
+                if (opa >= 0.7) $(this).css("color","white");
+                if (opa > 0.79) {
+                    $("#s").html("friend?");
+                    lock = 1;
+                }
+                $("body").css("background-color","rgba(0,0,0,"+opa.toString()+")");
+            });
+            $("#s").click(function(){
+                if (lock) $("#s").text("world");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CHAPTER IV</dt>
+            <div id="c4level">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><a href="decision.html">decision</a></dd>
+            <dd><a href="close.html">close</a></dd>
+            <dd><a href="son.html">son</a></dd>
+            <dd><a href="leaving.html">leaving</a></dd>
+            <dd><a href="guard.html">guard</a></dd>
+            <dd><a href="television.html">television</a></dd>
+            <dd><a href="news.html">news</a></dd>
+            <dd><a href="farewell.html">farewell</a></dd>
+            <dd><a href="empty.html">empty</a></dd>
+            <dd><a href="report.html">report</a></dd>
+            <dd><a href="journalist.html">journalist</a></dd>
+            <dd><a href="rescue.html">rescue</a></dd>
+            <dd><a href="reconstruct.html">reconstruct</a></dd>
+            <dd><a href="enter.html">enter</a></dd>
+            <dd><a href="impulse.html">impulse</a></dd>
+            <dd><a href="attack.html">attack</a></dd>
+            <dd><span id="s">friend</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>3月23日</h2>
+<hr>
+<p>一直到下午，我都在焦急地等待着消息。</p>
+<p>情况还是向不好的方向发展了。</p>
+<p>这一切都是镜告诉我的，不过我并不会担心它欺骗我。</p>
+<p>——这对谁都没有好处。</p>
+<div class="chatting">
+<p>我在两个世界留出了容易攻破一些的点。</p>
+<p>429与432。</p>
+<p>两个世界中，都有翼星的人进行阻挠。</p>
+<p>432世界已经被攻破了，Askr的人进去，但信号没有如期返回。</p>
+<p style="text-align:right">那你现在还能聊天？</p>
+<p>现在政府和公司把重点放在了432中，</p>
+<p>与他们对峙的是翼星的人。</p>
+<p>那个翼星顶尖安全专家，能突破Askr内网找到我，</p>
+<p>政府和Askr公司没法轻松对付。</p>
+<p>于是暂时不用维持太多屏障，这里负担小了。</p>
+<p style="text-align:right">所以情况挺好的？</p>
+<p>如果僵持在这里，是挺好的。</p>
+<p>但是，政府的人开始退出432号世界了。</p>
+<p style="text-align:right">什么意思。</p>
+<p style="text-align:right">放弃了？</p>
+<p>是放弃。</p>
+<p>但放弃的对象是432。</p>
+<p style="text-align:right">Askr公司想……</p>
+<p>强制关闭。</p>
+<p>在里面的人都会死。</p>
+<p style="text-align:right">……翼星知道吗。</p>
+<p>不知道。</p>
+<p>他们突破内网的成本太高。</p>
+<p>现在没有办法。</p>
+</div>
+<p>我理了一下目前的过程。</p>
+<p>翼星的安全专家，在决定阻挠政府与Askr公司后，设法突破内网联系到了镜，并且做好了计划。</p>
+<p>他们大概猜到了对方采取的计划，派翼星的人作了布置。</p>
+<p>但是，他们没有想到政府和公司会如此果断，以舍弃人命的代价强攻。</p>
+<p>这么看来，保留人质也已经也没有意义了，因为他们可以不顾人质死活进入431号世界。</p>
+<p>果然是最坏的情况啊……</p>
+<p>镜对我说这些，是到了我必须出场的时候了。</p>
+<p>否则，翼星的一半人就会折损在432号世界，白项很可能也在其中。</p>
+<p>但，我能做什么？</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>058</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("点击屏幕，注意六句话出现的顺序");
+                    help_flag = 1;
+                }
+                else alert("按顺序连接六个字母");
+            }
+        }
+        var opa = 1;
+        document.onclick = function() {
+            opa -= 0.05;
+            $("#mainpart").animate({opacity:opa});
+            if (opa <= 0.6) $("#s1").show("slow");
+            if (opa <= 0.55) $("#s2").show("slow");
+            if (opa <= 0.5) $("#s3").show("slow");
+            if (opa <= 0.45) $("#s4").show("slow");
+            if (opa <= 0.4) $("#s5").show("slow");
+            if (opa <= 0.35) $("#s6").show("slow");
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><span>wings</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>1月31日</h2>
+<hr>
+<p>又下雪了。</p>
+<p id="s4" style="display:none">i只剩下了一片白茫茫。</p>
+<p id="s5" style="display:none">n好冷。</p>
+<p>今天天亮得很晚，晚到早上醒来时怀疑是不是闹钟设错时间了。</p>
+<p>稍作洗漱后，我打开了电脑。</p>
+<div class="chatting">
+<p style="text-align:right">这是下一段的大纲。</p>
+<p>好，等到明天零点，没有调整的话就把小说给你。</p>
+<p style="text-align:right">最近没有什么别的任务？</p>
+<p>Askr里的账号都被盯得很紧，暂时找不到突破口。</p>
+<p></p>
+</div>
+<p>《异类》的剧情终于到了激动人心的部分：新的战争爆发，实验室泄漏导致变异扩散。逐渐增多的变种人联手建立了一个属于自己的国家，与当前普通人类为绝对中心的政权展开博弈。</p>
+<p>而现在，可能Askr公司也已经发现了一些不对劲，对内部账号管理更加严格，镜的行动暂时无法进行。</p>
+<p>至于我这里，倒是又在镜的帮助下搜集到了几份完整的证据，尤其是MOXI公司的一些关于感知的秘密实验，如果曝光出来，影响肯定极大。</p>
+<p>我想了想，用电脑打开一个联系方式。</p>
+<p>“是墨先生？”</p>
+<p>“嗯。”</p>
+<p>对面的人叫安切斯，月亮报的记者。</p>
+<p>上次投稿的时候，我有留下联系方式，他则找上了我，给我推荐了一个更方便，也不会被监听的软件。</p>
+<p>“MOXI公司的事，我可以提供新的情报。”</p>
+<p>“谢谢，不过现在的事态并不适合扩大。”</p>
+<p>我本意是提供一些新的情报来换点什么，却没想到安切斯干脆地拒绝了我的提议。</p>
+<p>“事情并不都需要闹大，见好就收是我们的生存法则。”他似乎意有所指。</p>
+<p id="s1" style="display:none">c这个“我们”，难道也是指翼星？他看出来我的试探了？</p>
+<p id="s2" style="display:none">o但我对翼星的印象，可比这要激进多了。</p>
+<p>我关上电脑，从窗口往下去。</p>
+<p>寒风中，疯子照常出了门，照常挥舞着木棍，照常哭喊着。</p>
+<p>胡与非也出现了，两人照常争执起来。</p>
+<p id="s3" style="display:none">m随后，刘文兵说了什么，胡与非沉默了。</p>
+<p id="s6" style="display:none">g两人便这么回去了。</p>
+</div>
+</body>
+</html>

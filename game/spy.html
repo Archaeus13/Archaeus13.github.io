@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/005.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>084</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("在偷渡之后，目前整治的主体是什么？");
+                    help_flag = 1;
+                }
+                else alert("位于老城区的贫民窟");
+            }
+        }
+        document.onclick = function() {
+            if ($("input").val() == "贫民窟") $("input").val("gather");
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+                $("#c5level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+                $("#c5level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+                $("#c5level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+                $("#c5level").slideUp();
+            });
+            $("#c5").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+                $("#c5level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body style="background-color:rgb(40,40,40);color:rgb(180,180,180);">
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CATASTROPHE</dt>
+            <div id="c4level" style="display:none;">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><a href="decision.html">decision</a></dd>
+            <dd><a href="close.html">close</a></dd>
+            <dd><a href="son.html">son</a></dd>
+            <dd><a href="leaving.html">leaving</a></dd>
+            <dd><a href="guard.html">guard</a></dd>
+            <dd><a href="television.html">television</a></dd>
+            <dd><a href="news.html">news</a></dd>
+            <dd><a href="farewell.html">farewell</a></dd>
+            <dd><a href="empty.html">empty</a></dd>
+            <dd><a href="report.html">report</a></dd>
+            <dd><a href="journalist.html">journalist</a></dd>
+            <dd><a href="rescue.html">rescue</a></dd>
+            <dd><a href="reconstruct.html">reconstruct</a></dd>
+            <dd><a href="enter.html">enter</a></dd>
+            <dd><a href="impulse.html">impulse</a></dd>
+            <dd><a href="attack.html">attack</a></dd>
+            <dd><a href="friend.html">friend</a></dd>
+            <dd><a href="world.html">world</a></dd>
+            </div>
+            <dt id="c5">CHAPTER V</dt>
+            <div id="c5level">
+            <dd><a href="fore.html">fore</a></dd>
+            <dd><a href="bridge.html">bridge</a></dd>
+            <dd><a href="plan.html">plan</a></dd>
+            <dd><span>spy</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd><a href="victory.html">victory</a></dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>11月7日-真</h2>
+<hr>
+<p>在之前的一个月里，翼星策划了不少暴乱。</p>
+<p>看起来过于激进的行动，其实只是无奈之举。</p>
+<p>牵制政府的注意力，实现安全转移，是翼星最重要的目的。</p>
+<p>更何况，暴乱也并不是无底线地攻击。</p>
+<p>救济站的贪官污吏、农民得不到的补偿、MOXI公司害死的人，这些血淋淋的事实面前，人们早就应该反抗了。</p>
+<p>——可是，更多像我一样的人，转移也无处去。</p>
+<p>秋冬之交的雨季渐渐过去，大楼里来了新的住户。</p>
+<p>胡与非多半是个假名，不过这不重要。</p>
+<p>重要的是，她来这栋大楼的时机——整治偷渡刚结束，准备进入下一阶段时——怎么看都像是前来调查。</p>
+<p>不过，定位到“大楼中有翼星成员”后，她的怀疑对象显然是很久以前就离开的老丰，而不是我。</p>
+<p>她对那台收音机也有不小的警惕，甚至知道翼星频道的存在。不过，在这个频道表面下面的暗语，她目前也没有办法发现。</p>
+<p>而她来之前，我做了足够多的铺垫，让所有人都以为我只是喜欢坐在一楼听收音机而已。</p>
+<p>哪怕我在听翼星的频道，也和我是翼星的人构不成联系。</p>
+<hr>
+<p>除了胡与非，今天的另一件引人注目的事是镜提出了谈判。</p>
+<p>当然，条件是放它出去的谈判，注定不可能成功，这只是为之后以人质交换阅览权限作一些准备。</p>
+<p>得到阅览权限后，便是渗透Askr公司的内网了。</p>
+<p>这一切，目前还和我没什么关系。</p>
+<p>不过，为了维持表面的交易，很快就会有关了。</p>
+<hr>
+<p>政府目前阶段的行动，针对的是老城区的<input type="text" style="width:50px">。</p>
+<p>这个目标很明显，但如果贸然组织反抗，就中了陷阱，可能被顺藤摸瓜。</p>
+<p>所以，必须先静观其变。</p>
+</div>
+</body>
+</html>

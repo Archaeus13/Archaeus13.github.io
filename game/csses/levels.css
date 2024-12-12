@@ -1,0 +1,50 @@
+body {
+    margin:0 auto;
+    width: 600px;
+    font-family: 'consolas';
+}
+
+table {
+    width: 600px;
+}
+
+caption {
+    font-size: x-large;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+
+th {
+    font-size: large;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+td {
+    width: 150px;
+}
+
+h2 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link{
+    color: rgb(23, 141, 127);
+}
+
+a:visited{
+    color: rgb(23, 141, 127);
+}
+
+a:hover{
+    color: rgb(91, 186, 175);
+}
+
+a:active{
+    color: rgb(157, 222, 214);
+}

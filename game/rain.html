@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/001.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>012</title>
+    <script>
+        var help_flag = 0;
+        var secret = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("有些消失相关的词可以点击使其消失");
+                    help_flag = 1;
+                }
+                else alert("点完三处后答案自然出现");
+            }
+        }
+        $(document).ready(function(){
+            $(".vanish").click(function(){
+                $(this).hide("slow");
+                secret++;
+                if (secret == 3) $("#password").show("slow");
+            });
+        });
+    </script>
+</head>
+
+<body style="background-color: rgba(0, 88, 104, .24);">
+
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt>CHAPTER I</dt>
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><span>rain</span></dd>
+            <dd>locked</dd>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>10月18日</h2>
+<hr>
+<p>大雨又来了。</p>
+<p>一场秋雨一场寒，这几天的气温已经降了不少。</p>
+<p>我最终还是决定试一试。</p>
+<p>昨天，我把《异类》的大致设计与开头的内容发给罗尔里姆后，它说要等它写一会儿，然后便<span class="vanish">没了下文</span>。</p>
+<p>如果结果能让我满意，就正式和它做这个交易。</p>
+<p>不过，我当然也没有停止投简历。</p>
+<p>任谁也不会给这样草率就相信一个来历不明的人。</p>
+<p>小卖部的广播里还播放着新闻：</p>
+<div class="quoting">
+<p>有一伙暴徒尝试冲击<a href="relief.html" target="_self">救济站</a>抢夺物资，现已被制服……</p>
+<p>知情人透露Askr公司与MOXI公司联手进行的人工智能开发实验出现故障，志愿者疑有生命危险……</p>
+<p>连日大雨导致多地受灾，鹰吕市政府正在紧集调动支援队伍……</p>
+</div>
+<p>老板到底去做什么了呢……</p>
+<p>收音机的声音渐渐减小，似乎是<span class="vanish">没电了</span>。</p>
+<p id="password" style="display:none;">deal</p>
+<p>我从家里拿出一块电池装上去。</p>
+<p>——虽说每天听别人的收音机怎么看都不是什么正常人的做法，但习惯了之后，总觉得每天不听就<span class="vanish">少了点什么</span>。</p>
+<p>或许，正因为是在电子新闻的年代，我们才会格外怀念这些东西吧。</p>
+<p>回家的路上，正好又碰见了黄林雪———那个保安大姐。</p>
+<p>“这段时间天跟漏了似的，连青菜都涨到了三块一斤。”大姐抱怨着。</p>
+<p>“是啊，也不知道什么时候才能正常。话说，你知道老丰跑哪里去了吗？”小卖部老板姓丰，我们都喊他老丰。</p>
+<p>“不知道欸，刚<span class="vanish">不见</span>的那段时间我们邻里还提过，最后也没人看到。那么大的人还能<span class="vanish">丢了</span>？”大姐也不知道。</p>
+<p>“老丰无亲无故的，要是真在外面出什么事——”大姐正说着，电梯已经到了，我便道别离开。</p>
+</div>
+</body>
+</html>

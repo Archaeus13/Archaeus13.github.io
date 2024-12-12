@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>052</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("注意目录被加粗的字符");
+                    help_flag = 1;
+                }
+                else alert("蓝色黑色部分都有");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html"><b>w</b>aiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">ch<b>a</b>nge</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><span>revenge</span></dd>
+            <dd><b>l</b>ocked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>loc<b>k</b>ed</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>1月11日</h2>
+<hr>
+<div class="quoting">
+    <p>头条新闻：MOXI公司陷天大丑闻，被指谋害一家三口</p>
+    <p>近一个月前，MOXI公司高层受到调查时，有过侵吞公款与买凶杀人的指控。只是，后者最终由于缺乏证据未能成立。</p>
+    <p>而就在几天前，有热心市民给月亮报报社寄来了一份证据，指出温某某与其工友、母亲的案件都是谋杀，其父亲则是被逼自杀，背后真凶全部指向MOXI公司中的几位。</p>
+    <p>月亮报率先报道后，事件开始发酵，警方根据现有的证据重启调查，并找到了更多符合的线索。</p>
+    <p>目前，谋杀温某某的嫌犯已经被捕，后续调查正在进行……</p>
+</div>
+<p>这就是我在几天前做的事。</p>
+<p>这样的信息时代，一切其实都会留下证据，只不过大部分时候，证据无法整合成真相。</p>
+<p>但是，知道结果时反推，再加上能访问许多论坛与资料库的镜的辅助，整理出一份令人信服的证据并不算困难。</p>
+<p>当然，即使拥有这些证据，也未必能让事件传播开。</p>
+<p>如果没有月亮报的最初报道，只作为网络上的小道消息，太难以传播。</p>
+<p>至于为什么没有给其他报社——就算这是科技公司的行动，警方之前草草收场的调查也已经代表了伯尔娅的默许态度。这种时候，也只有月亮报的胆子够大。</p>
+<p>知道了翼星组织后，我总怀疑，月亮报里就有翼星的人。</p>
+<p>可这么明显的目标，政府一直对它态度暧昧，也不太合理。</p>
+<p>——除非，他们没有参与过任何会被抓住把柄的行动。</p>
+<p>而如果像当初带走我一样秘密调查，被报道出去，又是一桩大丑闻。</p>
+<p>“伯尔娅将军也挺不容易的……”</p>
+<p>翼星的理念并不能给他们实际带来的伤害找借口。这些背后的烂摊子，还是需要政府统筹全局去收拾。</p>
+<p>不过，至少，对个人来说，本就应该追求公平。</p>
+<p>MOXI公司的事便是这样的例子。</p>
+<p>如果任由他们放肆下去，温家三口的死何时能昭雪？</p>
+<p>反正，我是通过公开投稿渠道投稿给了月亮报，这样从我这里追查也不会查到翼星。</p>
+</div>
+</body>
+</html>

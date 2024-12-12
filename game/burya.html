@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>026</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("今天是几月几号？");
+                    help_flag = 1;
+                }
+                else alert("根据第二行线索，调整到正确的时间。");
+            }
+        }
+        $(function (){
+            var s1 = 1;
+            var s2 = 2;
+            var s3 = 3;
+            var s4 = 0;
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+            $("#s1").click(function(){
+                s1 = 1 - s1;
+                $("#s1").text(s1);
+                if (s1 == 1 && s2 == 1 && s3 == 1 && s4 == 6) {
+                    $("h2").text("intelligence");
+                }
+            });
+            $("#s2").click(function(){
+                s2 = (s2 + 1) % 10;
+                $("#s2").text(s2);
+                if (s1 == 1 && s2 == 1 && s3 == 1 && s4 == 6) {
+                    $("h2").text("intelligence");
+                }
+            });
+            $("#s3").click(function(){
+                s3 = (s3 + 1) % 4;
+                $("#s3").text(s3);
+                if (s1 == 1 && s2 == 1 && s3 == 1 && s4 == 6) {
+                    $("h2").text("intelligence");
+                }
+            });
+            $("#s4").click(function(){
+                s4 = (s4 + 1) % 10;
+                $("#s4").text(s4);
+                if (s1 == 1 && s2 == 1 && s3 == 1 && s4 == 6) {
+                    $("h2").text("intelligence");
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><span>burya</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2><span id="s1">1</span><span id="s2">2</span>月<span id="s3">3</span><span id="s4">0</span>日</h2>
+<hr>
+<p>老丰还没有回来，而温禾生和温雅都不见了。</p>
+<p>我无法描述出两天前他们听到温秋明的死可能是谋杀时的表情，但是，那以后没几分钟，他们就背着包，牵着狗离开了这栋楼，至今也没有回来。</p>
+<p>温禾生说的最后一句话是，“我会让他们付出代价”，温雅则一言不发地跟在他旁边。</p>
+<p>黄大姐和胡与非也恰巧出现在了楼下，我和她俩解释了事情之后，黄大姐默默叹了一口气。</p>
+<p>——然后，我们回归了各自的生活，就像温家夫妇不在这栋楼时一样。</p>
+<p>现在是中午一点，疯子下来遛弯的时间。</p>
+<p>“灾难，灾难要来了！就在今年，就在今年，哈哈……”</p>
+<p>今天，疯子特地加上了今年的定语，以前他可从来没这么说过。</p>
+<p>但是，更令人惊讶的是——</p>
+<p>“刘老板？”胡与非罕见地这个点出来，并且似乎认识这个疯子。</p>
+<p>说起来，胡与非搬进来了这么久，一直是早上出去晚上回来，正好和中午遛弯的疯子错开。虽然黄大姐多半给她介绍过楼里有个疯子，但她大概怎么也不会想到她会认识。</p>
+<p>“还他妈的老板呢，全完了！”疯子怒吼。</p>
+<p>“刘老板这么大的火气啊。您欺负我们这些小人物的时候，可是威风得紧呢。”</p>
+<p>这怎么感觉，不仅认识，还有仇呢……</p>
+<p>“操……”疯子好像真的生气了。</p>
+<p>我深切地担心着，他俩不会打起来吧。</p>
+<p>正在这时，小区外面突然喧闹起来。</p>
+<p>两辆黑色的车子护卫着中间的银色轿车开过，从民众的欢呼声中，能听出是伯尔娅将军来这里考察。</p>
+<p>警卫先下了车，然后是伯尔娅。</p>
+<p>这是我第一次在现实中见到将军。</p>
+<p>和电视上相比，那股英气更加锋利地刺在我的脸上，就连疯子和胡与非的争执，都好像因为这样的气势而消停了下来。</p>
+<p>不过，她只是经过我们小区的门口，真正考察的地方，是水杉亭大街旁的贫民窟。</p>
+<p>看着她在警卫的陪伴下拐进水杉亭大街，两人默默地各自走各自的路，就此分开。</p>
+</div>
+</body>
+</html>

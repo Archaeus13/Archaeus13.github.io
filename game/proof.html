@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>043</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("将不在场证明的时间补上");
+                    help_flag = 1;
+                }
+                else alert("回到对应日期看看吧");
+            }
+        }
+        function check(s) {
+            var ans = [1,5,5,0,1,7,0,1];
+            for (var i = 0; i <= 7; i++) if (s[i] != ans[i]) return false;
+            return true;
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            var s = [0,0,0,0,0,0,0,0];
+            $("#s1").click(function(){
+                s[0] = (s[0] + 1) % 3;
+                $(this).text(s[0]);
+                if (check(s)) $("#secret").text("crime");
+            });
+            $("#s2").click(function(){
+                s[1] = (s[1] + 1) % 10;
+                $(this).text(s[1]);
+                if (check(s)) $("#secret").text("crime");
+            });
+            $("#s3").click(function(){
+                s[2] = (s[2] + 1) % 6;
+                $(this).text(s[2]);
+                if (check(s)) $("#secret").text("crime");
+            });
+            $("#s4").click(function(){
+                s[3] = (s[3] + 1) % 10;
+                $(this).text(s[3]);
+                if (check(s)) $("#secret").text("crime");
+            });
+            $("#s5").click(function(){
+                s[4] = (s[4] + 1) % 3;
+                $(this).text(s[4]);
+                if (check(s)) $("#secret").text("crime");
+            });
+            $("#s6").click(function(){
+                s[5] = (s[5] + 1) % 10;
+                $(this).text(s[5]);
+                if (check(s)) $("#secret").text("crime");
+            });
+            $("#s7").click(function(){
+                s[6] = (s[6] + 1) % 6;
+                $(this).text(s[6]);
+                if (check(s)) $("#secret").text("crime");
+            });
+            $("#s8").click(function(){
+                s[7] = (s[7] + 1) % 10;
+                $(this).text(s[7]);
+                if (check(s)) $("#secret").text("crime");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><span>proof</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>12月23日</h2>
+<hr>
+<p>被莫名其妙关进监牢已经三天了。</p>
+<p>整整三天时间无法获得外界的信息，我能感觉到焦虑逐渐蔓延。</p>
+<p>“出来。”</p>
+<p>这是我三天来听到的第一句话。</p>
+<p>一个狱卒打扮的人打开了门，引导我向走廊一头的小房间去。</p>
+<p>我来的时候就看到过这条走廊，与现在看到的并没有什么区别。</p>
+<p>——其他房间门仍然紧紧关着。</p>
+<p>不过，从送饭时开门的声音来看，这里确实不止有我一个人。</p>
+<p>那个小房间里，是一张桌子和同侧的两把椅子，很经典的审讯室布置。</p>
+<p>“你的情况比较轻，所以是最后一个。”其中一把椅子上坐着人，也示意我坐下。狱卒默默离开了，顺便带上了门。</p>
+<p>“别耍花样，在你等着的这三天，其他人把该招的都招了。”我还没说话，他先举了举手边的一叠材料，然后重重拍在桌子上。</p>
+<p>“我不明白你在说什么，也不明白我为什么会在这里。”我的语气带有明显的不爽。</p>
+<p>“你在翼星里的地位还挺高的吧。”他选择先发制人。</p>
+<p>翼星……我陷入沉吟，似乎笃定了他的猜测。</p>
+<p>“<abbr title="048:change" style="text-decoration:none">龟年已经被抓了</abbr>，别挣扎了。”他摆出吃定我的样子。</p>
+<p>龟年，不是那个作家的名字吗？</p>
+<p>“我不知道翼星是什么。之前还有人给我推荐过龟年的书，但我不明白和你说的有什么关系。”我选择实话实说。</p>
+<p>“那我们不妨把话说得明白一点。10月17日抢救济站，是你策划的吧。”</p>
+<p>“什么？”我一时间甚至没想起来他说得是什么事。</p>
+<p>他摆出几张照片，让我回想起了那段时间看到的新闻。</p>
+<p>经常大雨的那段时间，确实有一些暴动来着，但是，这和我有什么关系？</p>
+<p>“14号下午在水杉亭大街旁聚会的人已经全部落网了，你还有什么好说的吗？”</p>
+<p>我突然明白了。</p>
+<p>那段时间，很可能是“翼星”这个组织的人策划了暴动，龟年是其中一员。而我因为去了水杉亭大街，也被列为了怀疑对象。</p>
+<p id="secret">不过——</p>
+<p>“<span id="s1">0</span><span id="s2">0</span>:<span id="s3">0</span><span id="s4">0</span>到<span id="s5">0</span><span id="s6">0</span>:<span id="s7">0</span><span id="s8">0</span>，我有不在场证明。”</p>
+</div>
+</body>
+</html>

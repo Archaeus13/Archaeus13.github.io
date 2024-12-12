@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/danger.png">
+    <link rel="stylesheet" type="text/css" href="csses/explain.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>DANGER</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("输入口令后任意点击即可");
+                    help_flag = 1;
+                }
+                else alert("剧情中已经提到了口令");
+            }
+        }
+        document.onclick = function() {
+            if ($("input").val() == "quetzal") $("#hide").slideDown("slow");
+        }
+    </script>
+</head>
+<body style="background-color:rgb(212, 160, 160)">
+
+<h2>MEMO咖啡馆</h2>
+<hr>
+<p>姓名：墨杰</p>
+<p>代号：[已抹去]</p>
+<p>口令：<input type="text" style="width:100px;opacity:0.5;"></p>
+<div id="hide" style="display:none;text-align:left;">
+<hr>
+<p>三洲立交桥旁的那间咖啡馆，一直人来人往。</p>
+<p>今天，它却早早就挂上了歇业的牌子。</p>
+<p>不过这一切都只是表象。</p>
+<p>我敲了几下门，报出口令。</p>
+<p>“请进。”店门打开，我走进吧台后的地下室，看到了几张带着审视的脸。</p>
+<p>翼星最早布置的人21号就进去了，现在是24号凌晨，确实是个奇怪的时间点。</p>
+<p>“——我有紧急情报。”来不及喘息，简单确认身份后，我就将政府和Askr公司的布置说了出来。</p>
+<p>出乎我所料的是，他们看起来并没有太过慌张，只是立刻开始联系、准备。</p>
+<p>已经有预案了？</p>
+<hr>
+<p>“你想自己进入虚拟世界救人？”其中一个人带着我走出咖啡馆，发动了旁边的汽车。</p>
+<p>“您是？”我仍然有些不放心，想最终确认代号。</p>
+<p>“你可以称我为诗人。”</p>
+<p>这称呼在我心里翻起了一阵惊涛。</p>
+<p>“诗人”是属于翼星首领的代号，这如果是玩笑，也开得太大了。</p>
+<p>不过，他戴着一层仿生面具——现在的技术可以骗过远距离的摄像头，不过近距离接触还是能看出面具的存在——没法分辨身份。</p>
+<p>“镜告诉过我们，它早就和其他翼星的人接触过，留了后手，说的就是你吧。”果然，镜也没有向他们隐瞒我的存在。</p>
+<p>“是。”虽然心里暗骂镜就这么把我卖了，但还是得实话实说。</p>
+<p>“到那边和准备好进入还需要一个多小时——镜告诉我们你一定会找来。”</p>
+<p>一个多小时，是提前准备的结果。按常规情况，虚拟舱需要至少四个小时的启动时间。</p>
+<p>希望能来得及……</p>
+<hr>
+<p>“准备好之前，说说你的事吧。从你和镜的联系里，可能也有破局的线索。”车上，诗人缓缓开口。</p>
+<p>奔赴“战场”的车上，我<a href="fore.html" style="color:rgb(23, 141, 127)">开始了讲述</a>。</p>
+</div>
+</body>
+</html>

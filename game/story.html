@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>057</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("依次点击蓝色字符，找到五个字母");
+                    help_flag = 1;
+                }
+                else alert("12在正文中，345在目录中");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            $("#s1").click(function(){
+                $(this).text("W");
+                $("#s2").css("color","rgb(21, 156, 156)");
+            });
+            $("#s2").click(function(){
+                $(this).text("I");
+                $("#s3").css("color","rgb(21, 156, 156)");
+            });
+            $("#s3").click(function(){
+                event.preventDefault();
+                $(this).text("N");
+                $("#s4").css("color","rgb(21, 156, 156)");
+            });
+            $("#s4").click(function(){
+                event.preventDefault();
+                $(this).text("G");
+                $("#s5").css("color","rgb(21, 156, 156)");
+            });
+            $("#s5").click(function(){
+                $(this).text("S");
+                $("h2").html("&#10004;");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNI<span id="s3">N</span>G</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelli<span id="s4" style="color:inherit;font-weight:normal">g</span>ence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><span><span id="s5">s</span>tory</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>1月27日</h2>
+<hr>
+<p>这几天是今年最<span id="s1" style="color:rgb(21, 156, 156)">冷</span>的几天。</p>
+<p>我可以安心在家吹着空调，黄大姐却还得出去站岗。那些正在进行二期工程的工人们也是一样。</p>
+<p>政府支付了一些补贴，但并没有给他们停工的时间。听说，市里最近接到了一些招商，等二期建好后就能有不少收入。</p>
+<p>镜的谈判，再次进入了停滞。倒不是哪方不配合，而是Askr公司已经把愿意付出的阅览权限全部交付了，真正进入网络什么的，公司可不敢冒这个险。</p>
+<p>那个奇怪的频道，今天终于又有了声音。</p>
+<p>——或许最近忙着建二期工程，对翼星的监控放松了一些。</p>
+<div class="quoting">
+<p>在故事开始之前，要先发布一个通知：</p>
+<p>龟年已经恢复正常生活，重新开始活动。</p>
+</div>
+<p>上次还说在失踪状态的龟年，似乎终于被放了出来。想想我之前被怀疑是翼星成员时的经历，他受到的拷问恐怕只多不少。</p>
+<div class="quoting">
+<p>今天的主角是一位不知名的商人。</p>
+<p>他曾经白手起家，靠着几笔精确的投资一路做到了大老板，也成了鹰吕最成功的珠宝商之一。</p>
+<p>但是，他有一个竞争对手，原本的奢侈品龙头，文兵集团。</p>
+<p>他毕竟底蕴不足，通过正常渠道很难胜过文兵集团。但他有一个别人不具有的特质：善于钻营。</p>
+<p>趁着对手集团在促销，他裁掉了一批员工，并且声称是因为竞争对手“恶意低价以确保垄断”。</p>
+<p>靠着买通了几个关键节点，尤其是负责税收的一位官员，文兵集团的罪名得到了坐实。比一笔不痛不痒的罚款更重要的，是对声誉的影响。</p>
+<p>如果文兵集团就此收敛，事情其实也就过去了。但当时不懂这些的刘文兵执意抗议，不服判决，导致彻底得罪了那位官员。</p>
+<p>更多的“证据”出现，指向文兵集团不但恶意低价，还偷税漏税。文兵集团从此一蹶不振，直到最终破产。</p>
+<p>而他，则一直<span id="s2">低调</span>到现在。</p>
+</div>
+<p>故事结束了。</p>
+<p>这个频道之前讲述过温秋明的故事，现在又讲了刘文兵。几乎可以肯定，有频道负责人与这栋大楼有关。</p>
+<p>——老丰？</p>
+<p>越来越多的线索表明，失踪的老丰可能真的和翼星有莫大的联系。</p>
+<p>“听什么呢？”胡与非出现在了我旁边。</p>
+<p>“听听新闻。”虽然她之前也提到过那个频道，但这种事还是少说为好。</p>
+</div>
+</body>
+</html>

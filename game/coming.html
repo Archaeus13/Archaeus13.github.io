@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>059</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("点击“中心”");
+                    help_flag = 1;
+                }
+                else alert("注意目录变化");
+            }
+        }
+        function change() {
+            setTimeout("$('#s').html('<span style=\"color:red\">a</span>oming')", 300);
+            setTimeout("$('#s').html('<span style=\"color:red\">ar</span>ming')", 600);
+            setTimeout("$('#s').html('<span style=\"color:red\">arr</span>ing')", 900);
+            setTimeout("$('#s').html('<span style=\"color:red\">arri</span>ng')", 1200);
+            setTimeout("$('#s').html('<span style=\"color:red\">arriv</span>g')", 1500);
+            setTimeout("$('#s').html('<span style=\"color:red\">arrive</span>')", 1800);
+            setTimeout("$(\"#secret\").css('font-size','110%');", 300);
+            setTimeout("$(\"#secret\").css('font-size','120%');", 600);
+            setTimeout("$(\"#secret\").css('font-size','130%');", 900);
+            setTimeout("$(\"#secret\").css('font-size','140%');", 1200);
+            setTimeout("$(\"#secret\").css('font-size','150%');", 1500);
+            setTimeout("$(\"#secret\").css('font-size','160%');", 1800);
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            $("#secret").click(function(){
+                $("#s0").siblings().animate({opacity:0},1800);
+                change();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><span id="s">coming</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>2月3日</h2>
+<hr>
+<div class="quoting">
+<p>紧集广播：MH-8“长蛇”将于两天后到达鹰吕市，今日起暂停出海，请市民朋友做好防护准备。</p>
+<p>紧集广播：MH-8“长蛇”将于两天后到达鹰吕市，今日起暂停出海，请市民朋友做好防护准备。</p>
+<p>紧集广播：MH-8“长蛇”将于两天后到达鹰吕市，今日起暂停出海，请市民朋友做好防护准备。</p>
+</div>
+<p>三遍紧集广播成功把我从床上叫了起来。</p>
+<p>这种格式是世界通用的灾害广播，而MH-8则是<a href="numbering.html" target="_self">灾害编号</a>，代表了类型与强度。</p>
+<p>这实在是一个熟悉又陌生的播报。</p>
+<p>鹰吕是沿海城市，每年大大小小的台风要经历不少。8级算严重，但也不是前所未有的程度。</p>
+<p>然而，再怎么说，台风都理应发生在夏天。冬天的台风，别说是我了，对几代人来说大概都是从未见过的。</p>
+<p>——天气，确实越来越极端了。</p>
+<p>这种事到底为什么会发生是气象学家们该头疼的问题，作为普通人，只有先保护好自己，才能谈其他。</p>
+<div class="quoting">
+<p>……雪还在融化，从房顶上窸窸窣窣的掉下来。</p>
+<p>我告诉自己，不能被困在这片绝望的城市里。</p>
+<p>我要把卡里的钱全部取出来，抑制住因兴奋而带来的紧张。
+<p>我知道，热烈的火焰来得凶猛，却难以维持。</p>
+</div>
+<p>广播里今天又有那个美文合集的节目，这样的凄清让我感到几分应景。</p>
+<p>疯子，刘文兵，天天哭喊着灾难的到来，说我们都逃不掉。</p>
+<p id="s0">还有两天，鹰吕将成为台风的<span id="secret" style="color:rgb(220, 59, 59)">中心</span>。</p>
+<p>这台风，会成为那样的灾难吗？</p>
+<p>我感到一阵心神不宁，仿佛有什么大事要随着台风的到来而发生。</p>
+<p>父母罕见地给我打来了电话——我和家里关系不算好，自从我到了鹰吕，和家里人几乎没有什么交流。连他们，都注意到了这反常的台风。</p>
+
+</div>
+</body>
+</html>

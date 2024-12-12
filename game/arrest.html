@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>041</title>
+    <script>
+        var help_flag = 0;
+        function check(flag) {
+            var sum = 0;
+            for (var i = 0; i <= 6; i++) sum += flag[i];
+            if (sum == 7) $("#secret").text("jail"); 
+        }
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("点击不同新闻以查看评价");
+                    help_flag = 1;
+                }
+                else alert("看完后点击任意新闻即可");
+            }
+        }
+        $(function (){
+            var flag = [0,0,0,0,0,0,0];
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            $("#s1").click(function(){
+                $("#secret").text("原来顶着冲突拆除是为了继续延伸立交桥，这样看来，伯尔娅还真是煞费苦心。");
+                check(flag);
+                flag[0] = 1;
+            });
+            $("#s2").click(function(){
+                $("#secret").text("我想到了那天大家在围观的乐手，居然和白项评价颇高的诗人是同一个人吗。");
+                check(flag);
+                flag[1] = 1;
+            });
+            $("#s3").click(function(){
+                $("#secret").text("这是镜要我配合的内容。它在很久以前就把我的名字和电话加进了Askr公司图灵测试列表里，从而光明正大地联系，现在这个计划或许是为了进一步与外界关联。");
+                check(flag);
+                flag[2] = 1;
+            });
+            $("#s4").click(function(){
+                $("#secret").text("总觉得这些天听得最多的就是“注意安全”……");
+                check(flag);
+                flag[3] = 1;
+            });
+            $("#s5").click(function(){
+                $("#secret").text("这次的效率倒是出乎意料地高……");
+                check(flag);
+                flag[4] = 1;
+            });
+            $("#s6").click(function(){
+                $("#secret").text("菜价还在涨，黄大姐又该抱怨了。");
+                check(flag);
+                flag[5] = 1;
+            });
+            $("#s7").click(function(){
+                $("#secret").text("圣诞节的时候初雪，想想还是挺不错的。");
+                check(flag);
+                flag[6] = 1;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><span>arrest</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>12月20日</h2>
+<hr>
+<p>生活好像变化了很多，又好像没怎么变。</p>
+<p>我打开广播，收听这几天的新闻：</p>
+<div class="quoting">
+    <p id="s1">老城区拆除工作基本完成，三洲立交桥二阶段工程已开始，计划将高架桥延至城北……</p>
+    <p id="s2">诗人魁札尔真实身份被挖出，竟是因咖啡馆演奏而爆红的唢呐乐手希玻……</p>
+    <p id="s3">“镜”愿意通过更多阅读权限进一步交换人质，Askr公司正在拟定细则……</p>
+    <p id="s4">近期暴力冲突案件时有发生，听众朋友们出行时注意安全……</p>
+    <p id="s5">鹰吕政府已锁定冲突背后的犯罪团伙，誓将其连根拔除……</p>
+    <p id="s6">由于这段时间的恶劣天气，蔬菜价格有所上涨，肉价则相对稳定……</p>
+    <p id="s7">预计这个冬天的第一场雪将在5天后到达……</p>
+</div>
+<p id="secret"></p>
+<p>和镜摊牌之后，双方的合作都顺利了很多。比如，镜不用再假装“写作”，可以把十万字的剧情当场回复给我，而我这里也可以获得更多谈判信息，从现实的角度关注动向。</p>
+<p>至于《异类》，在网站编辑的催促下，也终于在拖了快一个月后<a href="onsale.html" target="_self">上架</a>了。</p>
+<p>这时，就再次体现出了在家写小说的优势：外界不至于太影响到我的工作，不用像黄大姐每天都提心掉胆地出门。</p>
+<p>——拆除贫民窟涉及了不少敏感的矛盾，于是短暂的沉寂后，暴力冲突事件又变多了。</p>
+<p>或许是因为温家夫妇的死，邻里的气氛变冷了不少，大家的脸上也似乎凝着一朵愁云。</p>
+<p>而胡与非，则仿佛替代了黄大姐了的“热心人”位置，操心起家长里短来。</p>
+<p>突然，我听到一阵敲门声。</p>
+<p>猫眼看过去，是几个穿着警察制服的人。</p>
+<p>我打开门。</p>
+<p>一个多小时之后，我坐在了一个小小的监牢里。</p>
+<p>秘密逮捕？</p>
+<p>我知道，现在我成了“从大楼里消失”的那个了。</p>
+</div>
+</body>
+</html>

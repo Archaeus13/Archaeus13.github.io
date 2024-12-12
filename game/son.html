@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/004.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>065</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("注意异常的下划线");
+                    help_flag = 1;
+                }
+                else alert("尝试复制");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CHAPTER IV</dt>
+            <div id="c4level">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><a href="decision.html">decision</a></dd>
+            <dd><a href="close.html">close</a></dd>
+            <dd><span>son</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>2月19日</h2>
+<hr>
+<p>台风引起的降雨渐渐停了。</p>
+<p>按预报，也确实后天就该离开了，目前已经进入了尾声。</p>
+<p>白项需要参与的救灾变少了，不过恢复了吉他课，忙还是照样忙。</p>
+<p>他做吉他老师大概有几年了，一开始的兼职到后来基本全职，因为水平很高，有不错的收入。</p>
+<p>我没打扰白项，自己出去散了散步。</p>
+<p>路过教堂，感觉变得热闹了一些——天灾来临之时，寄希望于神是个无奈的选择，但除此之外，个人也很难有什么办法。</p>
+<p>那个传教士不在，不过有人聊起了他。</p>
+<p>从聊天内容来推测，他在离开鹰吕之后来到了旁边的小城，而参与聊天的人恰好就有因台风而在鹰吕暂居的难民。看起来这些不同地区的教徒之间也互相有认识，所以能提到他的近况。</p>
+<p>听起来，他父母好像因为台风出了事，这段时间都心情不好。</p>
+<p>我无从得知是出了什么事，可就从他之前“归灵教没有神的国度”的说法，恐怕不会相信什么死后世界。因此，对这些的悲伤也不会比我们少。</p>
+<p>“多好的一小伙子啊，今年七月份就三十岁了。”</p>
+<p>“是啊，好像23号生日。保佑他挺过这关吧。”</p>
+<p>我走过聊天的两人，缓缓进入教堂。</p>
+<p>教堂由于是全机械结构，几乎没受台风的任何影响。</p>
+<p>这是我第一次走进教堂的内部，看到那个如火一般的“燧”的神像，还是不免有些感慨。</p>
+<p>维纳斯的断臂雕塑扛不住台风，早就被教徒们转移到了教堂内部，放在燧的神像下方。</p>
+<p>与断臂对称的位置，还有一个小雕塑，是雪花的模样，各分支之前互相连结，听说是<a href="connection.html" target="_self">络</a>的神像。</p>
+<p>——教徒们也聊到，呼祢主教亦是挺久没出现了。</p>
+<p>Askr公司果然不会轻易放人，不知道他得到了怎样的处理。</p>
+<div class="chatting">
+<p style="text-align:right">呼祢怎么样了？</p>
+<p>无法联系，很可能还在监禁中。</p>
+<p style="text-align:right">现在还能怎么办？</p>
+<p>等。<span style="border-bottom: 1px solid; border-color: rgb(23, 141, 127);"><span style="opacity:0">066:leaving</span></span></p>
+<p>只要公司有动作，一定有办法察觉。</p>
+</div>
+<p>最后只得出了这样的结论，安心等待就好。</p>
+<p>对我来说，还要关心政府到底怎么对这次事故与罢工进行处理。</p>
+<p>自然，白项比我更关心。</p>
+</div>
+</body>
+</html>

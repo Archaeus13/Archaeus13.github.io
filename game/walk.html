@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>053</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("每个方向对应一个字母，连在一起即可");
+                    help_flag = 1;
+                }
+                else alert("左右大转弯、圆形、23都是对字母的提示");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            var a = 0;
+            var b = ["左","回","右","前"];
+            $("#dir").click(function(){
+                a = (a + 1) % 4;
+                $(this).text(b[a]);
+                for (var i = 0; i <= 3; i++) {
+                    if (i == a) $("#s"+i.toString()).show();
+                    else $("#s"+i.toString()).hide();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><span>walk</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>1月14日</h2>
+<hr>
+<p>今天天气还不错，我和白项一起出门散步。</p>
+<p>“上次这么散步，还是大学毕业之前了吧。”我有些感慨。</p>
+<p>“五年多了，三洲立交的桥洞里还是住着这么多人。”不知不觉，我们已经走到了立交桥下。白项看着桥洞里的“盛况”感慨到。</p>
+<p>“这还是已经整治过一次偷渡了。”我想起更之前来这里时的场景。</p>
+<p>“梭舱轨道越来越繁忙了啊。”白项好像有段时间没来这里了，清晰感受到了变化。</p>
+<p>“二期工程完成之后，大概会更繁忙吧。”</p>
+<p>“MOXI现在名声是彻底臭了，之前克扣工资什么的也被曝光，听说有人要组织上门要说法了。”</p>
+<p>“自作孽，不可活。”</p>
+<p>我俩走到了上次我看到采访的咖啡馆前。</p>
+<p>“自从真实身份被爆出来，希玻——我还是喊他魁札尔比较顺口——就没来这里吹过唢呐。”看起来白项也看到了之前的新闻。</p>
+<p>“话说，你知道他为啥会对绮拉大师的‘婉转凄切’意见这么大嘛？”这个问题我好奇挺久了。</p>
+<p>“对音乐应该有自己的感受，而不是人云亦云。即使对方是大师，评价的也是某个场合下某首曲子的效果，不可能永远正确。”</p>
+<p>看新闻，魁札尔好像又在为新的诗集作准备了，叫《<a href="cory.html" target="_self">科里</a>与<a href="emily.html" target="_self">艾米莉</a>》。不过，他不算什么高产的诗人，新的诗集不知道什么时候才会正式出来。</p>
+<p>“往哪走？”白项征询我的意见。</p>
+<p>“往<span id="dir">左</span>走吧。”我看了看地图。</p>
+<div id="s0">
+<p>顺着立交桥往左，逐渐从繁华的城市走向郊区，路也变得蜿蜒曲折。</p>
+<p>先向左再向右两个大转弯后，我们终于登上了一座不小的山头。</p>
+<p>我们想从山头远眺，却被高楼占据了视野。</p>
+</div>
+<div id="s1" style="display:none">
+<p>往回，路过水杉亭大街。</p>
+<p>我特地看了一眼曾经的贫民窟标语。</p>
+<p>那面墙还在，但标语只剩下了一个N，后面的全部重新粉刷过了。看起来，这个N很快也会被刷掉吧。</p>
+</div>
+<div id="s2" style="display:none">
+<p>立交桥往右走一段后，是正在新建的二期工程的一部分。</p>
+<p>工人们在寒风下驱动各种大型机器搬运着建材，堆出一个圆形的支架。</p>
+<p>——这大概会成为新的桥洞吧。</p>
+</div>
+<div id="s3" style="display:none">
+<p>继续往前走，便到了最繁华的城市中心处。</p>
+<p>“楼还真多啊。”</p>
+<p>在地图上数了数，这一小块光是几十层高的大楼都有23座。</p>
+</div>
+</div>
+</body>
+</html>

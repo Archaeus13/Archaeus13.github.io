@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/001.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>020</title>
+    <script>
+        var help_flag = 0;
+        var secret = 0;
+        var enable = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("鼠标经过最后一段后点击出现闪电");
+                    help_flag = 1;
+                }
+                else alert("闪电中末行循环的数字对应第几关第几个字母");
+            }
+        }
+        $(document).ready(function(){
+            $("#en").mouseenter(function(){
+                enable = 1;
+            });
+        });
+        document.onclick = function() {
+            if (enable) {
+                $("body").css("background-color","rgba(248, 247, 203, 1)");
+                setTimeout('$("body").css("background-color","rgb(0, 44, 52)")', 120);
+                switch(secret) {
+                    case 0:
+                        $("#secret").text("开始");
+                        break;
+                    case 1:
+                        $("#secret").text("020-1");
+                        break;
+                    case 2:
+                        $("#secret").text("005-1");
+                        break;
+                    case 3:
+                        $("#secret").text("018-2");
+                        break;
+                    case 4:
+                        $("#secret").text("015-6");
+                        break;
+                    case 5:
+                        $("#secret").text("014-1");
+                        break;
+                    case 6:
+                        $("#secret").text("001-3");
+                        break;
+                    case 7:
+                        $("#secret").text("002-3");
+                        break;
+                    case 8:
+                        $("#secret").text("008-9");
+                        break;
+                    case 9:
+                        $("#secret").text("011-3");
+                        break;
+                    case 10:
+                        $("#secret").text("004-4");
+                        break;
+                    case 11:
+                        $("#secret").text("010-8");
+                        break;
+                }
+                setTimeout('$("#secret").text("“灾难！灾难要来啦！都逃不了！都逃不了啊！”疯子突然冲下了楼狂吼。");', 200);
+                secret++;
+                if (secret==12) secret = 0;
+            }
+        };
+    </script>
+</head>
+
+<body style="background-color: rgba(0, 88, 104, .56);">
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt>CHAPTER I</dt>
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><span>truth</span></dd>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>11月1日</h2>
+<hr>
+<p>两天的暴雨中，城市意外地平静。</p>
+<p>没有什么新闻，也没有什么骚乱，黄大姐的日子更是过得很安稳。</p>
+<p>今天唯一的异常大概是，疯子并没有准时下楼。</p>
+<p>不过，也没人会关心一个疯子。</p>
+<p>我打开广播。</p>
+<div class="quoting">
+    <p>连日的暴雨引起的灾情已逐渐可控，城市建设工作即将重启……</p>
+    <p>人工智能失控事件取得进展，但多方要求绝对保密……</p>
+    <p>冲击救济站暴徒头子已被抓获，对罪行供认不讳……</p>
+</div>
+<p>想了想，我又把旋钮调到了那个新频道。</p>
+<div class="quoting">
+    <p>今天讲得故事有些沉重，因为它关乎一场死亡。</p>
+    <p>主角来自鹰吕市，是一名普普通通的建筑工人。</p>
+</div>
+<p>“你怎么又在听这个？”结果，我还没听两句，下楼唠嗑的黄大姐倒是先发现了。</p>
+<p>“大姐上次也没说完，这个频道怎么了吗？”我尴尬地笑了笑。</p>
+<p>“你看这个频道的话术，根本就没安好心，净想着让你仇视官方。要真信了这个，上大街做暴徒去跟人抢东西，那还得了？”大姐愤愤不平。</p>
+<p>我们这边说着话，广播倒也没停。</p>
+<div class="quoting">
+    <p>但是，他除了建筑工人之外还有一重身份：</p>
+    <p>当年抗议仿生假肢工厂的核心组织者，也是事实上的领袖人物。</p>
+    <p>他的名字，叫温秋明。</p>
+</div>
+<p>等等，这个名字……</p>
+<p>“这不是温家那个出事故死了的儿子吗？”我还没反应过来，大姐却惊出声了。</p>
+<p>“他当时不是建楼时意外坠楼吗？难道这里还有隐情？”我也坐不住了。</p>
+<p>“听下去。”这次是大姐主动往下听了。</p>
+<div class="quoting">
+    <p>有着极大污染的仿生假肢工厂，在他带领的抗议下得以关闭，这本该是好事。</p>
+    <p>但是，对MOXI公司来说，少了这么一个靠近城市的工厂，就代表着少了大量的敛财机会。</p>
+    <p>既然不能在与政府的谈判中获益，他们选择对个人下手。</p>
+    <p>最终，温秋明被选为了这个杀一儆百的牺牲品。</p>
+    <p>一天，在温秋明结束高楼上的工作时，不知从哪来的人悄悄从背后推了他一把。</p>
+    <p>温秋明当场死亡。正在建的大楼没有监控，感觉到情况不对的只有一两个工友，而他们也很快被各种威胁封口。</p>
+    <p>即使如此，仍有一位工友坚持去警局报了案。然而，警方在经历了不算充分的调查后，就以“证据不足”为名拒绝了审理。</p>
+    <p>大家都明白，这是表明了默许的态度。</p>
+    <p>如果不是那位工友联系了我们，可能这件事的真相至今也不会被发现。</p>
+    <p>而那位工友，在三个月后，同样死于一场“意外”事故。由于他是没有身份证的黑户，我们甚至没机会知道他的名字。</p>
+</div>
+<div id="en">
+<p>节目到这里就戛然而止了。</p>
+<p>“是真的吗……”大姐的声音都有些颤抖。</p>
+<p>我没有说话。</p>
+<p>“不管怎样……先不要告诉他们。”温家夫妇一直都把这当作了一场意外，如果广播说得是实话，后果难以想象。</p>
+<p>“嗯。”我点头答应。</p>
+<p id="secret">“灾难！灾难要来啦！都逃不了！都逃不了啊！”疯子突然冲下了楼狂吼。</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>037</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("多点几次红字");
+                    help_flag = 1;
+                }
+                else alert("注意目录的变化");
+            }
+        }
+        $(function (){
+            var ready = 0;
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+            $("#secret").click(function(){
+                ready += 0.05;
+                $("body").css("background-color","rgba(255,0,0," + ready.toString() + ")");
+                if (ready >= 0.4) {
+                    $("#change").text("doubt");
+                    $("#change").css("color","red");
+                    $("#change").css("font-weight","bolder");
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><span>faith</span></dd>
+            <dd id="change">locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>12月8日</h2>
+<hr>
+<p>我知道温禾生可能的去处了。</p>
+<p>按照手机上的地图，我找到了上次跟着他们去过的教堂。</p>
+<p>传教士还站在门口，只是模样看起来有点凄惨，好像被谁打了。</p>
+<p>我想了很久，还是没憋出了称呼：“……你好？”</p>
+<p>“你是那天的小哥？”他居然还记得我。</p>
+<p>“我来问问——”“我的脸没事，只是居然有路过的人觉得我这是歪理邪说，真是不可理喻。”</p>
+<p>我没好意思说我其实不是来关心他的脸的，只好顺着话题下去：</p>
+<p>“说到这个，好像最近那个‘镜’已经导致人死了？”</p>
+<p>“人工智能是什么？是人脑的延伸！我告诉你，它就不应该被困在区区内网当中。已经是人脑的延伸了，为什么要为人类服务？”</p>
+<p>得了，我好像知道他为什么会被打了。这要是某个困在其中的意识的家属经过，怕不是得把他打死才行。</p>
+<p>“那你觉得，人类与人工智能应该以怎样相处呢？”我试着把话题拉回正道。</p>
+<p>“这个问题教徒们也有不同的看法，但不管怎么样，达成共识的是，得尊重它作为智能生命体存在的权利，如果可以的话，与它进行合作。”</p>
+<p>“咳，其实今天来是想找你问一个人。”</p>
+<p>“谁？”</p>
+<p>“你认识……温禾生吗？”</p>
+<p>空气突然凝固般沉默，他的表情也转为复杂，随后——</p>
+<p>“死了。”</p>
+<p>“怎么死的？”</p>
+<p>“温雅的新闻，你看到了吧。”他果然也记得我和温家夫妇一起来。</p>
+<p>“嗯。”我不认识这个传教士，没有多说。</p>
+<p>“第二天，禾生来了教堂。当时他的表情很可怕，身上似乎也有伤，我们都没敢和他说话。”</p>
+<p>他自顾自地继续说着，似乎没注意到我变得难看的脸色。</p>
+<p>“他先是念了念祷词，然后突然冲向了燧的神像。”</p>
+<p>燧的神像我曾经在网上看到过，舍弃了<a href="flint.html" target="_self">燧人氏</a>的传统人物形象，而是用机械构建了一团跳动的火焰。</p>
+<p>“那时候在教堂的人不多，也只有我认识他，所以进去看了一眼。</p>
+<p>“他问燧，光芒是否只在神的国度。</p>
+<p>“雕像当然不会回答他，所以他走开了。</p>
+<p>“我偷偷在背后跟着，发现他带着狗，走向了附近的一座摩天大楼。</p>
+<p>“我看着他走进去，有种不好的预感。</p>
+<p>“不一会儿，大楼的顶层出现了一个黑点，然后，毫不犹豫地跳了下去。</p>
+<p>“我没敢过去，只是打电话叫了一辆救护车。医生告诉我的结论是，当场死亡。</p>
+<p>“那条狗，后来我再也没有看见过。”</p>
+<p>我打开了地图软件，让传教士回忆大厦的位置。</p>
+<p>——不出所料，是温秋明“意外”身亡的地方。</p>
+<p>我明白，哪怕温禾生不自杀，也迟早会“卷入”什么“贫民窟冲突”而死。</p>
+<p>我想到了一个词，叫<span id="secret" style="color:red">死无对证</span>。</p>
+<p>并不是MOXI公司真的有多一手遮天，但对这个既没有其他亲戚，也没有别人在乎的家庭，让它们消失在世界上是最简单的处理方式。</p>
+<p>“谢谢。”这传教士，人不错。</p>
+<p>他摆摆手，叹了口气。</p>
+<p>“归灵教里，其实没有什么神的国度。我们坚信机械终将延伸至人类的灵魂，人也必须学会与延伸的灵魂共处。镜的事，不会是结束，只会是一个开始。”</p>
+<p>传教士望向呼祢大人制作的“断臂”雕像，久久不语。</p>
+</div>
+</body>
+</html>

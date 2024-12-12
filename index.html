@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="star.png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>原生生物的主页</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<script>
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+
+        });
+</script>
+<body>
+    
+<body>
+    <div id="menu">
+        <dl>
+            <dt id="c1">基本情况</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="#c1-1">作者简介</a></dd>
+            <dd><a href="#c1-2">联系作者</a></dd>
+            </div>
+            <dt id="c2">资料制作</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="#c2-1">理论类</a></dd>
+            <dd><a href="#c2-2">应用类</a></dd>
+            <dd><a href="#c2-3">物理类</a></dd>
+            <dd><a href="#c2-4">其他</a></dd>
+            </div>
+            <dt id="c3">更多内容</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="#c3-1">文件</a></dd>
+            <dd><a href="#c3-1">链接</a></dd>
+            </div>
+        </dl>
+    </div>
+<div id="mainpart">
+
+<h2 id="c1-title">基本情况</h2>
+<h3 id="c1-1">作者简介</h3>
+<p>主修专业：数学学院，信息与计算科学专业(计算与应用数学方向)
+    <br>辅修专业：计算机科学与技术</p>
+<p>方向：计算流体力学</p>
+<h3 id="c1-2">联系作者</h3>
+<p>QQ：3257527639
+<br>邮箱：richardzheng@mail.ustc.edu.cn
+</p>
+<hr>
+<h2 id="c2-title">资料制作</h2>
+<p>*若发现问题，欢迎联系作者本人</p>
+<div>
+<h3 id="c2-1">理论类</h3>
+<p><a href="math/OPT.pdf">运筹学/最优化讲义.pdf</a>
+<br><a href="math/MA1.pdf">数学分析A1讲义.pdf</a>
+<br><a href="math/MA1rgb.zip">#数学分析A1(任广斌).zip</a>
+<br><a href="math/MA2.pdf">数学分析A2题纲.pdf</a>
+<br><a href="math/MA3.pdf">数学分析A3部分笔记(胡森).pdf</a>
+<br><a href="math/LA.pdf">线性代数讲义解答.pdf</a>
+<br><a href="math/LAwxm.pdf">#线性代数讲义(对应答案版本)(王新茂).pdf</a>
+<br><a href="math/Probability.pdf">概率论笔记(刘党政).pdf</a>
+<br><a href="math/DG.zip">微分几何笔记(刘世平).zip</a>
+<br><a href="math/NA.pdf">数值代数习题解答.pdf</a>
+<br><a href="math/NPDE.pdf">偏微分方程数值解笔记.pdf</a>
+<br><a href="math/LAP.pdf">线性代数B2习题课讲义.pdf</a>
+<br><a href="math/Finale.pdf">主修毕业论文.pdf</a>
+</p>
+</div>
+<div>
+<h3 id="c2-2">应用类</h3>
+<p><a href="computer/LKH.pdf">华罗庚研讨课.pdf</a>
+<br><a href="computer/MM.pdf">数学建模大作业.pdf</a>
+<br><a href="computer/Python.txt">Python极简版笔记.txt</a>
+<br><a href="computer/DSDB.zip">数据结构与数据库实验(袁平波).zip</a>
+<br><a href="computer/CS.zip">计算机程序设计大作业(尹东).zip</a>
+<br><a href="computer/Algorithm.pdf">算法基础课堂笔记.pdf</a>
+<br><a href="computer/MMA.nb">符号计算软件大作业.nb</a>
+<br><a href="computer/Finale.pdf">辅修毕业论文.pdf</a>
+</p>
+</div>
+<div>
+<h3 id="c2-3">物理类</h3>
+<p><a href="phys/TM.pdf">理论力学笔记(袁业飞).pdf</a>
+<br><a href="phys/ED.pdf">电动力学笔记(刘川).pdf</a>
+<br><a href="phys/QM.pdf">量子力学笔记(杨焕雄).pdf</a>
+<br><a href="phys/T.pdf">热力学与统计物理笔记(袁业飞).pdf</a>
+<br><a href="phys/FM.pdf">流体力学笔记(王晓宏).pdf</a>
+</p>
+</div>
+<div>
+<h3 id="c2-4">其他</h3>
+<p><a href="others/UPFinal.pdf">大学生心理学期末-科大内卷调查报告.pdf</a>
+<br><a href="others/UP.pdf">大学生心理学笔记(徐晓飞).pdf</a>
+<br><a href="others/SPFinal.pdf">社会心理学期末-挫折与应对.pdf</a>
+<br><a href="others/SP.pdf">社会心理学笔记(杨映秋).pdf</a>
+<br><a href="others/NewsFinal.pdf">新闻学概论期末-交流生.pdf</a>
+<br><a href="others/News.pdf">新闻学概论笔记(林爱兵).pdf</a>
+<br><a href="others/English.pdf">高级英语阅读A-词根词缀整理.pdf</a>
+</p>
+</div>
+<hr>
+<h2 id="c3-title">更多内容</h2>
+<h3 id="c3-1">文件</h3>
+<p><a href="others/Light.pptx">视觉小说-提灯.pptx</a>
+<br><a href="others/Music.pdf">歌唱艺术课歌单.pdf</a>
+<br><a href="others/template.zip">本科毕业论文LaTeX模板.zip</a>
+<br><a href="others/gb.pdf">【告白】剧本.pdf</a>
+</p>
+<h3 id="c3-2">链接</h3>
+<p><a href="game/readme.html">做了大半但不满意于是鸽了的网页游戏</a>
+<br><a href="https://icourse.club/user/4483">评课社区主页</a>
+<br><a href="https://space.bilibili.com/274933414">B站主页</a>
+<br><a href="others/songs.pdf">【烟火】专场歌词本.pdf</a>
+<br><a href="others/songs.html">【烟火】专场网页版歌词本</a>
+<br><a href="la/index.html">线性代数 A1 课程主页</a>
+</p>
+<hr>
+<p style="text-align: right">最近更新：2024.10.2</p>
+<p style="text-align: right">更新内容：【告白】剧本</p>
+</div>
+</body>
+</html>

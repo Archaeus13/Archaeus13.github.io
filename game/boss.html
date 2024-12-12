@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>050</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("点击这页中的“风”字");
+                    help_flag = 1;
+                }
+                else alert("将六个字母按先后拼成词");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            var count = 0;
+            var ans = "FUTURE";
+            $(".wind").click(function(){
+                $(this).hide("slow");
+                $(this).text(ans[count++]);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><span>boss</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>1月4日</h2>
+<hr>
+<p>三天前，我拒绝了白项的提议。</p>
+<p>我给的理由是，我尊重翼星的理念，但是这样的暴力行为不是我们能胜任的，也过于危险。一时的热血上头没必要把整栋楼都置于危险之中，他做得已经挺多了。</p>
+<p>白项被这个理由说服了。</p>
+<p>而我还有自己的理由：我要是真的答应了，之前那帮很可能想通过我的动向来追踪翼星的人岂不是要得逞了。</p>
+<p>所以，不管出于什么原因，我都不能联系翼星。而他搬过来了，如果冒险的话，我们都不安全。</p>
+<p>在楼下，疯子见到了刚刚一起下楼的我和白项。</p>
+<p>“怎么样，我就说去年会有灾难吧，哈哈，哈……”疯子笑了起来，把木棍狠狠往地上戳了几下。</p>
+<p>我也和白项提过这个疯子，所以他没觉得有什么震惊。不过，他竟然和疯子攀谈起来：</p>
+<p>“刘哥你是知道些啥吗？”——那次胡与非喊出他姓刘之后，我也告诉过白项。</p>
+<p>“我知道啥？我只知道，<span class="wind">风</span>一吹，就有人得倒霉！”</p>
+<p>“<span class="wind">风</span>一吹，是说什么？”</p>
+<p>“呵，想当年我还是老板的时候，别人跟我说，起<span class="wind">风</span>了，得躲着点，我还不信。现在呢？什么下场！他妈的……”疯子自言自语，就像没听到白项的问话。</p>
+<p>“是啊，你当年多威<span class="wind">风</span>呢，还以为整个鹰吕都是你家的呢。”胡与非再一次恰到好处地出现，顶了疯子一句。</p>
+<p>“我他妈问你，我刘文兵哪里对不起你们了？他妈一个个都来落井下石？”疯子终于发怒了，也报出了真名。</p>
+<p>“还搁这装清白呢。要不是你当年恶意搞什么价格战，我们公司也不会撑不过去。”胡与非没说得很清楚，但刘文兵已经明白了是什么事。</p>
+<p>“好。”他愤愤丢下一个好字，重新挥舞起木棍来。</p>
+<p>难不成，胡与非说得事背后还有什么隐情？</p>
+<p>我把他的名字放进搜索引擎，但只查到他曾经是奢侈品公司的老板，后来行业崩盘的时候公司也一起破产，并没有更细节的消息。</p>
+<p>再去查公司的名字，就更加语焉不详。那段时间倒闭的公司挺多，实在很难找到有效的信息。</p>
+<p>至于<span class="wind">风</span>，也没查出来是指什么东西。</p>
+<p>“<span class="wind">风</span>又要吹了啊……”疯子在远处哭喊。</p>
+</div>
+</body>
+</html>

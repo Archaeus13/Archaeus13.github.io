@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>034</title>
+    <script>
+        var help_flag = 0;
+        var count = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("疑点在哪里？");
+                    help_flag = 1;
+                }
+                else alert("注意温雅的死亡时间");
+            }
+            if (event.keyCode == 75) {
+                count++;
+                if (count == 5) {
+                    $("#hide").slideDown("slow");
+                    $("#secret").text("035:again");
+                }
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><span>trick</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>12月3日</h2>
+<hr>
+<p>我没有把温雅死的消息说出去。</p>
+<p>但今天的新闻上，还是出现了——大意是贫民窟今天发现了一具<abbr title="多按几次K以继续剧情" style="text-decoration:none">死亡一天多的女尸</abbr>，经比对DNA得知是温某，疑卷入冲突后被贫民窟暴民所害。</p>
+<p>很明显，这则消息是为了针对那些“暴民”而编写的。</p>
+<p>而知道他俩去做什么的人，很可能只有我，黄大姐和胡与非。</p>
+<p>黄大姐可能会起一点疑心，但她应该还是会相信这则新闻。</p>
+<p>而我坚信这里存在阴谋，毕竟，同样的把戏，MOXI公司可以玩一次，就可以玩<span id="secret">第二次</span>。</p>
+<div id="hide" style="display:none">
+<p>更何况，我11月30日就看到过温雅的尸体，但这里说死亡才一天多，一方面想在这个敏感的时间引发矛盾，另一方面也利用紧张的形势让调查变得困难。</p>
+<p>还真是打得一手好算盘。</p>
+</div>
+<p>但，我有什么办法确认呢？</p>
+<p>如果做得太明目张胆，可能我自己都会成为下一个目标。</p>
+<p>如果能找到温禾生自然是最好的，但是，两个人肯定是一起行动，温雅死了，温禾生估计也在被控制的状态。</p>
+<p>“喂？”我打了个电话给白项，他似乎这两天迷上了龟年的一系列关于小店店主的小说，写了好几篇读书笔记。</p>
+<p>“咋了？”</p>
+<p>“看到新闻里面那个死亡的温某了吗？”</p>
+<p>“嗯。”</p>
+<p>“她是我邻居，死得有蹊跷。她儿子的死看起来是意外，但很可能是MOXI公司害的，我怀疑她也是这样。”</p>
+<p>我听到白项吸了一口凉气：“你想问我有没有办法确认？”</p>
+<p>“嗯——当然，这事不要说出去。”</p>
+<p>“放心，不会说出去的。不过，这种事还真是挺有难度的，我尽力。”</p>
+<p>白项找到了那篇新闻，仔细观看。</p>
+<p>“网上好像有人有没打码的尸体的图，从伤口看来，背后的刀伤才是致命伤，身上的外伤是之后补的。”</p>
+<p>“这意味着——”</p>
+<p>“一刀毙命，就是奔着杀人去的，绝对不是什么贫民窟里卷入的冲突。”白项的语气也有些愤怒。</p>
+<p>“这是谋杀了吧。”</p>
+<p>“但是，这几天情况特殊，再加上是贫民窟，本身也很不好办……”</p>
+<p>白项挂了电话。他也无能为力，何况是我？</p>
+<p>只能等待下一次“高层被调查”的清算了吗……</p>
+</div>
+</body>
+</html>

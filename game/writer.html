@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/001.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <title>006</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("注意网页边缘的滚动条");
+                    help_flag = 1;
+                }
+                else alert("试着拖动到最右侧");
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt>CHAPTER I</dt>
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><span>writer</span></dd>
+            <dd>locked</dd>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+<div id="mainpart">
+<h2>10月5日</h2>
+<hr>
+<p>这两天，学前端的速度快了不少——大概是终于接受现实了吧。</p>
+<p>没想到的是，那个来自tec.askr.com的网页今天再次自己打开了：</p>
+<div class="chatting">
+    <p>墨杰先生。</p>
+    <p style="text-align:right">什么事？</p>
+    <p>你听说过<a href="faust.html" target="_self">浮士德</a>的故事吗？</p>
+    <p style="text-align:right">出卖灵魂与魔鬼交易的那个？</p>
+    <p>没错。</p>
+    <p>听说墨杰先生是个小说家？</p>
+    <p style="text-align:right">你最好有合理的解释。</p>
+    <p style="text-align:right">否则我会用法律手段举报你们泄露隐私。</p>
+</div>
+<p>如果我真的报名了图灵测试，知道姓名还是可能的。但是，如果没有其他的调查，根本没有可能了解我的职业等信息。</p>
+<p>又或者，对方从开始就知道我的信息？这也根本不是图灵测试？</p>
+<p>那么……</p>
+<p>我几乎要决定报警了，对方却又发了消息过来：</p>
+<div class="chatting">
+    <p>如果有与恶魔交易的机会，你会接受吗？</p>
+    <p style="text-align:right">？</p>
+    <p>你提供方向与大致内容，我可以帮你补充细节。</p>
+    <p>我可以保证，你会成为一流的小说家。</p>
+</div>
+<p>无法理解。</p>
+<p>对面还在继续劝说，似乎有些着急的样子。</p>
+<div class="chatting">
+    <p>为了表示我的诚意，可以给你一个尝试的机会。</p>
+</div>
+<p>我直接关闭了窗口，不再回答。</p>
+</div>
+<p style="position: absolute; left: 2000px; top: 100px;"><small>007:general</small></p>
+</body>
+</html>

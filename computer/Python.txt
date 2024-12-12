@@ -1,0 +1,223 @@
+符号与规则
+字符串可用双引号或单引号作边框，内部可出现另一种引号
+#后为注释
+"""文档字符串"""为描述函数内容的注释
+func.__doc__ 调用文档字符串
+除法默认浮点数
+**代表乘方
+严格缩进
+' : '到缩进结束表示以下为内容（如for,if等）
+定义 a = True / False 成为布尔型变量，可用于判断
+return None 空返回值
+
+字符串函数用法 "string".func1().func2()
+title 首字母大写
+upper 全大写
+lower 全小写
+rstrip 去除末尾空白
+lstrip 去除开头空白
+strip 去除两端空白
+#均不会改变字符串变量的值
+对字符串使用 + 为直接拼接
+str() 将数字转为字符串
+int() 将整数形式的字符串转换为整数
+replace('ab', 'b') 将字符串中所有ab替换为b
+split() 以空白为分割拆分成列表
+count('ab') 返回ab出现的次数
+message = name.title() + ", happy " + str(age) + 'th birthday!'
+
+列表 name = ['a','b','c','a'] 不含元素-空列表
+print(name)打出带括号、引号的整体
+元素为name[a]，0开始，-1代表最后一个，-n为倒数第n个
+name[0:3]为'a','b','c' 缺省表示从头/到尾
+name[-3:]为最后三个元素
+列表的部分是列表，而名字为列表指针
+namex = namey 改变指针，没有生成独立列表
+namex = namey[:] 生成了一个独立的新列表
+
+name[a] = 'x' 修改a处元素的值
+name.append('x') 在末尾添加新元素
+name.insert(a, 'x') 对应右移并在a处插入新元素
+del name(a) 删除a处元素并对应左移
+name.pop() 删除末尾元素并返回其值
+name.remove('x') 删除自左向右第一个值为x的元素并对应左移
+name.sort() 自小到大排序
+name.sort(reverse=True) 自大到小排序
+print(name.sorted()) 只改变输出，不改变列表值
+name.reverse() 倒序
+len(name) 确定长度
+in/not in 检查值是否在列表/子串是否在字符串中出现
+
+for a in names:
+    print(a)
+    a+='a'
+    print(a)
+print(a)
+输出a aa b ba c ca a aa aa
+for循环中变量a将遍历整个列表
+a在每次循环开始时值被替换
+a整个循环结束后值仍保留
+
+for a in range(2,5)
+a被看作2,3,4遍历
+range(1,5,2)表示从1开始，步长2，在达到或超过5的前一次停下
+list = [a**2 for a in range(1,11)] 列表解析建立链表
+
+min(num) 最小值
+max(num) 最大值
+sum(num) 总和
+
+contents = (10, 20, 30) 元组为元素不可修改的列表
+可给整个元组重新赋值
+
+if a == 3:
+    print(a**3)
+elif a > 3:
+    print(a**2)
+else:
+    print(a)
+布尔表达式若直接打印会为True/False
+列表/字符串作布尔表达式时非空为True
+
+alien ={'color' = 'green', 'points' = 5}
+字典为一键一值对，键不可重复
+alien['x'] 引用值
+alien['x'] = a 若无则新增，若有则覆盖
+del alien['x'] 删除键
+
+for key,value in alien.items() 遍历整个字典
+alien.keys() 所有键构成的列表
+alien.values() 所有值构成的列表
+#这两个列表不能取[a:b]子列表，也不能使用.sort()等
+sorted(alien.keys()) 可使用按序列表
+set(alien.value()) 可使用去重列表
+
+aliens = []
+for alien_number in range(30):
+    new_alien = {'color': 'green', 'points': 5}
+    aliens.append(new_alien)
+for alien in aliens[:5]:
+    print(alien)
+print("Total number of aliens: " + str(len(aliens)))
+字典可成为列表元素
+字典的值可以为列表或字典
+
+message = input("Please input your message:")
+默认为字符串，成为整数需 a = int(a)
+
+num = 0
+while num <= 5:
+    print(num)
+    num += 1
+输出0 1 2 3 4 5
+每次循环开始时判断条件
+break 退出当前的while / for循环
+continue 直接回到当前的while / for循环开头
+while 'a' in name:
+    name.remove('a')
+删除列表中全部特定值元素
+
+def count(a,b,c = 0):
+    '''以数位生成数字'''
+    print('num = ')
+    return 100*a+10*b+c
+count(5,3,2)
+count(b = 2, a =1)
+一般位置实参，位置决定调用顺序
+可用形参名调用
+#默认参数向后放以确保位置实参正确使用
+参数、返回值可为列表或字典
+形参name[:] 复制列表并传递，不修改
+形参*name 可传递任意数量实参并建立元组
+#任意数量放在末尾以确保位置实参正确使用
+形参**alien 可传递任意数量键值对'type' = 'green'并建立字典
+
+class Pet():
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+        self.alive = True
+    def sit(self):
+        print(self.name + " is now sitting.")
+类中函数称方法，类“变量”称实例
+__init__ 特殊方法，必要，创建实例时自动运行
+self 指向自身的调用，在__init__中必不可少
+my_dog = Dog('Willie', 4) 建立时传递name,age
+name,age,alive为属性，靠my_dog.访问
+
+class Dog(Pet):
+    def __init__(self, name, age):
+        super().__init__(self,name,age)
+        self.health = 10
+    def sit(self);
+        print("The dog " + self.name + " is now sitting.")
+子类可继承父类的属性
+super() 表示父类
+可重写父类中的函数
+类可嵌套，将示例作为属性
+
+.py文件 模块
+import a 导入模块
+a.create() 使用模块中的函数
+from a import case as c
+导入模块中的函数/类
+导入函数/类使用无需a.
+as为函数/类指定别名
+import a as arm 为模块指定别名
+from a import case1, case2 导入模块中的多个函数/类
+from a import * 导入模块中所有函数
+
+with open('a.txt') as b:
+    contents = b.read()
+    print(contents)
+open() 打开文件
+.read() 文本文件生成的字符串
+contents\a.txt 相对文件路径，程序所在目录中的文件夹
+C:\Users\a.txt 绝对文件路径
+for m in b 逐行读取
+#取消多余空白用.rstrip()
+lines = b.readlines() 用列表存储代表逐行的列表
+'a.txt', 'r' 只读模式（默认）
+w 清空并从头写入
+r+ 读写
+a 向后写入
+b.write('Hello.\n') 写入字符串
+
+try:
+    print(1)
+    print(5/0)
+    print(2)
+except ZeroDivisionError:
+    print(3)
+else:
+    print(4)
+输出1 3
+try中代码块发生except处错误时跳转到except后
+pass表示什么都不做
+未发生错误则在运行完后执行else
+else可省略
+FileNotFoundError 文本未找到
+
+调用json模块可存储数据
+with open('a.json', 'r+') as b 打开json文件
+json.dump(name, b) 存储变量/列表/字典
+json.read(b) 读取变量/列表/字典
+
+调用unittest模块可测试
+class NamesTestCase(unittest.TestCase):
+    def setUp(self):
+        first = 'janis'
+        last = 'joplin'
+    def test_first_last_name(self):
+        f_name = get_f_name(first, last)
+        self.assertEqual(f_name, 'Janis Joplin')
+unittest.main()
+定义针对某个函数/的类以完成对函数测试
+若通过测试unittest.main() 将打印 OK
+setUp(self) 预先设定，之后的测试中可使用
+.assertEqual(a, b) 确认字符串相等
+.assertNotEqual(a, b) 确认字符串不等
+.assertTrue(x) 确认为真
+.assertFalse(x) 确认为假
+.assertIn(x, name) 确认在列表中
+.assertNotIn(x, name) 确认不在列表中
