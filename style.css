@@ -1,0 +1,115 @@
+@charset "utf-8";
+
+body {
+    font-family: 'Microsoft Yahei';
+    margin:0 auto;
+    border: 1px solid rgba(0,0,0,0);
+    width: 1000px;
+    background-color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+#choice {
+    position: fixed;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    background-color: white;
+    width: 1000px;
+}
+
+#choice table {
+    background-color: rgb(236, 251, 246);
+    width: 1000px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#choice td {
+    width: 150px;
+}
+
+#choice span {
+    border-style: dotted;
+}
+
+#choice a:link{
+    color: rgb(23, 62, 141);
+}
+
+#choice a:visited{
+    color: rgb(23, 62, 141);
+}
+
+#choice a:hover{
+    color: rgba(23, 62, 141, 0.5);
+}
+
+#choice a:active{
+    color: rgba(23, 62, 141, 0.3);
+}
+
+#menu {
+    background-color: rgba(0,0,0,.05);
+    width: 150px;
+    margin-top: 60px;
+    padding-top: 0;
+    height: 100%;
+    float: left;
+    position: fixed;
+    font-family: 'consolas';
+}
+
+#menu dd a:link{
+    color: rgb(1, 79, 67);
+}
+
+#menu dd a:visited{
+    color: rgb(1, 79, 67);
+}
+
+#menu dd a:hover{
+    color: rgba(1, 79, 67, 0.5);
+}
+
+#menu dd a:active{
+    color: rgba(1, 79, 67, 0.3);
+}
+
+#menu dt{
+    margin-left: 20px;
+    width: fit-content;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#menu dt a:link{
+    color: rgba(0, 0, 0);
+}
+
+#menu dt a:visited{
+    color: rgba(0, 0, 0);
+}
+
+#menu dt a:hover{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#menu dt a:active{
+    color: rgba(0, 0, 0, 0.3);
+}
+
+#menu dd{
+    font-size: small;
+}
+
+#mainpart{
+    padding-left: 180px;
+    padding-top: 60px;
+}
+
+#mainpart button{
+    font-family: 'consolas', 'HeiTi';
+}
