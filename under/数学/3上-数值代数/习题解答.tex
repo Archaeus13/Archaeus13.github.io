@@ -1,0 +1,863 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\pagestyle{headings}
+\title{\heiti 数值代数习题解答}
+\author{原生生物}
+\date{}
+
+\usepackage{amsmath,amssymb,enumerate,geometry,mathdots}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\fl}{fl}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\tr}{tr}
+\setcounter{tocdepth}{2}
+\setlength{\parindent}{0pt}
+
+\ctexset{section={name={第,章},number=\zhnum{section}},
+	subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+\newenvironment{code}{\rule{36em}{0.1em}\setlength{\parindent}{1em}\setmainfont{Consolas}
+
+}{
+
+\setlength{\parindent}{0em}\rule{36em}{0.1em}}
+
+\begin{document}
+\maketitle
+
+作者QQ：3257527639
+
+对应教材：数值线性代数(第二版)
+
+使用资料：个人解题为主，答案来源包括助教的习题课讲义、同学解出的难题或网络上的论文与解答等。
+
+*\hspace{0em}解答中的伪代码采用严格缩进判断嵌套关系，总体类似Python
+
+\tableofcontents
+
+\newpage
+
+\section{线性方程组的直接解法}
+\begin{enumerate}
+\item 
+假设输入方阵下标$1$到$n$，$A[i]$表示$A$的第$i$个行向量，$O$代表$n$维零方阵(采用增广矩阵求逆的思路)：
+
+\begin{code}
+def inverse(A, In): 
+
+\ \ In = O;
+
+\ \ for j = 1 to n
+
+\ \ \ \ A[j] /= A[j][j]
+
+\ \ \ \ In[j][j] = 1/A[j][j]
+
+\ \ for j = 1 to n
+
+\ \ \ \ for i = j+1 to n
+
+\ \ \ \ \ \ In[i] -= A[i][j]In[j];
+
+\end{code}
+
+\item
+构造辅助$n$维向量$y$，初始为零向量，设方阵下标为1到$n$：令$k$从$n$到1循环，每次计算
+$$x_k=\frac{b_k-\sum_{i=k}^ns_{ki}y_i}{s_{kk}t_{kk}-\lambda},y_j=y_j+x_kt_{jk}(j\ge n+1-k)$$
+
+由定义可发现，每次循环的计算量都是$O(n)$，因此总计算量为$O(n^2)$。
+
+证明思路：将矩阵分块为已算过的部分和将算的部分，已算过的部分通过$y_i$进行“消除偏差”($y_i$在每步后为假设$x$除了已算过的分量外均为0后被$T$左乘的结果)后，即可通过直接的减法、除法得到将算的值。
+
+\item
+直接计算可验证其为逆。由定义$l_k$只需满足前$k$个分量为0，而$-l_k$亦满足此要求，因此成立。
+
+\item
+由于$7=3+2\times2,8=4+2\times2$，可直接构造$L=\begin{pmatrix}1&0&0\\2&1&0\\2&0&1\end{pmatrix}$。
+
+\item
+若有$L_1U_1=L_2U_2=A$，由$A$非奇异可知$L_1,L_2,U_1,U_2$非奇异，而$L_2^{-1}L_1=U_2U_1^{-1}$，左侧为单位下三角阵，右侧为上三角阵，因此均只能是$I$，从而得证。
+
+\item
+令$L_k=I+t_ke_k^T$，其中$t_k$的前$k$个分量为0，其余为1，考虑$L_n\dots L_1A=U$的结果。由于这相当于分别将$A$的每一行加到其下的所有行上，$U$的左上角$n-1\times n-1$子矩阵为单位阵，最后一列为$1,2,\dots,2^{n-1}$，其余为0，即为所求。而所求的$L$为$L_1^{-1}\dots L_n^{-1}$，除了主对角线外下三角部分的元素为$-1$，满足要求。
+
+\item
+由对称阵定义，设变换后矩阵为$B$，只需说明$b_{ij}=b_{ji}\ (i,j\ge2)$，由高斯消去进行的行变换操作可知范围内$b_{ij}=a_{ij}-a_{1j}\frac{a_{i1}}{a_{11}}$，而$a_{ij}-a_{1j}\frac{a_{i1}}{a_{11}}=a_{ji}-a_{j1}\frac{a_{1i}}{a_{11}}=b_{ji}$，从而得证。
+
+\item
+利用习题7结论，同乘$a_{11}$后即需证明$|a_{11}b_{kk}|=|a_{11}a_{kk}-a_{1k}a_{k1}|>\sum_{j=2,j\ne k}^{n}|a_{11}a_{kj}-a_{1j}a_{k1}|$。而
+
+$$\sum_{j=2,j\ne k}^{n}|a_{11}a_{kj}-a_{1j}a_{k1}|\le\sum_{j=2,j\ne k}^{n}|a_{11}a_{kj}|+\sum_{j=2,j\ne k}^{n}|a_{1j}a_{k1}|=\sum_{j=2,j\ne k}^{n}|a_{11}a_{kj}|+\sum_{j=2}^{n}|a_{1j}a_{k1}|-|a_{1k}a_{k1}|$$
+$$\le\sum_{j=2,j\ne k}^{n}|a_{11}a_{kj}|+|a_{11}a_{k1}|-|a_{1k}a_{k1}|<|a_{11}a_{kk}|-|a_{1k}a_{k1}|\le|a_{11}a_{kk}-a_{1k}a_{k1}|$$
+
+从而得证。又由习题7可知对称性保持，从而现在的主对角线对应元素是行列中的最大值，不需要再进行交换，由此即知列主元与直接消去结果相同。
+
+\item
+不必储存$L$：将$A$与$b$同时左乘高斯变换阵，这样当$A$化为上三角阵时$b$也成为了合适的形式。此时再使用回代法即可。
+
+运算次数：高斯变换时，第k次需要对右下角$n-k\times n+1-k$子方阵的每一个进行操作，每次操作需要减法、乘法、除法各一次，因此总数量为$\sum_{k=1}^n(n-k)(n+1-k)=\frac{1}{3}n^3-\frac{1}{3}n$。回代法需要的乘法运算数量为$\frac{(n-1)n}{2}$，因此总数量为$\frac{1}{3}n^3+\frac{1}{2}n^2-\frac{5}{6}n$。
+
+\item
+由习题7可知其对称，下面进一步说明正定。
+
+设变换后的$B=LA$，考虑$C=LAL^{T}$，由于右乘$L^T$对应的操作为左下角右侧的列减去第一列，而此时第一列只有$b_{11}$不为0，$C$的右下角仍然为$A_2$，更进一步，由正定阵性质，相合变换后仍正定，因此$C$为正定阵，由对称性可知$C$必然为$\diag(a_{11},A_2)$。考虑特征值可知$A_2$必然也为正定阵，由此得证。
+
+\item
+设$k$次后对应左乘的$L$为$\begin{pmatrix}L_k&O\\M&I_{n-k}\end{pmatrix}$，则由算法有$\begin{pmatrix}L_k&O\\M&I_{n-k}\end{pmatrix}$$\begin{pmatrix}A_{11}&A_{12}\\A_{21}&A_{22}\end{pmatrix}=\begin{pmatrix}U_k&N\\O&S\end{pmatrix}$。考虑下方一列可知$MA_{11}+A_{21}=O,MA_{12}+A_{22}=S$，左式可解出$M=-A_{21}A_{11}^{-1}$，代入右式即得结论。
+
+\item
+由于全主元第$i$次消去时将$u_{ii}$调整为右下角矩阵中最大元，此时其必然大于等于右侧的任何元素，而此后的操作并不会影响第$i$行及其上方的部分，$u_{ii}$大于等于本行右边的性质得以保存，从而得证。
+
+\item
+通过列主元高斯消去，可得到$PA=LU$，利用习题1实现的求逆算法(对上三角阵类似)可得到$L^{-1}$与$U^{-1}$，再计算$U^{-1}L^{-1}P$即为$A$的逆。
+
+\item
+记$a_j$为$A^{-1}$的第$j$列，考虑方程$LUa_j=e_j$即可解出$a_j$，而其第$i$个分量即为所求(由于只需要知道一个分量，最后一步解$Ua_j=L^{-1}e_j$的过程进行部分即可)。
+
+\item
+由于$A^T$是严格对角占优阵，$A$的主对角线元素模长大于本列其他所有元素模长之和。类似习题8估算可证明每次高斯消去后的$A_2$仍满足$A_2^T$严格对角占优，从而选出的列主元即为主对角线上元素，因此直接高斯消元与列主元效果相同。由于每次保证了对角元模长是本列最大，当$i\ne j$时有$|l_{ij}|<1$。
+
+\item
+\begin{enumerate}[(1)]
+\item
+由于$(I-ye_k^T)(I+ye_k^T)=I-y_kye_k^T$，有$(I-ye_k^T)(I+ye_k^T-y_kI)=(1-y_k)I$，由此即得非奇异时逆为$I+\dfrac{ye_k^T}{1-y_k}$，而直接计算行列式可验证$1-y_k=0$时奇异。
+
+\item
+$(I-ye_k^T)x=e_k$，即$x_ky=I-e_k$，存在解要求$x_k$不能为0。
+
+\item
+算法类似高斯消去，每次操作后成为$\begin{pmatrix}I_k&M\\O&A_{n-k}\end{pmatrix}$，需要$A_{n-k}$左上角的元素非零才能继续取解。利用分块考虑每次操作使用的方阵的$k$阶顺序主子式部分，其为单位下三角阵，与定理1.1.1完全相同可知每次得到的$A_{n-k}$左上角的元素非零等价于$A$的各阶顺序主子式非奇异。
+\end{enumerate}
+
+\item
+若有$A=L_1L_1^T=L_2L_2^T$，则有$L_2^{-1}L_1=L_2^TL_1^{-T}$，由于左侧为下三角，右侧为上三角，最终乘积一定为对角阵。但由于$L_2^TL_1^{-T}=(L_1^{-1}L_2)^T=(L_2^{-1}L_1)^{-T}$，此对角阵与自己逆转置相同，每个元素只能为正负1。由于$L_1$与$L_2$对角元为正，计算可知每个元素只能为此对角阵元素必须为正，因此即为单位阵，从而得证。
+
+\item
+带宽$2n+1$，也即$|i-j|>n$的部分均为0，由平方根法的计算过程对$k$归纳可得$l_{ik}$亦会满足$|i-k|>n$的部分为0(对$k+1$时的情况，在$|i-k-1|>n$时，$a_{i,k+1}=0$，且$\sum_{p=1}^{k}l_{ip}l_{kp}$的每一个$l_{ip}$均为0，因此$l_{i,k+1}=0$)，又因其为三角阵，可知带宽为$n+1$。
+
+\item
+设$L=\begin{pmatrix}L_k&O\\M&N_{n-k}\end{pmatrix}$，直接计算可知$A=\begin{pmatrix}L_kL_k^T&L_kM^T\\ML_k^T&MM^T+N_{n-k}N_{n-k}^T\end{pmatrix}$，从而有结论(由$L_k$为对角均正的下三角阵，也可推出$A_k$正定对称)。
+
+\item
+类似习题10的过程，在每次高斯变换左乘$L_k$时，同时右乘$L_k^T$。每次右乘不改变右下角的子矩阵，因此仍可通过定理1.1.1推知操作可进行至结束。由于每步保持对称性，在进行$n-1$次消去后即得对角阵，此时$A=L_1^{-1}\dots L_{n-1}^{-1}DL_{n-1}^{-T}\dots L_1^{-T}$，即可合并为$LDL^T$。
+
+\item
+利用平方根法计算可知$L=\begin{pmatrix}4&0&0&0\\1&3&0&0\\2&2&2&0\\1&1&3&1\end{pmatrix}$，进一步计算得原方程组解为$x=\begin{pmatrix}1\\1\\1\\1\end{pmatrix}$。
+
+\item
+假设输入方阵下标1到$n$，$O$代表$n$维零方阵(实际计算过程与平方根法完全相同，只是改变计算顺序。实际操作时可直接用$A$的对应部分保存$l$，此处为清晰将两矩阵分开)：
+
+\begin{code}
+def Cholesky(A, l):
+
+\ \ l = O
+
+\ \ for i = 1 to n
+
+\ \ \ \ for j = 1 to i-1
+
+\ \ \ \ \ \ l[i][j] = a[i][j]
+
+\ \ \ \ \ \ for p = 1 to j-1
+
+\ \ \ \ \ \ \ \ l[i][j] -= l[i][p]*l[j][p]
+
+\ \ \ \ \ \ l[i][j] /= l[j][j];
+
+\ \ \ \ l[i][i] = a[i][i]
+
+\ \ \ \ for p = 1 to i-1
+
+\ \ \ \ \ \ l[i][i] -= l[i][p]*l[i][p]
+
+\ \ \ \ l[i][i] = sqrt(l[i][i])
+\end{code}
+
+\item
+假设正定对称矩阵$A$可以分解为$LDL^T$，则$A^{-1}=(L^{-1})^TD^{-1}L^{-1}$，利用习题1的算法可算出$L^{-1}$，再计算转置，$D^{-1}$即为每个对角元取倒数，最后计算乘法即可。
+
+\item
+\begin{enumerate}[(1)]
+\item
+由Hermite性计算知$A$对称、$B$反对称，从而$C$对称。由正定$(x+y\mathrm{i})^H(A+B\mathrm{i})(x+y\mathrm{i})>0$，从而$x^TAx+y^TAy+y^TBx-x^TBy>0$，此即为$\begin{pmatrix}x^T&y^T\end{pmatrix}\begin{pmatrix}A&-B\\B&A\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}>0$，由于$x,y$可任取，知$C$正定。
+
+\item
+此方程即$\begin{pmatrix}A&-B\\B&A\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}b\\c\end{pmatrix}$，利用上题结论可知$\begin{pmatrix}A&-B\\B&A\end{pmatrix}$为对称正定阵，从而由改进平方根法作出分解$LDL^T$后即可通过$LDL^T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}b\\c\end{pmatrix}$解出所求的$x,y$。
+\end{enumerate}
+\end{enumerate}
+
+\section{线性方程组的敏度分析与消去法的舍入误差分析}
+\begin{enumerate}
+\item
+正定性：由于$\alpha_i>0$可知其良定，进一步由定义可知。
+
+齐次性：直接代入计算可知。
+
+三角不等式：记$x'=(\alpha_1x_1,\dots,\alpha_nx_n),y'=(\alpha_1y_1,\dots,\alpha_ny_n)$，由于$\|x'\|_2+\|y'\|_2\ge\|x'+y'\|_2$，代入可知此范数具有三角不等式。
+
+\item
+利用$\|x+y\|_2\le\|x\|_2+\|y\|_2$的证明过程可知取等当且仅当$x^Ty=\|x\|\|y\|$，同平方得$(x_1y_1+\dots+x_ny_n)^2=(x_1^2+\dots+x_n^2)(y_1^2+\dots+y_n^2)$，作差配方有$\sum_{i<j}(x_iy_j-x_jy_i)^2=0$，即可知$x,y$各分量成比例。
+
+\item
+直接计算$\|A\|_F^2=\sum_{i,j}|a_{ij}|^2=\sum_{j=1}^n\sum_{i=1}^n|a_{ij}|^2=\sum_{j=1}^n\|a_j\|_2^2$。
+
+\item
+左：由二范数定义有$\|A\|_2\ge\frac{\|Ab_i\|_2}{\|b_i\|_2}$，其中$B=\begin{pmatrix}b_1&\dots&b_n\end{pmatrix}$，平方得$\|A\|_2^2\ge\frac{\|Ab_i\|_2^2}{\|b_i\|_2^2}$，利用习题3，将右侧进行加权平均有$\|A\|_2^2\ge\sum_{i=1}^n\frac{\|b_i\|_2^2}{\|B\|_F^2}\frac{\|Ab_i\|_2^2}{\|b_i\|_2^2}$，即$\|A\|_2^2\|B\|_F^2\ge\sum_{i=1}^n\|Ab_i\|_2^2=\|AB\|_F^2$，最后一步再次运用了习题3。
+
+右：利用左可知$\|B^TA^T\|_F\le\|B^T\|_2\|A^T\|_F$，而二范数与Frobenius范数均在转置下不变，因此同作转置即可。
+
+\item
+正定、齐次：由定义直接得。
+
+三角不等式：$\max_{i,j}|a_{ij}+b_{ij}|\le\max_{i,j}(|a_{ij}|+|b_{ij}|)\le\max_{i,j}|a_{ij}|+\max_{i,j}|b_{ij}|$，两边同乘$n$即可。
+
+相容性：$\max_{i,j}\big|\sum_ka_{ik}b_{kj}\big|\le\max_{i,j}\sum_k|a_{ik}\|b_{kj}|\le n\max_{i,j}|a_{ij}|\max_{i,j}|b_{ij}|$，两边同乘$n$即可。
+
+$\nu$不满足相容：$n$维时两个全1矩阵的乘积为全$n$矩阵，当$n>1$时即可知$\nu$不满足相容性。
+
+\item
+当：由$A$正定，其可作Cholesky分解$LL^T$，由定义可发现$f(x)=\|L^Tx\|_2$，由$L^T$可逆可知其正定，直接计算可知齐次，又由$L^T(x+y)=L^Tx+L^Ty$可知满足三角不等式，故为范数。
+
+仅当：若$A$不正定，由定义存在非零的$x$使得$x^TAx\le0$，此时不满足正定性或根号内为负数，不为范数。
+
+\item
+正定性：由$\rank A=n$可知方程组$Ax=0$中可以选出$n$个独立方程，从而由$x\in\mathbb{R}^n$可知解只能为$x=\mathbf{0}$，由此利用$\|Ax\|=0\Leftrightarrow Ax=0$可知正定。
+
+齐次性：由原范数齐次性，直接计算$\|\lambda x\|_A=\|A\lambda x\|=\lambda\|Ax\|$，由此得证。
+
+三角不等式：由$\|Ax\|+\|Ay\|\ge\|Ax+Ay\|=\|A(x+y)\|$可知成立。
+
+\item
+先说明$I-A$可逆。由$\|A\|<1$与$\|A^n\|\le\|A\|^n$可知$\lim_{n\to\infty}A^n=O$，从而$\rho(A)<1$。考虑$A$的Jordan标准型$J$可发现对角元素模长小于1，而其右侧的副对角线上元素模长不超过1，从而估算可知$J^k$中任何元素不超过$Ck^n\rho(A)^k$，此级数求和收敛，因此$\sum_{k=0}^\infty A^k$收敛。由于$(I-A)\sum_{k=0}^{n-1}A^k=I-A^n$，取极限可知收敛极限即为$(I-A)^{-1}$。
+
+$1+\|(I-A)^{-1}\|\|A\|\ge1+\|(I-A)^{-1}A\|\ge\|(I-A)^{-1}(I-A)+(I-A)^{-1}A\|=\|(I-A)^{-1}\|$，同除以$1-\|A\|$后移项即得证。
+
+\item
+由于$A$可逆，$\{Ax|x\in\mathbb{R}^n\}=\mathbb{R}^n$，从而$\|A^{-1}\|=\max_{\|x\|=1}\|A^{-1}x\|=\max_{\|Ax\|=1}\|A^{-1}Ax\|=\max_{\|Ax\|=1}\|x\|=\max_x\frac{\|x\|}{\|Ax\|}=\big(\min_x\frac{\|Ax\|}{\|x\|}\big)^{-1}=\big(\min_{\|x\|=1}\|Ax\|\big)^{-1}$，因此得证。
+
+\item
+由$L$下三角，$U$上三角可知$a_{ij}=\sum_{k=1}^{n}l_{ik}u_{kj}$，但只有当$k\le\min{i,j}$时才可能$l_{ik},u_{kj}$均非0，从而之后的项可忽略，对第$i$行可写成$a_{ij}=\sum_{k=1}^{i}l_{ik}u_{kj}$，又由LU分解性质可知$l_{ii}=1$，从而$a_{ij}-u_{ij}=\sum_{k=1}^{i-1}l_{ik}u_{kj}$，由于所有下标$j$对应，写为行向量后即为题中形式。
+
+将此式两边取一范数后，利用三角不等式与$|l_{ij}|\le1$可知$\|a_i^T\|_1+\sum_{j=1}^{i-1}\|u_j^T\|_1\ge\|u_i^T\|_1$，由此归纳可得$\|u_i^T\|_1\le\sum_{j=1}^{i-1}2^{i-1-j}\|a_j^T\|_1+\|a_i^T\|_1\le2^{i-1}\|A\|_\infty$，右边的不等号是由于$\|A\|_\infty$为所有$\|a_i^T\|$中最大的一个。由此，$\forall i,\|u_i^T\|_1\le2^{n-1}\|A\|_\infty$，从而$\|U\|_\infty\le2^{n-1}\|A\|_\infty$。
+
+\item
+\begin{enumerate}[(1)]
+\item
+$A^{-1}=\begin{pmatrix}375&-187\\-376&375/2\end{pmatrix},\kappa_\infty(A)=(752+750)(376+\frac{375}{2})=846377$
+
+\item
+$b=(1,1)^T$时$x=(188,-188.5)^T$，而$b=(1,1.1)^T$时$x=(169.3,-169.75)^T$。
+
+\item
+$x=(1,-1)^T$时$b=(1,2)^T$，而$x=(1.1,-1)^T$时$b=(38.5,77.2)^T$。
+\end{enumerate}
+
+\item
+由于$\|I\|\|I\|\ge\|I\|$且$\|I\|>0$，可知$\|I\|\ge1$，从而$\kappa(A)=\|A\|\|A^{-1}\|\ge\|AA^{-1}\|\ge1$。
+
+\item
+右侧即为$\|A^{-1}\|\|(A+E)-A\|\|(A+E)^{-1}\|\ge\|A^{-1}-(A+E)^{-1}\|=\|(A+E)^{-1}-A^{-1}\|$，从而得证。
+
+\item
+由于$\fl(\prod_{i=1}^nx_i)=\prod_{i=1}^nx_i(1+\delta_{i-1})$，$\delta_i$代表每次乘法运算的舍入产生的误差，$\delta_0=0$。从而可知$\varepsilon$的上界为$(1+\mathbf{u})^{n-1}-1$，由定理2.3.3，当$(n-1)\mathbf{u}\le0.01$时即不超过$1.01(n-1)\mathbf{u}$。
+
+\item
+由定义可知$\fl(\sum_{i=1}^nx_i)=\sum_{i=1}^nx_i\prod_{j=i}^{n}(1+\delta_j)$，其中$\delta_i$表示每次加法运算产生的误差，$\delta_1=0$。由$n\mathbf{u}\le0.01$可知$k\mathbf{u}\le0.01$当$k\le n$时成立，从而由定理2.3.3考虑每个$x_i$右边的$(1+\delta_j)$个数可知结论。
+
+\item
+设$a_i^T$为$A$的第$i$个行向量，则$\fl(Ax_i)=\fl(a_i^Tx)=\sum_{j=1}^na_{ij}x_j(1+\lambda_{ij})\prod_{k=j}^n(1+\delta_{ik})$，其中$\lambda_{ij}$表示乘法运算产生的误差，$\delta_{ik}$代表加法运算产生的误差，$\delta_{1k}=0$，由于$a_{ij}$的右侧乘上了$\begin{cases}n&j=1\\n-j+2&j\ne1\end{cases}$个误差项，由定理2.3.3可知结论成立。
+
+\item
+$\fl(x^Tx)=\sum_{i=1}^nx_i^2(1+\lambda_i)\prod_{j=i}^n(1+\delta_i)$，其中$\delta_i$表示每次加法运算产生的误差，$\delta_1=0$。由于每个$x_i^2$右侧最多有$n$个误差项，每个$x_i$的误差必在$(1-\mathbf{u})^n$与$(1+\mathbf{u})^n$之间。由于$x_i^2$均为正，最大误差在同取$+$或$-$时，因此即有$\frac{\fl(x^Tx)}{x^Tx}\in[(1-\mathbf{u})^n,(1+\mathbf{u})^n]$，于是$\alpha\le n\mathbf{u}+O(\mathbf{u}^2)$。
+
+\item
+类似第一章习题18可说明$L$与$U$均为带宽为2的带状矩阵，利用习题10等式，当$A$为三对角阵时，由于其他项都为0，有$u_i^T=a_i^T-l_{i,i-1}u_{i-1}^T,i\ge2$，从而由$|l_{ij}|\le1$可知$|a_{1j}|\ge|u_{1j}|, |a_{ij}|+|u_{i-1,j}|\ge|u_{ij}|,i\ge2$。
+
+由于$U$为带宽2的上三角阵，当且仅当$i=j-1$或$j$时$u_{ij}\ne0$，从而$|u_{j-1,j}|\le|a_{j-1,j}|+|u_{j-2,j}|=|a_{j-1,j}|,|u_{ii}|\le|a_{ii}|+|u_{i-1,i}|\le|a_{i-1,i}|+|a_{ii}|$，因此$U$中任何元素不超过$2\max_{i,j}|a_{ij}|$，从而得证。
+
+\item
+利用习题10等式可知$a_{ij}-u_{ij}=\sum_{k=1}^{i-1}l_{ik}u_{kj}$，第一章习题15已说明每一步分解中$A$的右下角子矩阵为列对角占优，因此$\sum_{k=1}^{i-1}|l_{ik}|<1$，于是$|u_{ij}|\le|a_{ij}|+\max_{k<i}|u_{kj}|$。
+
+对上式归纳，$|u_{1j}|\le|a_{1j}|$，此后每次最大值最多增加$|a_{ij}|$，因此$i\le j$时$|u_{ij}|\le\sum_{k=1}^i|a_{kj}|\le\sum_{k=1}^j|a_{kj}|\le2|a_{jj}|$，而由于其为上三角阵，$i<j$时恒为0，从而$\rho\le2$。
+
+\item
+由算法过程可以发现，由于每个元素所在的行列最多还有$m$个其他元素，计算$L,U$的过程中每个元素至多产生$m$次减法、$m$次乘法与1次除法的误差，由定理2.3.3可知每个元素的误差至多为$(2m+1)\mathbf{u}+O(\mathbf{u}^2)$，而计算回$A$的部分需要$m$次乘法与$m-1$次加法，类似得最终误差为$(2m-1)(2m+1)\mathbf{u}+O(\mathbf{u}^2)$，当$\mathbf{u}$较小时以$4m^2\mathbf{u}$为上界，$m=3$时即为$36\mathbf{u}$。
+
+\item
+由算法过程可以发现，计算$L$的过程中每个元素至多产生$n$次减法、$n$次乘法与1次除法或开方的误差，而计算回$A$得过程中最多需要$n$次乘法与$n-1$次加法，类似习题20知最终误差为$\prod_{i=1}^{4n^2-1}(1+\delta_i)$，类似引理2.4.1计算方法可知条件下误差可以用$4.09n^2\mathbf{u}$控制。
+\end{enumerate}
+
+\section{最小二乘问题的解法}
+\begin{enumerate}
+\item
+$C=\begin{pmatrix}35&44\\44&56\end{pmatrix},d=\begin{pmatrix}9\\12\end{pmatrix}$，解为$\begin{pmatrix}-1\\1\end{pmatrix}$。
+
+\item
+$C=\begin{pmatrix}6&3&1&1\\3&9&3&3\\1&3&1&1\\1&3&1&1\end{pmatrix},d=\begin{pmatrix}4\\3\\1\\1\end{pmatrix}$，可发现$C$的零化子空间一组基为$u=\begin{pmatrix}0\\-1\\0\\3\end{pmatrix},v=\begin{pmatrix}0\\0\\1\\-1\end{pmatrix}$，而一个特解为$x_0=\begin{pmatrix}3/5\\2/15\\0\\0\end{pmatrix}$，由此通解为$x_0+au+bv,a,b\in\mathbb{R}$。
+
+\item
+由乘正交阵不改变二范数可知变换前后二范数必然相同，从而$\alpha=5$。由定义设$H=I-2ww^T$，可知$2ww^T(1,0,4,6,3,4)^T=(0,-5,0,0,3,4)$，也即$2w^T(1,0,4,6,3,4)^Tw=(0,-5,0,0,3,4)$，可得$w=\frac{\sqrt2}{10}(0,-5,0,0,3,4)$。
+
+\item
+即$5c+12s=-5s+12c$，有$17s=7c$，解得$s=\frac{7\sqrt2}{26},c=\frac{17\sqrt2}{26}$，此时$\alpha=\frac{13\sqrt2}{2}$。
+
+\item
+即$-sx_1+cx_2=0$，设$s=a+b\mathrm{i},x_i=a_i+b_i\mathrm{i}$可知$\begin{cases}-a_1a+b_1b+b_2c=0\\-b_1a-a_1b+a_2c=0\end{cases}$。若$|x_1|=0$，取$s=1,c=0$即可，否则方程组中$a,b$线性无关，可令$c=1$得到此方程的特解，再对模长进行归一化(三个分量同时除以模长)即可。
+
+\item
+当$a_j\ne0$时，类似习题5解方程可构造二阶Givens方阵$Q$使得$Q\begin{pmatrix}a_i\\a_j\end{pmatrix}$的第二个分量为0，记其角度为$\theta$，则$a_i,a_j$在向量$\alpha$的第$i,j$行时，计算知$Q(i,j,\theta)\alpha$可使$a_j=0$，且不影响$i,j$外的其他行。
+
+于是得到算法：对$x$除第一行外的每一行，若为0则跳过，否则找到对应将其置为0的$Q(1,j,\theta_j)$。同理，对$y$除第一行外的每一行找到$P(1,k,\theta_k)$，则$\prod_{k=n}^1P(1,k,-\theta_k)\prod_{j=1}^nQ(1,j,\theta_j)$即为所求。
+
+证明：记$Q=\prod_{j=1}^nQ(1,j,\theta_j)$，$P=\prod_{k=1}^nP(1,k,\theta_k)$，则根据构造过程可知$Qx=Py=e_1$，而每个Givens方阵的逆为其转置，也即将$\theta$变为$-\theta$，于是$P$的逆为$\prod_{k=n}^1P(1,k,-\theta_k)$，即有$P^{-1}Qx=y$。
+
+\item
+类似习题3，先计算$\alpha=\frac{\|x\|_2}{\|y\|_2}$，设$H$为$I-2ww^T$，可发现$2(w^Tx)w=x-\alpha y$，从而先令$w_0=\alpha y-x$，再计算$w=\frac{w_0}{\|w_0\|_2}$即可得到$H$。
+
+\item
+思路事实上与定理3.3.1完全一致，只是改变操作顺序与边的序号。归纳构造：
+
+$H_k$操作前，后$k-1$列已符合要求，而$H_k$将倒数第$k$列$(0,\dots,0,a_{n-k+1},\dots,a_n,a_{n+1},\dots,a_m)^T$变为$(0,\dots,0,\alpha,a_{n-k+2},\dots,a_n,0,\dots,0)^T$。这样得到的$w_k$只有第$n-k+1$与后$m-n$个分量非零，而后$k-1$列这些分量都是0，因此利用$x,w$非零分量不重合时$(I-2ww^T)x=x-2(w^Tx)w=x$可知不会破坏已符合要求的部分，从而成立。
+
+\item
+由定理3.1.4知只需求解$L^TLz=L^TPb$，由于$L$为单位下三角，其列满秩，于是$L^TLz=L^TPb$有唯一解。将其分解为$H\begin{pmatrix}L_1\\O\end{pmatrix}$后，计算发现即为求解$L_1^TL_1z=L^TPb$，而这可以直接通过求解$L_1^Tz_0=L^TPb$与$L_1z=z_0$两个方程得到解。
+
+当$Ux=z$时，由于$z$满足$L^TLz=L^TPb$，代入知$L^TLUx=L^TPb$，于是$U^TL^TLUx=U^TL^TPb$，即$A^TAx=A^TPb$，由定理3.1.4可知结论。
+
+\item
+由定理3.1.4可知$A^TAXb=A^Tb$对任何$b$成立，取$b$为$e_i$并拼接可知$A^TAXI=A^TI$，从而$A^TAX=A^T$，同取转置有$X^TA^TA=A$。
+
+在$A^TAX=A^T$两边同时左乘$X^T$可知$AX=X^TA^TAX=X^TA^T=(AX)^T$，从而得证第二个式子，而$A=X^TA^TA=(AX)^TA=AXA$，从而得证第一个式子。
+
+\item
+
+定义Givens函数$g(a,b)=\arccos\dfrac{a}{\sqrt{a^2+b^2}}$，用于生成左乘$(a,b)^T$使$b$成为0的$\theta$，下文$I$为单位阵，$G(i,j,\theta)$与书上定义相同，乘法为矩阵乘法：
+
+\begin{code}
+def QR(A, Q):
+
+\ \ Q = I
+
+\ \ for i = n downto 3
+
+\ \ \ \ if (A[i][1] != 0)
+
+\ \ \ \ \ \ Q = Q * G(i-1,i,-g(A[i-1][1],A[i][1]))
+
+\ \ \ \ \ \ A = G(i-1,i,g(A[i-1][1],A[i][1])) * A
+
+\ \ for i = 2 to n
+
+\ \ \ \ if (A[i][i-1] != 0)
+
+\ \ \ \ \ \ Q = Q * G(i-1,i,-g(A[i-1][i-1],A[i][i-1]))
+
+\ \ \ \ \ \ A = G(i-1,i,g(A[i-1][i-1],A[i][i-1])) * A
+\end{code}
+
+算法分为两步，第一步自下而上第一列的每个元素与上面的元素合并(只要为0则跳过)，这样合并后，每次合并过程可能让下三角部分的$a_{i,i-1}$变为非0，但其他元素不会受影响。于是，完全合并后，矩阵除了上三角部分，至多还有$a_{i,i-1}$一条对角线非零。第二步针对这条对角线再用Givens方阵操作，可发现此时不会再影响下三角部分，因此最多通过$(n-1)+(n-2)=2n-3$个Givens方阵即可实现上三角化，再对应计算Q即可。
+
+\item
+等式的证明：直接利用$\|x\|_2^2=x^Tx$展开计算可发现成立。
+
+当$\|Ax-b\|_2$为最小时，任意$\|A(x+\alpha w)-b\|_2\ge\|Ax-b\|_2$，于是$2\alpha w^TA^T(Ax-b)+\alpha^2\|Aw\|^2\ge0$对任何$\alpha,w$成立。由于$\alpha$与$w$同时取相反数不影响结果，可不妨设$\alpha>0$，此时即需要$2w^TA^T(Ax-b)+\alpha\|Aw\|^2\ge0$恒成立。
+
+若$A^T(Ax-b)\ne\mathbf{0}$，假设其第$i$个分量不为0，可取合适的$w\in\{\pm e_i\}$，使$2w^TA^T(Ax-b)<0$，再令$\alpha\to0$即有矛盾。于是，必须$A^T(Ax-b)=\mathbf{0}$，即$A^TAx=A^Tb$。
+\end{enumerate}
+
+\section{线性方程组的古典迭代解法}
+\begin{enumerate}
+\item
+$A_1$在Jacobi迭代法迭代矩阵是$\begin{pmatrix}0&1/2&-1/2\\-1&0&-1\\1/2&1/2&0\end{pmatrix}$，谱半径为$\frac{\sqrt5}{2}$，不收敛；而G-S迭代法迭代矩阵是$\begin{pmatrix}0&1/2&-1/2\\0&-1/2&-1/2\\0&0&-1/2\end{pmatrix}$，谱半径为$\frac{1}{2}$，收敛。
+
+$A_2$在Jacobi迭代法迭代矩阵是$\begin{pmatrix}0&-2&2\\-1&0&-1\\-2&-2&0\end{pmatrix}$，谱半径为0，收敛；而G-S迭代法迭代矩阵是$\begin{pmatrix}0&-2&2\\0&2&-3\\0&0&2\end{pmatrix}$，谱半径为2，不收敛。
+
+\item
+由谱半径可知$B$特征值全为0，考虑Jordan标准型可发现必有$B^n=O$，而$x_n=B^{n}x_0+B^{n-1}g+\dots+Bg+g$，由$B^n=O$知$x_n=(B^{n-1}+\dots+I)g$，进一步计算可发现$Bx_n+g$仍为$x_n$，也就是此即为精确解且此后不再变化。
+
+\item
+\begin{enumerate}[(1)]
+\item
+也即$x_1^2+x_2^2+x_3^2+2ax_1x_3>0$对非零向量恒成立成立，$a\in(-1,1)$时配方知满足要求，否则令$x_1=x_3=1,x_2=0$得矛盾。于是结论为$a\in(-1,1)$。
+
+\item
+Jacobi迭代法迭代矩阵是$\begin{pmatrix}0&0&-a\\0&0&0\\-a&0&0\end{pmatrix}$，特征值为$0,-a,a$，收敛需谱半径小于1，即$a\in(-1,1)$。
+
+\item
+G-S迭代法迭代矩阵是$\begin{pmatrix}0&0&-a\\0&0&0\\0&0&a^2\end{pmatrix}$，特征值为$0,0,a^2$，收敛需谱半径小于1，即$a\in(-1,1)$。
+\end{enumerate}
+
+\item
+先证明：可以找到排列方阵$P$使得$PA$左上角元素非零，右下角$n-1$阶子矩阵非奇异。
+
+考虑Laplace展开$\det(A)=\sum_ia_{i1}(-1)^{i+1}\det(A_{i1})$，其中$A_{ij}$为去掉$a_{ij}$所在行列的子矩阵。由于行列式非零，右边至少有一项非零，不妨设为$t$，则$a_{t1}$与$\det(A_{t1})$均非零，取$P$为交换1与$t$的置换阵即可验证成立。
+
+于是，通过归纳，一阶时成立，假设$n-1$阶时成立，$n$阶时先取出如上的$P_0$，再对右下角取出符合要求的$Q$，令$P=\begin{pmatrix}1&\mathbf{0}\\\mathbf{0}&Q\end{pmatrix}P_0$即可。
+
+\item
+利用定理4.2.4，只需说明$\|B\|_\infty<1$，而$\sum_{j=1}^n|b_{ij}|=\sum_{j\ne i}\big|\frac{a_{ij}}{a_{ii}}\big|=\frac{\sum_{j\ne i}|a_{ij}|}{|a_{ii}|}<1$，于是其对$i$取最大值也小于1，从而得证。
+
+\item
+归纳，一阶时可直接说明成立，若$n-1$阶时成立，下证$n$阶成立。记$m_i=|a_{ii}|-\sum_{j\ne i}a_{ij}$
+
+利用第一章习题8的证明过程中的小于号步骤，经过一步高斯消去，剩下的$A_2$乘$a_{11}$后的对角元$|a_{11}a_{kk}-a_{1k}a_{k1}|$减去$\sum_{j=2,j\ne k}^{n}|a_{11}a_{kj}-a_{1j}a_{k1}|$至少为$|a_{11}a_{kk}|-\sum_{j=1,j\ne k}^{n}|a_{11}a_{kj}|=m_k|a_{11}|$，于是除以$|a_{11}|$后得其至少为$m_k$。
+
+于是，$|\det(A)|=|a_{11}||\det(A_2)|\ge|a_{11}|\prod_{k=2}^nm_k\ge\prod_{k=1}^nm_k$。
+
+*归纳可发现这题的界可以作较大改进
+
+\item
+由于$b$不影响收敛性，不妨设其为0，则有$x_{n+1}=(D-L)^{-1}L^Tx_n$，于是$(D-L)x_{n+1}=L^Tx_n$。两边同左乘$x_n^T$与$x_{n+1}^T$，利用$x^TAx=x^TA^Tx$分解为$L,D$计算可发现
+$$x_{n+1}^TAx_{n+1}-x_n^TAx_n=-(x_n-x_{n+1})^TD(x_n-x_{n+1})\le0$$
+于是若$A$不正定，存在非零$x$使$x^TAx\le0$。若某次迭代中$x_n$与$x_{n+1}$不同，则由$D$正定知$x_{n+1}^TAx_{n+1}-x_n^TAx_n<0$，于是$x_{n+1}^TAx_{n+1}<0$，此后不增，不可能收敛到解。否则，$x$一直不变，由非零亦不是解，从而矛盾。
+
+\item
+若不收敛，则$\rho(H)\ge1$，即有$\lambda$使得$\lambda H=\alpha\lambda,|\alpha|\ge1$，则计算知$\lambda^HB\lambda=(1-|\alpha|^2)\lambda^HP\lambda$。记$\lambda=a+b\mathrm{i}$可发现正定阵对任何复向量$\lambda$仍有$\lambda^HP\lambda>0,\lambda^HB\lambda>0$，于是矛盾。
+
+\item
+$\omega=1$时，计算发现即为Jacobi迭代矩阵，也即要证，当$\rho(I-C)<1$时，$\rho(I-\omega C)<1,\omega\in(0,1)$。
+
+若否，有$(I-\omega C)\lambda = \alpha\lambda,|\alpha|\ge1$，于是$(I-C)\lambda=\big(\frac{\alpha-1}{\omega}+1\big)\lambda$。记$c=\frac{1}{\omega}$，乘共轭计算此特征值的模长平方为
+$$c^2|\alpha|^2+(c-1)^2-2(c-1)c\re(\alpha)\ge c^2|\alpha|^2+(c-1)^2-2(c-1)c|\alpha|=(c(|\alpha|-1)+1)^2\ge|\alpha|^2\ge1$$
+从而矛盾。
+
+\item
+与定理4.2.6类似，由于
+$$I-B=D^{-1/2}(\omega^{-1}D)^{-1/2}A(\omega^{-1}D)^{-1/2}D^{1/2}$$
+$$I+B=D^{-1/2}\big(2I-(\omega^{-1}D)^{-1/2}A(\omega^{-1}D)^{-1/2}\big)D^{1/2}$$
+特征值均为正实数，因此$(\omega^{-1}D)^{-1/2}A(\omega^{-1}D)^{-1/2},2I-(\omega^{-1}D)^{-1/2}A(\omega^{-1}D)^{-1/2}$正定对称，从而相合得结论。
+
+\item
+直接计算可得
+$$\lambda I-L_\omega=(D-\omega L)^{-1}((\lambda+\omega-1)D-\lambda\omega L-\omega U)$$
+类似定理4.2.9，只需说明$|\lambda|\ge1$时$(\lambda+\omega-1)D-\lambda\omega L-\omega U$严格对角占优或不可约对角占优。同除以$\omega$得$(\frac{\lambda-1}{\omega}+1)D-\lambda L-U$，由习题9证明过程知$\frac{\lambda-1}{\omega}+1$模长大于等于$\lambda$，从而严格对角占优或不可约对角占优性仍保持，即得证。
+
+\item
+非对角线非零元素为$12,13,21,24,31,34,42,43$，分为$\mathcal{S}_1=\{1\},\mathcal{S}_2=\{2,3\},\mathcal{S}_3=\{4\}$即可。
+
+\item
+\begin{enumerate}
+\item
+直接计算$a_{11}=\sqrt{2}$，而考虑到$-1$可知$a_{i+1,i}=-\frac{1}{a_{ii}}$，利用第一章习题18可知除了$a_{ii}$与$a_{i+1,i}$外的元素均为0，因此只需要考虑$a_{ii}$的递推。由$T_n$的对角线为2，有$a_{i+1,i+1}^2+a_{i+1,i}^2=2$，因此$a_{i+1,i+1}^2=2-\frac{1}{a_{ii}^2}$，解得$a_{ii}=\sqrt{\frac{i+1}{i}}$，于是$a_{i+1,i}=-\sqrt{\frac{i}{i+1}}$。
+
+\item
+与上方类似，递推可得$L$为$L_{ii}=1,L_{i+1,i}=-\frac{i}{i+1}$，$U$为$U_{ii}=\frac{i+1}{i},U_{i,i+1}=-1$。
+
+\item
+由于$T$的特征值互不相同，其特征向量能张成全空间，即特征向量作为列构成的矩阵$P$可逆。而$TP=PD$，其中$D$为特征值排列为的对角阵，于是$T=PDP^{-1}$，由条件，$D,P$均已知。原方程化为$PDP^{-1}U+UPDP^{-1}=h^2F$，记$U_0=P^{-1}UP$，则$DU_0+U_0D=h^2P^{-1}FP$。
+
+按如下步骤求解：先计算$P^{-1}$，复杂度$n^3$，然后计算$P^{-1}FP$，矩阵乘法复杂度可不超过$n^3$。而注意到$D$为对角阵，$DU_0+U_0D$可直接逐元素求解，于是解$DU_0+U_0D=h^2P^{-1}FP$的复杂度为$n^2$，最后计算$U=PU_0P^{-1}$，复杂度$n^3$，最终复杂度$O(n^3)$。
+\end{enumerate}
+
+\item
+先说明$s=2$时的情况，由于
+$$\begin{pmatrix}D_1&C_2\\B_2&D_2\end{pmatrix}=\begin{pmatrix}I&O\\B_2D_1^{-1}&I\end{pmatrix}\begin{pmatrix}D_1&O\\O&D_2-B_2D_1^{-1}C_2\end{pmatrix}\begin{pmatrix}I&D_1^{-1}C_2\\O&I\end{pmatrix}$$
+
+对两边取行列式可知$\det\begin{pmatrix}D_1&C_2\\B_2&D_2\end{pmatrix}=\det\begin{pmatrix}D_1&O\\O&D_2-B_2D_1^{-1}C_2\end{pmatrix}$，当$B_2$和$C_2$同乘的系数为1时不影响。
+
+若$s=k$时成立，考虑$s=k+1$时，左乘$\begin{pmatrix}I&O&O\\O&I&O\\O&-\mu B_sD_{s-1}^{-1}&I\end{pmatrix}$，右乘$\begin{pmatrix}I&O&O\\O&I&-\frac{1}{\mu}D_{s-1}^{-1}C_s\\O&O&I\end{pmatrix}$可以使右下角元素变为$D_s-B_sD_{s-1}^{-1}C_s$，$C_s,D_s$部分变为$O$，而左上部分不变，于是$\det(A)=\det(A_{s-1})\det(D_s-B_sD_{s-1}^{-1}C_s)$，利用归纳假设知与$\mu$无关。
+
+\item
+$\det(\lambda I-L_\omega)=0$
+
+$\Leftrightarrow\det(D-\omega C_L)^{-1}\det((\lambda+\omega-1)D-\lambda\omega C_L-\omega C_U)=0$
+
+$\Leftrightarrow\det((\lambda+\omega-1)D-\lambda\omega C_L-\omega C_U)=0$
+
+$\Leftrightarrow\det((\lambda+\omega-1)D-\lambda^{1/2}\omega C_L-\lambda^{1/2}\omega C_U)=0$\ (由习题14)
+
+$\Leftrightarrow\det(\frac{\lambda+\omega-1}{\lambda^{1/2}\omega}D- C_L- C_U)=0$
+
+$\Leftrightarrow\det(D^{-1}(\frac{\lambda+\omega-1}{\lambda^{1/2}\omega}D- C_L- C_U))=0$
+
+$\Leftrightarrow\det(\frac{\lambda+\omega-1}{\lambda^{1/2}\omega}I-B)=0$
+
+于是$\mu=\frac{\lambda+\omega-1}{\lambda^{1/2}\omega}$，同平方后求解二次方程即得题中式(注意到复数中$a^{1/2}$存在两值)。
+
+\item
+(暂缺)
+\end{enumerate}
+
+\section{共轭梯度法}
+\begin{enumerate}
+\item
+$(x-x_*)^TA(x-x_*)-x_*^TAx_*=x^TAx-(Ax_*)^Tx-x^TAx_*=x^TAx-b^Tx-x^Tb=\varphi(x)$
+
+\item
+记$x=x_{k-1}$，由算法$\varphi(x)-\varphi(x_k)=\frac{(r^Tr)^2}{r^TAr}$，其中$r=b-Ax$，题目即化为$\frac{x^TAx-2b^Tx}{\kappa_2(A)}\le\frac{(r^Tr)^2}{r^TAr}$。
+
+分析特征值与正交相似对角化可知正定对称阵的逆也正定对称，于是由$x=A^{-1}(b-r)$可进一步化为$\frac{r^TA^{-1}r-b^TA^{-1}b}{\kappa_2(A)}\le\frac{(r^Tr)^2}{r^TAr}$，即$\frac{r^TAr}{r^Tr}\frac{r^TA^{-1}r-b^TA^{-1}b}{r^Tr}\le\|A\|_2\|A^{-1}\|_2$。
+
+由正定对称$b^TA^{-1}b\ge0$，只需说明对正定对称阵$B$与任何非零向量$x$，有$\frac{x^TBx}{x^Tx}\le\|B\|_2$。而正定对称阵的奇异值即为特征值，作奇异值分解可知左侧不超过最大特征值，右侧即为最大特征值，从而得证。
+
+\item
+由最后一次迭代可知迭代结果$x_{k+1}$满足$\phi(x_{k+1})=-b^TA^{-1}b$，假设前一次为$x$，则下降方向$r=b-Ax$，类似习题2代入得$x^TAx-2b^Tx+b^TA^{-1}b=\frac{(r^Tr)^2}{r^TAr}$，由$x=A^{-1}(b-r)$化为$r^TA^{-1}rr^TAr=(r^Tr)^2$。
+
+考虑$A$的正交相似对角化$P^TDP$，记$s=Pr$，可发现$s^TD^{-1}ss^TDs=(s^Ts)^2$，利用柯西不等式可知左侧大于等于右侧，等号成立当且仅当$s^TD^{-1}s$的每个分量与$s^TDs$的每个分量对应成比例(或同为0)，于是$s$只能在$D$有相同对角元的某些分量非零，从而$s$是$D$的特征向量，即$DPr=\lambda Pr$，有$P^TDPr=\lambda r$，得证。
+
+\item
+只需说明系数矩阵可逆，即行列式非零。直接计算行列式$r_k^TAr_kp_{k-1}^TAp_{k-1}-(r_k^TAp_{k-1})^2$。记$A=LL^T,a=L^Tr_k,b=L^Tp_{k-1}$，则左式化为$\|a\|^2\|b\|^2-(a\cdot b)^2$，由于$r_k,p_{k-1}$线性无关，$L$可逆，$a,b$线性无关，$\|a\|^2\|b\|^2-(a\cdot b)^2$必然大于0，从而得证。
+
+\item
+*条件应增添每个$p_i$非零
+
+若否，不妨设$p_1=\sum_{i=2}^k\lambda_ip_i$，$\lambda_i$不全为0，则$p_1^TAp_1=\sum_{i=2}^k\lambda_ip_i^TAp_1=0$，与$p_1$非零矛盾。
+
+\item
+直接求导$\varphi'(y_{i-1}+te_i)=2ta_{ii}+2y_{i-1}^TAe_i-2b_i$，于是$t=\frac{y_{i-1}^TAe_i-2b_i}{a_{ii}}$。接下来只需要归纳验证，若$y_{i-1}$是由$(D-L)^{-1}Uy_0$的前$i-1$行与$y_0$的后$n-i+1$行组成，$y_i$是由$L_1y_0+(D-L)^{-1}b$的前$i$行与$y_0$的后$n-i$行组成，其中$L_1$为G-S的迭代矩阵。
+
+注意到，$y_i$可以写为$\begin{pmatrix}I_i&O\\O&O\end{pmatrix}(D-L)^{-1}(Uy_0+b)+\begin{pmatrix}O&O\\O&I_{n-i}\end{pmatrix}y_0$，将$y_{i-1}$代入$y_i=y_{i-1}+te_i$，分别考虑$y_0$部分和$b$部分的变化。将$(y_{i-1}^TAe_i)e_i$写为$E_iAy_{i-1}$，其中$E_i$为第$i$列为1的方阵，则有$y_i=(I+\frac{E_iA}{a_{ii}})y_{i-1}-2\frac{E_i}{a_{ii}}b$，代入计算第$i$个分量可得成立。
+
+\item
+利用相似对角化可知，若$A$的不同特征值为$\lambda_1,\dots,\lambda_k$，则多项式$f(x)=\prod_{i=1}^k(x-\lambda_i)$满足$f(A)=O$。
+
+由于子空间中的任何向量都可以写为$g(A)r$，$g(A)$为某个多项式，而$g(A)r=q(A)r$，其中$q(x)$为$g(x)$商去$f(x)$的余式，因此任何元素可以通过一个次数不超过$k-1$次的多项式乘$r$表示，即可以被$r,Ar,\dots,A^{k-1}r$线性表出，从而得证。
+
+\item
+由习题7，这时Krylov子空间维数最高为$k$，于是利用定理5.2.2，经过$k$步已经找到了使$\varphi(x)$全局最小的$x$，即为方程的解。
+
+\item
+利用定理5.3.2，记$x=x_k-x_*,y=x_0-x_*$变形后只需说明$\frac{x^Tx}{x^TAx}\frac{y^TAy}{y^Ty}\le\kappa_2(A)$。习题2已证明$\frac{y^TAy}{y^Ty}\le\|A\|_2$，下面说明$\frac{x^Tx}{x^TAx}\le\|A^{-1}\|_2$。
+
+仍利用正定对称性，对$A$作相似对角化$P^TDP$后，记$z=Px$，则$\frac{x^Tx}{x^TAx}=\frac{z^Tz}{z^TDz}\le\frac{1}{\min_iD_{ii}}=\rho(D^{-1})=\|D^{-1}\|_2=\|A^{-1}\|_2$，从而得证。
+
+\item
+(暂缺)
+
+\item
+直接计算可知，若$x^TAy=0$，有$\|x\|_A^2+\|y\|_A^2=\|x+y\|_A^2$，于是$r_k^T\mathcal{X}=0\Leftrightarrow(x_k-A^{-1}b)^TA\mathcal{X}=0\Leftrightarrow\forall x\in\mathcal{X},\|x-A^{-1}b\|_A^2=\|x_k-A^{-1}b\|_A^2+\|x_k-x\|_A^2\ge\|x_k-A^{-1}b\|_A^2$，即得证。
+
+\item
+记L2s为二范数平方(自己与自己点乘)，T为转置，mul为矩阵与向量乘法[此处为理想情况，迭代可以自动终止，初值设定为0。由于只涉及到$A^TA$与向量乘法，可以不用计算矩阵乘法]：
+
+\begin{code}
+p = rm1 = mul(T(A), b)
+
+a = L2s(r) / L2s(mul(A,p))
+
+x = a * p
+
+r = rm1 - a * mul(T(A), mul(A,p))
+
+while r != 0:
+
+\ \ b = L2s(r) / L2s(rm1)
+
+\ \ p = r + b*p
+
+\ \ a = L2s(r) / L2s(mul(A,p))
+
+\ \ x = x + a * p
+
+\ \ rm1 = r
+
+\ \ r = r - a * mul(T(A), mul(A,p))
+
+\end{code}
+\end{enumerate}
+
+\section{非对称特征值问题的计算方法}
+\begin{enumerate}
+\item
+$\det(\lambda I-BA)=\det\begin{pmatrix}\lambda I-BA&O\\B&I\end{pmatrix}=\det\begin{pmatrix}I&-B\\O&I\end{pmatrix}\begin{pmatrix}I&O\\\lambda^{-1}A&I\end{pmatrix}\begin{pmatrix}\lambda I&B\\O&I-\lambda^{-1}AB\end{pmatrix}$
+
+$=\lambda^m\det(I-\lambda^{-1}AB)=\lambda^{m-n}\det(\lambda I-AB)$，从而得证。
+
+\item
+由于$Q_k$每位模不超过1，根据有界收敛定理可知存在收敛子列。
+
+由于矩阵运算只涉及光滑函数，$Q^*AQ=\lim_{i\to\infty}Q_{k_i}^*A_{k_i}Q_{k_i}$，由右侧每个为上三角阵知结果为上三角阵。
+
+\item
+记$C=Q^*BQ$，由条件直接计算可知$CT=TC$，而$T$为对角元互不相同的上三角阵。直接计算可知$\sum_{k\le j}c_{ik}t_{kj}=\sum_{k\ge i}t_{ik}c_{kj}$，考虑所有$i>j$的部分，按照$i-j$可反向归纳得出必然$c_{ij}$全为0，从而得证。
+
+\item
+$\|Ax-\mu x\|_2^2=(Ax-\mu x)^*(Ax-\mu x)=x^*A^*Ax-x^*(\mu^* A+\mu A^*)x+\mu^*\mu x^*x=x^*A^*Ax+(-\mu^*R(x)-\mu R(x)^*+\mu^*\mu)x^*x=x^*A^*Ax-R(x)^*R(x)x^*x+\|\mu-R(x)\|_2^2x^*x$，从而得证。
+
+\item
+对$\alpha$，单位特征向量$(1,0)^T$，左特征向量$(1,\frac{\gamma}{\alpha-\beta})^T$，条件数$\sqrt{1+\frac{\gamma^2}{(\alpha-\beta)^2}}$。
+
+对$\beta$，单位特征向量$\big(1+\frac{\gamma^2}{(\alpha-\beta)^2}\big)^{-1/2}(\frac{\gamma}{\beta-\alpha},1)^T$，左特征向量$(0,\sqrt{1+\frac{\gamma^2}{(\alpha-\beta)^2}})^T$，条件数$\sqrt{1+\frac{\gamma^2}{(\alpha-\beta)^2}}$。
+
+\item
+设$B=QAQ^*$，若$x$为对特征值$\lambda$的单位特征向量，则由于$QAQ^*Qx=\lambda Qx$，$Qx$为$b$模为1的特征向量，类似知$\overline{Q}y$为对应的左特征向量，而$\|\overline{Q}y\|_2=\|y^TQ\|_2=\|y^T\|_2$。另一方面，由酉相似知$U_2$与$A_2$不变，于是$\Sigma^{\bot}$不变，对应的特征向量条件数不变。
+
+\item
+计算可知$A^n=\begin{pmatrix}\lambda^n&n\lambda^{n-1}\\0&\lambda^n\end{pmatrix}$。由归一化过程，$A^n$等同于$\begin{pmatrix}\lambda&n\\0&\lambda\end{pmatrix}$，分第二个分量是否为0讨论知一定收敛到$(1,0)^T$。
+
+计算可知$B^{2k}=\lambda^{2k}I$，于是$B$的偶数次方与$I$等同，奇数次方与$B$等同，只要一开始不为特征向量，不能收敛。
+
+\item
+计算知$A^nu_0=\begin{pmatrix}C_n^2\\n\\1\end{pmatrix}$，于是归一化后为$\begin{pmatrix}1\\2(n-1)^{-1}\\2(n^2-n)^{-1}\end{pmatrix}$，精确到5位需要$2(n-1)^{-1}<10^{-5}$，即$n>200001$。
+
+\item
+由条件可知模第二大的特征值必然在$\lambda_2,\lambda_n$中，由6.3节开头知需要$\frac{|\lambda_1-\mu|}{\max(|\lambda_2-\mu|,|\lambda_n-\mu|)}$尽量大。
+
+由于当$\lambda_1-\mu>\lambda_2-\mu>0$时有$\frac{\lambda_1-\mu}{\lambda_2-\mu}>\frac{\lambda_1}{\lambda_2}$。进一步讨论正负可发现最优时必须$\lambda_1-\mu>\lambda_2-\mu\ge0\ge\lambda_n-\mu$，且后两者模长相等，从而得证。
+
+\item
+构造其友方阵$\begin{pmatrix}&&&-\alpha_n\\1&&&-\alpha_{n-1}\\ &\ddots&&\vdots\\ &&1&-\alpha_1\end{pmatrix}$，其特征多项式即为$p(\lambda)$，因此模最大的特征值即为$p(\lambda)$的模最大根，在其唯一时用幂法计算即可。
+
+\item
+Mathematica计算可得约为$(1, -0.7321, 0.2679)^T$。
+
+\item
+只要取$E$使得$Ev=u$，即有$(A+E)v=\lambda Iv=\lambda v$，而从$Ev=u$可以得到$\sum_{i=1}^ne_{ij}v_j=u_j$。利用柯西不等式，$\sum_{i=1}^nv_j^2\sum_{i=1}^ne_{ij}^2\ge u_j^2$，且等号可以取到，于是存在$\sum_{i=1}^ne_{ij}^2=\frac{u_j}{\sum_{i=1}^nv_j^2}$的解，此时对$j$求和即有$\|E\|_F^2=\frac{\|u\|_2^2}{\|v\|_2^2}$，从而得证。
+
+\item
+取$v$为$A+E$对应$\lambda$的特征向量，类似习题12计算可知$Ev=u$，从而$\frac{\|u\|_2}{\|v\|_2}=\frac{\|Ev\|_2}{\|v\|_2}\le\|E\|_2$，即得证。
+
+\item
+$\begin{pmatrix}1&0\\1&-1\end{pmatrix}$与$\dfrac{1}{2}\begin{pmatrix}1&3\\1&-1\end{pmatrix}$交替出现，不收敛。
+
+\item
+若原本$a_{21}$到$a_{n1}$全为0，则已经结束，否则可左乘$P$将其中非零元素置换到$\alpha_{21}$，再左乘$M$进行行变换将整列剩下元素减去$\alpha_{21}$的倍数以消去(这里$P,M$都是针对后$n-1$行进行了行变换)。这时，右乘$P^{-1}$与$M^{-1}$都是对后$n-1$列进行操作的列变换，不会影响第一列的结果，从而得证。
+
+\item
+使用归纳法。$n=1,2$时成立，否则可利用$M_1,P_1$将其相似为习题15的对应形式，记作$\begin{pmatrix}\alpha_{11}&u_1\\u_2&A_2\end{pmatrix}$，其中$u_2$只有第一个分量可能非零。再构造$M_2,P_2$使得$M_2P_2A_2(M_2P_2)^{-1}$将$A_2$化为了对应形式。注意到，习题15的过程中没有改变第一行第一列，因此$M_2P_2$的第一行第一列只有对角元的1，从而$\begin{pmatrix}1&\mathbf{0}\\\mathbf{0}&M_2P_2\end{pmatrix}\begin{pmatrix}\alpha_{11}&u_1\\u_2&A_2\end{pmatrix}\begin{pmatrix}1&\mathbf{0}\\\mathbf{0}&P_2^{-1}M_2^{-1}\end{pmatrix}$不会改变$u_2$除第一个分量均为0的性质，重复此操作即得证。
+
+\item
+注意到$X^{-1}A^{t-1}x=e_t$，而$AX$的第$i$列为$A^ix$，于是$X^{-1}AX$的前$n-1$列为$e_2$到$e_n$，从而为上Hessenberg。
+
+\item
+*非亏损即可对角化
+
+由条件可知对任何$\lambda$，$\lambda I-H$的左下角$n-1$阶子矩阵可逆，从而其特征值几何重数必然为1，由可对角化知代数重数亦为1，从而没有重特征值。
+
+\item
+直接取$d_{11}=1,d_{i+1,i+1}=\frac{d_{ii}}{h_{i+1,i}}$，计算可知成立。由于$d_{ii}d_{n-i,n-i}=\prod_{i=1}^{n-1}h_{i+1,i}$，而$\|D\|_2,\|D^{-1}\|_2$分别为特征值与特征值倒数中模最大者，即$\prod_{i=1}^k|h_{k,k+1}|$中最大的除以最小的。
+
+\item
+由于存在Householder变换$H_0$使得$H_0\alpha=\|\alpha\|e_1$，而又由于$H_0$满足$H_0^2$的第一列是$e_1$，$H_0$的第一列即为$\frac{\alpha}{\|\alpha\|}$。这时计算可发现$H_0^TAH_0$的第一列为$\lambda e_1$，从而再将右下角的部分类似算法6.4.1处理得到$H_2$，取$Q=H_0H_2$即可。
+
+\item
+由于上Hessenberg矩阵不可约，可从上往下通过$n-1$个Givens方阵实现QR分解。而考虑每一次Givens变换，当
+$$\begin{pmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{pmatrix}\begin{pmatrix}a&b\\c&d\end{pmatrix}=\begin{pmatrix}0&b'\\0&d'\end{pmatrix}$$
+时，计算可知
+$$\begin{pmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{pmatrix}\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}=\begin{pmatrix}0&b''\\0&d''\end{pmatrix}$$
+也即$Q^{-1}HQ$在乘左侧的$Q^{-1}$形成有零对角元的上三角矩阵后，乘右侧的$Q$后此对角元仍然为0，从而得证。
+
+\item
+归纳，$U_0R_0=H_0-\mu_0I$成立，当小于等于$j-1$均成立时，考虑$j$。
+
+左侧$=U_0\dots U_{j-1}(H_j-\mu_jI)R_{j-1}\dots R_0=U_0\dots U_{j-1}H_jR_{j-1}\dots R_0-\prod_{i=0}^{j-1}(H-\mu_iI)\mu_jI$，于是由归纳假设只需要证明$U_0\dots U_{j-1}H_jR_{j-1}\dots R_0=U_0\dots U_{j-1}R_{j-1}\dots R_0H$。直接计算发现$H_tR_{t-1}=R_{t-1}H_{t-1}$，反复利用可知结论成立。
+
+\item
+设第$i$个对角元为$\lambda_i$，考虑$(A-\lambda_i I)x=0$，假设$x_i=0$，利用剩下$i-1$个方程独立性可以推出必须全为0，矛盾，于是可设$x_i=1$求解。下面假设$B,b$分别为$n-1$阶的方阵、向量，UpperSolve为求解上三角线性方程组，下标从1开始：
+
+\begin{code}
+def find\_eigen\_system(A, result):
+
+\ \ for i = 1 to n:
+
+\ \ \ \ for j = 1 to n-1:
+
+\ \ \ \ \ \ for k = j to n-1:
+
+\ \ \ \ \ \ \ \ B[j][k] = A[j<i?j:j+1][k<i?k:k+1]
+
+\ \ \ \ \ \ b[j] = -A[j<i?j:j+1][i]
+
+\ \ \ \ \ \ b[j][j] -= A[i][i]
+
+\ \ \ \ for j = 1 to n:
+
+\ \ \ \ \ \ result[i][j<i?j:j+1] = UpperSolve(B, b)[i]
+
+\ \ \ \ result[i][i] = 1
+\end{code}
+
+\item
+将Householder定义中的$ww^T$推广为$ww^H$，即为酉方阵，于是对复向量仍有定理3.2.2结论。将定理3.3.1从第一列开始上三角化变为从最后一列开始下三角化，即得到矩阵的QL分解。
+
+此外，将LU分解的过程变为对列进行Gauss变换可以得到UL分解的过程。
+
+考虑$A_{n-1}=Q_nL_n,A_n=L_nQ_n$的迭代，将定理6.4.1的过程中的LU分解替换为UL分解，QR分解替换为QL分解，即证明了若$Y$有$UL$分解，则对角线以上趋于0，对角线上趋于特征值。
+
+\item
+考虑P25底部和P26顶部的形式可知$P^TL=(L_{n-1}P_{n-1}\dots L_1P_1)^{-1}$。由于上Hessenberg阵的形式，每一步的$L_i$除对角线上的1外至多有一个元素$l_{i+1,i}$非0，而$P_i$则或为单位阵或为交换$i,i+1$两行的矩阵(右乘时变为列变换)。利用$P_i,L_i$逆的形式知其逆依然有此性质，因此按照1到$n-1$的顺序右乘上三角阵$U$后，$L_t$作用完后下三角部分至多$u_{21},u_{32},\dots,u_{t+1,t}$非零，于是全部作用完后仍为上Hessenberg阵。
+
+由$\tilde{H}=(P^TL)^{-1}HP^TL$可知相似。
+
+\item
+设$x$是$A$对$\alpha_{11}$的单位左特征向量，$Q=\begin{pmatrix}U&x\end{pmatrix}$是正交方阵，计算可发现此即满足要求(由于$\alpha_{11}$为实特征值，可使$x$是实向量)。
+
+寻找$x$：直接由条件列方程求解，可不妨设$x_1=1$解，因为下方构造正交矩阵的过程包含了单位化。
+
+构造正交矩阵：类似习题20用Householder变换构造即可。
+
+\item
+对于实特征值可直接利用反幂法，接下来对复特征值推导过程：
+
+设2阶方阵对角块对应的一对复特征值是$a\pm b\mathrm{i}$，取其中一个，反幂法的迭代步骤是$(A-aI-b\mathrm{i}I)v_k=z_{k-1}$，拆分为实向量$vr_k+\mathrm{i}vi_k,zr_k+\mathrm{i}zi_k$可知$\begin{cases}(A-aI)vr_k+bvi_k=zr_{k-1}\\(A-aI)vi_k-bvr_k=zi_{k-1}\end{cases}$，于是$\begin{cases}((A-aI)^2+b^2)vr_k=(A-aI)zr_{k-1}-bzi_{k-1}\\((A-aI)^2+b^2)vi_k=bzr_{k-1}+(A-aI)zi_{k-1}\end{cases}$，另一个递推可写为$\begin{cases}l_k=\sqrt{\|vr_k\|^2+\|vi_k\|^2}\\zr_k=\frac{vr_k}{l_k}\\zi_k=\frac{vi_k}{l_k}\end{cases}$。计算可发现，将$b$改为$-b$后，递推事实上只是$vi,zi$变为相反数，因此递推结束后只需要取$zr\pm\mathrm{i}zi$即得到特征值。
+
+于是，取$a$与$b$的近似值进行如上的迭代即可得到复特征值的特征向量，结合实特征值的特征向量计算可得到结论。
+
+\item
+幂法中每步$y_k=A^TAu_{k-1}$即可，这样无需显式计算矩阵乘积。最后得到的特征值需要开根号得到最大奇异值。
+
+\item
+左奇异向量即为$AA^T$的特征向量，而右奇异向量为$A^TA$的特征向量，从而可得到奇异值后利用反幂法计算。
+
+\item
+$A^nu=X\Lambda^n X^{-1}u_0$，归一化的结果与$X\diag(\mathrm{e}^{in\theta},1,\frac{\lambda_3}{\lambda_2},\dots,\frac{\lambda_n}{\lambda_2})X^{-1}u_0$相同，于是可类似定理6.2.1计算得充分大时$u_n\to\mathrm{e}^{in\theta}(y_1^*u_0)x_1+(y_2^*u_0)x_2$，而代入$\theta$得表达式即可知有$t$个对应的收敛子序列。
+
+\item
+由于$A$乘倍数不影响结果，不妨设$\lambda_1=1$。
+
+由条件设$A=PJP^{-1}$，$J$对角，计算知$q_k=\frac{PJ^kP^{-1}u}{\|PJ^kP^{-1}u\|}$，从而$q_k^*Aq_k=\dfrac{u^*P^{*-1}J^{*k}P^*PJ^{k+1}P^{-1}u}{u^*P^{*-1}J^{*k}P^*PJ^kP^{-1}u}$，于是有$|q_k^*Aq_k-1|=\left|\frac{u^*P^{*-1}J^{*k}P^*PJ^k(J-I)P^{-1}u}{u^*P^{*-1}J^{*k}P^*PJ^kP^{-1}u}\right|$。
+
+注意到$J^k(J-I)$中模最大的分量不超过$2|\lambda_2|^k$，而$J^{*k}$模最大分量不超过1，假设$u^*P^{*-1}J^{*k}P^*P$与$P^{-1}u$的模最大分量的界为$a,b$，分母不超过$2n^2ab|\lambda_2|^k$。另一方面，趋于极限时分子的$J$只有第一个分量为1，由于分子为$\|PJ^kP^{-1}u\|^2$，由条件极限时结果$c$非零，从而存在某个$k$之后大于等于$\frac{c}{2}$，综上可知原式不超过$\frac{4n^2ab}{c}|\lambda_2|^k$，即得证$O(|\lambda_2|^k)$。
+
+当$A$为Hermite阵时，可设$P$为正交阵，上式变为$|q_k^*Aq_k-1|=\left|\frac{u^*P^{*-1}|J|^{2k}(J-I)P^{-1}u}{u^*P^{*-1}|J|^{2k}P^{-1}u}\right|$，其中$|J|$为$J^*J$每个元素开平方根，即$J$每个元素取模。与上方类似过程可知此时为$O(|\lambda_2|^{2k})$。
+
+\item
+\begin{enumerate}[(1)]
+\item
+由于对应分块大小对应，可以直接相乘，从而通过分块矩阵计算知结果。
+
+\item
+计算得$U_kU_k^*=I-q_kq_k^*$，于是有$\rho_k^2-\|g_k\|^2=q_k^*A^*Aq_k-\mu_kq_k^*A^*q_k-\mu_k^*q_k^*Aq_k+\mu_k^*\mu_k-q_k^*A^*Aq_k+q_k^*A^*q_kq_k^*Aq_k=-\mu_k\mu_k^*-\mu_k^*\mu_k+\mu_k^*\mu_k+\mu_k^*\mu_k=0$，其中利用了$q_k^*q_k=1$。
+
+\item
+展开知右$=\frac{1}{\delta_k}(q_{k-1}+U_{k-1}(\mu_{k-1}I-C_{k-1})^{-1}g_{k-1})$，由于$q_k$与目标式的计算过程都进行了归一化(乘酉阵不影响模)，需说明$q_{k-1}\parallel(A-\mu_{k-1}I)q_{k-1}+(A-\mu_{k-1}I)U_{k-1}(\mu_{k-1}I-C_{k-1})^{-1}g_{k-1}$，而右式$=Q_{k-1}\begin{pmatrix}0\\g_{k-1}\end{pmatrix}+Q_{k-1}\begin{pmatrix}h_{k-1}^*\\C_{k-1}-\mu_{k-1}I\end{pmatrix}y_k=Q_{k-1}\begin{pmatrix}0\\g_{k-1}\end{pmatrix}+Q_{k-1}\begin{pmatrix}h_{k-1}^*y_k\\-g_{k-1}\end{pmatrix}=(h_{k-1}^*y_k)q_{k-1}$，从而得证。
+
+\item
+类似幂法收敛性条件可知其收敛到的$\mu$必然为单特征值，否则将无法收敛。于是，利用(2)可知极限中$C$的特征值是$A$除去$\mu$后得到，$(\mu_kI-C_k)^{-1}$的极限存在。由此可知$(\mu_kI-C_k)^{-1}$有界，估算知$y_k=O(\|g_{k-1}\|)$。
+
+由于$I+y_ky_k^*$是Hermite阵，可进行正交相似对角化$I+y_ky_k^*=R^*JR$，由于$J$为$I+y_ky_k^*$的特征值，且$\det(xI-y_ky_k^*)=x^{n-1}(x-y_k^*y_k)$，可知对应特征值与1的差是$O(\|y_k^*y_k\|)$量级，而根据相合对角化的过程可知$R-I$亦为$O(\|y_k^*y_k\|)$量级，从而取$D=(\sqrt{J}R)^{-1}$放缩知$\|I-D\|=O(\|y_ky_k^*\|)$，从而得结论。
+
+\item
+利用(3)计算可知右侧的第一列是$q_k$，从而只需说明$P_k=\begin{pmatrix}1&-y_k^*\\y_k&I\end{pmatrix}\begin{pmatrix}\delta_k^{-1}&0\\0&D\end{pmatrix}$是酉方阵，而直接计算$P_k^*P_k=I$，因此得证。
+
+\item
+利用(5)计算，$g_k$为$P_k^*Q_{k-1}^*AQ_{k-1}P_k$的对应部分，于是计算知$g_k=\frac{1}{\delta_k}(-\mu_{k-1}D^*y_k+D^*g_{k-1}-(h_{k-1}^*y_k)D^*y_k+D^*C_{k-1}y_k)$。
+
+(4)已经说明$y_k$是$O(\|g_{k-1}\|)$，而$C_{k-1},\delta_k,\mu_k$是$O(1)$，再利用(4)对$D$的估算可得$g_k=\frac{1}{\delta_k}(-\mu_{k-1}y_k+g_{k-1}-(h_{k-1}^*y_k)y_k+C_{k-1}y_k)+O(\|g_{k-1}\|^3)$。注意到$-\mu_{k-1}y_k+g_{k-1}+C_{k-1}y_k=0$即得结论。
+
+\item
+由于$y_k=O(\|g_{k-1}\|)$，代入(6)，再利用(2)可直接得结论。当$A$为Hermite阵时，由于$h_{k-1}=g_{k-1}$，代入(6)后左右均为$O(\|g_{k-1}\|^3)$，从而有结论。
+\end{enumerate}
+\end{enumerate}
+
+\section{对称特征值问题的计算方法}
+\begin{enumerate}
+\item
+设其对应的单位特征向量为$\alpha$，有$A\alpha=\lambda\alpha$，由对称可知$\alpha^TA=\lambda\alpha^T$，从而其亦为左特征向量，且$\alpha^T\alpha=1$，由条件数定义知为1。
+
+\item
+利用定理7.1.3，计算知将$A$的第$i$行、列除对角元外变为0的对称矩阵$B$有特征值$a_{ii}$，而$A-B$只有第$i$行/列非零，记其第$i$列为$\alpha$，可知$A-B=e_i\alpha^T+\alpha e_i^T$(由于$\alpha_i=0$)，从而$\|(A-B)x\|=\sqrt{(\alpha^Tx)^2+(\|\alpha\|x_i)^2}$。
+
+利用柯西不等式，当$x^Tx=1$时，利用$\alpha_i=0$有$(\alpha^Tx)^2+(\|\alpha\|x_i)^2\le \alpha^T\alpha(1-x_i^2)+\alpha^T\alpha x_i^2=\alpha^T\alpha$，从而$\|(A-B)x\|$最大为$\sqrt{\alpha^T\alpha}$，而此即为二范数，因此$A$必然有一特征值在$B$的特征值$a_{ii}$的周围$\sqrt{\alpha^T\alpha}$范围内，从而得证。
+
+\item
+由于同时正交相似对角化不改变结果，可不妨设$A$为对角阵。此时记$t^{-1}=\|A^{-1}\|_2$为最小对角元的倒数，$t$即代表$A$的最小对角元。
+
+而对非零的$x$，由二范数定义$x^TAx+x^TEx\ge tx^Tx - \|x\|\|Ex\|>tx^Tx - \|x\|(t\|x\|)=0$，从而得证。
+
+\item
+由奇异值分解$A=P\Sigma Q$可知$A^TA=Q^T\Sigma^T\Sigma Q$，由相似不影响特征值与$Q$正交可知$A^TA$的特征值即为$\Sigma^T\Sigma$对角元，而由于$\Sigma$对角元非负，$\Sigma^T\Sigma$对角位置恰好为$\Sigma$对应对角元的平方，从而得证。$AA^T$同理。
+
+\item
+由习题4，利用对称阵条件有$A^TA=A^2$，正交相似对角化可知$A^2$特征值为$A$对应特征值的平方，从而奇异值平方与对应特征值平方相同，又由奇异值非负可知结论。
+
+\item
+设奇异值分解$A=P\Sigma Q$，则由$P,Q$正交$\|A\|_2=\max_x\frac{\|Ax\|}{\|x\|}=\max_{y=Qx}\frac{\|P\Sigma y\|}{\|Q^Ty\|}=\max_y\frac{\|\Sigma y\|}{\|y\|}$。利用$\Sigma$为对角阵可直接算出$\|A\|_2=\sigma_1$，同理可算出$\|A^{-1}\|_2=\frac{1}{\sigma_n}$，因此得证。
+
+\item
+引理：对于任何$n$的$k-1$元子集$I$，任何$U\in\mathcal{G}_k^n$中存在向量$x\ne0$使得$x_i=0,i\in I$。
+
+证明：不妨设$I$为前$k-1$个分量，其余同理。考虑$U$的一组基$\{x_i\}$排成$n\times k$矩阵，对其上面的$k-1\times k$矩阵可右乘列变换阵$P$成为上三角阵(多出的一列全为0)，而由基线性无关，$P$可逆，右乘$P$后仍然满秩，因此前$k-1$个分量全为0的列其余分量不全为0，从而得证。
+
+类似习题6可知不妨设$A$已经是$\Sigma$形式，非负对角元从大到小排列的对角阵。由引理可知$\mathcal{G}_i^n$中一定存在非零向量使得前$i-1$个分量全为0，此时$\frac{\|\Sigma u\|}{\|u\|}\le \sigma_i$，因此对所有子空间取最大值不超过$\sigma_i$，而取前$i$个单位向量生成的子空间可以取到$\sigma_i$，从而第一个等号得证。
+
+对右侧，由于$\mathcal{G}_{n-i+1}^n$中一定存在非零向量使得后$n-i$个分量为0，此时$\frac{\|\Sigma u\|}{\|u\|}\ge \sigma_i$，因此对所有子空间取最小值不低于$\sigma_i$，而取后$n-i+1$个单位向量生成的子空间可以取到$\sigma_i$，从而第二个等号得证。
+
+\item
+$O\big(\frac{(x+t)^TA(x+t)}{(x+t)^T(x+t)}-\lambda\big)=O((x+t)^TA(x+t)x^Tx-x^TAx(x+t)^T(x+t))=O(t^TAtx^Tx)=O(t^TAt)$，第二步利用了$(x^TA)^T=Ax=\lambda x$，而一三两步利用同乘非小量的量不会改变量级。由于$t=O(\varepsilon)$，计算分量可得$O(t^TAt)=O(\varepsilon^2)$，从而得证。
+
+\item
+设$T$的对角元$\alpha_1$到$\alpha_n$，次对角元$\beta_1$到$\beta_n$，可知$Aq_i=\beta_{i-1}q_{i-1}+\alpha_iq_i+\beta_iq_{i+1}$，范围外的下标对应数均为0。
+
+先任取单位向量$q_1$，由于$Aq_1-\alpha_1q_1=\beta_1q_2$，$q_2^Tq_1=0$，$\alpha_1$必然为$Aq_1$在$q_1$上的投影长度，即$\alpha_1=\frac{q_1^TAq_1}{q_1^Tq_1}$，类似地，每一步都可以变为确定新的$q_m$与$s,t$使得$x-sq_{m-1}=tq_m$，且$x$已没有在$q_1$到$q_{m-2}$的分量，因此取$s$为投影长度$\frac{x^Tq_{m-1}}{q_{m-1}^Tq_{m-1}}$即可得到$t$与$q_m$。重复此操作得到结果。
+
+\item
+在算法7.6.1的过程中，将每次循环中第一个v与beta累计左乘到左侧的U上，第二个累计右乘到右侧的V上，即得到$UAV=B$的形式，再分别取转置即可。
+
+\item
+直接计算可知$\alpha_2$为位移时结果为$-\frac{\varepsilon^3}{(\alpha_1-\alpha_2)^2+\varepsilon^2}=O(\varepsilon^3)$。
+
+由Wilkson位移性质可知$T-\mu I$不可逆，因此分解出的$QR$中$R$第二行为0，从而$RQ$第二行为0，可得$\widetilde{T}(2,1)$一定为0。
+
+\item
+由7.3.4相加可知$\beta_{pp}+\beta_{qq}=(c^2+s^2)(\alpha_{pp}+\alpha_{qq})=\alpha_{pp}+\alpha_{qq}$，再由7.3.15即得证。
+
+\item
+即$c\alpha_{12}+s\alpha_{22}=-s\alpha_{11}+c\alpha_{21}$，于是记$m=\sqrt{(\alpha_{11}+\alpha_{22})^2+(\alpha_{12}-\alpha_{21})^2}$，有$c=\frac{\alpha_{11}+\alpha_{22}}{m},s=\frac{\alpha_{21}-\alpha_{12}}{m}$。
+
+利用此算法，对此阵先化为对称，再用Jacobi方法对角化，对角元取模即为奇异值(可由对角元为1与$-1$的对角阵调整符号)。
+
+\item
+先由习题13得到$\theta_0$，再根据书上对称阵算法得到$\theta_2$使得$J(p,q,-\theta_2)AJ(p,q,\theta_2)$为对角阵，取$\theta_1=\theta_0-\theta_2$即可。
+
+由正交阵性质$\sum_i\beta_{ii}^2=\sum_{ij}\alpha_{ij}^2$，于是直接计算$E(B),E(A)$得证。
+
+\item
+先用Householder变换使其只剩下$\min(m,n)\times\min(m,n)$的方阵，再利用习题14的操作不断进行两边旋转，极限为对角阵，再由对角元为1与$-1$的对角阵调整符号得结果。
+
+\item
+计算知即$cs(x^Tx-y^Ty)+(c^2-s^2)x^Ty=0$，此即$(x^Tx-y^Ty)\sin2\theta+2x^Ty\cos2\theta=0$，可得到$\varphi=2\theta$后$c=\cos\frac{\varphi}{2},s=\sin\frac{\varphi}{2}$(或用二次方程规避三角函数运算)。
+
+\item
+*此题题干应为$\mathbb{R}^{m\times n}$
+
+考虑$\sum_{i<j}(a_i^Ta_j)^2$，其中$a_i$代表$A$的第$i$列。直接计算可发现如习题16操作$p,q$对其他列的影响在平方和中抵消，因此每次操作$p,q$使此和减小了$(a_p^Ta_q)^2$，而极限必然为0，因此不断选取两列如此操作可最终收敛至相互正交。
+
+\item
+由条件可知需要$d_i$满足$\frac{\gamma_id_i}{d_{i+1}}=\frac{\beta_id_{i+1}}{d_i}$，由于$\gamma_i\beta_i>0$，可取$d_{i+1}=\sqrt{\frac{\gamma_id_i^2}{\beta_i}}$，不妨设$d_1=1$，即可归纳构造出$d_i$。
+
+\item
+\begin{enumerate}[(1)]
+\item
+若$\xi_1=0$，利用$\alpha_1\xi_1+\beta_2\xi_2=\lambda \xi_1$，由不可约知$\beta_2\ne0$，从而$\xi_2=0$，重复此过程可推出$\xi=0$，矛盾。若$\xi_n=0$同理得矛盾，从而得证。
+
+\item
+设左侧为$t_i$，在$i=1$时记为1，$i=2$时计算可知为$\lambda-\alpha_1$，此时只需要满足相同的递推。在已知$\xi_{i-1}$与$\xi_i$时，有$\beta_i\xi_{i-1}+\alpha_i\xi_i+\beta_{i+1}\xi_{i+1}=\lambda\xi_i$，于是$\beta_i^2\beta_{i+1}t_{i-1}+\alpha_i\beta_{i+1}t_i+\beta_{i+1}t_{i+1}=\lambda\beta_{i+1}t_i$，由不可约消去$\beta_{i+1}$即可发现递推与$(-1)^{i-1}p_{i-1}(\lambda)$相同，得证。
+\end{enumerate}
+
+\item
+利用定理7.4.1，不可约对称三对角阵只有单特征值，因此产生$k$重特征值至少需要分为$k$块，即$k-1$个为零的次对角元。
+
+\item
+\begin{enumerate}
+\item
+由推论7.4.1知负定即首个顺序主子式为负且每次顺序主子式都变号，计算验证知负定成立。
+
+\item
+由负定，考虑$s_n(-2)$可知有两个落在指定范围内。
+\end{enumerate}
+
+\item
+每次计算$(T-\tilde{\lambda}I)y_k=z_{k-1}$，并令$z_k$为$y_k$模最大分量的归一化。
+
+由于$T$为对称三对角阵，$T-\tilde{\lambda}I$利用高斯消元可做到$O(n)$复杂度的LU分解，进一步可得到计算$y_k$的复杂度为$O(n)$，每次迭代只需要$O(n)$复杂度。
+
+\item
+即用二分法求$B^TB$的特征值，这个矩阵乘法的计算复杂度$O(n)$，可直接显示计算。
+
+\item
+(暂缺)
+
+\item
+(暂缺)
+
+\item
+(暂缺)
+
+\item
+$C^*=C\Leftrightarrow A^T-\mathrm{i}B^T=A+\mathrm{i}B\Leftrightarrow M^T=M$，于是充要条件得证。
+
+而$M\begin{pmatrix}\alpha\\\beta\end{pmatrix}=\lambda\begin{pmatrix}\alpha\\\beta\end{pmatrix}\Leftrightarrow\begin{cases}A\alpha-B\beta=\lambda\alpha\\B\alpha+A\beta=\lambda\beta\end{cases}\Leftrightarrow C(\alpha+\beta\mathrm{i})=\lambda(\alpha+\beta\mathrm{i})$，计算发现$\begin{pmatrix}\beta\\-\alpha\end{pmatrix}$亦为$\lambda$对应的特征向量。于是$M$对应特征值重数是$C$的两倍，特征向量关系为$\alpha+\beta\mathrm{i}$对应$\begin{pmatrix}\alpha\\\beta\end{pmatrix}$与$\begin{pmatrix}\beta\\-\alpha\end{pmatrix}$。
+\end{enumerate}
+\end{document}

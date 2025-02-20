@@ -1,0 +1,482 @@
+\documentclass[a4paper,UTF8]{ctexart}
+\pagestyle{headings}
+\title{\heiti 数学分析A3\ 课堂笔记}
+\author{原生生物}
+\date{}
+
+\setcounter{tocdepth}{2}
+\setlength{\parindent}{0pt}
+
+\usepackage{amsmath,amssymb,enumerate,geometry,mathdots}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+
+\ctexset{section={number=\zhnum{section}}}
+\ctexset{subsection={name={\dag},number={}}}
+
+\newtheorem{defi}{定义}[section]
+\newtheorem{thm}{定理}[section]
+\newtheorem{exmp}{例}[section]
+
+\everymath{\displaystyle}
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section*{历史回顾}
+\addcontentsline{toc}{section}{历史回顾}
+
+\subsection{微积分}
+在老师工作的基础下，为求函数在区间上的最值，\textbf{费马}构造差分，发明了导数。
+
+三类初等函数微积分的历史：
+
+\begin{enumerate}
+	
+\item 多项式函数
+
+\textbf{牛顿}将函数(事实上此处应为初等函数)视为幂级数展开$f(x)=\sum_{n=0}^{\infty}a_nx^n$，又引入\textbf{二项式定理}计算出$x^n$的微分与积分，从而只要掌握多项式微积分即可算出任何初等函数微积分。
+
+\textbf{莱布尼茨}将微积分看作满足一定计算规则的\textbf{计算方法}(Calculus) (如$(af+bg)^\prime=af^\prime+bg^\prime, (fg)^\prime=f^\prime g+fg^\prime, f(g(x))^\prime=f^\prime g(x)g^\prime(x)$，其中第二条被称为\textbf{莱布尼茨公式}，推广到流形上有重要作用)。
+
+*此处微分上的公式通过同积分即可推广到积分上，莱布尼茨公式对应分部积分。此外，通过复合函数求导公式可推出反函数求导公式。通过莱布尼茨公式可\textbf{递推}出多项式函数的微分。
+
+\item 三角函数
+
+\textbf{欧拉}用弧长定义弧度，进而定义角度，并给出了三角函数的定义与记号(重要极限：$\lim_{x\to0}\frac{\sin x}{x}=1$)。
+
+*和角公式$\sin(\alpha+\beta)=\sin\alpha\cos\beta+\cos\alpha\sin\beta$等出发可进行平面坐标上的旋转，由此亦可计算三角函数的导数，再结合反函数求导公式可推出反三角函数的导数。
+
+\item 对数函数、指数函数
+
+对数函数出现先于指数函数，发明目的是将乘除变为加减($\log(a_1a_2)=\log(a_1)+\log(a_2)$)。
+
+“等差数列”与“等比数列”之间的对应即为某种意义上的对数函数与指数函数在整数上的取值。为获取中间的值，需要编制\textbf{对数表}。
+
+1617年，英国人\textbf{Briggs}编制了首张对数表(做法：通过二进制反复计算平方根逼近，组合出对应的小数次方)。
+
+*计算平方根方式：先找到逼近的值，再通过$(x+\Delta x)^2\approx x^2+2x\Delta x$计算。
+
+另一个重要极限：$\lim_{x\to 0}\frac{\log(1+t)}{t}$，化为计算$\left(1+\frac{1}{t}\right)^t$极限，由此出发定义\textbf{自然底数}$e$，进而得出对数函数的导数，而对数函数结合反函数求导公式可推出指数函数的导数。
+\end{enumerate}
+
+\textbf{费马}：极值点导数若存在，必然为0，新问题：函数是否存在极值？(涉及连续性理论与实数)
+
+\textbf{牛顿-莱布尼茨公式}联系了微分与积分，从求导出发即可进行一些积分的计算。
+
+\subsection{实数与连续性}
+正整数的构造 - 表达整数(十进制) \textbf{九章算术}前
+
+负整数的构造 \textbf{刘徽}之前
+
+加入零\ 公元7世纪
+
+*加法与乘法满足\textbf{基本运算律}(交换、结合、分配等)
+
+分数的构造 - $(p,q)$的等价类\ 将\textbf{单位}变小，仍可满足基本规则
+
+实数的构造 - 任意小数(单位\textbf{无穷}减小)
+
+*事实上是将实数看成了有理数的\textbf{极限}，由此可知仍满足基本规则
+
+*实数可具有全序关系
+
+实数的\textbf{完备性}(拓扑概念)：任一柯西列($\{a_n\},\forall\varepsilon>0,\exists N,\forall n,m>N,|a_n-a_m|<\varepsilon$)必有极限
+
+(证明：回顾实数完备性的六个等价定理)
+
+*实数的其他构造方式：Dedekind分割、柯西列等价类等(注意\textbf{回到原始定义}证明的重要性)
+
+由此出发可定义开集、闭集、聚点、连通性等(回顾A2中相关的点集拓扑基础)
+
+*$\mathbb{R}$上的开集是可数个不交开区间的并(证明：对任何$a\in E$，考虑$\inf_tt<a,(t,a)\subset E$与$\sup_tt>a,(a,t)\subset E$即可)
+
+连续函数等价定义：任意开集的\textbf{原象}是开集(可转化为$\varepsilon-\delta$语言，回顾连续等价条件)
+
+连续函数性质：闭区间上有界、存在极值、介值定理(回顾连续相关性质)
+
+\section{数项级数}
+本质与数列等价(级数的\textbf{部分和}数列)
+
+由此有直接的结论：若数项级数收敛，其\textbf{通项极限}必为0；级数增减\textbf{有限多}项不影响敛散性。
+
+重要问题：判别敛散(判别法综合运用)。
+
+\subsection{正项级数}
+\begin{enumerate}
+\item 积分判别法
+
+原理：比较\textbf{面积}可证明，单调下降且极限为0的函数$f(x)$，$\sum_{n=1}^\infty f(n)$与$\int_1^\infty f(x)\mathrm{d}x$同敛散。
+
+例：$\sum_{i=1}^\infty\frac{1}{n(\ln n)^p(\ln\ln n)^q}$收敛的条件为$p<1$或$p=1,q<1$(利用$n$为比任何$(\ln n)^\alpha$高阶的无穷大)。
+
+\item 比较判别法
+
+原理：正项级数对应\textbf{单调上升}数列，有界即收敛；若两不同正项级数的通项之比有界，则必然同敛散。
+
+判别法化为\textbf{极限形式}：回忆A1，利用$\limsup_{n\to\infty}a_n=\lim_{n\to\infty}\sup_{m\ge n}\{a_m\}$，可将“存在无穷多个”与“至多有限多个”表示为上下极限。有时为方便使用，直接采取极限形式。
+
+\item 柯西判别法
+
+原理：与\textbf{等比数列}比较，考虑$\sqrt[n]a_n$与1的大小关系。
+
+例：$\sum_{n=1}^\infty\frac{x^n}{n}$收敛的条件为$-1\le x<1$(柯西判别法处理$x$非负时情况，为负时须后续知识)。
+
+\item 达朗贝尔判别法
+
+原理：与\textbf{等比数列}比较，考虑相邻项之比与1的大小关系。
+
+例：$\sum_{n=1}^\infty\frac{x^n}{n!}$必然收敛(此时用此判别法可规避斯特林公式)。
+
+与柯西判别法关系：效果更弱，但有时好用。
+
+\item 拉贝判别法
+
+原理：与$\frac{1}{n^\sigma}$比较，考虑相邻项之比减一的无穷小情况。
+
+\item $\triangle$高斯判别法
+
+原理：与$\frac{1}{n(\ln n)^\sigma}$比较，考虑相邻项之比减一的无穷小情况。
+\end{enumerate}
+
+\subsection{任意项级数}
+*由数项级数而定义：收敛、发散点集
+
+\begin{enumerate}
+\item 柯西收敛准则
+
+原理：直接对部分和数列利用柯西收敛准则即得结果，是任意项级数收敛的\textbf{充分必要}条件。
+
+例：若某级数所有项取绝对值后得到的正项级数收敛，则此级数必然收敛(此时称此级数\textbf{绝对收敛})；反之，若级数收敛但取绝对值得到的级数不收敛(如$(-1)^n\frac{1}{n}$)，则称此级数\textbf{条件收敛}。
+
+\item 莱布尼茨判别法
+
+原理：类似积分判别的证明方式，估算交错级数部分和不同子列。
+
+\item 迪利克雷判别法
+
+证明：利用\textbf{分部求和}公式改写和式，从而放缩知收敛。
+
+作用：考虑乘积是否收敛时可拆分判定。
+
+例：$\sum_{n=1}^\infty\frac{\cos nx}{n}$，$x=0$时发散，否则令$a_n=\cos nx,b_n=\frac{1}{n}$，可计算出$\sum_{n=1}^ka_n=\frac{\cos\frac{k+1}{2}x\sin\frac{k}{2}x}{2\sin\frac{x}{2}}$有界，因此原级数收敛。
+
+\item 阿贝尔判别法
+
+原理：变形，$\sum_{k=1}^na_kb_k=\sum_{k=1}^na_k(b_k-b)+b\sum_{k=1}^na_k$。
+
+与迪利克雷判别法关系：互有强弱，根据具体情况运用。
+\end{enumerate}
+
+\textbf{黎曼定理}：条件收敛的特殊性质，安排顺序收敛到任意目标。
+
+证明：取出其中的正项与负项，由条件知正项与负项的和均发散，从而可安排顺序构造出结果。
+
+$\triangle$其他内容：绝对收敛可交换次序、级数相乘、无穷乘积(取$\ln$后化为求和，利用与1差距计算)
+
+\section{函数项级数}
+\subsection{重要问题}
+若函数$S_(x)$为函数$S_n(x)$极限(可看作函数项级数$\sum_{n=1}^\infty u_n(x)$)：
+
+(由此出发须定义\textbf{一致收敛})
+
+\begin{enumerate}
+\item $S_n(x)$连续，极限是否连续？
+
+反例：$S_n(x)=x^n,x\in[0,1]$
+
+加条件：$S_n(x)$一致收敛，则成立。
+
+证明：由定义估算。
+
+\item $S_n(x)$可积，积分是否可与求和交换？
+
+反例：$S_n(x)=2n^2x\mathrm{e}^{-n^2x^2},x\in(0,1)$
+
+加条件：$S_n(x)$一致收敛，则成立。
+
+证明：利用保连续，由不连续点零测集可数并零测可证明。
+
+另一种“加条件”做法：\textbf{黎曼可积}拓展为\textbf{勒贝格可积}
+
+\item $S_n(x)$可导且导数连续，求导是否可与求和交换？
+
+反例：$S_n(x)=\frac{\sin nx}{\sqrt{x}},x\in\mathbb{R}$
+
+加条件：$S_n^\prime(x)$一致收敛，且$S_n(x)$至少某一点收敛，则成立。
+
+证明：利用保积分，使用牛顿-莱布尼茨公式证明。
+\end{enumerate}
+
+\subsection{一致收敛判据}
+\begin{enumerate}
+\item 柯西判别法
+
+原理：类似柯西准则，为充要条件。
+
+\item $\triangle$已知收敛结果$f$时，$f_n$在$I$上一致收敛等价于$\lim_{n\to\infty}\sup_{x\in I}|f_n(x)-f(x)|=0$。
+
+证明：利用柯西准则。
+
+\item 魏尔斯特拉斯判别法
+
+原理：利用柯西判别法，与数列比较。
+
+\item 迪利克雷判别法
+
+原理：类似数列的迪利克雷判别法，注意利用\textbf{一致有界}条件。
+
+例：$\sum_{n=1}^\infty\frac{\cos nx}{n},x\in[\delta,2\pi-\delta](0<\delta<\pi)$类似数列时利用迪利克雷判别法可判定一致收敛。
+
+\item 阿贝尔判别法
+
+原理：类似数列的阿贝尔判别法(注意此时无法由迪利克雷判别法直接推得)。
+
+\item Dini定理
+
+原理：类似证明闭集连续函数闭一致连续，利用有限覆盖，可控制全区间大小。
+\end{enumerate}
+
+*证明一致收敛技巧：\textbf{分段}估计(若在两段均一致收敛则并集仍一致收敛)、注意两个\textbf{充要}条件
+
+例：$\sum_{n=1}^\infty(1-x)\frac{x^n}{1-x^{2n}}\sin(nx)$一致收敛，通过拆分为$[0,a]$(此段可放大为$a^n$)与$[a,1]$(此段$\sin(nx)$一致有界)两段可以说明。
+
+*证明不一致收敛技巧：从原始\textbf{定义}出发、考虑边界处、利用\textbf{柯西准则}找反例
+
+例：考虑$\sum_{n=1}^\infty\frac{\sin(nx)}{n}$。对任何$N$，可以取$x=\frac{1}{N+1}$，第$N+1$项到第$2N$项均大于$\frac{\sin1}{2N}$，因此和大于$\frac{\sin1}{2}$，由定义知其不一致收敛。
+
+\subsection{幂级数}
+
+(复变函数中有重要推广)
+
+考虑$\sum_{n=0}^\infty a_nx^n$，利用柯西判别知$|x|<R=(\limsup_{n\to\infty}\sqrt[n]{|a_n|})^{-1}$时收敛，大于则发散(等于时无法确定)。
+
+*定义满足这样条件的$R$为级数的\textbf{收敛半径}(复变函数中成为圆)。
+
+*对任何$0<r<R$，$\sum_{n=0}^\infty a_nx^n$在$[-r,r]$上一致收敛(\textbf{内闭一致收敛})。
+
+证明：将$x$放大为$r$，利用魏尔斯特拉斯判别法。
+
+由此其满足之前所述的\textbf{保求和}、\textbf{保导数}、\textbf{保积分}等性质。
+
+例：$\ln(x+1)=\int_0^x\frac{1}{t+1}\mathrm{d}t=\int_0^x\sum_{n=0}^\infty(-1)^nt^n\mathrm{d}t=\sum_{n=1}^\infty(-1)^{n-1}\frac{x^n}{n}$
+
+*初等函数可用多项式逼近，因此其幂级数相当于\textbf{无穷阶泰勒展开}，回忆\textbf{中值定理}所推导出的几种\textbf{余项}形式(拉格朗日余项、柯西余项、多重积分余项)。
+
+*记忆基本初等函数的幂级数展开形式。
+
+$\triangle$一般地说，无穷阶可导未必可以表示为幂级数展开，若可表示则称为\textbf{实解析函数}。
+
+魏尔斯特拉斯逼近定理：闭区间上函数可用多项式一致逼近$\Leftrightarrow$函数连续。
+
+证明：构造\textbf{伯恩斯坦多项式}，观察其性质，并估算、控制误差。
+
+$\triangle$ \textbf{Abel定理}与Tauber定理：判定幂级数在边界上的性质
+
+\subsection{特殊例子}
+*利用函数项级数可构造出一些特殊的映射
+
+\begin{enumerate}
+\item 存在处处连续，处处\textbf{不可微}的函数
+	
+最早构造-魏尔斯特拉斯利用\textbf{三角函数}级数
+	
+范德瓦尔登“化曲为直”，更直观构造。
+	
+证明：级数的每项都是连续函数，利用魏尔斯特拉斯判别法可知一致收敛，从而极限处处连续。计算导数可发现极限可写为某个$\pm1$组成的级数，由于通项不趋向0，级数不可能收敛，故处处不可微。
+
+\item 填充正方形的曲线
+
+存在线段到正方形的连续映射(\textbf{皮亚诺曲线})
+
+证明：仍利用魏尔斯特拉斯判别法推出此映射连续。考虑正方形中某点的二进制表示，可构造合适的$t_0$收敛至此点。
+\end{enumerate}
+
+$\triangle$ 由于$\int_a^b f=\lim_{A\to b^-}\int_a^A f$ (此处$b$可为$\infty$)，反常积分可与级数类似方法处理
+
+\section{傅里叶分析}
+\subsection{定义与计算}
+关心重点：\textbf{周期函数}(周期足够大可逼近任何函数)
+
+一般函数用级数$f(t)=\sum_{n=0}^\infty A_n\sin(n\omega t+\varphi_n)=\sum_{n=0}^\infty (a_n\sin(n\omega t)+b_n\cos(n\omega t))$逼近
+
+标准展开形式：$f(t)=\frac{a_0}{2}+\sum_{n=1}^\infty (a_n\sin(n\omega t)+b_n\cos(n\omega t))$ (此处$f$以$2\pi$为周期)
+
+性质：\textbf{正交性}
+
+$\int_{-\pi}^\pi\cos(nx)\cos(mx)\mathrm{d}x=\int_{-\pi}^\pi\sin(nx)\sin(mx)\mathrm{d}x=\begin{cases}\pi&m=n\\0&m\neq n\end{cases},\int_{-\pi}^\pi\cos(nx)\sin(mx)\mathrm{d}x=0$
+
+由此可计算系数：$\int_{-\pi}^\pi f(x)\cos(nx)\mathrm{d}x=\pi a_n,\int_{-\pi}^\pi f(x)\sin(nx)\mathrm{d}x=\pi b_n$ (注意对$a_0$亦成立)
+
+例1：考虑函数$f(x)$在$[-\pi,\pi)$上为$x$，以$2\pi$为周期，计算可得$a_n=0,b_n=(-1)^{n-1}\frac{2}{n}$，可发现逼近的结果在$(-\pi,\pi)$上为$f(x)$，端点处为0，而$f(\pi)=-\pi$。
+
+例2(\textbf{锯齿波})：考虑函数$f(x)$在$[-\pi,\pi)$上为$|x|$，以$2\pi$为周期，此时$b_n=0,a_n=\begin{cases}-\frac{4}{n^2\pi}&2\nmid n\\0&2\mid n\end{cases},a_0=\pi$。
+
+(考虑边界处可得$\sum_{n=0}^\infty\frac{1}{(2n+1)^2}=\frac{\pi^2}{8}$)
+
+例3：考虑函数$f(x)$在$[-\pi,\pi)$上为$x^2$，以$2\pi$为周期，此时$b_n=0,a_n=(-1)^n\frac{4}{n^2},a_0=\frac{2\pi^2}{3}$。
+
+(考虑边界处可得$\sum_{n=1}^\infty\frac{1}{n^2}=\frac{\pi^2}{6}$)
+
+例4：$f(x)=\cos(ax),a\notin\mathbb{Z},x\in(-\pi,\pi)$，计算可得$b_n=0,a_n=\frac{(-1)^n}{\pi}\frac{a^2}{a^2-n^2}\sin(a\pi),a_0=\frac{2}{a\pi}\sin(a\pi)$。
+
+(考虑边界处可得$\sum_{n=1}^\infty\frac{(-1)^na^2}{\pi(a^2-n^2)}+1=\frac{a}{\sin(a\pi)}$)
+
+*考虑边界处可发现\textbf{恒等式}
+
+\subsection{敛散性判别}
+
+*$f$分段可微，间断点有限，则傅里叶级数逐点收敛于$\begin{cases}f(x_0)&x_0$为连续点$\\\frac{1}{2}(f(x_0^-)+f(x_0^+))&x_0$为间断点$\end{cases}$
+
+$\triangle$ 黎曼-勒贝格引理证明：等分区间，由定义估算。
+
+收敛性证明：利用三角恒等式代换为\textbf{迪利克雷积分}，将问题转化为积分的极限是否存在。
+
+~
+
+\textbf{平方可积}意义下的收敛性：若$\lim_{n\to\infty}\frac{1}{\pi}\int_{-\pi}^\pi|S_n-f|^2\mathrm{d}x=0$，则称为$S_n$积分意义下收敛于$f$。
+
+(此处由完备性应采取\textbf{勒贝格积分}，目前先以黎曼积分讨论)
+
+$S_n=\frac{a_0}{2}+\sum_{k=1}^n(a_k\cos(kx)+b_k\sin(kx))$，计算得$\frac{1}{\pi}\int_{-\pi}^\pi|S_n-f|^2\mathrm{d}x=\frac{1}{\pi}\int_{-\pi}^\pi f-\frac{a_0^2}{2}-\sum_{k=1}^n(a_k^2+b_k^2)\ge0$，此即为\textbf{帕塞瓦尔不等式}。
+
+由于$\frac{1}{\pi}\int_{-\pi}^\pi f-\frac{a_0^2}{2}-\sum_{k=1}^n(a_k^2+b_k^2)$单调有界，极限必然存在，因此积分意义下只需说明极限不能大于0。
+
+定理：黎曼积分下，$f$连续可推出此式极限为0 (勒贝格积分下：只需$f$可积且平方可积)。
+
+证明：令$T_n=\frac{\alpha_0}{2}+\sum_{k=1}^n(\alpha_k\cos(kx)+\beta_k\sin(kx))$，可发现$\frac{1}{\pi}\int_{-\pi}^\pi|T_n-f|^2\mathrm{d}x=\frac{1}{\pi}\int_{-\pi}^\pi|S_n-f|^2\mathrm{d}x+\frac{1}{\pi}\int_{-\pi}^\pi|S_n-T_n|^2\mathrm{d}x\ge\frac{1}{\pi}\int_{-\pi}^\pi|S_n-f|^2\mathrm{d}x$，也即$S_n$为$n$阶三角多项式下的\textbf{最佳逼近}。
+
+由此，只要$f$可用三角多项式逼近(积分意义下)，即可说明结论。
+
+*任何连续函数$f$可用三角多项式逐点逼近。
+
+引理：连续函数的傅里叶级数在Ces\`aro意义上一致收敛于原函数(利用迪利克雷积分计算)。
+
+由引理出发可以直接构造出逐点逼近序列。
+
+\subsection{傅里叶变换}
+*由于三角函数求导周期性，傅里叶级数展开在\textbf{微分方程}中有重要应用。
+
+例：热传导方程$\frac{\partial u}{\partial t}=\frac{\partial^2u}{\partial x^2},u(0,x)=\varphi(x)$，写出$u$对$x$的傅里叶级数可算出解的级数表示。
+
+~
+
+*从$[-l,l]$上展开拓展到$(-\infty,+\infty)$上展开，由此得出傅里叶\textbf{积分公式}。
+
+由\textbf{绝对可积}出发可说明此积分在有限时的和，趋向无穷时的收敛性可由\textbf{Dini定理}判别。
+
+*绝对可积与广义左右导数存在可推出傅里叶积分收敛结果
+
+~
+
+由此得出傅里叶\textbf{正弦}、\textbf{余弦}变换公式，写为复数形式即得\textbf{傅里叶变换}公式。
+
+*傅里叶展开可看作\textbf{离散形式}的变换
+
+*傅里叶变换可将\textbf{卷积}化为乘积
+
+\section{含参变量积分}
+*按照常义积分与反常积分分别讨论
+
+\subsection{反常积分的一致收敛}
+定义：本质与函数项级数一致收敛相同
+
+判别：
+
+\begin{enumerate}
+\item $\triangle$ 关于$\eta(A)$的\textbf{充要条件}
+
+与函数项级数时充要条件类似，可以此直接计算说明是否一致收敛
+
+\item 柯西收敛原理
+
+充要条件，常用于反例构造
+
+\item 魏尔斯特拉斯判别法
+
+与连续函数的无穷积分比较，柯西收敛原理说明
+
+*条件\textbf{较强}，难以使用
+
+\item 迪利克雷判别法
+
+利用积分\textbf{中值定理}分段放缩可说明
+
+\item 阿贝尔判别法
+
+利用\textbf{分部积分}计算
+
+*当只有单个因子包含$u$时情况更加简化
+
+\end{enumerate}
+
+\subsection{重要问题}
+*重点观察：关于$u$的函数$\varphi(u)=\int_a^bf(x,u)\mathrm{d}x$性质(可看作函数项级数处理)
+
+\begin{enumerate}
+\item $\varphi(u)$是否连续？
+
+对常义积分：二元函数$f$\textbf{连续}时，$\varphi$必然连续。
+
+$\triangle$ 此处事实上可弱化为$f$在区间上\textbf{可积}(难证，利用可积函数由连续函数\textbf{逼近}说明)。
+
+对反常积分：添加一致收敛后连续成立(通过拆分逼近)。
+
+\item $\varphi(u)$是否可导？
+
+对常义积分：$f$与$\frac{\partial f}{\partial u}$存在且连续时，可由定义直接计算导数
+
+*$a,b$为常数时，可直接交换求导，否则考虑\textbf{拆分为复合函数}可计算出导数
+
+对反常积分：求导后连续且一致收敛可推出求导与积分可交换
+
+\item $\varphi(u)$是否可积？
+	
+对常义积分：$f$连续时积分号可以交换顺序(A2知识)
+
+对反常积分：添加一致收敛，拆分逼近知对$u$常义积分可与广义积分交换
+
+$\triangle$ 对$u$广义积分时，首先需对$x,u$分别的广义积分均一致收敛，再添加\textbf{绝对可积}条件
+
+$\triangle$ 非负时，利用Dini定理可弱化条件
+\end{enumerate}
+
+*积分计算
+
+例：$I(\alpha)=\int_0^\infty\mathrm{e}^{-\alpha x}\frac{\sin{x}}{x}\mathrm{d}x$，分部可算得$I'(\alpha)=-\frac{1+I'(\alpha)}{\alpha^2}$，由此直接积分有$I(\alpha)=-\arctan\alpha+\frac{\pi}{2}$。特别地，$I(0)-\frac{\pi}{2}$。
+
+\subsection{$\Gamma$函数与$\mathrm{B}$函数}
+$\Gamma(s)=\int_0^\infty t^{s-1}e^{-t}\mathrm{d}t$
+
+$s>0$时，$\Gamma(s)$收敛，可任意阶求导(\textbf{一致收敛}性)。
+
+$\Gamma$函数性质：
+\begin{enumerate}
+	\item $S>0$上恒正且$\Gamma(1)=1$
+	\item 分部积分可得递推$\Gamma(s+1)=s\Gamma(s)$，由此$\Gamma(n)=(n-1)!$
+	\item 利用\textbf{赫尔德不等式}可说明$\ln\Gamma(s)$为凸函数
+\end{enumerate}
+
+$\triangle$真正的性质在\textbf{复变函数}中
+
+*与之相对，由此三条可\textbf{唯一确定}出$\Gamma$函数
+
+~
+
+$\mathrm{B}(p,q)=\int_0^1t^{p-1}(1-t)^{q-1}\mathrm{d}t$
+
+分部积分知有递推$\mathrm{B}(p+1,q)=\frac{p}{p+q}\mathrm{B}(p,q+1)$
+
+两函数联系：$\mathrm{B}(p,q)=\frac{\Gamma(p)\Gamma(q)}{\Gamma(p+q)}$ (可通过分析三条性质或直接计算说明)
+
+*可推出\textbf{斯特林公式}
+
+\section{流形}
+\subsection{反函数、隐函数}
+
+
+
+\end{document}

@@ -1,0 +1,3639 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\pagestyle{headings}
+\title{\heiti 线性代数习题解答}
+\author{原生生物}
+\date{}
+
+\usepackage{amsmath,amssymb,enumerate,geometry,mathdots}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Char}{Char}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\tr}{tr}
+\setcounter{tocdepth}{2}
+\setlength{\parindent}{0pt}
+\ctexset{section={name={第,章},number=\zhnum{section}},
+	subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+\everymath{\displaystyle}
+
+\begin{document}
+\maketitle
+
+作者QQ：3257527639
+
+对应讲义：王新茂老师讲义(下载地址：mcm.ustc.edu.cn/xxds) 2021年9月6日版
+
+使用资料：个人解题为主，答案来源包括助教的习题课讲义、同学解出的难题或网络上的论文与解答等。
+
+\tableofcontents
+
+\newpage
+
+\section*{习题分级}
+\addcontentsline{toc}{section}{习题分级}
+
+*答案暂缺：4.1 - 9,12(1)、4.2 - 6、5.1 - 15(2-4)、7.2 - 7(4)、7.3 - 2,8,9,14
+
+*习题解答中，引用定义、定理、例题或习题若未标注节数则默认在本节中
+
+容易(难度分级中未提及的题目)：在完成本讲基础知识的学习后应该做出。
+
+中档：在基础知识上结合一定的思考，尽量独立解决。
+
+困难：复杂的拓展与提升，有不少结论值得熟悉。存在极困难的题目，建议及时查阅答案，不宜死磕。
+
+难算(独立于难度级别)：有较为繁杂的计算或需要的技巧集中在计算部分。
+
+1.2 难算5,6
+
+2.1 中档6(3,6),7(3,5,6,8),9,11(1,3),13,16、困难7(7),15,17,18、难算6(6),7(7)
+
+2.2 中档3-6、难算1,8(4)
+
+2.3 中档3,8,9
+
+2.4 中档3(2-8),7,9,10,12、困难13,14、难算3(6)
+
+3.1 中档5(4,5,7,8,10,14,15)
+
+3.2 中档3,5-7,9,11、困难4,10,12-14、难算4,5
+
+3.3 中档1,2,4-9、困难10-12
+
+3.4 中档2-5、难算2
+
+4.1 中档5-7,8(1-5)、困难8(6),9-13
+
+4.2 中档2,7-9,12、困难5-6,10
+
+4.3 中档2,3-5,8-10
+
+5.1 中档3(7,8),4(3,4),5-7,9,12,13、困难11(2-4),14,15(2-4),16(1,2,4)、难算14
+
+5.2 中档3,5,7、困难9,10
+
+5.3 中档3,10,11、困难4-9,12
+
+5.4 中档1(5-10),3,5-10、难算1(9,10)
+
+5.5 中档2,3,5,11,12、困难4,6,7,9,10、难算10(2,3),12
+
+6.1 中档4,7(2),9、困难3,12
+
+6.2 中档4,6、困难5,8,9
+
+6.3 中档2,4,5,6(1-4),7,9(1,3)、困难3,6(5,6),8,9(2),10、难算7(2)
+
+6.4 中档2,5、困难11-13、难算4
+
+7.1 中档5(3),6,7、难算5(3),6
+
+7.2 中档3,5(3),6,7(1),8(3,4),9(1),13(2)、困难5(2),7(2-4),9(2-4),10(2,3),12,14
+
+7.3 中档1,3,4,7,11、困难2,5,8-10,12-14
+
+8.1 中档6
+
+8.2 中档3,8,9
+
+8.3 中档5,6,9,10
+
+8.4 中档5、困难7-10
+
+8.5 中档6,7(2,3),8(2,3),9、困难3、难算1
+
+8.6 中档3,5,9,10
+
+8.7 中档2-4,6,7、困难5
+
+9.1 中档2(10),7(1-3)、困难7(4,5)、难算5(2)
+
+9.2 中档4-8
+
+9.3 中档3-6
+
+9.4 中档4(2,3),5(1),6(2),8,9、困难3,5(2),6(1),7,10
+
+9.5 中档5,6,7(1-4)、困难4,7(5)
+
+9.6 中档3,7,8(1,2),10(2)、困难8(3)
+
+9.7 中档1(1),2(2,3),3,4、困难1(2),2(1),5,6
+
+10.1 中档3(1,2),4-6、困难3(3),8
+
+10.2 中档2(2,3),9(1,2)、困难2(1),5,7,8,9(3),10
+
+10.3 中档2,4、困难5(3,4)
+
+10.4 中档8(1-3),9(2),10(1)、困难8(4),9(3),10(2,3)
+
+10.5 中档6
+
+10.6 中档2,4,6、困难5
+
+\section{线性方程组}
+\subsection{消元解法}
+\begin{enumerate}
+\item 	
+设$f,g$为$x_1,x_2,x_n\dots$的一次多项式，$f=0,g=0\Rightarrow\lambda f=0,g-\lambda f=0$，故解不减少
+
+交换两个方程的位置，其逆变换为再次交换此两方程；
+
+将某个方程替换为其非零常数$\lambda$倍，其逆变换为将此方程替换为其$\frac{1}{\lambda}$倍；
+
+将某个方程替换成它与另一方程的常数$\lambda$倍之和，其逆变换为将此方程替换它与对应方程的$-\lambda$倍之和；
+
+故，对于其中的任意操作，可通过其逆操作将其变回，故解亦不增加。
+综上可知此三操作不改变线性方程组的解。
+
+\item
+(1) $x_1=\frac{5}{13}, x_2=\frac{7}{13}, x_3=-\frac{1}{13}, x_4=\frac{2}{13}$
+
+(2) $x_1=-2t,x_2=t,x_3=0,x_4=t$，$t$为任意实数
+
+(3) $x_1=\frac{2-t}{3}, x_2=0, x_3=\frac{5t-1}{3}, x_4=-3t, x_5=t$，$t$为任意实数
+
+(4) 无解
+
+(5) 无解
+
+(6) $x_1=0,x_2=-1,x_3=0,x_4=-1$
+
+\item
+初等变换后将方程组化为定理1.2中的阶梯形，由变换特点知最右侧必然仍全为0，且左侧含未知数最少的行至少含有$n-m+1\ge2$个未知数。将除了此行第一个未知数$x_m$外的数全取为1，代入可知此时必有解，此即为一个所需的非零解。
+\end{enumerate}
+
+\subsection{矩阵表示}
+\begin{enumerate}
+\item
+A1 - A4由各xx分量加法运算律知成立；
+
+M1 - M2计算分量数乘，由乘法运算律知成立；
+
+D1 - D2计算分量情况，由加法乘法分配律知成立。
+
+\item
+注意增广矩阵变换后如何对应线性方程组不同的解的情况。
+
+\item
+设其为$ax+by+c=x^2+y^2$，代入成为线性方程组，解得其为$x^2+y^2-\frac{25}{7}x-\frac{23}{7}y+\frac{18}{7}=0$。
+
+\item
+待定系数解出三点所在平面为$6x+3y+2z-6=0$，任取一过三点的球，由几何可知与平面交线即为此圆，一切这样的球为$x^2+y^2+z^2-tx-\frac{t+4}{2}y-\frac{t+9}{3}z+t=0$，$t$为任意实数。
+
+\item
+由线性方程组解出一特解$f_0(x)=\frac{1}{60}x^5-\frac{1}{4}x^3+\frac{37}{30}x$，若$f_1,f_2$均为解，作差可知$1,2,3,-1,-2,-3$均为$f_1-f_2$的根，故令$g(x)=(x-1)(x-2)(x-3)(x+1)(x+2)(x+3)$，则一切满足要求的$f$为$f_0(x)+h(x)g(x)$，其中$h(x)$为任意多项式。
+
+\item
+由线性方程组解出一特解$f_0(x)=\frac{1}{2}x^5-\frac{1}{8}x^4-\frac{3}{2}x^3+\frac{3}{4}x^2+2x-\frac{5}{8}$，若$f_1,f_2$均为解，作差，由泰勒展开可知1与$-1$均为$f_1-f_2$的至少三重根，故令$g(x)=(x-1)^3(x+1)^3$，则一切满足要求的$f$为$f_0(x)+h(x)g(x)$，其中$h(x)$为任意多项式。
+
+\item
+矩阵形式变换为$\begin{pmatrix}\lambda&0&-\lambda&0&0\\0&\lambda&0&-\lambda&0\\0&1&\lambda&1&1\\1&0&1&\lambda&1\end{pmatrix}$，当$\lambda\ne0$时可变换为$\begin{pmatrix}\lambda&0&-\lambda&0&0\\0&\lambda&0&-\lambda&0\\0&0&\lambda&2&1\\0&0&0&\lambda^2-4&\lambda-2\end{pmatrix}$，当$\lambda\ne\pm2$时，解得$x_1=x_2=x_3=x_4=\frac{1}{\lambda+2}$；当$\lambda=2$时，解得$x_1=c,x_2=\frac{1}{2}-c,x_3=c,x_4=\frac{1}{2}-c$，$c$为任意实数；当$\lambda=-2$时无解；当$\lambda=0$时，解得$x_1=a,x_2=b,x_3=1-a,x_4=1-b$，$a,b$为任意实数。
+
+\item
+行初等变换后，增广矩阵可化为$\begin{pmatrix}2&1&-1&2&1\\0&1&1&2&1\\0&0&1&1&1\\0&0&0&a+1&a+1\\0&0&0&0&4-b\end{pmatrix}$，故有解条件为$b=4$，有唯一解条件为$b=4$且$a\ne-1$，此时解为$x_1=0,x_2=-1,x_3=0,x_4=1$；当$a=-1$时，解为$x_1=t,x_2=t-1,x_3=t,x_4=1-t$，$t$为任意实数。
+\end{enumerate}
+
+\section{矩阵运算}
+\subsection{基本概念}
+\begin{enumerate}
+\item 
+两题均考虑对应分量的值并化简求和即可证明。
+
+\item
+$AB=\begin{pmatrix}4&3&4\\5&3&8\\5&3&6\\2&1&2\end{pmatrix},BC=\begin{pmatrix}1&4&3&1\\2&5&3&2\\2&1&1&2\end{pmatrix},B^2=\begin{pmatrix}3&2&2\\4&3&4\\2&1&4\end{pmatrix},ABC=\begin{pmatrix}7&11&8&7\\8&19&13&8\\8&15&11&8\\3&5&4&3\end{pmatrix}$
+
+\item
+$b_{ij}=\begin{cases}a_{i+j-2}\mathrm{C}_{i+j-2}^{i-1}&i+j\le n+2\\0&i+j>n+2\end{cases}, c_{ij}=\begin{cases}a_{i+j-1} &i+j\le n+1\\0&i+j>n+1\end{cases}$，直接验证可知其对称。
+
+\item
+(1) 由定理2.2-5，$B=B^T\Rightarrow ABA^T=(A^T)^TB^TA^T=ABA^T$，因此成立。
+
+(2)与上一问类似知$ABA^T=-ABA^T$，设$A=(a_{ij}),B=(b_{ij})$，第$k$个对角元$\sum_{j=1}^{n}(AB)_{kj}(A^T)_{jk}=\sum_{j=1}^{n}\left(\sum_{i=1}^{n}a_{ki}b_{ij}\right)a_{kj}=\sum_{i,j=1}^{n}a_{ki}a_{kj}b_{ij}$，由$B$反对称可知其为0。
+
+\item
+设A为$\begin{pmatrix}a&b\\c&d\end{pmatrix}$；
+
+第一个方程为$\begin{pmatrix}2ab&bc+ad\\bc+ad&2cd\\\end{pmatrix}=\begin{pmatrix}0&1\\1&0\end{pmatrix}$，解为$\begin{pmatrix}0&\frac{1}{m}\\m&0\\\end{pmatrix}$或$\begin{pmatrix}\frac{1}{m}&0\\0&m\\\end{pmatrix}$，$m$为非零实数；
+
+第二个方程为$\begin{pmatrix}0&bc-ad\\ad-bc&0\end{pmatrix}=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$，只需$\det{A}=1$即可。
+
+\item
+(1) $\begin{pmatrix}0&1&0\\1&0&0\\0&0&1\end{pmatrix}$
+
+(2) $\begin{pmatrix}0&1&0\\0&0&1\\1&0&0\\\end{pmatrix}$
+
+(3) 将$A$看成以$\begin{cases}y=0\\x+z=0\end{cases}$为转轴的$180^\circ$旋转(具体变换为三阶列向量$x\to Ax$)，则自上向下看顺时针$90^\circ$的旋转为$\begin{pmatrix}\frac{1}{2}&\frac{\sqrt2}{2}&-\frac{1}{2}\\[1.5ex]-\frac{\sqrt2}{2}&0&-\frac{\sqrt2}{2}\\[1.5ex]-\frac{1}{2}&\frac{\sqrt2}{2}&\frac{1}{2}\end{pmatrix}$
+
+(4) $\begin{pmatrix}0&0&-1\\0&-1&0\\-1&0&0\end{pmatrix}(A^3=A\Rightarrow(-A)^3=-A)$
+
+(5) $\begin{pmatrix}0&0&1\\1&0&0\\0&1&0\end{pmatrix}$(将$B$看作置换)
+
+(6) 将$B$看成$x=y=z$为转轴的自上而下顺时针$120^\circ$旋转 (具体变换为三阶列向量$x\to Bx$)，故作以此为转轴的右手$80^\circ$旋转，由下方算法可得结果。
+
+\textbf{求正交阵一个方根的一般方法：}
+
+\textbf{步骤0：预备知识}
+
+正交阵即满足$AA^T=A^TA=I$的方阵，均可看作过原点的转轴的旋转。因此，作出对应旋转后便能通过控制角度得到方根。以下讨论均在三阶正交阵 (看成过原点直线为转轴的旋转) 中进行。设此方阵为$M$，目标方阵为$X$，$x,\alpha,\beta,\gamma$均为三阶列向量。
+
+\textbf{步骤1：确定转轴与角度}
+
+转轴即为不动点集，解方程$Mx=x$，解出的$x$构成一条直线，即所求转轴。
+
+若无法直接看出旋转角度，可任取不在转轴上的一点$\alpha$，连接$\alpha$与$M\alpha$，作垂直平分线，交转轴于$\beta$，这三点构成的等腰三角形顶角即为旋转角度。
+
+一般化地，接下来寻找过直线$a$作角度为$\theta$的右手旋转对应的矩阵$X$。
+
+\textbf{步骤2：正交基的确定}
+
+在转轴上取一个单位方向向量$\alpha$(事实上可任取$\alpha$再作$\alpha^\ast=\frac{\alpha}{|\alpha|}$)，作出与$\alpha$垂直的平面$x\alpha^T=0$，在平面上任取单位方向向量$\beta$，再待定系数得平面上与$\beta$垂直，且可由$\beta$右手旋转$90^\circ$得到的单位向量$\gamma$ (若首次求出的$\gamma$不符合要求，则取$\gamma^\ast=-\gamma$)，此时$\alpha,\beta,\gamma$构成了三维空间的一组标准正交基，由矩阵乘法的线性性，只需确认三个基的像便可以得到任意点的像，反之，利用这三个基已足以构造方程。
+
+\textbf{步骤3：几何得出任意点的像}
+
+$\alpha$在旋转下的像显然仍为$\alpha$，而$\beta$与$\gamma$均在与转轴垂直的平面上，故退化为平面旋转的情况，可得出$X\beta=\cos{\theta}\beta+\sin{\theta}\gamma,X\gamma=-\sin{\theta}\beta+\cos{\theta}\gamma$，故作出任意点在$\alpha,\beta,\gamma$表示下的坐标即可由线性组合得到像，即$t=\lambda_1\alpha+\lambda_2\beta+\lambda_3\gamma\Rightarrow Xt=\lambda_1\alpha+(\lambda_2\cos{\theta}-\lambda_3\sin{\theta})\beta+(\lambda_2\sin{\theta}+\lambda_3\cos{\theta})\gamma$ (事实上，这可以看成把原本的坐标系变换成$\alpha,\beta,\gamma$下的新坐标系的过程)。
+
+\textbf{步骤4：矩阵的确定}
+
+最后，由任意点的像可以确定矩阵。注意到上一部分中$\lambda_1=\alpha^Tt,\lambda_2=\beta^Tt,\lambda_3=\gamma^Tt$(事实上，这是内积的表示，此处可以看成把新坐标系变换回原本坐标系的过程)，代入可得：
+
+$X=\begin{pmatrix}\alpha&\beta&\gamma\end{pmatrix}\begin{pmatrix}1&0&0\\0&\cos{\theta}&-\sin{\theta}\\0&\sin{\theta}&\cos{\theta}\end{pmatrix}\begin{pmatrix}\alpha^T\\\beta^T\\\gamma^T\end{pmatrix}$
+
+*对于上方的题目，可解出一组$\alpha=\begin{pmatrix}\frac{\sqrt3}{3}\\[1.5ex]\frac{\sqrt3}{3}\\[1.5ex]\frac{\sqrt3}{3}\end{pmatrix},\beta=\begin{pmatrix}-\frac{\sqrt2}{2}\\[1.5ex]\frac{\sqrt2}{2}\\[1.5ex]0\end{pmatrix},\gamma=\begin{pmatrix}-\frac{\sqrt6}{6}\\[1.5ex]-\frac{\sqrt6}{6}\\[1.5ex]\frac{\sqrt6}{3}\end{pmatrix}$取$\theta=80^\circ$，即可计算出结果。
+
+\textbf{补充\ 另一种思路}
+
+利用特征值可将正交矩阵利用相似对角化，再求对应对角阵的次方根，亦可得到对应结果(此方式的合理性将在第六章中解释，主要计算量在于三次方程的求解)。
+
+\item
+(1) $\begin{pmatrix}1&-1\\1&0\end{pmatrix}\begin{pmatrix}0&-1\\1&-1\end{pmatrix}\begin{pmatrix}-1&0\\0&-1\end{pmatrix}\begin{pmatrix}-1&1\\-1&0\end{pmatrix}\begin{pmatrix}0&1\\-1&1\end{pmatrix}\begin{pmatrix}1&0\\0&1\end{pmatrix}$阶为6循环
+
+(2) $\begin{pmatrix}1&0\\1&-1\end{pmatrix}\begin{pmatrix}1&0\\0&1\end{pmatrix}$阶为2循环
+
+(3) $2^{m/2}\begin{pmatrix}\cos{\frac{m\pi}{4}}&-\sin{\frac{m\pi}{4}}\\[1.5ex]\sin{\frac{m\pi}{4}}&\cos{\frac{m\pi}{4}}\end{pmatrix}$
+
+(4) $\begin{cases}2^{m/2}\begin{pmatrix}\frac{\sqrt2}{2}&\frac{\sqrt2}{2}\\[1.5ex]\frac{\sqrt2}{2}&-\frac{\sqrt2}{2}\end{pmatrix}&m\equiv1\mod2\\2^{m/2}\begin{pmatrix}1&0\\0&1\end{pmatrix}&m\equiv0\mod2\end{cases}$
+
+(5) $\begin{pmatrix}1&m&\frac{m(m-1)}{2}&\frac{m(m-1)(m-2)}{6}\\[1.5ex]0&1&m&\frac{m(m-1)}{2}\\[1.5ex]0&0&1&m\\0&0&0&1\end{pmatrix}$
+
+(6) $\begin{pmatrix}1&m&\frac{m(m+1)}{2}&\frac{m(m+1)(m+2)}{6}\\[1.5ex]0&1&m&\frac{m(m+1)}{2}\\[1.5ex]0&0&1&m\\0&0&0&1\end{pmatrix}$
+
+(7) $A^m=\left(\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}+\begin{pmatrix}0&1&0&0\\0&0&1&0\\0&0&0&1\\1&0&0&0\end{pmatrix}\right)^m$，因可交换，设其为$\begin{pmatrix}a&b&c&d\\d&a&b&c\\c&d&a&b\\b&c&d&a\end{pmatrix}$，由组合数则有$ \begin{cases}(1+\mathrm{i})^m=(a-c)+(b-d)\mathrm{i}\\(1-\mathrm{i})^m=(a-c)+(d-b)\mathrm{i}\\(1+1)^m=a+b+c+d\\(1-1)^m=a-b+c-d\end{cases}$，解得$\begin{cases}a=\frac{(1+\mathrm{i})^m+(1-\mathrm{i})^m+2^m}{4}\\[1.5ex]b=\frac{(1+\mathrm{i})^m-(1-\mathrm{i})^m+2^m\mathrm{i}}{4\mathrm{i}}\\[1.5ex]c=\frac{2^m-(1+\mathrm{i})^m-(1-\mathrm{i})^m}{4}\\[1.5ex]d=\frac{(1-\mathrm{i})^m-(1+\mathrm{i})^m+2^m\mathrm{i}}{4\mathrm{i}}\end{cases}$
+
+(8) 原矩阵$A=\begin{pmatrix}a_1\\a_2\\a_3\\a_4\end{pmatrix}\begin{pmatrix}b_1&b_2&b_3&b_4\end{pmatrix}$，由$\begin{pmatrix}b_1&b_2&b_3&b_4\end{pmatrix}\begin{pmatrix}a_1\\a_2\\a_3\\a_4\end{pmatrix}=(a_1b_1+a_2b_2+a_3b_3+a_4b_4)$，使用结合律得$A^m=(a_1b_1+a_2b_2+a_3b_3+a_4b_4)^{m-1}A$
+
+\item
+(出现的字母未作说明即为任意实数)
+
+(1) $\begin{pmatrix}a&0&0&0\\0&b&0&0\\0&0&c&0\\0&0&0&d\end{pmatrix}$
+(2) $\begin{pmatrix}a&b&c&d\\d&a&b&c\\c&d&a&b\\b&c&d&a\end{pmatrix}$
+(3) $\begin{pmatrix}a&b&c&d\\e&f&g&h\\c&d&a&b\\g&h&e&f\end{pmatrix}$
+(4) $\begin{pmatrix}a&b&c&d\\0&a&b&c\\0&0&a&b\\0&0&0&a\end{pmatrix}$
+
+(5) $\begin{pmatrix}a&0&0&d\\0&b&2c&0\\0&3c&b&0\\4d&0&0&a\end{pmatrix}$
+(6) $\begin{pmatrix}a&b&c&d\\e&f&g&h\\h&g&f&e\\d&c&b&a\end{pmatrix}$
+(7) $\begin{pmatrix}a&b&c&d\\e&f&e&g\\c&b&a&d\\h&i&h&j\end{pmatrix}$
+(8) $\begin{pmatrix}a&b&c&d\\b&a&d&c\\e&f&g&h\\f&e&h&g\end{pmatrix}$
+
+\item
+(1) 考虑上题(1)(2)类似构造知为$aI$，$I$为单位阵，$a$为任意实数(复数)。
+
+(2) 考虑上题(1)(3)(8)类似构造知为$aI$，$I$为单位阵，$a$为任意实数(复数)。
+
+(3) 二阶时为$\begin{pmatrix}a&b\\-b&a\end{pmatrix}$，大于等于三阶时考虑$a_{ij}=1,a_{ji}=-1$，其余为0的矩阵知只能为$aI$，$I$为单位阵，$a$为任意实数(复数)。
+
+\item
+(1) 展开可消去交叉项，即得结果。
+
+(2) 直接展开即可。
+
+(3) 利用(2)的结论，比较左右$B^n$项的系数即可。
+
+(4) $A,B$对称$\Leftrightarrow(AB)^T=AB\Leftrightarrow B^TA^T=AB\Leftrightarrow BA=AB$。
+
+\item
+(1) 左：将$a_{11}$至$a_{mn}$按先行后列排序为$a_1$至$a_k$，$B$同理排序，计算得$\tr (AA^H)=\sum_{i=1}^{k}|a_i|^2,\tr (AB^H)=\sum_{i=1}^{k}{a_i\overline{b_i}}$，左式$\ge\sum_{i=1}^{k}|a_ib_i|\cdot\sum_{i=1}^{k}|a_ib_i|\ge\left|\tr(AB^H)\tr(BA^H)\right|$，故成立。
+
+右：$AB^H=(BA^H)^H\Rightarrow \tr(AB^H)=\overline{\tr(BA^H)}$因此中式$=\left|\sum_{i=1}^{k}a_ib_i\right|^2\ge0$。
+
+(2) 由$\tr(AA^H)=\sum_{i=1}^{k}|a_i|^2$可发现需$A$所有元素模长为0，即全部为0。
+
+(3) 由习题10类似，$B$视为$A^H$，由(1)左式的取整条件得结果。
+
+\item
+(1) 直接计算系数知上三角下部仍为0。
+
+(2) 由上问知可乘，与可加性结合知成立。
+
+\item
+(1) 由于$AB$中的每项均为两项乘积的和，按系数展开即得结论。
+
+(2) 未必可交换，$\begin{pmatrix}0&x^2\\x&0\end{pmatrix}$即为反例。
+
+\item
+(1) 验证可发现$i\ne j$时，$AA^T$中，第$i$行第$j$列的值为$i,j$两条线交点数，$A^TA$中，第$i$行第$j$列的值为$i,j$点所共的线数，由此知式2.3成立。
+(2) 验证知$k_i$为每条线过点数，$d_i$为每点属于的线数。
+
+步骤一：证明所有$k_i$相等，记其为$\lambda$。任取两条线$e_1,e_2$，分情况讨论：
+
+若存在一个点$v$同时不在$e_1,e_2$上，则对于过$v$的每一条线$e$，考虑$e$和$e_1$唯一确定的交点$\pi(e)$，由唯一确定知此映射为单射。由于每个$e_1$上的点都与$v$确定一条线，此映射为满射。因此，此映射为过$v$的线到$e_1$上的点的双射。由此可类似构造过$v$的线到$e_1$上的点的双射，因此$e_1,e_2$上的点个数相等。
+
+若这样的点不存在，由条件一可知，除$e_1,e_2$的交点外，所有的点可分为在$e_1$上而不在$e_2$上与在$e_2$上而不在$e_1$上两类。取条件三中的四点$a,b,c,d$，由条件三知三点不共线，不妨设$a,b$在$e_1$上而不在$e_2$上，$c,d$在$e_2$而不在$e_1$上。若$a,c$确定线$x$，$b,d$确定线$y$，若$x,y$的交点在$e_1$上，则由条件一知$a,d$都是它们的交点，因此矛盾；同理可知其交点不在$e_2$上，与不存在同时不在$e_1,e_2$上的点矛盾，由此命题得证。
+
+步骤二：证明所有$d_i$亦均为$\lambda$。若所有线交于一点$v$，由条件三取出四个点，由于$ab,bc,cd$交于$v$，由条件一知$b=c=v$，因此矛盾。由此对每一点$v$都存在不过其的线$e$，利用映射$\pi$可构造过$v$的线到$e$上的点的双射，故由每条线上有$\lambda$个点知过每个点有$\lambda$条线。
+
+步骤三：利用定理2.2-6可得$m\lambda=\tr(AA^T)=\tr(A^TA)=n\lambda\Rightarrow m=n$。再计算边的条数。$n$个顶点两两确定一条边，共$\mathrm{C}_n^2$条，而由每条边被算了$\mathrm{C}_\lambda^2$次可知$\mathrm{C}_n^2=m\mathrm{C}_\lambda^2$，由$m=n$解得$n=\lambda^2-\lambda+1$。
+
+\item
+(1) 解法一：归纳。由条件可知$Q_n=\frac{(Q_{n-2}^2-1-Q_{n-3})(Q_{n-2}^2-1+Q_{n-3})}{Q_{n-2}Q_{n-3}^2}$，由$Q_{n-1}=\frac{Q_{n-2}^2-1}{Q_{n-3}}$知分母整除$Q_{n-3}^2$，由$Q_{n-4}=\frac{Q_{n-3}^2-1}{Q_{n-2}}$知分母整除$Q_{n-2}$，辗转相减即可证$\gcd(Q_{n-2},Q_{n-3})=1$，故其为整系数多项式。
+
+解法二：变形递推式可得$\frac{Q_{n+1}+Q_{n-1}}{Q_n}$为常值，由此代入前三项知$Q_{n+1}=xQ_n-Q_{n-1}$，故其为整系数多项式。
+
+(2) 由解法二$\begin{pmatrix}Q_{n+1}\\Q_n\end{pmatrix}=\begin{pmatrix}x&-1\\1&0\end{pmatrix}\begin{pmatrix}Q_n\\Q_{n-1}\end{pmatrix}$，故$Q_n=\begin{pmatrix}1&0\end{pmatrix}\begin{pmatrix}x&-1\\1&0\end{pmatrix}^{n-1}\begin{pmatrix}x\\1\end{pmatrix}$。
+
+\item
+(1) $\begin{pmatrix}x_n\\x_{n-1}\\\vdots\\x_{n-k+1}\end{pmatrix}=\begin{pmatrix}a_1&a_2&\cdots&a_k\\1&0&\cdots&0\\\vdots&\vdots&\ddots&\vdots\\0&0&\cdots&0\end{pmatrix}\begin{pmatrix}x_{n-1}\\x_{n-2}\\\vdots\\x_{n-k}\end{pmatrix}$
+
+故$x_n=\begin{pmatrix}1&0&\cdots&0\end{pmatrix}\begin{pmatrix}a_1&a_2&\cdots&a_k\\1&0&\cdots&0\\\vdots&\vdots&\ddots&\vdots\\0&0&\cdots&0\end{pmatrix}^{n-k}\begin{pmatrix}x_k\\x_{k-1}\\\vdots\\x_1\end{pmatrix}$
+
+(2)令$x_n=\frac{y_n}{z_n}$，有$\begin{pmatrix}y_n\\z_n\end{pmatrix}=\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}y_{n-1}\\z_{n-1}\end{pmatrix}$，故设$\begin{pmatrix}a&b\\c&d\end{pmatrix}^n=\begin{pmatrix}a_n&b_n\\c_n&d_n\end{pmatrix}$，有$x_n=\frac{a_nx_0+b_n}{c_nx_0+d_n}$。
+
+\item
+将递推写为$\begin{pmatrix}a_{n+1}\\a_n\end{pmatrix}=\begin{pmatrix}b_n&c_{n-1}\\1&0\end{pmatrix}\begin{pmatrix}a_n\\a_{n-1}\end{pmatrix}$，其中$c_{n-1}$由$b_{n-1}$所确定，值为$\pm1$。
+
+由$\begin{pmatrix}b_k&c_{k-1}\\1&0\end{pmatrix}=\begin{pmatrix}b_k&1\\1&0\end{pmatrix}\begin{pmatrix}1&0\\0&c_{k-1}\end{pmatrix},\begin{pmatrix}1&0\\0&c_{k-1}\end{pmatrix}\begin{pmatrix}b_{k-1}&1\\1&0\end{pmatrix}=\begin{pmatrix}b_{k-1}&1\\c_{k-1}&0\end{pmatrix}$，
+
+结合$\begin{pmatrix}1&0\\0&c_0\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}=\begin{pmatrix}1\\0\end{pmatrix}$可将原通项改写为$\begin{pmatrix}a_{n+1}\\a_n\end{pmatrix}=\begin{pmatrix}b_n&1\\1&0\end{pmatrix}\begin{pmatrix}b_{n-1}&1\\c_{n-1}&0\end{pmatrix}\dots\begin{pmatrix}b_1&1\\c_1&0\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}$。
+
+令$\begin{pmatrix}u_n\\v_n\end{pmatrix}=\begin{pmatrix}b_{n-1}&1\\c_{n-1}&0\end{pmatrix}\dots\begin{pmatrix}b_1&1\\c_1&0\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}$，则$\begin{pmatrix}a_{n+1}\\a_n\end{pmatrix}=\begin{pmatrix}b_nu_n+v_n\\u_n\end{pmatrix}$
+，通过分四类归纳可证明，$b_{n-1}=1\Rightarrow u_n\ge1,v_n\ge1,u_n+v_n\ge n;b_{n-1}>1\Rightarrow u_n\ge n,v_n\le0,u_n+v_n\ge1$，故原结论成立。
+
+\item
+解法一：可直接归纳证明$u_n=\sum_{i=0}^{[n/2]}\sum_{j_{k+1}-j_k\ge2,j_i\le n-1} a_{j_1}a_{j_2}\dots a_{j_i}$，利用对称性推出$u_n=v_n$。
+
+解法二： 
+
+$\begin{pmatrix}u_{k+1}\\u_{k+1}-u_k\end{pmatrix}=\begin{pmatrix}1+a_k&-a_k\\a_k&-a_k\end{pmatrix}\begin{pmatrix}u_k\\u_k-u_{k-1}\end{pmatrix}$
+
+$\begin{pmatrix}v_{k+1}&v_{k+1}-v_k\end{pmatrix}=\begin{pmatrix}v_k&v_k-v_{k-1}\end{pmatrix}\begin{pmatrix}1+a_{n-k}&-a_{n-k}\\a_{n-k}&-a_{n-k}\end{pmatrix}$
+
+利用以上两式展开递推可立刻得结果。
+
+解法三：写出$u_n,v_n$以矩阵乘积形式表示的递推公式，可得
+
+$u_n=\begin{pmatrix}1&0\end{pmatrix}\begin{pmatrix}1&a_{n-1}\\1&0\end{pmatrix}\dots\begin{pmatrix}1&a_1\\1&0\end{pmatrix}\begin{pmatrix}1\\1\end{pmatrix},v_n=\begin{pmatrix}1&0\end{pmatrix}\begin{pmatrix}1&a_1\\1&0\end{pmatrix}\dots\begin{pmatrix}1&a_{n-1}\\1&0\end{pmatrix}\begin{pmatrix}1\\1\end{pmatrix}$，且有
+
+$v_n^T=v_n=\begin{pmatrix}1&1\end{pmatrix}\begin{pmatrix}1&1\\a_1&0\end{pmatrix}\dots\begin{pmatrix}1&1\\a_{n-1}&0\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}=\begin{pmatrix}1&0\end{pmatrix}\begin{pmatrix}1&1\\1&0\end{pmatrix}\begin{pmatrix}1&1\\a_1&0\end{pmatrix}\dots\begin{pmatrix}1&1\\a_{n-1}&0\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}$
+
+而$\begin{pmatrix}1&1\\1&0\end{pmatrix}\begin{pmatrix}1&1\\a_k&0\end{pmatrix}=\begin{pmatrix}1&a_k\\1&0\end{pmatrix}\begin{pmatrix}1&1\\1&0\end{pmatrix}$，由此可化为相同。
+\end{enumerate}
+
+\subsection{分块矩阵}
+\begin{enumerate}
+\item
+均直接书写分量验证即可。
+
+\item
+(1) $X_1A_1Y_1+X_2A_3Y_1+X_1A_2Y_2+X_2A_4Y_2$
+
+(2) $\begin{pmatrix}X_1A_1Y_1+X_2A_2Y_3&X_1A_1Y_2+X_2A_2Y_4\\X_3A_1Y_1+X_4A_2Y_3&X_3A_1Y_2+X_4A_2Y_4\end{pmatrix}$
+
+(3) $\begin{pmatrix}A_1+XA_3&A_2+XA_4-A_1X-XA_3X\\A_3&A_4-A_3X\end{pmatrix}$
+
+(4) $\begin{pmatrix}A_1+XA_3+A_2Y+XA_4Y&A_2+XA_4\\A_3+A_4Y&A_4\end{pmatrix}$
+
+(5) $\begin{cases}\begin{pmatrix}(XY)^k&O\\O&(YX)^k\end{pmatrix}&m=2k\\\begin{pmatrix}O&(XY)^kX\\(YX)^kY&O\end{pmatrix}&m=2k+1\end{cases}$
+
+(6) $\begin{pmatrix}X^m&O\\\sum_{k=0}^{m-1}{X^kYX^{m-1-k}}&X^m\end{pmatrix}$
+
+(7) $\begin{pmatrix}0&1&0\\0&0&1\\1&0&0\end{pmatrix}^m\otimes X^m$
+
+(8) $\begin{pmatrix}X^m&mX^{m-1}&\mathrm{C}_m^2X^{m-2}\\O&X^m&mX^{m-1}\\O&O&X^m\end{pmatrix}$($m\ge2$)
+
+\item
+先设其为$\begin{pmatrix}X_{11}&X_{12}&X_{13}\\X_{21}&X_{22}&X_{23}\\X_{31}&X_{32}&X_{33}\\\end{pmatrix}$，每部分为3阶方阵，可得其中某些存在$X_i=AX_jA^{-1}$的关系，整理化简后得结果为$\begin{pmatrix}X&Y&Z\\A^{-1}ZA&A^{-1}XA&A^{-1}YA\\AYA^{-1}&AZA^{-1}&AXA^{-1}\\\end{pmatrix}$，其中$X,Y,Z$为任意三阶方阵。
+
+\item
+观察可得为$I_m\otimes P_n+P_m\otimes I_n$，其中$I_k$为$k$阶单位阵，$P_k$为$\begin{pmatrix}0&1&&&\\1&0&1&&\\[-1ex]&1&0&\ddots&\\[-1ex]&&\ddots&\ddots&1\\&&&1&0\end{pmatrix}$(与主对角线相邻的两条对角线为1，其余为0的$k$阶方阵)。
+
+\item
+设$G_1$有$m$个顶点，$G_2$有$n$个顶点，且排序方式为$(1,1),\dots,(1,n),(2,1),\dots,(m,1),\dots,(m,n)$，则由定义可发现$G=I_m\otimes G_2+G_1\otimes I_n$，且将结果中所有2改为1。
+
+\item
+设$2^n$个点时为$P_n$，可递推出$P_{n+1}=\begin{pmatrix}P_n&I_{2^n}\\I_{2^n}&P_n\end{pmatrix}$。
+
+\item
+按照$B,D$分块，利用分块矩阵乘法知成立。
+
+\item
+(1) 利用分块矩阵加法知成立。
+
+(2) 同(1)。
+
+(3) 利用分块矩阵转置知成立。
+
+(4) 计算左式结果后用张量积提出左侧$A$知剩余为$B\otimes C$。
+
+\item
+(注意按列与按行展开的区别)
+
+(1) $y=(I_n\otimes A)x$
+
+(2) $y=(B^T\otimes I_m)x$
+
+(3) $y=(B^T\otimes A)x$
+
+(4) $y=(I_n\otimes A-B^T\otimes I_m) x$
+\end{enumerate}
+
+\subsection{初等方阵}
+\begin{enumerate}
+\item 
+直接验证可得结果。
+
+\item
+由$\begin{pmatrix}a_1\\a_2\\\vdots\\a_n\end{pmatrix}\begin{pmatrix}b_1&b_2&\cdots&b_n\end{pmatrix}=\begin{pmatrix}a_1b_1&a_1b_2&\cdots&a_1b_n\\a_2b_1&a_2b_2&\cdots&a_2b_n\\\vdots&\vdots&\ddots&\vdots\\a_nb_1&a_nb_2&\cdots&a_nb_n\end{pmatrix}$，
+$S_{ij}$利用$\begin{pmatrix}-1&1\\1&-1\end{pmatrix}=\begin{pmatrix}-1\\1\end{pmatrix}\begin{pmatrix}1&-1\end{pmatrix}$ (其余位置取0)可以构造。
+$D_{ij}$与单位阵相减为仅有一个对角元的方阵，直接构造。
+$T_{ij}$亦仅剩一个元素，直接构造。
+
+\item
+$(I+\alpha\beta^T)u=v\Leftrightarrow\alpha(\beta^Tu)=v-u$，$u,v$不共线则$u,v-u$不共线。直接取$\alpha=v-u$，则$\alpha,u$不共线。只需证明存在$\beta$使得$\beta^Tu=1,\beta^T\alpha=0$，由不共线，$\beta$至少为二阶列向量，由第一章知识得此方程组必有解。
+
+\item
+(1)由定义直接计算验证即可。
+
+(2)归纳。一阶时显然成立，若$n-1$阶时成立，$n$阶时可通过一次交换使第$n$行第$n$列处为1，由此化为低阶情况。
+
+\item
+此题相当于说明置换方阵在左乘时为重排A的行，右乘时为重排A的列，直接验证可知成立。由习题4(1)，可发现当$Q=P^T=P^{-1}$时，产生的是对行列一同置换，即为此题最后一行结论。
+
+\item
+*需至少为三阶方阵
+
+通过初等变换可得$T_{ij}(\lambda)=T_{ik}(\lambda)T_{kj}(1)T_{ik}(-\lambda)T_{kj}(-1)$，任取与$i,j$不同的$k$即可。
+
+\item
+可以说明，任意某些$n$阶的$S_{ij}$乘积为$n$阶置换方阵。对$m$使用数学归纳法：
+
+$m=1$时，若全为零则满足，若$a_{1j}\ne0,D_1(\frac{1}{a_{ij}})AS_{1j}$即符合要求。
+
+若$m=k$时可以满足，当$m=k+1$时，先取变换使得第1至$k$行成为满足要求的形状。然后左乘$T_{k+1,1}(-a_{k+1,1})T_{k+1,1}(-a_{k+1,r})\dots T_{k+1,r}(-a_{k+1,r})$ (也即将第$k+1$行的前$r$列均行变换为0)，此时若第$k+1$行全为0则已经结束，否则设$a_{k+1,t}\ne0\ (t>r)$，
+
+左乘$T_{1,r+1}(-a_{1,r+1})T_{2,r+1}(-a_{2,r+1})\dots T_{r,r+1}(-a_{r,r+1})P_{r+1}\left(\frac{1}{a_{k+1,t}}\right)S_{r+1,k+1}$，右乘$S_{r+1,t}$ (也即靠初等变换将第$r+1$行整理为目标形式)，即使得左上角部分变为$I_{r+1}$，符合要求。
+
+\item
+解法一：此题几乎完全等价于第一章线性方程组的阶梯化。
+
+解法二：单位下三角初等阵只能为部分T阵，且注意到，$S_{ij}T_{ab}(\lambda)=T_{ab}(\lambda)S_{ij}$ ($i,j,a,b$互不相同，否则将$a,b$作对应交换仍可找到符合要求的$T^\ast$使$ST=T^\ast S$)，再注意到，$T$为下三角意味着左乘$T$使下方的行减去上方行的某个倍数，只要保持这点不变，利用这些$T,S$按一定顺序相乘即可化为满足题目要求的形式。
+
+自上而下执行操作：
+
+对第一行不进行操作，接下来，对第$t$行操作时，若$a_{11},a_{22},a_{rr}\ne0\ (r<t),a_{r+1.r+1}=0$或不存在，则这次操作中左乘$S_{t,r+1}T_{tr}(\lambda_r)\dots T_{t2}(\lambda_2)T_{t1}(\lambda_1)$，每个$T_{ti}$使得$a_{ti}$被变换成0。可以验证，这样的操作符合前述要求，可实现，并能将其变换为上三角阵。
+
+\item
+(1)直接验证得结果。
+
+(2)由几何关系或直接解方程可得$\theta_2=\theta_1+\theta_3=\frac{\pi}{2}$。
+
+(3)考虑单位正交基在列向量下的旋转。几何理解为：先将$e_x$的像通过$z$轴旋转至$xz$平面上，再通过$y$轴旋转至$x$轴上。接着，将$e_y$的像通过$x$轴旋转至$xy$平面上，这个旋转不会改变已在$x$轴上的$e_x$的像，故满足题意。
+
+由此作以下三步证明：
+
+步骤一：对任意$A=\left(a_{ij}\right)_{3\times3}$，方程$\left(P_3(\theta)A\right)_{21}=0$有解。
+
+这个方程即为$\sin{\theta}a_{11}+\cos{\theta}a_{21}=0$，讨论易得有解，取解为$\theta_3$
+
+步骤二：对任意$A=\left(a_{ij}\right)_{3\times3}$满足$a_{21}=0$，方程$\left(P_2(\theta)A\right)_{31}=\left(P_2(\theta)A\right)_{21}=0$有解。
+
+这个方程组即$-\sin{\theta}a_{11}+\cos{\theta}a_{31}=0$，讨论易得有解，取解为$\theta_2$
+
+步骤三：对任意$A=\left(a_{ij}\right)_{3\times3}$满足$a_{21}=a_{31}=0$，方程$\left(P_2(\theta)A\right)_{31}=\left(P_1(\theta)A\right)_{21}=\left(P_1(\theta)A\right)_{32}=0$有解。
+
+这个方程组即为$\sin{\theta}a_{22}+\cos{\theta}a_{32}=0$，讨论易得有解，取解为$\theta_1$。
+
+经历三步后所得的结果显然满足题目要求。
+
+(这意味着，除了初等方阵外还有其他的“初等”矩阵可用于消元，6.1节对此有叙述)
+\end{enumerate}
+
+\subsection{可逆方阵}
+\begin{enumerate}
+\item
+定理2.6直接相乘验证即可证明。
+
+定理2.7对相乘后的结果归纳证明。
+
+定理2.8利用例2.15与2.3节中的定理2.5分解即可得出。
+
+\item
+均为通过分量计算直接验证即可。
+
+\item
+由定理2.8可知，乘一个可逆方阵不影响原方阵的可逆性。同时，又因为初等矩阵均可逆，对矩阵做行/列初等变换不会影响可逆性。另一方面，可以证明由一行或一列是0的方阵必然不可逆(因为左乘/右乘必然仍会有一行/列为0)，因此说明不可逆只需说明可在初等变换后出现某行或某列为0。
+
+(1) $\begin{pmatrix}0&0.5&0.5&0\\1&-1&-1&-1\\1&0&-1&0\\0&0.5&0.5&1\end{pmatrix}$
+
+(2) $\begin{pmatrix}0.5&-0.5&0.5&-0.5\\0.5&0.5&-0.5&0.5\\-0.5&0.5&0.5&-0.5\\0.5&-0.5&0.5&0.5\end{pmatrix}$
+
+(3) $\begin{pmatrix}0&1&0&-1\\1&0&0&0\\0&0&0&1\\-1&0&1&0\end{pmatrix}$
+
+(4) 设矩阵为$A$，有$A^TA=(a^2+b^2+c^2+d^2)I$，故$a,b,c,d$不全为0时可逆，$A^{-1}=\frac{1}{a^2+b^2+c^2+d^2}A^T$ (此题实际为四元数的矩阵表示，转置即为共轭)。
+
+(5) $\begin{pmatrix}0&a&e&a\\-a&0&f&e\\-e&-f&0&a\\-a&-e&-a&0\end{pmatrix}$其中$a=-\frac{b}{b^2+bd-c^2},e=\frac{c}{b^2+bd-c^2},f=-\frac{d}{b^2+bd-c^2}$
+
+(6) 见3.2中例3.8的四阶情况。
+
+(7) 作列变换可使第一列为0，故不可逆。
+
+(8) 作列变换可使第一列为0，故不可逆。
+
+\item
+不妨设其为上三角矩阵。若对角元全不为0，可先将每行减去最后一行的倍数消去最后一个分量，再以此归纳，最终变换为对角元非零的对角阵，故可逆。若否，则由抽屉原理必有相邻两行左起的0个数相同。找到满足此要求的最低的两行，仍以此操作，将使上面一行均变为0，即得证不可逆。
+
+(或利用第三章知识直接计算行列式得结果)
+
+\item
+(1) 与上题相同消元办法，利用增广矩阵求逆可知逆仍为对应三角阵。
+
+(2) 对称阵：$A^T=A\Rightarrow(AA^{-1})^T=(A^{-1})^TA^T=(A^{-1})^TA=I^T=I\Rightarrow(A^{-1})^T=A^{-1}$
+
+反对称阵：$A^T=-A\Rightarrow(AA^{-1})^T=(A^{-1})^TA^T=-(A^{-1})^TA=I^T=I\Rightarrow(A^{-1})^T=-A^{-1}$
+
+(3) 直接将上一问的$T$替换为$H$即可。
+
+\item
+直接代入计算可得(注意两个方阵若都可以写成方阵A的多项式，则可以交换)。
+
+\item
+(1) 注意到$A=\begin{pmatrix}a_1\\a_2\\\vdots\\a_n\end{pmatrix}\begin{pmatrix}b_1&b_2&\cdots&b_n\end{pmatrix}$，直接验算得结果。
+
+(2) 当：利用第一问结论直接代入验算得结果；
+
+仅当：当$\lambda=0$时，可以利用行变换直接将$B$第二行变换为0，故不可逆；当$\lambda=\mu$时，由第一问有$B^2=\mu B$，若$B$可逆，同乘逆得$B=\mu I$，故$A$为零矩阵，但此时$\mu=0$，矛盾。
+
+\item
+当$m\ne n$时，利用行列变换可将此矩阵中的$A,B$均变换为$\begin{pmatrix}I_r&O\\O&O\end{pmatrix}$的形式，但此时由于$r_A,r_B\le\min(m,n), r_A+r_B<m+n$，故其中必有全为0的行/列，故不可逆；
+
+当$m=n$时，对矩阵作题中相同分块$\begin{pmatrix}A_1&A_2\\A_3&A_4\end{pmatrix}$，相乘有
+$AA_1=I,AA_2=O,BA_3=O,BA_4=I$
+。由一四两式知$A,B$均可逆时才可能有解，且此时解出$A_1=A^{-1},A_4=B^{-1},A_2=A_3=O$。
+
+综上可知，$M$为可逆方阵当且仅当$m=n$且$A,B$均可逆，$M^{-1}=\begin{pmatrix}A^{-1}&O\\O&B^{-1}\end{pmatrix}$。
+
+\item
+当：利用2.3节习题6直接代入验证即可；
+
+仅当：若$A$不可逆，则可行列变换使$A$某行为0，将$B$看作整体对$A\otimes B$作相同变换(即每次操作从一行/一列变成$B$的行数/列数)得出某行0，故其不可逆；若$B$不可逆，则可行列变换使$B$某行为0，对$A\otimes B$中的一列$B$块作相同变换，可使此行仍为0，故其不可逆。
+
+\item
+当：直接代入验证即可；
+
+仅当：乘以可逆方阵不影响可逆性，故$A+BC$可逆等价于$I+BCA^{-1}$可逆，由3.2节例3.12(取$x=1$，例中的$A$此处为$-B$，例中的$B$此处为$CA^{-1}$)，$\det(I_m+BCA^{-1})=\det(I_n+CA^{-1}B)$，由可逆与行列式不为0等价，其可逆即等价于$I+CA^{-1}B$可逆。
+
+(亦可考虑矩阵$\begin{pmatrix}A&-B\\C&I\end{pmatrix}$对$A$和对$I$的两个Schur补)
+
+\item
+由2.1节习题15，$ \frac{\mathrm{d}A}{\mathrm{d}x}A^{-1}+A\frac{\mathrm{d}(A^{-1})}{\mathrm{d}x}=\frac{\mathrm{d}(AA^{-1})}{\mathrm{d}x}=O$，变形得此题结论。
+
+\item
+若有非零解$b_1,b_2\dots b_n$，设$\max_{1\le i\le n}{|b_i|}=|b_t|>0$，则$|a_{tt}b_t|>\sum_{j\ne t}|a_{tj}b_t|\ge\sum_{j\ne t}|a_{tj}b_j|$，故$\left|\sum_{k=1}^{n}{a_{tk}b_k}\right|\ge|a_{tt}b_t|-\left|\sum_{j\ne t}{a_{tj}b_j}\right|\ge|a_{tt}b_t|-\sum_{j\ne t}|a_{tj}b_j|>0$，矛盾。
+
+\item
+可以发现$A$与$A^{-1}$均为主对角线全为1的下三角方阵，验证知乘积上半三角(除主对角线)均为0，主对角线均为1，接下来只需验证$AA^{-1}$的下半三角部分(即$i>j$时)符合要求。
+
+此时，乘积的第$i$行第$j$列为$\sum_{k=1}^{n}{\mu\left(\frac{k}{j}\right)a_{ik}a_{kj}}$，当$j\mid i$时方可能不为0。设$t=\frac{i}{j}=p_1^{\alpha_1}p_2^{\alpha_2}\dots p_n^{\alpha_n}$(由其不在主对角线知$n$至少为1)，则所求即为$\sum_{d|t}\mu(d)=\mathrm{C}_n^0-\mathrm{C}_n^1+\dots+(-1)^n\mathrm{C}_n^n=(1-1)^n=0$(其中，$(-1)^r\mathrm{C}_n^r$指的是所有含有$r$个不同素因子的$t$的因数的莫比乌斯函数之和)。
+
+\item
+首先，我们来复习2.1节中关于图的矩阵表示的部分，并加以一定改进：
+
+对于n个点构成的有向图(两点之间可能存在有向的箭头)，我们可以通过一个$n$阶非负方阵来表示它。若$a_{ij}>0,i\ne j$，则表示存在$i$指向$j$的边，反之则不存在。我们将自己指向自己的边称之为自环，若$a_{ii}>0$，则代表第i个点存在自环，反之则不存在。此外，可验证本题涉及的不可约与本原均与元素大小无关，因此为了方便，可直接将大于0的元素记为1。
+
+(1.1) 本原$\Rightarrow$不可约
+
+线代证法：
+
+只需证明其逆否命题(可约则不为本原)即可。对于置换方阵P，利用2.3节习题4(1)知$P^TP=I$。由于$P^TAP=\begin{pmatrix}A_{11}&A_{12}\\O&A_{22}\end{pmatrix}$，利用$P^TP=I$可归纳证明$P^TA^nP=(P^TAP)^n=\begin{pmatrix}A_{11}^n&\ast\\O&A_{22}^n\end{pmatrix}$。由于置换方阵只改变元素分布，不改变元素本身，$A^n$中必仍存在0，故不为本原。
+
+图论证法：
+
+首先，观察$P^TAP$与$A$对应的有向图的关系，可发现其实际上相当于行列一同置换，因此只改变了每个顶点对应的编号，没有改变连接的方式。
+
+其次，所谓“可约”，$P^TAP=\begin{pmatrix}A_{11}&A_{12}\\O&A_{22}\end{pmatrix}$。设$A_{11}$为$s$阶方阵，$A_{22}$为$t$阶方阵，则代表着，可以将这个有向图分为两部分，一部分$s$个点，一部分$t$个点，不存在第一部分指向第二部分的边。如果我们把能顺着边前往称为\textbf{到达}，则可以有更简洁的说法：从第一部分的某一个点出发，无法到达第二部分的点。
+
+与之相对，如果矩阵不可约，则意味着其对应的图不能分为这样的两部分，这时，从图的任何一个点出发，都可以到达另一个点。我们将这样的有向图称为\textbf{强连通图}。由刚才的讨论，一个非负矩阵不可约等价于它所对应的有向图是一个强连通图。
+
+接下来，我们考察对于$m$阶非负方阵$A$，$A^n$中非零元与零元素的含义。
+
+先考察$A^2$，其中第$i$行第$j$列的元素是$\sum_{k=1}^{m}{a_{ik}a_{kj}}$，只要其中一组$a_{ik},a_{kj}$同时为正，这个元素就为正。为了详细说明这表示什么，我们自然地引入\textbf{步}的概念：从一个点到达另一个点，走过的边数就是步数。特别地，我们规定每个点走0步能且只能到达自己。有了步的概念，$A^2$中第$i$行第$j$列的元素大于0，也就是指$i$可以两步到达$j$。值得注意的是，可以一步到达时未必可以两步到达。
+
+同理可以归纳证明，$A^n$中第$i$行第$j$列的元素非0，也就是指$i$可以$n$步到达$j$。当$n=0$时，幂的结果为单位阵，与规定的0步情况相符。
+
+由此，非负矩阵本原，即$A^n$中的元素均大于0，也就是指存在某个步数使得任两点间都可以通过这个步数到达，此时，当然每个点都可以到达另一个点，即这个图强连通，因此对应矩阵不可约。
+
+接下来两问，我们先给出严谨的代数说明，再以图论作形象的解释性证明。
+
+(1.2) 存在$\lambda\Rightarrow$不可约
+
+仍考虑逆否命题：若$A$可约，则对任何使逆存在的$\lambda$，逆中都含0。
+
+$P^T\left(\lambda I-A\right)P=\lambda I-P^TAP$，由此不妨设$A$已被置换为$\begin{pmatrix}A_{11}&A_{12}\\O&A_{22}\end{pmatrix}$的形式。可以发现，这时$\lambda I-A$依然是$\begin{pmatrix}B_{11}&-A_{12}\\O&B_{22}\end{pmatrix}$的形式。
+
+事实上，与上三角矩阵的逆仍为上三角矩阵类似，我们可以证明其逆若存在，必为$\begin{pmatrix}B_{11}^{-1}&B_{12}\\O&B_{22}^{-1}\end{pmatrix}$。
+
+(可采用伴随矩阵讨论，亦可将其逆分块为$\begin{pmatrix}M_1&M_2\\M_3&M_4\end{pmatrix}$，利用左右乘有：$M_1B_{11}=I,B_{22}M_4=I,B_{22}M_3=O$。前两式可得$M_1,M_4$的值，又因$B_{22}$可逆，对应线性方程组只有0解，故$M_3$只能为零矩阵。)
+
+由此，无论$\lambda$如何取值，只要逆存在，逆中必含有0。
+
+(1.3) 不可约$\Rightarrow$存在$\lambda$
+
+先引入矩阵列收敛的定义：如果一个矩阵列的每一个分量都收敛，则其收敛。
+
+定义$\max{M}$为矩阵$M$元素绝对值的最大值，容易看出，$\lim_{n\to\infty}\max(A_n-B)=0$即是$A_n$收敛于$B$的等价表述。
+
+由乘法定义可以推出，$A,B$均为$m$阶方阵时，$\max{AB}\le m\max{A}\max{B}$，因此归纳得$\max(A^n)\le m^{n-1}(\max A)^n$。
+
+由此可以证明，取$\lambda>2m\cdot\max{A}$时，$I+\frac{A}{\lambda}+\left(\frac{A}{\lambda}\right)^2+\dots$收敛于$\lambda(\lambda I-A)^{-1}$ (由于每个分量均单调有界)。
+
+下面即证明，此时目标矩阵$B=(\lambda I-A)^{-1}$没有0项。我们从反面说明，若有零项，则矩阵可约。
+
+若此矩阵有零项，其必在一切$A^n$中均为0。在置换矩阵调换后，不妨设左下角的$b_{m1}$为0。此时，若其所在的行或列恒全为0，则已满足可约，若否，用置换矩阵调换后可不妨设$b_{11}$与$b_{mm}$不为0，且第$n$行的0集中在前侧，后方均正。设$b_{m1},b_{m2}\dots b_{mu}$为0，后方均为正，则可以证明$b_{u+1,1},b_{u+2,1}\dots b_{m1}$均为0。此时，对$A$作幂次时，第$m$行与第1列的0均不会再增加。
+
+因此，我们现在得到的置换后的矩阵$A$的左下角$(a_{ts},t>u,s\le u)$子矩阵中，最左边一列与最下方一行已经全为0了，下面只要证明剩余元素均为0即可得到可分的结论。
+
+若此子矩阵中的某元素$a_{ts}>0$，则由于$t>u$，有$a_{nt}a_{ts}>0$，因此$A^2$中第$n$行第$s$列的元素不为0，因此$b_{ns}>0$，但$s\le u$，与假设矛盾。
+
+(我们实质上说明了比题设更强的结论，即，对充分大的$\lambda$，$(\lambda I-A)^{-1}$全为正数。)
+
+(1.4) 1.2与1.3的图论证明
+
+以上的代数证明较为繁琐。下面给出图论的理解。
+
+首先，$A$不可约$\Leftrightarrow$有向图强连通$\Leftrightarrow$等价于任意两点$s,t$可通过某步数达到$\Leftrightarrow\forall1\le s,t\le m,\exists n\ge0,A_{st}^n>0$ (此处暗含结论，m个点组成的有限图，任意两点若可达到，必可通过有限步达到。事实上，归纳容易证明步数不可能超过$m-1$。)
+
+接下来，仿照1.3中矩阵极限相关的构造即可得出1.2与1.3的结论(乘正数$\lambda$不会影响元素的非零性)。
+
+(2) 代数证明：
+
+用第二数学归纳法：当矩阵阶数$m=1$时显然满足。若$k$阶前均满足。考虑$k$阶时：
+
+如果$A$不可约，$A$本身即满足。
+
+如果$A$可约，$P^TAP=\begin{pmatrix}A_{11}&A_{12}\\O&A_{22}\end{pmatrix}$，其中$A_{11},A_{22}$阶数均小于$k$。由归纳假设，$A_{11},A_{22}$可用置换矩阵调整为符合要求的矩阵形式(注意分别调整时不会影响到)，容易发现此时A已经变成了符合要求的形式。
+
+图论证明：
+
+这个结论也就是说，对一个有向图，总可以将其中的点划分为若干个组，并编号为$1,2,3\dots s$使得：
+
+第一，每个组里的点可以互相到达，也即构成一个强连通子图。
+
+第二，每个组无法到达编号小于它的组(至于能否到达大于它的组，这里并不关心)。
+
+这两条中，第一条也就代表着每个对角块均不可约，第二条也就代表着下半三角的部分均为0。
+
+想要证明这个结论，可以分为两步。
+
+第一步，选出一个点，将所有与它能\textbf{相互}到达的点(含本身)编为一组(注意这里的相互，指的是它能到达另一个点，另一个点也能到达它；能这样分组其实暗含了结论：相互到达是一个等价关系，如果两个点均与它可以相互到达，这两个点之间也可以相互到达)。若已不存在其他点则停止，若存在，则从中任取一个点，重复操作，直到每个点均属于某一组。
+
+在这一步完成后，我们已经获得了若干个强连通的分组，接下来，我们调整分组的序号。
+
+由于不可能有两个分组之间可以相互到达(否则在分组时它们应该在同一组中)，分组之间的到达实际上构成了一个序关系。
+
+首先论证，这个序关系的意义下存在一个极小元，也就是，存在一个组无法到达任何其他组。
+
+如果不存在，我们从某个组出发，找到它能到达的另一个组，再找到另一个组能到达的一个组，以此重复进行。由于每个组均有能到达的其他组，这个过程会无限进行下去，但组的个数是有限的，这意味着，其中必然会有某个组出现两次。
+但是，假如存在这样的链条：$A\to B\to C\to\dots\to A$，可以发现，$A$可以顺着链条前往$B$，$B$也可以顺着链条前往$A$，因此，$AB$之间是可以相互到达的，与不同组之间不能相互到达矛盾。
+
+由此，我们证明了存在无法到达其他组的组。将这个组编号为$s$(最后一组)，从图中删去。剩下的组中，必然又存在无法到达其他组的组，将它编号为$s-1$。重复这个过程，直到所有组均被编号，则此时，我们已经获得了一个满足要求的分组，由此，原结论得证。
+
+(可以发现，这一问的代数证明反而相较图论证明更为简洁，而图论证明有着非常明显的操作性。因此，不同工具间的综合是重要的。)
+
+我们将一条从自己出发到自己的路径称为一个\textbf{环}，而某个路径的步数称为这条路径的\textbf{长度}(由此，我们也定义了环的长度)。
+
+在第一问中已经证明了，若一个矩阵本原，则其必然不可约。而接下来则说明，一个不可约矩阵为本原矩阵，等价于这个矩阵对应的有向图中所有环的长度的最大公因数为1。(若两个点可以互相到达，则必然存在过这两个点的环，也即先从第一个点走到第二个点，再走回第一个点。由此，强连通图中一定存在环，故这个最大公因数是存在的。)
+
+在详细证明前，我们先来具体观察一下这个结论。
+
+所有环其实是一个有些奇怪的概念。例如，当一个图中有自环，其中便含有任意长度的环，最大公因数当然是1。由此即得，只要一个不可约矩阵对应的有向图存在自环(对角元素不全为0)，便一定本原。
+
+此外，我们还可以发现另一个结论，这个结论也是证明的关键：
+
+如果一个不可约矩阵不是本原阵，且其对应的有向图中所有环长度的最大公因数是$d$，则有，任取两点$i$和$j$，从$i$到$j$的所有可能的路径长度一定模$d$同余。
+
+这个结论的证明如下：
+
+如果$i$到$j$有两条长度为$k_1$与$k_2$的路径，那么任取一条$j$到$i$的路径(由不可约，这样的路径存在)，设其长度为$k$，则从$i$到$i$有两个长度分别为$k_1+k$与$k_2+k$的环。由所有环长度的最大公因数为$d$，$k_1+k,k_2+k$必然都是$d$的倍数，所以$k_1,k_2$模$d$同余。
+现在，我们采取图论方式来证明原本的命题，以下设$A$为不可约且非本原的$m$阶矩阵，且已经作出了对应的有向图。
+
+步骤一：若$ab$互素，$n>ab-a-b$，则存在非负整数$x,y$使得$ax+by=n$。
+
+由裴蜀定理，当$0\le x\le b-1$时，必存在$y$的整数解，若这个解不为非负整数，则$y\le-1$，此时$ax+by\le a(b-1)+b(-1)=ab-a-b<n$矛盾，故解必存在。
+
+步骤二：此有向图中任意两个环长度不互素。
+
+若否，不妨设存在一个过点$i$的长度为$a$的环，过点$j$的长度为$b$的环，$a,b$互素。
+
+对任意两点$s,t$，设$s\to i\to j\to t$的某条路径长度为$m_{st}$，由于存在$s\to i\to i\to\dots i\to j\to j\to\dots j\to t$的路径，$s$到$t$的路径长度可以是$ax+by+m_{st}$，其中$x,y$为非负整数。这时，取$M$为所有$m_{st}$的最大值，$n>M+ab-a-b$，可知对于任两点都可以解出合理的$x,y$，即任两点都存在长度为$n$的路径，故A为本原矩阵，矛盾。
+
+步骤三：若正整数$a_1,\dots,a_n$有$\gcd(a_1,\dots,a_n)=1$，对任何正整数$l$，存在非负整数$b_1,\dots,b_{n-1}$，使得$a_1b_1+\dots+a_{n-1}b_{n-1}+a_nl$与$a_n$互素。
+
+由裴蜀定理可证若$\gcd(a_1,\dots,a_n)=1$，则必存在$b_1,\dots,b_{n-1}$使$\gcd(a_1b_1+a_2b_2+\dots+a_{n-1}b_{n-1},a_n)=1$，又因为在左侧增加$a_ia_n$与$la_n$均不影响互素，可使得所有$b$为非负，并添加$a_nl$项，即得满足条件结论。
+
+步骤四：此有向图中所有环长度最大公因数为$d$, 则$d>1$。
+
+取一个经过所有点(未必不重复，但不能遗漏)的环，由已证，这个环的长度与任何其他环都不互素。而且，设这个环长度为$l$，某个环长度为$t$，将另一个环添加进这个环中即可得到长度为$l+t$的环(此处添加，是指将原来环中的某个$i$拆分成$i\to i$)。因此，若某些环的长度$a_1,a_2,\dots,a_n$互素，由上一部分证明构造$a_1b_1+a_2b_2+\dots+a_{n-1}b_{n-1}+a_nl$，这个长度的环必然存在($a_nl$由$l$添加自身获得)，即与$a_n$互素，与任两环不互素矛盾。由此，所有环长度均不互素，则存在最大公因数$d>1$。
+
+步骤五：任取两点$i$和$j$，从$i$到$j$的所有可能的路径长度一定模$d$同余。
+
+这个结论的证明在之前讨论时已经完成。
+
+步骤六：存在满足题目条件的置换。
+
+任取一个点为1，对所有点，可以按照前往1的路径长度模$d$的余数分为$0,1,2,\dots,d-1$共$d$类(特别地，由已证，1自身属于0这类)。利用置换矩阵将这些点的排列变为$0,1,2,\dots,d-1$的顺序。此时，每一类的点在一步后必然进入下一类(最后一类将进入第一类)，即满足题目中所述的要求。
+\end{enumerate}
+
+\section{行列式}
+\subsection{行列式的定义}
+\begin{enumerate}
+\item
+(1) 由每项都是线性，和仍然保持线性。
+
+(2) 由一次对换可使逆序数奇偶性改变得结论。
+
+(3) 直接代入验证即可，此时完全展开式中仅有一项。
+
+\item
+(1) 21 (2) 28 (3) 18 (4) 12
+
+(5) $\frac{(k-1)k}{2}$ (6) $\frac{k(k+1)}{2}$ (7) $(k-1)k$ (8) $k^2$
+
+\item
+$\det(S_{ij})=-1,\det(D_i(\lambda))=\lambda,\det(T_{ij}(\lambda))=1$(这也意味着三种操作后行列式值改变对应倍数)
+
+\item
+由2.1节习题14知其仍为三角方阵，归纳可得对角元素为$f(a_{ii})$，结合三角方阵行列式完全展开仅一项得结果。
+
+\item
+(1) 2 (2) 2 (3) 1
+
+(4) $(be-cd-af)^2$
+
+(5) $a^2f^2+b^2e^2+c^2d^2-2abef-2acdf-2bcde$
+
+(6) $a(b-a)(c-b)(d-c)$
+
+(7) $(a^2+b^2+c^2+d^2)^2$
+
+(8) 由循环方阵行列式(3.2节例3.10)知为$\sum_{k=0}^{3}(a+b\mathrm{i}^k+c\mathrm{i}^{2k}+d\mathrm{i}^{3k})$，化简有
+
+$\big((a+c)^2-(b+d)^2\big)\big((a-c)^2+(b-d)^2\big)$
+
+(9) 由范德蒙德行列式(3.2节例3.8)知为$(b-a)(c-a)(d-a)(c-b)(d-b)(d-c)$
+
+(10) 在其上增添$1,-1,-1,-1,-1$，左侧增添一列0，利用行变换行列式不变得
+
+$\begin{pmatrix}1&-1&-1&-1&-1\\1&a&a^2&a^3&a^4\\1&b&b^2&b^3&b^4\\1&c&c^2&c^3&c^4\\1&d&d^2&d^3&d^4\end{pmatrix}= 2\begin{pmatrix}1&0&0&0&0\\1&a&a^2&a^3&a^4\\1&b&b^2&b^3&b^4\\1&c&c^2&c^3&c^4\\1&d&d^2&d^3&d^4\end{pmatrix}-\begin{pmatrix}1&1&1&1&1\\1&a&a^2&a^3&a^4\\1&b&b^2&b^3&b^4\\1&c&c^2&c^3&c^4\\1&d&d^2&d^3&d^4\end{pmatrix}$
+由于三个矩阵只相差第一行，由行列式线性性知可加减，利用范德蒙德行列式计算结果为
+
+$\big(2abcd-(a-1)(b-1)(c-1)(d-1)\big)(b-a)(c-a)(d-a)(c-b)(d-b)(d-c)$。
+
+(11)(12) 均可列变换为0
+
+(13) 在列变换后知为(9)结果的108倍
+
+(14) 行变换得$\begin{pmatrix}0&1&2&\cdots&n-1\\1&-1&-1&\ddots&\vdots\\1&1&-1&\ddots&-1\\\vdots&\ddots&\ddots&\ddots&-1\\1&\cdots&1&1&-1\end{pmatrix}$，继续变换得$\begin{pmatrix}0&1&2&\cdots&n-1\\1&0&0&\ddots&\vdots\\1&2&0&\ddots&0\\\vdots&\ddots&\ddots&\ddots&0\\1&\cdots&2&2&0\end{pmatrix}$，故结果为
+
+$(-1)^{n-1}(n-1)2^{n-2}$
+
+(15) 可以通过变换直接计算，或观察到此矩阵为$xI_n-\begin{pmatrix}1&-1\\2&-1\\\vdots&\vdots\\n&-1\end{pmatrix}\begin{pmatrix}1&1&\cdots&1\\1&2&\cdots&n\end{pmatrix}$，则可利用3.2节例3.12得到行列式为$x^{n-2}\det\left(xI_2-\begin{pmatrix}\frac{n(n+1)}{2}&-n\\\frac{n(n+1)(2n+1)}{6}&-\frac{n(n+1)}{2}\end{pmatrix}\right)$，结果为$x^n+\frac{n^4-n^2}{12}x^{n-2}$
+
+(16) $(-1)^{\prod_{1\le i<j\le p} r_ir_j}\prod_{i=1}^{p}a_i^{r_i}$($-1$的指数即为逆序对的个数)
+\end{enumerate}
+
+\subsection{Binet-Cauchy 公式}
+\begin{enumerate}
+\item
+$\overline{\det(M)}=\det(M^H)\Rightarrow\det(M)\det(M^H)\ge0$，由此将$\det(AA^H)$分解为$\mathrm{C}_n^m$个方阵行列式乘积之和，每项均不小于0，和亦不小于0。
+
+\item
+使用两次Binet-Cauchy公式即可(第一次将$BC$看作整体)。
+
+\item
+(1) 首先归纳证明$\cos{n\theta}$可以写成$\cos{\theta}$的$n$次多项式，且首项系数为$2^{n-1}$：采用跨度为2的第二数学归纳法，由于$\cos{n\theta}=2\cos{\theta}\cos{(n-1)\theta}-\cos{(n-2)\theta}$，可以得出结论。因此，原行列式通过列变换可变为范德蒙德行列式乘系数的形式，结果为$2^{(n-2)(n-1)/2}\prod_{1\le i<j\le n}(\cos{\theta_j}-\cos{\theta_i})$
+
+(2) 每行同乘对应$\sin{\frac{\theta}{2}}$后三角变换，可知原行列式化简为下一问结果的$\frac{1}{2^n\prod_{i=1}^{n}\sin{\frac{\theta_i}{2}}}$倍，化简为
+
+$2^{(n-1)n/2}\prod_{i=1}^{n}\cos{\frac{\theta_i}{2}}\prod_{1\le i<j\le n}(\cos{\theta_j}-\cos{\theta_i})$
+
+(3) 与(1)类似可证明，$\frac{\sin{n\theta}}{\sin{\theta}}$可以写成有关$\cos{\theta}$的$n-1$次多项式，且首项系数为$2^{n-1}$故提取后可知结果为$2^{(n-1)n/2}\prod_{i=1}^{n}\sin{\theta_i}\prod_{1\le i<j\le n}(\cos{\theta_j}-\cos{\theta_i})$
+
+(4) 每行提取出$\sin{\frac{\theta}{2}}$后利用$\frac{\sin{\frac{2n-1}{2}\theta}}{\sin{\frac{\theta}{2}}}=1+\sum_{k=1}^{n-1}{2\cos{k\theta}}$与列变换共同化简，可得结果为
+
+$2^{(n-1)n/2}\prod_{i=1}^{n}\sin{\frac{\theta_i}{2}}\prod_{1\le i<j\le n}(\cos{\theta_j}-\cos{\theta_i})$
+
+(5) 直接代入循环阵(例3.10)公式即可。
+
+(6) 其可以看作范德蒙德矩阵与其转置之积，结果为$\prod_{1\le i<j\le n}(x_j-x_i)^2$
+
+(7) 原方阵$C=f(Z),f(t)=\sum_{i=0}^{n-1}c_it^i,Z=\begin{pmatrix}O&I_{n-1}\\-1&O\end{pmatrix}$，有$Z^n=-I$。令$\Omega=\big(\omega^{(i-1)(2j-1)}\big)$ ($\omega$为$2n$次单位根)，则$Z\Omega=\Omega\diag(f(\omega),f(\omega^3),\dots,f(\omega^{2n+1}))$，值为$\prod_{k=1}^{n}f(\omega^{2k-1})$
+
+(8) 将组合数写为阶乘从行列中分别提取出$\frac{\prod_{i=1}^{n}\left(p+i\right)!}{\prod_{i=1}^{n}\left(q+i\right)!}$，则剩余为$\left(\frac{1}{(p-q+i-j)!}\right)$，从每行中同除以第一列，提取出$\frac{1}{\prod_{i=0}^{n-1}(p-q+i)!}$，其余通过类似多项式的列变换方式，可化为$(p+q+i-1)^{j-1}$，由范德蒙德行列式得值为$\prod_{i=0}^{n-1}i!$，故最终为$\prod_{i=1}^{n}\frac{\left(i-1\right)!\left(p+i\right)}{\left(p-q+i-1\right)!\left(q+i\right)!}$
+
+\item
+此矩阵$A=\lambda I+2K+2\alpha\alpha^T$，其中$\lambda=(1-a^2-b^2-c^2),K=\begin{pmatrix}0&c&-b\\-c&0&a\\b&-a&0\end{pmatrix},\alpha=\begin{pmatrix}a\\b\\c\end{pmatrix}$。由于$K\alpha=O$，有$A=(\lambda I+2K)(I+2\lambda^{-1}\alpha\alpha^T)$，计算即可。
+
+\item
+$\Omega\Omega^T$可以写成习题3(6)的形式，题中$x_i=\omega^i$。直接计算可得$\sum_{k=1}^{n}\omega^{kc}$在$n\mid c$时为$n$，否则为0，故此式即$\begin{pmatrix}n&&&\\&&&n\\[-1ex]&&\iddots&\\[-1ex]&n&&\end{pmatrix}$。因此$\det{\Omega}\det{\Omega^T}=\det{\Omega^2}=(-1)^{(n-2)(n-1)/2}n^n$，由此知$|\Omega|=n^{n/2}$，接下来确定辐角。三角变换得$\omega^a-\omega^b$辐角为$\frac{2a+2b+n}{2n}\pi\left(a\ne b\right)$，计算知辐角为$\sum_{0\le a<b\le n-1}{\frac{2a+2b+n}{2n}\pi}=\frac{(3n-2)(n-1)}{4}\pi$
+
+\item
+(1) 原式为$I_n+\begin{pmatrix}a_1\\a_2\\\vdots\\a_n\end{pmatrix}\begin{pmatrix}b_1&b_2&\cdots&b_n\end{pmatrix}$，由例3.12知$\det A =\sum_{i=1}^{n}{a_ib_i}+1$，对应代数余子式$A_{ii}=\sum_{k\ne i} a_kb_k+1$，$A_{ij}(i\ne j)$可以直接由初等变换消元，得$A_{ij}=-a_{ji}$，由此写出伴随方阵即知逆。
+
+(2) 原式为$I_n+\begin{pmatrix}a_1&1\\\vdots&\vdots\\a_n&1\end{pmatrix}\begin{pmatrix}1&\cdots&1\\b_1&\cdots&b_n\end{pmatrix}$，由例3.12知$\det A =\left(1+\sum_{i=1}^{n}a_i\right)\left(1+\sum_{i=1}^{n}b_i\right)-n\sum_{i=1}^{n}a_ib_i$，对应代数余子式$A_{ii}=\left(1+\sum_{k\ne i} a_k\right)\left(1+\sum_{k\ne i} b_k\right)-(n-1)\sum_{k\ne i} a_kb_k$，$A_{ij}\left(i\ne j\right)$可以直接由初等变换消元。以计算$A_{12}$为例，变换得$A_{12}=-\begin{vmatrix}a_2+b_1&b_3-b_1&\cdots&b_n-b_1\\a_3+b_1&1&\cdots&0\\\vdots&\vdots&\ddots&\vdots\\a_n+b_1&0&\cdots&1\end{vmatrix}$，写出完全展开式可知其为$-(a_2+b_1)+\sum_{k\ne1,2}(b_k-b_1)(a_k+b_1)$类似得$A_{ij}=-(a_j+b_i)+\sum_{k\ne i,j}(b_k-b_i)(a_k+b_i)$，由此写出伴随方阵即知逆。
+
+\item
+(1) $A=\begin{pmatrix}1&1\\0&1\end{pmatrix},B=\begin{pmatrix}0&0\\-1&0\end{pmatrix}$
+
+(2) $A=\begin{pmatrix}0&1\\0&0\end{pmatrix},B=\begin{pmatrix}0&0\\1&0\end{pmatrix}$
+
+\item
+(1)左$=\det{\begin{pmatrix}A+B&B\\B+A&A\end{pmatrix}}=\det{\begin{pmatrix}A+B&B\\0&A-B\end{pmatrix}}=\det(A+B)\det(A-B)$
+
+(2)左$=\det{\begin{pmatrix}A+\mathrm{i}B&B\\\mathrm{i}A-B&A\end{pmatrix}}=\det{\begin{pmatrix}A+\mathrm{i}B&B\\0&A-\mathrm{i}B\end{pmatrix}}=\det(A+\mathrm{i}B)\det(A-\mathrm{i}B)$
+
+\item
+当$n$为奇数时，$A^T=-A,\det{A^T}=(-1)^n\det{A}$，又因其相等，故$\det{A}=0$。
+
+当$n$为偶数时，利用二重归纳，$n=2$验证即可。若$n=2k-2$时满足，将$2k$阶反对称行列式的每列减去第二列的倍数，消去$a_{1i}(i\ge3)$，再用每行减去第二行的倍数，消去$a_{i1}(i\ge3)$，此时行列式变为$\begin{vmatrix}0&a_{12}&0&\cdots&0\\-a_{12}&0&a_{23}&\cdots&a_{2,2k}\\0&-a_{23}&c_{11}&\cdots&c_{1,2k-2}\\\vdots&\vdots&\vdots&\ddots&\vdots\\0&-a_{2,2k}&c_{2k-2,1}&\cdots&c_{2k-2,2k-2}\end{vmatrix}$，记$C=(c_{ij})$，由Laplace展开知此行列式为$a_{12}^2\det(C)$。可直接计算得$c_{ij}+c_{ji}=0$，故$C$为$2k-2$阶反对称阵，由归纳假设可知结论。
+
+\item
+$V$可以列变换为$\big((j-1)!\mathrm{C}_{a_i}^{j-1}\big)$，因此$\det{V}=\det{U}\det{\big(\mathrm{C}_{a_i}^{j-1}\big)}$，由此知整除。
+
+\item
+更换集合顺序可以视为$QAQ^{-1}$，其中$Q$为置换阵，不影响行列式，因此不妨设其子集以字典序排列。设$n$元时对应矩阵为$M_n$，$M_1=(1)$，通过分析可以得到$M_{n+1}=\begin{pmatrix}M_n&0_{\left(2^n-1\right)\times1}&M_n\\0_{1\times\left(2^n-1\right)}&1&1\\M_n&1&1\end{pmatrix}$，1代表此块全为1。由列变换得
+
+$\det{M_{n+1}}=\det{\begin{pmatrix}M_n&0&M_n\\0&1&1\\M_n&0&0\end{pmatrix}}=\det{\begin{pmatrix}M_n&0&M_n\\0&1&0\\M_n&0&0\end{pmatrix}}=(-1)^{2^n-1}\det{\begin{pmatrix}M_n&0&M_n\\0&1&0\\0&0&M_n\end{pmatrix}}=-\det{M_n^2}$
+归纳即得要证的结论。
+
+\item
+(1)直接计算$\begin{pmatrix}f_1(y)&\cdots&f_n(y)\end{pmatrix}V$的第$k$个分量为$\sum_{i=1}^{n}{x_i^{k-1}\prod_{j\ne i}\frac{y-x_j}{x_i-x_j}}$，其为关于$y$的不超过$n-1$次的多项式，且注意到，$y=x_t$时其值为$x_t^{k-1}$(求和中只有$i=t$这项不为0)，其已经被$n$个不同点处的值唯一确定(类似1.2节习题5)，而$y^{k-1}$满足要求，因此其只能为$y^{k-1}$。
+
+(2) 直接计算$\begin{pmatrix}g_1(y)&\cdots&g_n(y)\end{pmatrix}V$的第k个分量为$\sum_{i=1}^{n}{x_i^{k-1}\prod_{j\ne i}\frac{1-x_jy}{x_i-x_j}}$，其为关于$y$的不超过$n-1$次的多项式，分类讨论。当$x_t$中不含有0时，$y=\frac{1}{x_t}$时其值为$\frac{x_t^{k-1}}{x_t^{n-1}}$(求和中只有$i=t$这项不为0)，其已经被$n$个不同点处的值唯一确定(类似1.2节习题5)，而$y^{n-k}$满足要求，因此其只能为$y^{n-k}$。若有某个$x_i=0$，可考虑取极限逼近0或额外计算发现$y=0$时其余分量为0，最后一个分量为1。
+
+(3) 直接代入可发现第一个等号成立。设$A=(x_i^{n-j})$，由(2)分每行考虑可知$(g_j(x_i))=AV^{-1}$，由$A=V\begin{pmatrix}&&1\\[-1ex]&\iddots&\\[-1ex]1&&\end{pmatrix}$，由2.1节定理2.2-6知$\tr=(g_j(x_i))=\tr(AV^{-1})=\tr(V^{-1}A)=\tr\begin{pmatrix}&&1\\[-1ex]&\iddots&\\[-1ex]1&&\end{pmatrix}$，因此$n$为奇数时为1，为偶数时为0。
+
+(4) 类似(3)，原式$=(-1)^{n-1}\tr(f_j(-x_i))$，类似构造$A$知$(f_j(-x_i))=V\diag(1,-1,1,-1,\dots)V^{-1}$，由此原式$=(-1)^{n-1}\tr(\diag(1,-1,1,-1,\dots))$，因此$n$为奇数时为1，为偶数时为0。
+
+\item
+*题目结论有误，第一问中$u,v$与$m,n$应对调
+
+(1) 法一：由行变换可不妨设$f_m=g_n=1$，此时$f(x)=\prod_{i=1}^{m}(x-u_i)$所求式右边即为$\prod_{i=1}^{n}f(v_i)$。记$S(f,g)$为所求行列式值。
+
+当$g$为一次函数时时，由Laplace展开类似3.3节例3.15知$S(f,g)=f(-g_0)$。当$g(x)=\prod_{i=1}^{n}(x-v_i)$时若成立，当$g(x)=(x-t)\prod_{i=1}^{n}(x-v_i)$时：
+
+
+若$t=0$，则$g_0=0$，第一列只有$f_0$一项，展开后直接得$S(f,xg)=f_0\cdot S(f,g)$，满足要求；
+
+若$t\ne0$，由对称，不妨设$f$次数小于等于$g$，行变换可得$S(f,g)=S(f,g-af)$，若$f_0=0$，与上方情况类似可展开化为低阶的情况，若$f_0\ne0$，$S(f,g)=S\left(f,g-\frac{g_0}{f_0}f\right)$，即化为之前情况，因此$S(f,g)=\prod_{i=1}^{m}f(c_i)$，$c_i$为$g-\frac{g_0}{f_0}f$的m个根(包括0)。
+
+至此只需证明，所求的$\det{S}$表达式的等号右侧亦满足$f$次数小于等于$g$时$S(f,g)=S(f,g-af)$，由于其可表示成$(-1)^{mn}\prod_{i=1}^{m}g(u_i)$，而$f(u_i)=0$，故结论成立。
+
+法二：考虑结式矩阵乘$\begin{pmatrix}1\\x\\\vdots\\x^{m+n}\end{pmatrix}$后的结果，构造$\begin{pmatrix}1&\cdots&1&1&\cdots&1\\u_1&\cdots&u_m&v_1&\cdots&v_n\\\vdots&\cdots&\vdots&\vdots&\cdots&\vdots\\u_1^{m+n}&\cdots&u_m^{m+n}&v_1^{m+n}&\cdots&v_n^{m+n}\end{pmatrix}$与原矩阵相乘(此处假设根均不同，若相同通过极限等处理)，利用乘积结果可直接计算出行列式值。
+
+(2) 由(1)，两复多项式互素等价于无公共根，故结论成立。
+
+\item
+(1) $b_{ij}=\sum_{k=1}^{\min(n-i+1,j)}(f_{k+i-1}g_{j-k}-g_{k+i-1}f_{j-k})$，直接对比系数可知结论成立。
+
+(2) $\begin{pmatrix}f_n&&\\\vdots&\ddots&\\f_1&\cdots&f_n\end{pmatrix}\begin{pmatrix}g_n&&\\\vdots&\ddots&\\g_1&\cdots&g_n\end{pmatrix}=\begin{pmatrix}g_n&&\\\vdots&\ddots&\\g_1&\cdots&g_n\end{pmatrix}\begin{pmatrix}f_n&&\\\vdots&\ddots&\\f_1&\cdots&f_n\end{pmatrix}=\left(\sum_{k=1}^{i-j+1}f_kg_{i-j+2-k}\right)$。
+所求式的右侧前后$n$行对换(提出负号)为$(-1)^{(n-1)n/2}\begin{vmatrix}f_n&&&f_0&\cdots&f_{n-1}\\\vdots&\ddots&&&\ddots&\vdots\\f_1&\cdots&f_n&&&f_0\\g_n&&&g_0&\cdots&g_{n-1}\\\vdots&\ddots&&&\ddots&\vdots\\g_1&\cdots&g_n&&&g_0\\\end{vmatrix}$，由3.2节例3.11得此式可以进一步化简为
+
+$(-1)^{(n-1)n/2}\det{\left(\begin{pmatrix}f_n&&\\\vdots&\ddots&\\f_1&\cdots&f_n\end{pmatrix}\begin{pmatrix}g_0&\cdots&g_{n-1}\\&\ddots&\vdots\\&&g_0\end{pmatrix}-\begin{pmatrix}g_n&&\\\vdots&\ddots&\\g_1&\cdots&g_n\end{pmatrix}\begin{pmatrix}f_0&\cdots&f_{n-1}\\&\ddots&\vdots\\&&f_0\end{pmatrix}\right)}$ ，再用每组乘积中的第一个式子作行变换知其即为$\det{B}$。
+
+(3) 由习题13(2)知结论成立。
+\end{enumerate}
+
+\subsection{Laplace 展开}
+\begin{enumerate}
+\item
+均记n阶行列式为$M_n$，若过程中给出现$M_0$则由通项式代入0得出。
+
+(1) 由习题2知$M_n=\begin{pmatrix}1&0\end{pmatrix}\begin{pmatrix}x&1\\1&0\end{pmatrix}^n\begin{pmatrix}1\\0\end{pmatrix}$，类似例3.16知$A_{ij}=\begin{cases}(-1)^{i+j}M_{j-1}M_{n-i}&i>j\\M_{i-1}M_{n-j}&i\le j\end{cases}$
+
+(2) 每行减去后一行后归纳知$M_{n+1}=(x+1)M_n-(x-1)^n$，可得$M_n=\frac{(x+1)^n+(x-1)^n}{2}$，利用行列变换进一步计算得$A_{ij}=\begin{cases}-(x+1)^{i-j-1}(1-x)^{n+j-i-1}&i>j\\M_{n-1}&i=j\\(x+1)^{j-i-1}(x-1)^{n+i-j-1}&i<j\end{cases}$
+
+(3) 利用习题2，进一步计算得$M_n=nx-n+1$，$A_{ij}=\begin{cases}iM_{n-j}&i\le j\\jM_{n-i}&i>j\end{cases}$
+
+(4) 变换知$M_n=1$，其逆矩阵恰为上一问中取$x=1$的$n$阶矩阵。
+
+(5) 类似3.1节习题5(6)得$M_n=(-1)^{n-1}n$，$n$较小时直接计算。当$n\ge3$时，类似行列式做法得$A_{ij}=\begin{cases}(-1)^nn&i=j=1\\(-1)^n2n&1<i=j<n\\(-1)^n\left(n-1\right)&i=j=n\\(-1)^{n+i}n&j=i+1\\(-1)^{n+j}n&j=i-1\\0&|i-j|\ge2\end{cases}$
+
+(6) 由3.2节例3.9直接得结果。
+
+\item
+(1) 归纳，低阶直接验证知成立，至少三阶时令$M=\begin{pmatrix}a_3&b_3\\-c_2&0\end{pmatrix}\cdots\begin{pmatrix}a_n&b_n\\-c_{n-1}&0\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}$，则原行列式由第一行展开为$a_1\begin{pmatrix}1&0\end{pmatrix}\begin{pmatrix}a_2&b_2\\-c_1&0\end{pmatrix}M-b_1c_1\begin{pmatrix}1&0\end{pmatrix}M=\begin{pmatrix}a_1a_2-b_1c_1&a_1b_2\end{pmatrix}M$，即为此题结论。
+
+(2) 与(1)类似，从最后一行展开即可。
+
+\item
+(1) 左$=\begin{pmatrix}1&\cdots&1\end{pmatrix}A^\ast\begin{pmatrix}1\\1\\\vdots\\1\end{pmatrix}=\begin{pmatrix}1&\cdots&1\end{pmatrix}A^\ast\left(A\begin{pmatrix}1\\0\\\vdots\\0\end{pmatrix}\right)=\det(A)\begin{pmatrix}1&\cdots&1\end{pmatrix}I\begin{pmatrix}1\\0\\\vdots\\0\end{pmatrix}=$右
+
+(2) 左$=\begin{pmatrix}1&\cdots&1\end{pmatrix}A^\ast\begin{pmatrix}1\\1\\\vdots\\1\end{pmatrix}=\begin{pmatrix}1&\cdots&1\end{pmatrix}A^\ast\left(A\begin{pmatrix}1\\1\\\vdots\\1\end{pmatrix}\right)=\det(A)\begin{pmatrix}1&\cdots&1\end{pmatrix}I\begin{pmatrix}1\\1\\\vdots\\1\end{pmatrix}=$右
+
+\item
+(1) 此处证明$A_{1i}=A_{1j}$，其余列类似。设去掉第一行后，$A$的$n$个$n-1$维列向量为$\alpha_1,\alpha_2,\dots,\alpha_n$，则交换行列可知
+$(-1)^{i-j}(A_{1i}-A_{1j})$
+
+$=\det(\alpha_j,\dots,\alpha_{i-1},\alpha_{i+1},\dots,\alpha_{j-1},\alpha_{j+1},\dots)+\det(\alpha_i,\dots,\alpha_{i-1},\alpha_{i+1},\dots,\alpha_{j-1},\alpha_{j+1},\dots)$
+
+$=\det(\alpha_i+\alpha_j,\dots,\alpha_{i-1},\alpha_{i+1},\dots,\alpha_{j-1},\alpha_{j+1},\dots)$，将所有列加到第一列即知此式为0。
+
+(2) 由(1)可知$A^\ast$所有元素均相等。$A+\frac{1}{n^2}J$所有行加到第一行，接着所有列加到第一列，进一步变换可得$\lambda=A_{11}$，原命题得证。
+
+(3) 直接由(2)知左为$\det\left(nI_n-\left(1-\frac{1}{n^2}\right)J\right)J$，类似3.2节习题5(1)可计算出结果成立。
+
+\item
+直接由完全展开式求导知结果，或将第$i$行看作$x_i$的函数，求出$n$个偏导，再使每个$x_i=x$，用偏导复合得到对$x$的导数。
+
+\item
+(1) 设$A,B$的列向量分别为$a_i,b_i$，则$\det(a_1+b_1,a_2+b_2\dots a_n+b_n)=\sum\det(e_1,e_2\dots e_n)$，其中每个$e$独立取遍$a$和$b$ (即共$2^n$个式子)，但一旦出现两个$b$，列变换得行列式为0，因此结果为不出现$b$的 $\det(A)$与$b$出现一次的$\sum_{i,j=1}^{n}A_{ij}x_iy_j$之和，即为原式。
+
+(2) 先对最后一行展开，再将每个与$y_i$相乘的代数余子式按最后一行展开即可。
+
+\item
+特殊做法：当题中涉及矩阵可逆时易得结果，由此将题中涉及的矩阵中的元素看为独立变量所构成的多项式，则在有理函数的意义下必然可逆，得出结果后再代入值即可。
+
+标准做法：这四问在对应方阵可逆时均容易得到，因此此处只证明不可逆时情况。
+
+(1) 法一：构造多项式矩阵$A(x)=xI+A,B(x)=xI+B$，由于其首项系数为1，在有理函数意义下可逆，$\big(A(x)B(x)\big)^\ast=B(x)^\ast A(x)^\ast$，再代入$x=0$即可。
+
+法二：将初等方阵拓展$D_i(0)$(将第$i$行/列乘0)，则所有矩阵可写为初等方阵之积，直接计算证明一边是初等方阵的情况，即可归纳说明。
+
+(2)(3) 直接计算即可。
+
+(4) 利用(1)，将A写为$P\begin{pmatrix}I_r&O\\O&O\end{pmatrix}Q$ ($PQ$可逆)后直接计算。
+
+\item
+(1)每次将$m$行(列)看作整体进行行列变换将$A$变换为对角元$a_1\dots a_m$的上三角矩阵，则$\det(A\otimes B)=\det(a_1B)\dots\det(a_mB)=a_1^n\dots a_m^n\big(\det(B)\big)^m=\big(\det(A)\big)^n\big(\det(B)\big)^m$
+
+(2)当$AB$均可逆时由2.4节习题9直接得，若有不可逆(且阶数高于1)行列变换可直接将子式变换为0，故得证。
+
+\item
+设$A$主对角线依次为$a_1,a_2\dots a_n$，另三个上三角类似假设。使用归纳法，一阶时直接计算。高阶时，利用推广Laplace展开(定理3.10)从第$1,n+1$行展开可提取出$(a_1d_1-b_1c_1)$并化为低一阶的情况，由此可知结果为$\prod_{i=1}^{n}(a_id_i-b_ic_i)$。
+
+\item
+设$B$为$m$行，$C$为$n$行，利用Laplace展开，设$B$的每个$m$阶子式的行列式依次为$b_1,b_2\dots b_t\ ,t=\mathrm{C}_{m+n}^m$，对应的代数余子式为$c_1,c_2\dots c_t$，则左=$\det(A)\det(A^H)=\sum_{i=1}^{t}b_ic_i\cdot\sum_{i=1}^{t}\overline{b_ic_i}$。
+
+右侧，由Binet-Cauchy公式，结果为$\sum_{i=1}^{t}b_i\overline{b_i}\cdot\sum_{i=1}^{t}c_i\overline{c_i}$(由于$c_i$与$\overline{c_i}$在代数余子式中带有相同的符号，故抵消)。由柯西不等式可知$b_ic_i\overline{b_jc_j}+\overline{b_ic_i}b_jc_j\le b_i\overline{b_i}c_j\overline{c_j}+b_j\overline{b_j}c_i\overline{c_i}$，整理可知左小于等于右。
+
+\item
+*两方法均需将$A$中看为$n^2$个不定元，即任意子式可逆。
+
+法一：利用$AA^\ast=\det(A)I$,由Binet-Cauchy公式可知
+
+$\sum_{1\le j_1<j_2<\dots<j_r\le n}{A^\ast\begin{bmatrix}i_1&i_2&\cdots&i_r\\j_1&j_2&\cdots&j_r\end{bmatrix}A\begin{bmatrix}j_1&j_2&\cdots&j_r\\k_1&k_2&\cdots&k_r\end{bmatrix}}=\begin{cases}0&\exists m,k_m\ne i_m\\\det(A)^r&\forall m,k_m=i_m\end{cases}$
+
+利用不定元的看法可以看作这里的系数均不为0，由此，$A^\ast$所有$r$阶子式的行列式值由这些方程唯一确定。又由Laplace展开，等式右侧的值满足这些方程，故等式成立。
+
+法二：不失一般性，计算$A^\ast\begin{bmatrix}1&2&\cdots&r\\1&2&\cdots&r\end{bmatrix}$。设$A_1=A\begin{bmatrix}1&2&\cdots&r\\1&2&\cdots&r\end{bmatrix}$，对应分块为$\begin{pmatrix}A_1&A_2\\A_3&A_4\end{pmatrix}$，则有$\det(A)=\det(A_1-A_2A_4^{-1}A_3)\det(A_4)$
+。
+
+$A^\ast=\det(A)A^{-1}\Rightarrow A^\ast\begin{bmatrix}1&2&\cdots&r\\1&2&\cdots&r\end{bmatrix}=\det(A)\det(A_1-A_2A_4^{-1}A_3)^{-1}$
+
+计算行列式得结果。
+
+\item
+(1) 注意到，对可逆方阵$P,Q$，$Ax=b$有解等价于$PAQx=Pb$有解(对应构造$Qx,Q^{-1}x$即可，或利用4.2节定理4.8-1)。令$P$为一系列$T_{ij}(\lambda)$与$S_{ij}$的乘积，取$Q=P^T$，利用$\Char\mathbb{F}=2$可计算得$PAP^T$仍为对称阵，且$Pb$仍为$PAP^T$对角元的顺次排列。
+
+先说明，任意对称阵$A$可利用这样的$PAP^T$化为$\diag(a_{11},\dots,a_{rr},B)$，其中$B$的对角元全部为0。
+
+归纳。一阶时直接成立。高阶时，若其无非零对角元，则已得证。若有，先将非零对角元利用$S_{ij}$置换为$a_{11}$，再取$P=\prod_{i=2}^n{T_{i1}(-\frac{a_{i1}}{a_{11}})}$，则此时$PAP^T=\diag(a_{11},A')$，由归纳假设知成立。
+
+此时，直接取$x$前$r$个分量为1，其余为0即为解。
+
+(2) 类似上一问用分块矩阵计算验证可知，上问所述$PAP^T$亦不会影响主子矩阵的可逆性，因此可不妨设$A$已经化为了$\diag(a_{11},\dots,a_{rr},B)$的形式。注意到，由于$P$可逆，当$b\ne\mathbf{0}$时，$Pb\ne\mathbf{0}$，即$PAP^T$中至少有一个对角元非零，不妨设为$a_{11}$，那么，取$\diag(a_{22},\dots,a_{rr},B)$即为所求的$n-1$阶主子式。
+
+(3) 注意到，第一问的归纳中的$P$只需使用$S_{ij}$与$T_{ir}(\lambda),i>r$，利用$ijr$不等时$S_{ij}T_{ir}(\lambda)=T_{jr}(\lambda)S_{ij}$，类似2.3节习题8，每步选择合适的$S_{ij}$可保证$j>r$，由此将其拆分为$TS$，$T$为下三角$T_{ij}(\lambda)$的乘积，是单位下三角方阵，$S$为置换方阵。
+
+取$P=S^{-1},L=T^{-1},D$为$\diag(a_{11},\dots,a_{rr},B)$。利用条件直接计算$TSb$可发现，此时$D$不含为0的对角元，即为满足要求的对角阵。
+\end{enumerate}
+
+\subsection{行列式与几何}
+\begin{enumerate}
+\item
+可以直接由三个过原点三角形面积和差验证，或看成三维空间中高为1的过原点锥体体积的三倍(即为柱体，因此系数为$3\times\frac{1}{6}=\frac{1}{2}$)。
+
+\item
+不妨设四个点落在单位圆上，且对应角度分别为$\theta_A,\theta_B,\theta_C,\theta_D$，$O$点落在$x$轴上。由于对角三角形面积和相等，消去后只需证明$\begin{vmatrix}x_B&y_B&x_A\\x_C&y_C&x_A\\x_D&y_D&x_A\end{vmatrix}-\begin{vmatrix}x_B&y_B&x_C\\x_A&y_A&x_C\\x_D&y_D&x_C\end{vmatrix}$在$A,B$，$C,D$对换后不变。利用三角变换可得出结果(注意到，$x_By_D-x_Dy_B=\sin(\theta_D-\theta_B])$)。
+
+\item
+在空间中任找一点，可将六面体切割为六个有向四棱锥的面积和，由四面体行列式体积公式(见下题)可计算出棱锥体积之比，从而得到整个占比(几何法切割亦可得到结果，但需要较强的空间想象能力)。
+
+\item
+类似习题1可知，空间4个点$\left(x_i,y_i,z_i\right)$构成的有向四面体体积为$\frac{1}{6}\begin{vmatrix}x_1&y_1&z_1&1\\x_2&y_2&z_2&1\\x_3&y_3&z_3&1\\x_4&y_4&z_4&1\end{vmatrix}$。由Crammer法则，$1,2,3$三个平面的交点可以写成$\left(\frac{\Delta_{4a}}{\Delta_4},\frac{\Delta_{4b}}{\Delta_4},\frac{\Delta_{4c}}{\Delta_4}\right)$，其中$\Delta_{4a}$为将$\Delta_4$中$a$所在的列替换为1所得行列式(亦可以看成$\Delta$删去首行与末列构成的子式乘以$(-1)^2$)。由此所求体积为$\frac{1}{6}\begin{vmatrix}\frac{\Delta_{1a}}{\Delta_1}&\frac{\Delta_{1b}}{\Delta_1}&\frac{\Delta_{1c}}{\Delta_1}&1\\[2ex]\frac{\Delta_{2a}}{\Delta_2}&\frac{\Delta_{2b}}{\Delta_2}&\frac{\Delta_{2c}}{\Delta_2}&1\\[2ex]\frac{\Delta_{3a}}{\Delta_3}&\frac{\Delta_{3b}}{\Delta_3}&\frac{\Delta_{3c}}{\Delta_3}&1\\[2ex]\frac{\Delta_{4a}}{\Delta_4}&\frac{\Delta_{4b}}{\Delta_4}&\frac{\Delta_{4c}}{\Delta_4}&1\end{vmatrix}$，即只与$\frac{(\Delta^*)^T}{6\Delta_1\Delta_2\Delta_3\Delta_4}$相差符号，而$\det(\Delta^*)^T=\det\Delta^*=\det\Delta^3$，故原式即构成无向体积。
+
+\item
+与习题4相同，$\mathbb{R}^n$中的$n+1$个$n-1$维单纯形$a_{i1}x_1+a_{i2}x_2+\dots+a_{in}x_n=1$围出的n维单纯形(有向)体积为$\frac{\Delta^n}{n!\prod_{i=k}^{n+1}\Delta_k}$，其中$\Delta=(a_{ij},1)$，$\Delta_k$为删去第$k$行与最后一列的子式(计算符号可发现此处正负合理)。
+\end{enumerate}
+
+\section{矩阵的相抵}
+\subsection{矩阵的秩与相抵}
+\begin{enumerate}
+\item
+(1) 3 (2) 3 (3) 2 (4) 2 (5) 3 (6) 4
+
+\textbf{1(4-6)的一般情形：}考虑$A_{m\times n}=(a_{ij}),a_{ij}=\big((i+j-1)^k\big)$，求其秩。
+
+注意到，$(i+j-1)^k=\sum_{s=0}^{k}(i-1)^s\mathrm{C}_k^sj^{k-s}$，由此
+
+$A=\begin{pmatrix}1&0&\cdots&0\\1&1&\cdots&1\\\vdots&\vdots&\ddots&\vdots\\1&m-1&\cdots&(m-1)^k\end{pmatrix}\diag(\mathrm{C}_k^0,\mathrm{C}_k^1,\cdots,\mathrm{C}_k^k)\begin{pmatrix}1&2^k&\cdots&n^k\\1&2^{k-1}&\cdots&n^{k-1}\\\vdots&\vdots&\ddots&\vdots\\1&1&\cdots&1\end{pmatrix}$
+
+此三矩阵皆满秩，可利用满秩阵的标准形证明A的秩为其中最小值，即为$\min(m,n,k+1)$
+
+\item
+(1)与$x$无关，秩恒为4。
+
+(2)秩最小为3，取$x=y=-1$即可。
+
+(3)秩最小为2，取$x=y=2$即可。
+
+\item
+设$A=P\begin{pmatrix}I_r&O\\O&O\end{pmatrix}Q$ ($PQ$可逆)，则$A=\sum_{i=1}^{r}{PE_{ii}Q}$ ($E_{ii}$只有第$i$行第$i$列为1，其余为0)即为满足要求的分解。
+
+\item
+设$A=P\begin{pmatrix}I_r&O\\O&O\end{pmatrix}Q$ ($PQ$可逆)，$P,Q$对应分块为$\begin{pmatrix}P_1&P_2\\P_3&P_4\end{pmatrix},\begin{pmatrix}Q_1&Q_2\\Q_3&Q_4\end{pmatrix}$，则$A=\begin{pmatrix}P_1\\P_3\end{pmatrix}\begin{pmatrix}Q_1&Q_2\end{pmatrix}$
+若其不为列(行)满秩，由Laplace展开知原矩阵不可逆，矛盾，故此即为满足要求的分解。
+
+\item
+(1) 右逆$\Rightarrow$行满秩：设$B$为右逆，则$m=\rank(AB)\le\rank(A)\le m$，由两侧知只能全部等号成立，故A行满秩。
+
+行满秩$\Rightarrow$零解：设$A=P\begin{pmatrix}I_m&O\end{pmatrix}Q$ ($PQ$可逆)，则$A=\begin{pmatrix}P&O\end{pmatrix}Q,A^T=Q^T\begin{pmatrix}P^T\\O\end{pmatrix}$。$\begin{pmatrix}P^T\\O\end{pmatrix}x=0$即为$P^Tx=0$与一些$0=0$的组合，因$P^T$可逆只有0解，而$Q^T$因可逆可看作这些方程作行初等变换，不影响解。
+
+零解$\Rightarrow$扩充为可逆：由其只有零解，$A^T$可在行变换下等价为$\begin{pmatrix}I_m\\O\end{pmatrix}$，即可以写为$R\begin{pmatrix}I_m\\O\end{pmatrix}$，其中R可逆(或在说明列满秩后用$A^T=Q^T\begin{pmatrix}P^T\\O\end{pmatrix}=Q^T\begin{pmatrix}P^T&O\\O&I\end{pmatrix}\begin{pmatrix}I_m\\O\end{pmatrix}$亦可说明)，取$B^T=R\begin{pmatrix}O\\I_{m-n}\end{pmatrix}$即可。
+
+扩充为可逆$\Rightarrow$右逆：设满足条件的$\begin{pmatrix}A&B\end{pmatrix}$逆为$\begin{pmatrix}C_{m\times n}\\D_{(n-m)\times n}\end{pmatrix}$，则可验证C即为右逆。
+
+(2) 由(1)取转置即可证明。
+
+\item
+(1) 先证(2)，此问由(2)取转置即可说明。
+
+(2) 设$A=P_A\begin{pmatrix}I_A\\O\end{pmatrix}_{m\times n}Q_A,B=P_B\begin{pmatrix}I_B\\O\end{pmatrix}_{n\times p}Q_B$ ($P_AQ_AP_BQ_B$可逆)，设$P_AQ_B=R$ ($R$可逆)，则$AB=P_A\begin{pmatrix}R\\O\end{pmatrix}_{m\times n}\begin{pmatrix}I_B\\O\end{pmatrix}_{n\times p}Q_B$，将$\begin{pmatrix}R\\O\end{pmatrix}$按$\begin{pmatrix}I_B\\O\end{pmatrix}$分块为$\begin{pmatrix}R_1&R_2\\R_3&R_4\\O&O\end{pmatrix}$ ($R_1,R_4$为方阵)，则$AB=P_A\begin{pmatrix}R_1\\R_3\\O\end{pmatrix}Q_B$，与习题5相同，由$R$可逆可知$\begin{pmatrix}R_1\\R_3\end{pmatrix}$列满秩，故$\begin{pmatrix}R_1\\R_3\\O\end{pmatrix}$列满秩，故AB列满秩。
+
+(3) 若$A$不为行满秩，$AB$为行满秩，$m=\rank(AB)\le\rank(A)<m$，矛盾。
+
+(4) 由(3)取转置即可证明。
+
+(5) 未必。反例$A=\begin{pmatrix}1&0\\0&0\end{pmatrix},B=\begin{pmatrix}1&0\\0&0\end{pmatrix},C=\begin{pmatrix}1&0\\0&0\end{pmatrix},D=\begin{pmatrix}0&0\\0&1\end{pmatrix}$。
+
+\item
+由3.3节习题7，$(AB)^\ast=B^\ast A^\ast$，而可逆方阵的伴随方阵亦可逆，将$A$写为$P\begin{pmatrix}I_r&O\\O&O\end{pmatrix}Q$ ($PQ$可逆)即得证。
+
+\item
+(1) $\rank(A+B)\le\rank\begin{pmatrix}A+B&B\end{pmatrix}=\rank\begin{pmatrix}A&B\end{pmatrix}$
+
+(2)$\rank\begin{pmatrix}A&B\end{pmatrix}\le\rank\begin{pmatrix}A&B\\O&B\end{pmatrix}=\rank\begin{pmatrix}A&O\\O&B\end{pmatrix}=\rank(A)+\rank(B)$
+
+(3) $A=P_A\begin{pmatrix}I_A&O\\O&O\end{pmatrix}Q_A,B=P_B\begin{pmatrix}I_B&O\\O&O\end{pmatrix}Q_B$ ($P_AQ_AP_BQ_B$可逆)，由3.2节习题8(1)得$P_A\otimes P_B$可逆，再由2.2节习题6$\rank(A\otimes B)=\rank\left(\begin{pmatrix}I_A&O\\O&O\end{pmatrix}\otimes\begin{pmatrix}I_B&O\\O&O\end{pmatrix}\right)$，直接计算得$\rank(A)\rank(B)$。
+
+(4) $\rank\begin{pmatrix}A&B\\B&A\end{pmatrix}=\rank\begin{pmatrix}I&O\\-\frac{1}{2}I&I\end{pmatrix}\begin{pmatrix}I&I\\O&I\end{pmatrix}\begin{pmatrix}A&B\\B&A\end{pmatrix}\begin{pmatrix}I&-I\\O&I\end{pmatrix}\begin{pmatrix}I&O\\\frac{1}{2}I&I\end{pmatrix}$
+
+$=\rank\begin{pmatrix}A+B&O\\O&A-B\end{pmatrix}=\rank(A+B)+\rank(A-B)$ (实质为初等变换)
+
+(5)法一：仍利用初等变换可构造出$\rank(A-B)+\rank(C-D)$
+
+$=\rank\begin{pmatrix}A-B&O\\O&C-D\end{pmatrix}=\rank\begin{pmatrix}I&A+B\\O&I\end{pmatrix}\begin{pmatrix}A-B&O\\O&C-D\end{pmatrix}\begin{pmatrix}I&C+D\\O&I\end{pmatrix}$
+
+$=\rank\begin{pmatrix}A-B&2(AC-BD)\\O&C-D\end{pmatrix}\ge\rank(AC-BD)$
+
+法二：$\rank(AC-BD)=\rank((A-B)C+B(C-D))\le\rank((A-B)C)+\rank(B(C-D))\le\rank(A-B)+\rank(C-D)$
+
+(6) 只需证明右侧不等号，左侧交换$AB$即可。由于$\rank(AB)\le\min(\rank(A),\rank(B))$，若此式不超过$\frac{m}{2}$，结论已成立，否则由Sylvester秩不等式(4.2节例4.9)知$\rank(BA)\ge \rank(A)+\rank(B)-m\Rightarrow\rank(AB)-\rank(BA)\le\min(\rank(A),\rank(B))-\rank(A)-\rank(B)+m\le m-\rank(A)\le\frac{m}{2}$ (最后一步是由于$\min(\rank(A),\rank(B))>\frac{m}{2}$)，故结论成立。
+
+\item
+(证明暂缺，第二问结论的最后一句有误)
+
+\item
+法一：由3.2节习题11的过程，$\rank(S(f,g))=\rank(S(f,g-af))$，注意到，此题要求中$f_m,g_n$可以为0。对总阶数归纳：二阶时可得成立，在阶数增加时：
+
+若$f_0=0,g_0\ne0$(可写为$x$的整除关系)取出0项得$\rank(S(f,g))=1+\rank\big(S(\frac{f}{x},g)\big)$，又因$g$不为$x$倍数，符合归纳。
+
+若$f_0\ne0,g_0=0$，与上同理得符合归纳。
+
+若$f_0,g_0$均不为0，不妨设$\deg{f}\le\deg{g}$，利用$g-af$消去$g_0$得到低阶情况，由于$\gcd(f,g)=\gcd(f,g-af)$，符合归纳。
+
+若$f_0=g_0=0$，可去除最左一列0，添加到最右，此时$f$变换为$\sum_{i=1}^{m}f_ix^{i-1}+0x^m$，$g$同理，这样变换直到找到$f_k,g_k$即可化为上述情况。
+
+法二：考虑$S\alpha=\mathbf{0}$的解空间$V$，设$h=\gcd(f,g),\alpha=(\lambda_0,\dots,\lambda_{n-1},\mu_0,\dots,\mu_{m-1})^T, \lambda(x)=\sum_{i=0}^{n-1}\lambda_ix^i,$ $\mu(x)=\sum_{i=0}^{m-1}\mu_ix^i$，则$S\alpha=\mathbf{0}\Leftrightarrow\lambda f+\mu g=0\Leftrightarrow\lambda=\frac{g}{h}p,\mu=-\frac{f}{h}p$，$p\in\mathbb{C}[x]$。
+
+由此，$\begin{cases}\deg(\lambda)=\deg(g)-\deg(h)+\deg(p)\le n-1\\\deg(\mu)=\deg(f)-\deg(h)+\deg(p)\le m-1\end{cases}$
+
+$\Rightarrow\deg(p)\le\min(n-\deg(g),m-\deg(f))+\deg(h)-1$
+
+$\Rightarrow\dim(V)=\min(n-\deg(g),m-\deg(f))+\deg(h)$
+
+$\rank(S)=m+n-\dim(V)$，代入即可。
+
+\item
+归纳法，当$n=1$时验证知成立，在阶数增加时：
+
+若$f_n=g_n=0$，则直接退化为低阶情况(末行列均为0)。
+
+其余情况，由对称不妨设$f_n\ne0$，按3.2节习题12(1)写出$B=A_0D_0-C_0B_0$，则满足$A_0$可逆，$A_0C_0=C_0A_0$(在3.2节习题12(1)过程中已验证)。故由Schur公式(2.4节例2.18)有
+
+$\begin{pmatrix}A_0&B_0\\C_0&D_0\end{pmatrix}=\begin{pmatrix}I&O\\C_0A_0^{-1}&I\end{pmatrix}\begin{pmatrix}A_0&O\\O&A_0^{-1}\end{pmatrix}\begin{pmatrix}I&O\\O&A_0D_0-C_0B_0\end{pmatrix}\begin{pmatrix}I&A_0^{-1}B_0\\O&I\end{pmatrix}$
+
+(由$A_0C_0=C_0A_0$在$A_0$可逆时两边左右乘逆可知$A_0^{-1}C_0=C_0A_0^{-1}$)
+
+由于其中除$\begin{pmatrix}I&O\\O&A_0D_0-C_0B_0\end{pmatrix}$外均可逆，$\rank(B)=\rank\begin{pmatrix}I&O\\O&B\end{pmatrix}-n=\rank\begin{pmatrix}A_0&B_0\\C_0&D_0\end{pmatrix}-n$，而$\begin{pmatrix}A_0&B_0\\C_0&D_0\end{pmatrix}$在交换行列后可化为上一题的Sylvester结式，代入得原命题得证。
+
+\item
+(1) 若$\rank{A}\le1$，则其各行、列均成比例，由于交换行列不影响秩，不妨设左上角为1，且第一行、第一列均从小到大排列。此时，右上角与左下角均$\ge n$，且至少一个严格大于成立，由秩至多为1可算出右下角$>n^2$，矛盾。
+
+(求所有秩为2的矩阵$A$答案暂缺)
+
+(2) 验证知此矩阵为1到$n^2$排列。考虑$(B+nC)x=\mathbf{0}$的解。$Cx=-\frac{1}{n}Bx$，计算知$Bx$的每个分量相等，因此$Cx$每个分量相等。设$x=\begin{pmatrix}x_1&x_2&\dots&x_n\end{pmatrix}^T$，将$Cx$相邻分量相减(最后一个分量与第一个相减)可得$x_i=\frac{1}{n-1}\sum_{k\ne i}{x_k}$对任何$i$成立。考虑最大的$x_i$可知所有$x_i$全部相等，进一步得所有$x_i$全为0，因此$A_0x=\mathbf{0}$只有零解，由此知$A_0$可逆。
+
+(3) 将“交换矩阵中的两个相邻元素(此处相邻包含行、列)”称为一次操作。类似在置换中的推导，可以说明，通过有限次操作，可以交换矩阵中任意两个元素。由此可推知，通过有限次操作，可使任何一个满足所有元素为1到$n^2$排列的矩阵变为任一个符合此要求的矩阵。
+
+由于每次操作后的矩阵与操作前矩阵之差是一个秩为1的矩阵，利用习题8(1,2)可推出操作前后矩阵的秩最多差1。将(1)中的矩阵经过有限次操作变为(2)中的矩阵，秩从2变化到$n$，每步最多变化1，因此必然经历了2到$n$间的所有整数，由此知结论成立。
+
+\item
+*项秩定义中应为非零元素，线秩定义中应为$\min(p+q,m,n)$
+
+$\rank(A)\le$ 线秩：考虑$\rank(A)=r$阶的可逆子矩阵。若此子矩阵线秩$<r$，则由定义其中存在一个$a\times b$阶，$a+b>r$的零子矩阵，则考虑这$a$行，这$a$行所有$a$阶子式都为0，由Laplace展开得其行列式为0，与可逆矛盾，因此此部分的线秩至少为$r$，由定义可知整体的线秩大于等于子矩阵的线秩，因此至少为$r$。
+
+线秩 $\le\min(m,n)$：由定义直接得成立。
+
+项秩 $\le$ 线秩：由定义，将矩阵中的非零元素变为0，线秩不会增大。若项秩为$r$，由定义可发现$r\le\min(m,n)$，则能取出$r$个不同行不同列的非零元素，在这些行列组成的$r$阶子矩阵中，将其他元素均变为0，此时其可逆，由第一问推导知其线秩为$r$，因此此部分线秩至少为$r$，因此整体线秩至少为$r$。
+
+项秩 $\ge$ 线秩：由定义，项秩$k\le\min(m,n)$，当$k=\min(m,n)$时由上方知线秩只能为$\min(m,n)$。而$k$为0或1时，可直接验证成立，因此下面只考虑$1<k<\min(m,n)$的情况。注意到，置换行列不会改变矩阵的项秩或线秩。
+先证明一个引理：此时，$A$置换行列后可分块成$\begin{pmatrix}H&B\\C&O\end{pmatrix}$，其中$H$为$k$阶方阵且主对角线非零，$O$为零矩阵，且对于满足$a+b\le k$的某对自然数$a,b$，$B$共有$a$个非零行且全位于$B$的后$a$行，$C$共有$b$个非零列且全位于$C$的前$b$列(此处及本题以下部分的非零指不全为零)。
+
+引理证明：由于$A$中有$k$个不同行不同列的非零元素，可将其中第$i$个置换到第$i$行第$i$列，此时的$H$已满足要求。若右下角不为零矩阵，则可取出第$k+1$个不同行列的元素，因此矛盾。此时，对$1\le i\le k$的$i$，$B$的第$i$行与$C$的第$i$列均非零，则从中各取出一个非零元替换原本第$i$行第$i$列的元素，即取出了$k+1$个不同行列的元素，矛盾。由此，$B$的非零行必定对应$C$的零列，因此$a+b\le k$。 注意到，置换相似(即同时对行、列作相同的置换)不会改变原本对角元的非零性，因此，先对前$k$行置换将$B$的非零行换到$B$的后$a$行，再对前$k$列作相同置换，由于此时$H$的对角元仍然非零，$C$的后$a$列必然全为0，再对前$k-a$列作置换将$C$的非零列换到$C$的前$b$列，并对行作相同置换。由于此$a+b\le k$，这样置换后不会改变$B$原本满足的性质。由此，引理得证。
+
+不妨设$A$已置换为引理中形式。若此时有$a=0$或$b=0$，即$B,C$之一为零矩阵，直接取出它与右下角合成的零矩阵即有$p+q=k$，因此线秩至多为$k$，已得证。若有$a+b=k$，将$A$写为$\begin{pmatrix}H_1&H_2&O\\H_3&H_4&B_1\\C_1&O&O\end{pmatrix}$，其中$H_1,H_4$为方阵，且$B_1$的行与$C_1$的列均非零。若$H_2$不为零矩阵，则取出其中的非零元，将其左侧的主对角线上的元素用该元素下方的$C_1$中对应列的非零元替换，将其下方的主对角线上的元素用该元素右侧的$B_1$中对应行中的元素替换，即取出了$k+1$个不同行列的元素，矛盾。因此$H_2$为零矩阵，此时，$H_2$与其右侧、下方(跳过$H_4,B_1$)构成的零子矩阵即有$p+q=k$，因此线秩至多为$k$，得证。
+
+若$a>0,b>0,a+b<k$，将$A$写为$\begin{pmatrix}H_1&H_2&H_3&O\\H_4&H_5&H_6&O\\H_7&H_8&H_9&B_1\\C_1&O&O&O\end{pmatrix}$，其中$H_1,H_4,H_9$为方阵，且$B_1$的行与$C_1$的列均非零。记$A_1=\begin{pmatrix}H_2&H_3\\H_5&H_6\end{pmatrix}$， 注意到若$A_1$为$k-a\times k-b$阶矩阵，且其中中存在某个零子矩阵，则可将其向右、向下扩展成行列之和多$m+n-2k$的$A$的零子矩阵。由此，利用线秩定义可计算得$A$的线秩$\le A_1$的线秩$+a+b$。利用上方类似方法可说明$H_3$为零矩阵，且由之前假设知$H_5$对角线非零。下面说明，若$H_6$的某行非零，则$H_2$的对应列全为0(这里的对应指在$A$中恰为第$i$列与第$i$行)。若否，取出其中各一个非零元，并将与它们冲突的$H_1$与$H_9$中的对角元替换为$C_1,B_1$中对应列/行的非零元，并删去$H_5$中与它们冲突的对角元(由于行列对应，$H_5$中与两数冲突的为同一个对角元)，即取出了$k+1$个不同行列的元素，矛盾。因此，设$H_6$中非零行数为$a_1$，$H_2$中非列数为$b_1$，则子矩阵$A_1$在交换行为$\begin{pmatrix}H_5&H_6\\H_2&H_3\end{pmatrix}$后拥有与$A$完全相同的性质。由此，只要$a_1>0,b_1>0,a_1+b_1<k-a-b$不同时满足，则类似之前推导已得证，若同时满足，则可类似作出$A_2,A_3,\dots$，由于每次的子矩阵行与列均严格小于前次的子矩阵，这样的递降不能无限进行，总有一次会不满足三条件之一，由此得证。
+
+综合上述几部分证明即得原题结论。
+\end{enumerate}
+
+\subsection{相抵标准形的应用}
+\begin{enumerate}
+\item
+由4.1节例4.4，当$a\ne1,1-n$时，直接解出$x_i=\frac{a^{i-1}}{a-1}-\frac{a^n-1}{(a-1)^2(a+n-1)}$；当$a=1$时，只需满足$\sum_{i=1}^{n}x_i=1$即可；当$a=1-n$时，对所有式子求和，左为0，右为$-\frac{(1-n)^n-1}{n}$，若有解，讨论知必须$n=2$，此时需$x_2-x_1=1$。
+
+\item
+法一：通过解作差或取出特解可知$A_1x=\mathbf{0},A_2x=\mathbf{0}$解集亦相同。因此$A_1x$可通过同解变形得到$A_2x$，即为左乘行变换的可逆方阵$P$后$PA_1=A_2$，代入特解即有此时$Pb_1=b_2$。
+
+法二：由于$\begin{pmatrix}A_1\\A_2\end{pmatrix}x=\begin{pmatrix}b_1\\b_2\end{pmatrix}$与其中任一方程同解，$\rank\begin{pmatrix}A_1\\A_2\end{pmatrix}=\rank(A_1)=\rank(A_2)$。将$\begin{pmatrix}A_1\\A_2\end{pmatrix}$写为$Q\begin{pmatrix}I_r&O\\O&O\end{pmatrix}R$ ($QR$可逆)，按此分块为$Q=\begin{pmatrix}Q_1&Q_2\\Q_3&Q_4\end{pmatrix}$，由秩关系可知$\rank(Q_1)=\rank(Q_3)=r$，由此存在可逆阵$P$使得$PQ_1=Q_3$，验证知符合要求。
+
+\item
+对行满秩证明，列满秩取转置即可。设$A_{m\times n}=P\begin{pmatrix}I_m&O\end{pmatrix}Q$ ($PQ$可逆)，则$A=\begin{pmatrix}P&O\end{pmatrix}Q$。
+
+左推右：设广义逆矩阵$B_{n\times m}=Q^{-1}\begin{pmatrix}B_1\\B_2\end{pmatrix}$，其中$B_1$为$m$阶方阵，由广义逆充分必要条件可计算出$\begin{pmatrix}PB_1P&O\end{pmatrix}Q=\begin{pmatrix}P&O\end{pmatrix}Q,Q^{-1}\begin{pmatrix}B_1PB_1\\B_2PB_1\end{pmatrix}=Q^{-1}\begin{pmatrix}B_1\\B_2\end{pmatrix}$，由$PQ$可逆有$PB_1=I_m$，故$B_1=P^{-1}$，验证得此时的$B$即为右逆。
+
+右推左：直接由右逆定义，$AB=I_m$，故$ABA=A,BAB=B$。
+
+\item
+(1)利用习题3结论，$P^\dagger P=I,QQ^\dagger=I$，直接计算验证$AA^\dagger A=A^\dagger ,A^\dagger AA^\dagger=A$即可。
+
+(2)设对于某个分解$A=P_0\begin{pmatrix}I_r&O\\O&O\end{pmatrix}Q_0$ ($PQ$可逆)，对应$A^\dagger=Q_0^{-1}\begin{pmatrix}I_r&O\\O&O\end{pmatrix}P_0^{-1}$，分解为$Q'=Q_0^{-1}\begin{pmatrix}I_r\\O\end{pmatrix},P'=\begin{pmatrix}I_r&O\end{pmatrix}P_0^{-1}$，再利用分块计算可说明$P',Q'$分别为$P,Q$的广义逆，从而得证。
+
+\item
+(1) 先说明存在$r$阶可逆主子矩阵。
+
+设$\rank(A)=r,A_{n\times n}=P_{n\times r}Q_{r\times n}$，其中$P$为列满秩，$Q$为行满秩(由4.1节习题4知分解合理)，由满秩，$P,Q$存在$r$阶可逆子矩阵。设$P$第$p_1,p_2\dots p_r$行构成的子式可逆，$Q$第$q_1,q_2\dots q_r$列构成的子式可逆，由Binet-Cauchy公式，$A\begin{bmatrix}p_1&p_2&\cdots&p_r\\q_1&q_2&\cdots&q_r\end{bmatrix}$可逆。若$Q$第$p_1,p_2\dots p_r$列构成的子式可逆，则已满足题目条件，否则考虑$A^T=Q^TP^T$。此时$Q^T$列满秩，$P^T$行满秩。由$Q$第$p_1,p_2\dots p_r$列构成的子式不可逆，可知$Q^T$第$p_1,p_2\dots p_r$行构成的子式不可逆，由Binet-Cauchy公式，对任意$s_1,s_2\dots s_r$，$A^T\begin{bmatrix}p_1&p_2&\cdots&p_r\\s_1&s_2&\cdots&s_r\end{bmatrix}$不可逆，但$A^T=A$，与$A\begin{bmatrix}p_1&p_2&\cdots&p_r\\q_1&q_2&\cdots&q_r\end{bmatrix}$可逆矛盾，故$Q$第$p_1,p_2\dots p_r$列构成的子式可逆，因此$\det{A\begin{bmatrix}p_1&p_2&\cdots&p_r\\p_1&p_2&\cdots&p_r\end{bmatrix}}\ne0$。
+
+考虑$A$的各阶顺序主子式(即前$i$行前$i$列的子方阵)。可以证明，相邻两个顺序主子式秩相差至多2。这是因为，相邻的顺序主子式相差为删去末行末列，相当于将最后一行最后一列变为0。将改变前后的矩阵相减，计算可知差为一个秩至多为2的矩阵。再利用4.1节习题7(1,2)可知秩相差至多2。
+
+最后一个顺序主子式一行一列，因此秩至多为1。由此，对任意正整数$k\le r$，存在某个顺序主子式的秩为$k$或$k+1$。由于对称阵的顺序主子式仍对称，由(1)，这个顺序主子式存在某个主子式秩为$k$或$k+1$。而主子式的主子式依然为$A$的主子式，由此得证。
+
+(2) 与(1)类似，先说明存在$r$阶可逆主子矩阵，又因为反对称方阵的主子式仍为反对称方阵，当其阶数$n$为奇数时，由3.2节习题9证明过程知行列式为0，因此$r$一定为偶数。继续仿照(1)的过程由于反对称方阵秩为偶数，一定能取到习题(1)的$k,k+1$中的偶数，即为所有正偶数。
+
+\item
+(答案暂缺)
+
+\item
+由4.1节习题4设$A=P_1Q_1,B=P_2Q_2$，$P_1,P_2$列满秩，$Q_1,Q_2$行满秩，由$\begin{pmatrix}P_1&P_2\end{pmatrix}\begin{pmatrix}Q_1\\Q_2\end{pmatrix}=A+B$，由条件可知$\begin{pmatrix}P_1&P_2\end{pmatrix}$列满秩，$\begin{pmatrix}Q_1\\Q_2\end{pmatrix}$行满秩(否则利用$\rank(XY)\le\min(\rank(x),\rank(y))$可知矛盾)，由4.1节习题5知存在$P=\begin{pmatrix}P_1&\ast&P_2\end{pmatrix},Q=\begin{pmatrix}Q_1\\\ast\\Q_2\end{pmatrix}$为可逆方阵，代入计算可得此时PQ即符合要求。
+
+\item
+设$A=P_0\begin{pmatrix}I_a&O\\O&O\end{pmatrix}Q_0$ ($P_0Q_0$可逆)，对应分块$B={Q_0}^{-1}\begin{pmatrix}B_1&B_2\\B_3&B_4\end{pmatrix}{P_0}^{-1}$，代入方程可解得$B_1=B_2=B_3=O$，取可逆矩阵$MN$使$B_4=M\begin{pmatrix}O&O\\O&I_b\end{pmatrix}N$，令$P=P_0\begin{pmatrix}I_a&O\\O&N\end{pmatrix},Q=\begin{pmatrix}I_a&O\\O&M\end{pmatrix}Q_0$，计算知符合要求。
+
+\item
+(1) 设$A+I=P_0\begin{pmatrix}I&O\\O&O\end{pmatrix}Q_0$ ($P_0Q_0$可逆)，$Q_0P_0$分块为$\begin{pmatrix}B_1&B_2\\B_3&B_4\end{pmatrix}$，则$A+I=P_0\begin{pmatrix}B_1&B_2\\O&O\end{pmatrix}P_0^{-1}$，且由$Q_0P_0$可逆知$\begin{pmatrix}B_1&B_2\end{pmatrix}$行满秩。解方程$(A+I)(A-I)=O$可得$(B_1-2I)\begin{pmatrix}B_1&B_2\end{pmatrix}=O$，由4.1节习题5知只能$B_1=2I$，取$P=\begin{pmatrix}I&-\frac{1}{2}B_2\\O&I\end{pmatrix}P_0^{-1}$，计算验证知符合要求。
+
+(2) 将$A$写为(4)中的形式，记形式中的$P,Q$为$P_0,Q_0$，直接计算可发现$Q_0^3=Q_0$，由$Q_0$可逆，$Q_0^2=I$，由(1)设$R^{-1}Q_0R=\diag(I,-I)$，则取此处$P=P_0\begin{pmatrix}R&O\\O&I\end{pmatrix}$即符合要求。
+
+(3) $\rank(A^{k+1})=\rank(A^k\cdot A)\le\rank(A^k)$，由Frobenius秩不等式$\rank(AA^{k-1}A)+\rank(A^{k-1})\ge \rank(A^{k-1}A)+\rank(AA^{k-1})$，因此$2\rank(A^k)-\rank(A^{k-1})\le \rank(A^{k+1})\le\rank(A^k)$，代入条件即得结果。
+
+(4) 由于$\rank(A^{k+1})=\rank(A^k\cdot A)\le\rank(A^k)$，由条件可推出$\rank(A^2)=\rank(A)$。设$A=P_0\begin{pmatrix}I_a&O\\O&O\end{pmatrix}R_0P_0^{-1}$ ($P_0,R_0$可逆)，$R_0=\begin{pmatrix}R_1&R_2\\R_3&R_4\end{pmatrix}$，而$A^2=P_0\begin{pmatrix}R_1&O\\O&O\end{pmatrix}R_0P_0^{-1}$，因此$R_1$可逆。由于$A=P_0\begin{pmatrix}R_1&R_2\\O&O\end{pmatrix}P_0^{-1}$，取$P=P_0\begin{pmatrix}I&-R_1^{-1}R_2\\O&I\end{pmatrix},Q=R_1$，计算验证即可。
+
+\item
+(1) 归纳。一阶时显然成立，当阶数大于1时，与习题10(1)类似操作可先将其列变换为$\begin{pmatrix}O&A_1\\O&A_2\end{pmatrix}Q_0$，由于$A$幂零，不可能可逆，故至少有一列0，计算知将其写为$Q_0^{-1}\begin{pmatrix}O&A_1'\\O&A_2'\end{pmatrix}Q_0$时依然有一列为0。计算其$m$次幂验证可知$A_2'$仍为幂零方阵，由归纳假设，存在$P_0$使得$P_0^{-1}A_2' P_0$为对角全为0的上三角阵，因此取$P={\begin{pmatrix}I&O\\O&P_0^{-1}\end{pmatrix}Q}_0$即满足要求。
+
+(2) 将第一问的第一步改为将其行变换为$P_0\begin{pmatrix}A_2&A_1\\O&O\end{pmatrix}$，然后将所有对行列的操作对调即可(具体操作见第三问)。
+
+(3) 由于相似可以传递($PQAQ^{-1}P^{-1}=(PQ)A(PQ)^{-1}$)，不妨设$A$已经是上一问中的形式。
+
+注意到，在第一问的操作下，$A=\begin{pmatrix}&C_1&\ast&\ast\\&&\ddots&\ast\\&&&C_r\\&&&\end{pmatrix}$，其中每个对角块为方阵，且每个$C_i$及其右下角为列满秩阵($*$部分为未定)(理由为在每一步中$\begin{pmatrix}A_1'\\A_2'\end{pmatrix}$列满秩，之后的操作不改变这个特性)。利用$\rank(A)+\rank(B)\le\rank\begin{pmatrix}A&B\end{pmatrix}$，可发现每个$C_i$亦为列满秩。
+
+下面由下标从大到小依次对$C_k$进行如下操作：
+
+由于$C_k$为列满秩阵，可行变换为题目要求的$B_k$的形式($C_k=Q_k\begin{pmatrix}I\\O\end{pmatrix}P_k=Q_k\begin{pmatrix}P_k&O\\O&I\end{pmatrix}\begin{pmatrix}I\\O\end{pmatrix}$，取行变换矩阵为$\begin{pmatrix}P_k^{-1}&O\\O&I\end{pmatrix}Q_k^{-1}$即可)。如此进行变换，并右乘其逆。由于右乘其逆相当于对$C_{k-1}$所在的列进行列变换，不会改变$C_{k-1}$的列满秩性质，因此操作可以继续。接下来，利用$T_{ij}$行变换将$B_k$上方的所有数减为0。右乘此操作的逆相当于$C_{k-1}$所在的列减去其左侧的列。由于$C_{k-1}$左侧全部为$O$，故这个操作亦不会影响下一步操作。
+
+如此对所有$C_k$按下标从大到小如此操作$r$次，可得到符合要求的方阵(直接计算$A^{m-1}$与$A^m$知此时必然剩下$m-1$个$B_k$)。
+
+(4) 在第三问的基础上进行操作。在2.4节习题14中已验证，左乘置换方阵并右乘其逆相当于置换下标。由于矩阵为上三角，$a_{ij}$只有$i<j$时可能为1。且容易发现，此时矩阵每行每列最多有一个1。
+
+按$i$从小到大寻找，第三问的形式中第一行必然有1。若$a_{1,i_2}=a_{i_2,i_3}=\dots=a_{i_p,i_{p+1}}=1$，且$i_{p+1}$行没有1，则将$i_1$到$i_m$置换为1到$m$。然后从第$m+1$行看起，找到此时第一个存在1的行，再次按之前方式找到链条，放在$m+1,m+2,\dots$的位置，以此直到所有的1都排列完成。可以证明，这样操作后，每个对角方阵已经成为Jordan方阵，且不会有剩下的1。再利用置换矩阵调整顺序至满足大小要求(5.1节定理5.1-5)即可。直接计算可知，此时最大块必然为$m$阶。
+
+(亦可通过类似思路归纳操作，更为简洁)
+\end{enumerate}
+
+\subsection{Smith 标准形}
+\begin{enumerate}
+\item 
+本题只按顺序写出$d_i$
+
+(1) 1,60,60 (2) 1,1 (3) 1,1 (4) 1,1
+
+(5) $x+1,x(x+1),(x-1)x(x+1)$ (6) $x,x(x-1)^2$
+
+(7) $x,x^2,x^3$ (8) $1,x(x-1)$
+
+\item
+(1) 直接设出$a_1,\dots,a_n$每个数的不同素因子，可发现其中$n$个$n-1$个不同数的乘积的最大公因数为1，由此知$D_{n-1} = 1$，可得结论。
+
+(2) 直接利用最大公因数计算$D_i$即可
+
+\item
+直接仿照4.2节开头部分，注意此时有解条件除$\beta_2=0$外还有$d_i\mid\beta_{1i}$，因此相抵须加强为模相抵。
+
+\item
+证明中$k+1,k+2$若$>n$，则写为模$n$的余数
+	
+(1) *需至少二阶，一阶时$(-1)$无法表示。
+
+由变换的角度，任何整系数方阵都能在整系数初等变换下得到Smith标准形，又因整数模方阵的标准形为单位阵，其一定能写为整系数初等方阵的乘积。而$D_i(n)$会导致行列式值为$n$的倍数，故只能$n=-1$($n=1$为单位阵)，但$D_i(-1)=S_{ij}T_{ij}(1)T_{ji}(-1)T_{ij}(1)$，且$T_{ij}(n)=T_{ij}^n(1),T_{ij}(-n)=T_{ij}^n(-1) (n>0)$，故可表示为满足题目要求的乘积。
+
+(2) $P^kS_{12}P^{n-k}=S_{k+1,k+2}$，再由$S_{ij} (i<j)=S_{i+1,j}S_{i,i+1}S_{i+1,j}$可由$ij$之差归纳出结果。
+
+(3) $P^kT_{12}(1)P^{n-k}=T_{k+1,k+2}(1),T_{ij}(1) (i<j)=T_{i,i+1}(1)T_{i+1,j}(1)T_{i,i+1}(-1)T_{i+1,j}(-1)$与上问类似可由$ij$之差归纳出结果。
+
+(4) 由于$S_{ij}T_{ij}(1)T_{ji}(-1)T_{ij}(1)=D_i(-1)$与$j$无关，可将$S_{ij}$利用$T$化为$S_{i1}=S_{1i}$，再利用$T$化为$S_{12}$即可。
+
+(5) $T_{ij}(1)=S_{1i}S_{2j}T_{12}(1)S_{2j}S_{1i}$ ($S_{ii}=I$)
+
+\item
+(1) 由习题4(1)进行分解，又由习题4(4)，可将所有$S_{ij}$化为$S_{12}$，由于行列式为1，这样的$S_{12}$必然为偶数个。又因为$S_{12}T_{ij}(k)=T_{mn}(k)S_{12}$(其中$m,n$为$i,j$在对换12作用下的结果)，可以将$S_{12}$两两配对后全部消去，即得证。
+
+(2) 阶数为奇时与习题4(3)相同，为偶时$P^kT_{12}(1)P^{n-k}=-T_{k+1,k+2}(-1)$，由习题4(3)，由于$T_{ij}(1)$模为1，结果可消去所有负号，即得证。
+
+\item
+直接将定理证明中的整数替换为多项式即可，注意其中配凑系数可控制首一。
+
+\item
+(1) 由Smith标准形为对称阵，设$PQ$为模方阵，$PAQ$为$A$的Smith标准形，则$Q^TA^TP^T=(PAQ)^T=PAQ$，故$A^T$与$A$模相抵(转置不影响行列式，故模方阵转置仍为模方阵)。
+
+(2) 与(1)过程相同。
+
+\item
+(1) 左推右：若否，展开得行列式一定为$\gcd(a_1,a_2\dots a_n)$，故矛盾
+
+右推左：由于其各分量最大公约数是1，将此向量写为$\alpha$，可右乘合适的$D_i(-1)$使其均变为正数，再右乘$T_{21}(-1),T_{12}(-1)$的组合进行辗转相减，最终使$a_1$成为$\gcd(a_1,a_2)$，以此对每个大于1的$a_i$操作，$a_1$最终变换成$\gcd(a_1,a_2\dots a_n)=1$，设这时的$\alpha$变为$\beta$，有$\alpha P=\beta$(由于每步变换均为右乘整数模方阵，$P$亦为整数模方阵)此时，由于$\beta_1=1$，$\begin{pmatrix}1&\beta_2&\cdots&\beta_n\\&1&&\\&&\ddots&\\&&&1\end{pmatrix}P^{-1}$即为以$\alpha$为行向量的整数模方阵。
+
+(2) 与(1)过程相同，注意辗转相减时$T_{1i},T_{i1}$中的内容应更改为多项式辗转相除的方式即可。
+
+\item
+考察某个$C=A+xB$的子式$C\begin{bmatrix}p_1&p_2&\cdots&p_r\\q_1&q_2&\cdots&q_r\end{bmatrix}$。
+
+由$A^T=\overline{A},B^T=\overline{B}$，可得$f_1(x)=\det{C\begin{bmatrix}p_1&p_2&\cdots&p_r\\q_1&q_2&\cdots&q_r\end{bmatrix}},f_2(x)=\det{C\begin{bmatrix}q_1&q_2&\cdots&q_r\\p_1&p_2&\cdots&p_r\end{bmatrix}}$\ 互为共轭。而$f_1,f_2$均为$r$次多项式，因此$\gcd(f_1,f_2)=\gcd(f_1+f_2,f_2-f_1)=\gcd\big(f_1+f_2,\frac{f_2-f_1}{2\mathrm{i}}\big)$ (因非零复数可逆，除以$2\mathrm{i}$不影响多项式最大公因式)。
+
+计算可发现，$f_1+f_2,\frac{f_2-f_1}{2\mathrm{i}}$均为实系数多项式，因此其最大公因式亦为实系数多项式。而对每一个$D_k$，都可以由此配对成若干个实系数多项式的最大公因式，因此亦为实系数多项式，从而$d_k$亦如此。
+
+\item
+考虑$(x)$与$(x^2)$即为反例。
+
+可以说明，当$A$和$B$对应的$d_i$均无重根时，条件成立。首先证明：若两个方阵$M,N\in\mathbb{C}[x]$模相抵，则对任何$z$，$M(z),N(z)$相抵。令$M=PNQ$，$P,Q$为模方阵，则$M(z)=PNQ(z)=P(z)N(z)Q(z)$，由于$\det{P(z)},\det{Q(z)}$均为$\pm1$，故$P(z)Q(z)$可逆，因此$M(z),N(z)$相抵。由此，设$A,B$的Smith标准形为$A_0,B_0$，则对任何$z$，$A(z)$与$A_0(z)$，$B(z)$与$B_0(z)$相抵，于是$A_0(z)$与$B_0(z)$相抵，设$A_0(z)=\diag(a_1,a_2\dots a_k,O),a_i\mid a_{i+1}$，$B_0(z)=\diag(b_1,b_2\dots b_l,O),b_i\mid b_{i+1}$。令z取一个并非$a_k,b_l$根的数，此时相抵可知$k=l$。若$a_i$与$b_i$不全相同，考虑最小的不相同的$a_i,b_i$，由于$a_i,b_i$均为无重根，必定根的情况不同，不妨设有一个$z$为$a_i$根，不为$b_i$根，则讨论其他方程对$z$的根的情况可知此时$\rank(A(z))<\rank(B(z))$，矛盾。
+
+由证明过程亦可知，满足题目中要求的$A,B$实际要求为，Smith标准形中对应位置的每个多项式根相同(但重数可以不同)。
+\end{enumerate}
+
+\section{矩阵的相似}
+\subsection{相似的概念}
+\begin{enumerate}
+\item
+(1)$\tr(AB)=\tr(BA)$(2.1节定理2.2)$\Rightarrow\tr(A)=\tr(PBP^{-1})=\tr(P^{-1}PB)=\tr(B)$
+
+$\det(A)=\det(P)\det(B)\det(P^{-1})=\det(B)$
+
+$\rank(A),\rank(B)$由秩定义直接得相等。
+
+(2)利用$(P^T)^{-1}=(P^{-1})^T$与$(AB)^T=B^TA^T$知成立。
+
+(3)直接计算可发现$A=PBP^{-1}\Rightarrow f(A)=Pf(B)P^{-1}$。
+
+(4)计算可知$\diag(P,Q)^{-1}=\diag(P^{-1},Q^{-1})$，由此构造即可。
+
+(5)设$A_1,A_2$为$m,n$阶方阵，则计算可知$\diag(A_2,A_1)=\begin{pmatrix}O&I_n\\I_m&O\end{pmatrix}\diag(A_1,A_2)\begin{pmatrix}O&I_m\\I_n&O\end{pmatrix}$，且左右方阵互逆，由此归纳可知结果。
+
+\item
+直接取$P=\begin{pmatrix}&&1\\&\iddots&\\1&&\end{pmatrix}$，计算知成立。
+
+\item
+(1) 特征值1,1,1，但1几何重数为1，不可对角化。
+
+(2) 特征值1,1,2，$P=\begin{pmatrix}1&0&1\\1&2&2\\0&1&1\end{pmatrix}$
+
+(3) 特征值1,1,1，但1几何重数为2，不可对角化。
+
+(4) 特征值1,2,3，$P=\begin{pmatrix}1&1&1\\0&1&1\\-1&0&-1\end{pmatrix}$
+
+(5) 特征方程$\lambda^n+a=0$。$a=0$时特征值全为0，但0几何重数为1，不可对角化；其余情况可对角化，$P_{ij}=a^{(i-1)/n}\omega^{(i-1)(j-1)}$，其中$\omega$为$n$次本原单位根。
+
+(6) 类似3.2节习题6(1)知特征值为$n-1$重0与$\frac{n(n+1)(2n+1)}{6}$，计算得$P=\begin{pmatrix}-n&\cdots&-2&1\\&&1&2\\&\iddots&&\vdots\\1&&&n\end{pmatrix}$
+
+(7) 类似3.2节习题6(2)知特征值为$n-2$重0与$\lambda^2-\frac{n^3+2n}{3}\lambda+\frac{n^4-n^2}{12}=0$的两根。0对应特征向量的基为$\begin{pmatrix}k&-k-1&0&\dots&1&\dots&0\end{pmatrix}^T$ ($1\le k\le n-2$，第$k+2$个分量为1，此外除前两个分量均为0)，非零特征值$\lambda$对应的一个特征向量第$i$个分量为$\frac{\lambda}{n}-\frac{n+1}{2}+i$，分别代入两个$\lambda$，组合得$P$。
+
+\item
+(1) 特征方程为奇数次，必有实根。
+
+(2) 特征方程常数项为$\det(A)$，由于$\varphi_A(0)=\det(A),\varphi_A(+\infty)=+\infty$，若否，由介值定理知存实根。
+
+(3) 由$A$为实对称方阵，$A^H=A$，设特征值$\lambda$对应特征向量$\alpha$，则$\alpha^HA\alpha=\alpha^H(\lambda\alpha)=\lambda\alpha^H\alpha$，又由于$(A\alpha)^H=\alpha^HA=(\lambda\alpha)^H=\overline{\lambda}\alpha^H$，有$\alpha^HA\alpha=\overline{\lambda}\alpha^H\alpha$。综合两式，$\alpha\ne\mathbf{0}\Rightarrow \alpha^H\alpha>0$，因此$\lambda=\overline{\lambda}\Rightarrow\lambda\in\mathbb{R}$。
+
+(4) 与上问类似知$\lambda=-\overline{\lambda}$，由此得结论。
+
+\item
+若否，则可以通过列变换将某列变为0，因此存在某些$\alpha$使$\sum_{k=1}^{r}{t_k\alpha_{m_k}}=\alpha_s$，其中$t_k$为非零常数。同时左乘若干$A$可知$\sum_{k=1}^{r}{t_k\lambda_{m_k}^l\alpha_{m_k}}=\lambda_s^l\alpha_s$对任意l成立。由于特征值两两不同，利用范德蒙德行列式可证明此时任何一个分量只有0解，即所有$\alpha=\mathbf{0}$，矛盾。
+
+\item
+(1) $c_0=\det(A)$，由5.2节定理5.6-1，$A^n(n\in\mathbb{Z})$的每个特征值为$A$的每个特征值对应作$n$次方，由此直接计算特征多项式得结果。
+
+(2) 注意到$c_1=\tr(A^\ast)$，因此其$n$次与$n-1$次项必为$x^n+(-1)^nc_1x^{n-1}$，利用4.1节习题7可得$A$不可逆时，$\rank(A^\ast)\le1$，类似3.2节习题6(1)知0的代数重数至少为$n-1$，因此其只能为$x^n+(-1)^nc_1x^{n-1}$。
+
+\item
+(1) 记右式中最大值为$M$，若否，$\left|\sum_{k=0}^{n-1}{c_k\lambda^k}\right|\le\sum_{k=0}^{n-1}|c_k\lambda^k\|\le\sum_{k=0}^{n-1}|M\lambda^k|=M\frac{|\lambda|^n-1}{|\lambda|-1}\le|\lambda|^n-1<|\lambda^n|$，矛盾。
+
+(2) 记右式中最大值为$M$，若否，$\left|\sum_{k=0}^{n-1}{c_k\lambda^k}\right|\le\sum_{k=0}^{n-1}|c_k\lambda^k|\le\sum_{k=0}^{n-1}|M^{n-k}\lambda^k|=M\frac{|\lambda|^n-M^n}{|\lambda|-M}<|\lambda|^n-M^n<|\lambda|^n$，矛盾。
+
+(3) 若否，$\lambda I-A$的行列式严格行对角优，利用2.4节习题12可知不为0。
+
+\item
+右推左：$f=g\Rightarrow A=B\Rightarrow A,B$相似。
+
+左推右：由于$A,B$相似，特征多项式必相同。又由Laplace展开知$\varphi_A(x)=f(x),\varphi_B(x)=g(x)$，因此$f=g$。
+
+\item
+由条件知$(\lambda I-A)(\lambda I-B)=\lambda(\lambda I-A-B)$，直接计算可得结论。
+
+\item
+(1) 类似3.2节习题6(1)可知特征根为$n-1$重0与$\tr(A)$，由此知结论。
+
+(2) 由$\rank(A)=1$知0的几何重数为$n-1$，因此可对角化等价于0的代数重数为$n-1$，即$\tr(A)\ne0$(否则代数重数为$n$)。
+
+(3) 讨论是否为0可知结论成立(均为0时可用Jordan标准形说明相似)。
+
+\item
+(1) 利用3.2节例3.12可直接得结论。
+
+(2)
+设$A=P\begin{pmatrix}I_r&O\\O&O\end{pmatrix}Q,B=Q^{-1}\begin{pmatrix}B_1&B_2\\B_3&B_4\end{pmatrix}P^{-1}$ ($PQ$可逆)，由条件算得$\rank(B_1)=r$，即$B_1$可逆。计算得
+
+$\begin{pmatrix}I&B_1^{-1}B_2\\O&I\end{pmatrix}P^{-1}ABP\begin{pmatrix}I&-B_1^{-1}B_2\\O&I\end{pmatrix}=\begin{pmatrix}I&O\\-B_3B_1^{-1}&I\end{pmatrix}QBAQ^{-1}\begin{pmatrix}I&O\\B_3B_1^{-1}&I\end{pmatrix}=\begin{pmatrix}B_1&O\\O&O\end{pmatrix}$
+
+因此$AB,BA$相似。
+
+(3) 设$A=P\begin{pmatrix}I&O\\O&O\end{pmatrix}Q,B=Q^{-1}\begin{pmatrix}B_1&B_2\\B_3&B_4\end{pmatrix}P^{-1}$ ($PQ$可逆)，由条件$\rank(B_1)=\rank\begin{pmatrix}B_1&B_2\\B_3&B_4\end{pmatrix}$。利用4.2节例4.6知存在$X,Y$使得$B_1X=B_2,YB_1=B_3$，计算得
+
+$\begin{pmatrix}I&X\\O&I\end{pmatrix}P^{-1}ABP\begin{pmatrix}I&-X\\O&I\end{pmatrix}=\begin{pmatrix}I&O\\-Y&I\end{pmatrix}QBAQ^{-1}\begin{pmatrix}I&O\\Y&I\end{pmatrix}=\begin{pmatrix}B_1&O\\O&O\end{pmatrix}$
+
+因此$AB,BA$相似。
+
+(4) $A=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&0&0\\0&0&0&1\end{pmatrix},B=\begin{pmatrix}0&1&0&0\\0&0&1&0\\0&0&0&1\\0&0&0&0\end{pmatrix}$
+
+\item
+利用3.2节例3.11可得$\varphi_{H^n}(x)=\det\big((xI-H_{n-1})^2-I\big)=\det\big((x+1)I-H_{n-1}\big)\big((x-1)I-H_{n-1}\big)=\varphi_{H^{n-1}}(x+1)\varphi_{H^{n-1}}(x-1)$，归纳可得特征值为$\mathrm{C}_n^k$个$n-2k(0\le k\le n)$。
+
+\item
+(1) 利用习题7(3)可知特征值的模$\le2$，设为$2\cos{\theta}$，归纳可得$\det(2\cos{\theta}I-A)=\frac{\sin{(n+1)\theta}}{\sin{\theta}}$，由此解出全部特征值知分解成立。
+
+(2) 利用习题7(3)可知特征值$\in[0,4]$，设为$2\cos{\theta}+2$，归纳可得$n>1$时$\det((2\cos{\theta}+2)I-A)=(2\cos{\theta}+2)\frac{\sin{n\theta}}{\sin{\theta}}$，由此解出全部特征值知分解成立。
+
+(归纳式的由来可以用(1)的结果算出)
+
+\item
+(1) 令$S$的第$i$行第$j$列为$\mathrm{C}_i^j$(此处$i,j$均可取0，规定$\mathrm{C}_0^0=1$，$j>i$时$\mathrm{C}_i^j=0$)，可证明$S^{-1}AS=\begin{cases}i-n&i=j-1\\0&i\ne j-1\end{cases}$，由相似阵的特征多项式相同可直接得结论。
+
+(2) $S^{-1}BS=\begin{cases}(n-2i)^2&i=j\\2(i-n)(2i+1)&i=j-1\\0&$其他$\end{cases}$，由此直接计算可得结果。
+
+*关于计算细节：
+可验证$S^{-1}=\big((-1)^{i-j}\mathrm{C}_i^j\big)$，而计算核心为公式$\sum_{k=j}^{i}(-1)^{i-k}\mathrm{C}_i^k\mathrm{C}_k^j=\begin{cases}1&i=j\\0&i\ne j\end{cases}$ (具体计算相关的知识点为离散数学中组合数计算)
+
+\item
+(1) 由定义直接验证即可。
+
+(其余答案暂缺)
+
+\item
+*谱半径$\rho(A)$定义见5.3节习题11，为$A$的特征值模长最大值，即为此题的$\left|\lambda_1\right|$
+
+*矩阵范数定义见6.3节例6.7
+
+*定义实向量与矩阵之间的$<,\le,>,\ge$代表每个分量对应满足条件
+
+(1.1) 对非负矩阵$A$，$\rho(A)$为$A$特征值(称其为非负矩阵$A$的最大特征值)。
+
+任意非负矩阵，可以写为一列正矩阵的极限(矩阵极限即为按分量极限)，而由于特征多项式亦为极限，特征值也为极限，由极限保序性，我们只需要说明对$A>O$结论成立。由于矩阵整体数乘正数不影响题中性质，不妨设$\rho(A)=1$。
+
+设$\alpha$为$\lambda_1$对应的特征向量，各分量为$\alpha_1,\dots,\alpha_n$，取$\beta=\begin{pmatrix}|\alpha_1|&\dots&|\alpha_n|\end{pmatrix}^T$，有$\beta\ge\mathbf{0}$且不可能为$\mathbf{0}$，下证$\beta$是$A$的对应1的特征向量，由此即有$\lambda_1=1$。
+
+由条件，$\forall k,\lambda_1\alpha_k=\sum_{i=1}^{n}a_{ki}\alpha_i$，取模即有$|\alpha_k|\le\sum_{i=1}^{n}a_{ki}|\alpha_i|$，因此$\beta\le A\beta$，也即$(A-I)\beta\ge\mathbf{0}$，若等号成立则已得证，否则，由于$A>0$，$A(A-I)\beta>\mathbf{0}$，因此存在正实数$b$使$A(A-I)\beta\ge bA\beta$，即$A^2\beta\ge(b+1)A\beta$。
+
+令$B=\frac{A}{b+1}$，则$BA\beta\ge A\beta$，递推知$\forall k,B^kA\beta\ge A\beta$。但由于$\rho(B)=\frac{1}{b+1}<1$，由5.3节习题11得$\lim_{k\to\infty}{B^k}=O$，由此只能$A\beta=\mathbf{0}$，由假设$\beta=\mathbf{0}$，故$\alpha=\mathbf{0}$，矛盾。
+
+因此，$\rho(A)\beta=A\beta$，即$\beta$是$A$的对应1的特征向量，$\lambda_1=1$。
+
+(2.1) 不可约矩阵中最大特征值对应的某个特征向量各分量同正。
+
+在(1.1)中，已经取出了最大特征值对应的一个非负特征向量$\beta$，下面证明，对不可约矩阵$A$与非负非零向量$\beta$，$\exists m,A^m\beta>\mathbf{0}$，又由$A^m\beta=\rho(A)^m\beta$可知$\beta>\mathbf{0}$，因此$\beta$各分量同正或同负。
+
+步骤一：对不可约矩阵$A$，存在$s$使$A^s$对角元均为正。
+
+我们回到图论。回忆2.4节习题14证明过程中说明的，不可约矩阵等价于其对应的图强连通，即任意两点可以互相到达。
+
+由于这里的“任意两点”可以取为同一点，可以设点$i$通过$m_i$步可以到达自身(回忆证明过程中的结论，此即表示$A^{m_i}$的第$i$行第$i$列为正)，由此，取$s=\lcm(m_1,\dots,m_n)$，容易发现，每点均可以通过$s$步到达自身，也即$A^s$对角元全为正。由此，将$A^s$记为$B$。
+
+步骤二：若非负非零向量$\beta$恰好有$k<n$个分量为正，则$B\beta$至少有$k+1$个分量为正。
+由于置换不影响结论，不妨设$\beta=\begin{pmatrix}\beta_0\\\mathbf{0}\end{pmatrix}$，其中$\beta_0>\mathbf{0}$。设$B$对应分块为$\begin{pmatrix}B_1&B_2\\B_3&B_4\\\end{pmatrix}$，则由于$B$对角元均正，$\exists\varepsilon,B-\varepsilon I$对角元均正，其仍为不可约阵，设$B-\varepsilon I$对应分块为$\begin{pmatrix}B_1&B_2\\B_3&B_4\end{pmatrix}$，则$B\beta=\varepsilon\begin{pmatrix}\beta_0\\\mathbf{0}\end{pmatrix}+\begin{pmatrix}B_1\beta_0\\B_3\beta_0\end{pmatrix}$，由$\varepsilon\begin{pmatrix}\beta_0\\\mathbf{0}\end{pmatrix}$部分可知$B\beta$至少有$k$个分量为正，若不足$k+1$，则$B_3\beta_0=O$，由于$\beta_0>\mathbf{0}$，只有$B_3=O$，与$B-\varepsilon I$不可约矛盾。
+
+步骤三：归纳可知$B^{n-1}\beta>\mathbf{0}$，即$A^{s(n-1)}\beta>\mathbf{0}$，原命题得证。
+
+(1.2) 不可约阵中最大特征值的代数重数为1。
+
+步骤一：不可约阵中最大特征值对应的Jordan块均为一阶。
+
+继续假设$\rho(A)=1$。这即是需要证明，1对应的所有Jordan块均为$J_1(1)$。
+
+设$A$对应1的某个特征向量为$\alpha$，由(2.1)知可取$\alpha>\mathbf{0}$，且有$A\alpha=\alpha\Rightarrow A^k\alpha=\alpha$。令$\alpha$最大分量为$x$，最小分量为$y$，则考虑$A^k\alpha=\alpha$左右各分量有$x\ge\alpha_i=\sum_{j=1}^{n}{a_{ij}^{(k)}\alpha_j}\ge a_{ij}^{(k)}\alpha_j\ge a_{ij}^{(k)}y$，其中$a_{ij}^{(k)}$表示$A^k$中第$i$行第$j$列的元素。由此可得，$A^k$中任意元素$\le\frac{x}{y}$，也即有界。
+
+若1对应的某个Jordan块为$J_s(1),s>1$，则存在$P$使$P^{-1}AP$为其Jordan标准形，不妨设第一个对角块即为$J_s(1)$，则其$k$次方中第一行第二列为$k$，且前两个对角元仍为1，因此$(P^{-1}AP)^k=P^{-1}A^kP$无界，考虑$||A||_F$计算可知与$A^k$有界矛盾。
+
+步骤二：不可约阵中最大特征值的代数重数为1。
+
+由2.4节习题14(1)，对特征值为$\lambda_1,\dots,\lambda_n$的不可约矩阵$A$，$\exists\lambda,(\lambda I-A)^{-1}>O$，且证明过程中已经说明了，对充分大的$\lambda$有$(\lambda I-A)^{-1}>O$。因此，可取$\lambda>\rho(A)$。计算可知$(\lambda I-A)^{-1}$的每个特征值为$\frac{1}{\lambda-\lambda_i}$，且对应的特征向量一致。由于$(\lambda I-A)^{-1}$的最大特征值为实数，其对应的$\lambda_i$也必为实数，又由于$\lambda$充分大，若实特征值$\lambda_i>\lambda_j$，有$\frac{1}{\lambda-\lambda_i}>\frac{1}{\lambda-\lambda_j}$。因此，$(\lambda I-A)^{-1}$的最大特征值即对应$A$的最大特征值。也即，只需证明对所有$A>O$满足题述性质即可。
+
+继续假设$\rho(A)=1$。(2.1)中说明，特征值1对应一个正特征向量$\beta$，设其分量为$\beta_1,\dots,\beta_n$。若结论不成立，不妨设$A$中1的代数重数为$r>1$，由于对应的Jordan块均一阶，由5.3节定理5.12，其几何重数亦为$r$，再由定理5.2-5知1对应的特征向量空间的维数为$r>1$。
+
+由于$A-I$为实方阵，$(A-I)x=\mathbf{0}$的解空间的基可以取为实数，由此可取出与$\beta$线性无关的实特征向量$\alpha$， 设其分量为$\alpha_1,\dots,\alpha_n$。令$t=\max_{1\le i\le n}{\frac{\alpha_i}{\beta_i}}$，由于$\beta_i>0$，可知$t\beta-\alpha\ge\mathbf{0}$，但$t\beta-\alpha$为$A$对应1的特征向量，由于$A>O$，$A(t\beta-\alpha)=t\beta-\alpha$，知$t\beta-\alpha>\mathbf{0}$。然而，$t=\max_{1\le i\le n}{\frac{\alpha_i}{\beta_i}}$，因此$t\beta-\alpha$必有分量为0，矛盾。
+
+由此可知，$A$中1的几何维数为1，又因最大特征值对应的Jordan块均为一阶，从而代数维数为1，从而原结论成立。
+
+(2.2) 不可约矩阵中最大特征值对应的一切特征向量各分量同号。
+
+由(1.2)已知其特征向量空间维数为1，因此所有特征向量为(2.1)中$\beta$的非零实数倍，因此各分量同号。
+
+(3) 利用习题7(3)可知$\rho(A)\le1$，列变换可知1为特征值，故得证。
+
+(4) 左推右：
+
+引理：A为非负矩阵，$\rho(A)=\lim_{k\to\infty}{||A^k||^{1/k}}$
+
+引理证明：定义$A_+=\frac{1}{\rho(A)+\varepsilon}A,A_-=\frac{1}{\rho(A)-\varepsilon}A$，计算可知$\rho(A_+)<1<\rho(A_-)$。类似5.3节习题11做法可得，对非负矩阵$B$，$\rho(B)>1\Leftrightarrow\lim_{k\to\infty}||B^k||=+\infty,\rho(B)<1\Leftrightarrow\lim_{k\to\infty}||B^k||=0$。由此，$\exists N,\forall k>N,||A_+^k||<1<||A_-^k||$。于是$(\rho(A)-\varepsilon)^k<||A^k||<(\rho(A)+\varepsilon)^k$，因此$\forall\varepsilon,\exists k,\big|\rho(A)-||A^k||^{1/k}\big|<\varepsilon$，故引理成立。
+
+继续假设$\rho(A)=1$，设特征值$\lambda$模长为1。
+
+若$\lambda\ne1$，设其实部为$\cos{\theta}$(由于不关注虚部，不妨设$\theta\in[0,\pi]$)，则$\re(\lambda^n)=\cos{n\theta}$。若$\theta\ne0$，对每个自然数$k$，必有$n$使$n\theta\in\left(2k\pi+\frac{\pi}{2},2k\pi+\frac{3\pi}{2}\right]\Rightarrow\cos{n\theta}<0$(此处可用数轴理解：每步长度固定且$\le\pi$，走过长度为$\pi$的区域时必会落入)，由此$\forall N,\exists m>N,\re(\lambda^m)<0$(取充分大的$k$即有充分大的$m$)。
+
+由于$A$本原，$\exists t,\forall n>t,A^n>O$。取某个$m>t$，再取一充分小正数$\varepsilon$满足$A^m-\varepsilon I>0$，直接计算可发现，$\lambda^m-\varepsilon$是$A^m-\varepsilon I$的特征值，且由于$\re(\lambda^m)<0$，$|\lambda^m-\varepsilon|>|\lambda^m|=1$。
+
+可证明$\sqrt{1+\varepsilon^2}<|\lambda^m-\varepsilon|\le\rho(A^m-\varepsilon I)$，因此$\rho(A^m-\varepsilon I)>1$。
+
+(不等号1：$\lambda^m$与$-\varepsilon$看作复平面向量，夹角$<\frac{\pi}{2}$，故其和的模长大于夹角恰为$\frac{\pi}{2}$时的模长。
+
+不等号2：由于$\lambda^m-\varepsilon$是$A^m-\varepsilon I$的特征值，由定义，模长小于等于最大模长。)
+
+另一方面，由于$A^m-\varepsilon I$每个元素对应小于等于$A^m$且不全相等，计算可知$(A^m-\varepsilon I)^k$与$A^{mk}$仍保持此性质。
+
+$\forall B>O,\exists\alpha>\mathbf{0}$使$||B\alpha||$取到最大值(将$\alpha$某位变号不影响$||\alpha||=1$，变为全同号时模长不会减小)。由上述性质，$\forall\alpha>\mathbf{0},||(A^m-\varepsilon I)^k\alpha||<||A^{mk}\alpha||$，于是$||(A^m-\varepsilon I)^k||<||A^{mk}||\Rightarrow||(A^m-\varepsilon I)^k||^{1/k}$
+
+$<||A^{mk}||^{1/k}$。取极限即有$\rho(A^m-\varepsilon I)\le\rho(A^m)$。
+
+但由特征值性质，$\rho(A^m)=\rho(A)^m=1$，故$\rho(A^m-\varepsilon I)\le1$，矛盾。这个矛盾说明，对任何模长为1的特征值$\lambda$，其值必为1，再结合(1)，由2.4节习题14(1)知本原阵必然不可约，即知左推右成立。
+
+[\textbf{推论} 不可约矩阵的模长为$\rho(A)$的特征值一定为$\rho(A)$乘以单位根
+
+注意到，上一部分中的证明其实对所有对角元均为正的非负矩阵均成立，因此我们得到，对角元均为正的非负矩阵满足模长为$\rho(A)$的特征值只能为最大特征值。
+
+由第二小问证明中的步骤1，对不可约矩阵$A$，存在$m$使$A^m$对角元均为正。由此运用5.2节定理5.6-1，$A^m$的特征值为$A$特征值对应$m$次方，而$A^m$满足$|\lambda|=\rho(A^m)$的特征值只能为最大特征值，$\rho(A^m)=\rho(A)^m$，因此对$A$的每一个模长为$\rho(A)$的特征值$\lambda$有$\lambda^m=\rho(A^m)=\rho(A)^m$，因此原命题得证。]
+
+右推左(题目表述不严谨，需要$A$不可约为条件)：
+
+反证。若$A$不为本原，可化为2.4节习题14(4)形式(注意$m\ge2$)。则此时计算可知，$A^m$为非负准对角阵$\diag\left(A_1A_2\dots A_m,A_2A_3\dots A_1,\dots,A_mA_1\dots A_2\right)$，由于任意两个不同对角元都可看成$AB$与$BA$，利用3.2节例3.12即知所有对角元非零特征值完全相同，因此，每个对角块模最大的特征值完全相同，因此$A^m$中模最大特征值的重数至少为$m$，而$A^m$的模最大特征值均为$A$模最大的特征值，即模长$\rho(A)$的特征值至少有$m$个，矛盾。
+\end{enumerate}
+
+\subsection{相似三角化}
+\begin{enumerate}
+\item
+(1) 利用上三角方阵多项式下的特性可说明。
+
+(2) 直接考虑上三角方针的形式即可。
+
+(3) 由上三角方阵逆仍然为上三角方阵可推知。
+
+(4) 考虑对角线含0的上三角阵在幂次后的情况即可。
+
+(5) 拆分上三角方阵可发现秩的关系，从而得证。
+
+\item
+法一：由5.1节定理5.2及韦达定理得$\sum_{i=1}^{n}\lambda_i^2=\left(\sum_{i=1}^{n}\lambda_i\right)^2-2\sum_{1\le i<j\le n}{\lambda_i\lambda_j}=\sigma_1^2-2\sigma_2$
+$=\left(\sum_{i=1}^{n}a_{ii}\right)^2-2\sum_{1\le i<j\le n}(a_{ii}a_{jj}-a_{ij}a_{ji})=\sum_{i,j=1}^{n}{a_{ij}a_{ji}}$
+
+法二：$A^2$特征值为一切$\lambda_i^2$，因此$\sum_{i=1}^{n}\lambda_i^2=\tr(A^2)=\sum_{i,j=1}^{n}{a_{ij}a_{ji}}$
+
+\item
+(1) 由$f$形式，设乘积为$g_0(x)$，则有$g_0(x)=g_0(\omega x)$，由此解出$g_0(x)=g(x^m)$。
+
+(2) 相似三角化知，设$\varphi_A(x)=\prod_{i=1}^{n}(x-\lambda_i)$，则$\varphi_B(x)=\prod_{i=1}^{n}(x-\lambda_i^m)=\prod_{i=1}^{n}\prod_{k=1}^{m}(x^{1/m}-\omega^k\lambda_i)=\prod_{i=1}^{n}\prod_{k=1}^{m}\omega^k(\omega^kx^{1/m}-\lambda_i)=\omega^{nm(m-1)/2}\prod_{i=1}^{n}\varphi_A(\omega^kx^{1/m})$，注意到$\omega^{m/2}=-1$即得结论。
+
+\item
+等式两边右乘$P$后计算左下角可得$BP_3=P_3A$，利用定理5.8知$BP_3-P_3A=O$有唯一解，且$P_3=O$为解，由此知命题成立。
+
+\item
+(1)\ $A\alpha\beta^T-\alpha\beta^TB=\lambda_1\alpha\beta^T-(\mu_1\beta\alpha^T)^T=(\lambda_1-\mu_1)X=O$
+
+(2) 仅当：由(1)与$B,B^T$特征值相同可知。
+
+当：由定理5.8知唯一性。由$\varphi_B(A)$为$A$的多项式，其与A可交换。由定理5.6-2知$\varphi_B(A)$可逆，逆亦与$A$可交换，故
+
+$\varphi_B(A)(AX-XB)=\sum_{i,j\ge0}b_{i+j+1}(A^{i+1}CB^j-A^iCB^{j+1})=\sum_{k=0}^{n}b_k(A^kC-CB^k)$
+
+$=\varphi_B(A)C-C\varphi_B(B)=\varphi_B(A)C$
+
+(3) 仅当：若$\lambda_1\mu_1=1$，类似(1)取$X=\alpha\beta^T$即为$X-AXB=O$的解。
+
+当：利用2.2节例2.11方式将方程表示为线性方程组$(I-A\otimes B^T)x=y$，则方程存在唯一解$\Leftrightarrow I-A\otimes B^T$可逆$\Leftrightarrow A\otimes B^T$特征值无1，而相似三角化知$A\otimes B^T$所有特征值为一切$\lambda_i\mu_j$，由此得证。
+
+\item
+相似三角化可得，设$\varphi_A(x)=\prod_{i=1}^{n}(x-\lambda_i)$，则$\varphi_{A^m}(x)=\prod_{i=1}^{n}(x-\lambda_i^m)$，由此成立。
+
+\item
+(1) 特征值满足$\lambda^2=\lambda$，只能为0,1，考虑将$A$相似三角化后形成定理5.9形式，所得上三角方阵$B$满足$B^2=B$，先通过计算证明主对角线上方的$j=i+1$对角线上全为零，同理向上归纳可知除主对角线外必然全为0，由此$B$为对角阵，原命题得证。
+
+(或利用5.3节Jordan标准形可直接计算结果)
+
+(2) 特征值满足$\lambda^3=\lambda$，只能为$0,\pm1$，考虑将A相似三角化后形成定理5.9形式，所得上三角方阵$B$满足$B^3=B$，类似(1)归纳可知B必然为对角阵，由此得证。
+
+(3) 考虑将$A$相似三角化后形成定理5.9形式，所得上三角方阵$B$满足$B^k=B$，类似上方讨论可知结果。
+
+\item
+(1) 直接归纳计算可得结论。
+
+(2) *此处证明实方阵的情况，对一般情况，由于多项式友方阵均为Hessenberg方阵，利用5.5节定理5.18第一步证明即可。
+
+由于$\varphi_A(x)$为实系数多项式，其虚根必成对出现(即$a+b\mathrm{i}$为根$\Rightarrow a-b\mathrm{i}$为根)。
+
+设$A$特征值为$c_1,\dots,c_k,a_1\pm b_1\mathrm{i},\dots,a_l\pm b_l\mathrm{i},a_j,b_j,c_j\in\mathbb{R}$，下证$A$与对角元为$c_1,\dots,c_k,\begin{pmatrix}a_1&b_1\\-b_1&a_1\end{pmatrix},$
+
+$\dots,\begin{pmatrix}a_l&b_l\\-b_l&a_l\end{pmatrix}$的广义上三角方阵(此方阵即为Hessenberg方阵)相似。
+
+使用归纳法。$n=1$显然成立。$n\ge2$时，若存在实特征值$c$，直接以定理5.5方式即可化为三角阵。若否，设其存在特征值$a\pm bi,a,b\in\mathbb{R}$，且$a+b\mathrm{i}$对应的特征向量为$\lambda$。可以验证，$\overline{\lambda}$(对$\lambda$的每一个元素取共轭)为$a-bi$的一个特征向量。由于特征值不同，两特征向量线性无关，存在以$\re(\lambda),\im(\lambda)$ (对每一个元素取实部、虚部)为前两列的可逆实方阵$P$，计算可验证$AP=P\begin{pmatrix}a&b&\ast\\-b&a&\ast\\\mathbf{0}&\mathbf{0}&B\end{pmatrix}$ (利用$\re(\lambda)=\frac{\lambda+\overline{\lambda}}{2},\im(\lambda)=\frac{\lambda-\overline{\lambda}}{2i}$)，故满足归纳假设。
+
+\item
+归纳。二阶时，设$A$的对角元素为$x,y$，分类讨论。
+
+若$a_{12}\ne0$ ($a_{21}\ne0$同理)，则此时取$P=\begin{pmatrix}1&0\\\frac{a_1-x}{a_{12}}&1\end{pmatrix}$即可。
+
+若$a_{12}=a_{21}=0$，由条件知$x\ne y$，则$T_{12}(1)AT_{12}(-1)$即化为前一种情况。
+
+若$n-1$阶时成立，考虑$n$阶时，设$a_{11}=x$。仍分类讨论。
+
+若$A$不为对角阵，不妨设$a_{12}\ne0$，先以$P=T_{21}\left(\frac{a_1-x}{a_{12}}\right)$作相似，则$C=P^{-1}AP=\begin{pmatrix}a_1&\ast\\\ast&B\end{pmatrix}$。
+
+此时若$B$不为纯量方阵，由归纳假设取$Q$使$Q^{-1}BQ=\begin{pmatrix}a_2&\ast&\ast\\\ast&\ddots&\ast\\\ast&\ast&a_n\end{pmatrix}$，则$\begin{pmatrix}1&0\\0&Q^{-1}\end{pmatrix}C\begin{pmatrix}1&0\\0&Q\end{pmatrix}$即满足要求。
+
+若否，$C=\begin{pmatrix}a_1&\ast\\\ast&kI\end{pmatrix}$。若$C$不为对角阵，设$a_{12}\ne0$，计算得$T_{13}(-1)T_{32}\left(\frac{a_{13}}{a_{12}}\right)CT_{32}\left(-\frac{a_{13}}{a_{12}}\right)T_{13}(1)$ 首个对角元仍为$a_1$且$a_{32}\ne0$，$B$已经不为纯量方阵，因此可类似构造$Q$。若$C$为对角阵，类似二阶时构造出非零项即可。
+
+若$A$为对角阵，由条件$A$对角元不可能全相同，类似二阶时化为上一种情况即可。
+
+\item
+(1) 先说明两个方阵时的请况：
+
+$AB=BA,A\alpha=\lambda\alpha\Rightarrow AB\alpha=\lambda B\alpha$，因此，对$A$的每个特征向量$\alpha$，$B\alpha$也是$A$的特征向量。由于任意多项式$f$，$f(B)A=Af(B)$，因此$f(B)\alpha$也是$A$的特征向量。
+设$d_{B,\alpha}=\prod_{i=1}^{s}(x-\mu_i)^{t_i}$(定义见5.4节，由于$\alpha\ne\mathbf{0}$，$f$次数至少为1)，取$f=\frac{d_{B,\alpha}}{x-\mu_1}$，则此时$Bf(B)\alpha=\mu_1f(B)\alpha$，故$f(B)\alpha$即为公共特征向量。
+
+接着将情况归纳至有限多个方阵($k$个方阵时成立推$k+1$)：
+
+设$\alpha$是$A_1,\dots A_k$的公共特征向量，考虑类似之前构造的$f=\frac{d_{A_{k+1},\alpha}}{x-\mu_1}$，$f(A_{k+1})\alpha$即为公共特征向量。
+
+最后反证任意指标集$I$的情况：
+
+若$\{A_i\}$可互相交换，可说明$\Span\{A_i\}$可互相交换(定义见8.2节)，由于$\Span\{A_i\}\subset M_n(\mathbb{C})$，其基(定义见8.3节)必然有限，利用上一种情况知其基具有共同的特征向量，计算发现此时$\Span\{A_i\}$具有共同的特征向量，因此$\{A_i\}$具有共同的特征向量。
+
+(2) 类似定理5.5进行归纳，每次取$P$的第一列为公共特征向量，直接计算可验证每次相似后的$B_i$仍然两两可交换，由此即可证明。
+
+(3) 对任意数域，在其代数闭包(任何多项式可分裂的扩域)上存在共同的特征向量。
+\end{enumerate}
+
+\subsection{Jordan 标准形}
+\begin{enumerate}
+\item 
+(1) $J_1(1),J_1(1),J_1(1),J_1(-1),J_1(-1)$
+
+(2) $J_3(1),J_2(-1)$
+
+(3) $J_2(1),J_1(1),J_2(-1)$
+
+(4) $J_3(1),J_2(-1)$
+
+(5) $J_3(1),J_1(-1),J_1(-1)$ 
+
+(6) $J_1(1),J_1(1),J_1(1),J_1(-1),J_1(-1)$
+
+\item
+(1) 由于重数为相似不变量，直接计算即可。
+
+(2) 对角阵为Jordan标准形的形式，由此知结论。
+
+(3) 由5.4节习题7可知Jordan块的最小多项式即为特征多项式，结合5.3节定理5.13-3得结论。
+
+\item
+由于相似不影响结论，可设$A$已相似成Jordan标准形。又因对角块可以分别计算，只需考虑一个对角块。
+
+因此，只需说明$J_n(1)$与$J_n(1)^k$相似。直接计算可知$J_n(1)^k$中1的代数重数为$n$，几何重数为1，由此知相似。设$P_n^{-1}J_n(1)P_n=J_n(1)^k$ ($P_n$可逆)，组合即可得原结论。
+
+\item
+由相似知$A^i$与$A^j$特征值相同，设$A$特征值为$\lambda_1,\dots,\lambda_n$，由可逆知无0，则$\lambda_1^i,\dots,\lambda_n^i$与$\lambda_1^j,\dots,\lambda_n^j$只相差排列。对任意$\lambda$，设$\lambda^i=\lambda_{a_1}^j,\lambda_{a_1}^i=\lambda_{a_2}^j,\dots$由于特征值数量有限，必有$\lambda_{a_s}^i=\lambda^j$，由此算得$\lambda^{i^{s+1}-j^{s+1}}=1$，由于$s+1\le n$，可知$i^{s+1}-j^{s+1}\mid i^{n!}-j^{n!}$，因此$\forall\lambda,\lambda^{i^{n!}-j^{n!}}=1$，从而$i^{n!}-j^{n!}$就是所求一个的$k$。
+
+\item
+由于相似不影响结论，可设$A$已相似成Jordan标准形。
+
+利用$A^2$与$A$特征值关系，结合习题4知知特征值只能为0或单位根，若为0，计算可得当$n>1$时，$J_n(0)^2$的最大Jordan块小于$J_n(0)$，由此考虑特征值0的最大Jordan块可知其特征值0的Jordan块只能为若干个$J_1(0)$。
+
+$\omega$为$k$次本原单位根时可计算出，$J_n(\omega)^2$的Jordan标准形为$J_n(\omega^2)$，由此，$A$的相似标准形中除0外的Jordan块一定可以分组为若干的$J_n(\omega),J_n(\omega^2),\dots,J_n\big(\omega^{2^{s-1}}\big)$ $\big(\omega^{2^s}=\omega\big)$。
+
+\item
+计算可发现，将$B$按照$A$形式分块后，所得$B_{ij}$为$n_i\times n_j$阶矩阵，需满足$J_{n_i}(0)B_{ij}=B_{ij}J_{n_j}(0)$，因此只需寻找满足$J_a(0)X=XJ_b(0)$的$a\times b$阶矩阵，计算得$X$须满足：$i-j$不变时$x_{ij}$不变(即每条与主对角线平行的对角线元素相同)，且$i-j>\min(a,b)-b$时$x_{ij}=0$。
+
+\item
+由于相似不影响结论，可设$A$已相似成Jordan标准形。
+
+设$A=\diag(J_{n_1}(a_1),\dots,J_{n_k}(a_k))$($a_i$可能相同)，由于$\diag(I_{n_1},2I_{n_2},\dots,kI_{n_k})$与$A$可交换，直接计算发现$B$必然可写成$\diag(B_{n_1},B_{n_2},\dots,B_{n_k})$。
+
+由于$A,B$可交换，$J_{n_i}(a_i)B_{n_i}=B_{n_i}J_{n_i}(a_i)$，由于$J_{n_i}(a_i)$的特征多项式与最小多项式相同，利用5.4节例5.17知$B_{n_i}=f_i(J_{n_i}(a_i))$，$f_i$为多项式。
+
+当$A$特征值均为$a$时，设有$n_1\le\dots\le n_k$。考虑$C$为按照$A$分块后，$C_{12}=\begin{pmatrix}I&O\end{pmatrix}$，其余均为0的矩阵，计算知此矩阵与$A$可交换，代入$BC=CB$知$f_1(J_{n_1}(A))=f_2(J_{n_1}(A))$。因此，$d_{J_{n_1}(A)}=\varphi_{J_{n_1}(A)}=(x-a)^{n_1}\mid f_1-f_2$。同理可知，$\forall i<j,f_i-f_j\mid (x-a)^{n_i}$。由此，所求$f\equiv f_i\mod(x-a)^{n_i}$，取$f=f_k$即可。
+
+当$A$有不同特征值时，先对每个特征值的部分进行上述构造，由于不同特征值处对应的特征多项式互素，直接利用多项式中国剩余定理可得到最终的$f$。
+
+\item
+由于相似不影响结论，可设$A$已为Jordan标准形，此时$B=\diag(\lambda_1I_{b_1},\lambda_2I_{b_2},\dots,\lambda_tI_{b_t})$为对角元素构成的方阵，$\lambda_i$互不相同，$C=A-B$，计算验证可知合理。下面证明这样的分解唯一。
+
+对任意方阵$A$，设有满足条件的分解$A=B+C$，令$B'=P^{-1}BP=\diag(\lambda_1I_{b_1},\lambda_2I_{b_2},\dots,\lambda_tI_{b_t})$，$\lambda_i$互不相同。设$P^{-1}AP=A',P^{-1}CP=C'$，则$B' C'=C' B'$，可算得$C'=\diag(C_{b_1},C_{b_2},\dots,C_{b_n})$ (其中$C_{b_i}$为$b_i$阶方阵)。由于$C$幂零，任意$C_{b_i}$均幂零。注意到，若$Q=\diag(Q_{b_1},Q_{b_2},\dots,Q_{b_n})$ (其中$Q_{b_i}$为任意$b_i$阶可逆方阵)，则$Q^{-1}B' Q=B'$。由此，取$Q_{b_i}$使$Q_{b_i}^{-1}C_{b_i}Q_{b_i}$为$C_{b_i}$的相似标准形，利用$Q$相似即可得$A^{\prime\prime}=B'+C^{\prime\prime}$。考察此时形式可知，$A^{\prime\prime}$为$A$的相似标准形，唯一确定。
+
+若还有$A=B_0+C_0$，由之前讨论可知，存在可逆方阵$T$使得$A=T^{-1}AT,B=T^{-1}B_0T$。由$A=T^{-1}AT$知$AT=TA$，因此$T$与$A$可交换。类似习题6可验证此时$T$必然可写成$\diag(T_{b_1},T_{b_2},\dots,T_{b_n})$，由此$TB=BT\Rightarrow B_0=B$，唯一性得证。
+
+\item
+(1) 由于相似不影响结论，可设$A$已相似成Jordan标准形。
+
+特征值不为0的部分，由例5.15知可找到$B$，故是否存在仅与$J_{n_i}(0)$的情况相关，可不妨设$A$特征值只有0，若B存在，也必然只有0特征值。
+
+利用类似4.2节习题11(4)的构建方法，可以证明：
+
+令$n=qm+r(q,r\in\mathbb{N},0\le r\le m-1)$，则$J_n(0)^m$的标准形为$r$个$J_{q+1}(0)$与$m-r$个$J_q(0)$
+
+由此，1推2直接成立，按原本每个$J_n(0)$生成的$J_{q+1}(0),J_q(0)$排为一列即可。反之，2推1时，由于每列的$q,r$确定，也可直接构造出对应的$n$ (由于每列有$m$个数，可使$0\le r\le m-1$)。
+
+(2) 由于5.5节习题3，在上一题条件下，由5.5节例5.21类似得：
+
+若$m$为奇数则必然可相似，$m$为偶数时，再保证$A$中特征值为负实数的Jordan块成对出现(指必须两个一模一样)即可。
+
+大致思路为：两个复特征值互相共轭的相同大小Jordan块可以“合成”一个例5.21中右侧的$A_i$。$A$中的Jordan块有四种情况：本来为正实数，可直接找到对应次方根后与复方阵相同构造；本来为共轭复数合成的块，在方根后仍可以共轭复数合成；本来为0，则满足的条件与复方阵所需的相同。本来为负实数，则$m$为奇数时与正实数无区别，$m$为偶数时，若不能找到配对，则无法合成，因此无法找到全为实数的$B$与其方根相似；找到配对后，由于共轭复数幂次的实部相同，将两个块的次方根取为一对共轭复数，即可实现合成。
+
+\item
+$\left(1+\frac{1}{k}A\right)^k=I+\sum_{t=1}^{k}{\frac{A^t}{t!}\prod_{s=0}^{t-1}\left(1-\frac{s}{n}\right)}$，由分析知识可计算得原式成立。
+
+\item
+(1)充分性：$A^k$有特征值$\lambda^k$，由$\rho(A)<1$可知$A^k$一切特征值极限为0。考虑Jordan标准形的幂次极限即可知结论。
+
+必要性：零矩阵一切特征值为0，若有特征值$|\lambda|\ge0$，$\lambda^k$极限不为0，矛盾。
+
+(2)同样只需考虑Jordan标准形时的情况，且由分块矩阵的特点，只需考虑一个对角块，此时此对角块的$\rho(A)$即为对角元$\lambda$。
+
+记幂级数为$f$，可直接算出$f(J_n(\lambda))=\begin{cases}\frac{f^{(m)}(\lambda)}{m!}&j=i+m\\0&j<i\end{cases}$($m\ge0,f^{(m)}$指$m$阶导数)，因此只需证明$f'$的收敛半径与$f$相同，此结论将在分析中证明。
+
+\item
+(1) 由5.2节定理5.6-1知，若要$e^X$特征值全为1，则$X$的所有特征值需满足$e^\lambda=1$，因此$\lambda=2k\pi\mathrm{i}$ $(k\in\mathbb{Z})$。由于$P^{-1}e^XP=e^{P^{-1}XP}$，只需考虑$X$的相似标准形。
+
+利用习题11结论知$\mathrm{e}^{J_n(\lambda)}=\begin{cases}\frac{\mathrm{e}^\lambda}{m!}&j=i+m\\0&j<i\end{cases}(m\ge0)$。由于其为$I$，可知阶数$n$只能为1。
+
+又由于所求$X$为实方阵，$2k\pi\mathrm{i}$与$-2k\pi\mathrm{i}$必然成对出现，由此，所求的所有$X$在$\mathbb{R}$上的相似标准形(定义见5.5节)为$\diag(A_1,A_2,\dots,A_t,O)$，其中每个$A_i$为$\begin{pmatrix}0&-2k\pi\\2k\pi&0\end{pmatrix}$，$k$为正整数，$O$为任意阶零方阵。
+
+(2) 由计算结果可发现，$\ e^{J_n(\lambda)}$相似于$J_n(\mathrm{e}^\lambda)$，因此，类似习题9讨论可知，只要$A$可逆($\mathrm{e}^x=0$在复数域中无解)且相似标准形中特征值为负实数的Jordan块均成对出现($\mathrm{e}^x<0$无实数解)，就能找到符合要求的$X$。
+
+(3) 由于$\mathrm{e}^x=t(t\ne0)$在复数域一定有解，任意可逆方阵均存在符合要求的$X$。
+\end{enumerate}
+
+\subsection{最小多项式}
+\begin{enumerate}
+\item
+后面的部分小题运用结论：$\deg{d_A}\le\rank(A)+1$(事实上$A$可改为任意$\lambda I-A$，证明方式相同)
+
+结论证明：考虑Jordan标准形中0的重数，由于几何重数为$n-\rank(A)$，在定理5.13-3作$\lcm$时，$x$的幂次至少减少$n-\rank(A)+1$，由此得证。
+
+(1) 特征多项式与最小多项式均为$x^3-3x^2+5x-3$
+
+(2) 特征多项式$(x-1)^2(x+1)$，最小多项式$(x-1)(x+1)$
+
+(3) 特征多项式与最小多项式均为$(x-1)x(x+1)$
+
+(4) 特征多项式与最小多项式均为$(x-1)(x+1)^2$
+
+(5) 当$(n,k)=1$时，直接计算可发现特征多项式为$x^n-1$，否则，可以通过分块化为此情况。因此，当$(n,k)=d$时，特征多项式为$(x^{n/d}-1)^d$，同样利用分块直接计算知最小多项式为$x^{n/d}-1$
+
+(6) 与(5)类似，特征多项式为$(x^{n/d}-(-1)^k)^d$，最小多项式$x^{n/d}-(-1)^k$
+
+(7) 特征多项式$x^n$，最小多项式$x^{[n/k]}$
+
+(8) 特征多项式为$\begin{pmatrix}1&0\end{pmatrix}\begin{pmatrix}x&1\\1&0\end{pmatrix}^n\begin{pmatrix}1\\0\end{pmatrix}$，利用习题7的结论知最小多项式亦为此。
+
+(9) 类似例5.15知$\varphi_A(x)=x^{n-2}\left(x^2-\sum_{i=1}^{n}(a_i+b_i)x+\sum_{i=1}^{n}{a_i\sum_{i=1}^{n}b_i}-n\sum_{i=1}^{n}a_ib_i\right)$。
+考虑$\rank(A)$，计算可知：
+
+$a_i=b_i=0$时，最小多项式为$x$
+其他情况下，若$a_i$或$b_i$全相等时，最小多项式为$x^2-\sum_{i=1}^{n}(a_i+b_i)x$
+
+其他情况则为$x\left(x^2-\sum_{i=1}^{n}(a_i+b_i)x+\sum_{i=1}^{n}{a_i\sum_{i=1}^{n}b_i}-n\sum_{i=1}^{n}a_ib_i\right)$
+
+(10) 直接列变换可计算得特征多项式为$\prod_{i=1}^{n}(x-i)\left(1-\sum_{i=1}^{n}\frac{a_ib_i}{x-i}\right)$
+
+设$B=\diag(1,2,\dots,n),C=A-B$
+$a_i,b_i$均不为0时，$1,2,\dots,n$均不为特征值，因此对任意特征值$\lambda$，$\rank(\lambda I-A)=\rank(\lambda I-B-C)\ge\rank(\lambda I-B)-\rank(C)=n-1$，由习题7法二类似知此时最小多项式即为特征多项式。
+
+否则，设$S=\{i\mid a_ib_i=0,\rank(iI-A)=n-2\}$，考虑$\rank(iI-A)$可知$d_A(x)=\frac{\varphi_A(x)}{\prod_{i\in S}(x-i)}$
+
+\item
+(1) 直接设出函数计算导数即可。
+
+(2) $f'$次数小于$f$，故由2可推出1，从而推出4。不必要性取$\lambda_i$在$\mathbb{F}$中即得到。
+
+(3) 与(2)相同构造知不必要，考虑实数域中$(x^2+1)^2$知不充分。
+
+\item
+此题结论基本等价于：任意置换可拆分为不相交轮换。从置换角度考虑，先可考虑从1开始形成的环，再考虑下一个不在环中的数，直到所有数都在轮换中。接着通过共轭将下标变为顺序即可(矩阵角度即为用一系列$S_{ij}$相似，类似4.2节习题11(4)操作)。
+
+\item
+由定理5.13-3与$f_i$互素知结论成立。
+
+\item
+法一：由$d_{A,\alpha}$定义，考虑对左侧进行列变换。若前$r$列线性相关，则可以相应构造出不超过$r$次的$A$关于$\alpha$的零化多项式，再由$d_{A,\alpha}$的次数最小性知结论(此处运用之后线性相关结论：矩阵的秩等于其列秩)。
+
+法二：考虑$\begin{pmatrix}\alpha&A\alpha&\cdots&A^{k-1}\alpha\end{pmatrix}x=\mathbf{0}$的解空间，非零解$(x_0,\dots,x_{n-1})$可对应多项式$\sum_{i=0}^{n-1}x_iA^i\alpha=0$，由此利用最小性知结论。
+
+\item
+(1)$d_{A,\alpha}d_{A,\beta}(A)(\alpha+\beta)=d_{A,\beta}(A)d_{A,\alpha}(A)\alpha+d_{A,\alpha}(A)d_{A,\beta}(A)\beta=\mathbf{0}$，故$d_{A,\alpha+\beta}\mid d_{A,\alpha}d_{A,\beta}$。
+
+而由$d_{A,\beta}d_{A,\alpha+\beta}(A)(\alpha+\beta)=d_{A,\beta}d_{A,\alpha+\beta}(A)\alpha=\mathbf{0}$，$d_{A,\alpha}\mid d_{A,\beta}d_{A,\alpha+\beta}$，由互素知$d_{A,\alpha}\mid d_{A,\alpha+\beta}$，同理$d_{A,\beta}\mid d_{A,\alpha+\beta}$，结合$d_{A,\alpha+\beta}\mid d_{A,\alpha}d_{A,\beta}$，再由互素知原结论成立。
+
+(2)运用归纳法可知，若$d_{A,\alpha_1},\dots,d_{A,\alpha_n}$两两互素，则$d_{A,\alpha_1+\dots+\alpha_n}=d_{A,\alpha_1}\dots d_{A,\alpha_n}$
+
+\item
+法一：由5.2节习题8(1)可计算得，若$\deg(d_A)=k<n$，由条件$i=j+k$斜行均不为0，即矛盾。因此$\deg(d_A)=n$，又由$d_A\mid \varphi_A$知结论。
+
+法二：取左下角$n-1$阶子式知$\forall\lambda,\rank(\lambda I-A)\ge n-1$，因此$A$的任何特征值几何重数均为1，考虑Jordan标准形的形式，由于Jordan块的最小多项式即为特征多项式，而A的每个特征值只有一个Jordan块，利用定理5.13-3知结论。
+
+\item
+*此题结论只在可分域内保证成立(事实上关键在于对不可约多项式$f$，$f'$不为0，这个条件成立实际需要在可分域内)，作为弱一些的结论，容易证明$\Char\mathbb{F}=0$的域内成立。
+
+设$B$阶数为$m$，$A$阶数为$mn$，计算知$\varphi_A=\varphi_B^n$，又由$\varphi_B$不可约，$d_A=\varphi_B^k,k\le n$。设$\varphi_B(x)=c_0+c_1x+\dots+c_mx^m$，由于$B,I$可交换，计算知$\varphi_B(A)=\begin{pmatrix}&f(B)&\ast&\ast\\&&\ddots&\ast\\&&&f(B)\\&&&\end{pmatrix}$其中$f(x)=\varphi_B'(x)$ (事实上对角线上为$\varphi_B(B)=O$)，由$\varphi_B=d_B$，$f(B)\ne O$，直接计算知满足$\varphi_B^k(A)=O$的最小$k$为$n$，由此即得证。
+
+\item
+法一：由于相似不影响结论，不妨设$A$已相似为Jordan标准形。
+
+先考虑一个对角块的情况。设此对角块为$J=J_n(\lambda),f(x)=(x-\lambda)^ag(x),g(\lambda)\ne0$。直接计算可发现$g(J)$对角元非零且上三角，因此可逆，于是$\rank(f(J))=\rank\big((J-\lambda I)^ag(J)\big)=\rank(J-\lambda I)^a$
+由定理3.12-3知Jordan块$d_J=\varphi_J$，计算知秩为$\begin{cases}n-a&a<0\\0&a\ge n\end{cases}=n-\deg(\gcd(d_J,f))$
+
+由定理3.12-3，$A$每个Jordan块特征值不同，设$A$不同特征值$\lambda_1,\dots,\lambda_k$，且$\lambda_i$对应的Jordan块$J_i$阶数为$n_i$，则$J_i$互素。且由定理5.13-3知$d_A=\prod_{i=1}^kd_{J_i}$，因此$\rank(f(A))=\sum_{i=1}^k\rank(f(J_i))=\sum_{i=1}^kn_i-\deg(\gcd(d_{J_i},f))$
+$=n-\deg\prod_{i=1}^{k}\gcd\left(d_{J_i},f\right)=n-\deg\left(\gcd\left(\prod_{i=1}^{k}d_{J_i},f\right)\right)=n-\deg(\gcd(d_A,f))$，由此得证。
+
+法二：利用定理5.16推论，取$\alpha$使$d_{A,\alpha}=d_A$，考虑$f(A)x=\mathbf{0}$的解空间$V$：
+
+$p(A)\alpha\in V\Leftrightarrow f(A)p(A)\alpha=\mathbf{0}\Leftrightarrow d_A|fp\Leftrightarrow \frac{d_A}{g}\bigg|p$，记$h=\frac{d_A}{g}$，则$V=\{p(A)\alpha\mid\deg(p)\le n-1,h|p\}$。
+
+由于$p$取值为$h$乘任意一个次数小于等于$n-1-\deg(h)$的多项式(含常数项共有$n-\deg(h)$个分量)，$\dim(V)$(即方程组基础解系的个数)$=n-\deg(h)=n-\deg(d_A)+\deg(g)=\deg(g)$，由4.2节定理4.8知$\rank(f(A))=n-\deg(g)$。
+
+\item
+若$A$可逆，$d_A(x)=c_0+c_1x+\dots+c_kx^k$，由可逆$c_0\ne0$(否则$A$可约去)，可直接算出
+
+$f(x)=-\frac{\det(A)}{c_0}\frac{d_A(x)-c_0}{x}=(-1)^{n-1}(c_1+c_2x+\dots+c_kx^{k-1})$
+
+若$A$不可逆，取$t$不为$A$特征值，则$B=tI-A$可逆，$d_B(x)=d_0+d_1x+\dots+d_mx^m$ ，则$(tI-A)^\ast=g(B),g(x)=(-1)^{n-1}(d_1+\dots+d_mx^{m-1})$。验证可知，此多项式的系数均为$t$的多项式，取$t=0$时即知结果，结果仍为$f(x)=(-1)^{n-1}(c_1+c_2x+\dots+c_kx^{k-1})$。
+\end{enumerate}
+
+\subsection{特征方阵}
+\begin{enumerate}
+\item
+$A=\diag\left(J_2(1),J_2(1)\right),B=\diag\left(J_3(1),J_1(1)\right)$
+
+*事实上，此处$A,B$满足更强条件。$\forall x\in\mathbb{C},k\in\mathbb{N},\rank(xI-A^k)=\rank(xI-B^k)$
+
+\item
+(1) 设$Q(xI-A)R=\diag(f_1,\dots,f_n)$ ($QR$可逆)，则$(xI-A)R\diag\left(\frac{\lambda}{f_1},\dots,\frac{\lambda}{f_n}\right)Q=Q^{-1}\lambda IQ=\lambda I$
+
+(2)将例5.18中的$\varphi_A$替换为$\lambda$，$(xI-A)^\ast$替换为$P$即可。
+
+(3)计算可知两方阵次数相同，由定理5.17，只需证明$xI-\diag(A_1,\dots,A_n)$与$\diag(f_1,\dots,f_n)$模相抵。而$xI-A_1$初等因子组为$1,\dots,1,f_1$，考察Smith标准形知相似。
+
+\item
+考虑$xI-A$与$xI-B$的Smith标准形即可(注意4.3节定理4.14表述，由于两矩阵系数均在$\mathbb{F}[x]$中，一切公因式仍在其中，其标准形与看成$\mathbb{K}[x]$上的Smith标准形无区别，也即，不变因子在任何扩域上不变)。
+
+\item
+由于第二个矩阵为第一个的转置，利用定理例5.19，证明与第一个(记为$A$)相似即可。
+
+由$p_i$不可约，利用5.4节习题2可知$C$的特征值两两不同，设$P^{-1}CP$为相似对角化$\diag(\lambda_1,\dots\lambda_k)$，则$\diag(P^{-1},\dots,P^{-1})A\diag(P,\dots,P)$即为$\begin{pmatrix}D&&&\\I&D&&\\&\ddots&\ddots&\\&&I&D\end{pmatrix}$，其中$D$为对角阵，再利用置换方阵即可相似成$J_t(\lambda_1),\dots,J_t(\lambda_k)$，可发现此方阵满足$d_A=\varphi_A$，因此与定理中$B_{ij}$相似，因此与$M_{ij}$相似。
+
+\item
+类似5.4节例5.16知其可相似对角化，故需配对共轭特征值为例5.21形式，特征多项式$x^n+1$所有根为$\lambda_k=\cos{\frac{(2k-1)\pi}{n}}+\mathrm{i}\sin{\frac{(2k-1)\pi}{n}},k=1,2,\dots,n$，令$B_k=\begin{pmatrix}\cos{\frac{(2k-1)\pi}{n}}&-\sin{\frac{(2k-1)\pi}{n}}\\[1.5ex]\sin{\frac{(2k-1)\pi}{n}}&\cos{\frac{(2k-1)\pi}{n}}\end{pmatrix}$
+
+当$n$为偶数时，与例5.22类似得标准形为$\diag(B_1,B_2,\dots,B_{n/2})$
+
+当$n$为奇数时，与例5.22类似得标准形为$\diag(-1,B_1,B_2,\dots,B_{(n-1)/2})$
+
+\item
+利用5.3节例5.10结论，$J_n(\lambda)^m当\lambda\ne0$时标准形为$J_n(\lambda^m)$，结合5.3节习题9证明过程：
+
+$\varphi_A(x),d_A(x)$如题，标准形为$J_{12}(0),J_6(1),J_6(-1)$
+
+$\varphi_{A^2}(x)=(x-1)^{12}x^{12},d_{A^2}(x)=(x-1)^6x^6$，标准形为$J_6(0),J_6(0),J_6(1),J_6(1)$
+
+$\varphi_{A^3}(x)=(x-1)^6x^{12}(x+1)^6,d_{A^3}(x-1)^6x^4(x+1)^6$，标准形为$J_4(0),J_4(0),J_4(0),J_6(1),J_6(-1)$
+
+$\varphi_{A^4}(x)=(x-1)^{12}x^{12},d_{A^4}(x)=(x-1)^6x^3$，标准形为$J_3(0),J_3(0),J_3(0),J_3(0),J_6(1),J_6(1)$
+
+$\varphi_{A^5}(x)=(x-1)^6x^{12}(x+1)^6,d_{A^5}(x)=(x-1)^6x^3(x+1)^6$，
+
+\ \ 标准形为$J_3(0),J_3(0),J_2(0),J_2(0),J_2(0),J_6(1),J_6(-1)$
+
+$\varphi_{A^6}(x)=(x-1)^{12}x^{12},d_{A^6}(x)=(x-1)^6x^3$，
+
+\ \ 标准形为$J_2(0),J_2(0),J_2(0),J_2(0),J_2(0),J_2(0),J_6(1),J_6(1)$
+
+\item
+(1)错误，反例$\begin{pmatrix}-1&1\\0&-1\end{pmatrix}$。
+
+(2)正确，见5.3节习题9。
+
+\item
+注意到$\diag(A,\dots,A)$ ($k$个$A$) 的Jordan块为$A$的每个Jordan块复制$k$个，直接考虑Jordan块或考虑特征方阵的Smith标准型即可。
+
+\item
+*题目结论中模相抵应改为在$\mathbb{F}$上相抵(作为$\mathbb{F}$上相抵的矩阵，若看作$\mathbb{F}[x]$上的矩阵，则必定模相抵，这是由于$\mathbb{F}$上的可逆阵由定义均为模方阵。因此，题目的结论是正确的，但对$\mathbb{F}$上矩阵来说表述非常不自然)
+
+定义：若域$\mathbb{F}$上的$m$阶多项式方阵$P=\sum_{i=0}^{k}{x^iA_i}$($A_k$为$\mathbb{F}$上的$m$阶方阵)，则代入$\mathbb{F}$上的$n$阶方阵$X$后的方阵$P(X)$定义为$mn$阶方阵$\sum_{i=0}^{k}{A_i\otimes X^i}$。
+
+由2.2节习题7,8可以验证，$P(X)+Q(X)=(P+Q)(X),P(X)Q(X)=(PQ)(X)$
+注意到，$I(X)=I_m\otimes I_n=I_{mn}$，因此，当$P$为模方阵时，$P(X)P^{-1}(X)=I(X)=I$，$P(X)$可逆，其逆即为$P^{-1}(X)$。
+由此，设$P(xI-B)Q=\diag(f_1,f_2,\dots,f_n)$，$PQ$为多项式模方阵，则直接计算验证：
+
+$I\otimes A=(xI)(A),B\otimes I=B(A)\Rightarrow P(A)(I\otimes A-B\otimes I)Q(A)=(P(xI-B)Q)(A)$
+
+$=\diag(f_1,f_2,\dots,f_n)(A)=\diag(f_1(A),f_2(A),\dots,f_n(A))$，又因$P(A)Q(A)$可逆得结论。
+
+\item
+(1) 利用2.2节习题9知$AX-XA=O$的解与$(I\otimes A-A^T\otimes I)x=\mathbf{0}$的解一一对应，再由4.2节定理4.8知原题结论。
+
+(2) 注意到，$(I\otimes P^{-1})(I\otimes A-B\otimes I)(I\otimes P)=I\otimes P^{-1}AP-B\otimes I$，因此可不妨设A已经相似为了Jordan标准形。又由例5.19，$xI-A^T$与$xI-A$的Smith标准形相同，因此其不变因子相同，再由习题9知第一个等号成立。
+
+假设$A$的某Jordan块为$J_m(\lambda)$，由于当$(x-\lambda)\nmid f$时$f(J_m(\lambda))$可逆，其秩只与$f$中$x-\lambda$的次数有关。由此，$A$的不同特征值互相不影响，可不妨设$A$特征值都相同，Jordan块的阶数分别为$a_1,a_2,\dots,a_k$非递减排列，则非1的$d_i$为$(x-\lambda)^{a_i}$。计算可直接得出$d_i(J_{a_t}(\lambda))=J_{a_t}(0)^{a_i}$，其秩为$\begin{cases}a_t-a_i&a_t>a_i\\0&a_t\le a_i\end{cases}$，由此计算出中$=\sum_{i\le j}(\deg{d_j}-\deg{d_i})=$右，第二个等号成立。
+
+(在习题3已说明不变因子在$\mathbb{F}$的任意扩域上不变，由此，不妨在$\mathbb{F}$的代数闭包上考虑，使所有不变因子均可完全分解为一次因式，A也可以直接相似为Jordan标准形，这就规避了Frobenius标准形的过程。若不这么处理，则需考虑Frobenius标准形中的各个友方阵，并得到类似$d_i(J_{a_t}(\lambda))$秩的结论。)
+
+(3) 再次利用习题9知第一个等号成立，接着利用定理5.18中不变因子与初等因子的关系即可计算出结果(注意表中的次数相加关系)。
+
+(值得注意的是，此题就不能直接放在代数闭包考虑，因为初等因子组在不同的域下会改变。不过，也可考虑先说明完全分裂，所有$\deg(p_i)=1$的情况，再说明右式在不同扩域中值不变。)
+
+\item
+5.3节例5.10已证明$\lambda\ne0\Rightarrow J_n(\lambda)^m$与$J_n(\lambda^m)$相似，由此采用反证法反证。先删去所有$A$与$B$相同的Jordan块，此时若对$A$的某个Jordan块$J_n(t)$，B的同阶Jordan块为$J_n(t_1),J_n(t_2),\dots,J_n(t_k)$，且$t\ne t_i$(若否则此两块应已配对删去)，令$t^n=t_i^n$成立的最小正整数$n$为$n_i$(若这样的$n$不存在则直接忽略此$t_i$)，先证$t^n=t_i^n$的全部$n$为$zn_i,z\in\mathbb{Z}$。
+
+证明：若$t^n=t_i^n,t^m=t_i^m$，则$t^{an+bm}=t_i^{an+bm}$，由裴蜀定理可知$t^{(m,n)}=t_i^{(m,n)}$。因此，若由某个使$t^n=t_i^n$的$n$不为$n_i$倍数，$(n,n_i)$为比$n_i$更小的正整数，矛盾。
+
+又由于$t\ne t_i$，每个$n_i$均大于1，取$r=zn_1n_2\dots n_k+1$，$z$可任意大，则$t^r\ne t_i^r$，与条件矛盾。
+
+\item
+(1) 由于$A=I\otimes B+B\otimes I+I\otimes I$，类似习题9可知，将$B$替换为相似标准形后$A$亦与原本的$A$相似，不影响所求的内容。类似5.1节习题10计算可知：
+
+当$B$的阶数为奇数时，$B$的相似标准形为左上角为1，其余全为0的方阵，此时$A$为对角阵，直接计算出$A$行列式为0($n\ge2$)，秩为$n^2-2n+2$，特征多项式$x^{2n-2}(x+1)^{n^2-2n+2}$，相似标准形为$n^2-2n+2$个$J_1(1)$，$2n-2$个$J_1(0)$。
+
+当$B$的阶数为偶数时，$B$的相似标准形为一个$J_2(0)$，其余全为$J_1(0)$的方阵(设$J_2(0)$在左上角)，此时$A$为对角元全为1的上三角方阵，且除左上角$2n$阶方阵外已经成为了Jordan标准形的形式，直接计算出$A$行列式为1，秩为$n^2$，特征多项式$(x+1)^{n^2}$，相似标准形为$n^2-4n+5$个$J_1(1)$，$2n-4$个$J_2(1)$与一个$J_3(1)$。
+
+(2) *此题假设$B$在分裂域上的特征值为$\lambda_1,\lambda_2,\dots,\lambda_n$已知，且$A$的相似标准形基本不能直接计算，只计算行列式、秩与特征多项式
+
+由于$A=I\otimes B+B\otimes I$，类似习题9可知，将$B$替换为相似标准形后$A$亦与原本的$A$相似，不影响所求的内容。
+取左下角$n-1$阶子式，类似定理5.18证明过程可知$xI-B$的前$n-1$个不变因子均为1，而$A=I\otimes B-B^T\otimes I$，由习题10算出$\rank(A)=n^2-n$。
+
+将$B$替换为相似标准形后，可发现$A$成为对角元素为一切$\lambda_i+\lambda_j,i,j=1,2,\dots,n$的上三角方阵，由此知特征多项式、行列式。
+\end{enumerate}
+
+\section{正交方阵}
+\subsection{正交方阵}
+\begin{enumerate}
+\item
+(1) 由行列式可乘得结论。
+
+(2) $(P^{-1})^T=(P^T)^{-1}=P$
+
+(3) 左$=\alpha^TP^TP\beta=\alpha^T(P^TP)\beta=$右
+
+(4) 不妨设为上三角，由下三角阵$A^T=$上三角阵$A^{-1}$，可知其只能为对角阵，又由每列模长为1得结论。 
+
+(5) $PQ(PQ)^T=P(QQ^T)P^T=I=(PQ)^TPQ$
+
+(6) 由(2)有$(P^{-1}AP)^T=P^TA^TP=P^{-1}A^TP$，$A^T=\lambda A\Rightarrow(P^{-1}AP)^T=\lambda P^{-1}AP$，$\lambda$取$\pm1$即为对称与反对称。
+
+\item
+取$\alpha$第$i$分量为1，其他为0可知$\sum_{k=1}^{n}a_{ki}^2=1$，即每个列向量长度为1；取$\alpha$第$i$与第$j$分量为1，其他为0可知$\sum_{k=1}^{n}\left(a_{ki}+a_{kj}\right)^2=2\Rightarrow\sum_{k=1}^{n}a_{ki}^2+\sum_{k=1}^{n}a_{kj}^2+2\sum_{k=1}^{n}a_{ki}a_{kj}=2\Rightarrow\sum_{k=1}^{n}a_{ki}a_{kj}=0$，即列向量两两正交。由此知结论。
+
+\item
+第一步：单位化，$\alpha_1=\frac{1}{\sqrt6}\alpha,\beta_1=\frac{1}{\sqrt6}\beta$
+
+第二步：找到以$\alpha_1,\beta_1$为第一列的正交阵$A,B$(可由向量组正交化构造)
+$A=\begin{pmatrix}\frac{2}{\sqrt6}&0&-\frac{1}{\sqrt3}\\[1.5ex]\frac{1}{\sqrt6}&\frac{1}{\sqrt2}&\frac{1}{\sqrt3}\\[1.5ex]\frac{1}{\sqrt6}&-\frac{1}{\sqrt2}&\frac{1}{\sqrt3}\end{pmatrix},$
+$B=\begin{pmatrix}\frac{1}{\sqrt6}&\frac{1}{\sqrt2}&\frac{1}{\sqrt3}\\[1.5ex]\frac{1}{\sqrt6}&-\frac{1}{\sqrt2}&\frac{1}{\sqrt3}\\[1.5ex]\frac{2}{\sqrt6}&0&-\frac{1}{\sqrt3}\end{pmatrix}$
+
+第三步：$P$即为所有满足$PA=B\begin{pmatrix}1&0&0\\0&\cos\theta&\sin\theta\\0&-\delta\sin\theta&\delta\cos\theta\\\end{pmatrix}(\delta=\pm1)$的正交阵(由正交阵积仍为正交阵，$\begin{pmatrix}1&0&0\\0&\cos\theta&\sin\theta\\0&-\delta\sin\theta&\delta\cos\theta\end{pmatrix}$为所有保持$B$第一列不动的正交阵，因此知结论)，
+
+因此$P=B\begin{pmatrix}1&0&0\\0&\cos\theta&\sin\theta\\0&-\delta\sin\theta&\delta\cos\theta\end{pmatrix}A^T,\delta=\pm1,\theta\in[0,2\pi)$。
+
+\item
+(1) 设$P\alpha=\begin{pmatrix}p_1^T\alpha\\p_2^T\alpha\\p_3^T\alpha\end{pmatrix}$，直接计算可知结论。
+
+(2) 是。取$\alpha,\beta$分别为不同方向单位向量，可知$P$任意两行向量按序叉乘可得第三行向量，由此三行向量相互正交，且模长均为1，由此得结论。
+
+\item
+(1) 这里直接说明(2)。
+
+(2) Givens方阵：利用定理6.3-1证明过程，依次将$a_{21},\dots,a_{n1}.a_{32},\dots,a_{n2},\dots,a_{n,n-1}$合并到对角元中，则最后形成对角的正交阵，又因为此阵除$a_{nn}$外对角元全为正，且其行列式值为1，由定理6.1-4知其为$I$，因此特殊正交阵可以写作$\frac{(n-1)n}{2}$个Givens方阵乘积。
+
+Householder方阵：类似上方讨论，利用定理6.3-2证明过程，依次将每列合并到对角元中(注意由于Householder方阵行列式为$-1$，按奇偶决定是否最后要对$a_{nn}$进行处理)，因此特殊正交阵可以写作$2\left[\frac{n}{2}\right]$个Householder方阵乘积。
+
+\item
+利用5.1节定理5.4，由例6.3推论，考察几何重数与代数重数可知两方阵都可对角化，Givens方阵除两特征值$\cos\theta\pm i\sin\theta$外均为1，Householder除一个$-1$外均为1。
+
+\item
+(1) 左侧取$\upsilon'$为原本的$\upsilon$后增添若干个0，右侧取$\upsilon'$为原本的$\upsilon$前增添若干个0即可。
+
+(2) 由于$\rank(H-I)=1$，利用4.1节习题4满秩分解$H-I$知可设$H=I+\alpha\beta^T$($\alpha,\beta$为列向量)，又由于$H^T=H$可知$\alpha=\lambda\beta(\lambda\in\mathbb{R})$，因此$H=I+\lambda\upsilon\upsilon^T$。利用3.2节习题6计算$H$行列式，其为$1+\lambda\upsilon^T\upsilon=-1\Rightarrow\lambda=-\frac{2}{\upsilon^T\upsilon}$，由此得证。
+
+\item
+*注意三种QR分解算法的掌握
+
+(1) $Q=\begin{pmatrix}\frac{1}{5}&\frac{2}{5}&\frac{4}{5}&-\frac{2}{5}\\[1.5ex]\frac{2}{5}&-\frac{1}{5}&-\frac{2}{5}&-\frac{4}{5}\\[1.5ex]\frac{4}{5}&-\frac{2}{5}&\frac{1}{5}&\frac{2}{5}\\[1.5ex]\frac{2}{5}&\frac{4}{5}&-\frac{2}{5}&\frac{1}{5}\end{pmatrix},R=\begin{pmatrix}5&0&10&5\\0&5&0&-5\\0&0&5&-10\\0&0&0&5\end{pmatrix}$
+
+(2) $Q=\begin{pmatrix}-\frac{1}{3}&\frac{2}{3}&0&-\frac{2}{3}\\[1.5ex]-\frac{2}{3}&-\frac{1}{3}&-\frac{2}{3}&0\\[1.5ex]0&\frac{2}{3}&-\frac{1}{3}&\frac{2}{3}\\[1.5ex]-\frac{2}{3}&0&\frac{2}{3}&\frac{1}{3}\end{pmatrix},R=\begin{pmatrix}3&-6&-6&0\\0&3&0&6\\0&0&3&3\\0&0&0&3\end{pmatrix}$
+
+(3) $Q=\begin{pmatrix}\frac{1}{5}&\frac{4}{5}&\frac{2}{5}&-\frac{2}{5}\\[1.5ex]\frac{4}{5}&\frac{1}{5}&-\frac{2}{5}&\frac{2}{5}\\[1.5ex]\frac{2}{5}&-\frac{2}{5}&-\frac{1}{5}&-\frac{4}{5}\\[1.5ex]\frac{2}{5}&-\frac{2}{5}&\frac{4}{5}&\frac{1}{5}\end{pmatrix},R=\begin{pmatrix}5&10&-5&-1\\0&5&-5&-1\\0&0&5&1\\0&0&0&1\end{pmatrix}$
+
+\item
+(1) 由5.1节习题4(4)知特征值不为$-1$，因此可逆。$(I-A)^T=I^T-A^T=I+A$，$(I+A)^{-1}(I-A)((I+A)^{-1}(I-A))^T=(I+A)^{-1}(I-A)(I+A)(I-A)^{-1}$。由于均为$A$的多项式，$I-A,I+A$可交换，因此此式$=I$，同理可验证另一边亦成立。
+
+(2) 由(1)可发现$AB+A+B=I$，由此想到取$A=(I-B)(I+B)^{-1}$，由$(I+B)^T=I+B^{-1}$可验证$(I+B)^T(A+A^T)(I+B)=O$，此时$A$即反对称。
+
+\item
+*此结论可推广至酉方阵(定义见6.4节)，直接证明推广的结论：
+
+利用置换方阵为酉方阵，而酉方阵乘积仍为酉方阵性质，只需要证明结论对左上角任意$k$阶方阵成立。设其分块为$\begin{pmatrix}A_1&A_2\\A_3&A_4\end{pmatrix}$，直接计算有$A_1^HA_1+A_3^HA_3=I$，若$A_1\alpha=\lambda\alpha(\alpha\ne\mathbf{0})$，则对等式左乘$\alpha^H$，右乘$\alpha$，可知$\lambda^H\lambda\alpha^H\alpha+\left(A_3\alpha\right)^H(A_3\alpha)=\alpha^H\alpha$，由于$\alpha^H\alpha=||\alpha||^2$，$|\lambda|^2||\alpha||^2\le||\alpha||^2$，即$|\lambda|\le1$。
+
+\item
+取$A$为$a_{ii}=1$，其余为0，计算知$P^{-1}$第$i$个列向量为$P$第$i$个行向量转置的倍数，因此存在$\lambda_1,\dots,\lambda_n$，$P^{-1}=P^T\diag(\lambda_1,\dots,\lambda_n)$，令$B=\diag(\lambda_1,\dots,\lambda_n)$，则$B^T=B$。又因$A$实对称时，$(P^TBAP)^T=P^TA^TB^TP\Leftrightarrow BA=AB$成立，由2.1节习题8知$B=\mu I$，因此$P^{-1}=\mu P^T$，计算行列式可知$\mu>0$，取$\lambda=\sqrt\mu$即符合要求。
+
+(满足此条件的$P$构成的集合为在旋转与反射外复合伸缩变换)
+
+\item
+先取置换方阵$P_1$使$P_1^TA$的行向量按模长非递减排列，再去$P_2$使$P_1^TAP_2^T$的列向量按模长非递减排列，可以发现，此时行向量仍然非递减。设$P_1^TAP_2^T=B$，证明$B$有题设中$\diag(\lambda_1Q_1,\dots,\lambda_kQ_k)$的形式即可。
+
+由于$B$行/列单位化后均正交，存在均非零非递减的$\mu_1,\dots,\mu_n;\delta_1,\dots,\delta_n$使$B=\diag(\mu_1,\dots,\mu_n)P$
+$=Q\diag(\delta_1,\dots,\delta_n)$，且$P,Q$正交，进一步的将$2n$个数所有不相等的取值递减排列为$\lambda_1,\lambda_2,\dots\lambda_k$，则$\diag(\mu_1,\dots,\mu_n)=\diag(\lambda_1I_{n_1},\dots,\lambda_kI_{n_k})$，$\diag(\delta_1,\dots,\delta_n)=\diag(\lambda_1I_{m_1},\dots,\lambda_kI_{m_k})$。计算$BB^T$ 知$\diag(\lambda_1^2I_{n_1},\dots,\lambda_k^2I_{n_k})Q=Q\ \diag(\lambda_1^2I_{m_1},\dots,\lambda_k^2I_{m_k})$，由此$Q$可分块为$\diag(Q_1,\dots,Q_k)$，每个$Q_i$ 阶数为$n_i\times m_i$，由于$Q$正交，计算得每个对角块均为正交阵，因此$n_i=m_i$，由此满足题设。
+
+(特别地，如果$A$中不含0，可发现$A=\lambda Q$，$\lambda$非零，$Q$为正交阵。)
+\end{enumerate}
+
+\subsection{正交相似}
+\begin{enumerate}
+\item
+(1) 利用定理6.3，讨论有无复特征值即可，注意此处$\theta$可取$0,\pi$。
+
+(2) 正交阵可以看作三维空间中刚体变换，即旋转变换与反射复合。
+
+\item
+左推右：由正交阵k次方仍正交，$(P^{-1}AP)^k=P^{-1}A^kP$，故成立。
+
+右推左：由定理6.6可推知正交阵$\mathbb{C}$上的相似标准形为对角元模长均为1的对角阵，若$A^k$有此性质，由于$A^k$可逆且$J_n(\lambda)^m$相似于$J_n(\lambda^m)$，可知$A$亦可相似对角化。由于$A^k$特征值为$A$特征值的$k$次方，$A$仍有此性质。
+
+\item
+左推右：利用定理6.9，$\mathbb{R}$上规范$\Leftrightarrow$可在$\mathbb{R}$上相似为定理6.9形式，而其中每个对角元都可在$\mathbb{C}$上对角化，由此得证。
+
+右推左：考察其在$\mathbb{R}$上的相似标准形(5.5节例5.21)，由于其在$\mathbb{C}$上可对角化，只能为例6.9的形式，即为可相似成的规范方阵。
+
+\item
+归纳，一阶时显然成立，$n$阶时由$AA^T$与$A^TA$第一行第一列相等可发现$A$第一行除对角均为0，而右下角为低一阶的规范方阵，由此归纳假设成立。
+
+\item
+(1) 由5.4节习题7知结论。
+
+(2) 考虑对角阵$P=(p_{ij})$，$P^{-1}AP$对称可解出对$i<n$，$\frac{p_{ii}^2}{p_{i+1,i+1}^2}=\frac{a_{i,i+1}}{a_{i+1,i}}$，令$p_{11}=1$可归纳构造出符合条件的$P$。
+
+(3) 考虑Jordan标准形，由(1)知每个特征值对应唯一Jordan块，由(2)知Jordan块均为一阶，由此得结论。
+
+\item
+(1) 利用习题8得$A^T=f(A)$，因此$A^T$与$B$可交换，，取转置得$B^T$与$A$可交换。
+
+(2) 利用(1)，$(A+B)^T(A+B)=A^TA+A^TB+B^TA+B^TB=AA^T+BA^T+AB^T+BB^T$
+$=(A+B)(A+B)^T$，$(AB)^TAB=B^TA^TAB=ABA^TB^T=AB(AB)^T$
+
+\item
+(1) $A=B=\begin{pmatrix}0&1\\0&0\end{pmatrix}$
+
+(2) $A=\begin{pmatrix}1&1\\1&0\end{pmatrix},B=\begin{pmatrix}0&1\\-1&0\end{pmatrix}$
+
+\item
+由于$P^TAP=(P^TA^TP)^T$，当$A,B$正交相似时，$A^T,B^T$正交相似。由此不妨设$A$已正交相似为定理6.9形式。为证正交相似，我们只需要证明每个对角块与其转置正交相似即可。对$\lambda_i$显然成立，对$A_i$直接构造$\begin{pmatrix}1&0\\0&-1\end{pmatrix}\begin{pmatrix}a&b\\-b&a\end{pmatrix}\begin{pmatrix}1&0\\0&-1\end{pmatrix}=\begin{pmatrix}a&-b\\b&a\end{pmatrix}$即可。
+
+为证存在多项式，设$P$正交，若$A^T=f(A)$，有$(P^TAP)^T=f(P^TAP)$，因此同样只要说明对定理6.9形式成立即可。考虑每个对角块对应的$f=f_j$，其最小多项式为$d_j$，则只需构造$f$满足$f\equiv f_j\mod d_j$即可，构造$f$使得$\begin{cases}f\equiv\lambda_i&\mod x-\lambda_i\\f\equiv-x+2a_i&\mod x^2-2a_ix+a_i^2+b_i^2\end{cases}$(对一切$\lambda_i,A_i$)，由于若对角块含公共特征值(即最小多项式不互素)，必为相同对角块，因此方程可只保留一个，由中国剩余定理可知这样的$f$存在，可验证此$f$满足要求。
+
+(对一般方阵，正交相似未必成立，见7.1节习题6(2))
+
+\item
+只要说明能使$P^{-1}A_iP$成为对应形式的准上三角方阵，由于其仍规范，类似习题3即可证明其为准对角方阵。
+
+采用归纳法。一阶时显然成立，$n$阶时，由5.2节习题9知存在公共特征向量$\alpha$，由于特征向量倍数仍为特征向量，不妨设$\alpha$为单位向量。
+
+若其为实向量，取$P$为使$\alpha$为第一列的正交阵，则$P^{-1}A_iP$的第一列除对角元全为0，右下为$n-1$阶互相可交换的规范阵，类似5.2节定理5.5归纳即可。
+
+若其不为实向量，考虑其实部与虚部构成的向量$u,v$，若$u,v$共线，则此向量除以$u+vi$即为实向量，矛盾。否则，取以$u,v$标准正交化为前两列的正交阵$P$，可发现$P^{-1}A_iP$的前两列成为符合要求的形式(除前两行外全为0，左上角二阶子矩阵形式如定理6.9中$A_i$)，类似5.2节习题7(2)归纳即可。
+
+\item
+(1) $\mathrm{e}^A(\mathrm{e}^A)^T=\mathrm{e}^A\mathrm{e}^{A^T}=\mathrm{e}^{(A+A^T)}=I=(\mathrm{e}^A)^T\mathrm{e}^A$，再由5.4节例5.16-3知$\det(B)=\mathrm{e}^tr(A)=1$。
+
+(2) 由于正交相似不改变结论，不妨设$B$已正交相似为定理6.6形式，且由于$\det(B)=1$，$-1$可两两配对，即$B=\diag(B_1,\dots,B_s,I)$，其中$B_i=\begin{pmatrix}\cos\theta_i&\sin\theta_i\\-\sin\theta_i&\cos\theta_i\end{pmatrix},\theta_i\in[0,2\pi)$ ($\theta=\pi$时为配对的$-1$)，取$A=\diag(A_1,\dots,A_s,O)$，其中$A_i=\begin{pmatrix}0&\theta_i\\-\theta_i&0\\\end{pmatrix}$，可算得成立。
+
+(3) 未必。$A=\begin{pmatrix}0&\pi\\-4\pi&0\\\end{pmatrix},B=I$为反例。
+\end{enumerate}
+
+\subsection{正交相抵}
+\begin{enumerate}
+\item
+利用$P$正交阵则$||P\alpha||=||\alpha^TP||=||\alpha||$可将$A$拆分为行/列向量直接算出结果，或利用$A,B$奇异值均相等由例6.7-1知结论。
+
+\item
+由定理6.10证明过程，设$A$的奇异值分解为$P_1\begin{pmatrix}\Sigma&O\\O&O\end{pmatrix}Q$，则B可分解为$P_2\begin{pmatrix}\Sigma&O\\O&O\end{pmatrix}Q$，因此取$P=P_2P_1^T$即可。
+
+\item
+由习题2类似知存在正交阵$P,Q,PA=AQ=B$。设$A$奇异值分解为$U\begin{pmatrix}\Sigma&O\\O&O\end{pmatrix}V$，令$X=U^TPU$，其为正交阵乘积，因此为正交阵，分块为$\begin{pmatrix}X_1&X_2\\X_3&X_4\end{pmatrix}$计算可知$X_2\Sigma=O$。由$\Sigma$可逆知$X_2=O$，由定理6.6证明过程准三角正交阵必为准对角阵，因此$X_3=O$，此时$X_1,X_4$必均为正交阵。
+
+令$R_1=X_1$可知$B=U\begin{pmatrix}R_1\Sigma&O\\O&O\end{pmatrix}V$，$R_1$为正交阵。同理可知$B=U\begin{pmatrix}\Sigma R_2&O\\O&O\end{pmatrix}V$，$R_2$为正交阵。因此$R_1\Sigma^2R_1^T=\Sigma R_2R_2^T\Sigma^2=\Sigma^2$，即$R_1$与$\Sigma^2$可交换，设$\Sigma^2=\diag(\sigma_1^2I_1,\dots,\sigma_s^2I_s)$，不同的$\sigma_i$值不同，则$R_1=\diag(P_1,\dots,P_s)$，$P_i$为正交阵，阶数与$I_i$相同。由此得全部的$B=U\begin{pmatrix}P\Sigma&O\\O&O\end{pmatrix}V$，$P=\diag(P_1,\dots,P_s)$，$P_i$为正交阵，且阶数对应每个不同奇异值的重数(注意到，$P$与$\Sigma$可交换，因此这样的$B$一定为解)。
+
+\item
+(1) 取$P_1,P_2=\frac{A\pm A^T}{2}$即可(由于实对称/反对称方阵一定规范)。
+
+(2) $A$的奇异值分解为$P\begin{pmatrix}\Sigma&O\\O&O\end{pmatrix}Q$，$P_1=PQ,P_2=Q^T\begin{pmatrix}\Sigma&O\\O&O\end{pmatrix}Q$即可。
+
+(3) 设$A=P\diag(A_1,\dots,A_s,\lambda_{2s+1},\dots,\lambda_n)P^T$为正交相似后6.2节定理6.9形式，取$P_1=PBP^T$,$P_2=PCP^T$，其中$B$为把每个$A_i$替换成$\diag(1,-1)$，$\lambda_i$替换成1；C为把每个$A_i$替换成$\diag(1,-1)A_i$，$\lambda_i$不变，验证知其符合要求。
+
+\item
+(1) 见习题6(1)(2)。
+
+(2) 置换行列后不妨设$B$为$A$左上角子矩阵，则$||B||=\left|\left|\begin{pmatrix}B&O\\O&O\end{pmatrix}\right|\right|=\left|\left|\begin{pmatrix}I&O\\O&O\end{pmatrix}A\begin{pmatrix}I&O\\O&O\end{pmatrix}\right|\right|$，由(1)得成立(第一个等号是由于$\forall\alpha,||B\alpha||=\left|\left|\begin{pmatrix}B&O\\O&O\end{pmatrix}\begin{pmatrix}\alpha\\\ast\end{pmatrix}\right|\right|$)。
+
+(3) 由定理6.10非零奇异值个数为$r$，且$\sigma_1$最大，再由例6.7(1,2)直接得结论。
+
+(4) 若模长最大的特征值为实数，直接取$\alpha$为其对应的模长为1的特征向量，即有$\rho(A)=||A\alpha||\le||A||$。若为复数，不妨设为$a\pm bi$，设其对应的特征向量为$u\pm vi$，取$\alpha$为$u$的单位化，则$\rho(A)=||A\alpha||\le||A||$。(或直接考虑复数域上的二范数)
+
+\item
+*本题中，对应向量范数$||x||_p$定义的矩阵范数为该向量范数诱导的矩阵范数。容易发现，$||A||_F$不为任何向量范数诱导的矩阵范数，因为任何向量范数诱导的矩阵范数都应有$||I||=1$。
+
+(1) 由Minkowski不等式，$p>1$时$||\left(A+B\right)x||_p\le||Ax||_p+||Bx||_p$，由此得证。
+
+(2) $\forall p$范数长为1的$x$，$||ABx||_p\le||A||_p||Bx||_p\le||A||_p||B||_p$，由此得证。
+
+(3) $||A||_1=\max_{\sum_{i=1}^{n}|x_i|=1}\sum_{i=1}^{m}\left|\sum_{j=1}^{n}{x_ja_{ij}}\right|$，而$\sum_{i=1}^{m}\left|\sum_{j=1}^{n}{x_ja_{ij}}\right|\le\sum_{j=1}^{n}{x_i\sum_{i=1}^{m}\left|a_{ij}\right|}\le$右式，当$x$使$\sum_{j=1}^{m}|a_{ij}|$最大的分量为1，其他为0时可取到，因此成立。
+
+(4) 左：取$x$使$\sum_{j=1}^{m}|a_{ij}|$最大的分量(设为第$k$个)为1，其他为0，则$||A||\ge||Ax||=\sqrt{\sum_{i=1}^m|a_{ik}|^2}$
+
+$\ge\frac{\sum_{i=1}^{m}|a_{ik}|}{\sqrt m}=\frac{||A||_1}{\sqrt m}$
+
+右：由习题5(3)，$||A||\le||A||_F\le\sqrt{n\max_{1\le j\le n}{\sum_{i=1}^{m}a_{ij}^2}}\le\sqrt{n\left(\max_{1\le j\le n}{\sum_{i=1}^{m}|a_{ij}|}\right)^2}=\sqrt n||A||_1$ (第三个不等号可放缩列和得到)。
+
+(5) 引理：$||A||_P=\max_{||x||_p=||y||_q=1}y^TAx$ ($x,y$维数为$n,m$)
+
+引理证明：由范数定义只需证明对向量$\alpha$，$||\alpha||_p=\max_{||\beta||_q=1}\beta^T\alpha$，即$\alpha\cdot\beta\le||\alpha||_p||\beta||_q$，且可取到满足等号的$\beta$，这即是H\"older不等式，由取等条件可知能取到合适的$\beta$，因此成立。
+
+由引理，由于转置不影响一阶方阵的值，因此左$=\max_{||x||_p=||y||_q=1}y^TAx=\max_{||x||_p=||y||_q=1}(y^TAx)^T$
+
+$=\max_{||y||_q=||x||_p=1}x^TA^Ty=$右。
+
+(6) 先证明$||A^TA||\le||A^TA||_p$。由定理6.10过程，$A^TA$为对称阵且特征值均为正，因此$A^TA$的奇异值即为其特征值，再利用例6.7-2知$||A^TA||$为其最大的特征值$\lambda$。实矩阵的实特征值对应实特征向量，取$\lambda$对应的实特征向量$\alpha$，可乘倍数调整使$||\alpha||_p=1$，计算得$||A^TA\alpha||_p=||\lambda\alpha||_p=\lambda=||A^TA||$，因此$||A^TA||\le||A^TA||_p$。
+
+由奇异值定义结合(2,5)知$||A||^2=||A^TA||\le||A^TA||_p\le||A^T||_p||A||_p=||A||_p||A||_q$，由此得证。
+
+\item
+*利用例6.8思路，此变换可看作在$x$方向放大为$\sigma_1$倍，$y$方向放大为$\sigma_2$倍，再逆时针旋转角度$\theta$。利用倾角可计算出直线的斜率，由此可知直线方程的变化。
+
+(1) 注意到$\sigma_1\ge\sigma_2$，因此焦点为$\pm\sqrt{\sigma_1^2-\sigma_2^2}(\cos\theta,\sin\theta)$
+
+(2) 标准方程$\frac{x^2}{\sigma_1^2}-\frac{y^2}{\sigma_2^2}=1$，实轴$y\cos\theta=x\sin\theta$，虚轴$y\sin\theta=-x\cos\theta$，顶点$\pm\sigma_1(\cos\theta,\sin\theta)$，焦点$\pm\sqrt{\sigma_1^2+\sigma_2^2}(\cos\theta,\sin\theta)$，渐近线$\cos\left(\theta\pm\arctan\frac{\sigma_2}{\sigma_1}\right)y=\sin\left(\theta\pm\arctan\frac{\sigma_2}{\sigma_1}\right)x$
+
+(3) 标准方程$y=\frac{\sigma_2 x^2}{\sigma_1^2}$，对称轴$y\sin\theta=-x\cos\theta$，顶点$(0,0)$，焦点$\frac{\sigma_1^2}{4\sigma_2}(-\sin\theta,\cos\theta)$
+
+\item
+*本题均只求出一个使取到最小值的解
+
+(1) 设$A$中元素按行列排为$a_1,\dots,a_n$，$B$中对应位置$b_1,\dots,b_n$，所求即需保证$\sum_{i=1}^{n}(\lambda a_i-b_i)^2$最小，直接由二次函数知识知$\lambda=\frac{\sum_{i=1}^{n}{a_ib_i}}{\sum_{i=1}^{n}a_i^2}$(亦可写为$\frac{\tr(A^TB)}{\tr(A^TA)}$)。
+
+(2) $||PA-B||_F^2=\tr((PA-B)^T(PA-B))=||A||_F^2+||B||_F^2-2\tr(B^TPA)$。
+由2.1节定理2.2-6，$\tr(B^TPA)=\tr(PAB^T)$。设$AB^T$奇异值分解为$U\Sigma V$，则$\tr(B^TPA)=\tr(VPU\Sigma)\le\tr(\Sigma)$ ($VPU$为正交方阵，对角元小于等于1，直接计算可得最后一个不等号)。取$P=V^TU^T$即为一个满足条件的最小值。
+
+(3) $||\lambda PA-B||_F^2=\tr((\lambda P A-B)^T(\lambda P A-B))=\lambda^2||A||_F^2+||B||_F^2-2\lambda\tr(B^TPA)$。由于$\lambda,P$同时变为负结果不变，不妨设$\lambda$为正，此时先取$P$为上题中$V^TU^T$，再取$\lambda=\frac{\tr(\Sigma)}{\tr(A^TA)}$时即可取到最小值。
+
+\item
+(1) 由例6.10可知此矩阵方程组仅一解，故唯一。
+
+(2) 直接验证其满足例6.10中的矩阵方程组即可。
+
+(3) 由4.2节定理5.9，在例6.10证明过程中只保留$AXA=X,XAX=A$即可得到本题的形式。(注意例题有误，应为$X_4=X_3\Sigma X_2$)
+
+\item
+当：由于正交相似不影响此性质，可设$A$已正交相似为6.2节定理6.9中的形式，直接计算可知$A^TA$的特征值为$A$的每个特征值模长平方，由此即可得$A$的奇异值满足条件。
+
+仅当：由置换方阵不影响正交相抵，不妨设$|\lambda_1|\le\dots\le|\lambda_n|$，则此时其即为$A$的奇异值。因此，$A^TA$的特征值为$A$的每个特征值模长平方。由于正交相似不影响此性质，可设A已正交相似为6.2节定理6.5中的形式，且$A_i=\begin{pmatrix}a_i&b_i\\c_i&d_i\end{pmatrix}$。
+
+一方面，$\tr(A^TA)$为其特征值之和，即$\sum_{i=1}^{n}{|\lambda_i|^2}=2\sum_{i=1}^{s}{|\lambda_{2i-1}}|^2+\sum_{i=2s+1}^{n}\lambda_i^2$
+
+另一方面，$\tr\left(A^TA\right)=\sum a_{ij}^2\ge\sum_{i=1}^{s}{||A_i}||_F^2+\sum_{i=2s+1}^{n}\lambda_i^2$
+
+验证可知，$2\sum_{i=1}^{s}{|\lambda_{2i-1}}|^2\le\sum_{i=1}^{s}{||A_i}||_F^2$，由此可知每个不等号均成立等号。
+
+$\sum a_{ij}^2=\sum_{i=1}^{s}{||A_i}||_F^2+\sum_{i=2s+1}^{n}\lambda_i^2$意味着$A$相似后为准对角阵，而$2\sum_{i=1}^{s}{|\lambda_{2i-1}}|^2=\sum_{i=1}^{s}{||A_i}||_F^2$可计算知$\begin{pmatrix}a_i&b_i\\c_i&d_i\end{pmatrix}=\begin{pmatrix}a_i&b_i\\-b_i&a_i\end{pmatrix}$对每个$A_i$成立，由此由6.2节定理6.5知$A$为规范方阵。
+\end{enumerate}
+
+\subsection{酉方阵}
+\begin{enumerate}
+\item
+完全仿照之前的对应例题、定理即可，注意$(AB)^H=B^HA^H,\det(A^H)=\overline{\det(A)}$。
+
+\item
+(1) 设为$\begin{pmatrix}a&b\\c&d\end{pmatrix}$，直接计算知$|a|^2+|b|^2=|c|^2+|d|^2=1,a\overline{c}+b\overline{d}=0$。由此，设$a=k\overline{d}$，则$b=-k\overline{c}$，由条件知$|k|=1$。取$\mu$使得$\mu^2=k$，记$z=\frac{a}{\mu},w=\frac{b}{\mu}$，计算验证即可。
+
+(2)
+利用例6.11，令$\theta_1=\arg\mu-\arg z-\arg w,\theta_2=\arctan\frac{|w|}{|z|},\theta_3=\arg z,\theta_4=\arg w$，计算验证即可。
+
+(3) 酉相似不改变Hermite性，不影响结论，利用定理6.15不妨设$A$已酉相似为对角阵$\diag(a+b\mathrm{i},c+d\mathrm{i})$，$b=d$时取$\lambda=b\mathrm{i},\mu=1$，否则取$\lambda=\frac{bc-ad}{b-d},\mu=a-\lambda+b\mathrm{i}$，计算验证知成立。
+
+(4) 酉相似后酉方阵仍为酉方阵，不影响结论，利用定理6.15不妨设$A$已酉相似为对角阵$\diag(x,y)$。取$\lambda=\frac{x+y}{2},\mu=\left|\frac{x-y}{2}\right|$，计算验证知成立。
+
+\item
+设酉方阵$P$写为习题2(1)形式，$\begin{pmatrix}a&b\\0&d\end{pmatrix}P=P\begin{pmatrix}a&c\\0&d\end{pmatrix}$，计算得$w=0,cz=b\overline{z}$。取模知$|b|\ne|c|$时无解，$|b|=|c|$时若全为0可任取，否则取$z$使$z^2=\frac{b}{c}$，计算验证知成立。
+
+\item
+(1) $Q=\begin{pmatrix}0&\frac{2\mathrm{i}}{\sqrt6}&\frac{1-\mathrm{i}}{\sqrt6}\\[1.5ex]\frac{1}{\sqrt2}&\frac{\mathrm{i}}{\sqrt6}&\frac{\mathrm{i}-1}{\sqrt6}\\[1.5ex]\frac{\mathrm{i}}{\sqrt2}&\frac{1}{\sqrt6}&\frac{1+\mathrm{i}}{\sqrt6}\end{pmatrix},R=\begin{pmatrix}\sqrt2&-\frac{\mathrm{i}}{\sqrt2}&\frac{\mathrm{i}}{\sqrt2}\\[1.5ex]0&\frac{\sqrt6}{2}&\frac{1-2\mathrm{i}}{\sqrt6}\\[1.5ex]0&0&\frac{\sqrt6}{3}\end{pmatrix}$
+
+(2) *只对规范方阵有谈论酉相似标准形的意义
+
+验证知A规范，可相似对角化为$\diag\left(1+\mathrm{i},\frac{-1+\sqrt3}{2}(1+\mathrm{i}),\frac{-1-\sqrt3}{2}(1+\mathrm{i})\right)$
+
+(3) 计算$A^HA$知$A$奇异值为$\frac{\sqrt6+\sqrt2}{2},\sqrt2,\frac{\sqrt6-\sqrt2}{2}$
+
+\item
+由于相似不影响此题结论，可设$A$已经酉相似为上三角方阵，此时$A-I$为秩为1的上三角方阵，可知其只有一行(或列)不为0，利用置换可使其第一行/最后一列不为0。因此，$A$为所有可酉相似为$I+$对应上三角方阵的方阵。
+
+\item
+完全仿照6.2节习题4即可。
+
+\item
+*此映射实际为环的嵌入同态
+
+双射证明：直接验证单射、满射即可
+
+(1) 直接计算验证即可，注意$(A+B\mathrm{i})^H=A^T-B^T\mathrm{i}$。
+
+(2) 由(1)第二个式子构造逆知结论。
+
+(3) 由(1)第二、三个式子代入条件知结论。
+
+(4) 由(1)第三个式子代入条件知结论。
+
+(5) 由(1)第三个式子代入条件知结论。
+
+(6) 由(1)第二、三个式子代入条件知结论。
+
+\item
+由于$\tr(AA^H)=||A||_F^2,\tr(B^HA)=\tr((A^HB)^H)=\overline{\tr(A^HB)}$，此题即为2.1节习题11。
+
+\item
+完全仿照6.3节例6.10即可。
+
+\item
+完全仿照6.3节例6.9即可。
+
+\item
+注意到$A=X+Y\mathrm{i}$，设特征值$\lambda=k+t\mathrm{i}$对应的特征向量为$\alpha$，即有$(X+Y\mathrm{i})\alpha=(a+b\mathrm{i})\alpha$。
+
+设$X=P^H\diag(x_1,\dots,x_n)P,Y=Q^H\diag(y_1,\dots,y_n)Q$为酉相似对角化，上式左右同乘$\alpha^H$得
+
+$(P\alpha)^H\diag(x_1,\dots,x_n)P\alpha+\mathrm{i}(Q\alpha)^H\diag(y_1,\dots,y_n)Q\alpha=k\alpha^H\alpha+t\alpha^H\alpha\mathrm{i}$
+
+由实部相等可知$k\alpha^H\alpha=(P\alpha)^H\diag(x_1,\dots,x_n)P\alpha=\sum_{i=1}^{n}x_i|(P\alpha)_i|^2$
+
+因此$k\alpha^H\alpha\ge x_1\sum_{i=1}^{n}{|(P\alpha)_i|^2}=x_1(P\alpha)^HP\alpha=x_1\alpha^H\alpha\Rightarrow k\ge x_1$，其余不等号同理。
+
+\item
+设酉方阵$U_0=A_0+B_0\mathrm{i}$，其中$A_0,B_0$为实方阵。只需证明，存在正交阵$P,Q$使$PA_0Q,PB_0Q$均为对角阵即可。
+
+令$P_AA_0Q_A$为$A_0$的奇异值分解形式，令$A=P_AA_0Q_A=\diag(\sigma_1I_1,\dots,\sigma_kI_k,O)$，其中$\sigma_1,\dots,\sigma_k$为不同的非零奇异值，再记$\Sigma=\diag(\sigma_1I_1,\dots,\sigma_kI_k)$，$B=P_AB_0Q_A$，由于$A+B\mathrm{i}=P_A(A_0+B_0\mathrm{i})Q_A$，正交方阵为酉方阵，酉方阵乘积为酉方阵，因此$U=A+B\mathrm{i}$仍为酉方阵。由于$(A+Bi)^H=A^T-B^Ti$，由酉方阵性质直接计算$UU^H,U^HU$虚部可知$A^TB=B^TA,AB^T=BA^T$，由于对角阵$A=A^T$，可化为$AB=B^TA^T,A^TB^T=BA$，即$AB=(AB)^T,BA=(BA)^T$，$AB,BA$均为对称阵。
+
+由之前假设，$A=\begin{pmatrix}\Sigma&O\\O&O\end{pmatrix}$，对$B$同样分块为$\begin{pmatrix}B_1&B_2\\B_3&B_4\end{pmatrix}$，由$AB,BA$对称可得$\Sigma B_3=B_2\Sigma=O$，由$\Sigma$可逆知$B_2=B_3=O$，设$P_BB_4Q_B$为$B_4$的奇异值分解形式，接下来考察$B_1$。
+
+由条件，$\Sigma B_1$与$B_1\Sigma$均为对称阵。先说明$B_1=\diag(C_1,\dots,C_k)$，$C_i$与$I_i$同阶。这是由于，若$B$在这些区域外有元素$b_{ij}$(不妨设为$\sigma_1,\sigma_2$交叉处)，则有$\sigma_1b_{ij}=\sigma_2b_{ji},\sigma_2b_{ij}=\sigma_1b_{ji}$，解得$b_{ij}=b_{ji}=0$。进一步计算知一切$C_i$均为对称阵，因此由6.2节定理6.7存在正交阵$P_i$使得$P_iC_1P_i^T$为对角阵。取$P=\diag(P_1,\dots,P_k,P_B)P_A,Q=Q_A\diag(P_1^T,\dots,P_k^T,Q_B)$，计算验证知即符合要求。
+
+\item
+设$A=UBU^H$，$U$为酉方阵。由习题12取$P,Q$使$U_0=PUQ$为对角阵，则$PAP^T=U_0Q^TBQU_0^H$，由于$A,B$正交相似等价于$PAP^T,Q^TBQ$正交相似，这样处理可不妨设$U$为对角酉方阵，即对角元模全为1的复对角阵。记其为$\diag(u_1,\dots,u_n)$，接下来说明$A,B$正交相似。
+
+由于$a_{ij}=u_i\overline{u_j}b_{ij},u_i\overline{u_j}>0$，$A,B$含零情况相同。
+
+将$A$看作无向图的邻接矩阵(与2.1节类似，但不完全相同)，定义若$a_{ij}$\textbf{或}$a_{ji}$不为0，则称点$i$与点$j$之间有一条\textbf{边}，若两点之间可通过无向边到达，则称为两点\textbf{连通}，若图中任意两点连通，则称此图为\textbf{连通图}。
+
+先说明，若$A$为连通图对应的矩阵，则原命题成立。由于将$U$改为$tU,|t|=1$仍有$A=UBU^H$，取$t=\overline{u_1}$即有此时$u_1=1$。可以证明此时$u_i\in\mathbb{R}$，从而$U$即为正交阵。首先，若不存在含1的边，则$A$不连通，因此可不妨设$a_{12}\ne0$，此时$a_{12}=\overline{u_2}b_{12}$，由于$a_{12},b_{12}\in\mathbb{R},|u_2|=1$可发现$u_2=\pm1\in\mathbb{R}$。以此类推，由于$A$连通，可以通过这样的方式确定一切$u_i$的值，从而原命题成立。
+
+接着说明，若$A$不连通，则可置换相似为$\diag(A_1,\dots,A_k)$，且$A_i$连通。证明思路为，找到所有与1连通的点，说明这些点互相连通，类似2.4节习题14(注意那题为有向图，此题为无向图，存在差异)将它们置换到$A_1$的位置，然后继续找下一个点，直到所有点被置换完成。此时若$\diag(A_1,\dots,A_k)$之外有不为0的值，可得有更大的互相连通的分支，矛盾。
+
+设置换阵$P$使$PAP^T$为上述形式，可发现$(PAP^T)=PUP^T(PBP^T)P^TU^HP$，可发现$PUP^T$仍为对角阵，由于其主子矩阵仍为酉方阵，可知每个$A_i$与$B_i$酉相似，由已证，它们正交相似，设$A_i=P_iB_iP_i^T$，$P_i$为正交阵，则$A=\diag(P_1,\dots,P_k)B\diag(P_1,\dots,P_k)^T$，因此两者正交相似。
+\end{enumerate}
+
+\section{二次型}
+\subsection{二次型的化简}
+\begin{enumerate}
+\item
+直接对比系数发现对角元为对应$x_i^2$的系数，其余为对应$x_ix_j$系数的一半，由于$x_ix_j=x_jx_i$得对称。
+
+\item
+$\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}0&1\\1&0\end{pmatrix}\begin{pmatrix}a&c\\b&d\end{pmatrix}=\begin{pmatrix}0&bc+ad\\bc+ad&0\end{pmatrix}$，在特征二域中，$\det\begin{pmatrix}a&b\\c&d\end{pmatrix}=ad-bc=bc+ad$，由可逆不为 0，因此其不可能为对角方阵。
+
+\item
+*由于$A$一定为二次项构成的二次型对应的对称阵，由此可解出$b$，进一步算出$c$
+
+(1) $A=\begin{pmatrix}1&0&0.5&0\\0&1&0.5&0.5\\0.5&0.5&0&0\\0&0.5&0&0\end{pmatrix},b=\begin{pmatrix}1\\-1\\0\\-1\end{pmatrix},c=-3$
+
+(2) $A=\begin{pmatrix}1&0.5&-0.5&0.5\\0.5&1&0&0\\-0.5&0&1&0\\0.5&0&0&0\end{pmatrix},b=\begin{pmatrix}1\\1\\0\\-3\end{pmatrix},c=0$
+
+(3) $A=\begin{pmatrix}0&0&0.5&0\\0&0&-1&-0.5\\0.5&-1&0&-1\\0&-0.5&-1&0\end{pmatrix},b=\begin{pmatrix}0\\1\\1\\1\end{pmatrix},c=5$
+
+(4) $A=\begin{pmatrix}0&0.5&-1&0\\0.5&0&1&-0.5\\-1&1&0&-1\\0&-0.5&-1&0\end{pmatrix},b=\begin{pmatrix}-1\\1\\0\\1\end{pmatrix},c=2$
+
+\item
+*若选取的先后次序不同，结果未必唯一，但正负式子的个数一定唯一
+
+(1) $(x_1+x_2)^2-3\left(x_2-\frac{1}{3}x_3\right)^2+\frac{4}{3}\left(x_3-\frac{9}{8}x_4\right)^2-\frac{27}{16}x_4^2$
+
+(2) $(x_1+x_3-2x_4)^2+x_2^2+\frac{9}{4}x_3^2-4\left(x_4-\frac{3}{4}x_3\right)^2$
+
+(3) $2\left(\frac{1}{2}x_1+x_2\right)^2+4x_4^2-\frac{1}{2}(x_1-2x_4)^2-(x_3-x_4)^2$
+
+(4) $\frac{1}{4}(x_1+2x_2+x_3+3x_4)^2+4x_4^2-\frac{1}{4}(x_1+2x_2-x_3+5x_4)^2$
+
+\item
+*由6.2节定理6.7，实对称矩阵可正交相似为对角阵(由此亦可知特征值全为实数)，而对角阵可用对角阵相合将非零特征值模长变为1，由此可知正负惯性指数即为其特征值中正负的个数。
+
+(1) 对应矩阵对角元为$n-1$，其余均为$-1$，行列变换可知特征值为$n-1$重$n$与0，因此正惯性指数为$n-1$，负惯性指数为0。
+
+(2) 对应矩阵对角元为0，其余均为$\frac{1}{2}$，行列变换可知特征值为$n-1$重$-\frac{1}{2}$与$\frac{n-1}{2}$，因此正惯性指数为1，负惯性指数为$n-1$。
+
+(3) 设$n$阶时为$Q_n$，利用例7.2类似的配方技巧，注意到，从$Q_n$中提取出$(x_1+x_n)(x_2+x_3)-(x_3-x_4)(x_n-x_{n-1})$后，相当于$Q_{n-4}$，而提取出的是$\frac{1}{4}(x_1+x_n+x_2+x_3)^2-\frac{1}{4}(x_1+x_n-x_2-x_3)^2-\frac{1}{4}(x_3+x_n-x_4-x_{n-1})^2+\frac{1}{4}(x_3+x_{n-1}-x_4-x_n)^2$，为$\pm1$各两个，因此$Q_n$比$Q_{n-4}$正负惯性指数均多2，由此模4分类得：
+
+$n=4k+1$时，正惯性指数$2k+1$，负惯性指数$2k$；
+
+$n=4k+2$时，正惯性指数$2k+1$，负惯性指数$2k+1$；
+
+$n=4k+3$时，正惯性指数$2k+1$，负惯性指数$2k+2$；
+
+$n=4k$时，正惯性指数$2k-1$，负惯性指数$2k-1$。
+
+\item
+(1) 设$A=\begin{pmatrix}a&b\\c&d\end{pmatrix}$，令$\theta=\arctan\frac{b+c}{a-d}$
+ ($a-d=0$则为$\frac{\pi}{2}$)，取正交阵$P=\begin{pmatrix}\cos\theta&\sin\theta\\\sin\theta&-\cos\theta\end{pmatrix}$，计算验证知成立。
+
+(2) 由5.5节例5.19，$A$与$A^T$相似。$\begin{pmatrix}-1&0&1\\0&-1&0\\0&0&1\end{pmatrix}A\begin{pmatrix}-1&0&0\\0&-1&0\\1&0&1\end{pmatrix}=A^T$，因此相合(此方阵假设上三角可强行解出)。
+
+设$P=\begin{pmatrix}a&b&c\\d&e&f\\g&h&i\end{pmatrix}$为正交阵，若相似可设$PA=A^TP$，计算后可知$b=d,a=e,c=g,f=h,a+c=f,b+f=c$，因此$P=\begin{pmatrix}a&-a&c\\-a&a&a+c\\c&a+c&i\end{pmatrix}$。考虑$PP^T$前两个对角元知$2a^2+c^2=2a^2+(a+c)^2=1$，由于$P$可逆，$a\ne0$，因此$a=-2c$，代入直接计算$PP^T$第一行第二列发现不为0，因此$P$不为正交阵，从而不正交相似。
+
+\item
+(2) 先证明第二问。可设$A$已正交相似为6.2节定理6.8形式，不妨设$b_i>0$，否则用置换阵$\begin{pmatrix}0&1\\1&0\end{pmatrix}$相似即可，再取$P=\diag(b_1^{-1/2},b_1^{-1/2},b_2^{-1/2},b_2^{-1/2},\ldots,b_s^{-1/2},b_s^{-1/2},I)$，则$A_1=P^TAP$中每个$t_i$已被相合为1。然后寻找置换方阵$Q$使$Q^TA_1Q$为符合条件的形式，取$Q$的左上角$2s$阶为将$2k+1$列换到$k$列，将$2k$列换到$s+k$列的置换阵，右下角为$I$即可。
+
+(1) 对阶数归纳。不妨设$\le n$阶时已经成立，下面考虑$n+1$。
+注意到右乘$T_{ij}(\lambda)$表示把第$i$列$\lambda$倍加至第$j$列，左乘其转置为第$i$行$\lambda$倍加至第$j$行，由此只要$A$不为反对称，可以使用合适的$T_{ij}(1)$使有对角元不为0，不妨设$a_{11}\ne0$。
+
+右乘$T_{1i}\left(-\frac{a_{i1}}{a_{11}}\right),i=2,\ldots,n+1$，可使第一列只有$a_{11}$不为0。若此时右下角不为反对称，则已经成立。若右下角为反对称，可将其相合为第二问中$A_1$的形式。设此时第一行为$a_{11},b_2,\ldots,b_{n+1}$，$\alpha$使$(a_{11}+b_3\alpha)(b_2-\alpha)\ne0$，右乘$T_{31}(\alpha)T_{12}\left(-\frac{\alpha}{a_{11}+b_3\alpha}\right)$相合，此操作将$a_{22}$变为了$-\frac{\alpha(b_2-\alpha)}{a_{11}+b_3\alpha}$，而其余0项不变，故此时右下角不再为反对称，可以运用归纳假设，由此原命题成立。
+\end{enumerate}
+
+\subsection{正定方阵}
+\begin{enumerate}
+\item
+定理7.3：验证即可，注意到，由于$P$可逆，从当即可推出当且仅当。
+
+定理7.5：类似验证即可，注意Hermite矩阵酉相似标准型可大量简化证明过程。
+
+\item
+注意到，将$A$进行正交相似对应$x_1,\ldots,x_n$的正交代换，积分不变，因此设$A$特征值为$\lambda_1,\ldots,\lambda_n$(由正定知均正)，由6.2节定理6.7不妨设$A$为它们构成的对角阵，此时$x^TAx=\sum_{i=1}^{n}\lambda_ix_i^2$，再做倍数换元可知积分结果为$\lambda_i$全为1的情况的$\prod_{i=1}^{n}\frac{1}{\sqrt{\lambda_i}}=\frac{1}{\sqrt{\det(A)}}$倍(运用5.1节定理5.2)。
+
+(1) 注意此为$n$维球体积(可直接积分递推等计算)，为$\frac{V_n}{\sqrt{\det(A)}}=\frac{1}{\Gamma\left(\frac{n}{2}+1\right)}\sqrt{\frac{\pi^n}{\det(A)}}$，其中$\Gamma$为$\Gamma$函数。
+
+(2) 原式$=\frac{1}{\sqrt{\det(A)}}\left(\int_{\mathbb{R}}\mathrm{e}^{-x_i^2}\mathrm{d}x_i\right)^n=\sqrt{\frac{\pi^n}{\det(A)}}$
+
+\item
+法一：几何，利用定理7.4-4(实矩阵$H$即为$T$)，设$P=\begin{pmatrix}u&v&w\end{pmatrix}$，可发现$P$可逆等价于$u,v,w$不共面(用线性相关或列变换证明)，解$A=P^TP$可知$||u||=||v||=||w||=1,u^Tv=\cos\theta_1,u^Tw=\cos\theta_2,v^Tw=\cos\theta_3$，又由于单位向量内积即为夹角余弦，可知$A$正定等价于存在三个相互夹角分别为$\theta_{1,2,3}$的不共面向量。考虑四面体三个顶角可知此即等价于题中所述关系。
+
+法二：计算顺序主子式发现一阶为1必然大于0，二阶$\sin\theta_1^2>0\Leftrightarrow\theta_1\ne0,\pi$。三阶顺序主子式，即其行列式值为$1-\cos^2\theta_1-\cos^2\theta_2-\cos^2\theta_3+2\cos\theta_1\cos\theta_2\cos\theta_3$。
+由题目条件猜测验证可知其有因式$\cos\theta_3-\cos(\theta_1+\theta_2)$，由对称知其有因式$T=(\cos\theta_3-\cos(\theta_1+\theta_2))(\cos\theta_2-\cos(\theta_1+\theta_3))(\cos{\theta_1}-\cos(\theta_2+\theta_3))$，计算可知其实际上为$\frac{T}{1-\cos(\theta_1+\theta_2+\theta_3)}$，由此可验证条件(可发现三阶顺序子式大于0时二阶必然大于0)。
+
+\item
+存在性：利用6.4节定理6.15-2将其酉相似为对角阵，注意到其特征值均为实数，由此设其对角元为$\lambda_1,\ldots,\lambda_n,\mathbf{0}$，再取对角阵$\diag\left(\sqrt{\frac{1}{|\lambda_1|}},\ldots,\sqrt{\frac{1}{|\lambda_n|}},I\right)$共轭相合即可得到。
+
+唯一性：直接仿照7.1节定理7.2即可。
+
+(类似7.1节定义7.3定义正负惯性指数，则可发现正定当且仅当正惯性指数为阶数，半正定当且仅当负惯性指数为0)
+
+\item
+(1) 由于$A$正定可知其特征值均正，利用5.2节定理5.6-3知$A^{-1}$特征值均正，再结合定理7.4-2,6即有结论。
+
+(2) $\det(A)\le\det(A_{11})\det(A_{22})$
+
+由于$A_{11}$正定，其可逆且行列式大于0，由2.4节例2.18消元知只需证明$\det(A_{22}-A_{12}^HA_{11}^{-1}A_{12})\le\det(A_{22})$。由(1)知$A_{11}^{-1}$正定，类似定理7.3可知$A_{12}^HA_{11}^{-1}A_{12}$半正定。通过Schur公式计算验证可知$A_{22}-A_{12}^HA_{11}^{-1}A_{12}=B_{22}^{-1}$，因此$A_{22}-A_{12}^HA_{11}^{-1}A_{12}$正定。
+
+利用例7.7，用$P$将$A_{22}-A_{12}^HA_{11}^{-1}A_{12}$与$A_{12}^HA_{11}^{-1}A_{12}$同时相合对角化(那么$A_{22}$为两者之和亦被对角化)，由于$\det(P^HMP)=|\det(P)|^2\det(M)$，可知只需证明对角化后行列式存在大小关系，而由于前述正定、半正定性，每个对角元均对应小于等于，且全为正，因此大小关系成立。
+
+$\det(A_{22})\det(B_{22})\ge1$(由对称性，另一个式子可直接类似过程得出)
+
+由上一部分已证，$\det(A_{22}-A_{12}^HA_{11}^{-1}A_{12})\le\det(A_{22})$，又由$A_{22}-A_{12}^HA_{11}^{-1}A_{12}=B_{22}^{-1}$可直接得到结果(由于$B_{22}$正定，其逆的行列式大于0)。
+
+(3) 同样只证明对$A_{22}B_{22}$成立，由(1)知其正定，故$\lambda>0$。
+
+$A_{22}B_{22}=A_{22}(A_{22}-A_{12}^HA_{11}^{-1}A_{12})^{-1}=(I-A_{12}^HA_{11}^{-1}A_{12}A_{22}^{-1})^{-1}$，由例7.6可知$A_{22}B_{22}$特征值均大于0，由此只需证$I-A_{12}^HA_{11}^{-1}A_{12}A_{22}^{-1}$的特征值均$\le1$。
+
+之前已说明$A_{12}^HA_{11}^{-1}A_{12}$半正定，$A_{22}^{-1}$正定，设$A_{12}^HA_{11}^{-1}A_{12}=Q^HQ,A_{22}^{-1}=P^HP$，且$P$可逆，可发现$I-A_{12}^HA_{11}^{-1}A_{12}A_{22}^{-1}=I-Q^HQP^HP=P^{-1}(I-(QP^H)^HQP^H)P$，由于相似矩阵特征值相同，可知$I-A_{12}^HA_{11}^{-1}A_{12}A_{22}^{-1}$与$I-(QP^H)^HQP^H$特征值完全相同，又因$I-A_{12}^HA_{11}^{-1}A_{12}A_{22}^{-1}$全部特征值大于0可知Hermite阵$I-(QP^H)^HQP^H$正定，而$(QP^H)^HQP^H$半正定，因此$I-(QP^H)^HQP^H$特征值均$\le1$，由此即得证。
+
+\item
+利用例7.7，用$P$将$A,B$同时对角化，可知$P^HAP$每个对角元大于/大于等于$P^HBP$的对应对角元，而$(P^HAP)^{-1}=P^{-1}A^{-1}P^{-H}$，由此$P^{-1}A^{-1}P^{-H}$每个对角元为$P^HAP$对应对角元的倒数，小于/小于等于$P^{-1}B^{-1}P^{-H}$的对应对角元。因此，$P^{-1}(B^{-1}-A^{-1})P^{-H}$正定/半正定，由定理7.3知$B^{-1}-A^{-1}$正定/半正定。
+
+\item
+(1) 由6.4节定理15，设$A=P^HBP$，$P$为酉方阵，$B$为对角阵，又因其对角元均非负，取$C$为每个对角元的对应次方根中的非负数，则$X=P^HCP$即符合要求。若有$Y$满足，令$Y=Q^HDQ$，$Q$为酉方阵，$D$为对角阵，则有$P^HC^mP=Q^HD^mQ$，因此$C^m$与$D^m$酉相似，根据特征值可知只能对应分量相等，再由半正定可知$C,D$的对应分量相等，因此$C=D$，由$P^HC^mP=Q^HD^mQ$直接计算可知$X=Y$。
+
+(2) $A=\begin{pmatrix}3.01&1\\1&2\end{pmatrix},B=\begin{pmatrix}2&0\\0&1\end{pmatrix},m=2$
+
+(3) 由例7.7，设$A=P^HD_1P,B=P^HD_2P$，为$A,B$同时相合对角化，由相合对角化后仍为半正定，$D_1,D_2$对角元(记为$\lambda_i,\mu_i$)大于等于0。直接计算$A^2-B^2=P^H(D_1PP^HD_1-D_2PP^HD_2)P,A-B=P^H(D_1-D_2)P$。
+
+$A^2-B^2$正定/半正定$\Leftrightarrow D_1PP^HD_1-D_2PP^HD_2$正定/半正定$\Rightarrow$其所有对角元大于/大于等于0 (由定理7.4/5-4)，又由于$PP^H$正定，计算得$\lambda_i^2>/\geq\mu_i^2$，由对角元非负知$\lambda_i>/\geq\mu_i$，因此$A-B$正定/半正定。
+
+(4) (结论正确，但解决需要较高级的知识)
+
+\item
+(1) 法一：我们接着定理7.4留作习题部分的证明继续(设$A$的$k$阶顺序主子式值为$M_k$)：
+
+采用归纳法，一阶显然满足，若$n$阶满足，$n+1$阶时，由于$M_1=a_{11}>0$，取$P_1=\prod_{i=2}^{n+1}{T_{1i}\left(-\frac{a_{i1}}{a_{11}}\right)}$，则$P_1^HAP_1=\diag(a_{11},A_1)$。
+
+由于$P_1$为上三角阵，分块计算知$P_1^HAP_1$的$k$阶顺序主子式为$\det(P_1^{H(k)}A^{(k)}P_1^{(k)})$，其中$A^{(k)}$为$A$的$k$阶顺序主子式，又由于$P_1$对角元均为1，这个式子的值即为$M_k$。因此，$P_1$共轭相合不改变$A$各阶顺序主子式的值，由此可知$A_1$的$k$阶顺序主子式为$\frac{M_{k+1}}{M_1}$。设$P_2$使$A_1=P_2\diag\left(\frac{M_2}{M_1},\frac{M_3}{M_2},\ldots,\frac{M_{n+1}}{M_n}\right)P_2^H$，则取$L=P_1^{-H}\begin{pmatrix}1&\mathbf{0}\\\mathbf{0}&P_2\end{pmatrix}$即满足题目中要求。
+
+法二：设$A=S^HS$，$S$可逆，设$S=QR$为其$QR$分解(6.1节定理6.3)，则$A=R^HR$，而$R$即为上三角阵。
+
+(下三角类似5.1节习题2即可对应构造)
+
+(2) 法一：设$A=S^HS$，$S$可逆，则$S^{-H}BS^{-1}$亦为Hermite阵，利用6.4节定理6.15，设酉方阵$P$使得$P^HS^{-H}BS^{-1}P$为对角阵，则$S^{-1}P$即符合要求。
+
+法二：由于A正定，我们只要证明，存在正数$t$使$A+tB$半正定，即可类似例7.7将$A,A+tB$同时相似为对角阵，由此即知此时$B$对角。利用定理7.4-8，$t$趋向0时$A+tB$的各阶顺序主子式均大于0，因此由极限保号性一定存在充分小的$t$满足条件，由此得证。
+
+(3) 法一：将半正定阵看作一列正定阵的极限，利用例7.7，实数列极限为实数，由此得证。
+
+法二：由习题7(1)知存在$A^{1/2}$，而$\det(xI-AB)=\det(xI-A^{1/2}A^{1/2}B)=\det(xI-A^{1/2}BA^{1/2})$ (利用3.2节例3.12)，而$A^{1/2}BA^{1/2}$为Hermite阵，由此得证。
+
+(4) 法一：同上述法一，非负实数列极限为非负实数，由此得证。
+
+法二：同上述法二，拆分$B$为$Q^HQ$可知此时$A^{1/2}BA^{1/2}$半正定，由此得证。
+
+\item
+(1) 正确，证明方式同习题8(1)法二。
+
+(2) 错误，反例$A=\begin{pmatrix}1&0\\0&0\end{pmatrix},B=\begin{pmatrix}0&1\\1&0\end{pmatrix}$。
+
+(3) 错误，反例$A=\begin{pmatrix}1&0\\0&0\end{pmatrix},B=\begin{pmatrix}1&1\\1&2\end{pmatrix}$。
+
+(4) 错误，反例$A=\begin{pmatrix}0&1\\1&0\end{pmatrix},B=\begin{pmatrix}0&\mathrm{i}\\-\mathrm{i}&0\end{pmatrix}$。
+
+\item
+(1) 类似2.2节习题8(3)可知$(A\otimes B)^H=A^H\otimes B^H$，由此验证知成立。
+
+(2) 由定理7.4-4，存在可逆$PQ$使$A=P^HP,B=Q^HQ$。因此由2.2节习题7知$D=(P\otimes Q)^H(P\otimes Q)$，而$PQ$可逆可知由2.4节习题9知$P\otimes Q$可逆，由此$D$正定。
+
+令$P=(p_{ij}),Q=(q_{ij})$，可知$C$的第$i$行第$j$列为$\sum_{k=1}^{n}(\overline{p_{ki}}p_{kj})\sum_{k=1}^{n}(\overline{q_{ki}}q_{kj})$。令$n$阶方阵$R_k$的的第$i$行第$j$列为$p_{kj}q_{ij}$，令$R=\begin{pmatrix}R_1&\cdots&R_n\end{pmatrix}^T$，则$C=R^HR$。由于$R_k=\diag(p_{k1},\ldots,p_{kn})Q$，可发现$RQ^{-1}$通过行变换可使前$n$行构成$P$，因此其列满秩，因此$R$列满秩，由此得证。
+
+(3) 与(2)相同构造矩阵即可。
+
+\item
+(1) 利用2.4节习题12，对其任何$\lambda\le0$，$A-\lambda I$为主角占优矩阵，因此行列式不为0，由此知其所有特征值均正，由定理7.4-2得成立。
+
+(2) 将上一问证明中$\lambda\le0$改为$\lambda<0$，由此知其所有特征值非负，由定理7.5-2得成立。
+
+\item
+由于$B^TB=D+A$，$P$应与$B$形式类似，事实上，由于$B$每行代表连接两个顶点的一条边，因此必恰有两个1，将$B$每行的第二个1变为$-1$，其余不变，即为所求的$P$。
+
+\item
+(1) 由6.4节习题11知成立(或仿照那题证法亦可)。
+
+(2) 利用6.4节定理6.14设$P^HAP$为$A$的酉相似三角化，可发现$P^HBP$的对角元为$P^HAP$对角元的实部，再利用习题5归纳可知$\det(B)=\det(P^HBP)\le P^HBP$对角元乘积$\le P^HAP$对角元乘积的模$=|\det(P^HAP)|=|\det(A)|$。利用习题5证明过程发现取等要求$P^HAP$对角，即$A$为Hermite阵，矛盾。
+
+\item
+先证明$B+C$可逆：若否，设特征值0对应特征向量$\alpha$，则$(B+C)\alpha=\mathbf{0}$，左侧同乘$\alpha^H$得$\alpha^HB\alpha=-\alpha^HC\alpha$，由正定定义知$\alpha^HC\alpha$为负实数，从而$\alpha^HA\alpha=-\alpha^H(B+C+C^H)\alpha=\alpha^HC^H\alpha=(\alpha^HC\alpha)^H$ 仍为负实数，矛盾。
+
+任取$(B+C)^{-1}C$特征值$\lambda$，对应特征向量$\alpha$，有$(B+C)^{-1}C\alpha=\lambda\alpha$，左侧同乘$\alpha^H(B+C)$得$\alpha^HC\alpha=\lambda(\alpha^HB\alpha+\alpha^HC\alpha)$。由于$B$为记$\alpha^HC\alpha=a+b\mathrm{i},\alpha^HB\alpha=t,a,b,c\in\mathbb{R}$，计算知$|\lambda|^2=\frac{a^2+b^2}{(a+t)^2+b^2}$。由正定定义知$\alpha^HA\alpha=2a+t>0,t>0$，可计算得$|\lambda|^2<1$，原命题得证。
+\end{enumerate}
+
+\subsection{一些例子}
+\begin{enumerate}
+\item
+由6.4节定理6.15，设$A=UDU^H$，$U$为酉方阵，$D=\diag(\lambda_1,\dots,\lambda_k,O)$($\lambda_i$为非零特征值)，取$D_1=\diag(|\lambda_1|,\dots,|\lambda_k|,O),D_2=\diag(\frac{\lambda_1}{|\lambda_1|},\dots,\frac{\lambda_k}{|\lambda_k|},I)$令$S=UD_1U^H,P=UD_2U^H$，验证得成立。
+
+\item
+(暂缺，疑似不可做)
+
+\item
+利用例7.10，$A=\begin{pmatrix}2&1&&\\1&\ddots&\ddots&\\&\ddots&2&1\\&&1&1\end{pmatrix},c$只有第$i$个分量为1，其他为0。行列变换可知$\det(A)=1$，而记$A$的第$k$顺序主子式为$A_k(k<n)$，利用3.3节习题2可递推证明$A_k=k+1$，因此$A$正定。由例7.10知$x_i$最大值为$A^{-1}$第$i$个对角元的平方根，利用伴随方阵知为$\begin{cases}1&i<n\\\sqrt{n}&i=n\end{cases}$。进一步得$x_i$取值范围为$\begin{cases}[-1,1]&i<n\\ [-\sqrt{n},\sqrt{n}]&i=n\end{cases}$。
+
+\item
+利用例7.10，此时$A$除对角元为1外均为$\frac{1}{2n}$，因此$A$每行元素和均为$k=\frac{3n+1}{2n}$，估算验证知$A$正定。$c$的所有分量均为1。记$B=\frac{1}{k}A$，由3.3节习题3(2)知$\sum_{i,j=1}^nB_{ij}=n\det(B)$，而利用例7.10知最大值即为$A^{-1}$各行列元素和的平方根，为$\sqrt{\sum_{i,j=1}^n\frac{A_{ij}}{\det(A)}}=\sqrt{\sum_{i,j=1}^n\frac{k^{n-1}B_{ij}}{k^n\det(B)}}=\sqrt{\frac{n}{k}}=\sqrt{\frac{2n^2}{3n+1}}$，进一步得其取值范围为最大值的相反数到最大值的闭区间。
+
+\item
+设$P,Q$为置换阵，由置换阵为正交阵知$(PAQ)(PAQ)^T=PAA^TP^T=nPP^T=nI$，因此不妨设这个子矩阵在左上角，分块为$\begin{pmatrix}A_1&A_2\\A_3&A_4\end{pmatrix}$，可发现$AA^T$的左上角为$p$阶方阵$A_1A_1^T+A_2A_2^T$，且$A_1A_1^T$的所有元素均为$q$。由结论可算得$A_2$任意不同两行看作向量(共$p$个向量)，任意两不同行内积结果为$-q$，每个向量与自身内积为$n-q$，所有向量之和的模长平方为$p(n-q)+p(p-1)(-q)$，而模长平方和不可能为负，由此解出$pq\ge n$。
+
+\item
+仿照例7.12设出奇异值分解，取出右式中最大的$k$，完全仿照证明即可(注意运用6.4节例6.14即可知$||B-A||_F$)。
+
+\item
+类似例7.11设出$R_A(x)=\frac{\sum_{i=1}^n\lambda_i|y_i|^2}{\sum_{i=1}^n|y_i|^2}$，由于$P$可逆，$x,y$的维数相同，不妨直接考虑$y$。
+
+当$V$为$\mathbf{e}_1$到$\mathbf{e}_k$生成的$k$维子空间时，可发现$\min_{y\in V}R_A(x)$在$y=\mathbf{e}_k$时取到，此时最小值即为$\lambda_k(A)$。类似2.3节习题7考虑基可知$V$的任意$k$维子空间中都存在一个前$k-1$个分量均为0的非零向量，取$y$为这个向量时即发现此时值不超过$\lambda_k(A)$，因此最小值不超过$\lambda_k(A)$，左侧等号成立。对于右侧等号，对称地类似验证即可。
+
+\item
+(暂缺)
+
+\item
+(暂缺)
+
+\item
+利用数论知识知$i\mid n,\ j\mid n\Rightarrow\lcm(i,j)\gcd\left(\frac{n}{i},\frac{n}{j}\right)=n$，$\sum_{d|n}\varphi(d)=n$，由此可计算：
+
+原式$=\sum_{i|n,j|n}\frac{x_ix_j}{\lcm(i,j)}=\sum_{i|n,j|n}\frac{x_ix_j}{\lcm(\frac{i}{n},\frac{j}{n})}=\frac{1}{n}\sum_{i|n,j|n}x_ix_j\gcd(i,j)=\frac{1}{n}\sum_{i|n,j|n}x_ix_j\sum_{d|\gcd(i,j)}\varphi(d)=\frac{1}{n}\sum_{d|n}\varphi(d)\sum_{d|i|n,d|j|n}x_ix_j=\frac{1}{n}\sum_{d|n}\varphi(d)\Big(\sum_{d|i,i|n}x_i\Big)^2$
+
+这样配方后，$d=n$的项即为要证式的右侧，而其他项均为平方，因此大于等于号成立。
+
+\item
+(1) 由于(3)中的$Q$为下三角方阵，其可逆，利用7.2节定理7.4-4知$A$正定。
+
+(2) $P^TP$第$i$行第$j$列为$\sum_{k=1}^mp_{ki}p_{kj}=\sum_{i|k,j|k,k\le m}\frac{ij}{m}=\frac{ij}{m}\frac{m}{\lcm(i,j)}=\gcd(i,j)$，由此得证。
+
+(3) 由数论知识知$\sum_{d|n}\varphi(d)=n$。$Q^TQ$第$i$行第$j$列为$\sum_{k=1}^nq_{ki}q_{kj}=\sum_{k|i,k|j}\varphi(k)=\gcd(i,k)=a_{ij}$，由此得证。
+
+\item
+由于同号时可取到最大值，不妨设$x_i$均正，以下若出现编号$x_{2n+i}$，视为$x_i$。
+
+利用$a+b=1,a>0,b>0\Rightarrow ab\le\frac{1}{4}$，
+计算可知$\sum_{1\le i\le j\le 2n}\min((j-i),(2n-j+i))x_ix_j=\sum_{i=1}^n\left(\sum_{j=1}^nx_{i+j-1}\right)\cdot\left(\sum_{j=1}^nx_{i+j+n-1}\right)\le\sum_{i=1}^n\frac{1}{4}=\frac{n}{4}$。
+
+由于$\min((j-i),(2n-j+i))\le n$，$Q\le n\sum_{1\le i\le j\le 2n}\min((j-i),(2n-j+i))x_ix_j\le\frac{n^2}{4}$，且取$x_1=x_{n+1}=\frac{1}{2}$，其他为零时可取到最大值。
+
+\item
+类似3.1节习题5(6)可知$A$的$k$阶顺序主子式为$\frac{1}{k}\prod_{i=1}^{k-1}\left(\frac{1}{i}-\frac{1}{i+1}\right)=\frac{1}{(k!)^2}>0$，由7.2节定理7.4-8知其正定。
+
+考察$A$正交相似后的对角阵(不妨设特征值从大到小排列)，由于正定，其所有特征值均正，此对角阵即为奇异值的形式，因此由6.3节例6.7-3与例7.11知$||A||=\sigma_1(A)=\lambda_1(A)=\max_{x\in\mathbb{R}_{n\times1}}R_A(x)$。
+
+$x^TAx=\sum_{k=1}^n\frac{x_k}{k}\left(\sum_{i=1}^{k-1}2x_i+x_k\right)$，只需证明$x_i$不全为0时其小于$4\sum_{k=1}^nx_k^2$。设$S_0=0,S_k(k>0)=\sum_{i=1}^kx_k$，即要证$\sum_{k=1}^n\frac{S_k^2-S_{k-1}^2}{k}<4\sum_{k=1}^n(S_k-S_{k-1})^2$，至此交叉项只剩下了相邻项，可归纳配方解决。
+
+\item
+(暂缺)
+\end{enumerate}
+
+\section{线性空间}
+\subsection{基本概念}
+\begin{enumerate}
+\item 
+(1) 若有$\mathbf{0}_1,\mathbf{0}_2$为零向量，则$\mathbf{0}_1=\mathbf{0}_1+\mathbf{0}_2=\mathbf{0}_2$。
+
+(2) 若有$\beta_1,\beta_2$为$-\alpha$，$\beta_1=\beta_1+(\alpha+\beta_2)=(\beta_1+\alpha)+\beta_2=\beta_2$。
+
+(3) $\lambda\mathbf{0}=\lambda(\mathbf{0}+\mathbf{0})=\lambda\mathbf{0}+\lambda\mathbf{0},0\alpha=(0+0)\alpha=0\alpha+0\alpha$，消去知成立。
+
+(4) 若$\lambda\ne0,\lambda\alpha=\mathbf{0}$，则$\alpha=\frac{1}{\lambda}\lambda\alpha=\mathbf{0}$。
+
+\item
+(1) 是。
+
+(2) 不是，不存在零向量。
+
+(3) 是。
+
+(4) 不是，不满足加法封闭性。
+
+(5) 是。
+
+(6) 不是，不存在零向量。
+
+\item
+(1) 否，$U$不是$V$的子集。
+
+(2) 是。
+
+(3) 否，函数定义域不同。
+
+(4) 是。
+
+(5) 不是，不满足数乘封闭性。
+
+(6) 不是，不满足加法封闭性(6.2节习题7(2))。
+
+\item
+$\mathbb{F}^{m\times n}$上的矩阵到$\mathbb{F}^{mn}$上的向量可按分量作映射$a_{ij}\to x_{(n-1)i+j}$，此映射即为同构.
+
+\item
+由同构可逆，不妨设$m>n$，考虑$\mathbb{F}^m$中只有第$i$个分量为1，其他为0的$m$个向量，映射到$\mathbb{F}^n$后，由于$n<m$，必然存在某个的像可以由其他的像用加法与数乘表出，与其在$\mathbb{F}^m$中不可被表出矛盾。
+
+\item
+为子空间直接验证即可。
+
+$\mathbb{F}[x]$到$V_1$的同构为$f(x)\to f(x^2)$，$\mathbb{F}[x]$到$V_2$的同构为$f(x)\to (x-1)(f(x-1)-f(0))+f(0)$。
+\end{enumerate}
+
+\subsection{线性相关}
+\begin{enumerate}
+\item
+由定义与定理8.4直接验证即可。
+
+\item
+(1) 线性无关。
+
+(2) 线性无关。
+
+(3) $n\ge3$时线性相关。注意到$x^t+x^{t-1}(1-x)=x^{t-1}$。
+
+(4) 线性无关。利用定义，问题转化为$\begin{pmatrix}1&a_0&\cdots&a_0^n\\1&a_1&\cdots&a_1^n\\\vdots&\vdots&\ddots&\vdots\\1&a_n&\cdots&a_n^n\end{pmatrix}\begin{pmatrix}\lambda_0\\\lambda_1\\\vdots\\\lambda_n\end{pmatrix}$是否存在非零解。利用3.2节例3.8知此矩阵可逆，再由2.4节定理2.9知不存在非零解，因此线性无关。
+
+\item
+(1) 线性无关。
+
+若存在$\lambda_i$使$\sum_{k=1}^m\lambda_k\sin(n_kx)=0$，求两次导知$\sum_{k=1}^m\lambda_kn_k^2\sin(n_kx)=0$，类似可知$\sum_{k=1}^m\lambda_kn_k^{2t}\sin(n_kx)=0,t\in\mathbb{N}^*$，有这些式子类似习题2(4)可推出$\lambda_i\sin(n_ix)$全为0，因此$\lambda_i$全为0，即为线性无关。
+
+(2) 线性无关。类似(1)可证明。
+
+(3) 线性相关。$\sin(2x)\cos(2x)=\sin(x)\cos(3x)+\sin(x)\cos(x)$。
+
+(4) 线性相关。$\sin^3(x)\cos(x)=\sin(x)\cos(x)-\sin(x)\cos^3(x)$。
+
+\item
+利用3.4节习题1说明即可。
+
+\item
+$\mathbb{F}_n(x)=\Span(1,x,\dots,x^{n-1})$，利用定理8.8反证知结论。
+
+\item
+取每个分量为1，其余为0的一组$mn$个向量可生成$\mathbb{F}^{m\times n}$，利用定理8.8反证知结论。
+
+\item
+反证。若线性相关，中定义8.5取下标最大的非零$\lambda_i$，即有$\alpha_i$可由$\alpha_1,\dots,\alpha_{i-1}$线性表出。
+
+\item
+(1) 错误。$\alpha_k(k<n)=\mathbf{e}_k,\alpha_n=\mathbf{e}_{n-1}$即矛盾。
+
+(2) 正确。在$S_2$中增添一个$\alpha_1$为$S_2'$，其与$S_1$等价，线性无关，而$S_2\subset S_2'$，由定理8.2线性无关。
+
+\item
+(1) 正确。设$S_1\subset\Span(S)$，由线性相关知可取$S$中向量个数小于$n$，而$S_2\subset\Span(S_1)\subset\Span(S)$，利用定理8.8反证知结论。
+
+(2) $n$为奇数时正确，为偶数时错误。令$S=\sum_{i=1}^{n-1}(-1)^i(\alpha_i+\alpha_{i+1})+(-1)^n(\alpha_n+\alpha_1)=0$，$n$为偶数时$S=0$，因此必然线性相关。$n$为奇数时，$S=-2\alpha_1$，类似构造后可由$S_2$表出$S_1$，由定理8.6知$S_1,S_2$等价，因此结论正确。
+123,
+\item
+当：证明逆否命题，若其线性相关，利用行变换可变换出一行0，因此此方阵必然不可逆，由此得证。 
+
+仅当：设此方阵的行列式为$g(x_1,\dots,x_n)$。由向量组线性无关，此函数不恒为0(在定义域上恒为0的函数只有零函数)，因此可取合适的$x_1,\dots,x_n$使其不为0，由此得证。
+\end{enumerate}
+
+\subsection{向量组的秩}
+\begin{enumerate}
+\item
+(1) 234,123 (2) 除2345外的四元组
+
+\item
+(1) 任意三元组 (2) 除145外的三元组
+
+\item
+(1) 任意三元组 (2) 任意四元组
+
+\item
+(1) 先证$\rank(S)=\rank\Span(S)$。设$S$的极大线性无关组为$T$，则$S\subset\Span(T)\Rightarrow\Span(S)\subset\Span(T)$，利用定理8.9知结论成立。因此，$\rank(S_1)=\rank\Span(S_1)=\rank\Span(S_2)=\rank(S_2)$。
+
+(2) 设$S_1$的极大线性无关组为$T$，构造可知$\Span(S_1)=\Span(T)$。利用定理8.10与数量计算可知$T$亦为$S_2$的极大线性无关组，因此$\Span(S_2)=\Span(T)=\Span(S_1)$。
+
+(3) $S_1=\{\mathbf{e}_1,\mathbf{e}_2,\dots,\mathbf{e}_n,\dots\},S_2=\{\mathbf{e}_2,\dots,\mathbf{e}_n,\dots\}$
+
+\item
+设$\alpha_1,\dots,\alpha_n$的极大线性无关组为$T$，由定理8.9，设$\alpha_1,\dots,\alpha_m$的极大线性无关组为$T_0$，则有$T_0\subset T\cup\{\alpha_{n+1},\dots,\alpha_m\}$，由此$|T_0|-|T|\le m-n$，由秩定义即为题目结论。
+
+\item
+(1) 接例8.13继续，此时$T_2$可由$T_1$线性表出，且$|T_2|=|T_1|$，由定理8.9，$T_2$是$\Span(T_1)$的极大线性无关组，因此$T_1$可由$T_2$线性表出，即存在对应的$X$。
+
+(2) 由(1)知$A,AB$的列向量组等价。同时行变换不改变列的相对关系，因此行变换后仍可以用相同的方式将$YA,YAB$的列向量组互相表出，由此得证。
+
+\item
+与习题6相同，取那题的$A,B,Y$为$A^{k-1},A,A$即可。
+
+\item
+设$A$的列向量组$S_1$的极大线性无关组为$T$，记$(A,B)$的列向量组$S_2$，由习题4(2)过程可知$T$亦为$S_2$的极大线性无关组，因此$B$的列向量组可由$T$线性表出。由$T\subset S_1$知$B$的列向量组可由$A$的列向量组线性表出，即存在对应的$X$。
+
+\item
+必要：类似习题8考虑行向量组可知存在$Y$使$(C,D)=Y(A,B)$，再由习题8结论知存在$X$使$B=AX$，由此得结论。
+
+充分：与4.2节例4.6相同说明。
+
+\item
+设$A,B$的列向量组为$S_A,S_B$，极大线性无关组为$T_A,T_B$，$A\pm B$的列向量组为$S_{A\pm B}$。由于$S_{A\pm B}\subset\Span(T_A,T_B)$，由定理8.9知$\rank(S_{A\pm B},S_A,S_B)\le\rank(T_A,T_B)\le\rank(A)+\rank(B)$，因此$\rank(A\pm B)\le\rank(A)+\rank(B)$。右侧不等号取加号，左侧不等号取减号并代换即可。
+\end{enumerate}
+
+\subsection{基与坐标}
+\begin{enumerate}
+\item
+(1) 基为$\mathbf{e}_1-\mathbf{e}_n,\mathbf{e}_2-\mathbf{e}_n,\dots,\mathbf{e}_{n-1}-\mathbf{e}_n$，维数$n-1$，$(a_1,\dots,a_n)$坐标为$(a_1,\dots,a_{n-1})$。
+
+(2) 基为一切$\mathbf{e}_{ij},i\le j$，维数$\frac{n(n+1)}{2}$，坐标直接确定即可。
+
+(3) 基为一切$\mathbf{e}_{ij},i\ne j$与$\mathbf{e}_{11}-\mathbf{e}_{nn},\mathbf{e}_{22}-\mathbf{e}_{nn},\dots,\mathbf{e}_{n-1,n-1}-\mathbf{e}_{nn}$，维数$n^2-1$，坐标类似(1)可确定。
+
+(4) 基为$1,(x-1)^2,(x-1)^3,\dots,(x-1)^{n-1}$，维数$n-1$，，类似例8.17可知坐标。
+
+(5) 基为一切$\mathbf{e}_{ij}-\mathbf{e}_{ji},i\le j$，维数$\frac{n(n-1)}{2}$，坐标直接确定即可。
+
+(6) 基为一切$\mathbf{e}_{kj}-\mathbf{e}_{jk},(\mathbf{e}_{kj}-\mathbf{e}_{jk})\mathrm{i},k\le j$，维数$n(n-1)$，坐标直接确定即可。
+
+(7)  基为$x-\mathrm{i},(x-\mathrm{i})^2,\dots,(x-\mathrm{i})^{n-1}$，维数$n-1$，，类似例8.17可知坐标。
+
+(8) 基为$x-\mathrm{i},(x-\mathrm{i})^2,\dots,(x-\mathrm{i})^{n-1},(x-\mathrm{i})\mathrm{i},(x-\mathrm{i})^2\mathrm{i},\dots,(x-\mathrm{i})^{n-1}\mathrm{i}$，维数$2n-2$，类似例8.17可知坐标。
+
+\item
+(1) $\begin{pmatrix}3&3&4\\-1&-3&-3\\4&4&6\end{pmatrix}$
+
+(2) $\begin{pmatrix}1&0&1\\0&1&1\\1&1&1\end{pmatrix}$
+
+(3) $\begin{pmatrix}1&1&1\\0&1&3\\0&0&1\end{pmatrix}$
+
+(4) $\begin{pmatrix}-1&0&0\\0&\frac{1}{2}&\frac{\sqrt3}{2}\\[1.5ex]0&-\frac{\sqrt3}{2}&\frac{1}{2}\end{pmatrix}$
+
+\item
+左推右：由基的定义，基可互相线性表出，利用定理8.13-1知结论。
+
+右推左；利用$P^{-1}$可将$a_i$用$b_i$线性表出，因此$b_i$包含一组$V$的基，再由数量关系知其即为基。
+
+\item
+利用矩阵乘法展开即可。
+
+\item
+新坐标$(a,b)$则原坐标$(a\cos\theta-b\sin\theta,a\sin\theta+b\cos\theta)$，因此$f(x\cos\theta-y\sin\theta,x\sin\theta+y\cos\theta)=0$。
+
+\item
+由习题5假设有$2(x\cos\theta-y\sin\theta)^2+(x\cos\theta-y\sin\theta+x\sin\theta+y\cos\theta)^2=1$，交叉项为$(2(\cos\theta+\sin\theta)(\cos\theta-\sin\theta)-4\cos\theta\sin\theta)xy=0$，化简得$\cos2\theta=\sin2\theta$，取$\theta=\frac{\pi}{8}$得标准方程为$(2+\sqrt2)x^2+(2-\sqrt2)y^2=1$。
+
+\item
+同构。设$\mathbb{R}$在$\mathbb{Q}$上的基为$a_t(t\in I)$，则$\mathbb{C}$在$\mathbb{Q}$上的基为$a_t,a_t\mathrm{i}(t\in I)$，下面说明$|I|=|\mathbb{R}|$。
+
+令$\{q_n\}$为所有有理数的某个排列，$A_r=\sum_{q_n<r}\frac{1}{n!}$，且$A=\{A_r|r\in\mathbb{R}\}$。由定义$0<A_r<\mathrm{e}$，且$|A|=|\mathbb{R}|$，下证$A$在$\mathbb{Q}$上线性无关。
+
+由于有理数稠密性，$A_r=A_s\Leftrightarrow r=s$。若线性相关，设$\alpha_1A_{r_1}+\cdots+\alpha_kA_{r_k}=0,\alpha_i\in\mathbb{Q},r_1>\dots>r_k$，同乘可以使$\alpha_i\in\mathbb{Z}$。由有理数稠密性，可以取任意大的$n$使$r_1>q_n>r_2$。等式两边同乘$n!$，可得$z=\sum_{i=1}^k\alpha_i\sum_{q_m<r_i,m>n}\frac{n!}{m!},z\in\mathbb{Z}$，又由于$r_1>q_n>r_2$类似证明$\mathrm{e}$是无理数那样，取足够大的$n$可以使$\sum_{i=1}^k|a_i|\sum_{m>n}\frac{n!}{m!}$任意小，由此可得得$\sum_{i=1}^k\alpha_i\sum_{q_m<r,m>n}\frac{n!}{m!}$只能为0。计算可知$z=0$等价于$\alpha_1=-\sum_{i=1}^k\alpha_i\sum_{q_m<r_i,m<n}\frac{n!}{m!}$。右侧必为$n$的倍数，取$n>|\alpha_1|$知$\alpha_1=0$，同理可得$\alpha_i=0$，与线性相关矛盾。
+
+由此，利用8.3节定理8.10可知$A\subset I \subset\mathbb{R}|$，由康托-伯恩斯坦定理知$|I|=|\mathbb{R}|$。
+
+利用定理8.12知只需说明两组基等势，由$|I|=|\mathbb{R}|$，$\mathbb{C}$基数为$|\mathbb{R}|+|\mathbb{R}|=|\mathbb{R}\times(0,1)|$，构造$(a,0)\to\arctan{a},(a,1)\to\begin{cases}a+\frac{\pi}{2}&a>0,a\notin\mathbb{Z}\\[1.5ex]a-\frac{\pi}{2}&a<0\\[1.5ex]a+\frac{\pi}{2}+1&a\in\mathbb{N}\end{cases}$，即成立。
+
+\item
+不同构。反证，$\mathbb{R}[x]$的基为$1,x,x^2,\dots$，若其可以与$\mathbb{R}[[x]]$的基作一一映射，不妨设这组基为$t_1=\sum_{n=0}^\infty a_{1n}x^n,t_2=\sum_{n=0}^\infty a_{2n}x^n,\dots$，利用方程知识知，任取$b_1$，可取$b_2$使$b_1+b_2x$不能用$t_1$前两项表出，因此$b_1+b_2x$为前两项的幂级数不可由$t_1$表出；接着可取$b_3$使$b_1+b_2x+b_3x^2$不能用$t_1,t_2$前三项表出，由此归纳构造可构造出$\sum_{n=0}^\infty b_{n}x^n$，其前$n+1$项不可由$t_1$到$t_n$前$n$项表出，因此其不可由$t_1$到$t_n$表出对任意$n$成立，与其可以被有限表出矛盾(此即说明$\mathbb{R}[[x]]$的基不为可数)。
+
+\item
+设$M$为线性空间，且其中所有矩阵的秩最大值为$p$，只需证明$\dim(M)\le pn$即可。
+
+由于对可逆阵$P,Q$，$M$中所有矩阵左乘$P$，右乘$Q$后相当于所有基对应相乘，空间维数不变，因此不妨左右乘合适的$P,Q$使$Y=\begin{pmatrix}I_p&O\\O&O\end{pmatrix}\in M$。
+
+令$E=\left\{\begin{pmatrix}O&B\\B^T&A\end{pmatrix},A\in M_{n-p\times n-p}(\mathbb{R}),B\in M_{p\times n-p}(\mathbb{R})\right\}$，则$\dim(E)=n(n-p)$
+
+设$X=\begin{pmatrix}O&B_0\\B_0^T&A_0\end{pmatrix}\in M\cap E$，由于$Y\in M$，$X+aY\in M$，即$\rank\begin{pmatrix}aI&B_0\\B_0^T&A_0\end{pmatrix}\le p$。行列变换知$\rank\begin{pmatrix}aI&O\\O&A_0-a^{-1}B_0^TB_0\end{pmatrix}\le p$对任意$a\ne0$成立，故$A_0=B_0^TB_0=O$，考察$\tr(B_0^TB_0)$知$A_0=B_0=O$，即$M\cap N=\{O\}$。
+
+由8.5节定理8.15知$\dim(M)+\dim(E)=\dim(M+E)\le n^2$，因此$\dim(M)\le pn$。
+
+\item
+归纳，一阶时成立，若$n-1$阶时成立，则$n$阶时，类似习题9中的讨论，利用5.2节习题10(1)，可不妨设$V$中全为上三角阵。记$t_n=\left[\frac{n^2}{4}\right]+1$，下证$\dim(V)\le t_n$。
+
+若$\dim(V)\ge t_n+1$，取$t_n+1$个线性无关的$V$中矩阵$A_1,\dots,A_{t_n+1}$，将$A_i$的删去首行首列后的子方阵记为$M_i$。分块计算可知，由于$A_i$可交换且为上三角阵，$M_i$亦为一组可交换的$n-1$阶上三角阵。设$\{M_i\}$的秩(此处含义为向量组的秩)为$k$，由归纳假设$k\le t_{n-1}$，不妨设$M_1,\dots,M_k$为其极大线性无关组，则$\forall i>k, \exists n_{i1},\dots,n_{ik}, M_i=\sum_{j=1}^kn_{ij}M_j$，此时记$B_i=A_i-\sum_{j=1}^kn_{ij}A_j$，则$B_i$只有首行不为0，且$\{B_i\}$线性无关($i=k+1,k+2,\dots,t_n+1$)。类似地，我们可以得到线性无关的$C_{s+1},\dots,C_{t_n+1}\in V,s\le t_{n-1}$，且$C_i$只有末列不为0。由于$B_i,C_j$可交换，考察右上角可知一切$B_iC_j$的右上角为0。
+
+令$B$为所有$\{B_i\}$行向量排成的$(t_n+1-k)\times n$矩阵，$C$为所有$\{C_i\}$列向量排成的$n\times(t_n+1-s)$矩阵，利用8.3节例8.11知$\rank(B)=t_n+1-k,\rank(C)=t_n+1-s$，而由一切$B_iC_j$的右上角为0可知$BC=O$。利用4.2节例4.9，$\rank(B)+\rank(C)\le\rank(BC)+n$，即$n\ge 2t_n+2-s-k\ge 2t_n-2t_{n-1}+2$，分奇偶讨论知矛盾。
+
+由此，原命题成立。
+\end{enumerate}
+
+\subsection{交空间与和空间}
+\begin{enumerate}
+\item
+(1) $(-17,7,-16,0),(6,-6,3,-5)$
+(2) $(10,-2,3,-6),(4,-9,-8,10)$
+
+\item
+(1) $(0,1,1,0,1),(0,1,2,0,0),(1,0,2,-1,0)$
+
+(2) $(1,-1,0,0,0),(0,0,0,1,1),(0,1,-1,0,0),(0,0,3,1,0)$
+
+\item
+(1) 设$f\in V_1\cap V_2$，则$f=\sum_{k=1}^na_k\sin^kx=\sum_{k=1}^nb_k\cos^kx$，考虑$\sin{x}$值域知$\forall s\in[-1,1],\sum_{k=1}^na_ks^k=\sum_{k=1}^nb_k(1-s^2)^{k/2}$，由此$2\nmid k$时$b_k=0$，又由常数项为0，可知交空间的一组基为$\cos^{2k}x-\cos^2x,k\ge2$。
+
+和空间的一组基为$\cos^nx,\sin^{2n+1}x,n\ge0$。计算知此集合生成空间即为$V_1+V_2$。注意到，$\sin^{2n+1}x=h(\cos{x})\sin{x}$，$h$为$2n$次多项式。若$f(\cos{x})-g(\cos{x})\sin{x}=0$，$f,g$为多项式，将$\sin{x}$写为$\cos{x}$即可验证出$f=g=0$，由此知线性无关。
+
+(2) 交空间为$\mathbf{0}$，和空间的基为两集合并集。
+
+利用积化和差可说明$\int_{-\pi}^\pi\cos(nx)\sin(mx)\mathrm{d}x=0$。若$f=\sum_{i=1}^sa_i\sin(m_ix)=\sum_{i=1}^tb_i\cos(n_ix)$，则$f^2=\sum_{i=1}^sa_i\sin(m_ix)\sum_{i=1}^tb_i\cos(n_ix)$在$(-\pi,\pi)$上积分为0，因此只有$f=\mathbf{0}$，由此可知和空间基为两集合并集。
+
+\item
+为子空间直接验证即可。类似2.1节习题8(4)可知$V_1$维数为$n$，由定义可知$V_2$为$V_1$中每个矩阵转置所构成的空间，因此维数为$n$，由其形式知其交为$\{aI\}$，维数为1，由定理8.15知和空间维数$2n-1$。
+
+\item
+为子空间直接验证即可。
+
+计算可知其交为被$f(x)=x(x-1)(x+1)$整除的多项式，基为$f(x),xf(x),x^2f(x),\dots$；其和为被$x$整除的多项式，基为$x,x^2,\dots$。
+
+\item
+证明其逆否命题。设$V_1,V_2$的基为$\{\alpha_i\},\{\beta_j\}$，由于不存在包含关系，必然有某个$\alpha_s$不可被$\{\beta_j\}$线性表出，某个$\beta_k$不可被$\{\alpha_i\}$线性表出。考虑$\Span(\alpha_s,\beta_k)$，其包含于$V_1+V_2$，若包含于$V_1$，则$\beta_k$可被表出，矛盾，同理其不包含于$V_2$，因此原命题得证。
+
+\item
+(1) $V_1\cap W\subset V_1,V_2\cap W\subset V_2\Rightarrow (V_1\cap W)+(V_2\cap W)\subset V_1+V_2$
+
+$V_1\cap W\subset W,V_2\cap W\subset W\Rightarrow (V_1\cap W)+(V_2\cap W)\subset W$
+
+综合以上两式知成立。
+
+(2) $V=\mathbb{R}^2,V_1=\{(a,0)\},V_2=\{(0,a)\},W=\{(a,a)\}\Rightarrow V_1\cap W=V_2\cap W=\mathbf{0},(V_1+V_2)\cap W=W$
+
+(3) 证明第一个等号，第二个类似即可。
+
+设$V_1\cap W$基为$\{\alpha_i\}$，$V_2\cap W$基为$\{\beta_j\}$，利用8.3节定理8.10知可设$V_2$的基为$\{\beta_j,\gamma_k\}$，反证可知$\{\gamma_k\}\cap W=\varnothing$。左侧即为$\Span\{\alpha_i,\beta_j\}$，而右侧为$\Span\{\alpha_i,\beta_j,\gamma_k\}\cap W$，由定义可知$\{\alpha_i,\beta_j\}\subset W$，再由$\{\gamma_k\}\cap W=\varnothing$知右侧即为$\Span\{\alpha_i,\beta_j\}$，与左侧相同。
+
+\item
+(1) $V_1\cap V_2\subset V_1\Rightarrow (V_1\cap V_2)+ W\subset V_1+W$，同理得另一部分，由此成立。
+
+(2) 与习题7(2)解答相同构造即可。
+
+(3) 证明第二个等号，第一个类似即可。由于$W=W\cap(V_2+W)$，利用习题7(3)，
+
+$(V_1+W)\cap(V_2+W)=(W\cap(V_2+W)+V_1)\cap(V_2+W)=W\cap(V_2+W)+V_1\cap(V_2+W)=V_1\cap(V_2+W)+W$
+
+\item
+错误。取习题7(2)解答中的$V_1,V_2,W$取为$V_1,V_2,V_3$即为反例。
+\end{enumerate}
+
+\subsection{直和与补空间}
+\begin{enumerate}
+\item
+任意矩阵$A=\frac{A+A^T}{2}+\frac{A-A^T}{2}$，前者对称后者反对称，且计算知既对称又反对称的实方阵只有$O$，由此得证。
+
+\item
+任意多项式$f(x)=\frac{f(x)+f(-x)}{2}+\frac{f(x)-f(-x)}{2}$，前者偶后者奇，且计算知既偶又奇的多项式只有零多项式，由此得证。
+
+\item
+(1)
+由定义可发现，$V_2$为与$V_1$中任何向量内积均为0的向量所构成的空间，且包含满足此条件的全部向量。由于只有零向量与自身内积为0，$V_1\cap V_2=\mathbf{0}$。利用4.2节定理4.8-2与8.3节例8.11可知$\dim(V_1)+\dim(V_2)=n$，由8.4节定理8.15知$\dim(V_1+V_2)=n$，因此$V_1+V_2=\mathbb{R}^n$，由定理8.16知结论。
+
+(2) 不成立。例如，复数域中取$A=\begin{pmatrix}1&\mathrm{i}\end{pmatrix}$，则$(1,\mathrm{i})\in V_1\cap V_2$，因此矛盾。
+
+\item
+充分性：利用定义8.14与定理8.16归纳即可.
+
+必要性：反证，利用定理8.18得矛盾。
+
+\item
+1推2：由直和定义知成立。
+
+2推4：反证，由线性相关定义，若线性相关，必可取出有限个空间，其中有线性相关的向量，由定理8.18知矛盾。
+
+4推3：若基相交，取出相交的基向量则与条件4矛盾。由于$\bigcup_{i\in I}S_i$可生成$\sum_{i\in I}V_i$，只需证明其线性无关。若否，存在不全为0的$\lambda_{ij}$，使$\lambda_{11}s_{11}+\dots+\lambda_{1k_1}s_{1k_1}+\lambda_{21}s_{21}+\dots+\lambda_{2k_2}s_{2k_2}+\dots+\lambda_{n1}s_{n1}+\dots+\lambda_{nk_n}s_{nk_n}=0$，其中$s_{ij}\in S_i$，则取$\alpha_i=\lambda_{i1}s_{i1}+\dots+\lambda_{ik_i}s_{ik_i}$，即与条件4矛盾。
+
+3推1：取出条件3中取出的基对应$\sum_{i\in I}V_i$的坐标，由坐标为唯一表示可知此和为直和。
+
+\item
+类似8.4节例8.17知满足$f(1)=0$的多项式可唯一写为$(x-1)\sum_{k=0}^na_k(x+1)^k=(x-1)\sum_{k=1}^na_k(x+1)^k+a_0(x-1)$，因此补空间为$x-1$生成的空间。
+
+\item
+与习题1类似得补空间为一切反对称方阵，类似8.5节习题1(6)知补空间维数为$n(n-1)$。
+
+\item
+与习题1类似得补空间为一切反对称方阵，类似8.5节习题1(5)知补空间维数为$\frac{n(n-1)}{2}$。
+
+\item
+利用习题3证明过程中的结论，可发现$\bigcap_{i\in I}V_i$中的向量与任何$U_i$中的向量内积为0，因此与$\sum_{i\in I}U_i$中的任何向量内积为0。反之，与$\sum_{i\in I}U_i$中的任何向量内积为0的向量必须与每个$U_i$中的向量内积均为0，因此属于$\bigcap_{i\in I}V_i$。由此，构造$A$使得$A$的行向量组生成$\bigcap_{i\in I}V_i$(注意到$A$的行向量组生成的子空间可以为任意$\mathbb{R}^n$的子空间)，则$Ax=\mathbf{0}$的解空间即为$\sum_{i\in I}U_i$，因此两空间互补，结论成立。
+
+\item
+未必，如$V=\mathbb{R}^2,V_1=\{(a,0)\},V_2=\{(0,a)\},U_1=U_2=\{(a,a)\}$即为反例。
+\end{enumerate}
+
+\subsection{直积与商空间}
+\begin{enumerate}
+\item
+构成线性空间验证即可。
+将每个$f(x)$映射至对$\forall i\in I$下的坐标分量为$f(i)$，即为同构映射。
+
+\item
+(1) 由于子空间的和仍为子空间，只需说明对$V_i$的子空间$T_i$，$T_1\times T_2$是$V_1\times V_2$的子空间。直接验证为子集与封闭性即可。
+
+(2) 错误，右侧两者之交为$\mathbf{0}\times V_2$，$V_2$不为$\mathbf{0}$时不为直和。
+
+若将所有直和改为和则正确：左侧的每个元素可写为$(u+w,v)$，其中$u,v,w$分别取遍$U_1,V_2,W_1$，右侧即为$(u,v_1)+(w,v_2)$，直接计算可发现左右相等。
+
+\item
+设$U\cap W$对$U$的补空间为$A$，由定理8.22，只需证明$W\oplus A=U+W$。由定义$W$与$A$交为$\mathbf{0}$。另一方面，设$U\cap W$的基为$\{\alpha_i\}$，利用8.3节定理8.10知可设$U$的基为$\{\alpha_i,\beta_j\}$，$W$的基为$\{\alpha_i,\gamma_k\}$，而$A$的基为$\{\beta_j\}$，因此$W+A=\Span\{\alpha_i,\gamma_k,\beta_j\}=U+W$，由8.6节定理8.16知结论成立。
+
+\item
+取出$V$的基，则与这组基内积全为0的向量构成线性空间$U$，类似8.6节习题3得$U$为$V$的补空间，维数为$n-r$，取$U$的基作为$A$的行向量，类似计算验证知成立。
+
+\item
+利用8.6节习题3，构造$a+W\to a,a\in U$，由直和可知$a$取遍$U$中元素后一切$a+W$即为$\mathbb{F}^n/W$，验证其为同构即可。
+
+\item
+为子空间直接验证即可。
+
+由于$V=\{(x_i)_{i\in I}\mid x_i\in V_i\},W=\{(x_i)_{i\in I}\mid x_i\in W_i\}$，将$(x_i)_i\in I$商$W$后的等价类映射至每个$x_i$商$W_i$后的等价类，验证可知定义合理(同一等价类中相差$W$中元素，各分量相差$W_i$中元素)，再类似验证单射、满射、保加法、乘法可知为同构。
+
+\item
+利用例8.25，取$V_i=\{ax^i,a\in\mathbb{R}\},W_i=\mathbf{0},i\in\mathbb{N}$即可。
+\end{enumerate}
+
+\section{线性变换}
+\subsection{基本概念}
+\begin{enumerate}
+\item
+(1) $\mathcal{A}(\mathbf{0})=\mathcal{A}(\mathbf{0}+\mathbf{0})=\mathcal{A}(\mathbf{0})+\mathcal{A}(\mathbf{0})\Rightarrow\mathcal{A}(\mathbf{0})=\mathbf{0}$
+
+(2) 由定义展开即得结果。
+
+(3) 利用(1)与(2)得结论。
+
+(4) 利用(1)与(2)得结论。
+
+(5) $\mathcal{A}\alpha=\mathcal{A}\beta,\alpha\ne\beta\Leftrightarrow\mathcal{A}(\alpha-\beta)=\mathbf{0}$
+
+(6) 利用(2)即可知结论。
+
+\item
+(1) 是。
+
+(2) 是。
+
+(3) 是。
+
+(4) 不是。$I\rightarrow I$，但$\mathrm{i}I\rightarrow-\mathrm{i}I\ne\mathrm{i}I$。
+
+(5) 是。
+
+(6) 不是。$I\rightarrow I$，但$2I\rightarrow\frac{1}{2}I\ne2I$。
+
+(7) 是。
+
+(8) 不是。$1+x\Rightarrow(1+x)^2\ne1+x^2$。
+
+(9) 是。
+
+(10) 是由。$\int_{-\infty}^{+\infty}e^{-(x+t)^2}p(t^2)\mathrm{d}t=\int_{-\infty}^{+\infty}e^{-t^2}p((t-x)^2)\mathrm{d}(t-x)=\int_{-\infty}^{+\infty}e^{-t^2}p((t-x)^2)\mathrm{d}t$可验证。
+
+\item
+是线性映射、单射。不是满射，因此不为双射，不可逆。
+
+\item
+1推2：由定理9.1直接得结果。
+
+2推1：利用定理9.2，考虑线性映射：将$\{\alpha_i\}$的极大线性无关组映射到对应的$\beta_i$，将此无关组扩充为$U$的一组基，并将这组基中剩下的元素映射到$\mathbf{0}$。验证可知此线性映射即符合要求。
+
+\item
+(1) $\begin{pmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{pmatrix}$
+
+(2) 利用2.1节习题6(6)的结果，注意到两题对应的转轴相同，取出的$\alpha,\beta,\gamma$相同，直接得到包含$\theta$的结果。
+
+(3) $\begin{pmatrix}\frac{2}{3}&-\frac{1}{3}&-\frac{1}{3}\\[1.5ex]-\frac{1}{3}&\frac{2}{3}&-\frac{1}{3}\\[1.5ex]-\frac{1}{3}&-\frac{1}{3}&\frac{2}{3}\end{pmatrix}$
+
+(4) $\begin{pmatrix}\frac{1}{3}&-\frac{2}{3}&-\frac{2}{3}\\[1.5ex]-\frac{2}{3}&\frac{1}{3}&-\frac{2}{3}\\[1.5ex]-\frac{2}{3}&-\frac{2}{3}&\frac{1}{3}\end{pmatrix}$
+
+(5) $\begin{pmatrix}a_{11}&0&0&a_{11}\\a_{12}&0&0&a_{12}\\a_{21}&0&0&a_{21}\\a_{22}&0&0&a_{22}\end{pmatrix}$
+
+(6) 利用2.2节习题9可知结果为$P\otimes Q^T$，即$\begin{pmatrix}p_{11}q_{11}&p_{11}q_{21}&p_{12}q_{11}&p_{12}q_{21}\\p_{11}q_{12}&p_{11}q_{22}&p_{12}q_{12}&p_{12}q_{22}\\p_{21}q_{11}&p_{21}q_{21}&p_{22}q_{11}&p_{22}q_{21}\\p_{21}q_{12}&p_{21}q_{22}&p_{22}q_{12}&p_{22}q_{22}\end{pmatrix}$
+
+(7) $\begin{pmatrix}p_{11}q_{11}&p_{12}q_{11}&p_{11}q_{21}&p_{12}q_{21}\\p_{11}q_{12}&p_{12}q_{12}&p_{11}q_{22}&p_{12}q_{22}\\p_{21}q_{11}&p_{22}q_{11}&p_{21}q_{21}&p_{22}q_{21}\\p_{21}q_{12}&p_{22}q_{12}&p_{21}q_{22}&p_{22}q_{22}\end{pmatrix}$
+
+(8) $\begin{pmatrix}0&1&0&0\\0&0&2&0\\0&0&0&3\\0&0&0&0\end{pmatrix}$
+
+(9) $\begin{pmatrix}1&1&0&0\\0&1&2&0\\0&0&1&3\\0&0&0&1\end{pmatrix}$
+
+(10) $\begin{pmatrix}0&0&1&0\\0&0&0&2\\-1&0&0&0\\0&-2&0&0\end{pmatrix}$
+
+\item
+*设$\beta_i=\sum_{k=1}^na_k\alpha_k$，则$a_k\to\sum_{k=1}^na_k\alpha_k$，而$\beta_i=\sum_{k=1}^na_k\alpha_k\to\sum_{k=1}^na_k\beta_k$，由此$\alpha,\beta$表示下矩阵相同。
+
+(1) $\begin{pmatrix}1&0&-1\\0&1&0\\0&1&1\end{pmatrix},\begin{pmatrix}2&1&1\\1&1&1\\-1&-1&0\end{pmatrix},\begin{pmatrix}2&1&1\\1&1&1\\-1&-1&0\end{pmatrix}$
+
+(2) $\begin{pmatrix}0&1&1\\1&0&1\\1&1&0\end{pmatrix},\begin{pmatrix}0&1&1\\1&0&1\\1&1&0\end{pmatrix},\begin{pmatrix}0&1&1\\1&0&1\\1&1&0\end{pmatrix}$
+
+\item
+*记$E_{ij}$为只有第$i$行第$j$列为1，其他为0的方阵，$\mathbf{e}_i$为只有第$i$个分量为1，其他为0的向量。
+
+(1) $\mathcal{A}E_{ij}=\mathcal{A}E_{ji}$，因此$\mathcal{A}(E_{ij}-E_{ji})=O$，由8.4节习题1(5)知$\mathcal{A}$需满足将反对称方阵映射为$O$。
+
+(2) $\mathcal{A}E_{ij}=(\mathcal{A}E_{ji})^T$，因此$\mathcal{A}(E_{ij}+E_{ji})=(\mathcal{A}E_{ji})^T+\mathcal{A}E_{ji}$，类似8.4节习题1(5)知$\mathcal{A}$需满足将对称阵映射为对称阵。
+
+(3) 由于$\mathcal{A}(E_{i1}E_{1j})-\mathcal{A}(E_{1j}E_{i1})=\mathcal{A}E_{ij}=O,i\ne j$，且$\mathcal{A}(E_{ij}E_{ji})-\mathcal{A}(E_{ji}E_{ij})=\mathcal{A}(E_{ii}-E_{jj})=O,i\ne j$，可推知$\mathcal{A}X$恒为$O$。
+
+(4) 若$\mathcal{A}X$恒为$O$显然满足要求，下面设$\mathcal{A}$不恒为$O$。
+
+引理：$\rank(X)\le\rank(Y)\Rightarrow\exists P,Q,X=PYQ$。不妨只考虑相抵标准型，由$\begin{pmatrix}I_r&O\\O&O\end{pmatrix}\begin{pmatrix}I_s&O\\O&O\end{pmatrix}=\begin{pmatrix}I_t&O\\O&O\end{pmatrix},t=\min(r,s)$可构造出合适的$P,Q$。
+
+第一步：$\mathcal{A}X=O\Leftrightarrow X=O$。$\mathcal{A}X=O\Rightarrow\mathcal{A}(PXQ)=O$，$P,Q$为任意方阵。由引理可知一切秩小于等于$X$的矩阵均被映射至$O$。若$X$的秩至少为1，可知$\mathcal{A}E_{ij}=O$对一切$E_{ij}$成立，由此$\mathcal{A}X$恒为$O$，矛盾，因此只能$X=O$。
+
+第二步：$\mathcal{A}$是双射，$\mathcal{A}I=I$。若$\mathcal{A}$的像空间的维数不足$n^2$，$\mathcal{A}E_{ij},1\le i,j\le n$必然线性相关，因此存在非零$X$使$\mathcal{A}X=O$，矛盾。由此可知$\mathcal{A}$是满射。利用定理9.1-5知$\mathcal{A}$是单射，由此其是双射。设$\mathcal{A}X=I$，则$\mathcal{A}(XI)=\mathcal{A}X\mathcal{A}I$，化简即为$\mathcal{A}I=I$。
+
+第三步：记$A_{ij}=\mathcal{A}E_{ij}$，则$\rank(A_{ij})=1$。由于$I=\mathcal{A}(P^{-1}P)=\mathcal{A}P^{-1}AP$，可知可逆阵的像仍然可逆。由此，若$\rank(\mathcal{A}X)=r$，则$\rank(\mathcal{A}(PXQ))=\rank(\mathcal{A}P\mathcal{A}X\mathcal{A}Q)\le r$。若$P,Q$可逆，则等号成立。由引理，$\rank(X)<\rank(Y)\Rightarrow\rank(\mathcal{A}X)\le\rank(\mathcal{A}Y)$，且秩相同的矩阵的像仍然秩相同。由此，若某个$\rank(A_{ij})\ne1$，由其不为$O$知大于1，则所有非零矩阵的像的秩均大于1，与双射矛盾。
+
+第四步：存在可逆阵$P$使$A_{ii}=P^{-1}E_{ii}P,i=1,\dots,n$。由于$\rank(A_{ii})=1$，利用4.1节习题4可设$A_{ii}=\alpha_i\beta_i^T$，其中$\alpha_i,\beta_i$为$n$维列向量。令$Q=\begin{pmatrix}\alpha_1&\cdots&\alpha_n\end{pmatrix},P=\begin{pmatrix}\beta_1&\cdots&\beta_n\end{pmatrix}^T$，计算知使$A_{ii}=QE_{ii}P$，只需证明$PQ=I$。由于$E_{ii}^2=E_{ii}$，可知$A_{ii}^2=\alpha_i\beta_i^T\alpha_i\beta_i^T=(\beta_i^T\alpha_i)\alpha_i\beta_i^T=A_{ii}=\alpha_i\beta_i^T$，由于$A_{ii}\ne O$，$\beta_i^T\alpha_i=1$。而由于$E_{ii}E_{jj}=O,i\ne j$，类似有$(\beta_i^T\alpha_j)\alpha_i\beta_j^T=O$，由秩可知$\alpha_i,\beta_j$均不为$\mathbf{0}$，因此$\alpha_i\beta_j^T\ne O$，$\beta_i^T\alpha_j=0$。由于$PQ$的第$i$行第$j$列为$\beta_i^T\alpha_j$，由此即得证。
+
+第五步：上一步中构造的$P$使$\mathcal{A}X=P^{-1}\mathcal{B}XP$，其中$\mathcal{B}$将$E_{ij}$映射为其倍数。由于只需要说明基的情况，需证$A_{ij}=cP^{-1}E_{ij}P$，不失一般性，说明$A_{12}=cP^{-1}E_{12}P$。设$PA_{12}P^{-1}=B=\alpha\beta^T$，由于$E_{11}E_{12}=E_{12}$，计算得$E_{11}B=B$，也即$(\mathbf{e}_1^T\alpha)\mathbf{e}_1\beta^T=\alpha\beta^T$。由$\beta\ne\mathbf{0}$可知$(\mathbf{e}_1^T\alpha)\mathbf{e}_1=\alpha$，再由$\alpha\ne\mathbf{0}$可推出只能$\alpha$为$\mathbf{e}_1$倍数；再由$E_{12}E_{22}=E_{12}$，类似可证$\beta$为$\mathbf{e}_2$倍数，因此$B=cE_{12}$，由此得证。
+
+第六步：存在可逆对角阵$Q$使上一步中的$\mathcal{B}X=Q^{-1}XQ$。由假设知$\mathcal{B}E_{ii}=E_{ii}$，且计算得$\mathcal{B}(XY)=\mathcal{B}X\mathcal{B}Y$。设$\mathcal{B}E_{ij}=b_{ij}E_{ij}$，下面证明取$Q=\diag(1,b_{12},\dots,b_{1n})$即可。由于$(E_{ij}+E_{ji})^2=E_{ii}+E_{jj}$，代入计算可发现$b_{ij}b_{ji}=1$；又由于$E_{i1}E_{1j}=E_{ij}$，可算得$b_{i1}b_{1j}=b_{ij}$。由此可知$b_{ij}=\frac{b_{1j}}{b_{1i}}$，代入计算知$Q$符合要求。
+
+综合第五步第六步的结果，取$R=QP$，可知$\mathcal{A}X=R^{-1}XR$，再验证充分性可知其为充要条件。
+
+(5) 验证知将(4)中所有的解复合转置变换即得(5)的所有解。
+\end{enumerate}
+
+\subsection{线性映射的运算}
+\begin{enumerate}
+\item
+定理9.4：验证双射、保加法、数乘即可。
+
+定理9.5：利用线性映射矩阵表示的定义，类似2.1节例2.3验证即可。
+
+\item
+$\mathbf{e}_k\to\begin{cases}\mathbf{e_j}&k=i\\\mathbf{0}&k\ne i\end{cases}$，$i,j$分别取遍1到$m$，1到$n$，即为一组基。设$e_k$的像为$\sum_{t=1}^na_{kt}\mathbf{e_t}$，按$i$先$j$后的顺序，坐标即为$(a_{11},\dots,a_{1n},a_{21},\dots,a_{2n},\dots,a_{m1},\dots,a_{mn})$。
+
+\item
+利用矩阵表示，设$\mathcal{A},\mathcal{B}$的矩阵表示为$A,B$，恒等变换的矩阵表示为$I$。由于$\Char F\nmid n$，利用定理2.2-6可知$\tr(AB-BA)=0\ne n=\tr(I)$，由此即得证。
+
+\item
+利用2.2节习题9，可知此线性映射可矩阵表示为$P\otimes Q^T$，因此问题变为此矩阵何时存在逆/左逆/右逆，类似2.4节习题9、3.3节习题8考虑行列变换，再还原为线性变换，可得此题的结论。
+
+(1) $P$有左逆$P_0$，$Q$有右逆$Q_0$时，$\mathcal{A}$有左逆$X\to P_0XQ_0$，所有左逆即为$P_0,Q_0$分别取遍$P$的左逆与$Q$的右逆。
+
+(2) $P$有右逆$P_0$，$Q$有左逆$Q_0$时，$\mathcal{A}$有右逆$X\to P_0XQ_0$，所有右逆即为$P_0,Q_0$分别取遍$P$的右逆与$Q$的左逆。
+
+(3) $P,Q$可逆时，$\mathcal{A}$有逆$X\to P^{-1}XQ^{-1}$。
+
+\item
+(1) 当$a=\pm b$时，$\mathcal{A}$的像均为对称/反对称阵，因此其不为满射，不可逆。
+
+其他情况，构造变换$X\to-\frac{b}{a^2-b^2}X+\frac{a}{a^2-b^2}X^T$，验证可发现其即为$\mathcal{A}^{-1}$。
+
+(2) 若$b=0$，最小多项式为$x-a$；若$b\ne0$，最小多项式不为一次，计算可验证$(\mathcal{A}-a\mathcal{I})^2=b^2\mathcal{I}$，因此最小多项式为$x^2-2ax+a^2-b^2$。
+
+\item
+(1) 法一：由于$\dim L(V)=n^2$，$I,A,\dots,A^{n^2}$必然线性相关，由此存在所求多项式。
+
+法二：考虑其矩阵表示，矩阵的最小多项式即为所求的$p$。
+
+(2) 单射推可逆：考虑$V$的一组基。若这组基的像线性相关，则存在某个非零元素的像为$\mathbf{0}$，与单射矛盾。由8.3节定理8.10,8.11可知这组基的像亦为空间的一组基，由此即知可逆。
+
+满射推可逆：考虑$V$的一组基。若这组基的像线性相关，则像空间的维数低于$V$的维数，与满射矛盾。由8.3节定理8.10,8.11可知这组基的像亦为空间的一组基，由此即知可逆。
+
+(3) 未必成立。
+
+考虑例9.1中的微分变换，若其存在化零多项式，则意味着$\forall f,a_nf^{(n)}+\dots+a_1f'+a_0f=0$，$a_i$不全为0。取次数超过$n$的多项式，考虑最高次项即矛盾。
+
+微分变换为满射，但不可逆；$f(x)\to xf(x)$为单射，但不可逆。
+
+\item
+(1) 线性变换直接验证即可，其逆为$f(x)\to f(x-1)$，因此可逆。
+
+(2) 计算可知第$i$行第$j$列为$\mathrm{C}_{j-1}^{i-1}$(约定$\mathrm{C}_0^0=1$，$a>b$时$\mathrm{C}_b^a=0$)。
+
+(3) 考虑$f(x+t)$在$x$处泰勒展开为$\sum_{n=0}^\infty\frac{f^{(n)}(x)}{n!}t^n$，由题设，$n$阶及以上导数均为0，取$t=1$即得结论。
+
+\item
+(1) $\mathcal{D}\circ\mathcal{S}=\mathcal{I}$，$\mathcal{S}\circ\mathcal{D}$为$f(x)\to f(x)-f(0)$。由此$\mathcal{D}$为$\mathcal{S}$左逆，$\mathcal{S}$为$\mathcal{D}$右逆，而$\mathcal{D}$不为单射，$\mathcal{S}$不为满射，因此均不可逆，另一侧逆不存在。
+
+(2) $(xf(x))'-xf'(x)=f(x)$，由此得证。
+
+(3) 归纳构造。设$\deg(f)=n$。$\mathcal{A}\circ\mathcal{D}(1)=\mathcal{A}(0)=0$，因此$\mathcal{D}\circ\mathcal{A}(1)=0$，即$\mathcal{A}(1)$为常数，记为$a_n$。
+
+当$\mathcal{A}(1),\mathcal{A}(x),\dots,\mathcal{A}(x^{k-1})$已确定，类似可发现$\mathcal{A}(x^k)-k\mathcal{S}\circ\mathcal{A}(x^{k-1})$为常数，令其为$\frac{a_{n-k}}{k!}$。
+
+由于对$n$次多项式$f$，只需确定$n+1$个像，最后一项即为$\frac{a_0}{n!}$，利用$\mathcal{D}\circ\mathcal{S}=\mathcal{I}$计算验证可知此时$\mathcal{A}$即为题目条件所述形式。
+
+(4) 由于从1出发可通过$p(\mathcal{S})$成为任何多项式，可设$\mathcal{A}(1)=p(\mathcal{S})(1)$。由于$\mathcal{A}(x^n)=S\circ\mathcal{A}(nx^{n-1})$，此时$\mathcal{A}$已唯一确定，计算验证可知$\mathcal{A}$满足题设。
+\end{enumerate}
+
+\subsection{对偶空间}
+\begin{enumerate}
+\item
+由定义$\alpha_k^*\left(\sum_{i=1}^n\alpha_ix_i\right)=x_k$，即$\sum_{j=1}^nb_{kj}\sum_{i=1}^n\alpha_{ij}x_j=x_k$。取$x_t=1$，其他为0知$\sum_{j=1}^nb_{kj}a_{tj}=\begin{cases}1&t=j\\0&t\ne j\end{cases}$，由此考虑$BA^T$的各分量即得证。
+
+\item
+(1) 设$S^*$元素为$\alpha_i^*$，由例9.8得$\alpha_i^*:f(x)\to\frac{f^{(0)}(1)}{(i-1)!}$，由定义9.7得$\sigma=\left(1,\frac{1}{2},\dots,\frac{1}{n}\right)$。
+
+(2) 设$T^*$元素为$\beta_i^*$，由例9.8得$\beta_i^*:f(x)\to\frac{f^{(i-1)}(1)}{(i-1)!}$，由定义9.7得$\sigma=\left(1,-\frac{1}{2},\dots,(-1)^{n-1}\frac{1}{n}\right)$。
+
+\item
+考虑$f(x)\to f'(0)$。若存在$\sum_{i=1}^ta_if(b_i)=f'(0)$对任意多项式成立，考虑零次项可知$\sum_{i=1}^ta_is_i=0$对任意$s_i$成立，于是只能$a_i$全为0，矛盾。
+
+\item
+设基分别为$s_i,t_i,s_i^*,t_i^*$，设$t_j=\sum_{i=1}^np_{ij}s_i,s_j=\sum_{i=1}^nq_{ij}t_i,P=(p_{ij}),Q=(q_{ij})$，由8.4节定理8.13-1知$Q=P^{-1}$，且$t_j^*=\sum_{i=1}^nt_j^*(s_i)s_i^*=\sum_{i=1}^nt_j^*\left(\sum_{k=1}^nq_{ki}t_k\right)s_i^*$。由定义可知$t_j^*\left(\sum_{k=1}^nq_{ki}t_k\right)$=$q_{ji}$，因此$t_j^*=\sum_{i=1}^nq_{ji}s_i^*$，由此利用定义可知所求过渡矩阵为$P^{-T}$。
+
+\item
+(1) 验证线性性可知$f_\alpha\in V^{**}$，设$V$维数为$n$，由定义可知矩阵表示为$\begin{pmatrix}s_1^*(\alpha)&s_2^*(\alpha)&\cdots&s_n^*(\alpha)\end{pmatrix}$。
+
+(2) 直接验证可知$\tau$为线性映射。设$\alpha$在$S$表示下的坐标为$(\alpha_1,\dots,\alpha_n)$，则(1)中的矩阵表示可以化为$\begin{pmatrix}\alpha_1&\cdots&\alpha_n\end{pmatrix}$，由此可证明其是同构。
+
+\item
+(1) 为子空间直接验证即可。由$f$的线性性可验证$f(x)=0,x\in S\Rightarrow f(x)=0,x\in\Span(S)$，而由于$S\subset\Span(S)$，$f(x)=0,x\in \Span(S)\Rightarrow f(x)=0,x\in S$，由此可知$\Ann(S)=\Ann(\Span(S))$。
+
+(2) 设$S$的极大线性无关组为$s_1,\dots,s_k$，扩充为$V$的基为$s_1,\dots,s_n$。由于$f(s_i)=0,i\le k$，可直接验证$\Ann(S)$的一组基为$f_i(s_j)=\begin{cases}1&i=j\\0&i\ne j\end{cases},i=k+1,\dots,n$，由此知$\dim\Ann(S)=n-k=\dim(V)-\rank(S)$。
+
+(3) $f\in\Ann(V_1\cap V_2)\Leftrightarrow f(x)=0,x\in V_1\cap V_2$，类似(2)的过程，考虑基可知此即等价于$f\in\Span(\Ann(V_1),\Ann(V_2))$，即$f\in\Ann(V_1)+\Ann(V_2)$。
+
+$f\in\Ann(V_1+V_2)\Leftrightarrow f(x)=0,x\in V_1+V_2\Leftrightarrow f(x)=0,x\in\Span(V_1\cup V_2)\Leftrightarrow f(x)=0,x\in V_1\cup V_2\Leftrightarrow f(x)=0,x\in V_1$且$f(x)=0,x\in V_2\Leftrightarrow f\in\Ann(V_1)\cap\Ann(V_2)$
+
+(4) 由(3)，$\Ann(V_1)+\Ann(V_2)=\Ann(V_1\cap V_2)=\Ann(\mathbf{0})=V^*,\Ann(V_1)\cap\Ann(V_2)=\Ann(V_1+V_2)=\Ann(V)=\mathbf{0}$，由此得证。
+\end{enumerate}
+
+\subsection{核空间与像空间}
+\begin{enumerate}
+\item
+$X=\begin{pmatrix}a&b\\c&d\end{pmatrix}\Rightarrow AX+XA=\begin{pmatrix}2a+b-c&-a-d\\a+d&b-c-2d\end{pmatrix}$，$\Ker\mathcal{A}$的一组基为$\{\begin{pmatrix}0&1\\1&0\end{pmatrix},\begin{pmatrix}1&-2\\0&-1\end{pmatrix}\}$，$\im\mathcal{A}$的一组基为$\{\begin{pmatrix}1&0\\0&1\end{pmatrix},\begin{pmatrix}2&-1\\1&0\end{pmatrix}\}$。
+
+\item
+$\Ker\mathcal{A}$为全体反对称方阵，$\im\mathcal{A}$为全体对称方阵，类似8.4节习题1(5)可知基。
+
+\item
+由8.7节定理8.23，考虑$(U_1\cap W)/(U_2\cap W)$到$U_1/U_2$的映射$\pi:a+U_2\cap W\to a+U_2$。由于$a+U_2\ne b+U_2\Rightarrow a-b\notin U_2\Rightarrow a-b\notin U_2\cap W\Rightarrow a+U_2\cap W\ne b+U_2\cap W$，因此同一个元素的像唯一，此映射定义合理。
+
+而若$a\notin U_2\cap W$，由$a\in U_1\cap W$知$a\notin U_2$，因此$a+U_2\ne U_2$，也即$\Ker\pi=\{\mathbf{0}\}$，此映射为单射，由此知维数关系。
+
+若等号成立，则意味着此映射为满射，利用定理8.22设$U_2$对$U_1$一个补空间为$U_3$，若$\exists a\in U_3,a\notin W$，取此$a+U_2$即无原象，反之，若$U_3\subset W$，可发现此即为满射，因此充要条件为$U_3\subset W$，进一步由题目条件可写为$\mathcal{A}U_1=\mathcal{A}U_2$。
+
+\item
+(1) $\mathcal{A}x=\mathbf{0}\Rightarrow\mathcal{B}\mathcal{A}x=\mathcal{B}\mathbf{0}=\mathbf{0}$，由此知$\Ker$的关系；$\mathcal{B}(\mathcal{A}x)=\mathcal{B}y$，由此知$\im$的关系。
+
+(2) 由条件，若$x=\mathcal{A}y,\mathcal{B}x=\mathbf{0}$，则只有$x=\mathbf{0}$，因此限制在$\im\mathcal{A}$上的$\mathcal{B}$为单射。由此存在限制在$\im\mathcal{B}\mathcal{A}$上的$\mathcal{C}$(可验证其为线性映射)使得$\forall x\in\im\mathcal{A},\mathcal{C}\mathcal{B}x=\mathcal{B}x$，令$x=\mathcal{A}y$可发现其已经满足题目条件，再将$\im\mathcal{B}\mathcal{A}$的一个补空间全部映射到$\mathbf{0}$即可。
+
+(3) 对$V$的一组基$\{c_i\}$，由条件可设$\mathcal{B}\mathcal{A}t_i=\mathcal{B}c_i$，则令$\mathcal{C}c_i=t_i$。利用线性性可验证对$V$中的元素均有$\mathcal{B}\mathcal{A}\mathcal{C}c=\mathcal{B}c$，由此知构造出的$\mathcal{C}$符合要求。
+
+\item
+(1) 取$\Ker\mathcal{A}$的补空间$V$，由8.7节定理8.20与定理9.1可知$V$与$\im\mathcal{A}$同构，令$B$限制在$\im\mathcal{A}$上为到$V$的同构映射，再将$\im\mathcal{A}$的一个补空间全部映射到$\mathbf{0}$，计算验证知成立。
+
+(2) *结论应该为$\mathcal{A}$为双射或零映射(即像恒为$\mathbf{0}$)
+
+右推左：$\mathcal{A}$为双射时，$\mathcal{A}\mathcal{B}=\mathcal{A}\mathcal{B}\mathcal{A}\mathcal{A}^{-1}=\mathcal{A}\mathcal{A}^{-1}=\mathcal{I}$，由此得$\mathcal{B}$只能为$\mathcal{A}^{-1}$。
+
+$\mathcal{A}$为零映射时，$\mathcal{B}x=\mathcal{B}(\mathcal{A}\mathcal{B}x)=\mathbf{0}$，由此唯一。
+
+左推右：
+先证明引理，$U$为$V$子空间，其补空间唯一当且仅当$U=\{\mathbf{0}\}$或$U=V$。直接验证知当成立，对于仅当，若$U$两者均非，取$U$的某个补空间，从中取出一组基，由选择公理取出一个基$s$，再用选择公理取出$U$的一个基$t$，则将$s$替换为$s+t$即获得了与原本不同的补空间。
+
+利用引理，在5(1)的构造中，可发现只要取的补空间不同，构造出的$\mathcal{B}$即不同。由此，若$\mathcal{B}$唯一，只能$\Ker\mathcal{A},\im\mathcal{A}$均为$\{\mathbf{0}\}$或全空间，分类讨论即得$\mathcal{A}$为双射或零映射。
+
+\item
+(1) 设$x\in\Ker\mathcal{A}\cap\im\mathcal{B}$，则$x=\mathcal{B}y=\mathcal{B}\mathcal{A}(\mathcal{B}y)=\mathcal{B}\mathbf{0}=\mathbf{0}$，由此$\Ker\mathcal{A}\cap\im\mathcal{B}=\{\mathbf{0}\}$。
+
+若$\Ker\mathcal{A}\oplus\im\mathcal{B}\ne U$，由定义知存在$a\in U$使$a+\Ker\mathcal{A}$均不在$\im\mathcal{B}$中，由此不存在$x$使$\mathcal{A}(\mathcal{B}x-a)=\mathbf{0}$，与$\mathcal{A}(\mathcal{B}\mathcal{A}a-a)=\mathbf{0}$矛盾。
+
+同理可说明第二个式子。
+
+(2)
+设$x=\mathcal{B}t\in\im\mathcal{B}$，代入$\mathcal{B}\mathcal{A}\mathcal{B}t=\mathcal{B}t$知$\mathcal{B}\mathcal{A}x=x$，同理$y\in\im\mathcal{A}$可推出$\mathcal{A}\mathcal{B}y=\mathcal{A}$，分别限制在像空间中可知互为逆映射。
+
+\item
+设$U_3=\Ker\mathcal{A}\cap\Ker\mathcal{B}$，$U_3$对$U$的一个补空间为$U_0$，$\mathcal{A},\mathcal{B}$限制在$U_0$上为$\mathcal{A}',\mathcal{B}'$，$U_2=\Ker\mathcal{A}',U_1=\Ker\mathcal{B}'$，接下来验证这样的$U_1,U_2,U_3$即符合要求。
+
+$\Ker\mathcal{A}=U_2\oplus U_3$：由$U_2\in U_0,U_0\cap U_3=\{\mathbf{0}\}$知$U_2\cap U_3=\{\mathbf{0}\}$，将$\Ker\mathcal{A}$中的元素拆分为$a_1+a_2,a_1\in U_3,a_2\in U_0$可发现$\mathcal{A}'a_2=\mathbf{0}$，由此知成立。同理有$\Ker\mathcal{B}=U_1\oplus U_3$。
+
+$U_1+U_2+U_3$是直和：定义可算出$\Ker\mathcal{A}'\cap\Ker\mathcal{B}'=\{\mathbf{0}\}$，即$U_1+U_2$是直和。再由$U_3+(U_1\oplus U_2)=U_3+U_0$是直和，利用8.6节习题4可知结论。
+
+$U_0=U_1+U_2$：计算知$\Ker\mathcal{A}\cap\Ker\mathcal{B}\subset\Ker(\mathcal{A}+\mathcal{B})$，由此拆分可发现$\im\mathcal{A}=\im\mathcal{A}',\im\mathcal{B}=\im\mathcal{B}',\im(\mathcal{A}+\mathcal{B})=\im(\mathcal{A}'+\mathcal{B}')$，因此$\mathcal{A}',\mathcal{B}'$也满足条件式。任取$c\in U_0$,考虑$\mathcal{A}c\in\im\mathcal{A}\oplus\im\mathcal{B}$，由条件$\mathcal{A}c=(\mathcal{A}+\mathcal{B})t$，因此$\mathcal{A}(c-t)=\mathcal{B}t$，由$\im\mathcal{A}+\im\mathcal{B}$是直和知只能$\mathcal{A}(c-t)=\mathcal{B}t=\mathbf{0}$，由此$t\in\Ker\mathcal{B},c-t\in\Ker\mathcal{A}\Rightarrow c=(c-t)+t\in U_1+U_2$，原命题得证。
+
+$U=U_1\oplus U_2\oplus U_3$：结合以上两条即可推出。
+
+$\mathcal{A}$的限制映射可逆：利用$\Ker\mathcal{A}=U_2\oplus U_3$可知$U=\Ker\mathcal{A}\oplus U_1$，由例9.14得结论。
+
+\item
+(1) 右推左：$x=\mathcal{A}t\Rightarrow x=\mathcal{B}(\mathcal{A}t)\in\im\mathcal{B}$，同理有另一边包含，由此知$\im\mathcal{A}=\im\mathcal{B}$。
+
+左推右：由例9.15，$\mathcal{A}$在$\im\mathcal{A}$上为恒等映射，$\mathcal{B}x\in\im\mathcal{B}=\im\mathcal{A}\Rightarrow \mathcal{A}(\mathcal{B}x)=\mathcal{B}x$，同理可证另一边。
+
+(2) 右推左：$\mathcal{A}x=\mathbf{0}\Rightarrow\mathcal{B}x=\mathcal{B}\mathcal{A}x=\mathcal{B}\mathbf{0}=\mathbf{0}$，同理有另一边包含，由此知$\Ker\mathcal{A}=\Ker\mathcal{B}$。
+
+左推右：利用例9.15，任意$V$中元素，设其为$u+v,u\in\im\mathcal{A},v\in\Ker\mathcal{A}=\Ker\mathcal{B}$，$\mathcal{B}\mathcal{A}(u+v)=\mathcal{B}\mathcal{A}u$，由$\mathcal{A}$在$\im\mathcal{A}$上为恒等映射知此即为$\mathcal{B}u=\mathcal{B}(u+v)$，同理可证另一边。
+
+(3) 右推左：$\rank\mathcal{A}=\rank(\mathcal{A}\mathcal{C})=\rank(\mathcal{C}\mathcal{B})=\rank\mathcal{B}$。
+
+左推右：考虑对应的矩阵表示，由于$A^2=A$，其相似标准型亦满足此性质，可发现只能为0与1构成的对角阵，再由秩相同知$A,B$相似标准型相同，因此存在可逆阵$C$使$C^{-1}AC=B$，将$C$对应为线性变换即为所求。
+
+\item
+(1) 左推右：考虑基可知$\im\mathcal{A}$包含$\Ker\mathcal{A}$的一个补空间，由例9.14可知其为满射。
+
+右推左：若有某个$a+\Ker\mathcal{A}$均不在$\im\mathcal{A}$中，考虑$\mathcal{A}a$，利用例9.14知$\mathcal{A}x=\mathcal{A}a$的解为$x=a+\Ker\mathcal{A}$，因此$\mathcal{A}a\notin\mathcal{A}(\im\mathcal{A})$，而$\mathcal{A}a\in\im\mathcal{A}$，与满射矛盾，由此知结论成立。
+
+(2) 左推右：由例9.14直接得成立。
+
+右推左：设$\mathcal{A}$在$\im\mathcal{A}$上的限制映射为$\mathcal{A}'$，由于$\mathcal{A}'$为单射，$\Ker\mathcal{A}'=\mathbf{0}$，类似习题7证明过程知$\Ker\mathcal{A}\cap\im\mathcal{A}=\Ker\mathcal{A}'=\{\mathbf{0}\}$，再结合(1)知结论。
+
+\item
+对$m$归纳，$m=1$时直接成立，若$m-1$时成立，考虑$m$时：
+
+由$\mathcal{A}^{m}=\mathcal{O}$，可知限制在$\im\mathcal{A}$的$\mathcal{A}^{m-1}=\mathcal{O}$。取$\im\mathcal{A}$的子空间$U_0$使$\im\mathcal{A}=\bigoplus_{i=1}^{m-1}\mathcal{A}^{i-1}U_0$。设$U_0$的一组基为$\{\mathcal{A}\alpha_i\}$，记$V_0=\Span\{\alpha_i\}$。
+
+$V_0\cap\im\mathcal{A}=\{\mathbf{0}\}$：由归纳假设，$\mathcal{A}(\im\mathcal{A})\cap U_0=\{\mathbf{0}\}$，而$\mathcal{A}V_0\subset U_0$，由此$\mathcal{A}V_0\cap\mathcal{A}(\im\mathcal{A})=\{\mathbf{0}\}$，即$V_0\cap\im\mathcal{A}\subset\Ker\mathcal{A}$。由$V_0$定义，$\mathcal{A}\alpha_i$线性无关，因此$\mathcal{A}v=\mathbf{0},v\in V_0$当且仅当$v=\mathbf{0}$，即$V_0\cap\Ker\mathcal{A}=\{\mathbf{0}\}$，结合$V_0\cap\im\mathcal{A}\subset\Ker\mathcal{A}$即有结论。
+
+$V=V_0+\im\mathcal{A}+\Ker\mathcal{A}$：由$U_0$定义，$\forall\alpha\in V,\exists\beta_i\in\mathcal{A}^{i-1}U_0,\mathcal{A}\alpha=\sum_{i=1}^{m-1}\beta_i$。对$i>1$，$\beta_i\in\im\mathcal{A}$，由于$U_0\im\mathcal{A}$，$\beta_i\in\im\mathcal{A}$，设其原象为$\gamma_i$，当$i>1$时，$\beta_i\in\mathcal{A}U_0\in\im\mathcal{A}^2$，由此可取$\lambda_i\in\im\mathcal{A}$，而$\beta_1\in U_0$，因此由$V_0$定义可取$\gamma_1\in V_0$。此时，$\mathcal{A}(\alpha-\gamma_1-\sum_{i=2}^{m-1}\gamma_i)=\mathbf{0}$，因此$\alpha-\gamma_1-\sum_{i=2}^{m-1}\gamma_i\in\Ker\mathcal{A}$，即有$\alpha\in V_0+\im\mathcal{A}+\Ker\mathcal{A}$。
+
+存在符合要求的$U$：由于$V_0\cap\im\mathcal{A}=\{\mathbf{0}\}$，分析基可知，可取出$\Ker\mathcal{A}$的一个子空间$W$使得$V=V_0\oplus\im\mathcal{A}\oplus W$，取$U=V_0\oplus W$，计算可知$\mathcal{A}U=U_0$，由此利用归纳假设知结论成立。
+\end{enumerate}
+
+\subsection{不变子空间}
+\begin{enumerate}
+\item
+$\mathcal{A}U$不变：$\alpha=\mathcal{A}u,u\in U\Rightarrow\mathcal{A}\alpha=\mathcal{A}(\mathcal{A}u)$，由$U$不变知$\mathcal{A}u\in U$，因此$\mathcal{A}\alpha\in\mathcal{A}U$，由此得证。
+
+$\mathcal{A}^{-1}U$不变：$\mathcal{A}\alpha\in U\Rightarrow\mathcal{A}\mathcal{A}\alpha\in U\Rightarrow\mathcal{A}\alpha\in\mathcal{A}^{-1}U$，由此得证，
+
+\item
+(此处$\mathbb{F}=\mathbb{R}$，否则无统一结论)
+
+由定义可发现，设$t(a,b)$为一维不变子空间($t$为参数)，则存在$r$使得$a+b=ra,a-b=rb$，且$a,b$不全为0，由此解得结果为$t(\sqrt2+1,1)$与$t(1-\sqrt2,1)$。
+
+\item
+由9.4节习题1，类似习题2解出$r$只能为0，因此结果为$\Ker\mathcal{A}$的一维子空间。
+
+\item
+利用9.4节习题2可知$\Ker\mathcal{A}$与$\im\mathcal{A}$。
+
+设$\mathcal{A}'$为$A$在$U$上的限制映射，$\Ker\mathcal{A}'\subset\Ker\mathcal{A}$为反对称方阵的子空间。而由不变子空间定义，$\im\mathcal{A}'\in U$，其为实对称方阵的一个子空间。由于$\mathcal{A}'^2=2\mathcal{A}'$，类似9.4节例9.15可知$\Ker\mathcal{A}'\oplus\im\mathcal{A}'=U$，由此$U$可拆分成一个对称方阵子空间与一个反对称方阵子空间的直和。
+
+若$U$为一个对称方阵子空间与一个反对称方阵子空间的直和，分析基可验证其为不变子空间，因此此为充要条件，由此可知$k=1,2,3$时的$U$。
+
+(本题实际证明的结论：幂等变换的不变子空间一定为$\Ker$的子空间与$\im$的子空间的直和)
+
+\item
+设$V$的一组基为$\{\alpha_i\}$，由一维子空间均为不变子空间可知$\mathcal{A}\alpha_i$为$\alpha_i$倍数，记某个基为$\alpha$，$\mathcal{A}\alpha=a\alpha$，下证$\mathcal{A}=a\mathcal{I}$。
+
+若对另一个基$\beta\in\{\alpha_i\},\mathcal{A}\beta=b\beta$，由于$\mathcal{A}(\alpha+\beta)=c(\alpha+\beta)$，由$\alpha,\beta$线性无关可算得只能$c=b=a$，由此，$\forall\alpha_i,\mathcal{A}\alpha_i=a\alpha_i$，利用$\{\alpha_i\}$为一组基计算得$\mathcal{A}=a\mathcal{I}$，原命题得证。
+
+\item
+须先证明此映射良好定义：考虑$[u]$中的$u+w_1,u+w_2,w_1,w_2\in W$，由于$\mathcal{A}(u+w_1)=\mathcal{A}u+\mathcal{A}w_1,\mathcal{A}(u+w_2)=\mathcal{A}u+\mathcal{A}w_2$，由$W$不变，$\mathcal{A}w_1,\mathcal{A}w_2\in W$，因此$[\mathcal{A}(u+w_1)]=[\mathcal{A}(u+w_2)]=[\mathcal{A}u]$，由此映射良好定义。
+
+(1) *此题须$W\subset U$
+
+由定义，$u\in U\Rightarrow\mathcal{A}u\in U$，因此$[u]\in U/W\Rightarrow u\in U\Rightarrow\mathcal{A}u\in U\Rightarrow\mathcal{B}[u]=[\mathcal{A}u]\in U/W$。
+
+(2) 取$U=\{u_i\mid[u_i]\in\tilde{U}\}$，直接验证可知其线性。$u\in U\Rightarrow [u]\in\tilde{U}\Rightarrow[\mathcal{A}u]=\mathcal{B}[u]\in\tilde{U}\Rightarrow\mathcal{A}u\in U$。
+
+\item
+(1) 错误。$V=\mathbb{F}^2,\mathcal{A}=\mathcal{O},U=\{(a,0)\}$，则$\Ker p(\mathcal{A})$只可能为$\{(0,0)\}$或$\mathbb{F}^2$，因此不存在。
+
+(2) 错误。反例同(1)，$\im p(\mathcal{A})$只可能为$\{(0,0)\}$或$\mathbb{F}^2$，因此不存在。
+
+(3) 错误。$V=\mathbb{F}^2,\mathcal{A}(x,y)=(x,0),U=\{(a,0)\}$，验证可知$U$的任何补空间均不为不变子空间。
+
+(4) 错误。$V=\mathbb{F}^2,\mathcal{A}(x,y)=(x,0),\mathcal{B}(x,y)=(0,y),U=\{(a,0)\}$，$\mathcal{A}\mathcal{B}=\mathcal{B}\mathcal{A}=\mathcal{O}$，而$U$不为$\mathcal{B}$的不变子空间。
+
+(5) 错误。$V$为一切$\frac{g(x)}{h(x)},g,h\in\mathbb{F}[x],h\ne0$构成的集合，$\mathcal{A}f(x)=xf(x),\mathcal{B}f(x)=\frac{1}{x}f(x)$，$U=\mathbb{F}[x]$，可验证$1\in U,\frac{1}{x}\notin U$，由此$U$为$\mathcal{A}$的不变子空间，但不为$\mathcal{B}$的不变子空间。
+\end{enumerate}
+
+\subsection{根子空间}
+\begin{enumerate}
+\item
+考虑其矩阵表示为$\begin{pmatrix}1&0&0&0\\0&2&2&2\\0&0&2&6\\0&0&0&0\end{pmatrix}$，因此特征值1对应特征子空间$\{c\mid c\in\mathbb{R}\}$，亦为根子空间；特征值0对应特征子空间$\{c(x^3-3x^2+2x)\mid c\in\mathbb{R}\}$，亦为根子空间；特征值2对应特征子空间$\{cx\mid c\in\mathbb{R}\}$，根子空间$\{c_1x^2+c_2x\mid c_1,c_2\in\mathbb{R}\}$。
+
+\item
+任何实数$a$均为特征值，对应特征子空间$\{c\mathrm{e}^{ax}\mid c\in\mathbb{R}\}$，考虑每阶导数对应微分方程可知根子空间为$\{f(x)e^{ax}\mid f\in\mathbb{R}[x]\}$。
+
+\item
+1推3：取每个不变子空间的基，利用直和定义可知其构成$V$的一组基，再由不变子空间定义知此基下的$\mathcal{A}$矩阵表示为对角阵。
+
+3推4：由5.4节定理5.14知成立。
+
+4推2：由定理9.15知成立。
+
+2推1：考虑每个特征子空间$\Ker(\lambda\mathcal{I}-\mathcal{A})$的一组基，由于这组基均满足$\mathcal{A}\alpha=\lambda\alpha$，因此每个基都生成了一维不变子空间，由此拆分可知成立。
+
+\item
+左推右：$\lambda$为$\mathcal{A}$特征值$\Rightarrow\exists\alpha\ne\mathbf{0},\mathcal{A}\alpha=\lambda\alpha\Rightarrow\exists\alpha\ne\mathbf{0},d_\mathcal{A}(\mathcal{A})\alpha=d_\mathcal{A}(\lambda)\alpha\Rightarrow\exists\alpha\ne\mathbf{0},d_\mathcal{A}(\lambda)=\mathbf{0}\Rightarrow d_\mathcal{A}(\lambda)=0$
+
+右推左：若$\lambda$不为特征值，记$d'(x)=\frac{d_\mathcal{A}(x)}{x-\lambda}$由定义知$\Ker(\lambda\mathcal{I}-\mathcal{A})=\{\mathbf{0}\}$，由此$(\lambda\mathcal{I}-\mathcal{A})(d'\mathcal{A})=\mathcal{O}\Rightarrow d'\mathcal{A}=\mathcal{O}$，因此$d'$亦为化零多项式，且次数更小，矛盾。
+
+\item
+由根子空间定义，利用定理9.13知其中任意有限个的和为直和，再由8.6节习题5知结论。
+
+\item
+$(\lambda\mathcal{I}-\mathcal{A})f_i(\mathcal{A})=d_A(\mathcal{A})\prod_{j\ne i}(\lambda_i-\lambda_j)^{-1}=\mathcal{O}$，因此$f_i(\mathcal{A})\alpha\in\Ker(\lambda\mathcal{I}-\mathcal{A})$。而$\sum_{i=1}^kf_i(x)-1$为$k-1$次多项式，代入可验证$\lambda_1,\dots,\lambda_k$均为其零点，因此其只能恒为0，即$\sum_{i=1}^kf_i(x)=1\Rightarrow\sum_{i=1}^kf_i(\mathcal{A})=\mathcal{I}$，由此得证。
+
+\item
+习题6的证明过程可发现，将$d_\mathcal{A}$改为$\mathcal{A}$的任何一个化零多项式均成立，而$x^n-1=\prod_{i=0}^{n-1}(x-\omega^i)$，由此利用习题6只需说明$\prod_{j\ne k}\frac{x-\omega^j}{\omega^k-\omega^j}=\frac{1}{n}\sum_{j=0}^{n-1}\omega^{-kj}x^j$。
+
+记$f(x)=\prod_{j\ne k}(x-\omega^j)$，有$f(x)(x-\omega^k)=x^n-1$，而$1=(\omega^k)^n$，因式分解得$f(x)=\sum_{j=0}^{n-1}(\omega^k)^{n-1-j}x^j=\sum_{j=0}^{n-1}\omega^{-k-kj}x^j$。由此，$\prod_{j\ne k}\frac{x-\omega^j}{\omega^k-\omega^j}=\frac{f(x)}{f(\omega^k)}=\frac{\sum_{j=0}^{n-1}\omega^{-k-kj}x^j}{\sum_{j=0}^{n-1}\omega^{-k}}=\frac{1}{n}\sum_{j=0}^{n-1}\omega^{-kj}x^j$，原命题得证。
+
+\item
+(1) 由于$\Ker(\lambda\mathcal{I}-\mathcal{A})^m\subset\Ker(\lambda\mathcal{I}-\mathcal{A})^n,\forall m<n$，只需证明$\Ker(\lambda\mathcal{I}-\mathcal{A})^n=W_i,\forall n>m_i$。由于$d_\mathcal{A}(x)(x-\lambda_i)^{n-m_i}$亦为化零多项式，利用定理9.15可知$\Ker(\lambda\mathcal{I}-\mathcal{A})^n$与$W_i$均为$\bigoplus_{j\ne i}W_j$的补空间，再由包含关系分析基知只能相等，由此即得证。
+
+(2) 由$W$定义可知$d_i(x)$为化零多项式，因此最小多项式为其因式。若$m<m_i$，$(x-\lambda_i)^m$为最小多项式，可发现$W_i=\Ker(\lambda\mathcal{I}-\mathcal{A})^m$。由此利用定理9.15写为直和可计算发现$\frac{d_\mathcal{A}(x)}{(x-\lambda_i)^{m_i-m}}$亦为化零多项式，与$d_\mathcal{A}(x)$最小性矛盾，由此最小多项式即为$d_i(x)$。
+
+(3) 左侧不等号：由于$W_i$上存在最小多项式次数为$m_i$的线性映射(由(2)知即为$\mathcal{A}$在其上的限制映射)，考虑矩阵表示即知至少为$m_i$阶矩阵，即$\dim W_i\ge m_i$。
+
+右侧不等号：先证明，当$\Ker\mathcal{A},\Ker\mathcal{B}$为有限维时，$\dim\Ker(\mathcal{A}\mathcal{B})\le\dim\Ker\mathcal{A}+\dim\Ker\mathcal{B}$。
+
+由$\mathcal{A}\mathcal{B}x=\mathbf{0}\Rightarrow\mathcal{B}x\in\Ker\mathcal{A}$，设$\Ker\mathcal{B}$的补空间为$U$，利用$9.4$节例9.14，$\Ker\mathcal{A}\cap\im\mathcal{B}$在$U$上的原象$W$维数为$\dim(\Ker\mathcal{A}\cap\im\mathcal{B})\le\dim\Ker\mathcal{A}$，而一切满足要求的$x$为$W+\Ker\mathcal{B}$，利用8.5节定理8.15知不等式成立。
+
+由此归纳可得$\Ker(\lambda\mathcal{I}-\mathcal{A})^m\le m\Ker(\lambda\mathcal{I}-\mathcal{A})$，原结论成立。
+
+\item
+$\alpha\in W\Leftrightarrow\exists n,\alpha\in\Ker(\lambda\mathcal{I}-\mathcal{A})^n\Leftrightarrow(\mathcal{A}-\lambda\mathcal{I})^n\alpha=\mathbf{0}\Leftrightarrow\exists n,d_{A,\alpha}(x)|(x-\lambda)^n\Leftrightarrow\exists m,d_{A,\alpha}=(x-\lambda)^m$
+
+\item
+(1) $xf'(x)=\lambda f(x)$，可解得一切自然数$n$为特征值，对应的特征子空间为$\{cx^n\mid c\in\mathbb{F}\}$，其亦为根子空间。
+
+(2) 设$\alpha$次数为$n$，可考虑$\mathcal{A}$限制在$\mathbb{F}_{n+1}[x]$上的矩阵表示，其为$\diag(0,1,\dots,n)$。由此，对任意次数的$\alpha$可知，若$\alpha$的$a_1,a_2,\dots,a_k$次项不为0，最小多项式即为$\prod_{i=1}^k(x-a_i)$。
+\end{enumerate}
+
+\subsection{循环子空间}
+\begin{enumerate}
+\item
+(1) 对于$n$次多项式$f$，考虑最高次项可知$f,\mathcal{D}f,\dots,\mathcal{D}^nf$可生成$\mathbb{F}_{n+1}[x]$。由此，考虑不变子空间(由非平凡设其非空)中次数最高的多项式，若不存在，则一列次数趋于无穷的$f$可生成$\mathbb{F}[x]$，平凡。若存在，此不变子空间包含于$\mathbb{F}_{n+1}[x]$，又由$\mathbb{F}[\mathcal{D}]f=\mathbb{F}_{n+1}[x]$知其只能为$\mathbb{F}_{n+1}[x]$，即为$f$生成的循环子空间。
+
+(2) 考虑不变子空间(由非平凡设其非空)中次数最低的多项式$f$。若有$g\in\mathbb{F}[\mathcal{A}]f$，设$\deg{g}-\deg{f}=n$，则每次考虑最高次项，直接构造$a_i$可使$g-a_n\mathcal{S}^nf-\dots-a_1\mathcal{S}f-a_0f$次数比$f$更低，矛盾，由此得证。
+
+\item
+(1) 设$U_1=\mathbb{F}[\mathcal{A}]\alpha$，由9.5节例9.17-3可知$U_1\cap U_2$亦为不变子空间，其中每个元素均可写成$f(\mathcal{A})\alpha,f\in\mathbb{F}$(若有多个$f$可以表示，取其中次数最小的$f$作为表示)，考虑其中次数最小的$f$对应的$f(\mathcal{A})\alpha$，若有某个$g(\mathcal{A})\alpha$不在其生成的循环子空间中，即$f\nmid g$，由裴蜀定理可知$\gcd(f,g)(\mathcal{A})\alpha\in U_1\cap U_2$，$\dim\gcd(f,g)<\dim f$，矛盾，由此知结论成立。
+
+(2) $V=\mathbb{F}^2,\mathcal{A}=\mathcal{I},U_1=\{(a,0)\},U_2=\{(0,a)\}$，分析知$\mathcal{A}$的循环子空间为一切一维子空间，因此$U_1,U_2$皆循环，$U_1\oplus U_2=V$不循环。
+
+(3) 取习题1中的微分变换，$U_1=\mathbb{F}_1[x]$，由习题1知其不变子空间只能为$\mathbb{F}_n[x]$，因此不存在$U_2$。
+
+\item
+1、2等价：利用习题2(1)可知$\mathcal{A}$-循环子空间的任何不变子空间仍为$\mathcal{A}$-循环子空间，由此由1可推出2；而$V$为不变子空间，由此2可推出1。
+
+1推4：设线性空间维数为$n$，循环向量为$\alpha$，取基为$\alpha,\mathcal{A}\alpha,\dots,\mathcal{A}^{n-1}\alpha$，计算验证知成立。
+
+4推3：由5.4节例5.14知成立。
+
+3推1：由定理9.19，取$\alpha$使得$d_{\mathcal{A},\alpha}=d_\mathcal{A}=\varphi_\mathcal{A}$，可直接验证其生成的循环子空间维数等于空间维数，因此其即为循环向量。
+
+\item
+*设线性空间维数为$n$，循环向量为$\alpha$
+
+左推右：若否，设$\varphi_\mathcal{A}=fg$，$f,g$均不为零次，则$g(\mathcal{A})f\mathcal{A}\alpha$，由此$g$为$\mathcal{A}$对$f\mathcal{A}\alpha$的化零多项式，其次数小于$\varphi_\mathcal{A}$，与其为循环向量矛盾。
+
+右推左：由于$d_{\mathcal{A},\alpha}\mid d_\mathcal{A}\mid\varphi_\mathcal{A}$，由于$\varphi_\mathcal{A}$不可约，$d_{\mathcal{A},\alpha}$只能为零次多项式或$\varphi_\mathcal{A}$，而$\alpha\ne\mathbf{0}$，因此只能为$\varphi_\mathcal{A}$。由此，$\alpha,\mathcal{A}\alpha,\dots,\mathcal{A}^{n-1}\alpha$线性无关，生成空间维数为$n$，因此其为循环向量。
+
+\item
+数学归纳法可证明9.4节习题10结论，由此构造：
+
+由于$\Ker\mathcal{A}\subset\Ker\mathcal{A}^2\subset\dots\subset\Ker\mathcal{A}^m=V$，可取出$U\cap\Ker\mathcal{A}$的一组基，扩充为$U\cap\Ker\mathcal{A}^2$的一组基，依次进行，最后一步是扩充为$U\cap\Ker\mathcal{A}^m=U$的一组基。设这组基为$\alpha_1,\dots,\alpha_k$。
+
+由9.4节习题10的构造过程，设$\alpha_1,\dots,\alpha_s\in\Ker\mathcal{A}$，则$\mathcal{A}\alpha_{s+1},\dots,\mathcal{A}\alpha_k$线性无关，且生成了$\mathcal{A}U$。以此类推可证明，$\mathcal{A}^t\alpha_i$中不为$\mathbf{0}$者生成了$\mathcal{A}^tU$，由于$V=\bigoplus_{i=0}^{m-1}\mathcal{A}^iU$，因此$V=\bigoplus_{i=1}^k\mathbb{F}[\mathcal{A}]\alpha_i$。
+
+\item
+(1) 设循环向量为$\alpha$，由定义存在$g$使得$\mathcal{B}\alpha=g(\mathcal{A})\alpha$，从而，对$V$中任何$\beta=f(\mathcal{A})\alpha$，$\mathcal{B}\beta=\mathcal{B}f(\mathcal{A})\alpha$，由可交换可算得其与任何$\mathcal{A}$的多项式交换，因此其为$f(\mathcal{A})\mathcal{B}\alpha=f(\mathcal{A})g(\mathcal{A})\alpha=g(\mathcal{A})f(\mathcal{A})\alpha=g(\mathcal{A})\beta$。两映射对$V$中任何向量的像都相同，因此相等。
+
+(2) 考虑限制在$(U,V)$上的$\mathcal{B}$，证明方式与上一问完全相同，可知$\exists f,\mathcal{B}\beta=f(\mathcal{A})\beta,\forall\beta\in U$，将$\beta$写为$g(\mathcal{A})\alpha$，$\alpha$为生成此空间的向量，可知$\mathcal{B}\beta$仍在此循环子空间中，由此其为$\mathcal{B}$的不变子空间。
+\end{enumerate}
+
+\section{内积空间}
+\subsection{基本概念}
+\begin{enumerate}
+\item
+(1) 取$x=(0,0,1)$知不满足正定性，不为内积。
+
+(2) 不满足对称性，不为内积。
+
+(3) 为内积。
+
+(4) 取$X=\begin{pmatrix}0&1\\0&0\end{pmatrix}$知不满足正定性，不为内积。
+
+(5) 值域不在$\mathbb{R}$中，不为内积。
+
+(6) 为内积。
+
+\item
+*此处只计算基的内积结果，由结果可直接构造出矩阵
+
+(1) 相异基内积为1，相同基内积为2。
+
+(2) 同为$E_{ii}-E_{11}$时内积为2，同为$E_{ij}$或为$E_{ii}-E_{11},E_{jj}-E_{11},i\ne j$时内积为1，其余情况内积为0。
+
+(3) 类似8.5节3(2)可说明相异基内积为0，计算可得同为1内积为$2\pi$，其余情况内积为$\pi$。
+
+(4) $\int_0^1x^k|\ln x|\mathrm{d}x=-\int_0^1x^k\ln x\mathrm{d}x$，分部积分递推可算出其为$\frac{1}{(k+1)^2}$，由此可知内积结果。
+
+\item
+(1) $V=\mathbb{R}_n[x],\rho(f,g)=\int_0^1xf(x)g(x)\mathrm{d}x,S=\{1,x,\dots,x^{n-1}\}$，验证知$A$构成度量矩阵，由定理10.1知正定。
+
+(2) $V=\mathbb{R}_n[x],\rho(f,g)=-\int_0^1x\ln xf(x)g(x)\mathrm{d}x,S=\{1,x,\dots,x^{n-1}\}$，验证知$A$构成度量矩阵，由定理10.1知正定。
+
+(3) $V=\mathbb{R}_n[x],\rho(f,g)=\int_0^{+\infty}x^2f(x)g(x)\mathrm{e}^{-x}\mathrm{d}x,S=\left\{1,\frac{x}{2},\dots,\frac{x^{n-1}}{n!}\right\}$，验证知$A$构成度量矩阵，由定理10.1知正定。
+
+\item
+*此题正定指为对称阵且正定
+
+左推右：若$S$不对称，设$s_{ij}\ne s_{ji}$，取$X=E_{1i},Y=E_{1j}$(仅一个分量为1，其他为0的方阵)可算出与内积对称性矛盾。若$S$不正定，存在非零$y$使$y^TSy\le0$，取$Y$第一列为$y$，其余为0，与内积正定性矛盾。
+
+右推左：$Y=\begin{pmatrix}y_1&\cdots&y_n\end{pmatrix}$，则$\rho(Y,Y)=\sum_{i=1}^ny_i^TSy_i$，由此知正定。利用2.1节定理2.2-6与$\tr(A)=\tr(A^T)$可知对称。直接计算可知线性。
+
+\item
+(1) 计算知对称、线性必然成立，由此只需证明正定与$w(x)>0,x\in[0,1]$等价。
+
+左推右：若否，可用多项式$f(x)$逼近$\sqrt{-\max(w(x),0)}$可验证充分接近时其内积小于0，由此不正定。
+
+右推左：若$f$不为0，其零点有限，因此$f^2(x)$在除了有限点外均大于0，由此必有$f^2(x)w(x)>0$的点(否则由连续知$w(x)$恒为0)，再由$f^2(x)w(x)$连续非负可知积分大于0，再验证得$f$为0时积分为0，由此正定。
+
+(2) 右推左与(1)相同知成立，左推右未必成立：取$V=\mathbb{R}_2[x],w(x)=|6x-3|-1$，几何比较或计算验证可知此满足正定性， 为内积。
+
+\item
+(1) 设列向量$x$分量为$x_1,\dots,x_n$，计算得$x^TGx=\rho\left(\sum_{i=1}^nx_i\alpha_i,\sum_{i=1}^nx_i\alpha_i\right)$，由内积正定性知其大于等于0，因此半正定。
+
+(2) 1,3等价：利用第一问结论，其正定当且仅当不存在非零$x$使$\sum_{i=1}^nx_i\alpha_i=\mathbf{0}$，即等价于线性无关。
+
+1,2等价：由$G$半正定，利用7.4节定理7.4-2,7.5-2可知结论。
+
+\item
+由定义直接计算，第三问平方后利用定理10.3即可。
+
+\item
+(1) 若有$n+2$个合要求的向量$\alpha_1,\dots,\alpha_{n+2}$，由$\alpha_1,\dots,\alpha_{n+1}$线性相关，有不全为0的$x_i$使$\sum_{i=1}^{n+1}x_i\alpha_i=0$，由此$\sum_{i=1}^{n+1}x_i(\alpha_i,\alpha_{n+2})=0$。由于每个内积都小于0，$x_i$必然有正有负，由此可分为$\sum_{t}x_t\alpha_t=-\sum_{s}x_s\alpha_s$，$x_t>0,x_s<0$，左右均不为$\mathbf{0}$。记左右结果为$\beta$，则$(\beta,\beta)=\sum_{s,t}x_t(-x_s)(\alpha_t,\alpha_s)<0$，矛盾。
+
+(2) 归纳，一维时直接计算知成立。
+
+假设$n-1$维时成立，$n$维时，若能取出$2n+1$个合要求的向量$\alpha_1,\dots,\alpha_{2n+1}$，设每个向量在包含$\alpha_1$的一组正交基的表示为$(a_{i1},\dots,a_{in})$，其中$\alpha_1$为$(1,0,\dots,0)$。由$(\alpha_1,\alpha_i)<0$，可知$a_{i1}\le0,i>1$。若有其他除第一个分量外全为0的向量，计算知其只能为$(-t,0,\dots,0),t>0$，且最多存在一个。因此，可不妨设$\alpha_3,\dots,\alpha_{2n+1}$后$n-1$个分量不全为0。由归纳假设，其中必有两向量后$n-1$个分量的内积大于0，又由于第一个分量同号，此两向量内积$>0$，矛盾。
+
+\item
+$p(\mathbf{e}_1+\mathbf{e}_2)=2^{1/p}>2=p(\mathbf{e}_1)+p(\mathbf{e}_2)$，由此其不为范数。
+\end{enumerate}
+
+\subsection{标准正交基}
+\begin{enumerate}
+\item
+例10.5：$\begin{pmatrix}1&0\\0&0\end{pmatrix},\begin{pmatrix}0&1\\1&0\end{pmatrix},\begin{pmatrix}0&0\\0&1\end{pmatrix}$
+
+例10.7：Gram-Schmidt标准正交化可得$1,x-1,\frac{x^2-4x+2}{2}$
+
+\item
+(1) $\rho(f,g)=\int_{-1}^1f(x)g(x)\mathrm{d}x$
+
+证明：分析知$\deg{P_n(x)}=n$，由此为说明正交性，只需证明$\int_{-1}^1P_n(x)x^m\mathrm{d}x$对$m<n$成立。利用分部积分可算出$\int_{-1}^1P_n(x)x^m\mathrm{d}x=-\frac{m}{2n}\int_{-1}^1P_{n-1}(x)x^{m-1}\mathrm{d}x$，原命题化为$\int_{-1}^1P_n(x)\mathrm{d}x$当$n>0$时为0，再次分部积分可说明这个结论。
+
+(2) $\rho(f,g)=\int_{0}^{2\pi}f(\cos\theta)g(\cos\theta)\mathrm{d}\theta$
+
+(3) $\rho(f,g)=\int_{0}^{2\pi}\sin^2\theta f(\cos\theta)g(\cos\theta)\mathrm{d}\theta$
+
+\item
+左推右：由定理10.4直接得结论。
+
+右推左：设$T=\{t_1,\dots,t_n\},S=\{s_1,\dots,s_n\}$，过渡矩阵$P$，计算知$(t_i,t_j)=\bigg(\sum_{k=1}^np_{ki}s_k,\sum_{k=1}^np_{kj}s_k\bigg)$，由$S$为标准正交基知其为$\sum_{k=1}^np_{ki}p_{kj}=(P^TP)_{ij}=I_{ij}$，由此知结论。
+
+\item
+设$X=\begin{pmatrix}a&b\\c&d\end{pmatrix}$，则$AX=\begin{pmatrix}a+2c&b+2d\\3a+6c&3b+6d\end{pmatrix}$，可发现$\Ker\mathcal{A}$的一组基$\begin{pmatrix}-2&0\\1&0\end{pmatrix},\begin{pmatrix}0&-2\\0&1\end{pmatrix}$正交，由此类似得：
+
+$\Ker\mathcal{A}$一组标准正交基为$\frac{\sqrt5}{5}\begin{pmatrix}-2&0\\1&0\end{pmatrix},\frac{\sqrt5}{5}\begin{pmatrix}0&-2\\0&1\end{pmatrix}$；
+
+$(\Ker\mathcal{A})^\bot$的一组标准正交基为$\frac{\sqrt5}{5}\begin{pmatrix}1&0\\2&0\end{pmatrix},\frac{\sqrt5}{5}\begin{pmatrix}0&1\\0&2\end{pmatrix}$；
+
+$\im\mathcal{A}$的一组标准正交基为$\frac{\sqrt{10}}{10}\begin{pmatrix}1&0\\3&0\end{pmatrix},\frac{\sqrt{10}}{10}\begin{pmatrix}0&1\\0&3\end{pmatrix}$；
+
+$(\im\mathcal{A})^\bot$的一组标准正交基为$\frac{\sqrt{10}}{10}\begin{pmatrix}-3&0\\1&0\end{pmatrix},\frac{\sqrt{10}}{10}\begin{pmatrix}0&-3\\0&1\end{pmatrix}$。
+
+\item
+设$B=P\begin{pmatrix}I_r&O\\O&O\end{pmatrix}Q$，$P,Q$可逆，令$x=Q^{-1}y$，则$Bx=\mathbf{0}\Leftrightarrow P^{-1}Bx=\mathbf{0}\Leftrightarrow\begin{pmatrix}I_r&O\\O&O\end{pmatrix}y=\mathbf{0}$，可发现此时$y$前$r$个分量为0，其余可任取，由此$y=\begin{pmatrix}O_{r\times r}&O\\O&I_{n-r}\end{pmatrix}z,z\in\mathbb{R}^n$，记$A'=AQ^{-1}\begin{pmatrix}O&O\\O&I_{n-r}\end{pmatrix}$，则问题变为求$||A'z-\alpha||,z\in\mathbb{R}^n$的最小值，由例10.13知结果。
+
+\item
+若否，不妨设有不全为0(可设$\lambda_1\ne0$)的$\lambda_i$使$\sum_{k=1}^n\lambda_k\alpha_k=\mathbf{0}$，但类似定理10.7-2知$\bigg|\bigg|\sum_{k=1}^n\lambda_k\alpha_k\bigg|\bigg|^2=\sum_{k=1}^n\lambda_k^2||\alpha_k||^2\ge\lambda_1^2||\alpha_1||^2>0$，矛盾。
+
+\item
+考虑$\mathbb{R}$上的线性空间$V=\Span\{\cos(ax),a\in(0,1]\}$，定义内积为$\rho(f,g)=\lim_{x\to\infty}\frac{2\int_0^xf(t)g(t)\mathrm{d}t}{x}$。
+
+类似8.2节习题3(1)可说明$\{\cos(ax),a\in(0,1]\}$线性无关，将$f,g$写为基的和可说明内积定义合理。$a,b$不同时，$\int_0^x\cos(at)\cos(bt)\mathrm{d}t$有界，因此内积为0；而$\lim_{x\to\infty}\frac{2\int_0^x\cos^2(at)\mathrm{d}t}{x}=\frac{2a}{\pi}\int_0^{\pi/a}\cos^2(at)\mathrm{d}t$
+
+$=1$，由此其构成标准正交基。
+
+\item
+考虑$\mathbb{R}$上的线性空间$V=\Span\{\cos(nx),\sin(nx),\mathrm{e}^x,n\in\mathbb{N}^*\},U=\Span\{\cos(nx),n\in\mathbb{N}^*\}$，定义内积$\rho(f,g)=\int_0^{2\pi}f(x)g(x)\mathrm{d}x$，则$U^\bot=\Span\{\sin(nx),n\in\mathbb{N}^*\},(U^\bot)^\bot=U$，但$U\oplus U^\bot\ne V$。
+
+\item
+(1) $x\in(U_1+U_2)^\bot\Leftrightarrow x\in\Span\{U_1,U_2\}^\bot\Leftrightarrow\forall u_1+u_2,u_1\in U_1,u_2\in U_2,x\bot(u_1+u_2)$；左推右取$u_1,u_2$分别为$\mathbf{0}$可知$x\bot u_1,x\bot u_2$，由此成立；右推左由内积线性性得成立。
+
+$x\in U_1^\bot+U_2^\bot\Rightarrow x=y+z,y\in U_1^\bot,z\in U_2^\bot$，由$y,z\in(U_1\cap U_2)^\bot$与内积线性性知$x\in(U_1\cap U_2)^\bot$。
+
+(2) 当$V$维数有限时，由8.5节定理8.15，$\dim(U_1\cap U_2)^\bot=\dim{V}-\dim(U_1\cap U_2)=\dim{V}-\dim{U_1}-\dim{U_2}+\dim(U_1+U_2)=\dim{U_1^\bot}+\dim{U_2}^\bot-\dim(U_1+U_2)^\bot=\dim{U_1^\bot}+\dim{U_2}^\bot-\dim(U_1^\bot\cap U_2^\bot)=\dim(U_1^\bot+U_2^\bot)$，再由(1)中包含关系知结论。
+
+当$V$维数无限时，记$W\subset U_1+U_2$对$U_1+U_2$的正交补空间为$W'$，由上方分析知$U_1'+U_2'=(U_1\cap U_2)'$，而分析基可知$W^\bot=W'\oplus(U_1+U_2)^\bot$，由此可知结论。
+
+(3) 习题8的解答中，取$U_1=\mathrm{e}^x,U_2=\Span\{\cos(nx),n\in\mathbb{N}^*\}$，则$(U_1\cap U_2)^\bot$为全空间，$U_1^\bot=\{\mathbf{0}\},U_2^\bot=\Span\{\sin(nx),n\in\mathbb{N}^*\}$，由此不等。
+
+\item
+未必。习题8的解答中，可验证$\bigg\{\sqrt{\frac{2}{\mathrm{e}^{4\pi}-1}}\mathrm{e}^x\bigg\}$构成极大标准正交向量组(由于除零向量外没有其他向量与其垂直)，估算可发现取$\alpha=\sin{x}$不满足等式。
+\end{enumerate}
+
+\subsection{正交变换}
+\begin{enumerate}
+\item
+$||\mathcal{A}\mathcal{B}\alpha||=||\mathcal{B}\alpha||=||\alpha||$
+
+$||\mathcal{A}^{-1}\alpha||=||\mathcal{A}\mathcal{A}^{-1}\alpha||=||\alpha||$
+
+\item
+(1) $||\mathcal{A}(x+y)-\mathcal{A}x-\mathcal{A}y||^2$
+
+$=(\mathcal{A}(x+y),\mathcal{A}(x+y))+(\mathcal{A}x,\mathcal{A}x)+(\mathcal{A}y,\mathcal{A}y)-2(\mathcal{A}(x+y),\mathcal{A}y)-2(\mathcal{A}(x+y),\mathcal{A}x)+2(\mathcal{A}x,\mathcal{A}y)$
+
+$=(x+y,x+y)+(x,x)+(y,y)-2(x+y,y)-2(x+y,x)+2(x,y)=||x+y-x-y||^2=0$
+
+$||\mathcal{A}(rx)-r\mathcal{A}x||^2=(\mathcal{A}(rx),\mathcal{A}(rx))+r^2(\mathcal{A}x,\mathcal{A}x)-2r(\mathcal{A}(rx),\mathcal{A}x)=(rx,rx)+r^2(x,x)-2r(rx,x)=0$
+
+由此知结论成立。
+
+(2) $V=\mathbb{R}[x]$，内积$\rho\bigg(\sum_ka_kx^k,\sum_kb_kx^k\bigg)=\sum_ka_kb_k$，$\mathcal{A}f(x)=xf(x)$，其保内积但不为满射，故不可逆。
+
+(3) $V=\mathbb{R}$，$\mathcal{A}x=\begin{cases}x&|x|\ne1\\-x&|x|=1\end{cases}$，保范数但不为线性映射。
+
+\item
+在定理10.10证明中将$e_1,\dots,e_n$改为$\{e_i\}$中的任意有限个向量即可说明。
+
+\item
+由可逆知其为单射，因此$\mathcal{A}\alpha=\mathbf{0}\Leftrightarrow\alpha=\mathbf{0}$。任取非零$\alpha_0$，记$\lambda=\frac{||\alpha_0||}{||\mathcal{A}\alpha_0||}>0$，下证$\forall\alpha,\lambda||\mathcal{A}\alpha||=||\alpha||$，由此即得证。
+
+设$||\alpha||=c||\alpha_0||,c>0$，可发现$(\alpha-c\alpha_0)\bot(\alpha+c\alpha_0)$，因此$\mathcal{A}(\alpha-c\alpha_0)\bot\mathcal{A}(\alpha+c\alpha_0)$，展开计算得$||\mathcal{A}\alpha||=c||\mathcal{A}\alpha_0||$，因此$\lambda||\mathcal{A}\alpha||=||\alpha||$。
+
+\item
+(1) 设特征值对应特征向量$\alpha$，则$||\alpha||=||\mathcal{A}\alpha||=||\lambda\alpha||=|\lambda|||\alpha||$，由此可知$\lambda=\pm1$。
+
+(2) $(\alpha,\beta)=(\mathcal{A}\alpha,\mathcal{A}\beta)=(\alpha,-\beta)$，由此知$(\alpha,\beta)=0$。
+
+(3) 先证明：$\Ker(\mathcal{I}-\mathcal{A})\bot\im(\mathcal{I}-\mathcal{A})$。
+
+设$x\in\Ker(\mathcal{I}-\mathcal{A}),y=(\mathcal{I}-\mathcal{A})z$，则$(x,y)=(x,(\mathcal{I}-\mathcal{A})z)=(x,z)-(x,\mathcal{A}z)=(\mathcal{A}x,\mathcal{A}z)-(x,\mathcal{A}z)=((\mathcal{A}-\mathcal{I})x,\mathcal{A}z)=(\mathbf{0},\mathcal{A}z)=0$，由此得证。
+
+因此，$x\in\Ker(\mathcal{I}-\mathcal{A})^2\Leftrightarrow(\mathcal{I}-\mathcal{A})x\in\Ker(\mathcal{I}-\mathcal{A})$，但由两空间垂直可知交为$\mathbf{0}$，因此只能$(\mathcal{I}-\mathcal{A})x=\mathbf{0}$，即$x\in\Ker(\mathcal{I}-\mathcal{A})$。
+
+对$\mathcal{I}+\mathcal{A}$，类似证明即可。
+
+(4) 构造复线性空间$V'=\{u+\mathrm{i}v,u,v\in V\}$与其上变换$\mathcal{A}'(u+\mathrm{i}v)=\mathcal{A}u+\mathrm{i}\mathcal{A}v$，计算知其为酉变换且最小多项式与$\mathcal{A}$相同。
+
+与(1)类似知$\mathcal{A}'$任一特征值$\lambda$的模长为1，若$\lambda_i$不为特征值，则$\mathcal{A}'-\lambda_i\mathcal{I}$可逆，因此除去这项后仍然为化零多项式，与最小矛盾；若有某个特征值出现两次，与(3)类似知$\Ker(\mathcal{A}'-\lambda\mathcal{I})=\Ker(\mathcal{A}'-\lambda\mathcal{I})^2$，因此去除一次后仍然为化零多项式，与最小矛盾。由此知结论成立。
+\end{enumerate}
+
+\subsection{伴随变换}
+\begin{enumerate}
+\item
+若有$B,\mathcal{B}'$均为$\mathcal{A}$的伴随变换，有$((\mathcal{B}'-\mathcal{B})\alpha,\beta)=(\mathcal{B}'\alpha,\beta)-(\mathcal{B}'\alpha,\beta)=0$，取$\beta=(\mathcal{B}'-\mathcal{B})\alpha$知$\mathcal{B}'\alpha=\mathcal{B}\alpha$，因此两变换相等。
+
+\item
+(1) 由定理10.15知结论。
+
+(2) 即为10.2节定理10.4。
+
+\item
+由定义$(x+(\alpha,x)\beta,y)=(x,\mathcal{A}^*y)$，化简得$(x,(\beta,y)\alpha+y-\mathcal{A}^*y)=0$，取$x=(\beta,y)\alpha+y-\mathcal{A}^*y$知$\mathcal{A}^*y=(\beta,y)\alpha+y$。
+
+\item
+由定义$\tr(Q^TX^TP^TY)=\tr(X^T\mathcal{A}^*Y)$。由2.1节定理2.2-6知$\tr(Q^TX^TP^TY)=\tr(X^TP^TYQ^T)$，由此$\mathcal{A}^*Y=P^TYQ^T$。
+
+\item
+由定义$\int_{-1}^1xf(-x)g(x)\mathrm{d}x=\int_{-1}^1f(x)\mathcal{A}^*g(x)\mathrm{d}x$。由于$\int_{-1}^1xf(-x)g(x)\mathrm{d}x=\int_{-1}^1f(x)(-x)g(-x)\mathrm{d}x$，$\mathcal{A}^*:g(x)\to-xg(-x)$。
+
+\item
+$1,x,x^2$下度量矩阵$\begin{pmatrix}2&0&\frac{2}{3}\\[2ex]0&\frac{2}{3}&0\\[2ex]\frac{2}{3}&0&\frac{2}{5}\end{pmatrix}$，类似例10.19知$\mathcal{D}^*$矩阵表示$\begin{pmatrix}0&-\frac{5}{2}&0\\3&0&1\\0&\frac{15}{2}&0\end{pmatrix}$。
+
+\item
+$\mathcal{A}\mathcal{B}$是自伴变换$\Leftrightarrow(x,\mathcal{B}(\mathcal{A}y))=(\mathcal{A}\mathcal{B}x,y)=(x,\mathcal{A}\mathcal{B}y)\Leftrightarrow\forall y,\mathcal{A}\mathcal{B}y=\mathcal{B}(\mathcal{A}y)\Leftrightarrow\mathcal{A}\mathcal{B}=\mathcal{B}\mathcal{A}$。
+
+\item
+(1) $(x,(\mathcal{A}^{-1})^*\mathcal{A}^*y)=(\mathcal{A}^{-1}x,\mathcal{A}^*y)=(\mathcal{A}\mathcal{A}^{-1}x,y)=(x,y)$，因此$(\mathcal{A}^{-1})^*\mathcal{A}^*=\mathcal{I}$，同理$\mathcal{A}^*(\mathcal{A}^{-1})^*=\mathcal{I}$，由此得证。
+
+(2) $(x,(\mathcal{A}^*)^{-1}y)=(\mathcal{A}\mathcal{A}^{-1}x,(\mathcal{A}^*)^{-1}y)=(\mathcal{A}^{-1}x,y)$，由此得证。
+
+(3) $\mathcal{A}^*x=\mathbf{0}\Leftrightarrow||\mathcal{A}^*x||^2=0\Leftrightarrow||\mathcal{A}x||^2=0$，由$\mathcal{A}$可逆知$\Ker\mathcal{A}^*=\{\mathbf{0}\}$，由此得证。
+
+(4) 利用10.3节习题2(2)解答中定义的内积。设$\mathcal{A}f(x)=f(x)+\frac{f(x)-f(0)}{x}$，可验证$\mathcal{A}^*f(x)=(1+x)f(x)$。考虑基可知$\mathcal{A}$可逆，但$\mathcal{A}^*$不可逆。
+
+
+\item
+(1) 仅当：$\mathcal{A}$斜自伴$\Rightarrow(\alpha,\mathcal{A}\alpha)=(-\mathcal{A}\alpha,\alpha)\Rightarrow(\alpha,\mathcal{A}\alpha)=0$。
+
+当：$(\alpha,\mathcal{A}\alpha)=0\Rightarrow(x,\mathcal{A}y)+(\mathcal{A}x,y)=(x,\mathcal{A}y)+(\mathcal{A}x,y)+(x,\mathcal{A}x)+(y,\mathcal{A}y)=(x+y,\mathcal{A}(x+y))=0$。
+
+(2) 先说明$\mathcal{I}\pm\mathcal{A}$可逆：$(\mathcal{I}+\mathcal{A})x=\mathbf{0}\Leftrightarrow x=-\mathcal{A}x\Leftrightarrow(x,-\mathcal{A}x)=-||x||^2=0\Leftrightarrow x=\mathbf{0}$，因此其是单射，由有限维知可逆，对$\mathcal{I}-\mathcal{A}$同理。
+
+计算知$(\mathcal{I}+\mathcal{A})^*=\mathcal{I}-\mathcal{A}$，利用习题8知$((\mathcal{I}+\mathcal{A})^{-1})^*=(\mathcal{I}-\mathcal{A})^{-1}$，再由定理10.16知$((\mathcal{I}+\mathcal{A})^{-1}(\mathcal{I}-\mathcal{A}))^*=(\mathcal{I}+\mathcal{A})(\mathcal{I}-\mathcal{A})^{-1}$，由于$\mathcal{A}$的有理函数互相可交换，其即为逆，由此为正交变换。
+
+(3) 未必。考虑习题5中的$\mathcal{A}$，由习题5知其为斜自伴变换，而$\mathcal{I}\pm\mathcal{A}$的像集均没有1，因此其不为满射，不可逆。
+
+\item
+(1) 计算知$||d_\mathcal{A}(\mathcal{A}^*)x||^2=(d_\mathcal{A}(\mathcal{A}^*)x,d_\mathcal{A}(\mathcal{A}^*)x)=(d_\mathcal{A}(\mathcal{A})d_\mathcal{A}(\mathcal{A}^*)x,x)=0$，若有次数更小的$g$为$\mathcal{A}^*$的化零多项式，类似可得$g(\mathcal{A})=\mathcal{O}$，矛盾，由此得证。
+
+(2) 类似10.3节习题5将$\mathcal{A}$扩充为复线性空间上的线性变换，从而完全分解$d_\mathcal{A}$。对某个特征值$\lambda$，先说明$\Ker(\lambda\mathcal{I}-\mathcal{A})=\Ker(\lambda\mathcal{I}-\mathcal{A}^*)$。记$\mathcal{B}=\lambda\mathcal{I}-\mathcal{A}$，由定理10.16知$\mathcal{B}^*=\lambda\mathcal{I}-\mathcal{A}^*$，由于$\mathcal{A}$规范，$\mathcal{B}$为$\mathcal{A}$多项式，$||\mathcal{B}x||^2=0\Leftrightarrow(\mathcal{B}x,\mathcal{B}x)=0\Leftrightarrow(\mathcal{B}^*\mathcal{B}x,x)=0\Leftrightarrow(\mathcal{B}\mathcal{B}^*x,x)=0\Leftrightarrow(\mathcal{B}^*x,\mathcal{B}^*x)=0\Leftrightarrow||\mathcal{B}^*x||^2=0$，因此$\Ker\mathcal{B}=\Ker\mathcal{B}^*$，从而得证。
+
+设$x\in\Ker(\lambda\mathcal{I}-\mathcal{A}),y=(\lambda\mathcal{I}-\mathcal{A})z$，则$(x,y)=(x,(\lambda\mathcal{I}-\mathcal{A})z)=(x,\lambda z)-(x,\mathcal{A}z)=(\lambda x,z)-(\mathcal{A}^*x,z)$，由上一部分证明知其为0，由此可知$\Ker(\lambda\mathcal{I}-\mathcal{A})\bot\im(\lambda\mathcal{I}-\mathcal{A})$。类似10.3节习题5(5)知$d_\mathcal{A}$没有相同特征根。
+
+(3) 右推左：直接计算验证即可。
+
+左推右：类似6.2节习题8，利用9.6节定理9.15拆分为各个根子空间，由(2)证明过程知$\lambda\mathcal{I}-\mathcal{A}$与$\lambda\mathcal{I}-\mathcal{A}^*$对应根子空间相同，再对每个根子空间的最小多项式使用中国剩余定理即可。
+\end{enumerate}
+
+\subsection{复内积空间}
+\begin{enumerate}
+\item
+所有结论仍均正确，计算验证即可(余弦定理可定义夹角为$\frac{\re(a,b)}{||a||\cdot||b||}$)。
+
+\item
+类似实内积空间中对应定理验证即可。
+
+\item
+$\gamma_1=\frac{\sqrt2}{2}(\mathrm{i},1,0),\gamma_2=\frac{\sqrt6}{6}(1,\mathrm{i},2),\gamma_3=\frac{\sqrt6}{6}(1-\mathrm{i},1+\mathrm{i},\mathrm{i}-1)$
+
+
+\item
+由于实际计算过程与实内积空间时并无区别，因此结果与10.2节例10.10相同。
+
+\item
+(1) $(\mathcal{A}x,y)=\overline{(\alpha,x)}(\beta,y)=(x,\alpha)(\beta,y)=(x,(\beta,y)\alpha)$，由此$\mathcal{A}^*y=(\beta,y)\alpha$。
+
+(2) $\tr(Q^HX^HP^HY)=\tr(X^H\mathcal{A}^*Y)$。由2.1节定理2.2-6知$\tr(Q^HX^HP^HY)=\tr(X^HP^HYQ^H)$，由此$\mathcal{A}^*Y=P^HYQ^H$。
+
+(3) $1,x,x^2$下度量矩阵$\begin{pmatrix}2&0&\frac{2}{3}\\[2ex]0&\frac{2}{3}&0\\[2ex]\frac{2}{3}&0&\frac{2}{5}\end{pmatrix}$，类似10.4节例10.19知$\mathcal{A}^*$矩阵表示$\begin{pmatrix}\frac{7}{2}&0&\frac{3}{2}\\0&-\mathrm{i}&0\\-\frac{15}{2}&0&\frac{7}{2}\end{pmatrix}$。
+
+\item
+*题目有误，应为$\tr(X^HSY)$
+
+(1) 与6.1节习题4类似知结论等价于S正定(Hermite阵意义下)。
+
+(2) 设一组基为$E_{11},\dots,E_{1n},\dots,E_{m1},\dots,E_{mn}$，则$\mathcal{A}$的矩阵表示为$P^T\otimes Q$，而度量矩阵为$S\otimes I_n$，由2.2节习题7,8与2.4节习题9，类似10.4节例10.19知$\mathcal{A}^*$的矩阵表示为$S^{-1}PS\otimes Q^T$，由此：
+
+酉变换$\Leftrightarrow\mathcal{A}^*=\mathcal{A}^{-1}\Leftrightarrow P^TS^{-1}PS\otimes QQ^T=I$，分析知其等价于$P^TS^{-1}PS=aI,QQ^T=bI,ab=1$。
+
+自伴变换$\Leftrightarrow\mathcal{A}^*=\mathcal{A}$，分析知须$P^T=aS^{-1}PS,Q=bQ^T,ab=1$，分析对应元素知只能$P^T=S^{-1}PS,Q=Q^T$或$P^T=-S^{-1}PS,Q=-Q^T$。
+
+斜自伴变换$\Leftrightarrow\mathcal{A}^*=-\mathcal{A}$，分析知须$P^T=aS^{-1}PS,Q=bQ^T,ab=-1$，分析对应元素知只能$P^T=-S^{-1}PS,Q=Q^T$或$P^T=S^{-1}PS,Q=-Q^T$。
+
+规范变换$\Leftrightarrow\mathcal{A}\mathcal{A}^*=\mathcal{A}^*\mathcal{A}$，分析知须$P^T$与$S^{-1}PS$可交换，$Q$与$Q^T$可交换。
+\end{enumerate}
+
+\subsection{内积的推广}
+\begin{enumerate}
+\item
+记$f(x,y)=\frac{\rho(x,y)+\rho(y,x)}{2},g(x,y)=\frac{\rho(x,y)-\rho(y,x)}{2}$，可验证符合要求。由$f(x,y)+g(x,y)=\rho(x,y),f(x,y)-g(x,y)=\rho(y,x)$可解出唯一解，因此唯一。
+
+\item
+(1) $\rho(x,y)+\rho(y,x)=\rho(x,y)+\rho(y,x)+\rho(x,x)+\rho(y,y)=\rho(x+y,x+y)=0$，由此得证。
+
+(2) $\mathbb{F}_2$上定义$\rho(x,y)=xy$，可验证其符合要求(当$\Char\mathbb{F}\ne2$时，由于$\rho(\alpha,\alpha)=-\rho(\alpha,\alpha)$可知反对称)。
+
+\item
+利用双线性性类似10.1节定理10.1-2验证即可。
+
+\item
+1推2：直接展开计算即可。
+
+2推1：当$\rho(x,y)$恒为0时满足，否则，取$x,y$使$\rho(x,y)\ne0$，变形有$\rho(\alpha,\beta)=\frac{\rho(\alpha,y)\rho(x,\beta)}{\rho(x,y)}$，取$f(\alpha)=\frac{\rho(\alpha,y)}{\rho(x,y)},g(\beta)=\rho(x,\beta)$，可验证其线性，由此知成立。
+
+\item
+(1) 记$n$维时的结果为$a_n$，归纳。当$n=1,2$时验证知成立。若$n=k$时成立，当$n=k+2$时：
+
+由于$\alpha_i^T\alpha_i=0$，每个$\alpha_i$必然有偶数个分量为1，又由于同时翻转(即0变为1，1变为0)所有向量的偶数个位置不会影响结果，不妨设$\alpha_1=(1,1,0,\dots,0)$。由于此$\alpha_1$的存在，所有$\alpha_i$的前两位只能全为0或全为1，否则其与$\alpha_1$内积为1。前两位全为0的不同向量相当于$k$维情形，至多有$a_k$个，同理前两位全为1的也至多有$a_k$个，因此$a_{k+2}\le2a_k$，由此得证。
+
+(2) 记$\beta_i=(\alpha_i,1)$，则$\beta_i\in\mathbb{F}^{n+1},\beta_i^T\beta_j=0$，利用(1)可知结论。
+
+\item
+设变换$\mathcal{A}$矩阵表示为$A$，类似10.4节例10.19知$\mathcal{A}^*$矩阵表示为$G^{-1}A^TG$，由此：
+
+辛变换$\Leftrightarrow G^{-1}A^TG=A^{-1}$，即$A^TGA=G$(由$G$可逆，此蕴含$A$可逆)。可验证辛变换在复合、取逆下仍然是辛变换，由此辛变换形成群。由于$A^{-1}$与$A^T$相似，进而与$A$相似，辛变换的特征值的倒数仍为特征值(4.2节例4.12有辛矩阵的一些性质)。
+
+自伴变换$\Leftrightarrow G^{-1}A^TG=A$。将$A$分块为$\begin{pmatrix}A_1&A_2\\A_3&A_4\end{pmatrix}$计算可知$A_4=A_1^T$，且$A_2,A_3$均为反对称阵。
+
+斜自伴变换$\Leftrightarrow G^{-1}A^TG=-A$，分块计算可知$A_4=-A_1^T$，且$A_2,A_3$均为对称阵。
+
+规范变换$\Leftrightarrow G^{-1}A^TGA=AG^{-1}A^TG$。
+\end{enumerate}
+
+\end{document}
