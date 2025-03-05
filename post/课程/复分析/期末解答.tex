@@ -1,0 +1,193 @@
+\documentclass[a4paper,UTF8,fontset=windows,10pt]{ctexart}
+\title{\heiti 复分析\ 期末考试}
+\author{郑滕飞2401110060}
+\date{}
+
+\usepackage{amsmath,amssymb,enumerate,geometry,mathrsfs}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\setlength{\parindent}{0pt}
+
+\newcommand*{\er}{\mathrm{e}}
+\newcommand*{\ir}{\mathrm{i}}
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\newcommand*{\im}{\mathrm{Im}\,}
+\newcommand*{\re}{\mathrm{Re}\,}
+
+\begin{document}
+\maketitle
+\begin{enumerate}
+    \item 
+    \begin{enumerate}
+        \item 
+        这里黑白色曲边三角形与边$L_1$、$L_2$、$L_3$的定义如教材1.5节的图1.4。
+        
+        对$a\in\mathbb{C}\backslash\{0,1\}$，若其在上半平面中，考虑上半平面作为其邻域，原像为一系列白色开曲边三角形，两两不交且每个上为共形映射，得证；若其在下半平面中，同理考虑黑色开曲边三角形。
+    
+        若其在实轴上，在$a\in(0,1)$时，取一个小圆$U=B_\varepsilon(a)$作为邻域使得$0,1\notin U$，考虑每个白色的开曲边三角形与其对应的$L_1$连接的黑色开曲边三角形，将两者与它们连接处的边(不包含顶点)的并记为$W_i$。由于每个白色曲边三角形与每个黑色曲边三角形都只会有一条边编号为$L_1$，所有$W_i$两两不交。此外，计算知$\mu$为$W_i\to\mathbb{C}\backslash(-\infty,0]\cap[1,\infty)$的共形映射，于是每个$W_i$的像集都包含$U$，再记$W_i$上$U$的原像为$V_i$，即满足1.5节对覆盖映射的定义。同理，在$a\in(-\infty,0)$与$a\in(1,\infty)$时，考虑$L_3$与$L_2$即得成立。
+
+        综合以上讨论即得到$\mu$是一个覆盖映射。
+
+        \item
+        记$\Delta$为开单位圆盘，我们分八部分证明：
+        \begin{enumerate}
+            \item 穿孔盘$\Delta\backslash\{0\}$的Poincar\'e度量为
+            $$\dr s=\frac{|\dr z|}{|z|\ln|z|^{-1}}$$
+            
+            \
+
+            考虑映射$z\to\er^{\ir z}$，其为上半平面到$\Delta\backslash\{0\}$的覆盖映射，而由于上半平面的Poincar\'e度量为
+            $$\frac{|\dr w|}{\im w}$$
+            将其逆映射$w=-\ir\ln z$代入可得到$\Delta\backslash\{0\}$上的度量即为上式表达。
+
+            \item 若区域$D\subset G$均存在Poincar\'e度量，且分别满足
+            $$\dr s_D=\sigma_D(z)|\dr z|,\quad\dr s_G=\sigma_G(z)|\dr z|$$
+            则$\sigma_G(z)\le\sigma_D(z)$对任何$z\in D$成立。
+            
+            \
+
+            利用广义Schwarz引理，对上述$D$、$G$，对任何$D$到$G$的全纯映射$f$有
+            $$\forall z\in D,\quad\sigma_2(f(z))|f'(z)|\le\sigma_1(z)$$
+            取映射$f(z)=z$即得到结论。
+
+            \item 诱导度量满足
+            $$\forall z\in\Delta\backslash\{0\},\quad\rho_{0,1}(z)\le\frac{1}{|z|\ln|z|^{-1}}$$
+            
+            \
+
+            由于$\Delta\backslash\{0\}\subset\mathbb{C}\backslash\{0,1\}$，由前两部分证明综合得到结论。
+
+
+            \item 设
+            $$\zeta(z)=\frac{\sqrt{1-z}-1}{\sqrt{1-z}+1}$$
+            其中根号取实部大于0的分支，则其构成$\mathbb{C}\backslash[1,+\infty)$到$\Delta$的共形映射，保持原点不动且关于实轴对称。
+            
+            \
+
+            保持原点不动直接验证即可，而根据根号取的分支，可发现$\sqrt{\bar{z}}=\overline{\sqrt{z}}$，从而进一步由共轭与四则运算可交换得到
+            $$\zeta(\bar{z})=\overline{\zeta(z)}$$
+            这就代表其关于实轴对称。
+
+            由于$1-z\in\mathbb{C}\backslash(-\infty,0]$，考虑取的分支可发现$\sqrt{1-z}$构成$\mathbb{C}\backslash[1,+\infty)$到右半平面的共形映射。利用分式线性变换的保圆性，取$-\ir$、0、$\ir$可发现$\frac{z-1}{z+1}$构成右半平面到$\Delta$的共形映射，复合两者得结果。
+
+            \item 沿用第四部分记号，记
+            $$\sigma=|\zeta'/\zeta|(4-\ln|\zeta|)^{-1}$$
+            并记区域
+            $$\Omega=\{z\in\Delta\mid|z|<|z-1|\}$$
+            则其右边界处$\sigma(z)$沿外法向的导数小于0。
+
+            \
+
+            直接代入可发现
+            $$\bigg|\frac{\zeta'}{\zeta}\bigg|=\frac{1}{|z||\sqrt{1-z}|},\quad\sigma(z)=\frac{1}{|z||\sqrt{1-z}|}\bigg(4-\ln\bigg|\frac{\sqrt{1-z}-1}{\sqrt{1-z}+1}\bigg|\bigg)^{-1}$$
+            而区域$\Omega$可以写为
+            $$\{z\in\Delta\mid\re z<1/2\}$$
+            其右边界即$\re z=1/2$的边界上，外法向导数即为对$x$导数，直接计算得其为
+            $$\frac{\partial\ln\sigma}{\partial x}=-\frac{1}{4|z|^2}+\frac{\re\sqrt{z}}{|z|^2}(4-\ln|\zeta|)^{-1}$$
+            由$|\zeta|<1$与$\re\sqrt{z}<1$可知为负。
+
+            \item 沿用第五部分的记号，诱导度量满足
+            $$\rho_{0,1}(z)\ge\sigma(z),\quad\forall z\in\Omega$$
+
+            \
+
+            利用第一部分的结论，再作映射$z\to rz$可得穿孔盘$\{z\mid0<|z|<r\}$的Poincar\'e度量为
+            $$\dr s=\sigma_r(z)|\dr z|,\quad\sigma_r(z)=\frac{1}{|z|\ln(r|z|^{-1})}$$
+            由此，计算发现
+            $$\sigma(z)=\sigma_{\er^4}(\zeta(z))|\zeta'(z)|$$
+            于是，$\sigma(z)|\dr z|=\sigma_{\er^4}(\zeta)|\dr\zeta|$事实上对应了一个Poincar\'e度量，其曲率为$-1$。
+            
+            定义$\Omega'=\{z\mid|z-1|<1,|z-1|<|z|\}$，其与$\Omega$在$\re z=\frac{1}{2}$处有公共边界，定义
+            $$\rho(z)=\begin{cases}\sigma(z)&z\in\Omega\\\sigma(1-\bar{z})&z\in\Omega'\\|z|^{-2}\rho(\bar{z}^{-1})&z\in\mathbb{C}\backslash\overline{\Omega\cup\Omega'}\end{cases}$$
+            利用$\sigma$在边界处的值可发现其在$\mathbb{C}\backslash\{0,1\}$内连续，在三个区域中都$C^2$，且对应的$\rho(z)|\dr z|$曲率为$-1$。利用第五部分结论，在$\Omega$右侧边界点附近$\sigma(z)$趋于减小，于是可验证取$\sigma(z)$即为$\rho(z)$在$\bar\Omega_1\cap\bar\Omega_2$附近的支撑度量。利用对称性，进行分式线性变换可发现另两边界处也存在支撑度量，于是$\rho$为超双曲度量，利用2.4节定理4可知$\Omega$中有
+            $$\rho_{0,1}(z)\ge\rho(z)=\sigma(z)$$
+
+            \item 存在$\eta>0$使得诱导度量满足
+            $$\forall z\in\Delta\backslash\{0\},\quad\rho_{0,1}(z)\ge\frac{1}{|z|(\eta^{-1}-\ln|z|)}$$
+
+            \
+
+            记$\eta=\min\{\rho_{0,1}(z)\mid|z|=1\}$，利用Poincar\'e度量的定义可知$\eta$为正数。取
+            $$\sigma^*(z)=\frac{1}{|z|(\eta^{-1}-\ln|z|)}=\frac{1}{|z|(\eta^{-1}+\ln|z|^{-1})}$$
+            由第六部分已证可知$\sigma^*(z)=\sigma_{\exp(1/\eta)}(z)$，进一步定义得$|z|=1$时
+            $$\frac{\rho_{0,1}(z)}{\sigma^*(z)}\ge1$$
+            另一方面，由第六部分证明，直接展开$\sigma(z)$并计算得到
+            $$\liminf_{z\to0}\frac{\rho_{0,1}(z)}{\sigma^*(z)}\ge1$$
+            于是利用2.4节定理4得
+            $$\forall z\in\Delta\backslash\{0\},\quad\rho_{0,1}(z)\ge\sigma^*(z)$$
+            这就是结论。
+
+            \item 最终结论
+            $$\lim_{z\to0}|z|\ln|z|^{-1}\rho_{0,1}(z)=1$$
+
+            \
+
+            综合第三部分、第七部分的结论，可得$z\in\Delta\backslash 0$时
+            $$\frac{1}{1+\eta^{-1}/(\ln|z|^{-1})}\le|z|\ln|z|^{-1}\rho_{0,1}(z)\le 1$$
+            由于$z\to0$时$\ln|z|^{-1}\to+\infty$，可知$\eta^{-1}/(\ln|z|^{-1})\to0$，于是左右极限均为1，由夹逼定理得证。
+        \end{enumerate}
+    \end{enumerate}
+
+    \item
+    定义所有满足$z\to z+m+n\ir$，其中$m,n\in\mathbb{Z}$的平移变换构成群$\Lambda$，并记两元素$z_1,z_2$等价当且仅当$\exists\gamma\in\Lambda$使得$z_1=\Lambda(z_2)$，将$\mathbb{C}$商去此等价关系的结果记为$\mathbb{C}/\Lambda$，将$z$的等价类记为$[z]$，并记$\pi:z\to[z]$为投影。
+
+    我们先说明其构成黎曼曲面。对任何$w\in\mathbb{C}$，考虑
+    $$V_w=\bigg\{z\in\mathbb{C}\mid|z-w|<\frac{1}{2}\bigg\}$$
+    可发现$\pi$限制在$V_w\to U_w=\pi(V_w)$上为一一映射。令$\varphi_w=\pi|_{V_w\to U_w}^{-1}$，则所有$(U_w,\varphi_w)$构成$\mathbb{C}/\Lambda$的一个局部坐标卡集合。利用定义，此局部坐标卡集合的任何参数转换函数是平移变换：若$U_{w_1}\cap U_{w_2}$非空，考虑其元素在$V_{w_1}$与$V_{w_2}$中的原像，参数转换函数应将两原像作了对应，而此恰好为平移。由于平移变换是共形映射，这些局部坐标卡是相容的。由此，它们对应的极大局部坐标卡集合可作为$\mathbb{C}/\Lambda$的复结构。
+
+    再说明其为环面：利用等价关系，其在拓扑上可看作$\mathbb{R}^2$中的单位正方形$[0,1]\times[0,1]$在定义$(x,0)$与$(x,1)$等价、$(0,y)$与$(1,y)$等价后的商空间，将其看成粘合即符合拓扑上环面$T$的定义。
+
+    接着，考虑其上的曲线$\alpha(t)=[t]$、$t\in[0,1]$，由复结构定义可知其光滑，且$\alpha(0)=\alpha(1)$。再定义曲线$\beta(t)=[t\ir]$、$t\in[0,1]$，同理其亦为光滑闭曲线。
+
+    考虑
+    $$\beta\times\alpha=\int_\beta\eta_\alpha$$
+    由于$\beta$是闭曲线，其即可作为一维闭链，而根据特征微分的含义，此积分代表$\beta$自左向右穿越$\alpha$的次数，于是由于穿越恰好发生一次可知$|\beta\times\alpha|=1$。而平凡上同调类在任何一维闭链的积分为0，因此$\eta_\alpha$对应的上同调类非平凡，$\alpha$即为所求的曲线。
+
+    \item
+    \begin{enumerate}
+        \item 对亏格$g$的紧黎曼曲面$M$上的除子$D$，定义(这里$\mathscr{K}(M)$表示$M$上的半纯函数)
+        $$L(D)=\{f\in\mathscr{K}(M)\mid(f)\ge D\}$$
+        $$\Omega(D)=\{\omega\mid\omega\text{为}M\text{上的半纯微分},(\omega)\ge D\}$$
+        并记
+        $$r_D=\dim_{\mathbb{C}}L(D),\quad i(D)=\dim_{\mathbb{C}}\Omega(D)$$
+        则
+        $$r(D^{-1})=\deg D-g+1+i(D)$$
+
+        \item 记所有全纯二次微分的集合为$\mathscr{H}^2(M)$，由定义可直接验证其为复线性空间。
+        
+        由$g>1$，利用6.3节定理1可知$M$上全纯微分空间$\mathscr{H}(M)$维数为$g$，于是存在非零元素$\omega_0$。
+        
+        记$(\omega_0)=D$，先证明$\mathscr{H}^2(S)$与$L(D^{-2})$同构。由于$\omega_0$任何局部表示为$\psi_0(z)\dr z$，其中$\psi_0(z)$为全纯函数，其平方$\omega_0^2$的任何局部表示$\psi_0^2(z)(\dr z)^2$符合全纯二次微分的定义，于是$\omega_0^2$为全纯二次微分。对任何全纯二次微分$\phi$，考虑局部表示可发现$\phi/\omega_0^2$为半纯函数，且由$\phi$全纯性可知其$\in L(D^{-2})$，从而可定义映射
+        $$A:\mathscr{H}^2(S)\to L(D^{-2}),\quad A(\phi)=\phi/\omega_0^2$$
+        由$\omega_0^2$非平凡可知其为单射，对任何$f\in L(D^{-2})$，考虑$f\omega_0^2$，考虑$D$中每点的零点阶数可发现$f\omega_0^2\in\mathscr{H}^2(M)$，于是其为满射。
+
+        又由$A$线性性，其为线性同构，于是利用Riemman-Roch定理有
+        $$\dim_{\mathbb{C}}\mathscr{H}^2(M)=r(D^{-2})=\deg D^2-g+1+i(D^2)$$
+        为计算此式，考虑典范除子$Z$，对任何除子$F$构造同构可证明$i(F)=r(F/Z)$，于是$i(Z)=r(1)=1$、$r(1/Z)=i(1)=g$。对典范除子利用Riemman-Roch定理得
+        $$\deg Z=g-1+r(Z^{-1})-i(Z)=2g-2$$
+        这也即说明，任何半纯微分零点个数与极点个数之差为$2g-2$，于是对全纯微分$\omega_0$计算可知
+        $$\deg D^2=2\deg D=4g-4$$
+        另一方面，由于$g>1$有$4g-4>2g-2$，于是考虑每个点零点与极点阶数可发现不存在非平凡半纯微分$\omega$使得$(\omega)\ge D$，即$i(D^2)=\{0\}$，综合以上即得
+        $$\dim_{\mathbb{C}}\mathscr{H}^2(M)=4g-4-g+1+0=3g-3$$
+    \end{enumerate}
+
+    \item
+    \begin{enumerate}
+        \item 对紧黎曼曲面$S_0$，设$\mathscr{M}$为其上一切可能复结构的集合。对其中的元素$\mu_1,\mu_2$，若$S_0$以它们定义的黎曼曲面$S_0^{(1)},S_0^{(2)}$之间存在共形映射，则称$\mu_1$与$\mu_2$等价。定义$\mathscr{M}$商去此等价关系后形成的等价类集合为模空间，即
+        $$\mathcal{M}(S_0)=\mathscr{M}/\sim$$
+
+        考虑$\mathscr{M}$上的另一个等价关系$\approx$，$\mu_1\approx\mu_2$当且仅当存在$S_0^{(1)},S_0^{(2)}$之间的共形映射$f$使得其作为$S_0\to S_0$的同胚，同伦于恒同映射。定义$\mathscr{M}$商去此等价关系后形成的等价类集合为Teichm\"uller空间，即
+        $$T(S_0)=\mathscr{M}/\approx$$
+
+        \item 也即要证明，任何模变换$\sigma^*$在Teichm\"uller度量下是等距的。我们设对应的$S_0\to S_0$的拟共形同胚为$\sigma$，即
+        $$\sigma^*([S,f])=[S,f\circ\sigma]$$
+        由定义可知
+        $$d_T(\sigma^*[S_1,f_1],\sigma^*[S_2,f_2])=d_T([S_1,f_1\circ\sigma],[S_2,f_2\circ\sigma])=\frac{1}{2}\inf\{\ln K[f]\mid f\sim(f_2\circ\sigma)\circ(f_1\circ\sigma)^{-1}\}$$
+        由于拟共形映射为保向同胚，其可逆，于是即得到
+        $$(f_2\circ\sigma)\circ(f_1\circ\sigma)^{-1}=f_2\circ\sigma\circ\sigma^{-1}\circ f_1^{-1}=f_2\circ f_1^{-1}$$
+        从而
+        $$d_T(\sigma^*[S_1,f_1],\sigma^*[S_2,f_2])=\frac{1}{2}\inf\{\ln K[f]\mid f\sim f_2\circ f_1^{-1}\}=d_T([S_1,f_1],[S_2,f_2])$$
+        于是得证。
+    \end{enumerate}
+\end{enumerate}
+\end{document}

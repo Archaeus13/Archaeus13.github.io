@@ -1,0 +1,910 @@
+\documentclass[a4paper,UTF8,fontset=windows,10pt]{ctexart}
+\title{\heiti 黎曼几何引论\ 习题解答}
+\author{原生生物}
+\date{}
+
+\usepackage{amsmath,amssymb,enumerate,geometry,mathrsfs}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\setlength{\parindent}{0pt}
+
+\newcommand*{\bc}{\mathbb{C}}
+\newcommand*{\er}{\mathrm{e}}
+\newcommand*{\br}{\mathbb{R}}
+\newcommand*{\rc}{\mathcal{R}}
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+
+\begin{document}
+\maketitle
+
+*对应教材陈维桓、李兴校《黎曼几何引论》上册。
+
+\tableofcontents
+
+\newpage
+
+\section{第一次作业}
+\begin{enumerate}
+    \item 1.6
+    \begin{enumerate}[(1)]
+        \item 将$\bc P^n$中$z^k$不为0的元素集合记作$U_k$，构造映射
+        $$\varphi_k:U_k\to\mathbb{C}^n,\quad\varphi_k([z])=\frac{1}{z^k}(z^1,\dots,z^{k-1},z^{k+1},\dots,z^{n+1})$$
+        根据等价类定义可知$\varphi_k$良定。考虑$\bc^n$看作$\br^{2n}$的拓扑，将所有$\varphi_k^{-1}(U),k=1,\dots,{n+1}$\ (其中$U\subset\bc^n$为开集)作为拓扑基可生成$\bc P^n$的拓扑，由定义可知其保证了$\varphi_k$为同胚。此外，由于$U_s\cap U_t$即$z^s,z^t$都不为0的$\bc P^n$中元素，可知(不妨设$s<t$)在$\{z\in\bc^n\mid z^s\ne0\}$上有
+        $$\varphi_s\varphi_t^{-1}(z^1,\dots,z^n)=\bigg(\frac{z^1}{z^s},\dots,\frac{z^{s-1}}{z^s},\frac{z^{s+1}}{z^s},\dots,\frac{z^{t-1}}{z_s},\frac{1}{z^s},\frac{z^t}{z^s},\dots\frac{z^n}{z^s}\bigg)$$
+        由于$z^s\ne 0$可知光滑，且由定义可知所有$U_k$覆盖$\bc P^n$，由此即得到微分结构。
+    
+        而$z^k\ne0$时
+        $$\varphi_k\pi(z^1,\dots,z^{n+1})=\bigg(\frac{z^1}{z^k},\dots,\frac{z^{k-1}}{z^k},\frac{z^{k+1}}{z^k},\dots,\frac{z^n}{z^k}\bigg)$$
+        其在每个坐标卡光滑，于是光滑。
+    
+        \item 由于每个$\bc P^n$中的$[z]=[z/\|z\|]$，可知其为满射。而不妨假设$z^{n+1}>0$，考虑坐标卡$U_1$上有
+        $$\varphi_{n+1}\tilde\pi(z^1,\dots,z^{n+1})=\bigg(\frac{z^1}{z^{n+1}},\dots,\frac{z^n}{z^{n+1}}\bigg)$$
+        而球面上$z^{n+1}>0$亦为坐标卡，对应映射
+        $$\psi_{n+1}(z^1,\dots,z^{n+1})=(z^1,\dots,z^n)$$
+        于是记$c=\sqrt{1-\|z^1\|^2-\dots-\|z^n\|^2}$即有
+        $$\varphi_{n+1}\tilde\pi\psi_{n+1}^{-1}=\bigg(\frac{z^1}{c},\dots,\frac{z^n}{c}\bigg)$$
+        将$x^1,y^1,\dots,x^n,y^n$记作$\mathbf{t}=(t^1,\dots,t^{2n})$，则求导即得Jacobi阵为
+        $$\frac{\partial t^i/c}{\partial t^j}=\frac{\delta_{ij}}{c}+\frac{t_it_j}{c^3}$$
+        计算行列式为
+        $$c^{-2n}\det(I+\mathbf{t}\mathbf{t}^T/c^2)=c^{-2n}(1+\mathbf{t}^T\mathbf{t}/c^2)=c^{-2n}(1+(1-c^2)/c^2)=c^{-2n+2}>0$$
+        对其他坐标卡同理，由此可知$\tilde\pi$局部为同胚，于是其为浸没。
+    
+        由定义可知
+        $$\tilde\pi^{-1}([z])=\{z_0\in S^{2n+1}\mid \exists w\ne 0,z_0=wz\}$$
+        由于要求了$\|z\|=1$，根据模长一致即得$w$只能为$\mathrm{e}^{\mathrm{i}\theta}$，得证。
+    
+    \end{enumerate}
+    
+    \item 1.7
+    
+    直接计算验证可知$\sigma^2$为恒等映射，且$\|\sigma(x)\|=\|x\|$，由此其为$\mathbb{R}^3$与$S^2$上的双射。
+    
+    由于$\sigma$与$\sigma^{-1}=\sigma$在$\mathbb{R}^3$上光滑，其为$\mathbb{R}^3$间的光滑同胚，而$S^2$到$\mathbb{R}^3$的自然嵌入为光滑映射，于是其在$S^2$上的限制为$S^2$间的同胚。
+    
+    \item 1.13
+    
+    将等价类$[(z^1,z^2)]$记作$[z^1,z^2]$。
+    
+    考虑球极投影：
+    $$f:\mathbb{R}^2\to S^2,\quad f(x,y)=\frac{1}{x^2+y^2+1}(2x,2y,x^2+y^2-1)$$
+    由此定义映射
+    $$\varphi:\bc P^1\to S^2,\quad \varphi([x+\mathrm{i}y,1])=f(x,y),\quad\varphi([1,0])=(0,0,1)$$
+    
+    根据定义可知$\bc P^1$中的元素一定能被$[x+\mathrm{i}y,1]$或$[1,0]$唯一表示，又由球极投影的性质即知其为双射，而由于$[z_1,z_2]$当$z_2\ne0$时，写成$[x+\mathrm{i}y,1]$后自然投影到$(x,y)$，仍根据球极投影性质可知其在$\bc P^1\backslash\{[1,0]\}\to S^2\backslash\{(0,0,1)\}$上为微分同胚。
+    
+    在$[1,0]$处，考虑$\bc P^1$上的坐标卡$z_1\ne 0$，计算可知其上的映射为
+    $$\varphi([1,x+\mathrm{i}y])=\frac{1}{x^2+y^2+1}(2x,-2y,1-x^2-y^2)$$
+    与球极投影完全相同可验证微分同胚，由此将两局部拼合可得整体微分同胚，得证。
+    
+    \item 1.15
+    
+    若$\mathcal{A}=\mathcal{A}'$，则由于光滑函数定义只依赖$M$与$\mathcal{A}$，可知光滑函数集合相同。
+    
+    反之，若$\mathcal{A}\ne\mathcal{A}'$，可不妨设存在$(U_\alpha,\varphi_\alpha)\in\mathcal{A}$但$\notin\mathcal{A}'$。若$\varphi_\alpha$的每个分量在每点附近都是$\mathcal{A}'$中$U_\alpha$上的光滑函数，根据定义知其$\in\mathcal{A}'$，矛盾，否则根据定理3.3即找到了$\mathcal{A}$中光滑但$\mathcal{A}'$中不光滑的函数。
+    
+    \item 1.23
+    
+    由于只需证明开集$A$的内点$x$满足$f(x)$是$f(A)$的内点，考虑包含$x$的某坐标卡$U$内，只需证明$f(x)$是$f(A\cap U)$的内点，再在$N$中选取坐标卡，利用定义可知可不妨设$M=\mathbb{R}^m,\quad N=\mathbb{R}^n$，利用局部淹没定义得$m\ge n$。
+    
+    进一步利用欧氏空间的秩定理，即可知存在$x$的邻域$U$与$f(x)$的邻域$V$使得其上可找到局部坐标使得$f(x^1,\dots,x^n)=(x^1,\dots,x^m)$，由此利用投影映射为开与局部坐标系的同胚可知构成开映射。
+    
+    \item 1.24
+    
+    利用映射连续可知紧集的像为紧集，从而$f(M)$是有界闭集，记$y$为$f(M)$中模长最大的点(利用紧性可知存在)，则其在$f(M)$边界上。考虑其某原像$x$，若$f(x)$秩为$m$，则由反函数定理必然有$x$某邻域到$y$某邻域为同胚，但$y$某邻域不全在$f(M)$中，矛盾。
+    
+    \item 1.28
+    
+    *条件应为$q\in f(M)$而非$q\in N$。
+    
+    记$f$的秩为$r$。考虑$F^{-1}(q)$中任何一点$p$，利用秩定理可知存在$p$在$M$中局部坐标系$(U,\varphi;x^i)$与$q$在$N$中局部坐标系$(V,\psi;y^\alpha)$，使得
+    $$f(U)\subset V,\quad x(p)=0,\quad y(q)=0,\quad\psi\circ f\circ\varphi^{-1}(x^1,\dots,x^m)=(x^1,\dots,x^r,0,\dots,0)$$
+    
+    于是
+    $$F^{-1}(q)\cap U=\varphi^{-1}(\{(0,\dots,0,x^{r+1},\dots,x^m)\})$$
+    利用同胚即可知$F^{-1}(q)$任何一点局部与$\mathbb{R}^{m-r}$微分同胚。利用$M$为Hausdorff空间，由子拓扑定义可知其子空间是Hausdorff的，于是$F^{-1}(q)$是$m-r$维拓扑流形。
+    
+    将上述的$F^{-1}(q)\cap U$记为$U_p$，对应的$\varphi$记为$\varphi_p$，限制在$F^{-1}(q)\cap U\to\mathbb{R}^{m-r}$上称$\varphi_{0p}$，利用欧氏空间投影映射的光滑性与光滑映射的限制仍光滑，可从交集上$\varphi_p\circ\varphi_{p'}^{-1}$光滑得到$\varphi_{0p}\circ\varphi_{0p'}^{-1}$光滑，从而得证其为$m-r$维光滑流形，原结论成立。
+    
+    \item 1.44
+    \begin{enumerate}[(1)]
+        \item 由乘法运算光滑性可知$L_a$光滑，而$L_a^{-1}=L_{a^{-1}}$，由此其与其逆均光滑，得证，对$R_b$同理；利用乘法结合律可知$L_a$与$R_b$可交换。
+        
+        \item 由$\mathfrak{X}$为李代数只需验证封闭性。由$(L_a)_*$线性性可知对线性运算封闭，由此只需验证
+        $$(L_a)_*[X,Y]=[X,Y]$$
+        利用左不变性可知
+        $$(L_a)_*X_p=X_{a\cdot p},\quad(L_a)_*Y_p=Y_{a\cdot p}$$
+        于是(最右侧$f\circ L_a$表示其从$p$附近延拓到$M$上成为的光滑函数)
+        $$((L_a)_*(X\circ Y)_p)(f)=(X\circ Y)_p(f\circ L_a)=X(Y(f\circ L_a))(p)$$
+        由$X$左不变进一步化简为
+        $$X((Y(f\circ L_a)\circ L_{a^{-1}})\circ L_a)(p)=X(Y(f\circ L_a)\circ L_{a^{-1}})(a\cdot p)$$
+        而由于$Y$左不变，有
+        $$Y(f\circ L_a)\circ L_{a^{-1}}(q)=Y(f\circ L_a)(a^{-1}q)=Y(f)(q)$$
+        于是上式化为
+        $$X(Y(f))(a\cdot p)=(X\circ Y)_{a\cdot p}(f)$$
+        对$Y\circ X$同理，从而得证相等。
+    
+        *做完这题才看到习题1.41定义了光滑同胚诱导光滑切向量场之间的映射，上述过程本质是证明了诱导方式即为逐点对应。
+    
+        \item 注意到上述定义导致了$X_a=(L_a)_*X_e$，事实上$X$被$X_e$完全确定，另一方面，任给$X_e$，则由于$L_a$光滑性可知构造出的$X$成为光滑切向量场。
+        
+        于是，构造上述映射$\varphi:\mathfrak{X}(G)\to T_eG$，$\varphi(X)=X_e$，由上方推理可知为双射，定义
+        $$[X_e,Y_e]=[\varphi(X_e),\varphi(Y_e)]_e$$
+        即可验证两李代数同构，从而维数也相同。
+    
+        \item 由于矩阵乘法与求逆可写为初等函数复合，且$\det$非零保证了不会涉及分母0的情况，可以验证其在$GL(n,\mathbb{R})$中均为光滑函数，由此在各子流形中光滑，验证各子群封闭性知均为李群。为寻找李代数，只需考虑单位元处的切空间(下方的讨论将切向量考虑为$\mathbb{R}^n$中的向量)。
+        
+        对$GL(n,\mathbb{R})$，单位元$I$处任何微小扰动对应的行列式改变是微小的，仍可逆，于是切空间$n^2$维，对应单位元处任何矩阵。
+    
+        对$SL(n,\mathbb{R})$，考虑$\det(I+\varepsilon A)$，可发现其为$1+\varepsilon\mathrm{tr}A+o(\varepsilon)$，由此切空间应为一切$\mathrm{tr}A=O$的$A$，维数为$n^2-n$。
+    
+        对$O(n)$，由于
+        $$(I+\varepsilon A)(I+\varepsilon A^T)=I+\varepsilon(A+A^T)+o(\varepsilon)$$
+        切空间应为一切$A+A^T=O$的$A$，维数为$\frac{n(n-1)}{2}$。
+    
+        对$SO(n)$，由于$A+A^T=O$保证了$\mathrm{tr} A=O$，单位元处切空间与维数与$O(n)$相同。
+    \end{enumerate}
+    
+    \item 1.45
+    \begin{enumerate}[(1)]
+        \item 这里$\dr/\dr t$代表$t$点切向量场的基，根据定义可知
+        $$(\sigma_X)_*\bigg(\frac{\dr}{\dr t}\bigg)(f)=\frac{\dr}{\dr t}(f\circ\sigma_X)$$
+        而这等于$X_{\sigma_X(t)}(f)=X_e(f\circ L_{\sigma_X(t)})$。
+    
+        考虑某坐标卡中，这事实上可以转化为一个常微分方程，而由于$X_e(f\circ L_{\sigma_X(t)})$的光滑性，根据常微分方程知识可得存在唯一解，不同坐标卡里的唯一解可拼合成整体唯一解。下验证其为群同态。
+    
+        利用左不变性，若$\sigma_X(s)=y$，则$t\to L_{y^{-1}}\circ\sigma_X(t)$亦为通过$e$的积分曲线。这是由于
+        $$\frac{\dr}{\dr t}(f\circ L_{y^{-1}}\circ\sigma_X)=X_e((f\circ L_{y^{-1}})\circ L_{\sigma_X(t)})=X_{y^{-1}\cdot\sigma_X(t)}(f)$$
+        利用唯一性可知
+        $$y^{-1}\cdot\sigma_X(t)=\sigma_X(t-s)$$
+        即得证群同态。
+    
+        \item 与上问相同得
+        $$\frac{\dr}{\dr t}(f\circ L_g\circ\sigma_X)=X_{g\cdot \sigma_X(t)}(f)$$
+        由此即得证$L_g\circ\sigma_X(t)$是过$g$的积分曲线。
+    
+        \item 直接证明下一问，即能计算验证其为同态。
+        
+        \item 也即要证
+        $$[X,Y]=\lim_{t\to 0}\frac{1}{t}\big((a_t)_*Y-Y\big)$$
+        由于$Y$是左不变的，由定义与$L$、$R$可交换可知
+        $$(a_t)_*(Y)=(R_{\sigma_X(-t)})_*(Y)$$
+        而由(2)可知
+        $$(R_{\sigma_X(-t)})_*(Y)(f)(g)=Y(f\circ R_{\sigma_X(-t)})\circ R_{\sigma_X(t)}(g)=Y(f\circ R_{\sigma_X(-t)})(\varphi_g(t))$$
+        于是$t\to0$时
+        $$\lim_{t\to 0}\frac{1}{t}\big((a_t)_*Y-Y\big)(f)(g)=\lim_{t\to 0}\frac{1}{t}\big(Y(f\circ R_{\sigma_X(-t)})\varphi_g(t)-Y(f)(g)\big)$$
+    
+        $$=\lim_{t\to 0}\frac{1}{t}\big(Y(f\circ R_{\sigma_X(-t)}-f)(\varphi_g(t))+Y(f)(\varphi_g(t))-Y(f)(g)\big)$$
+        根据$\varphi_g$的定义可知
+        $$\lim_{t\to0}\frac{Y(f)(\varphi_g(t))-Y(f)(g)}{t}=\frac{\dr}{\dr t}\bigg|_{t=0}(Y(f)\circ\varphi_g)=X_g(Yf)=XY(f)(g)$$
+    
+        而另一方面
+        $$\lim_{t\to0}\frac{1}{t}Y(f\circ R_{\sigma_X(-t)}-f)(\varphi_g(t))=\lim_{t\to0}\frac{1}{t}Y(f\circ R_{\sigma_X(-t)}-f)(g)=\lim_{t\to0}-Y_g\bigg(\frac{f\circ R_{\sigma_X(t)}-f}{t}\bigg)$$
+        而对任何$q\in M$，有
+        $$\lim_{t\to0}\frac{f(q\cdot\sigma_X(t))-f(q)}{t}=\frac{\dr}{\dr t}\bigg|_{t=0}f\circ L_q\circ\sigma_X(t)=X_q(f)=X(f)(q)$$
+        于是括号内极限为$X(f)$，最终得到极限为$-Y_g(X(f))=-YX(f)(g)$，由此计算结果为$[X,Y](f)(g)$，得证。
+    \end{enumerate}
+    
+    \item 1.62
+    
+    直接计算可知
+    $$\dr\omega=\bigg(\frac{1}{r^3}-3\frac{x^2}{r^5}+\frac{1}{r^3}-3\frac{y^2}{r^5}+\frac{1}{r^3}-3\frac{z^2}{r^5}\bigg)\dr x\wedge\dr y\wedge\dr z=0$$
+    从而$\omega$在$S^2(r_0)$上积分的值与$r_0$无关，由此可取$r_0=1$，并考虑
+    $$x=\sin\theta\cos\phi,\quad y=\sin\theta\sin\phi,\quad z=\cos\theta$$
+    的球坐标换元，计算得
+    $$\omega=\sin\theta\dr\phi\wedge\dr\theta$$
+    直接积分得结果。
+    
+    \item 2.6
+    
+    \begin{enumerate}[(1)]
+        \item 假设有另一种保定向的局部坐标$y^i$，并设$\dr x_i=\sum_jc_{ij}\dr y_j$，记$c_{ij}$构成矩阵为$C$，所有$\dr x^j$外积去掉$\dr x^i$的微分形式记为$\omega_x^i$，同理记$\omega_y^i$与$Y^i$。
+    
+        设
+        $$\frac{\partial}{\partial x^i}=\sum_jd_{ij}\frac{\partial}{\partial y^j}$$
+        记$d_{ij}$构成矩阵为$D$，利用定义可知
+        $$\bigg\langle\sum_kd_{ik}\frac{\partial}{\partial y^k},\sum_kc_{jk}\dr y^k\bigg\rangle=\delta_{ij}=\bigg\langle\frac{\partial}{\partial y^i},\dr y^j\bigg\rangle$$
+        由此可知
+        $$\sum_kd_{ik}c_{jk}=\delta_{ij}$$
+        于是
+        $$D=C^{-T}$$
+        另一方面利用双线性性有
+        $$g_{ij}=\sum_{k,l}d_{ik}d_{jl}g\bigg(\frac{\partial}{\partial y^k},\frac{\partial}{\partial y^l}\bigg)$$
+        记对应坐标$y^i$的$g_{ij}$为$h_{ij}$，其行列式为$H$，则有
+        $$(g_{ij})=D(h_{ij})D^T$$
+        于是$G=(\det D)^2H$，可知$\sqrt{H}=\sqrt{G}\det C$。
+        
+        由于要证的命题即
+        $$\sum_i(-1)^{i+1}\sqrt{H}Y^i\omega_y^i=\sum_i(-1)^{i+1}\sqrt{G}X^i\omega_x^i$$
+        利用上述计算化为
+        $$\sum_i(-1)^{i+1}Y^i\omega_y^i=\sum_i(-1)^{i+1}X^i\omega_x^i(\det C)^{-1}$$
+        只需对比每个$\omega_y^i$前的系数$t^i$。
+        考虑$\omega_x^j$分解出$\omega_y^i$的系数，可发现
+        $$t^i=\sum_j(-1)^{j+1}X^j\sum_{\{k_1,\dots,k_{m-1}\}}(-1)^{\tau(k_1,\dots,k_{m-1})}c_{1k_1}\dots c_{j-1,k_{j-1}}c_{j+1,k_j}\dots c_{mk_{m-1}}$$
+        这里求和表示对$\{k_1,\dots,k_{m-1}\}=\{1,\dots,m\}\backslash\{i\}$的所有可能求和。
+    
+        注意到
+        $$X^j=\sum_kc_{jk}Y^k$$
+        于是$t^i$在$Y^k$前的系数为
+        $$\sum_j(-1)^{j+1}c_{jk}\sum_{\{k_1,\dots,k_{m-1}\}}(-1)^{\tau(k_1,\dots,k_{m-1})}c_{1k_1}\dots c_{j-1,k_{j-1}}c_{j+1,k_j}\dots c_{mk_{m-1}}$$
+        进一步地，右侧的求和实质上是$C$的余子式$M_{ji}$，用代数余子式写出即得$t^i$在$Y^k$前的系数为
+        $$(-1)^{i+1}\sum_jc_{jk}A_{ji}$$
+    
+        当$k=i$时，这即为$\det C$按第$i$列展开的结果；而$k\ne i$时，它可以看作一个有两列相同的行列式按第$i$列展开的结果，必然为0，由此即得
+        $$t^i=(-1)^{i+1}Y^i\det C$$
+        从而得证。
+        
+        \item 由于体积元亦为整体定义的，只需在局部坐标$(U;x)$上考虑即可，即要证
+        $$i(X)\sqrt{G}(\dr x^1\wedge\cdots\wedge\dr x^m)=\sum_i(-1)^{i+1}\sqrt{G}X^i\omega_x^i$$
+        同除以常数$\sqrt{G}$即
+        $$i(X)(\dr x^1\wedge\cdots\wedge\dr x^m)=\sum_i(-1)^{i+1}\dr x^i(X)\omega_x^i$$
+        利用习题1.54，可知
+        $$i(X)(\dr x^1\wedge\cdots\wedge\dr x^m)=i(X)\dr x^1\wedge\omega_x^1-\dr x^1\wedge(i(X)\omega_x^1)$$
+        注意到$i(X)\dr x^1=\dr x^1(X)$，第一项即为$X^1\omega_x^1$，重复此过程，每次分出$\dr x^r$即得结论。
+    \end{enumerate}
+    
+    \item 2.14
+    \begin{enumerate}[(1)]
+        \item 考虑$p=(a,b)$点情况，计算得$p^{-1}=(-ab^{-1},b^{-1})$，而由左不变性定义有($v_1,v_2$为$p$点切向量)
+        $$g_p(v_1,v_2)=((L_{p^{-1}})^*g_e)(v_1,v_2)=g_e((L_{p^{-1}})_*v_1,(L_{p^{-1}})_*v_2)$$
+    
+        记$p_x=\frac{\partial}{\partial x}$，则有
+        $$(L_{p^{-1}})_*p_x(f)=p_x(f\circ L_{p^{-1}})=p_x\bigg(f\bigg(\frac{x}{b}-\frac{a}{b},\frac{y}{b}\bigg)\bigg)=\frac{1}{b}e_x(f(x,y))$$
+        $$(L_{p^{-1}})_*p_y(f)=p_y(f\circ L_{p^{-1}})=p_y\bigg(f\bigg(\frac{x}{b}-\frac{a}{b},\frac{y}{b}\bigg)\bigg)=\frac{1}{b}e_y(f(x,y))$$
+        于是由线性性即得
+        $$g_{ij}^{(p)}=\frac{1}{b^2}g_{ij}^{(e)}$$
+        即得证。
+        
+        \item 利用$ad-bc=1$计算可知此映射$\phi$为
+        $$(x,y)\to\frac{1}{(cx+d)^2+c^2y^2}((ax+b)(cx+d)+acy^2,y)$$
+        由此其为上半平面到上半平面的映射， 记为$\phi(x,y)=(\phi_1(x,y),\phi_2(x,y))$。
+    
+        沿用上一问的记号，设$p=(s,t)$，则
+        $$\phi_*p_x(f)=p_x(f(\phi_1(x,y),\phi_2(x,y)))=\phi_{1,x}\phi(p)_x(f)+\phi_{2,x}\phi(p)_y(f)$$
+        同理$\phi_*p_y(f)=\phi_{1,y}\phi(p)_x(f)+\phi_{2,y}\phi(p)_y(f)$。
+        
+        利用上问可知
+        $$g_p(\alpha_1p_x+\beta_1p_y,\alpha_2p_x+\beta_2p_y)=\frac{1}{t^2}(\alpha_1\alpha_2+\beta_1\beta_2)$$
+        而代入可知$g_{\phi(p)}(\phi_*(\alpha_1p_x+\beta_1p_y),\phi_*(\alpha_2p_x+\beta_2p_y))$为
+        $$\frac{1}{\phi_2^2}\big((\alpha_1\phi_{1,x}+\beta_1\phi_{1,y})(\alpha_2\phi_{1,x}+\beta_2\phi_{1,y})+(\alpha_1\phi_{2,x}+\beta_1\phi_{2,y})(\alpha_2\phi_{2,x}+\beta_2\phi_{2,y})\big)$$
+        也即最终要证
+        $$\frac{\phi_{1,x}^2+\phi_{2,x}^2}{\phi_2^2}=\frac{\phi_{1,y}^2+\phi_{2,y}^2}{\phi_2^2}=\frac{1}{t^2}$$
+        $$\phi_{1,x}\phi_{1,y}+\phi_{2,x}\phi_{2,y}=0$$
+        
+        利用Cauchy-Riemman方程可知上方的第一个等号与下方的等号成立，上方的第二个等号计算验证即可。
+    \end{enumerate}
+\end{enumerate}
+
+\section{第二次作业}
+\begin{enumerate}
+    \item 2.18
+    \begin{enumerate}[(1)]
+        \item 直接利用2.3节定理3.4后两条性质展开前三项可计算验证
+        $$2\left<D_XY,Z\right>=X\left<Y,Z\right>+Y\left<Z,X\right>-Z\left<X,Y\right>+\left<[X,Y],Z\right>+\left<[Z,X],Y\right>-\left<[Y,Z],X\right>$$
+        代入$Y=X$可知
+        $$2\left<D_XX,Z\right>=2X\left<X,Z\right>-Z\left<X,X\right>+2\left<[Z,X],X\right>$$
+        由于$X$与$g$是左不变的，可发现
+        $$\left<X,X\right>\big|_{ap}=L_a^*g(X,X)=\left<(L_a)_*X,(L_a)_*X\right>\big|_p=\left<X,X\right>\big|_p$$
+        从而$\left<X,X\right>$为常数，可得到$Z\left<X,X\right>=0$，化为
+        $$\left<D_XX,Z\right>=X\left<X,Z\right>+\left<[Z,X],X\right>$$
+        只需说明对任何左不变向量场$Z$有$\left<D_XX,Z\right>=0$，即可通过$Z$可在任何点取到任何切向量(某点的$Z$唯一确定整体的$Z$)得到$D_XX=0$。
+    
+        当$Z$亦为左不变时，有$\left<X,Z\right>$为常数，因此$X\left<X,Z\right>=0$，最终需要证明
+        $$\left<[Z,X],X\right>=0$$
+        而利用习题1.45，设$a_t$是$\sigma_Z(t)$确定的内自同构，有(注意$t=0$时$a_t$为恒等)
+        $$\left<[Z,X],X\right>=\frac{1}{2}\big(\left<\mathrm{ad}(Z)X,X\right>+\left<X,\mathrm{ad}(Z)X\right>\big)=\frac{1}{2}\frac{\dr}{\dr t}\bigg|_{t=0}a_t^*\left<X,X\right>$$
+        由于$g$双不变，有$a_t^*\left<X,X\right>=\left<X,X\right>$，从而导数恒0，得证。
+    
+        \item 由(1)可知$D_YX+D_XY=D_{X+Y}(X+Y)=0$，而$D_XY-D_YX=[X,Y]$，从而得证。
+    \end{enumerate}
+    
+    \item 2.20
+    \begin{enumerate}[(1)]
+        \item 直接利用定义可知$\tilde{g}_{ij}=\lambda^2g_{ij}$，由此$\tilde{g}^{ij}=\lambda^{-2}g^{ij}$，从而直接展开可得
+        $$\tilde{\Gamma}_{ij}^k=\frac{1}{2}\lambda^{-2}g^{kl}\bigg(\lambda^2\frac{\partial g_{il}}{\partial x^j}+2\lambda g_{il}\frac{\partial\lambda}{\partial x^j}+\frac{\partial g_{lj}}{\partial x^i}+2\lambda g_{lj}\frac{\partial\lambda}{\partial x^i}-\frac{\partial g_{ij}}{\partial x^l}-2\lambda g_{ij}\frac{\partial\lambda}{\partial x^l}\bigg)$$
+        化简可得
+        $$\tilde{\Gamma}_{ij}^k=\Gamma_{ij}^k+g^{kl}g_{il}\frac{\partial\ln\lambda}{\partial x^j}+g^{kl}g_{lj}\frac{\ln\partial\lambda}{\partial x^i}-g^{kl}g_{ij}\frac{\partial\ln\lambda}{\partial x^l}$$
+        利用逆矩阵定义即得
+        $$\tilde{\Gamma}_{ij}^k=\Gamma_{ij}^k+\delta_i^k\frac{\partial\ln\lambda}{\partial x^j}+\delta_j^k\frac{\partial\ln\lambda}{\partial x^i}-g^{kl}g_{ij}\frac{\partial\ln\lambda}{\partial x^l}$$
+    
+        \item 下方用不带下标的算子表示$g$中的。
+        
+        $$\nabla_{\tilde{g}}f=f_i\lambda^{-2}g^{ij}\frac{\partial}{\partial x_j}=\lambda^{-2}\nabla f$$
+        $$\mathrm{div}_{\tilde{g}}(\lambda^{-2}\nabla f)=\frac{\partial(\lambda^{-2}\nabla f)^i}{\partial x^i}+(\lambda^{-2}\nabla f)^k\tilde{\Gamma}^i_{ki}$$
+        展开得
+        $$\lambda^{-2}\frac{\partial(\nabla f)^i}{\partial x^i}-2\lambda^{-2}\frac{\partial\ln\lambda}{\partial x^i}(\nabla f)^i+\lambda^{-2}(\nabla f)^k\bigg(\Gamma_{ki}^i+\delta_k^i\frac{\partial\ln\lambda}{\partial x^i}+\frac{\partial\ln\lambda}{\partial x^k}-g^{il}g_{ki}\frac{\partial\ln\lambda}{\partial x^l}\bigg)$$
+        于是进一步计算可得($m$出现是由于对$i$求和)
+        $$\lambda^2\Delta_{\tilde{g}}(f)-\Delta_g(f)=-2\frac{\partial\ln\lambda}{\partial x^i}(\nabla f)^i+\delta_k^i\frac{\partial\ln\lambda}{\partial x^i}(\nabla f)^k+m\frac{\partial\ln\lambda}{\partial x^k}(\nabla f)^k-g^{il}g_{ki}\frac{\partial\ln\lambda}{\partial x^l}(\nabla f)^k$$
+        利用$g$对称性可知最后一项即为
+        $$-g_{ki}(\nabla\ln\lambda)^i(\nabla f)^k=-g(\nabla\ln\lambda,\nabla f)$$
+        而前三项即可以合并为
+        $$(m-1)\frac{\partial\ln\lambda}{\partial x^k}(\nabla f)^k=(m-1)\delta_i^k\frac{\partial\ln\lambda}{\partial x^i}(\nabla f)^k=(m-1)g^{li}g_{kl}\frac{\partial\ln\lambda}{\partial x^i}(\nabla f)^k=(m-1)g(\nabla\ln\lambda,\nabla f)$$
+        从而得证。
+    \end{enumerate}
+    
+    \item 2.21
+    
+    我们以内积记号表示$g(X,Y)$，梯度算子代表$g$的则只需验证
+    $$2\langle\tilde{D}_X(Y),Z\rangle-2\left<D_X(Y),Z\right>=2\left<S(X,Y),Z\right>$$
+    上式左侧即为
+    $$\er^{-2\rho}2\tilde{g}(\tilde{D}_X(Y),Z)=\er^{-2\rho}\big(X\tilde{g}(Y,Z)+Y\tilde{g}(Z,X)-Z\tilde{g}(X,Y)\big)+\left<[X,Y],Z\right>+\left<[Z,X],Y\right>-\left<[Y,Z],X\right>$$
+    利用导算子性质可知
+    $$X\tilde{g}(Y,Z)=\er^{2\rho}X\left<Y,Z\right>+\left<Y,Z\right>X(\er^{2\rho})=\er^{2\rho}X\left<Y,Z\right>+2\left<Y,Z\right>\er^{2\rho}X(\rho)$$
+    于是
+    $$2\langle\tilde{D}_X(Y),Z\rangle-2\left<D_X(Y),Z\right>=2\left<Y,Z\right>X(\rho)+2\left<Z,X\right>Y(\rho)-2\left<X,Y\right>Z(\rho)$$
+    化为要证
+    $$\left<Y,Z\right>X(\rho)+\left<Z,X\right>Y(\rho)-\left<X,Y\right>Z(\rho)=\left<X(\rho)Y+Y(\rho)X-\left<X,Y\right>\nabla\rho,Z\right>$$
+    利用线性性消去也即只需证明
+    $$\left<\nabla\rho,Z\right>=Z(\rho)$$
+    而这就是梯度算子的定义。
+    
+    下面以此重新证明习题2.20(2)，考虑某局部坐标系中。
+    
+    设$H$与$\tilde{H}$为对应的Hessian阵，可发现
+    $$\Delta_{\tilde{g}}(f)=\tilde{g}^{ij}\tilde{H}(f)_{ij}=\lambda^{-2}g^{ij}\tilde{H}(f)_{ij}$$
+    而
+    $$\tilde{H}(f)(X,Y)=Y(X(f))-(\dr f)\tilde{D}_Y(X)=Y(X(f))-(\dr f)D_Y(X)-(\dr f)S(X,Y)$$
+    于是
+    $$\lambda^2\Delta_{\tilde{g}}(f)-\Delta_g(f)=-g^{ij}(\dr f)S\bigg(\frac{\partial}{\partial x^i},\frac{\partial}{\partial x^j}\bigg)$$
+    直接计算可知
+    $$(\dr f)S\bigg(\frac{\partial}{\partial x^i},\frac{\partial}{\partial x^j}\bigg)=f_j\rho_i+f_i\rho_j-g_{ij}\rho_kg^{kl}f_l$$
+    从而(最后一项利用对称阵与逆定义可知为$m$倍，前两项各一倍)
+    $$-g^{ij}(\dr f)S\bigg(\frac{\partial}{\partial x^i},\frac{\partial}{\partial x^j}\bigg)=(m-2)\rho_kg^{kl}f_l$$
+    而
+    $$\left<\nabla\rho,\nabla f\right>=g_{ij}\rho^if^j=g_{ij}\rho_ig^{ik}f_jg^{jl}=\rho_ig^{ij}f_j$$
+    从而得证。
+    
+    \item 2.23
+    \begin{enumerate}[(1)]
+        \item 与习题1.45(4)完全相同可证明(注意$(a_t)_*Y=(\varphi_{-t})_*Y$)
+        $$\lim_{t\to0}\frac{1}{t}((\varphi_t)_*Y-Y)=[Y,X]$$
+        
+        由条件即得Killing向量场等价于对任何$Y,Z$有
+        $$\left<(\varphi_t)_*Y,(\varphi_t)_*Z\right>\big|_{\varphi_t(p)}=\left<Y,Z\right>\big|_p$$
+        记$p_t=\varphi_t(p)$，拆分可知左侧导数为
+        $$\lim_{t\to0}\frac{1}{t}\big(\left<(\varphi_t)_*Y_p-Y_{p_t},(\varphi_t)_*Z_p\right>+\left<Yp_t,(\varphi_t)_*Z_p-Z_{p_t}\right>+\left<Y_{p_t},Z_{p_t}\right>-\left<Y_p,Z_p\right>\big)$$
+        前两项即为$\left<[Y,X],Z\right>+\left<Y,[Z,X]\right>$，而第三项根据定义可知为$X\left<Y,Z\right>$。
+    
+        另一方面，利用习题2.18展开可知
+        $$\left<D_YX,Z\right>+\left<D_ZX,Y\right>=X\left<Y,Z\right>-\left<[X,Y],Z\right>-\left<[X,Z],Y\right>$$
+        于是导数为0处处成立等价于$\left<D_YX,Z\right>+\left<D_ZX,Y\right>=0$处处成立，再类似习题1.45(1)可知积分曲线唯一，从而得证。
+    
+        \item 利用习题1.41可知$[f_*X,f_*Y]=f_*[X,Y]$，而由等距定义有$\left<f_*X,f_*Y\right>=\left<X,Y\right>$，从而直接根据习题2.17可知
+        $$D_{f_*X}(f_*Y)=f_*D_XY$$
+        由此再利用$f_*$是同构即可得Killing方程形式不变，从而得$f_*X$为Killing向量场与$X$为Killing向量场等价。
+    
+        \item 也即需要
+        $$\frac{\partial}{\partial x^m}g_{ij}=0$$
+        可发现只需使参数曲线$x^m$为$\varphi_t(p)$即可，而这即代表局部坐标系中$x_m$对应的参数曲线与其他参数曲线垂直，由于$X(p)\ne0$可取到，从而得证。
+        
+        \item 由于$\mathbb{R}^n$上的等距同构只能为$y=Ax+b$，其中$A$为正交阵，设$\varphi_t(p)=A_tp+b_t$，代入方程可知
+        $$\frac{\partial (A_tp+b_t)}{\partial t}=X\big|_{A_tp+b_t},\quad\forall t,p$$
+        $$A_0=I,\quad b_0=0$$
+        将$A_t,b_t$对$t$的偏导记作$A_t'$与$b_t'$，并用$X(p)$表示$X$在$p$的值，则
+        $$X(A_tp+b_t)=A_t'p+b_t'$$
+        由于$A_t$可逆，即可知$X(p_0)=A_t'(A_t^{-1}(p_0-b_t))+b_t'$
+        从而其必然为线性映射，下假设
+        $$X(p)=Bp+c$$
+        则有
+        $$\frac{\partial\varphi_t(p)}{\partial t}=B\varphi_t(p)+c$$
+        再利用$\varphi_0(p)=p$可直接解出其可写为($f(t)$的形式与$B$的特征值相关)
+        $$\varphi_t(p)=\er^{Bt}p+f(t)$$
+        再利用线性代数知识即可知$\er^{Bt}$为正交阵恒成立当且仅当$B$为反对称阵，从而得证。
+    
+    \end{enumerate}
+    
+    \item 2.29
+    \begin{enumerate}[(1)]
+        \item 计算可知
+        $$\begin{aligned}X_1X_2(f)&=-x^2(-x^3f_1-x^4f_2+x^1f_3+x^2f_4)_1+x^1(-x^3f_1-x^4f_2+x^1f_3+x^2f_4)_2\\ &+x^4(-x^3f_1-x^4f_2+x^1f_3+x^2f_4)_3-x^3(-x^3f_1-x^4f_2+x^1f_3+x^2f_4)_4\end{aligned}$$
+        由于二次微分项与$X_2X_1$中抵消，只需看其中的一次微分项，即为
+        $$-x^2f_3+x^1f_4-x^4f_1+x^3f_2$$
+        而这即是$X_3(f)$，$X_2X_1(f)$的一次微分项符号与此相反，从而结果为$2X_3(f)$。
+    
+        对其他两式同理。
+    
+        \item 由于$S^3$是$\mathbb{R}^4$的嵌入子流形可知光滑性，而验证可发现$X_1$、$X_2$、$X_3$\ (看作四维向量)与$x$内积0，于是均处处与$S^3$相切。再次利用嵌入子流形的定义，计算规则仍然可以限制在$S^3$上，从而等式成立。
+        
+        \item 只需确定所有
+        $$\Gamma_{ji}^k=\left<D_{e_i}e_j,e_k\right>$$
+        利用习题2.17可知右侧为(任何$e_i,e_j$内积为常数，从而经过导算子后为0)
+        $$\frac{1}{2}\big(\left<[e_i,e_j],e_k\right>+\left<[e_k,e_i],e_j\right>-\left<[e_j,e_k],e_i\right>\big)$$
+        分类讨论即算得
+        $$\Gamma_{12}^3=\Gamma_{31}^2=\Gamma_{23}^1=-\Gamma_{21}^3=-\Gamma_{13}^2=-\Gamma_{32}^1=\frac{1}{2}$$
+        其余为0。
+    \end{enumerate}
+    
+    \item 2.32
+    
+    设球面坐标为$\omega_1,\dots,\omega_n$。
+    
+    利用球面度量的定义可知$g=\dr r\otimes \dr r+r^2g_1$，这里$g_1$为球面上的度量，$g$为$\mathbb{R}^{n+1}$中度量。假设$r$为第0个分量，其余分量为$1,\dots,n$，则(默认下方出现的$i,j,k$为1到$n$)
+    $$g_{ij}=r^2(g_1)_{ij}$$
+    $$g_{0j}=g_{j0}\quad g_{00}=1$$
+    从而
+    $$g^{ij}=r^{-2}g_1^{ij}$$
+    $$g^{0j}=g^{j0}=0,\quad g^{00}=1$$
+    于是利用$\Gamma_{ij}^k=(\Gamma_1)_{ij}^k$有
+    $$f_{i,j}=(f_1)_{i,j}-\Gamma_{ij}^0\frac{\partial f}{\partial r}$$
+    $$f_{0,0}=\frac{\partial^2f}{\partial r^2}-\Gamma_{00}^k\frac{\partial f}{\partial\omega^k}-\Gamma_{00}^0\frac{\partial f}{\partial r}$$
+    从而
+    $$\Delta f-r^{-2}\Delta_1f=-r^{-2}g^{ij}\Gamma_{ij}^0\frac{\partial f}{\partial r}+\frac{\partial^2f}{\partial r^2}-\Gamma_{00}^k\frac{\partial f}{\partial\omega^k}-\Gamma_{00}^0\frac{\partial f}{\partial r}$$
+    注意到，只要$i,j$有0时，$g_{ij}$即为常数，由此后两项一定为0，化为
+    $$\Delta f-r^{-2}\Delta_1f=-r^{-2}g^{ij}\Gamma_{ij}^0\frac{\partial f}{\partial r}+\frac{\partial^2f}{\partial r^2}$$
+    最后计算
+    $$-g^{ij}\Gamma_{ij}^0=-\frac{1}{2}g^{ij}g^{0l}\bigg(\frac{\partial g_{il}}{\partial x^j}+\frac{\partial g_{lj}}{\partial x^i}-\frac{\partial g_{ij}}{\partial x^l}\bigg)$$
+    由于当$l=0$时$g^{0l}$才非零，而$g_{i0}=g_{0j}=0$，再利用$(g_1)_{ij}$与$r$无关可知
+    $$-g^{ij}\Gamma_{ij}^0=\frac{1}{2}g^{ij}\frac{\partial g_{ij}}{\partial r}=\frac{1}{2}g_1^{ij}\frac{\partial r^2(g_1)_{ij}}{\partial r}=rg_1^{ij}(g_1)_{ij}=rm$$
+    从而得证。
+    
+    \item 2.34
+    
+    考虑某局部坐标系中，有$\dr V_m=\sqrt{G}\dr x^1\wedge\cdots\wedge\dr x^n$，再设$X=X^i\frac{\partial}{\partial x^i}$，即得$i(X)\dr V_m$为
+    $$\sqrt{G}\sum_i(-1)^{i-1}X^i\dr x^1\wedge\cdots\wedge\widehat{\dr x^i}\wedge\cdots\wedge\dr x^n$$
+    于是利用局部坐标下散度表达式即得
+    $$\dr(i(X)\dr V_m)=\frac{\partial\sqrt{G}X^i}{\partial x^i}\dr x^1\wedge\cdots\wedge\dr x^n=(\mathrm{div} X)\dr V_m$$
+    
+    \item 2.35
+    \begin{enumerate}[(1)]
+        \item *此处的比较好的算法利用了下一章知识。
+        
+        由于坐标变换不改变结果，可设$\{e_i\}$构成$p$点的法坐标系，也即满足$g_{ij}=\delta_i^j$\ (从而有$g^{ij}=\delta_i^j$)，且$\Gamma_{ij}^k=0$。
+    
+        此时等式右侧即成为(这里偏导代表对每个分量求偏导)
+        $$-g^{ij}(i(e_j)D_{e_i}\alpha)(X_1,\dots,X_r)=-D_{e_i}\alpha(e_i,X_1,\dots,X_r)=-\frac{\partial\alpha}{\partial e_i}(e_i,X_1,\dots,X_r)$$
+        设$e_i$对偶为$\omega^i$，并设
+        $$\alpha=\frac{1}{(r+1)!}\alpha_{k_1\dots k_{r+1}}\omega^{k_1}\wedge\cdots\wedge\omega^{k_{r+1}}$$
+        考虑$k_1$到$k_{r+1}$中有$i$的情况，利用反称性可交换、合并，得到
+        $$-g^{ij}(i(e_j)D_{e_i}\alpha)=-\frac{1}{r!}\frac{\partial\alpha_{ii_1\dots i_r}}{\partial e_i}\omega^{i_1}\wedge\dots\wedge\omega^{i_r}$$
+    
+        对左侧，同理直接计算可知(利用$g^{ij}=\delta_i^j$，$\alpha^{i_1\dots i_{r+1}}=\alpha_{i_1\dots i_{r+1}}$)
+        $$*\alpha=\frac{1}{(r+1)!(m-r-1)!}\delta_{i_1\dots i_m}^{1\dots m}\alpha_{i_1\dots i_{r+1}}\omega^{i_{r+2}}\wedge\dots\wedge\omega^{i_m}$$
+        $$\dr(*\alpha)=\frac{1}{(r+1)!(m-r-1)!}\delta_{i_1\dots i_m}^{1\dots m}\frac{\partial\alpha_{i_1\dots i_{r+1}}}{\partial e_j}\omega^j\wedge\omega^{i_{r+2}}\wedge\dots\wedge\omega^{i_m}$$
+        当$k_1,\dots,k_r,j,i_{r+1},\dots,i_m$构成1到$m$的一个排列时，若$j$固定，$k_1$到$k_r$固定，选择共有$r!(m-r-1)!$种，再将它们对应系数$j$求和即得到(注意$\delta$产生的逆序数成为了$-1$的次数)
+        $$*\dr(*\alpha)=\frac{(m-r)!}{r!(m-r)!}\frac{r!(m-r-1)!}{(r+1)!(m-r-1)!}(r+1)(-1)^{r(m-r-1)}\frac{\partial\alpha_{jk_1\dots k_r}}{\partial e_j}\omega^{k_1}\wedge\dots\wedge\omega^{k_r}$$
+        利用$\delta$的定义，对比系数与$-1$的次数可得结论。
+    
+        \item 在上方过程中已经出现了法坐标系下对偶标架中的表示
+        $$-\frac{1}{r!}\frac{\partial\alpha_{ii_1\dots i_r}}{\partial e_i}\omega^{i_1}\wedge\dots\wedge\omega^{i_r}$$
+    
+        \item 同样在法坐标系下直接计算可得
+        $$\mathrm{div}X=\frac{\partial X^i}{\partial e_i}$$
+        而另一方面根据上一问即知
+        $$-\delta(\alpha_X)=\frac{\partial\alpha_i}{\partial e_i}=\frac{\partial g(X,e_i)}{\partial e_i}=\frac{\partial X^i}{\partial e_i}$$
+        从而得证。
+    \end{enumerate}
+    
+    
+    \item 2.39
+    \begin{enumerate}[(1)]
+        \item 利用$\dr$与$\delta$的对偶性有
+        $$(\tilde{\Delta}\omega,\mu)=(\dr\omega,\dr\mu)+(\delta\omega,\delta\mu)$$
+        从而取$\mu=\omega$可知左侧为0当且仅当右侧$\dr\omega=\delta\omega=0$，得证。
+    
+        \item 由于$\tilde{\Delta}\omega=\dr(\delta\omega)+\delta(\dr\omega)$，必然有
+        $$\tilde{\Delta}(A_r(M))\subset\dr(A^{r-1}(M))+\delta(A^{r+1}(M))$$
+        而根据Hodge分解定理可知$\dr(A^{r-1}(M))+\delta(A^{r+1}(M))=\dr(A^{r-1}(M))\oplus\delta(A^{r+1}(M))$，因此只需证明右包含于左，设$\omega=\dr\alpha+\delta\beta$，利用Hodge分解定理，设$\alpha$、$\beta$的分解为
+        $$\alpha=\dr\alpha_1+\delta\alpha_2+\alpha_3$$
+        $$\beta=\dr\beta_1+\delta\beta_2+\beta_3$$
+        则利用(1)直接计算可发现
+        $$\dr\alpha=\dr\delta\alpha_2$$
+        $$\delta\beta=\delta\dr\beta_1$$
+        完全类似地，对$\alpha_2$再做分解可得到存在$\alpha'$使得$$\dr\alpha=\dr\delta\dr\alpha'=(\dr\delta+\delta\dr)\dr\alpha'$$
+        同理存在$\beta'$使得
+        $$\delta\beta=\delta\dr\delta\beta'=(\delta\dr+\dr\delta)\delta\beta'$$
+        也即得到
+        $$\omega=\tilde{\Delta}(\dr\alpha'+\delta\beta')$$
+        从而得证。
+    \end{enumerate}
+    
+    \item 2.40
+    
+    利用Hodge分解定理与习题2.39，可知$H^r(M)\oplus\dr(A^{r-1}(M))\subset Z^r(M)$，从而只需证明另一边包含成立，也即
+    $$\delta(A^{r+1}(M))\cap Z^r(M)=\{0\}$$
+    设$\omega=\delta\alpha$，则
+    $$(\dr\omega,\mu)=(\delta\alpha,\delta\mu)$$
+    从而取$\mu=\alpha$可从左为0得到$\omega=\delta\alpha=0$，得证。
+\end{enumerate}
+
+\section{第三次作业}
+\begin{enumerate}
+    \item 2.43
+    
+    也即要证明
+    $$\left<P_0^t(X_0),P_0^t(Y_0)\right>_{\gamma(t)}=\left<X_0,Y_0\right>_{\gamma(0)}$$
+    这只需证明左侧对$t$求导为0即可。考虑包含$\gamma(0)$的某局部坐标系下，设$\gamma(t)$各分量为$x^i(t)$，有(右侧出现左侧未出现的指标代表求和)
+    $$\frac{\dr X^k}{\dr t}=-\Gamma_{ij}^kX^i\frac{\dr x^k}{\dr t},\quad\frac{\dr Y^k}{\dr t}=-\Gamma_{ij}^kY^i\frac{\dr x^k}{\dr t}$$
+    于是内积的导数
+    $$g_{kl}\frac{\dr X^k}{\dr t}Y^l+g_{lk}\frac{\dr Y^k}{\dr t}X^l+\frac{\dr g_{ij}}{\dr t}X^iY^j=-g_{kl}\Gamma_{ij}^kX^i\frac{\dr x^k}{\dr t}Y^l-g_{lk}\Gamma_{ij}^kY^i\frac{\dr x^k}{\dr t}X^l+\frac{\partial g_{ij}}{\partial x^k}\frac{\dr x^k}{\dr t}X^iY^j$$
+    整理得到
+    $$\frac{\dr}{\dr t}\left<X(t),Y(t)\right>=-\bigg(g_{kl}\Gamma_{ij}^k+g_{ik}\Gamma_{lj}^k+\frac{\partial g_{il}}{\partial x^k}\bigg)X^iY^l\frac{\dr x^k}{\dr t}$$
+    教材100页的式3.14已经算出了括号中为0，由此得证。
+    
+    由于$\gamma$关于参数$t$是连续的，平行移动也是连续的，不可能翻转定向。
+    
+    \item 2.44
+    \begin{enumerate}[(1)]
+        \item 
+        由2.3节引入部分的计算即可知，设曲面法向量为$\vec{n}$有
+        $$\frac{\dr X}{\dr t}=D_{\gamma'(t)}X+\left<\frac{\dr X}{\dr t},\vec{n}\right>\vec{n}$$
+        从而$D_{\gamma'(t)}X$即为$\frac{\dr X}{\dr t}$的切向分量，由此得到了证明。
+    
+        \item 由对称性可直接设$\gamma(t)=(\cos t,\sin t,0)$，则$\gamma'(t)=(-\sin t,\cos t,0)$，$\gamma''(t)=(-\cos t,\sin t,0)$处处为法向，从而由(1)得证。
+        
+        对$n$维情况，同样可设其为$(\cos t,\sin t,0,\dots,0)$，完全相同得证。
+    \end{enumerate}
+    
+    \item 3.10
+    
+    与2.14(2)相同可验证$(x,y)\to(-x,y)$为其到自身的等距同构，从而利用命题1.8，可知其不动点集合$\{x=0,y>0\}$为测地线。
+    
+    进一步利用习题2.14(2)的结论，由于分式线性变换保圆/直线，通过确定三个点可以发现直线$x=0$在
+    $$z\to\frac{az+b}{cz+d},\quad a,b,c,d\in\mathbb{R},ad-bc=1$$
+    中的像为直线$x=m$或圆$(x-m)^2+y^2=r^2$\ (在上半平面中的部分)，而由于每点处任何方向都存在这些中的一个与之相切，利用测地线唯一性可知它们即为全部测地线。
+    
+    \item 3.11
+    
+    由于圆柱面的任何一部分可以等距同构于平面的一部分，设$q=(\sin\theta,y,\cos\theta)$，若$\theta\ne\pi$，其在$[0,\pi)$即从$[0,\theta]$中任选一个角度切开展平(也即挖去一条线后构造等距同构)，其在$(\pi,2\pi)$即从$[\theta,2\pi)$中任选一个角度切开展平，此时的连线为测地线，但并不如另一侧切开展平后的连线短，因此不为最短线(当$\theta=0$时，连接展平后两侧的$p$与$q$)。
+    
+    否则，$q=(0,y_0,-1)$，考虑螺线
+    $$\gamma(t)=(\sin(3\pi t),ty_0,\cos(3\pi t))$$
+    可发现$\gamma(0)=p$、$\gamma(1)=q$，且其比直接$\pi/2$处切开展平后连接要长，下面说明其为测地线。
+    
+    考虑所有与$\{\gamma(t)\mid t\in(0,1)\}$的欧氏距离不超过$\varepsilon y_0$的点构成的集合，只要$\varepsilon$充分小，此集合即可以展开为平面的一部分，此时$\gamma(t)$恰好为直线，从而得证。
+\end{enumerate}
+
+\section{第四次作业}
+\begin{enumerate}
+    \item 3.12
+    
+    考虑点$p$的法坐标系$(U,\varphi;x_i)$，并取$e_i(p)$使得其被$\varphi$推出后为$U$中的$e_i(\varphi(p))$。
+    
+    由于可取$p$的邻域使得到任何点$q$都有从$p$出发的测地线落在其中，考虑$p$点如上定义的$e_i(p)$沿测地线平行移动到$q$得到$e_i(q)$，则由平行移动不改变内积得其构成邻域中的光滑正交标架场。再利用测地线唯一性，其沿$p$点的任何测地线平行即可知符合要求。
+    
+    \item 3.14
+    
+    根据测地球的定义，其中的任何一点都存在与$p$的测地线连接，且测地线的长度(等于指数映射中的切向量模长)小于$\delta$，由此$\mathscr{B}_p(\delta)\subset V_p(\delta)$。
+    
+    反之，根据三角不等式，$V_p(\delta)$中任何一点到$p$的最短线一定完全落在$V_p(\delta)$中，再由法坐标邻域的定义，$V_p(\delta)$中的任何一点到$p$的测地线是它到$p$的最短线，由此其长度小于$\delta$，得证$V_p(\delta)\subset\mathscr{B}_p(\delta)$。
+    
+    \item 3.21
+    \begin{enumerate}[(1)]
+        \item 考虑一列点$q_i\in M$使得$d(p_0,q_i)<d(p_0,M)+\frac{1}{i}$，由于$d(p_0,q_i)\ge d(p_0,M)$，利用三角不等式可知$i>j$时
+        $$d(q_i,q_j)\le d(p_0,q_i)-d(p_0,q_j)<\frac{1}{i}$$
+        由此利用柯西收敛定理可知$p_i$存在极限，设为$p_0$，由闭可知$p_0\in M$，再由度量是连续函数得证。
+    
+        \item 考虑$q_0$在$M$上的某$\mathscr{B}_{q_0}(\delta)$\ (下方指数映射也指$M$上)，并设$\Phi:[0,1]\times(-\delta,\delta)\to N$满足$\Phi(t,u)=\gamma_u(t)$，这里$\gamma_u(t)$是连接$p_0$与$\exp_{q_0}(uv)$的最短测地线，其中$|v|=1$且$v\in T_{q_0}(M)$给定。
+        
+        根据弧长第一变分公式，由于$\gamma$为测地线，且端点$p_0$固定，可知
+        $$0=L'(0)=\frac{1}{l}\left<\gamma'(1),U(1)\right>$$
+        $\gamma'(1)$即代表测地线在$q_0$处的切向量，而$U(1)$为横截曲线族在1处(即$\exp_{q_0}(uv)$在$u=0$时)的切向量，即为$v$，从而由$v$的任意性得证正交。
+    \end{enumerate}
+    
+    \item 3.23
+    
+    若存在长度有限的发散曲线，考虑$\gamma(n)$，利用距离定义可知
+    $$d(\gamma(n+m),\gamma(n))\le\int_n^{m+n}|\gamma'(t)|\dr t$$
+    从而根据长度有限可知其为柯西列。若其极限在$M$中，记为$\gamma(+\infty)$，则$\{\gamma(t),t\in[0,+\infty]\}$为紧子集，与其为发散曲线矛盾，从而可知不完备。
+    
+    反之，若$M$不完备，考虑不存极限的柯西列，从中取出子列$x_n$使得$d(x_n,x_{n+1})<\frac{1}{2^n}$\ (利用柯西列定义容易实现)，并记$\gamma(n)=x_n$，$\gamma(n)$到$\gamma(n+1)$是连接$x_n$与$x_{n+1}$且保证$x_i$处连接光滑的曲线，长度不超过$d(x_n,x_{n+1})+\frac{1}{2^n}$\ (可以在$x_n$的某法坐标邻域中先构造，从任何方向出发可以光滑走到任意小的球面上且保证与球相切，再光滑旋转到$x_n$到$x_{n+1}$最短线所在的方向走出球面，随后按最短线走)。由上述限制可知$\gamma$的长度不超过2，另一方面，若某紧子集包含全部$\{x_n\}$，由度量空间其列紧，应存极限点，与$x_n$不存极限矛盾，从而得证。
+    
+    \item 3.24
+    
+    利用Hopf-Rinow定理，其完备非紧等价于完备且无界。对任何一点$p$，考虑
+    $$\gamma_v(t)=\exp_p(tv)$$
+    由完备性其对$t\in[0,+\infty)$可定义，而由于完备流形上任何一点与$p$可用最短测地线连接，任何一点都在某个$\gamma_v$上。
+    
+    根据指数映射的定义与测地线的坐标变换，可知
+    $$\{\gamma_v(t),t\in[0,+\infty)\}=\{\gamma_{v/|v|}(t),t\in[0,+\infty)\}$$
+    于是可不妨设$|v|=1$。
+    
+    由指数映射定义可知其以弧长为参数。若任何$\gamma_v$都并非射线，则存在$s$使得$\exp_p(tv),t\in[0,s]$不是连接$p$与$\exp_p(sv)$的最短线。将所有$s$的下确界记为$s_v$，由距离连续性可知$s_v$的下确界事实上是最小值。
+    
+    通过分析估算可以发现$v\to s_v$是连续函数，由此其在$|v|=1$上存在最大值$m$，于是，对曲面上的任何点，$p$到其的最小距离不超过$m$，否则将与其在某条测地线上达到矛盾，由此其有界，从而紧，这就导出了矛盾。
+    
+    \item 3.25
+    
+    由习题3.23，由于同胚保紧子集，$M$与$\tilde{M}$的发散曲线一致。
+    
+    对$\tilde{M}$的任何发散曲线$\tilde\gamma(t)$，由同胚可知$\gamma(t)=f^{-1}(\tilde\gamma(t))$是$M$上的发散曲线。而根据完备，可知$\gamma(t)$长度有限，根据$f$的要求即得$f(\gamma(t))$长度不超过$c$倍的$\gamma(t)$长度，从而得证。
+    
+    \item 3.26
+    
+    由$M$完备，任何两点$p,q$存在最短测地线$\gamma(t)$连接；根据局部等距定义可知其保测地线。
+    
+    若$f$不为单射，设$f(p)=f(q)$，则$f(\gamma(t))$为$f(p)$到自身的测地线，且长度非零，与测地线唯一矛盾。
+    
+    由其为局部光滑同胚，考虑拓扑基可知其为开映射，于是$f(M)$为开集，根据完备流形的不可延拓性即得其不可能等距嵌入$N$使得$f(M)$开，矛盾，从而其只能为满射。
+    
+    \item 4.4
+    \begin{enumerate}[(1)]
+        \item 根据映射微分的定义，也即对任何$Z\in T_pM$有
+        $$Z\left<X,X\right>=0$$
+        由此利用联络性质可知
+        $$\left<X,D_ZX\right>=0$$
+        这就是第一个式子。对第二个式子，利用Kiliing方程可知
+        $$\left<D_XX,Z\right>=-\left<D_ZX,X\right>=0$$
+    
+        \item 左侧为$\left<D_ZX,D_ZX\right>$，右侧为
+        $$\frac{1}{2}ZZ\left<X,X\right>-\left<D_XD_ZX,Z\right>+\left<D_ZD_XX,Z\right>+\left<D_{[X,Z]}X,X\right>$$
+        利用无挠性与Killing方程有
+        $$\left<D_{[X,Z]}X,Z\right>=\left<D_{D_XZ}X,Z\right>-\left<D_{D_ZX}X,Z\right>=\left<D_ZX,D_ZX\right>-\left<D_ZX,D_XZ\right>$$
+        而展开可知
+        $$\frac{1}{2}ZZ\left<X,X\right>=Z\left<D_ZX,X\right>=\left<D_ZD_ZX,X\right>+\left<D_ZX,D_ZX\right>$$
+        合并以上也即要证
+        $$-\left<D_XD_ZX,Z\right>+\left<D_ZD_XX,Z\right>+\left<D_ZX,D_ZX\right>-\left<D_ZX,D_XZ\right>+\left<D_ZD_ZX,X\right>=0$$
+        由于
+        $$\left<D_XD_ZX,Z\right>+\left<D_ZX,D_XZ\right>=X\left<D_ZX,Z\right>$$
+        而$\left<D_ZX,Z\right>$根据Killing方程可知为0，于是第一、四两项抵消，剩余
+        $$\left<D_ZD_XX,Z\right>+\left<D_ZX,D_ZX\right>+\left<D_ZD_ZX,X\right>=0$$
+        利用第一问$\left<D_XX,D_ZZ\right>=0$，于是第一项可看成$Z\left<D_XX,Z\right>$将其重新合并得到要证
+        $$Z(\left<D_XX,Z\right>+\left<D_ZX,X\right>)=0$$
+        利用Killing方程得成立。
+    \end{enumerate}
+    
+    \item 4.6
+    
+    由习题1.41有$\varphi_*([X,Y])=[\varphi_*(X),\varphi_*(Y)]$，再通过第二章定理4.8可知$\mathcal{R}(X,Y)Z$在等距下不变，进一步由等距的定义得$R(X,Y,Z,W)$不变。 
+    
+    \item 4.8
+    \begin{enumerate}[(1)]
+        \item 由习题1.18(2)可知
+        $$\mathcal{R}(X,Y)Z=\frac{1}{4}[X,[Y,Z]]-\frac{1}{4}[Y,[X,Z]]-\frac{1}{2}[[X,Y],Z]$$
+        再由Jacobi恒等式
+        $$[[Y,Z],X]+[[Z,X],Y]+[[X,Y],Z]=0$$
+        适当交换即可消去只剩$-\frac{1}{4}[[X,Y],Z]$，再交换一次得到结果。
+    
+        \item 由正交单位向量场可知$\left<X,Y\right>=0$、$\left<X,X\right>=\left<X,Y\right>=1$，从而
+        $$K(X,Y)=-R(X,Y,X,Y)=-\left<\mathcal{R}(X,Y)X,Y\right>$$
+        利用(1)也即此为
+        $$\frac{1}{4}\left<[[X,Y],X],Y\right>$$
+        也即只需证$\left<[[X,Y],X],Y\right>=\left<[X,Y],[X,Y]\right>$。利用$\left<X,Y\right>$恒为0，$XY\left<X,Y\right>=0$，再由习题1.18(1)有$D_XX=D_YY=0$，从而将$XY\left<X,Y\right>$展开得
+        $$0=X\left<D_YX,Y\right>+X\left<X,D_YY\right>=X\left<D_YX,Y\right>=\left<D_XD_YX,Y\right>+\left<D_YX,D_XY\right>$$
+        再次利用习题1.18(2)并适当交换即得到结论。
+    \end{enumerate}
+    
+    \item 4.10
+    
+    *本质：转圈平行移动的角差可以看作曲面片上高斯曲率的积分。
+    
+    考虑曲面片$f:U\to M$，其中$U=(-\varepsilon,1+\varepsilon)\times(-\varepsilon,1+\varepsilon)$，且保证$f(0,s)=f(0,0)$恒成立，记此点为$p$。设$V_0\in T_pM$，取$f$上的向量场$V$满足$V(0,s)=V_0$，否则其为$V_0$沿$t\to f(t,s)$的平行移动。
+    
+    根据平行移动的定义有$\frac{D}{\partial t}V=0$，而由于平行移动与路径无关，对任何$V(t,s)$，由于$V(t,s)$是$f(t,0)$到$f(0,0)$到$f(0,s)$\ (过恒等的平行移动为恒等)到$f(t,s)$的平行移动，其与$V(t,0)$沿$s\to f(t,s)$的平行移动结果相同，于是还有$\frac{D}{\partial s}V=0$。
+    
+    利用习题4.3，将$\frac{\partial}{\partial s}$简记为$\partial_s$，计算可发现$f_*\partial_s=\partial_sf$，对$t$同理，由此有
+    $$0=D_{\partial s}D_{\partial t}V-D_{\partial s}D_{\partial t}V=\mathcal{R}(\partial_s,\partial_t)V$$
+    由$V_0$与$f$的任意性得结论。
+    
+    
+    \item 4.13
+    \begin{enumerate}[(1)]
+        \item 记$\varphi_\theta(z)=z\er^{\mathrm{i}\theta}$，直接用分量计算可知$\varphi_\theta(z)$是$\mathbb{C}^{n+1}$到$\mathbb{C}^{n+1}$的等距，由于$f(S^{2n+1})=S^{2n+1}$，根据诱导度量定义可知$\varphi_\theta$是$S^{2n+1}$上的等距。
+        
+        定义$\mathbb{C}P^n$上的黎曼度量满足任何点处
+        $$\left<f_*v,f_*w\right>=\left<v,w\right>$$
+        由于$\varphi_\theta$是等距，同一等价类中不同点处有
+        $$\left<v,w\right>=\left<\varphi_{\theta*}v,\varphi_{\theta*}w\right>$$
+        由此即可验证得此定义良好，且此定义自然满足$f$是等距淹没。
+    
+        \item 考虑映射$z\to\mathrm{i}z$，其可以看作$S^{2n+1}$上的切向量场，记为$t$，利用$X,Y$的单位性有
+        $$\tilde{D}_{\bar X}t=\mathrm{i}\bar X,\quad\tilde{D}_{\bar Y}t=\mathrm{i}\bar Y$$
+        这里$\tilde{D}$代表$S^{2n+1}$上标准度量的联络。
+    
+        利用等距淹没的定义，$\bar{X}$、$\bar{Y}$是$S^{2n+1}$上的单位正交切向量场，从而直接计算可知其截面曲率为常数1。
+    
+        利用习题4.12(2)，只需证明
+        $$\left<[\bar X,\bar Y]^v,[\bar X,\bar Y]^v\right>=4\left<\bar X,\mathrm{i}\bar Y\right>\left<\bar X,\mathrm{i}\bar Y\right>$$
+        将右侧$\mathrm{i}\bar Y$写为$\tilde{D}_{\bar Y}t$展开，利用单位正交性即得结论。
+    \end{enumerate}
+\end{enumerate}
+
+\section{第五次作业}
+\begin{enumerate}
+    \item 4.15
+    \begin{enumerate}[(1)]
+        \item 由于$p$与$\pi$正交，考虑$\pi$的单位正交基$e_1,e_2$，则$p,e_1,e_2$单位正交，同理取出$e_1',e_2'\in\pi'$，有$q,e_1',e_2'$。将它们扩充成$\br^{m+1}$的单位正交基并构造线性变换$x\to Qx$使其对应，则$Q$为正交阵且$Qp=q$、$Qe_1=e_1'$、$Qe_2=e_2'$。
+        
+        由于$Q$为$\br^{n+1}$上的等距，其在诱导度量下也是等距，且利用诱导度量性质可验证$Q_*(e|_p)=(Qe)|_q$，从而得证。
+    
+        \item 利用习题4.6，等距不改变曲率，于是其也不改变截面曲率，由此即得任何截面曲率相同。
+    \end{enumerate}
+    
+    \item 4.16
+    
+    将$\rc$看作$(1,3)$型张量场，即$\rc(\alpha,X,Y,Z)=\alpha(\rc(X,Y)Z)$，则根据定义可知$D_W\rc(\alpha,X,Y,Z)$为
+    $$W(\rc(\alpha,X,Y,Z))-\rc(D_W\alpha,X,Y,Z)-\rc(\alpha,D_WX,Y,Z)-\rc(\alpha,X,D_WY,Z)-\rc(\alpha,X,Y,D_WZ)$$
+    而另一方面有
+    $$\rc(D_W\alpha,X,Y,Z)=D_W\alpha(\rc(X,Y)Z)=W(\alpha(\rc(X,Y)Z))-\alpha(D_W(\rc(X,Y)Z))$$
+    利用$\rc$看作张量场的定义即得$\alpha(D_W(\rc(X,Y)Z))$为
+    $$\alpha(D_W(\rc(X,Y)Z))-\alpha(\rc(D_WX,Y)Z)-\alpha(\rc(X,D_WY)Z)-\alpha(\rc(X,Y)D_WZ)$$
+    利用线性性将此$(1,3)$型张量场重新看作到切空间的映射，最终得到
+    $$D_W\rc(X,Y,Z)=D_W(\rc(X,Y)Z)-\rc(D_WX,Y)Z-\rc(X,D_WY)Z-\rc(X,Y)D_WZ$$
+    于是黎曼局部对称空间等价于对任何$W,X,Y,Z$有
+    $$D_W(\rc(X,Y)Z)=\rc(D_WX,Y)Z+\rc(X,D_WY)Z+\rc(X,Y)D_WZ$$
+    
+    \
+    
+    若$M$为局部黎曼对称空间，设$E_1,E_2$为$e_1$、$e_2$出发构造的沿$\gamma$平行的向量场，由平行移动的性质与上述展开可知
+    $$D_{\gamma'(t)}(\rc(E_1,E_2)E_1)=0$$
+    从而其也沿曲线平行，利用平行移动保内积可知$\left<\rc(E_1,E_2)E_1,E_2\right>$保持不变。另一方面，由平行移动保内积可知$E_1,E_2$在曲线上保持标准正交性，从而截面曲率恒定。
+    
+    \
+    
+    反之，同样通过$E_1,E_2$标准正交性保持，由条件可知对任何$\gamma(t)$有(默认下方的计算针对的点为$\gamma(t)$)
+    $$0=\frac{\dr}{\dr t}R(E_1,E_2,E_1,E_2)$$
+    与上完全类似计算，利用平行性知$D_{\gamma'(t)}E_i=0$，从而
+    $$(D_{\gamma'(t)}R)(E_1,E_2,E_1,E_2)=\frac{\dr}{\dr t}R(E_1,E_2,E_1,E_2)=0$$
+    对任何沿$\gamma(t)$平行的向量场$X,Y$，根据平行不改变内积知其可以分解为$x^1E_1+x^2E_2$、$y^1E_1+y^2E_2$，这里$E_1,E_2$表示$\gamma(0)$处将$x,y$标准正交化后沿$\gamma(t)$平移得到的向量场，$x^i$、$y^i$为常数。计算有
+    $$(D_{\gamma'(t)}R)(X,Y,X,Y)=\frac{\dr}{\dr t}R(X,Y,X,Y)=x^iy^jx^ky^l\frac{\dr}{\dr t}R(E_i,E_j,E_k,E_l)$$
+    当$i=j$或$k=l$时，利用反称性$R(E_i,E_j,E_k,E_l)=0$，于是求导为0，进一步利用反称性将$E_i$、$E_l$交换为1可知其能写为$R(E_1,E_2,E_1,E_2)$乘一些系数，从而导数为0，这就得到
+    $$(D_{\gamma'(t)}R)(X,Y,X,Y)=0$$
+    考虑$p=\gamma(0)$处，由于$X|_{\gamma(0)},Y|_{\gamma(0)}$均可任取，得到$p$点处对任何$x,y\in T_pM$有
+    $$(D_{\gamma'(t)}R)(x,y,x,y)=0$$
+    另一方面，利用$D_{\gamma'(t)}$的线性性，由于$R$满足曲率型张量的定义，类似上方计算可验证$D_{\gamma'(t)}R$也满足曲率型张量的定义，从而由引理3.1可知$D_{\gamma'(t)}R=0$，再由$\gamma'(0)$与$\gamma(0)$可任取得到$DR=0$。
+    
+    最后，直接展开$DR=0$可得
+    $$V(\left<\rc(X,Y)Z,W\right>)=\left<\rc(D_VX,Y)Z+\rc(X,D_VY)Z+\rc(X,Y)D_VZ,W\right>+\left<\rc(X,Y)Z,D_VW\right>$$
+    再由联络与度量相容，将右侧第二项移至左侧可得
+    $$\left<D_V(\rc(X,Y)Z),W\right>=\left<\rc(D_VX,Y)Z+\rc(X,D_VY)Z+\rc(X,Y)D_VZ,W\right>$$
+    由其对任何$W$成立即得证。
+    
+    \item 4.17
+    
+    考虑以Ricci主方向作为标准正交基的$e_i$，对应的对偶余切标架$\omega^i$，记$\kappa_i=\mathrm{Ric}(e_i)$，即有
+    $$R_{ijkl}=\frac{1}{m-1}(\kappa_s\delta_{is}\delta_{ls}\delta_{jk}-\kappa_t\delta_{it}\delta_{kt}\delta_{jl})=\frac{\kappa_i}{m-1}(\delta_{il}\delta_{jk}-\delta_{ik}\delta_{jl})$$
+    利用对称性，考虑$i=l$、$j=k\ne i$的情况，即可得到$\kappa_i=\kappa_k$，于是$\kappa_i$为常值，记为$\kappa$，而再由此时$\delta_{ij}=g_{ij}$，利用推论3.3得证。
+    
+    \item 4.18
+    
+    由数量曲率与基底选取无关，对$x\in S^{m-1}$，记$e_i(s)$满足$e_1(s)=s$，$e_1(s),\dots,e_n(s)$单位正交、对$s$光滑，且在$s$取遍球面时分别取遍球面(可利用球坐标直接构建)，有
+    $$S(p)=\sum_{i=1}^m\mathrm{Ric}(e_i(s))=\frac{1}{\omega_{m-1}}\int_{S^{m-1}}\sum_{i=1}^m\mathrm{Ric}(e_i(s))\dr V_{S^{m-1}}$$
+    而由于每个$e_i$分别取遍球面，它们的积分相同，从而得到这即为
+    $$\frac{m}{\omega_{m-1}}\int_{S^{m-1}}\mathrm{Ric}(e_1(s))\dr V_{S^{m-1}}=\frac{m}{\omega_{m-1}}\int_{S^{m-1}}\mathrm{Ric}(s)\dr V_{S^{m-1}}$$
+    这即是结论的形式。
+    
+    \item 5.1
+    
+    若$J(t_0)=0$且有一列$t_i\to t_0$使得$J(t_i)=0$，设$P_t$表示沿$\gamma(t)$的平移，则利用第二章定理7.2与导数存在性可知
+    $$J'(t_0)=\lim_{n\to\infty}\frac{(P_{t_n}^{t_0})^{-1}J(t_n)-J(t_0)}{t_n-t_0}=0$$
+    从而再由唯一性可知$J(t)$恒为0，矛盾。
+    
+    \item 5.4
+    
+    利用例1.1的过程，此Jacobi场一定可以写为
+    $$J(t)=\sinh(\sqrt{-c}t)A(t)+\cosh(\sqrt{-c}t)B(t)$$
+    其中$A(t)$、$B(t)$延$\gamma$平行。
+    
+    由于$J(0)=0$，代入可得$B(0)=0$，再由平行移动不改变模长即得$B(t)=0$，从而有(从$A(t)$中提出某非零常数，不影响平行性)
+    $$J(t)=\sinh(\sqrt{-c}t)A(t)=\frac{\sinh(\sqrt{-c}t)}{\sinh(\sqrt{-c}l)}C(t)$$
+    由条件可知$C(l)=v$，且$C$沿$\gamma(t)$平行，利用1.13式与切映射线性性有
+    $$v=J(l)=(\exp_{\gamma(0)})_{*l\gamma'(0)}(lJ'(0))$$
+    从而直接计算可得$C(0)$与$u_0$相差倍数，而根据平行移动不改变模长，考虑$l$处可知$|C(0)|=1$，从而$C(0)=w(0)$，再由平行移动唯一性得证。
+    
+    \item 5.9
+    
+    由局部等距定义$f_*$处处可逆，取$v=f_{*p}^{-1}(\beta'(a))$，考虑$\gamma(0)=p$、$\gamma'(0)=v$的$\gamma$，利用完备性由Hopf-Rinow定理知其可无限延伸，下面说明其符合要求。
+    
+    利用测地线在局部等距下仍为测地线，$f\circ\gamma$必然是测地线，且由定义方式可知$f\circ\gamma(0)=\beta(a)$、$(f\circ\gamma)'(0)=\beta'(a)$，利用测地线唯一性得其与$\beta$局部相等，再由无限延伸性即可得$\gamma$在0到$b-a$的部分就是$\beta$\ (由唯一性可直接得到参数对应相同)。
+    
+    \item 5.10
+    
+    由于$T_pM$和欧氏空间光滑同胚，只需证明$M$与$T_pM$光滑同胚即可。考虑$p$处的指数映射，由Hopf-Rinow定理其在$T_pM$处处有定义，且由非退化性，利用引理3.1证明过程可知其为局部微分同胚，从而与定理3.3完全相同得证。
+    
+    \item 5.11
+    \begin{enumerate}[(1)]
+        \item 由对称性，沿过$z$轴的任何平面对称是等距同构，由此根据第三章命题1.8可知$z=x^2$绕$z$轴任意旋转后仍为测地线，再由于它们在$p$的切向量可为任何方向，根据唯一性它们就是过$p$的全部测地线，由于它们彼此不交即知$\exp_{p*}$在任何$v$处非退化，从而$p$为极点。
+        \item 设$r(u,v)=(u,v,u^2+v^2)$，直接计算有
+        $$r_u=(1,0,2u),\quad r_v=(0,1,2v),\quad n=\frac{1}{\sqrt{4u^2+4v^2+1}}(-2u,-2v,1)$$
+        由此进一步得到高斯曲率
+        $$K=\frac{4}{(1+4u^2+4v^2)^2}>0$$
+    \end{enumerate}
+    
+    \item 5.12
+    
+    若$\tilde{M}$完备，由覆叠度量定义可知$|\pi_{*p}(v)|=|v|$，从而利用引理3.2即得$M$完备。
+    
+    若$M$完备，利用Hopf-Rinow定理，证明$\tilde{M}$完备只需证其测地线可任意延伸。考虑某测地线$\tilde{\gamma}(t)$，使得$\tilde{\gamma}(0)=\tilde{p}$。记$\pi(\tilde{p})=p$。由$\pi$为局部等距，$\gamma=\pi\circ\tilde\gamma$是$M$上的测地线，且可任意延伸。利用习题5.9，$\gamma$延伸后(记为$\beta$)仍然可提升到$M$上，保证以$\tilde{p}$为始点，记提升后为$\tilde\beta$。由唯一性，$\tilde\beta$包含$\tilde\gamma$，且利用局部等距性其长度与$\beta$相同，由此即说明$\tilde\gamma$可任意延伸，得证。
+\end{enumerate}
+
+\section{第六次作业}
+\begin{enumerate}
+    \item 5.17
+    
+    考虑等距变换$f$，对任何$p\in S^n(r)$，设$p/r$与切空间的$e_1,\dots,e_n$构成$p$处$\mathbb{R}^{n+1}$的单位正交基，则由等距性(与切空间定义)可知$f(p)/r$、$f_*(e_1),\dots,f_*(e_n)$构成$f(p)$处$\mathbb{R}^{n+1}$的单位正交基。构造正交变换$Q$使得
+    $$Q(p)=f(p),\quad Q(e_1)=f_*(e_1),\quad\dots,\quad Q(e_n)=f_*(e_n)$$
+    可验证$Q$在$S^n$上的限制$\tilde{Q}$即满足$\tilde{Q}(p)=f(p)$且$\tilde{Q}_{*p}=f_{*p}$，且其为$S^n$上的等距，从而由本章引理5.1可得结论。
+    
+    \item 6.1
+    \begin{enumerate}[(1)]
+        \item 先证明光滑曲线情况，与3.3节相同记号，此时由于
+        $$E(u)=\frac{1}{2}\int_0^b\langle\tilde{T},\tilde{T}\rangle\dr t$$
+        有
+        $$E'(u)=\frac{1}{2}\int_0^b\frac{\partial}{\partial u}\langle\tilde{T},\tilde{T}\rangle\dr t=\int_0^b\langle D_{\partial/\partial u}\tilde{T},\tilde{T}\rangle\dr t$$
+        剩余过程与3.3节完全相同。由于此时不再有分母项，无需假设$\gamma(t)$的参数与弧长参数正比即可得到(由拉回丛上诱导联络定义，$D_{\partial/\partial t}\gamma'=D_{\gamma'}\gamma'$)
+        $$E'(0)=\left<U,\gamma'\right>|_0^b-\int_a^b\left<U,D_{\gamma'}\gamma'\right>\dr t$$
+        同理再推广到分段光滑曲线即得结果。
+    
+        \item 若其为测地线，则其光滑且$D_{\gamma'}\gamma'=0$，从而得证。
+        
+        若$E'(0)=0$对满足$U(0)=U(b)=0$的$U$恒成立，类似定理3.5构造$U(t)$，可得只能$D_{\gamma'}\gamma'=0$在每个分段恒成立且$\gamma$光滑，从而其为测地线。
+    
+        \item 直接计算有
+        $$E''(u)=\int_0^b\frac{\partial}{\partial u}\langle D_{\partial/\partial u}\tilde{T},\tilde{T}\rangle\dr t=\int_0^b\big(\langle D_{\partial/\partial u}D_{\partial/\partial u}\tilde{T},\tilde{T}\rangle+\langle D_{\partial/\partial u}\tilde{T},D_{\partial/\partial u}\tilde{T}\rangle\big)\dr t$$
+        利用$D_{\partial/\partial u}\tilde{T}=D_{\partial/\partial t}\tilde{U}$可将上式化为
+        $$\int_0^b\big(\langle D_{\partial/\partial u}D_{\partial/\partial t}\tilde{U},\tilde{T}\rangle+\langle D_{\partial/\partial t}\tilde{U},D_{\partial/\partial t}\tilde{U}\rangle\big)\dr t$$
+        与6.1节推导1.3式完全类似，再利用
+        $$\left<U',U'\right>=\frac{\partial}{\partial t}\left<U,U'\right>-\left<U,U''\right>$$
+        即可得到结论。
+    
+        \item 由定义代入$I_\gamma(U,U)$可发现此即为类似式1.3的分部积分前的形式，从而在上问过程中已经得到。
+    \end{enumerate}
+    
+    \item 6.4
+    
+    与定理2.1证明过程完全类似，加入$\frac{\dr f}{\dr t}$项后估算改写为
+    $$\sum_{i=1}^{m-1}L_i''(0)\le\int_0^l\bigg(\sin\frac{\pi t}{l}\bigg)^2\bigg(\frac{\pi^2}{l^2}(m-1)-a-\frac{\dr f}{\dr t}\bigg)\dr t$$
+    计算可得此为
+    $$\frac{l}{2}\bigg(\frac{\pi^2}{l^2}(m-1)-a\bigg)-\int_0^l\bigg(\sin\frac{\pi t}{l}\bigg)^2\frac{\dr f}{\dr t}\dr t$$
+    利用分部积分可得第二项为
+    $$\int_0^l\frac{\pi}{l}\sin\frac{2\pi t}{l}f\dr t\le\pi c$$
+    综合可类似定理2.1得
+    $$\frac{l}{2}\bigg(\frac{\pi^2}{l^2}(m-1)-a\bigg)+\pi c\ge0$$
+    左侧乘$l$即为开口向下的二次函数，求解右侧零点即得到上界。
+    
+    \item 6.6
+    
+    设$\gamma$为一条正则测地线，且$\gamma(0)=\gamma(l)$，先证明存在与$\gamma'(t)$处处正交且沿$\gamma(t)$平行的单位向量场$U(t)$。
+    
+    设$p=\gamma(0)$，考虑沿$\gamma$的平行移动，从0移动到$l$后其给出了$T_pM\to T_pM$的正交变换$P$，且由平行移动的性质$P(\gamma'(0))=\gamma'(0)$、$P$保持定向不变。由于$P$为正交阵，可知$\det P=1$，再由复特征值成对，实特征值为$\pm1$，通过特征值乘积为1可知特征值1几何重数至少为2。由$P$正交，其为规范阵，于是特征值代数重数与几何重数相同，存在向量单位向量$U(0)$与$\gamma'(0)$垂直且$P(U(0))=U(0)$，再将其平行移动即得符合要求的向量场。
+    
+    构造$\gamma$的变分$\Phi$使得$U$为其变分向量场，则由条件有$U'=0$、$|U|=1$，于是根据弧长第二变分公式、$\gamma$正则与$U(a)=U(a+l)$、$\gamma(a)=\gamma(a+l)$可知
+    $$L''(0)=-\int_0^lK(\gamma',U)\dr t<0$$
+    从而得证。
+    
+    \item 6.8
+    
+    对任何$p\in M$，考虑两个单位正交向量$E_1,E_2\in T_pM$，设$\gamma:[0,\pi]\to M$是满足$\gamma(0)=p$、$\gamma'(0)=E_1$的正规测地线，由条件$\gamma(\pi)=q$。
+    
+    构造$\gamma$的测地变分
+    $$\Phi(t,u)=\exp_p t(E_1\cos u+E_2\sin u)$$
+    由定义可知其变分向量场$U$为法Jacobi场，且由$\Phi(0,u)=p$、$\Phi(\pi,u)=q$可知$U(0)=U(\pi)=0$。
+    
+    由引理4.3设$U(t)=tE(t)$，有$E(0)=U'(0)=E_2$。取沿$\gamma(t)$平行的单位正交标架场$e_i(t)$，使得$e_m=\gamma'$，并设
+    $$U=\sum_{i=1}^{m-1}U^ie_i$$
+    记$K(t)=K(\gamma'(t),U(t))$，当$t>0$时由数乘不影响截面曲率可知其为$K(\gamma'(t),E(t))$。由条件$\gamma$为连接$p,q$的最短线，且可变分出其他最短线，从而有
+    $$0=I_{\gamma([0,\pi])}(U,U)=\int_0^\pi\sum_i|U^{i\prime}|^2\dr t-\int_0^\pi K(t)|U|^2\dr t$$
+    由习题6.7可知此式大于等于$|U|^2(1-K(t))$的积分，从而由$U$在非端点处非零与$K(t)\le1$可知$K(t)=1$恒成立，令$t\to0$又可推出$K(E_1,E_2)=1$，于是其截面曲率恒为1，由第五章定理5.2得证。
+    
+    \item 6.11
+    
+    利用习题6.10的结论，对任何$\gamma$，取出对应的$t_0$。由指数定义可知存在$Y\in\mathscr{V}_0^\bot(\gamma|_{[-t_0,t_0]})$使得$I(Y,Y)<0$。由$\mathscr{V}$定义，存在$\gamma_{[-t_0,t_0]}$的固定端点变分$\Phi$使得$Y$为其变分向量场，由此直接计算可得$L''(0)<0$，于是其不为最短。
+    
+    举例：考虑任何诱导度量下的直纹面，其上的直线必然为测地直线，从而满足。
+    
+    \item 6.14
+    
+    若$L(s_0)\ge\pi K_0^{-1/2}$则已经得证。否则，利用Rauch比较定理可得$\exp_p$在$B=B_0(\pi K_0^{-1/2})$内无退化点。对曲线$\alpha_s$，记其提升$\tilde\alpha_s$满足连接0与$\tilde{q}=\exp_p^{-1}(q)\in B$，且$\alpha_s=\exp_p\circ\tilde\alpha_s$。
+    
+    先证明，对任何$\varepsilon\in[0,1]$，存在$s\in[0,1]$使得$\alpha_s$的提升$\tilde\alpha_s$存在，且$\tilde\alpha_s$上有到$\partial B$距离小于$\varepsilon$的点：若否，对某$\varepsilon>0$，所有提升$\tilde\alpha_s$到$\partial B$的距离大于$\varepsilon$，于是所有能够提升的$s$构成$[0,1]$的既开又闭子集，只能为$[0,1]$。然而，根据提升的唯一性，由无退化点可知$\alpha_1$不可能提升，矛盾。
+    
+    *本质上这步操作是因为$\alpha_1$对应的原像必然会离开$B$，而$\alpha_0$在$B$中，因此可以找到充分接近边界的提升。
+    
+    由此，设$s$满足上述要求，根据条件可知
+    $$L(\gamma_0)+L(\gamma_s)\ge2\pi K_0^{-1/2}-2\varepsilon$$
+    取一列$\varepsilon\to0$使得对应的$s$收敛，即得最终结果。
+    
+    \item 6.16
+    \begin{enumerate}[(1)]
+        \item 等式可直接通过分部积分得到。若$f$在$(0,t_1)$上大于0且$f(t_1)=0$、$\tilde{f}$在$(0,t_1]$上大于0，利用0到$t_1$的积分结果可知
+        $$\tilde{f}(t_1)f'(t_1)+\int_0^{t_1}(K-\tilde{K})f\tilde{f}\dr t=0$$
+        由假设可知$f'(t_1)\le0$，而第二项也$\le0$，由此等号成立当且仅当$K=\tilde{K}$恒成立且$f'(t_1)=0$，但此时利用解唯一性可知$\tilde{f}(t_1)=0$，矛盾。
+        
+        \item 由条件移项可得
+        $$0\le\int_0^t(\tilde{K}-K)\tilde{f}f\dr t=\tilde{f}(t)f'(t)-f(t)\tilde{f}'(t)$$
+        而同除以$\tilde{f}(t)f(t)$即得到
+        $$(\log f)'(t)\ge(\log\tilde{f})'(t)$$
+        从而由0处相等可知$\log f\ge\log\tilde{f}$，从而$f\ge\tilde{f}$，等号成立当且仅当此前第一个等号取等，于是此前$\tilde{K}=K$。
+    
+        二维时，将$T_{\gamma(t)}M$分解为$\gamma'(t)$方向与垂直方向，可发现平行方向的$X$无影响，而垂直方向的方程(利用$K$的特性可不妨设$X$是与$\gamma'$垂直的单位向量场)即可化为本题的方程，从而得到等价性。
+    \end{enumerate}
+\end{enumerate}
+\end{document}
