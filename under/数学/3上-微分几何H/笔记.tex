@@ -1,0 +1,1469 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\pagestyle{headings}
+\title{\textbf{微分几何H\ 笔记}}
+\author{原生生物}
+\date{}
+\setcounter{tocdepth}{2}
+\setlength{\parindent}{0pt}
+\usepackage{amsmath,amssymb,amsthm,enumerate,geometry}
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\ctexset{section={number=\zhnum{section}}}
+\ctexset{subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\rot}{rot}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\tr}{tr}
+\newtheorem{thm}{定理}[section]
+\newtheorem{dfn}[thm]{定义}
+\newtheorem*{hw}{练习}
+
+\begin{document}
+\maketitle
+
+*刘世平老师微分几何H课堂笔记
+
+\tableofcontents
+
+\newpage
+
+\section{曲线的几何}
+\subsection{欧氏空间}
+最早认识\ 三维欧氏空间$E^3$ (点、线、面、欧氏几何公理)
+
+向量：空间中有长度、方向的量
+
+*欧氏空间\textbf{齐次性}(不同原点无区别)、\textbf{各向同性}(不同方向无区别)，因此向量\textbf{不区分起点}，由此可定义向量运算
+
+\begin{enumerate}
+    \item 加法(交换、结合、零元、逆元)
+    \item 数乘(结合、分配加法、单位)
+
+        *抽象出$\mathbb{R}$上的\textbf{向量空间}结构
+
+    \item 内积$\left<v_1,v_2\right>$(余弦定理、交换、双线性)
+    \item 外积$v_1\wedge v_2$[平行四边形有向面积](\textbf{反交换}、双线性)
+\end{enumerate}
+
+引入坐标：任取欧氏空间原点$O$，三个线性无关向量$v_1,v_2,v_3$，则$\{O;v_1,v_2,v_3\}$为$E^3$以$O$为原点的一个一般\textbf{标架}
+
+*由此欧氏空间$E^3$与三维数组空间$\mathbb{R}^3$对应
+
+为保证内积结构，需要$\left<v_i,v_j\right>=\delta_i^j$，此时即称为\textbf{正交标架}，所有运算可通过坐标表示
+
+*混合积$(v_1,v_2,v_3)=\left<v_1,v_2\wedge v_3\right>$，代表张成平行六面体的有向体积$\begin{vmatrix}x_1^1&x_1^2&x_1^3\\x_2^1&x_2^2&x_2^3\\x_3^1&x_3^2&x_3^3\end{vmatrix}$
+
+运算性质：
+
+\begin{enumerate}
+    \item $v_1\wedge(v_2\wedge v_3)=\left<v_1,v_3\right>v_2-\left<v_1,v_2\right>v_3$
+    \item $\left<v_1\wedge v_2,v_3\wedge v_4\right>=\left<v_1,v_3\right>\left<v_2,v_4\right>-\left<v_1,v_4\right>\left<v_2,v_3\right>$
+    \item $(v_1,v_2,v_3)=(v_2,v_3,v_1)=(v_3,v_1,v_2)$
+\end{enumerate}
+
+*坐标坏处：不同点不同方向标架\textbf{未必一致}
+
+\
+
+坐标变换：若$\begin{pmatrix}e_1'\\e_2'\\e_3'\end{pmatrix}=T\begin{pmatrix}e_1\\e_2\\e_3\end{pmatrix}$[$T$为正交阵，行列式1代表两标架定向相同，否则相反]，则$\{O;e_1,e_2,e_3\}$下的坐标与$\{O';e_1',e_2',e_3'\}$下的坐标$(y^1,y^2,y^3)$关系为$(x^1,x^2,x^3)=(c^1,c^2,c^3)+(y^1,y^2,y^3)T$。
+
+*保持欧氏空间结构(度量)的变换称\textbf{合同变换}
+
+\begin{thm}
+$\mathcal{T}$为$E^3$的合同变换，则存在$T\in O_3(\mathbb{R})$与$P\in E^3$使得$\forall X\in E^3,\mathcal{T}(X)=XT+P$。
+\end{thm}
+
+\begin{proof}
+由平移不妨设保原点，通过保距离由余弦定理可推出保内积，由坐标定义可推出线性，从而得结果。
+\end{proof}
+
+*\textbf{欧氏空间中正交标架全体与合同变换群一一对应}
+
+\
+
+对向量值函数$\vec{a}(t)=(a_1(t),a_2(t),a_3(t))$，有微分性质：
+
+\begin{enumerate}
+    \item $\frac{\mathrm{d}}{\mathrm{d}t}(\lambda\vec{a})=\frac{\mathrm{d}\lambda}{\mathrm{d}t}\vec{a}+\lambda\frac{\mathrm{d}\vec{a}}{\mathrm{d}t}$
+    \item $\frac{\mathrm{d}}{\mathrm{d}t}\big<\vec{a},\vec{b}\big>=\big<\frac{\mathrm{d}\vec{a}}{\mathrm{d}t},\vec{b}\big>+\big<\vec{a},\frac{\mathrm{d}\vec{b}}{\mathrm{d}t}\big>$
+    \item $\frac{\mathrm{d}}{\mathrm{d}t}\vec{a}\wedge\vec{b}=\frac{\mathrm{d}\vec{a}}{\mathrm{d}t}\wedge\vec{b}+\vec{a}\wedge\frac{\mathrm{d}\vec{b}}{\mathrm{d}t}$
+    \item $\frac{\mathrm{d}}{\mathrm{d}t}\big(\vec{a},\vec{b},\vec{c}\big)=\big(\frac{\mathrm{d}\vec{a}}{\mathrm{d}t},\vec{b},\vec{c}\big)+\big(\vec{a},\frac{\mathrm{d}\vec{b}}{\mathrm{d}t},\vec{c}\big)+\big(\vec{a},\vec{b},\frac{\mathrm{d}\vec{c}}{\mathrm{d}t}\big)$
+\end{enumerate}
+
+\begin{thm}
+光滑向量值函数$\vec{a}(t)$长度不变$\Longleftrightarrow\left<\vec{a}(t),\vec{a}'(t)\right>=0$。
+\end{thm}
+
+\begin{proof}
+$\left<\vec{a}(t),\vec{a}(t)\right>$恒定$\Longleftrightarrow\frac{\mathrm{d}}{\mathrm{d}t}\left<\vec{a}(t),\vec{a}'(t)\right>=0$，由此得结论。
+\end{proof}
+
+\begin{hw}
+设$\vec{a}(t)$为光滑非零向量值函数，则
+
+\begin{enumerate}
+    \item 方向不变$\Longleftrightarrow \vec{a}'(t)\wedge\vec{a}(t)=0$；
+    \item 若$\vec{a}(t)$与某固定方向垂直，那么$\left(\vec{a}(t),\vec{a}'(t),\vec{a}''(t)\right)=0$；反之，若$\left(\vec{a}(t),\vec{a}'(t),\vec{a}''(t)\right)=0$且处处$\vec{a}'(t)\wedge\vec{a}(t)\ne0$，则$\vec{a}(t)$与某固定方向垂直。
+\end{enumerate}
+\end{hw}
+
+\begin{proof}
+假设$\alpha$为每问里提到的特殊方向：
+\begin{enumerate}
+    \item
+    左推右：由于$\alpha\wedge\vec{a}(t)=0$，对$t$求导即有$\alpha\wedge\vec{a}'(t)=0$，从而$\vec{a}'(t)$方向与$\vec{a}(t)$相同，即得证。
+    
+    右推左：设$\vec{a}(t)=f(t)\alpha(t)$，其中$\alpha$为单位向量，则计算知$\vec{a}(t)\wedge\vec{a}'(t)=f^2(t)\alpha(t)\wedge\alpha'(t)$，由条件$f(t)\ne0$，因此$\alpha(t)\wedge\alpha'(t)=0$，由$\alpha(t)$模长不变可知$\left<\alpha(t),\alpha'(t)\right>=0$，由$\alpha(t)$为单位向量可知必须$\alpha'(t)=0$，从而得证。
+        
+    \item
+    第一句：通过对$\left<\vec{a}(t),\alpha\right>$求导可知$\left<\vec{a}'(t),\alpha\right>=0$，同理$\left<\vec{a}''(t),\alpha\right>=0$，于是三者共面，原命题得证。
+
+    第二句：设$\vec{a}(t)=f(t)\alpha(t)$，其中$\alpha$为单位向量，计算知$\left(\vec{a}(t),\vec{a}'(t),\vec{a}''(t)\right)=f^3(t)(\alpha(t),\alpha'(t),\alpha''(t))$，由条件$f(t)\ne0$得$(\alpha(t),\alpha'(t),\alpha''(t))=0$，有$\left<\alpha'(t),\alpha(t)\wedge\alpha''(t)\right>=0$，结合条件知$\alpha''(t)\wedge\alpha(t)=0$，由此计算可得$(\alpha(t)\wedge\alpha'(t))\wedge(\alpha(t)\wedge\alpha'(t))'=(\alpha(t)\wedge\alpha'(t))\wedge(\alpha(t)\wedge\alpha''(t))=0$，利用1知$\alpha(t)\wedge\alpha'(t)$方向恒定，因此$\alpha(t)$与某固定方向垂直。
+\end{enumerate}
+\end{proof}
+
+\subsection{微分形式}
+
+\begin{dfn}
+切向量
+
+切向量$v_p$包含一个向量$v$与起点$p$，而向量场是给每一个点$p$赋一个切向量$v_p$的函数。
+\end{dfn}
+
+性质：设$u_1(p)=(1,0,0)_p,u_2(p)=(0,1,0)_p,u_3(p)=(0,0,1)_p$，则任何向量场每点都可以表示为$u_1,u_2,u_3$组合。
+
+\begin{dfn}
+$E^3$上的一形式、光滑一形式
+    
+$E^3$一形式$\phi$是定义在$E^3$所有切向量上的函数，使得对任意$a,b\in\mathbb{R},p\in E^3,v,w\in T_pE^3$(即以$p$为起点的切向量)，有$\phi(av+bw)=a\phi(v)+b\phi(w)$。
+
+给定一形式与向量场$V$，有实函数$\phi(V):E^3\to\mathbb{R},\phi(V)(p)=\phi(V(p))$，若对任何光滑向量场$V$都有$\phi(V)$是光滑函数，则称$\phi$为光滑一形式。
+\end{dfn}
+
+运算：给定一形式$\phi,\psi$，$f:E^3\to\mathbb{R}$，则$(\phi+\psi)(v)=\phi(v)+\psi(v)$，$(f\phi)(v_p)=f(p)\phi(v_p)$。
+
+关于函数的线性性质：$V,W$为切向量场，$f,g$为空间函数，则$\phi(fV+gW)=f\phi(V)+g\phi(W)$。
+
+\
+
+给定空间光滑函数$f$，可定义一形式$\mathrm{d}f$，满足$\mathrm{d}f(v_p)=\frac{\mathrm{d}}{\mathrm{d}t}|_{t\to0}f(p+tv_p)$，由于其即为$\left<\grad f,v_p\right>$，因此良定。
+
+对投影函数$x^i:E^3\to\mathbb{R}$，计算发现有$\mathrm{d}x^i(v_p)=v_p^i$。
+
+性质：$E^3$上一形式可表示为$\phi=\sum_{i=1}^3f_i\mathrm{d}x_i$，其中$f_i=\phi(u_i)$。
+
+验证：$\phi(v_p)=\phi(\sum v_p^iu_i)=\sum v_p^i\phi(u_i)(p)=\sum f_iv_p^i=\sum f_i\mathrm{d}x_i(v_p)$。
+
+\
+
+\begin{dfn} $E^3$上的二形式
+
+$E^3$上的二形式$\eta$是$E^3$上所有切向量对$(v_p,w_p)$，或写成$v_p\wedge w_p$上的实值函数，使得在任何$p$处满足双线性性、反对称性$\eta(v_p,w_p)=-\eta(w_p,v_p)$。
+
+若对任何光滑向量场$V,W$满足$\eta(V,W)$是光滑函数，则称其为光滑二形式。
+\end{dfn}
+
+例：$E^3$中，令$\mathrm{d}x^i\wedge\mathrm{d}x^j=\mathrm{d}x^i\otimes\mathrm{d}x^j-\mathrm{d}x^j\otimes\mathrm{d}x^i$，即$(v_p,w_p)\to v_p^iw_p^j-v_p^jw_p^i$，则其为一个二形式。
+
+性质：$E^3$上二形式可表示为$\eta=\sum_{i<j}\eta(u_i,u_j)\mathrm{d}x^i\wedge\mathrm{d}x^j$，可与一形式的情况类似拆分验证。
+
+几何意义：$\mathrm{d}x^i\wedge\mathrm{d}x^j(v_p,w_p)=\begin{vmatrix}v_p^i&v_p^j\\w_p^i&w_p^j\end{vmatrix}$，代表$E^3$中两切向量构成的平行四边形向坐标平面\textbf{投影的面积}。
+
+\
+
+\begin{dfn} $E^3$上的三形式
+
+$E^3$上的三形式$\psi$是$E^3$上所有$(v_p,w_p,u_p)$上的实值函数，使得在任何$p$处满足三重线性性、交换反对称性(交换任意两个都导致符号变化)。
+
+若对任何光滑向量场$V,W,U$满足$\psi(V,W,U)$是光滑函数，则称其为光滑三形式。
+\end{dfn}
+
+$\mathrm{d}x^1\wedge\mathrm{d}x^2\wedge\mathrm{d}x^3=\sum_{\sigma\in S(3)}\sgn(\sigma)\mathrm{d}x^1\otimes\mathrm{d}x^2\otimes\mathrm{d}x^3=\det\begin{pmatrix}v_p&u_p&w_p\end{pmatrix}$，即\textbf{有向体积}。
+
+*$E^3$上\textbf{不存在}非平凡的四形式；再扩充定义零形式，代表函数。
+
+\
+
+*记$\Omega_i$代表$E^3$上光滑的$i$-形式
+
+\begin{dfn} 外微分运算$\mathrm{d}$
+
+\
+
+$\displaystyle\forall f\in\Omega_0,\mathrm{d}f=\sum\frac{\partial f}{\partial x^i}\mathrm{d}x^i$
+
+\
+
+$\displaystyle\forall\phi=\sum\phi(u_i)\mathrm{d}x^i\in\Omega_1,\mathrm{d}\phi=\sum\mathrm{d}(\phi(u_i))\wedge\mathrm{d}x^i=\sum_{i,j}\frac{\partial \phi(u_i)}{\partial x^j}\mathrm{d}x^i\wedge\mathrm{d}x^j$
+
+\
+
+$\displaystyle\forall\eta=\sum_{i<j}\eta(u_i,u_j)\mathrm{d}x^i\wedge\mathrm{d}x^j,\mathrm{d}\eta=\sum_{i<j}\mathrm{d}(\eta(u_i,u_j))\wedge\mathrm{d}x^i\wedge\mathrm{d}x^j=\psi\mathrm{d}x^1\wedge\mathrm{d}x^2\wedge\mathrm{d}x^3$
+\end{dfn}
+
+*性质：由于对不同分量求偏导可交换，可计算得$\mathrm{d}\circ\mathrm{d}=0$
+
+\
+
+*$\mathrm{d}\Omega_0$的系数与$\grad$对应，$\mathrm{d}\Omega_1$的系数与$\rot$对应，$\mathrm{d}\Omega_2$的系数与$\Div$对应，有$\rot\grad f=0,\Div\rot F=0$。
+
+\subsection{平面曲线}
+
+*研究怎样的曲线？
+
+\begin{dfn} 正则曲线
+
+$(a,b)\to E^3:t\to\gamma(t)$称为正则曲线，当其每个分量光滑且$|\gamma'(t)|=\sqrt{x'(t)^2+y'(t)^2+z'(t)^2}$处处非零(这保证了其为浸入，即局部一一映射)。
+\end{dfn}
+
+不是正则曲线的例子：如$(t^2,t^3)$在零点处对$t$导数为$(0,0)$，局部非一一映射。
+
+长度：$\int_a^b|r'(t)|\mathrm{d}t$
+
+\textbf{弧长参数}：$s(t)=\int_a^t|r'(u)|\mathrm{d}u$，$s'(t)=|r'(t)|>0$。
+
+弧长参数化：$C=\gamma\circ s^{-1}$，则有$C(s)=\gamma(t)$，$|C'(s)|=|r'(t)t'(s)|=s'(t)|t'(s)|=0$。
+
+\
+
+\textbf{平面曲线的曲率}
+
+对曲线的正则点$t$，当$t_1<t_2<t_3$充分靠近$t$时，$r(t_1),r(t_2),r(t_3)$各不相同。假设三点不共线，令三点趋近$t$，设$C$为三点构成的圆的圆心。
+
+考察函数$t\to\left<r(t)-C(t_1,t_2,t_3),r(t)-C(t_1,t_2,t_3)\right>$在$t_{1,2,3}$处取值相同，求导，利用中值定理可知$\exists\xi_1\in(t_1,t_2),\xi_2\in(t_2,t_3),\left<\gamma'(t),\gamma(t)-C(t_1,t_2,t_3)\right>|_{t=\xi_{1,2}}=0$。
+
+再次求导并利用中值定理，可知$\exists\eta\in(\xi_1,\xi_2)$，使得$\left<\gamma''(\eta),\gamma(\eta)-C(t_1,t_2,t_3)\right>+\left<\gamma'(\eta),\gamma'(\eta)\right>=0$
+
+结合以上两式，若$t_{1,2,3}\to t_0$时$C(t_1,t_2,t_3)\to C$，则满足$\left<\gamma'(t_0),\gamma(t_0)-C\right>=0$，且$\left<\gamma''(t_0),\gamma(t_0)-C\right>+\left<\gamma'(t_0),\gamma'(t_0)\right>=0$。
+
+*当$\gamma'(t_0),\gamma''(t_0)$不共线时，$C$被唯一确定。
+
+\
+
+弧长参数$\gamma(s)$下：由于$\left<\gamma'(s),\gamma'(s)\right>=1$，求导可知$\left<\gamma''(s),\gamma'(s)\right>=0$，因此$\gamma'(s_0),\gamma''(s_0)$共线当且仅当$\gamma''(s_0)=0$。其不为0时，方程组化为$\begin{cases}\left<\gamma'(s_0),\gamma(s_0)-C\right>=0\\\left<\gamma''(s_0),\gamma(s_0)-C\right>=-1\end{cases}$。
+
+利用方程组与$\left<\gamma''(s),\gamma'(s)\right>=0$可推知$\gamma''(s_0)=a(\gamma(s_0)-C),a<0$，同时点积$\gamma(s_0)-C$可知$a|\gamma(s_0)-C|^2=-1$，，从而$|\gamma(s_0)-C|=\frac{1}{\gamma''(s_0)}$
+
+\begin{thm}
+设$r(s)$是弧长参数正则曲线，则：
+\begin{enumerate}
+    \item $r''(s)\ne0$时，$s_{1,2,3}$充分接近$s$时$r(s_1),r(s_2),r(s_3)$不共线，且在$s_{1,2,3}\to s$时，三点所确定的圆收敛到过$r(s)$的圆，半径为$\frac{1}{|r''(s)|}$，圆心在与$r(s)$处切线垂直的直线上。
+    \item $r''(s)=0$时，即使$r(s_1),r(s_2),r(s_3)$不共线，其确定的圆也不可能收敛。
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+以下不妨设$s_1<s_2<s_3$：
+\begin{enumerate}
+\item
+若任何邻域内有$r(s_1),r(s_2),r(s_3)$共线，由柯西中值定理可知存在$s_1<a<s_2<b<s_3$使得$r'(a)$与$r'(b)$同向，又由弧长参数可知其相等，从而再由中值定理知存在$a<c<b$使得$r''(c)=0$，再令$s_1,s_3$趋近$s$可得矛盾。
+
+设$C$为满足$\left<r'(s),r(s)-C\right>=0,\left<r''(s),r(s)-C\right>=-1$的唯一确定的圆心，下证$s_{1,2,3}$构成的圆的圆心$C(s_1,s_2,s_3)$收敛到$C$，从而再由收敛到的圆过$r(s)$可知半径即为$\frac{1}{|r''(s)|}$。
+
+类似上方取中值，由中值定理，记$C(s_1,s_2,s_3)=C_0$，其满足$\left<r'(a),r(a)-C_0\right>=\left<r'(b),r(b)-C_0\right>=0,\left<r''(c),r(c)-C_0\right>=-1$。记$C-C_0=D$，利用极限可知$\left<r'(a),D\right>=\left<r'(b),D\right>=\left<r''(c),D\right>\to 0$。由连续性即可知$D\to0$，因此得证。
+
+\item
+类似1，若$C_0$收敛到$C$，仍然存在$\left<r'(s),r(s)-C\right>=0,\left<r''(s),r(s)-C\right>=-1$，但此时$r''(s)=0$，第二个式子不可能成立，从而矛盾。
+\end{enumerate}
+
+*这样确定的圆称为\textbf{密切圆}
+\end{proof}
+
+*设$r(s)$为平面弧长参数正则曲线，其$s$处曲率定义为$|r''(s)|$。
+
+\
+
+记$r'(s)=t(s)$，可发现其为单位切向量，设单位向量$n(s)$与$t(s)$垂直，且$\{t(s),n(s)\}$与$\{i,j\}$定向相同，则称其为$s$处的单位正法向量，由$t(s)$唯一确定。
+
+$\{r(s);t(s),n(s)\}$是一个以$r(s)$为原点的正交标架，称它为沿曲线$r$的\textbf{Frenet标架}。
+
+$t'(s)=r''(s)=\kappa(s)n(s)$，而由对$\left<t(s),n(s)\right>$求导可算出$n'(s)=-\kappa(s)t(s)$，这里的$\kappa(s)$是标量函数，称为\textbf{带符号曲率}，与参数化有关(如记$\bar{r}(s)=r(l-s)$，则$\bar{\kappa}(s)=-\kappa(l-s)$)。
+
+\begin{thm}
+对正则曲线$r(t)=(x(t),y(t))$，有$\kappa=\dfrac{x'y''-x''y'}{(x'^2+y'^2)^{3/2}}$。
+\end{thm}
+
+\begin{proof}
+弧长参数下，其为$r'(s),r''(s)$张成的有向面积，即$x'(s)y''(s)-x''(s)y'(s)$，再化为一般参数。
+\end{proof}
+
+*常曲率曲线只能为直线(曲率为0)或圆(曲率非0)
+
+\begin{proof}
+前者由定义易得，后者通过求导可说明$p(s)=r(s)+\frac{1}{a}n(s)$为常向量，从而得证。
+\end{proof}
+
+\
+
+\begin{thm}
+设$\kappa:(a,b)\to\mathbb{R}$为连续函数，则存在弧长参数曲线$r(s)$使得$s$处曲率为$\kappa(s)$，且若存在两条这样的曲线$r,\bar{r}$，则有刚体变换$A$使得$\bar{r}=A\circ r$。
+\end{thm}
+
+\begin{proof}
+存在性也即寻找$r(s)$满足$\begin{cases}r'(s)=t(s)\\t'(s)=\kappa(s)n(s)=\kappa(s)\begin{pmatrix}0&-1\\1&0\end{pmatrix}t(s)^T\end{cases}$，利用微分方程中的Picard存在唯一性定理，由任给的满足$|t(s_0)|=1$的初值可以解出$t$，进而解出$r$。
+
+对于唯一性，$r$的初值相差平移矩阵，$t$的初值相差旋转矩阵，而旋转矩阵与$\begin{pmatrix}0&-1\\1&0\end{pmatrix}$、$\dfrac{\mathrm{d}}{\mathrm{d}s}$均可交换，从而可以提出，得唯一性。
+\end{proof}
+
+\subsection{空间曲线}
+
+*正则曲线、曲率($|r''(s)|=\left<t',n\right>$，$n$定义见下)、密切圆的定义与平面曲线相同
+
+\begin{thm}
+设$r:(a,b)\to E^3$为弧长参数的正则曲线，且$r''(s)$处处非零，则：
+
+1. $s_{1,2,3}$充分靠近时，$r(s_1),r(s_2),r(s_3)$不共线；
+
+2. $s_{1,2,3}\to s$时，此三点确定的平面收敛到过$r(s_0)$，由$r'(s_0),r''(s_0)$张成的平面。
+\end{thm}
+
+\begin{proof}
+与平面情况类似可知1成立，记$P(s_1,s_2,s_3)$为三点唯一确定的平面，假设其单位法向量$a(s_1,s_2,s_3)$，$p$为其上一点，考虑函数$s\to\left<r(s)-p,a(s_1,s_2,s_3)\right>$，利用两次中值定理可取出$\left<r'(\xi_{1,2}),a\right>=\left<r''(\eta),a\right>=0$。由于$a$方向不定，可不妨假设$\{r'(\xi_1),r''(\eta),a\}$成右手系，有收敛时$\begin{cases}\left<r'(s),a\right>=\left<r''(s),a\right>=0\\\left<r'(s)\wedge r''(s),a\right>=|r'(s)\wedge r''(s)|\end{cases}$。
+\end{proof}
+
+*空间中，法向量不唯一，当$r''(s)\ne 0$时，令$n(s)=\frac{r''(s)}{|r''(s)|}$为主法向量，$b(s)=t(s)\wedge n(s)$为副法向量，则有空间中的Frenet标架$\{r(s);t(s),n(s),b(s)\}$，其中$t$-$n$平面称为\textbf{密切平面}，$n$-$b$平面称为\textbf{法平面}，$t$-$b$平面称为\textbf{从切平面}。
+
+\
+
+类似定义曲率，对$\left<n,b\right>$求导，定义$\tau(s)=\left<n'(s),b(s)\right>$，称为\textbf{挠率}，有$\dfrac{\mathrm{d}}{\mathrm{d}s}\begin{pmatrix}t\\n\\b\\\end{pmatrix}=\begin{pmatrix}0&\kappa&0\\-\kappa&0&\tau\\0&-\tau&0\end{pmatrix}\begin{pmatrix}t\\n\\b\\\end{pmatrix}$。
+
+计算：利用$\tau=-\left<n,b\right>$与定义可以化出$\tau(s)=\dfrac{(r'(s),r''(s),r'''(s))}{|r''|^2}$，进一步化为一般参数可知$\tau=\dfrac{(r',r'',r''')}{|r'\wedge r''|^2}$，而空间曲率可类似算得$\kappa=\dfrac{|r'\wedge r''|}{|r'|^3}$。
+
+*计算可知，一点处$\kappa,\tau$不依赖参数化的选取
+
+\
+
+挠率的几何意义：$|b'(s)|=|\tau(s)|$，为空间曲线\textbf{离开密切平面的速度}。
+
+\begin{thm}
+空间正则曲线$r=r(t)$曲率处处大于0，则其在某个平面上的充要条件是$\tau\equiv0$。
+\end{thm}
+
+\begin{proof}
+对左推右，设弧长参数化后有$\left<r(s)-r(s_0),a\right>=0$恒成立，求导即可知$t(s),n(s)$亦在此平面，组合可知$\tau(s)\left<b(s),a\right>=0$，从而得证。右推左时，由$b'(s)=0$可知$b(s)$为常向量，求导可验证$r(s)$与$b$恒垂直。
+\end{proof}
+
+\
+
+$\tau(s)$符号的意义：离开密切平面的方向与$b$相同/相反
+
+*反向参数化后，挠率不变
+
+计算得0处展开$r(s)$可得$r(s)=r(0)+(s-\frac{\kappa(0)^2s^3}{6})t(0)+(\frac{\kappa(0)s^2}{2}+\frac{\kappa'(0)s^3}{6})n(0)+\frac{\kappa(0)\tau(0)s^3}{6}b(0)+o(s^3)$，从而可得Frenet标架下点的坐标。
+
+\
+
+\begin{thm}
+曲线的弧长、曲率、挠率在刚体运动下不变。
+\end{thm}
+
+\begin{proof}
+设刚体运动将$p$变为$pT+x$，直接进行计算可发现旋转矩阵$T$由于行列式为1被合并消去，$x$在求导中消去，从而不变。
+\end{proof}
+
+\begin{thm} \textbf{\emph{空间曲线基本定理}}
+
+设$\kappa,\tau:(a,b)\to\mathbb{R}$连续，且$\kappa>0$，则存在弧长参数曲线$r:(a,b)\to E^3$以$\kappa,\tau$为曲率，挠率，若有两条不同，则可以通过刚体变换使之重合。
+\end{thm}
+
+\begin{proof}
+类似平面时的讨论，化为常微分方程控制。
+\end{proof}
+
+\
+
+对$s\in(a,b)$作为弧长参数的曲线，$\int_a^b\kappa(s)\mathrm{d}s$称为全曲率。
+
+令$r:[0,l]\to E^3$为正则曲线(闭区间光滑指能光滑延拓到某开区间上)，且$r(0)$与$r(l)$各阶导数相等，则称其为闭曲线。若其在$[0,l)$上为一一映射，则称简单闭曲线。
+
+\begin{hw}
+探索平面简单闭曲线的全曲率。
+\end{hw}
+
+对空间曲线，由定义$\kappa(s)\ge0$，由此全曲率必然非负。
+
+Fenchel,1929：任何空间简单闭曲线有$\int_0^l\kappa(s)\mathrm{d}s\ge2\pi$，取等等价于曲线为平面简单凸闭曲线。
+
+Fary,1949/Milnar,1950：若曲线具非平凡扭结，则$\int_0^l\kappa(s)\mathrm{d}s\ge4\pi$。
+
+\section{曲面的几何}
+
+*研究怎样的曲面？
+
+曲面可作以下映射：$r:D\subset E^2\to E^3$，且满足每个分量函数光滑且$r_u=\big(\frac{\partial x}{\partial u},\frac{\partial y}{\partial u},\frac{\partial z}{\partial u}\big),r_v=\big(\frac{\partial x}{\partial v},\frac{\partial y}{\partial v},\frac{\partial z}{\partial v}\big)$线性无关(即外积非零)，则称为\textbf{正则曲面片}。
+
+一点$r(u_0,v_0)$处，考虑曲线$r(u,v_0)$与$r(u_0,v)$可得到两个切向量$r_u(u_0,v_0),r_v(u_0,v_0)$。
+
+*曲面上过$r(u_0,v_0)$的所有光滑曲线在此处的切向量构成二维线性空间，即为$r_u,r_v$张成的平面，定义为\textbf{切平面}。
+
+\begin{proof}
+定义光滑函数$t\to (u(t),v(t))$，则曲面上的光滑曲线可写成$t\to r(u(t),v(t))$，不妨设$u(0)=u_0,v_0=v(0)$，求导可知$r(u_0,v_0)$处的切向量为$\frac{\mathrm{d}u}{\mathrm{d}t}r_u+\frac{\mathrm{d}v}{\mathrm{d}t}r_v$。
+\end{proof}
+
+另一个推论：$\frac{\partial(x,y)}{\partial(u,v)},\frac{\partial(y,z)}{\partial(u,v)},\frac{\partial(z,x)}{\partial(u,v)}$不可能同时为0，于是由反函数定理：
+
+不妨设$(u_0,v_0)$处$\frac{\partial(x,y)}{\partial(u,v)}$非零，则存在$(u_0,v_0)$邻域，其上$(u,v)\to(x,y)$有反函数$(x,y)\to(u,v)$，于是$r(u,v)=(x,y,\tilde{z}(x,y))$。
+
+\
+
+\textbf{法向量}
+
+*$r_u\wedge r_v$定义为法向量，与切平面垂直，$\{r;r_u,r_v,r_u\wedge r_v\}$构成(未必正交的)标架
+
+对\textbf{光滑参数变换}$(\bar{u},\bar{v})\to(u,v)$，记$J=\begin{pmatrix}\frac{\partial u}{\partial\bar{u}}&\frac{\partial v}{\partial\bar{u}}\\\frac{\partial u}{\partial\bar{v}}&\frac{\partial v}{\partial\bar{v}}\end{pmatrix}$，则$\begin{pmatrix}\overline{r_u}\\\overline{r_v}\end{pmatrix}=J\begin{pmatrix}r_u\\r_v\end{pmatrix}$，计算得$\overline{r_u}\wedge\overline{r_v}=\det(J)r_u\wedge r_v$，由此不同参数化下法向量可能反向。
+
+\subsection{第一基本形式}
+记$E=\left<r_u,r_u\right>,F=\left<r_u,r_v\right>,G=\left<r_v,r_v\right>$：
+
+1. 曲面上\textbf{曲线的长度}
+
+记$r=r(u,v),r(t)=r(u(t),v(t))$
+
+曲线长度$s(a)=\int_0^a|r'(t)|\mathrm{d}t$
+
+而$s'(a)=\sqrt{\left<r'(t),r'(t)\right>}$，代入可发现根号内为$Eu_t^2+2Fu_tv_t+Gv_t^2$
+
+2. 切向量$\nu=\lambda r_u+\mu r_v,\omega=\bar{\lambda}r_u+\bar{\mu}r_v$，则$\left<\nu,\omega\right>=\begin{pmatrix}\lambda&\mu\end{pmatrix}\begin{pmatrix}E&F\\F&G\end{pmatrix}\begin{pmatrix}\bar{\lambda}\\\bar{\mu}\end{pmatrix}$构成$T_pS\times T_pS\to\mathbb{R}$的映射，其中$T_pS$代表$S$在$P$处的切平面。
+
+3. 计算可验证，在不同参数化下，$\begin{pmatrix}\bar{E}&\bar{F}\\\bar{F}&\bar{G}\end{pmatrix}=J\begin{pmatrix}E&F\\F&G\end{pmatrix}J^T$。
+
+\
+
+定义$I=E\mathrm{d}u\otimes\mathrm{d}u+F\mathrm{d}u\otimes\mathrm{d}v+F\mathrm{d}v\otimes\mathrm{d}u+G\mathrm{d}v\otimes\mathrm{d}v$，可发现其在坐标变换下保持不变，称为\textbf{第一基本形式}。
+
+*它是一个由一形式$\mathrm{d}u,\mathrm{d}v$张量积得到的二形式
+
+定义说明：对$f:S\to\mathbb{R}$曲面上的光滑函数(可看作对$u,v$光滑)，可定义一形式$$\mathrm{d}f(p):T_pS\to\mathbb{R},v\to\mathrm{d}f(v)(p):=\frac{\mathrm{d}}{\mathrm{d}t}\bigg|_{t=0}f(r(t))$$其中$r(t)=r(u(t),v(t))$满足$r(0)=p,r'(0)=v$。
+
+其具有线性性，事实上只与$p,v$有关，与$r(t)$选取无关。
+
+于是，$r(u,v)\to u$的映射(不妨记为$u$)，有$\mathrm{d}u(r_u)(p)=\frac{\mathrm{d}}{\mathrm{d}u}\big|_{u=u_0}u(r(u,v_0))=1$，$\mathrm{d}u(r_v)=0$，同理$\mathrm{d}v(r_u)=0,\mathrm{d}v(r_v)=1$。
+
+于是，对任何$V=\lambda r_u+\mu r_v,W=\bar{\lambda}r_u+\bar{\mu}r_v$，即有$I(V,W)=\begin{pmatrix}\lambda&\mu\end{pmatrix}\begin{pmatrix}E&F\\F&G\end{pmatrix}\begin{pmatrix}\bar{\lambda}\\\bar{\mu}\end{pmatrix}$。
+
+*第一基本形式在合同变换下不变
+
+\
+
+\textbf{面积}：设$r:D\to E^3$为正则曲面片，其面积定义为$\iint_D|r_u\wedge r_v|\mathrm{d}u\mathrm{d}v$
+
+*$|r_u\wedge r_v|^2=\left<r_u,r_u\right>\left<r_v,r_v\right>-\left<r_u,r_v\right>^2$
+
+\textbf{曲率}：高斯曲率定义为$K(p)=\frac{n_u\wedge n_v}{r_u\wedge r_v}$，其中$n_u,n_v$代表$r_u\wedge r_v$归一化后对$u,v$偏导，由于两者平行可作商。
+
+*验证可知面积、曲率均不依赖参数选取，且在合同变换下不变
+
+例：计算$(u,v,f(u,v))$的高斯曲率。
+
+$$r_u=(1,0,f_u),r_v=(0,1,f_v)\Rightarrow r_u\wedge r_v=(-f_u,-f_v,1)$$
+
+$$n=\big(\frac{-f_u}{\sqrt{f_u^2+f_v^2+1}},\frac{-f_v}{\sqrt{f_u^2+f_v^2+1}},\frac{1}{\sqrt{f_u^2+f_v^2+1}}\big)$$
+
+$$K(p)=\frac{f_{uu}f_{vv}-f_{uv}^2}{(f_u^2+f_v^2+1)^2}$$
+
+\
+
+\textbf{参数变换}
+
+由$r_u,r_v$不共线，对某点附近可参数化使得$r(u,v)=(u,v,f(u,v))$，下面不妨考虑$(0,0)$处高斯曲率：
+
+在$(0,0)$处切平面上取标准正交基$e_1,e_2$，记
+$$\begin{cases}h(u,v)=\left<r(u,v)-r(0,0),n(0,0)\right>\\\bar{u}(u,v)=\left<r(u,v)-r(0,0)-h(u,v)n(0,0),e_1\right>\\\bar{v}(u,v)=\left<r(u,v)-r(0,0)-h(u,v)n(0,0),e_2\right>\end{cases}$$
+可以发现$\bar{r}(u,v)=(\bar{u},\bar{v},h)$是$r$在平移$(0,0,f(0,0))$至$(0,0,0)$后将切平面转到$xy$平面的结果。
+
+计算知$\frac{\partial(\bar{u},\bar{v})}{\partial(u,v)}=\left<r_u\wedge r_v,e_1\wedge e_2\right>\ne0$，局部可存在$\bar{r}(\bar{u},\bar{v})=(\bar{u},\bar{v},\bar{f}(\bar{u},\bar{v}))$。由于$h_u(0,0)=h_v(0,0)=0$，利用复合函数求导可知$\bar{f}_{\bar{u}}=\bar{f}_{\bar{v}}=0$，从而$\bar{K}(\bar{r}(0,0))=\bar{f}_{\bar{u}\bar{u}}\bar{f}_{\bar{v}\bar{v}}-\bar{f}_{\bar{u}\bar{v}}^2$。
+
+另一方面，由于此时切平面已经在$xy$平面上，考虑适当的绕$z$轴的旋转，也即成为$(\bar{u},\bar{v},\bar{f}\circ R_\theta(\bar{u},\bar{v}))$，这时
+$$\begin{cases}\tilde{u}\cos\theta-\tilde{v}\sin\theta=\bar{u}\\\tilde{u}\sin\theta+\tilde{v}\cos\theta=\bar{v}\\\bar{f}(\bar{u},\bar{v})=\tilde{f}(\tilde{u},\tilde{v})\end{cases}$$
+计算可知$\tilde{f}_{\tilde{u}\tilde{v}}=\bar{f}_{\bar{u}\bar{v}}\cos2\theta+(\bar{f}_{\bar{v}\bar{v}}-\bar{f}_{\bar{u}\bar{u}})\sin\theta\cos\theta$，从而可选取合适的角度使得$\tilde{f}_{\tilde{u}\tilde{v}}=0$。
+
+于是，经过合适的合同变换与参数变换，正则曲面片在一点处周围总可以写成$r(u,v)=(u,v,f(u,v))$使得$K(u_0,v_0)=f_{uu}f_{vv}$。
+
+不妨设这点为$(0,0)$，此时由于$f_v(0,0)=0$，计算可得$v-z$平面上截线$(0,0)$处带符号曲率为$f_{vv}(0,0)$，$u-z$平面上则为$f_{uu}(0,0)$。
+
+*一般做不到参数$u,v$使得$r_u,r_v$点点标准正交，除非曲面“平坦”
+
+\begin{dfn} 法曲率
+
+取$O$点处任何单位切向量$v$与单位法向量$n$，将张成平面对曲面的截线参数化(弧长参数、正确方向)使得$O$点切向量为$v$，则此时的定向$\{O;v,n\}$对应截得的带符号曲率$K_n(v)$称为$O$点处单位切向量的法曲率。
+\end{dfn}
+
+*由于取相反的$v$时参数化方向与定向同时反向，$K_n(-v)=K_n(v)$
+
+一点处参数化使得$K(u_0,v_0)=f_{uu}f_{vv}$后，考虑任何$v=\cos\theta r_u+\sin\theta r_v$，可计算发现以$v-n$为平面标架时$r(t)=(t,f(t\cos\theta,t\sin\theta))$即为所需的参数化曲线，此时$K_n(v)$即为$f_{uu}\cos^2\theta+f_{vv}\sin^2\theta=K_n(e_1)\cos^2\theta+K_n(e_2)\sin^2\theta$。
+
+\begin{thm}
+Euler: 若$K_n(v)$不全相等，则不区分$\pm v$的意义下存在唯一方向$v_1$使得$k_1=K_n(v_1)$达到最大值；唯一方向$v_2$使得$k_2=K_n(v_2)$达到最大值，且两方向相互垂直。若$v$与$v_1$成角度$\theta$，则$K_n(v)=\cos^2\theta k_1+\sin^2\theta k_2$。
+\end{thm}
+
+\subsection{第二基本形式}
+考虑$r(u,v)$与一点$P=r(u_0,v_0)$，取过$P$点的一条弧长参数化的曲线$r(s)=r(u(s),v(s))$。
+
+考虑$\left<r_{ss},n\right>=\left<r_{uu},n\right>u_s^2+2\left<r_{uv},n\right>u_sv_s+\left<r_{vv},n\right>v_s^2=II(V,V)$，其中$V=r_uu_s+r_vv_s$，而$II$即为第二基本形式，由$L=\left<r_{uu},n\right>,M=\left<r_{uv},n\right>,N=\left<r_{vv},n\right>$决定。
+
+*$II=L\mathrm{d}u\otimes\mathrm{d}u+M\mathrm{d}u\otimes\mathrm{d}v+M\mathrm{d}v\otimes\mathrm{d}u+N\mathrm{d}v\otimes\mathrm{d}v$
+
+对$P$点任一切向量$V=\lambda r_u+\mu r_v$，有$K_n(V)=\left<r_{ss},n\right>_P=\begin{pmatrix}\lambda&\mu\end{pmatrix}\begin{pmatrix}L&M\\M&N\end{pmatrix}\begin{pmatrix}\lambda\\\mu\end{pmatrix}$。
+
+而对$V=\lambda r_u+\mu r_v,W=\xi r_u+\eta r_v$，有$II(V,W)=\begin{pmatrix}\lambda&\mu\end{pmatrix}\begin{pmatrix}L&M\\M&N\end{pmatrix}\begin{pmatrix}\xi\\\eta\end{pmatrix}$，第二基本形式是\textbf{对称双线性}的。
+
+*当$V$为单位切向量时，$K_n(V)=II(V,V)$即为沿$V$的法曲率。
+
+而对任一切向量，沿其的法曲率为
+$$K_n(\frac{V}{|V|})=II\big(\frac{V}{|V|},\frac{V}{|V|}\big)=\frac{II(V,V)}{|V|^2}=\frac{II(V,V)}{I(V,V)}$$
+
+\
+
+性质：设$r=r(u,v)$，合同变换$T$下为$\tilde{r}$，则对$r(u,v)$任一切向量$V$有$II(V,V)=\det(T)\tilde{II}(\mathcal{T}(V),\mathcal{T}(V))$。
+
+\begin{proof}
+利用$\left<r_u,n\right>=0$求导可得$\left<r_{uu},n\right>=-\left<r_u,n_u\right>$，从而利用$\tilde{n}=\dfrac{\mathcal{T}(r_u)\wedge \mathcal{T}(r_v)}{|\mathcal{T}(r_u)\wedge \mathcal{T}(r_v)|}=\det(T)\mathcal{T}(n)$可计算$\tilde{L},\tilde{M},\tilde{N}$知结论成立(中间利用了$\det T=\pm1$，于是乘除无区别)。
+\end{proof}
+
+*对$r(u,v)$的任一切向量$V$，$II(V,V)$在同向参数变换下不变，反向参数变换下反号
+
+*法曲率的最值也即求$\frac{II(V,V)}{I(V,V)}$的最值，可写为$\frac{xS_0x^T}{xSx^T}$的最值(记第一基本形式对应的矩阵为$S$，第二基本形式为$S_0$，$x$为$V$在$r_u,r_v$下的矩阵表示)，又由于$S$正定，$S_0$对称，设$S=LL^T$，利用线代知识可发现其即化为求$L^{-1}S_0L^{-T}$的最大/最小特征值，由相似进一步化为$S_0S^{-1}$的最大/最小特征值(由于矩阵为二阶，即为所有特征值$\lambda_1,\lambda_2$)。
+
+\
+
+\textbf{Weingarten变换}
+
+考虑$T_P(M)$上由$I(V,W)$定义内积产生的内积空间，对第二基本形式$II:T_P(M)\times T_P(M)\to\mathbb{R}$，设存在线性算子$\mathcal{W}$使得$II(V,W)=\left<V,\mathcal{W}(W)\right>$，由二形式对称性可知$\mathcal{W}$是自伴算子。
+
+接下来推导$\mathcal{W}$的形式：考虑$II(V,V)$可知$\mathcal{W}(\lambda r_u+\mu r_v)=-\lambda n_u-\mu n_v$，从而$\mathcal{W}:T_P(M)\to T_P(M)$由$\mathcal{W}(r_u)=-n_u,\mathcal{W}(r_v)=-n_v$确定。
+
+*可验证$\mathcal{W}$的确满足上述条件
+
+*高斯映射$g:M\to S^2,r(u,v)\to n(u,v)$，考虑其微分：
+
+$p=r(u_0,v_0)$，定义$\mathrm{d}g_p:T_pM\to T_{g(p)}S^2$，对于$V\in T_pM$，选$M$上过$p$的一条曲线$r(t)$使得$r(0)=p,r'(0)=V$，则$\mathrm{d}g_p(V)=\frac{\mathrm{d}}{\mathrm{d}t}\big|_{t=0}g(r(t))$。
+
+计算：$r'(t)=r_uu_t+r_vv_t$，设$V=ar_u+br_v$，则$\mathrm{d}g_p(v)=(g\circ r)_uu_t+(g\circ r)_vv_t=a(g\circ r)_u+b(g\circ r)_v$，具有\textbf{线性性}。
+
+由定义，$\mathrm{d}g_p(r_u)=n_u(g(p))$，只需要再平移到$p$点即只与Weingarten变换差符号，于是$\mathcal{W}=P\circ(-\mathrm{d}g_p)$。
+
+*由于$II(V,W)=\left<\mathcal{W}(V),W\right>=I(\mathcal{W}(V),W)$，可知$\mathcal{W}$在基$r_u,r_v$下的的矩阵表示为$SS_0^{-1}$
+
+\
+
+*由定义与上方推导，高斯曲率
+$$K(P)=\frac{\mathcal{W}(r_u)\wedge\mathcal{W}(r_v)}{r_u\wedge r_v}=\det(\mathcal{W})=\frac{\det S}{\det S_0}$$
+
+进一步计算，由于$|r_u\wedge r_v|^2=EG-F^2=\det S_0$，有$L=\dfrac{(r_{uu},r_u,r_v)}{\sqrt{\det S_0}},M=\dfrac{(r_{uv},r_u,r_v)}{\sqrt{\det S_0}},N=\dfrac{(r_{vv},r_u,r_v)}{\sqrt{\det S_0}}$，通过复杂的计算可发现$LN-M^2$可以通过$E,F,G$对$u,v$求至多两阶导数表示，从而有：
+
+\begin{thm} 高斯绝妙定理
+
+高斯曲率只依赖第一基本形式。
+\end{thm}
+
+*第一基本形式是\textbf{内蕴}的，第二基本形式则是\textbf{外蕴}的
+
+*内蕴：将参数反向，法向量变向，但由高斯绝妙定理容易发现高斯曲率不变
+
+*高斯曲率在\textbf{等距变换}下不变
+
+\begin{dfn} 等距变换
+
+设$M,\tilde{M}$是$E^3$中两正则曲面片，考虑$\sigma:M\to\tilde{M}$双射且其与其逆均光滑。若对任何$M$上曲线$C$，$C$与$\sigma(C)=\tilde{C}$长度相等，则称其为等距变换。
+\end{dfn}
+
+*曲面上的度量结构可以归结为\textbf{每点切空间的内积}上，即关乎第一基本形式
+$$s(T)=\int_0^T\sqrt{I(r'(t),r'(t))}\mathrm{d}t=\tilde{s}(T)=\int_0^T\sqrt{\tilde{I}(\tilde{r}'(t),\tilde{r}'(t))}\mathrm{d}t$$
+两边求导可知$I$与$\tilde{I}$对应相等。
+
+考虑$\sigma_*:=\mathrm{d}\sigma_p:T_pM\to T_{\sigma(p)}M$，$V\to \frac{\mathrm{d}}{\mathrm{d}t}\big|_{t=0}\sigma(r(t))$，$r(t)$为过$p$且0处以$V$为切向量的曲线。
+
+利用极化，$I(V,V)=\tilde{I}(\sigma_*(V),\sigma_*(V))$可推出$I(V,W)=\tilde{I}(\sigma_*(V),\sigma_*(W))$，由此对每点处的内积空间，$\sigma_*$都构成同构。
+
+设$\tilde{r}(u,v)=\sigma(r(u,v))$，则$\tilde{E}=\left<\tilde{r}_u,\tilde{r}_u\right>=\left<\sigma_*(r_u),\sigma_*(r_u)\right>=E$，$F,G$类似，于是两个曲面片若等距同构，一定可以参数化使对应点第一基本形式相同。
+
+\
+
+例：环面去掉两个圆构成的曲面片$\big((R+r\cos u)\cos v,(R+r\cos u)\sin v,r\sin u\big),u,v\in(0,2\pi)$
+
+由$r_u,r_v$定义(或计算)可发现$E=r^2,F=0,G=(R+r\cos u)^2$，于是$I=r^2\mathrm{d}u\otimes\mathrm{d}u+(R+r\cos u)^2\mathrm{d}v\otimes\mathrm{d}v$。
+
+$n=(-\cos u\cos v,-\cos u\sin v, -\sin u)$，于是$L=r,M=0,N=(R+r\cos u)\cos u$，$K(u,v)=\frac{\cos u}{r(R+r\cos u)}$。曲面全曲率$\iint_{(0,2\pi)^2}K|r_u\wedge r_v|\mathrm{d}u\mathrm{d}v$可计算发现为0。
+
+*对球面，计算知这一积分的结果为$4\pi$
+
+*切平面内积的定义？(当前的定义为外围空间诱导，若强行定义$r_u,r_v$单位正交，可发现全曲率仍然不变)
+
+*即同样的拓扑对应不同度量时结果不变
+
+\subsection{平均曲率、局部外蕴几何}
+
+*由前述讨论有$K=\det(\mathcal{W})$，线性变换的另一个重要量？
+
+\begin{dfn} 平均曲率
+
+$H=\frac{1}{2}\tr(\mathcal{W})=\frac{k_1+k_2}{2}$称为平均曲率，计算可知其为$\dfrac{LG-2MF+NE}{EG-F^2}$。
+\end{dfn}
+
+\
+
+*和面积密切相关(如$H\equiv0$的曲面称\textbf{极小曲面})
+
+考虑正则曲面片$r:D\to E^3$，假设$D$紧且边界(分段)光滑。光滑映射$\alpha:(-\varepsilon,\varepsilon)\times D\to E^3$满足$\alpha(0,u,v)=r(u,v)$称为$r$的\textbf{变分}，而$W(u,v)=\frac{\partial\alpha}{\partial t}$称为\textbf{变分向量场}。
+
+下面考虑$\alpha=r(u,v)+\varphi(u,v)n(u,v)t$的情况，变分向量场为$\varphi n$。
+
+性质：对上述的一族曲面片$r_t(u,v)$，面积为$A(t)=\iint_D|(r_t)_u\wedge(r_t)_v|\mathrm{d}u\mathrm{d}v$，有$$A'(0)=-\iint_D2\varphi H|r_u\wedge r_v|\mathrm{d}u\mathrm{d}v$$
+
+\begin{proof}
+$A(t)=\iint_D\sqrt{E_tG_t-F_t^2}\mathrm{d}u\mathrm{d}v$，而展开知$\begin{cases}E_t=E-2t\varphi L+o(t)\\F_t=F-2t\varphi M+o(t)\\G_t=G-2t\varphi N+o(t)\end{cases}$，从而进一步计算并利用求导积分交换可得结果。
+\end{proof}
+
+*由此可知$H=0$时有极值
+
+\
+
+*曲面的局部\textbf{外蕴}几何[第二基本形式的几何意义]
+
+对正则曲面片$r(u,v)$，设$P=r(0,0)$，高度函数$h(u,v)=\left<r(u,v)-r(0,0),n(0,0)\right>$为任何点到$P$点切平面距离。
+
+计算发现$h(0,0)=h_u(0,0)=h_v(0,0)=0$，而恰好有$L=h_{uu}(0,0),M=h_{uv}(0,0),N=h_{vv}(0,0)$，于是$h(u,v)=\frac{1}{2}\begin{pmatrix}u&v\end{pmatrix}\begin{pmatrix}L&M\\M&N\end{pmatrix}\begin{pmatrix}u\\v\end{pmatrix}+o(u^2+v^2)$。若$LN-M^2>0$，则$\begin{pmatrix}L&M\\M&N\end{pmatrix}$正定时高度函数达到最小值，$P$为凸点，反之负定时$P$为凹点；若$LN-M^2<0$，$\begin{pmatrix}L&M\\M&N\end{pmatrix}$不定，类似鞍点；$LN-M^2=0$，则构成退化情况。
+
+*一点处刚体变换至$(u,v,h(u,v))$后，进一步近似成$\big(u,v,\frac{1}{2}(Lu^2+2Muv+Nv^2)\big)$。
+
+假定参数化$(u,v,f(u,v))$使$r_u,r_v$为$r(0,0)$处主方向，此时$\mathcal{W}(e_i)=k_ie_i$，于是$L=k_1,M=0,N=k_2$，称$\big(u,v,\frac{1}{2}(k_1u^2+k_2v^2)\big)$为这点的\textbf{密切抛物面}(计算可发现密切抛物面这点的主曲率与原本一致)。$LN-M^2=k_1k_2$，若其大于0，所有法曲率符号一致，为\textbf{椭圆抛物面}；其小于0时，有两个线性无关切向量使得法曲率均为0，此时为\textbf{双曲抛物面}，也即马鞍面；其为0且$k_1,k_2$不全为0时，构成\textbf{抛物柱面}；而$k_1,k_2$全为0时即为平面。
+
+*根据密切抛物面(第二基本形式情况)，可将曲面上的点分为四类：椭圆点、双曲点、抛物点、平点($L,M,N$全为0)
+
+*对双曲点，切平面截密切抛物面得两直线
+
+*注：考虑$(u,v,u^3+v^2)$与$(u,v,u^3-3uv^2)$[猴鞍面]可发现抛物点、平点附近可能具有不同性态
+
+\begin{dfn} 渐进方向
+
+曲面在一点处法曲率为0的方向称为该点的渐进方向。
+\end{dfn}
+
+*椭圆点、抛物点分别有零个、一个渐进方向，而平点每个方向都是渐进方向。
+
+*双曲点有两个渐进方向(截得的直线)，计算可发现夹角$\tan^2\theta=-\frac{k_1}{k_2}$，当且仅当平均曲率为0时两渐进方向垂直。
+
+\
+
+\begin{dfn} 脐点
+
+沿各个方向法曲率为常数的点，即$k_1=k_2$，每个方向都是主方向。
+\end{dfn}
+
+*性质：由法曲率计算可发现此点处$\frac{II}{I}$为常数$k$，即$\frac{L}{E}=\frac{M}{F}=\frac{N}{G}=k$。当$k\ne0$时称为\textbf{圆点}，$k=0$时即为平点。计算发现，这点处的$\mathcal{W}$恰好为数乘。
+
+\begin{thm}
+给定连通正则曲面片，若其每点均为脐点，则其必然为平面或球面的一部分
+\end{thm}
+
+\begin{proof}
+设$II=k(u,v)I$，对$\mathcal{W}(r_u)=-n_u,\mathcal{W}(r_v)=-n_v$求导可知$-n_{uv}=k_vr_u+k_r{uv},-n_{vu}=k_ur_v+kr_{vu}$，于是$k_ur_v=k_vr_u$，由其线性无关可知必须$k_u=k_v=0$，从而$k$必为常数
+
+于是，再次利用$\mathcal{W}$知$n=-kr+v_0$，$\left<r,n\right>$为常数，从而分类讨论，$k\ne0$时考虑$|r-\frac{v_0}{k}|$可发现为球面。
+\end{proof}
+
+*点点$L=M=N=0$的曲面必为平面
+
+*问题：给定基本形式是否存在曲面？(容易想到，$EFGLMN$需要满足一些结构性方程才可能存在)
+
+\subsection{特殊曲面}
+\textbf{旋转曲面}
+
+考虑$xz$平面正则曲线$c(u)=(f(u),g(u)),f(u)>0$，绕$z$旋转后$r(u,v)=(f(u)\cos v,f(u)\sin v,g(u))$。
+
+$r_u=(f'(u)\cos v,f'(u)\sin v,g'(u)),r_v=(-f(u)\sin v,f(u)\cos v,0)$，可验证其满足正则性。
+
+计算知$E=(f')^2+(g')^2,F=0,G=f^2,L=\frac{f'g''-f''g'}{\sqrt{(f')^2+(g')^2}},M=0,N=\frac{fg'}{\sqrt{(f')^2+(g')^2}}$，而Weingarten变换矩阵为$\diag\left(\frac{f'g''-g'f''}{((f')^2+(g')^2)^{3/2}},\frac{g'}{f\sqrt{(f')^2+(g')^2}}\right)$。
+
+几何角度：$u\to n(u,v_0)$是$xz$平面曲线，而$n_u$为切向量，于是考虑切平面与$xz$平面交线发现只能每点$-n_u$与$r_u$共线，$r_u$即为主方向，相应的主曲率即为母线的曲率$\frac{f'g''-g'f''}{((f')^2+(g')^2)^{3/2}}$。另一方面，$v\to n(u_0,v)$事实上也是平面曲线($n_v$第三个坐标为0)，于是也有$-n_v$与$r_v$共线(观察可知亦有同向)。注意到$-n(u_0,v)$与$r(u_0,v)$为同参数化的圆，于是$n_v,r_v$的长度比例为两圆的半径比例，而一个为$f$，一个为$\frac{g'}{\sqrt{(f')^2+(g')^2}}$(考察三角函数)，即可知另一个主曲率为$\frac{g'}{f\sqrt{(f')^2+(g')^2}}$。
+
+*若要求$u$为母线的弧长参数，则矩阵变为$\diag(f'g''-g'f'',\frac{g'}{f})$，对$(f')^2+(g')^2$求导可发现$(f'g''-g'f'')g'=-f''$，于是高斯曲率为$-\frac{f''}{f}$。
+
+*重要方程：$f''+Kf=0$\ [当$K$为常数时容易求解]
+
+\begin{enumerate}
+\item
+$K=0,f''=0\Longrightarrow f(u)=au+b$
+
+计算发现只能为平面、柱面或圆锥面。
+
+\item
+$K=c^2,f''+c^2f=0\Longrightarrow f(u)=A\cos(cu)+B\sin(cu)=a\cos(cu+b)$
+
+当$a=\frac{1}{c}$时为球面，$a<\frac{1}{c}$时为纺锤形，$a>\frac{1}{c}$时为桶形。
+
+\item
+$K=-c^2,f''-c^2f=0\Longrightarrow f(u)=a\mathrm{e}^{cu}+b\mathrm{e}^{-cu}$
+
+$a,b$有一个为0时，不妨设$b=0$[相差负参数化]且$a>0$，再次通过参数化可使$a=\frac{1}{c}$，此时$g(u)=\pm\int_0^u\sqrt{1-\mathrm{e}^{2ct}}\mathrm{d}t$，考虑$u\in(-\infty,0)$的情况，此时曲面称为\textbf{伪球面}[表面积与同半径球面一致，体积相差$\frac{1}{2}$]。
+
+性质：考虑切向量$(f'(u),g'(u))$，计算可发现切点与切线$z$轴交点的距离为定值$\frac{1}{c}$，因此$(f,g)$被称为\textbf{曳物线}。
+\end{enumerate}
+
+*极小旋转曲面：须$ff''+(f')^2=1$，解出$f(u)^2=u^2+2Au+B$，由大于0，$f(u)=\sqrt{u^2+2Au+B}$，而$g'(u)^2=\frac{B-A^2}{u^2+2Au+B}$。
+
+\begin{enumerate}
+\item
+$B=A^2$
+
+只能为平面的一部分。
+
+\item
+$B-A^2=a^2$
+
+可参数化为$f(u)=\sqrt{u^2+a^2}$，于是$g(u)=\pm a\arcsinh\frac{u}{a}$，可化为$x=a\cosh\frac{z}{a}$，称为\textbf{悬链线}。
+\end{enumerate}
+
+\
+
+\textbf{直纹面}
+
+$r(u,v)=a(u)+vb(u)$，当$a'(u)$与$b(u)$线性无关时一定为正则曲面片
+
+*$N=0,K=\frac{-M^2}{EG-F^2}$
+
+例子：
+
+\begin{enumerate}
+\item
+$b(u)=b_0$ 广义柱面
+
+\item
+$a(u)=a_0$ 广义锥面，正则要求$v\ne0,b'(u)\wedge b(u)\ne0$
+
+\item
+$r(u,v)=a(u)+va'(u)$ 切线面(曲线的切线组成的曲面)，依然要求$v\ne0$且$a'(u)\wedge a''(u)\ne0$
+
+*计算发现高斯曲率恒为0，高斯曲率为0的直纹面称为\textbf{可展曲面}
+
+\item
+$\frac{x^2}{a^2}+\frac{y^2}{b^2}-\frac{z^2}{c^2}=1$ 单叶双曲面
+
+*取$r(u,v)=(a\cos u,b\sin u,0)+v(\pm a\sin u,\mp b\cos u,c)$均可
+
+*当$a=b$时为旋转面
+
+\item
+$z=\frac{x^2}{a^2}-\frac{y^2}{b^2}$ 双曲抛物面
+
+*取$r(u,v)=(au,0,u^2)+v(a,\pm b,2u)$均可
+\end{enumerate}
+
+\begin{thm}
+直纹面可展$\Longleftrightarrow(a',b,b')=0\Longleftrightarrow$任给$u_0$，沿直母线$r(u_0,v)$方向法向量不变。
+\end{thm}
+
+\begin{proof}
+直接计算$\left<r_{uv},n\right>=c\left<r_{uv},r_u\wedge r_v\right>$，进一步计算得第一个等价成立。
+
+对第二个等价，直纹面可展可等价于$n_v$与$r_u,r_v$内积均为0，于是只能为0。
+\end{proof}
+
+*可展曲面局部：从$(a',b,b')=0$出发分类讨论。若局部$b\wedge b'\equiv0$，则$b(u)$方向不变，局部是柱面；若局部$b\wedge b'\ne0$，$a'$可以写作$\lambda(u)b(u)+\mu(u)b'(u)$，利用参数化$\tilde{a}(u)=a(u)-\mu(u)b(u)$，$\tilde{v}=v+\mu(u)$有$r(u,v)=\tilde{a}(u)+\tilde{v}b(u)$，进一步分类讨论可知$\lambda(u)-\mu'(u)=0$时为锥面，否则为切线面。
+
+*直纹面是极小曲面时：
+
+$r(u,v)=a(u)+vb(u)$，由正则化条件可不妨参数化为$|b(u)|=1,\left<a',b'\right>=0$。
+
+当$b'\equiv\textbf{0}$时，即$b(u)=b_0$，为广义柱面，又由极小要求知为平面。其他情况可假定$|b'(u)|=1$。
+
+直纹面$H=0\Leftrightarrow LG=2MF$，计算可得
+$$F=\left<a',b\right>,G=1,L=\dfrac{1}{\sqrt{EG-F^2}}(a''+vb'',a'+vb',b),M=\dfrac{1}{\sqrt{EG-F^2}}(b',a'+vb',b)$$
+整理出$1,v,v^2$项可得到方程
+$$-2\left<a',b\right>(b',a',b)+(a'',a',b)=(b'',a',b)+(a'',b',b)=(b'',b',b)=0$$
+进一步计算出$b(u)$曲率为1，挠率为0，于是$b(u)$为单位圆，不妨刚体变换后参数化为$(\cos u,\sin u,0)$，再结合第二个方程得$a(u)=(\alpha(u),\beta(u),\lambda u+c)$，刚体变换可使$a(u)=(\alpha(u),\beta(u),\lambda u)$，代回第一个方程讨论。若$\lambda=0$时可说明其为平面的部分，否则可得到$r(u,v)=(\alpha,\beta,\lambda u)+v(\cos u,\sin u, 0)$[\textbf{正螺面}]。
+
+\
+
+
+问题：两张曲面片之间存在映射保持高斯曲率不变，该映射是否等距？若高斯曲率平均曲率都不变，是否合同？
+
+答案：均否。
+
+\begin{hw}
+给定曲面片$$\begin{cases}r_1(u,v)=(v\cos u,v\sin u,u)\\r_2(u,v)=(u\cos v,u\sin v,\ln u)\\r_3(u,v)=(\sqrt{1+u^2}\cos v,\sqrt{1+u^2}\sin v,\arcsinh u)\end{cases}$$
+证明在合适参数范围下，$r_1$到$r_2$存在保高斯曲率的一一映射，但不为等距映射；$r_1$到$r_3$存在保高斯曲率、平均曲率的一一映射，但不为刚体运动。
+\end{hw}
+
+\section{标架与曲面论基本定理}
+核心问题：给定第一、第二基本形式，能否在相差刚体运动的情况下唯一确定正则曲面？
+
+(\textbf{存在性}、\textbf{唯一性})
+
+\subsection{活动标架与运动方程}
+由于$E,F,G,L,M,N$是由$r_u,r_v,r_{uu},r_{uv},r_{vv}$确定的，事实上是希望通过这些解出$r$。
+
+*$\{r_u,r_v,n\}$成为曲面上的\textbf{活动标架}(标架：$\{r;x_1,x_2,x_3\}$，曲面上处处线性无关的向量场，一般要求定向为正)
+
+*$r_{uu},r_{uv},r_{vv},n_u,n_v$[即标架的偏导]在标架下的表示？
+
+之前的计算方式：设$r_{uu}=\Gamma_{uu}^ur_u+\Gamma_{uu}^vr_v+C_{uu}n$，由$\left<r_{uu},n\right>=L$知$C_{uu}=L$，而对于$\Gamma_{uu}^u,\Gamma_{uu}^v$，有
+$$\left<r_{uu},r_u\right>=\Gamma_{uu}^uE+\Gamma_{uu}^vF=\frac{1}{2}E_u,\ \left<r_{uu},r_v\right>=\Gamma_{uu}^uF+\Gamma_{uu}^vG=F_u-\frac{1}{2}E_v$$
+可知$\begin{pmatrix}\Gamma_{uu}^u\\\Gamma_{uu}^v\end{pmatrix}=\begin{pmatrix}E&F\\F&G\end{pmatrix}^{-1}\begin{pmatrix}E_u/2\\F_u-E_v/2\end{pmatrix}$
+
+*类似可得到其他的$\Gamma_{\alpha\beta}^\gamma$
+
+\
+
+引入记号：$u^1=u,u^2=v,r=r(u^1,u^2)$，下标1或2代表对对应分量求导，可叠加；记$g_{\alpha\beta}=\left<r_\alpha,r_\beta\right>,b_{\alpha\beta}=\left<r_{\alpha\beta},n\right>$，即对应$E,F,G,L,M,N$。
+
+\textbf{Einstein求和约定}：同时在上下指标出现的指标视为对所有求和，省去求和符号。由此有$I=g_{\alpha\beta}\mathrm{d}u^\alpha\otimes\mathrm{d}u^\beta,II=b_{\alpha\beta}\mathrm{d}u^\alpha\otimes\mathrm{d}u^\beta$。
+
+记$(g_{\alpha}\beta)^{-1}$对应位为$g^{\alpha\beta}$，则由矩阵逆定义$g_{\alpha\beta}g^{\beta\gamma}=\delta_\gamma^\alpha$，其中$\delta_i^j=\begin{cases}0&i\ne j\\1&i=j\end{cases}$。再记$g=\det(g_{\alpha\beta})$，$b=\det(b_{\alpha\beta})$。
+
+将想求解的式子利用新的记号写作：$\begin{cases}r_{\alpha\beta}=\Gamma_{\alpha\beta}^\gamma r_\gamma+b_{\alpha\beta}n\\n_\alpha=D_\alpha^\beta r_\beta\end{cases}$，下面求解$\Gamma_{\alpha\beta}^\gamma$与$D_\alpha^\beta$。
+
+*$\Gamma_{\alpha\beta}^\gamma$称为\textbf{第一类Christoffel符号}
+
+$D_\alpha^\beta$的求解：由于$-b_{\alpha\gamma}=\left<n_\alpha,r_\gamma\right>=D_\alpha^\beta g_{\beta\gamma}$，乘$g^{\gamma\delta}$并对$\gamma$求和可知$D_\alpha^\delta=-b_{\alpha\gamma}g^{\gamma\delta}$。记$b_\alpha^\delta=b_{\alpha\gamma}g^{\gamma\delta}$，即有$D_\alpha^\delta=-b_\alpha^\delta$。
+
+*$(b_\alpha^\beta)$就是Weingarten变换在基$r_1,r_2$下的矩阵
+
+$\Gamma_{\alpha\beta}^\gamma$的求解：利用$r_\xi$内积可知$\Gamma_{\alpha\beta}^\gamma g_{\gamma\xi}=\left<r_{\alpha\beta},r_\xi\right>$，记$g_{\alpha\beta,\gamma}=\frac{\partial g_{\alpha\beta}}{\partial u^\gamma}$，轮换相减可知$g_{\beta\gamma,\alpha}+g_{\alpha\gamma,\beta}-g_{\alpha\beta,\gamma}=2\Gamma_{\alpha\beta}^\xi g_{\xi\gamma}$，从而乘$g^{\xi\gamma}$并求和可知$\Gamma_{\alpha\beta}^\gamma=\frac{1}{2}g^{\gamma\xi}(g_{\beta\gamma,\alpha}+g_{\alpha\gamma,\beta}-g_{\alpha\beta,\gamma})$。
+
+*交换$\alpha,\beta$结果不变
+
+*定义$\Gamma_{\alpha\beta\gamma}=\Gamma_{\alpha\beta}^\gamma g_{\gamma\xi}=\frac{1}{2}(g_{\beta\gamma,\alpha}+g_{\alpha\gamma,\beta}-g_{\alpha\beta,\gamma})$为\textbf{第二类Christoffel符号}
+
+于是标架满足
+
+$$\begin{cases}\frac{\partial r}{\partial u^\alpha}=r_\alpha\\\frac{\partial r_\alpha}{\partial u^\beta}=\Gamma_{\alpha\beta}^\gamma r_\gamma+b_{\alpha\beta}n\\\frac{\partial n}{\partial u^\alpha}=-b_\alpha^\beta r_\beta\end{cases}$$
+
+称为曲面自然标架的\textbf{运动方程}。
+
+\subsection{曲面结构方程}
+
+给定$g_{\alpha\beta},b_{\alpha\beta}$，解是否存在？
+
+*偏微分可交换：$\begin{cases}r_{\alpha\beta}=r_{\beta\alpha}&(1)\\r_{\alpha\beta\gamma}=r_{\alpha\gamma\beta}&(2)\\n_{\alpha\beta}=n_{\beta\alpha}&(3)\end{cases}$
+
+直接利用结构方程知(1)即$\Gamma_{\alpha\beta}^\gamma=\Gamma_{\beta\alpha}^\gamma,b_{\alpha\beta}=b_{\beta\alpha}$。、
+
+(2)计算可得
+$$\frac{\partial\Gamma_{\alpha\beta}^\xi}{\partial u^\gamma}-\frac{\partial\Gamma_{\alpha\gamma}^\xi}{\partial u^\beta}+\Gamma_{\alpha\beta}^\eta\Gamma_{\eta\gamma}^\xi-\Gamma_{\alpha\gamma}^\eta\Gamma_{\eta\beta}^\xi-b_{\alpha\beta}b_\gamma^\xi+b_{\alpha\gamma}b_\beta^\xi=0\ \ (\mathrm{Gauss})$$
+$$\frac{\partial b_{\alpha\beta}}{\partial u^\gamma}-\frac{\partial b_{\alpha\gamma}}{\partial u^\beta}+\Gamma_{\alpha\beta}^\xi b_{\xi\gamma}-\Gamma_{\alpha\gamma}^\xi b_{\xi\beta}=0\ \ (\mathrm{Codazzi})$$
+
+引入\textbf{Riemman记号}$R_{\delta\alpha\beta\gamma}=g_{\delta\xi}\big(\frac{\partial\Gamma_{\alpha\beta}^\xi}{\partial u^\gamma}-\frac{\partial\Gamma_{\alpha\gamma}^\xi}{\partial u^\beta}+\Gamma_{\alpha\beta}^\eta\Gamma_{\eta\gamma}^\xi-\Gamma_{\alpha\gamma}^\eta\Gamma_{\eta\beta}^\xi\big)$，则计算知Gauss方程可写为$R_{\delta\alpha\beta\gamma}=b_{\alpha\beta}b_{\gamma\delta}-b_{\alpha\gamma}b_{\beta\delta}$。
+
+*此处为书中定义，老师讲义中$R$为此处相反数，两种定义都合理
+
+\begin{hw}
+利用第二类Christoffel符号说明
+$$R_{\delta\alpha\beta\gamma}=\frac{1}{2}(\frac{\partial^2g_{\delta\beta}}{\partial u^\gamma\partial u^\alpha}-\frac{\partial^2g_{\alpha\beta}}{\partial u^\gamma\partial u^\delta}-\frac{\partial^2g_{\delta\gamma}}{\partial u^\alpha\partial u^\beta}+\frac{\partial^2g_{\alpha\gamma}}{\partial u^\beta\partial u^\delta})-\Gamma_{\alpha\beta}^\eta\Gamma_{\eta\delta\gamma}+\Gamma_{\alpha\gamma}^\eta\Gamma_{\eta\delta\beta}$$
+并进一步计算$R_{1212}$，得到高斯绝妙定理。
+\end{hw}
+
+(3)计算可得$\frac{\partial b_\beta^\xi}{\partial u^\gamma}-\frac{\partial b_\gamma^\xi}{\partial u^\beta}=-b_\beta^\eta\Gamma_{\eta\gamma}^\xi+b_\gamma^\eta\Gamma_{\eta\beta}^\xi$，而将$b_\alpha^\beta$展开后可发现其事实上与Codazzi方程等价。
+
+由对称性，Gauss方程只有一个独立方程$$R_{1212}=-b$$
+
+同理Codazzi只有两个独立方程
+$$\begin{cases}\frac{\partial b_{11}}{\partial u^2}-\frac{\partial b_{12}}{\partial u^1}=b_{1\xi}\Gamma_{12}^\xi-b_{2\xi}\Gamma_{11}^\xi\\\frac{\partial b_{21}}{\partial u^2}-\frac{\partial b_{22}}{\partial u^1}=b_{1\xi}\Gamma_{22}^\xi-b_{2\xi}\Gamma_{21}^\xi\end{cases}$$
+
+这三个方程称为\textbf{曲面的结构方程}。
+
+\
+
+\textbf{曲面论基本定理}
+
+\begin{thm} 唯一性
+
+同一个参数域上的两个曲面，若对应点第一、二基本形式都相同，则必然存在刚体变换使两者相等。
+\end{thm}
+
+\begin{proof}
+通过刚体变换与某点处$r_u,r_v$内积的结果可不妨设刚体变换使一点处的自然标架重合。此时从第一、二基本形式相同可知自然标架的任何微分处处相同，从而利用PDE的唯一性定理可知这时两者必然处处相等。
+\end{proof}
+
+\begin{thm} 存在性
+
+给定$E,F,G,L,M,N$，若从其得到的记号满足Gauss方程与Codazzi方程，且$EG-F^2>0$\ (即非零，确保有标架)，必然存在第一、第二基本形式符合这些量的正则曲面片。
+\end{thm}
+
+\begin{proof}
+将其看作对$r,r_1,r_2,n$的一阶线性偏微分方程组，利用PDE解的存在性定理可知其对任何点$r,r_\alpha,n$给定的任何初值条件有解。取初值满足一点处$\left<r_\alpha^0,r_\beta^0\right>=g_{\alpha\beta}(u_0)$，$\left<r_\alpha^0,n^0\right>=0$且$\left<n^0,n^0\right>=1$，且标架为右手系，两边内积可进一步验证这样解出的曲面任何点处第一、第二基本形式符合这些量。
+\end{proof}
+
+*作为一阶线性偏微分方程组，Gauss方程与Codazzi方程事实上是活动方程的\textbf{可积性条件}
+
+\subsection{正交活动标架}
+
+曲面自然标架$\{r_u,r_v,n\}$，$r_u,r_v$未必正交。
+
+对曲线：$\{t(s),n(s),b(s)\}$为正交标架[Frenet标架]
+
+曲面的标架运动方程见上节，而曲线的标架运动方程$\dfrac{\mathrm{d}}{\mathrm{d}s}\begin{pmatrix}t\\n\\b\\\end{pmatrix}=\begin{pmatrix}0&\kappa&0\\-\kappa&0&\tau\\0&-\tau&0\end{pmatrix}\begin{pmatrix}t\\n\\b\\\end{pmatrix}$，注意到其中的系数矩阵是\textbf{反对称}的。
+
+*曲面比起曲线的困难：求导方向可以对二维上的任何方向(可以归结为两个参数曲线的方向)
+
+对$V=a\frac{\partial}{\partial u_1}+b\frac{\partial}{\partial u_2}$方向求导，意义：参数平面上找曲线$c(t)$使得$c(0)=0,c'(0)=V$，则$V$方向求导事实上是$\frac{\mathrm{d}}{\mathrm{d}t}\big|_{t=0}r(c(t))$，于是任何方向求导可以看作\textbf{微分}
+
+由此改造曲面活动方程：$\begin{cases}\mathrm{d}r=(\mathrm{d}u^\alpha)r_\alpha\\\mathrm{d}r_\alpha=(\Gamma_{\alpha\beta}^\gamma\mathrm{d}u^\beta)r_\gamma+(b_{\alpha\beta}\mathrm{d}u^\beta)n\\\mathrm{d}n=-(b_\alpha^\gamma\mathrm{d}u^\alpha)r_\gamma\end{cases}$
+
+(其中$\mathrm{d}r=(\mathrm{d}x,\mathrm{d}y,\mathrm{d}z)$)
+
+进一步写作
+
+$$\mathrm{d}\begin{pmatrix}r_1\\r_2\\n\end{pmatrix}=\begin{pmatrix}\Gamma_{1\beta}^1\mathrm{d}u^\beta&\Gamma_{1\beta}^2\mathrm{d}u^\beta&b_{1\beta}\mathrm{d}u^\beta\\\Gamma_{2\beta}^1\mathrm{d}u^\beta&\Gamma_{2\beta}^2\mathrm{d}u^\beta&b_{2\beta}\mathrm{d}u^\beta\\-b_\alpha^1\mathrm{d}u^\alpha&-b_\alpha^2\mathrm{d}u^\alpha&0\end{pmatrix}\begin{pmatrix}r_1\\r_2\\n\end{pmatrix}$$
+
+*当$e_1,e_2,e_3$为标准正交标架，类似构造矩阵$A=(a_i^j)$，对$\left<e_i,e_j\right>$求导可发现其必然为\textbf{反对称阵}，能不能类似曲线Frenet标架更加优化，使得$a_1^3$与$a_3^1$为0，从而只有两个自由度？
+
+\begin{hw}当$\kappa=\sqrt{(a_1^2)^2+(a_1^3)^2}>0$时，不妨设$a_1^2\ne0$，计算说明，一定可以在$e_2,e_3$构成的平面对$e_2,e_3$作适当旋转使得$a_1^3=0,a_1^2>0$。\end{hw}
+
+*对曲线，这样的条件下得到的恰好为Frenet标架
+
+\
+
+\textbf{曲面的正交活动标架}
+
+*对曲面，无法通过参数化使得$\{r_u,r_v,n\}$为标准正交标架，因为这会导致高斯曲率为0，对一般曲面不成立
+
+\begin{dfn} 光滑向量场
+
+在曲面$r(u,v)$上每点处给一个向量给$X(u_0,v_0)$，且$X(u,v)$对$u,v$光滑，则$X$称为曲面上的一个光滑向量场。
+\end{dfn}
+
+\begin{dfn} 活动标架场
+
+若任一点处$\{r(u,v):X_1(u,v),X_2(u,v),X_3(u,v)\}$为$E^3$上标架，$X_i$光滑，不失一般性假设$(X_1,X_2,X_3)>0$，$\{r:X_1,X_2,X_3\}$其称为曲面上的活动标架场。
+
+当$\{X_1,X_2,X_3\}$为单位正交标架，则称为正交活动标架。
+\end{dfn}
+
+*存在性：对$r_u,r_v$作Schmit正交化，即可与$n$得到正交活动标架
+
+\
+
+\textbf{正交活动标架的运动方程}
+
+重新考虑$r_1,r_2$：对任何参数平面$D$的切向量$V\in T_p(D)$，有$\mathrm{d}r(V)=r_1\mathrm{d}u^1(V)+r_2\mathrm{d}u^2(V)\in T_{r(p)}r(D)$，即将$\mathrm{d}r$看作曲面上的切映射。
+
+为了\textbf{与参数化脱钩}，对曲面的任何切向量$V$，可直接在曲面上看求导方向：$\mathrm{d}r_\alpha(V)=\frac{\mathrm{d}}{\mathrm{d}t}\big|_{t=0}r_\alpha(c(t))$，类似其中$c(t)=r(u(t),v(t))$。这样，$u,v$可以看作曲面上的函数(曲面上点$p$的$u,v$坐标，$r(u(p),v(p))=p$)，$\mathrm{d}u,\mathrm{d}v$也成为了曲面上的一形式。
+
+于是，$\dfrac{\partial}{\partial u^1},\dfrac{\partial}{\partial u^2}$与$r_1,r_2$相对应(这样的定义下即有$\mathrm{d}u^i(r_j)=\delta_i^j$)。这时$\mathrm{d}r(X)=r_i\mathrm{d}u^i(X)=X$。
+
+假设$\{r:e_1,e_2,e_3\}$为曲面的正交活动标架，$e_3=n$，下面考察运动方程(由于相差线性组合，记$r_\alpha=a_\alpha^\beta e_\beta$)。
+
+计算$\mathrm{d}r=r_\alpha\mathrm{d}u^\alpha=(a_\alpha^\beta e_\beta)\mathrm{d}u^\alpha$，记$\omega^\beta=a_\alpha^\beta\mathrm{d}u^\alpha$，则$\mathrm{d}r=\omega^\beta e_\beta$。
+
+$\omega^i$的实际含义：给定切向量场$X=X^\alpha r_\alpha$，则$\omega^\alpha(X)=X^\eta a_\eta^\alpha=\left<X,e_\alpha\right>,\alpha=1,2$，于是$\omega^\alpha$是$e_\alpha$的\textbf{对偶一形式}。
+
+\
+
+\begin{dfn} 曲面上的一形式
+
+给定正则曲面片$M$，其上的一形式定义为所有切向量集合上的函数，限制在每点$p$处的$\phi:T_pM\to\mathbb{R}$是线性函数。
+
+若对任何光滑向量场$X$有$\phi(X)$光滑则称为光滑一形式。
+\end{dfn}
+
+性质：若曲面上光滑切向量场$V_1,V_2$逐点线性无关，一形式$\Theta^1,\Theta^2$为光滑一形式使得$\Theta^\alpha(V_\beta)=\delta_\beta^\alpha$，则曲面片上任何光滑一形式$\phi=\phi(V_\alpha)\Theta^\alpha$。
+
+\begin{proof}
+$\phi(X)=X^\alpha\phi(V_\alpha)=\Theta^\alpha(X)\phi(V_\alpha)=(\phi(V_\alpha)\Theta^\alpha)(X)$。
+\end{proof}
+
+于是，$\phi=\phi(e_\alpha)\omega^\alpha$，而设$\mathrm{d}e_i=\omega_j^ie_j$，则只有$\omega_1^2,\omega_1^3,\omega_2^3$三个独立分量。结合$\mathrm{d}r=\omega^1e_1+\omega^2e_2$，运动方程归结为五个一形式。
+
+基本形式$I(V,W)=\left<V,W\right>=\left<V,e_1\right>\left<W,e_1\right>+\left<V,e_2\right>\left<W,e_1\right>=(\omega^1\otimes\omega^1+\omega^2\otimes\omega^2)(V,W)$，而$II(V,W)=\left<V,\mathcal{W}(W)\right>$，而设Weingarten变换在基$e_1,e_2$下为$\mathcal{W}(e_\alpha)=h_\alpha^\beta e_\beta$，则计算$\mathrm{d}n$可知$\omega^\alpha_3=-h_\beta^\alpha\omega^\beta$，进一步推导知$II=\omega^\alpha\otimes\omega_\alpha^3$。
+
+性质：第一基本形式与正交活动标架的选取无关，第二基本形式与同法向正交活动标架选取无关。
+
+\begin{proof}
+当$e_3$固定为法向时，利用$\mathrm{d}r$、$\mathrm{d}n$不变直接计算可发现若$(\bar{\omega}^\alpha)=A(\omega^\alpha)$，则$(\bar{\omega}^3_\alpha)=A(\omega^3_\alpha)$，又由两者都为正交标架可知$A$为正交阵，从而将$I,II$类似内积展开计算得结论。
+\end{proof}
+
+*当$e_1,e_2$每一点为主方向时，Weingarten矩阵为$h_i^j=k_i\delta_i^j$，从而$II=k_\alpha\omega^\alpha\otimes\omega^\alpha$，$k_\alpha$为主曲率。
+
+问题：是否存在？
+
+\begin{hw}
+证明对不是脐点的点$p\in M$，有邻域存在上述标架。
+\end{hw}
+
+*$\omega_1^2$是什么？
+
+\subsection{曲面上的微分形式}
+
+零形式-曲面上的光滑函数
+
+一形式-函数的微分
+
+\begin{dfn} 曲面上的二形式
+
+$M$是正则曲面片，$\eta$定义为$T_pM\times T_pM,\forall p\in M$上的函数，且满足每点处双线性性与反对称性$\eta(v,w)=-\eta(w,v)$。
+
+若$\eta$对任何光滑切向量场是光滑函数，则称为光滑二形式。
+\end{dfn}
+
+性质：$\eta(av+bw,cv+dw)=\det\begin{pmatrix}a&b\\c&d\end{pmatrix}\eta(v,w)$
+
+\begin{dfn} 外积
+
+假设$\phi,\psi$为曲面上的一形式，定义$\phi\wedge\psi(V,W)=\phi(V)\psi(W)-\psi(V)\phi(W)$，即$\phi\wedge\psi=\phi\otimes\psi-\psi\otimes\phi$，则外积结果为二形式。
+\end{dfn}
+
+*设$u_1,u_2$是$M$上处处无关的光滑切向量场，$\psi^1,\psi^2$为两个一形式满足$\psi^\alpha(u_\beta)=\delta_\beta^\alpha$，则$M$上任何(光滑)二形式$\eta=\eta(u_1,u_2)\psi^1\wedge\psi^2$。
+
+\begin{proof}
+直接计算可知$\eta(u_1,_2)=\eta(u_1,u_2)\psi^1\wedge\psi^2(u_1,u_2)$，于是由于左右都为二形式，由二形式性质可知相等。
+\end{proof}
+
+*由于切平面最多有两个线性无关向量，类似上方定义三形式后会有线性相关，利用反对称性可知\textbf{恒为0}，类似知更高次形式均恒为0。
+
+\
+
+\begin{dfn} 外微分
+
+一形式$\phi$的外微分$\mathrm{d}\phi(r_u,r_v)=\frac{\partial}{\partial u}\phi(r_v)-\frac{\partial}{\partial v}\phi(r_u)$。
+
+即$\mathrm{d}\phi=(\frac{\partial}{\partial u}\phi(r_v)-\frac{\partial}{\partial v}\phi(r_u))\mathrm{d}u\wedge\mathrm{d}v$
+\end{dfn}
+
+*计算可以发现与参数变换无关
+
+*利用偏导可交换知$\mathrm{d}^2=0$
+
+运算法则($f$为零形式，$\phi,\psi$为一形式)：
+
+\begin{enumerate}
+    \item $\mathrm{d}(\phi+\psi)=\mathrm{d}\phi+\mathrm{d}\psi$
+    \item $\mathrm{d}(f\phi)=\mathrm{d}f\wedge\phi+f\mathrm{d}\phi$
+\end{enumerate}
+
+\
+
+\textbf{正交标架下的结构方程}
+
+由曲面外微分运算的要求需要$\mathrm{d}(\mathrm{d}r=0),\mathrm{d}(\mathrm{d}e_i)=0$，结合运动方程$\mathrm{d}r=\omega^\alpha e_\alpha$计算可知
+$$\begin{cases}\mathrm{d}\omega^1-\omega^2\wedge\omega_2^1=0\\\mathrm{d}\omega^2-\omega^1\wedge\omega_1^2=0\\\omega^\alpha\wedge\omega_\alpha^3=0\end{cases}$$
+
+性质：前两个方程可唯一确定$\omega_1^2$。
+
+\begin{proof}
+设$\mathrm{d}\omega^1=a\omega^1\wedge\omega^2,\mathrm{d}\omega^2=b\omega^1\wedge\omega^2$，可验证$\omega_1^2=a\omega^1+b\omega^2$为解，若此解不唯一，作差可知其差与$\omega^1,\omega^2$外积都为0，从而只能为0。
+\end{proof}
+
+*设$\begin{pmatrix}\bar{e}_1\\\bar{e}_2\end{pmatrix}=\begin{pmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{pmatrix}\begin{pmatrix}e_1\\e_2\end{pmatrix}$，则$\bar{\omega}_1^2=\omega_1^2+\mathrm{d}\theta$，而若复合反射(法向变为相反)有$\bar{\omega}_1^2=-\omega_1^2-\mathrm{d}\theta$。
+
+\
+
+而外微分条件结合$\mathrm{d}e_i=\omega_i^je_j$可知$\mathrm{d}\omega_i^k=\omega_i^j\wedge\omega_j^k,i,k=1,2,3$。其中实际上的独立方程有$\mathrm{d}\omega_1^2=\omega_1^3\wedge\omega_3^2$与$\begin{cases}\mathrm{d}\omega_1^3=\omega_1^2\wedge\omega_2^3\\\mathrm{d}\omega_2^3=\omega_2^1\wedge\omega_1^3\end{cases}$，前者即为Gauss方程，后者为Codazzi方程。
+
+Gauss方程：考虑Weingarten变换在正交标架下的矩阵，可以发现$\mathrm{d}\omega_1^2=-K\omega^1\wedge\omega^2$，即$K=-\frac{\mathrm{d}\omega_1^2}{\omega^1\wedge\omega^2}$，事实上是\textbf{高斯绝妙定理}。
+
+*注意求和中指标范围1到2与1到3的区别
+
+*考虑$E^3$上的正交活动标架，也可以类似定义$\omega^\alpha,\omega_\alpha^\beta$，$\alpha,\beta=1,2,3$，考虑到反对称性事实上有六个独立分量。类似可得结构方程为$\mathrm{d}\omega^j=\omega^i\omega_i^j,\mathrm{d}\omega_i^j=\omega_i^k\wedge\omega_k^j$。而曲面上的标架可以小范围延拓成三维欧氏空间上的标架，即可以看作上方$\omega^3=0$的情况。
+
+\
+
+\textbf{正交标架选取}
+
+若$\begin{pmatrix}\bar{e}_1\\\bar{e}_2\end{pmatrix}=\begin{pmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{pmatrix}\begin{pmatrix}e_1\\e_2\end{pmatrix}$，有$\begin{pmatrix}\bar{\omega}_1\\\bar{\omega}_2\end{pmatrix}=\begin{pmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{pmatrix}\begin{pmatrix}\omega_1\\\omega_2\end{pmatrix}$、$\begin{pmatrix}\bar{\omega}_1^3\\\bar{\omega}_2^3\end{pmatrix}=\begin{pmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{pmatrix}\begin{pmatrix}\omega_1^3\\\omega_2^3\end{pmatrix}$
+
+假设$r_\alpha=a_\alpha^\beta e_\beta$，可以发现$\omega^\alpha=a_\beta^\alpha\mathrm{d}u^\beta$，即相差转置。于是$\omega^1\wedge\omega^2=\det(A)\mathrm{d}u\wedge\mathrm{d}v$，利用Weingarten变换矩阵表示可以算出$\det(A)=\sqrt{EG-F^2}$，不依赖正交活动标架选取，由$\omega^3_1\wedge\omega^3_2=\det(\mathcal{W})\omega^1\wedge\omega^2$可知$\omega^3_1\wedge\omega^3_2$也不依赖，类似知$\omega^1\wedge\omega_2^3-\omega^2\wedge\omega_1^3$亦不依赖。
+
+*计算可知$\omega^1\wedge\omega_2^3-\omega^2\wedge\omega_1^3=h_\alpha^\alpha\omega^1\wedge\omega^2=2H\omega^1\wedge\omega^2$
+
+\
+
+\textbf{应用：可展曲面}
+
+给定正则曲面片，其主曲率$k_1,k_2$为常函数且不等(无脐点)，如何分类？
+
+*圆柱面为简单的例子，是否唯一？
+
+由无脐点，可以构造正交活动标架使得$e_1,e_2$为主方向，这时Weingarten变换在基下的矩阵表示为$\diag(k_1,k_2)$，于是$\omega_1^3=k_1\omega^1,\omega_2^3=k_2\omega^2$。
+
+求微分得$\mathrm{d}\omega_1^3=k_1\mathrm{d}\omega^1=k_1\omega^2\wedge\omega_2^1$，另一方面其为$\omega_1^2\wedge\omega_2^3=k_2\omega_1^2\wedge\omega^2$，联立即有$(k_1-k_2)\omega_1^2\wedge\omega^2=0$，同理$(k_1-k_2)\omega_1^2\wedge\omega^1=0$，得到$\omega_1^2=0$，于是高斯曲率为0，$k_1k_2=0$。
+
+不妨设$k_2=0$，有$\omega_1^3=k_1\omega_1,\omega_2^3=\omega_1^2=0$。此时标架运动方程变为$\mathrm{d}e_1=k_1\omega^1e_3,\mathrm{d}e_2=0,\mathrm{d}e_3=-k_1\omega^1e_1$。由于$e_2$为常向量，取一个垂直于$e_2$过曲面上一点得平面解得一条曲线$c_1$，弧长参数下(调整正负)曲线的切向量即为$e_1$。这时$e_1,e_2,e_3$成为Frenet标架，限制在曲线上有$(e_1)_s=k_1e_3,(e_3)_s=-k_1e_1$，对比平面曲线运动方程可发现曲率恒为为$k_1$，于是曲线必然为圆。另一方面，对某点$P$处，找曲线$c_2(t)$满足$\frac{\mathrm{d}c_2(t)}{\mathrm{d}t}=e_2(t)$，且$c_2(0)=P$，可发现其必然为直线。综合上方讨论可知此曲面片必然为圆柱面。
+
+\
+
+*性质推广：曲面片$M$高斯曲率为0且无脐点，则其必然为直纹面(从而为可展曲面)
+
+\begin{proof}
+仍然取$e_1,e_2$为主方向的正交活动标架，两主曲率为光滑函数。由于高斯曲率处处为0，可不妨设$k_1\ne0,k_2=0$(不可能发生转换，否则会产生脐点)。类似上方可推导出$0=\mathrm{d}\omega_2^3=k_1\omega_2^1\wedge\omega^1$.设$\omega_1^2=f\omega^1+g\omega^2$，可知$g=0$。
+
+由运动方程知$\mathrm{d}e_2=-f\omega^1e_1$。依然类似上方寻找$c(s)$使得$\frac{\mathrm{d}c(s)}{\mathrm{d}s}=e_2(s)$，且$c(0)=P$，由ODE理论可知局部存在唯一解。而$\frac{\mathrm{d}}{\mathrm{d}s}e_2(s)=\mathrm{d}e_2(e_2)=-fe_1\omega^1(e_2)=0$，于是局部为直线，从而可延拓到整体的直线，即证明了其为直纹面。
+\end{proof}
+
+\section{曲面的内蕴几何}
+\subsection{测地线与协变导数}
+*高斯绝妙定理保证了等距变换下第一基本形式不变，于是高斯曲率不变。反之，若不存在保持高斯曲率的变换，则不可能等距同构(如球面与平面)。
+
+*内蕴几何即为\textbf{等距变换下不变的几何}
+
+对球面三角形，利用初等几何可以发现满足$\angle A+\angle B+\angle C -\pi=\frac{S(\triangle ABC)}{R^2}$，有$\int_{\triangle ABC}K\mathrm{d}S=\angle A+\angle B+\angle C -\pi$，其中$S$代表面积元，$K$代表高斯曲率。
+
+*对任何\textbf{测地三角形}[测地线构成的三角形]都对
+
+测地线为连接曲面上两点的最短光滑曲线，设$L$为连接$P,Q$两点的光滑曲线到$\mathbb{R}$的函数，利用变分进行计算。
+
+对测地线$C:r(s)=r(u^1(s),u^2(s)),s\in(0,l)$，可取曲面正交标架使得$C$上$e_1=r_s,e_3=n$[Darbour标架]。设沿着$C$有$e_2=a^ir_i$，假设$f$为$[0,l]$上任一两端为零光滑函数，考虑曲线的变分
+$$r^\lambda(s)=r(u^1(s)+\lambda f(s)a^1(s),u^2(s)+\lambda f(s)a^2(s)),\lambda\in(-\epsilon,\epsilon)$$
+它满足$r^0(s)=r(s),\frac{\partial{r^\lambda(s)}}{\partial{\lambda}}\big|_{\lambda=0}=f(a^ir_i)=f(e_2),r^\lambda(0)=P,r^\lambda(l)=Q$。
+
+利用条件，假设其长度为$L(\lambda)$，必有$L_\lambda(0)=0$。而交换求导次序计算知
+$$\frac{\partial{L(\lambda)}}{\partial\lambda}\bigg|_{\lambda=0}=\frac{\partial}{\partial\lambda}\int_0^l\bigg|\frac{\partial r^\lambda(s)}{\partial s}\bigg|\mathrm{d}s\bigg|_{\lambda=0}=-\int_0^lf\left<e_2,\frac{\mathrm{d}e_1}{\mathrm{d}s}\right>\mathrm{d}s$$
+由于$f$的任意性，测地线应满足处处$\left<e_2,\frac{\mathrm{d}e_1}{\mathrm{d}s}\right>=0$。
+
+\begin{dfn} 测地线
+
+曲面上的弧长参数曲线$r(s)$，若其Darbour标架满足处处$\left<e_2,\frac{\mathrm{d}e_1}{\mathrm{d}s}\right>=0$，则称为一条测地线。
+\end{dfn}
+
+*例：平面上的直线$e_1$不变，是测地线
+
+*沿测地线线$t_s$只有曲面法向量方向的分量，测地线等价于\textbf{主法向量垂直曲面}的曲线
+
+\begin{dfn} 测地曲率
+
+曲面上的弧长参数曲线$r(s)$，由其Darbour标架计算的$\left<e_2,\frac{\mathrm{d}e_1}{\mathrm{d}s}\right>$为曲面沿着曲线的测地曲率。    
+\end{dfn}
+
+*根据法曲率几何意义可知$e_{1s}=r_{ss}=k_ge_2+k_ne_3$，于是$\kappa^2=k_g^2+k_n^2$。
+
+*由于$k_g=\left<\mathrm{d}e_1(e_1),e_2\right>=\omega_1^2(e_1)$，而由于$\omega^1(e_1)=1$，限制在曲线上有$k_g\omega^1=\omega_1^2$。
+
+当$u,v$为正交参数时，利用$\omega_1^2$可化简参数曲线上的测地曲率，即$k_g(u)=-\frac{(\ln E)_v}{2\sqrt{G}},k_g(v)=\frac{(\ln G)_u}{2\sqrt{E}}$。假设弧长参数曲线$r(s)$在某点处与$u$线的夹角为$\theta$，利用$\bar{\omega}_1^2=\omega_1^2+\mathrm{d}\theta$进一步算得$k_g$为[Liouville公式]
+$$k_g=\frac{\mathrm{d}\theta}{\mathrm{d}s}-\frac{(\ln E)_v}{2\sqrt{G}}\cos\theta+\frac{(\ln G)_u}{2\sqrt{E}}\sin\theta$$
+
+利用自然标架，可算出$$\frac{\mathrm{d}^2r}{\mathrm{d}s^2}=\bigg(\frac{\mathrm{d}^2u^\alpha}{\mathrm{d}s^2}+\Gamma_{\beta\gamma}^\alpha\frac{\mathrm{d}u^\beta}{\mathrm{d}s}\frac{\mathrm{d}u^\gamma}{\mathrm{d}s}\bigg)r_\alpha+\bigg(b_{\alpha\beta}\frac{\mathrm{d}u^\alpha}{\mathrm{d}s}\frac{\mathrm{d}u^\beta}{\mathrm{d}s}\bigg)n$$
+于是法曲率$k_n=\left<r_{ss},n\right>=II(e_1,e_1)=\left<\mathcal{W}(e_1),e_1\right>$，测地曲率$k_g=\left<r_{ss},n\wedge r_s\right>$。定义$\kappa_g=\big(\frac{\mathrm{d}^2u^\alpha}{\mathrm{d}s^2}+\Gamma_{\beta\gamma}^\alpha\frac{\mathrm{d}u^\beta}{\mathrm{d}s}\frac{\mathrm{d}u^\gamma}{\mathrm{d}s}\big)r_\alpha$为\textbf{测地曲率向量}，用Darbour标架可以写成$\left<(e_1)_s,e_2\right>e_2=k_ge_2$。
+
+从而，一条曲线为测地线当且仅当$\frac{\mathrm{d}^2u^\alpha}{\mathrm{d}s^2}+\Gamma_{\beta\gamma}^\alpha\frac{\mathrm{d}u^\beta}{\mathrm{d}s}\frac{\mathrm{d}u^\gamma}{\mathrm{d}s}=0,\alpha=1,2$[仅由\textbf{第一基本形式}决定]。此为非线性常微分方程，只能确定解\textbf{局部存在}。
+
+\begin{thm} 测地线存在唯一性
+
+对正则曲面$M$，$r=r(u,v)$，对任何$p\in M,V\in T_pM$，则$\exists\varepsilon>0,r=r(s),s\in(-\varepsilon,\varepsilon)$为测地线，满足$r(0)=p,r_s(0)=V$。
+\end{thm}
+
+\begin{proof}
+将初值作为上方常微分方程的初值，利用解的存在唯一性定理即得证。
+\end{proof}
+
+*可验证测地曲率向量在参数化改变时不变，从而与\textbf{协变导数}相关
+
+\
+
+\textbf{协变导数}
+
+考虑沿曲线的切向量场$r_s=V^\alpha r_\alpha$为切向量场，其再求导$r_{ss}$未必是切向量场，如何转化为切向量场？(去除法向分量)
+
+\begin{dfn} 协变导数 Covariant derivative along a curve
+
+正则曲面片$M:r=r(u,v)$，上有一条正则曲线$C:r=r(t)$，假设$V$是沿曲线的光滑切向量场，$V(t)\in T_{r(t)}M$，定义$V$沿$C$的协变导数$\frac{\mathrm{D}V}{\mathrm{d}t}=\frac{\mathrm{d}V}{\mathrm{d}t}-\left<\frac{\mathrm{d}V}{\mathrm{d}t},n\right>n$。
+\end{dfn}
+
+*计算自然标架下$V=V^\alpha r_\alpha$，可得到$\frac{\mathrm{d}V}{\mathrm{d}t}=\big(\frac{\mathrm{d}V^\alpha}{\mathrm{d}t}+\Gamma_{\beta\gamma}^\alpha V^\beta\frac{\mathrm{d}u^\gamma}{\mathrm{d}s}\big)r_\alpha+\big(b_{\alpha\beta}V^\alpha\frac{\mathrm{d}u^\beta}{\mathrm{d}s}\big)n$，于是即有$\frac{\mathrm{D}V}{\mathrm{d}t}=\big(\frac{\mathrm{d}V^\alpha}{\mathrm{d}t}+\Gamma_{\beta\gamma}^\alpha V^\beta\frac{\mathrm{d}u^\gamma}{\mathrm{d}s}\big)r_\alpha$。
+
+*于是测地线可刻画为$\frac{\mathrm{D}e_1}{\mathrm{d}s}=0$
+
+*协变导数只由第一基本形式确定，在正则参数变换下不变
+
+*不依赖参数化的意义：曲面片相交处会有不同参数化，不依赖代表可以在\textbf{整体曲面}上定义
+
+性质：假设$V,W$是曲线$C$上的两个光滑切向量场，$f$是沿曲线光滑函数，则有：
+\begin{enumerate}
+    \item $\frac{\mathrm{D}(V+W)}{\mathrm{d}t}=\frac{\mathrm{D}V}{\mathrm{d}t}+\frac{\mathrm{D}W}{\mathrm{d}t}$
+    \item $\frac{\mathrm{D}(fV)}{\mathrm{d}t}=\frac{\mathrm{d}f}{\mathrm{d}t}V+f\frac{\mathrm{D}V}{\mathrm{d}t}$
+    \item $\frac{\mathrm{d}\left<V,W\right>}{\mathrm{d}t}=\left<\frac{\mathrm{D}V}{\mathrm{d}t},W\right>+\left<V,\frac{\mathrm{D}W}{\mathrm{d}t}\right>$
+\end{enumerate}
+
+*性质3证明：先写出$d$，再由与切向量内积可将$d$换为$D$
+
+\subsection{平行移动}
+
+\begin{dfn} Levi-Civita平行
+
+正则曲面片$M:r=r(u,v)$，上有一条正则曲线$C:r=r(t)$，假设$V$是沿曲线的光滑切向量场，若$\frac{\mathrm{D}V}{\mathrm{d}t}=0$，则称切向量场沿曲线$C$是平行的。
+
+在此情况下，称$V(t_1)$是由$V(t_2)$沿$C$作平行移动得到。
+\end{dfn}
+
+*平移的存在性？唯一性？[本质还是ODE问题，由于其为线性，整体存在唯一解]
+
+*测地线另一等价说法：$e_1(s)$沿$r=r(s)$\textbf{平行}。
+
+利用上方性质3，假设$V,W$是沿曲线平行的光滑切向量场，可以得到$\left<V,W\right>$不变，从而“平行移动”是\textbf{保持内积}的(保长、保角)。于是，对曲面片上两点$p,q$，取一条曲线$C$，可以定义映射$PT_C:T_p(M)\to T_q(M)$，由平行移动得来。由于保内积，可以得到线性性等，进一步推出$PT_C$为内积空间的同构。于是，协变导数有时也称为\textbf{联络}。
+
+*反过来，有联络就有平行移动，从而可以考虑不同点切平面张量的差距，可以定义导数
+
+*平移的结果与曲线选取\textbf{有关}，于是切向量沿闭曲线绕一圈后未必为原向量，事实上与高斯曲率有关
+
+*若两曲面$M_1,M_2$沿着某曲线$C$相切，即$C$上对应点处切平面相同，则$V(t)$在$M_1$上沿$C$平行等价于$V(t)$在$M_2$上沿$C$平行(可用于简化计算)
+
+\
+
+考察沿曲线平移的方法：假设有一条曲面上的正则曲线$r=r(t)$，考虑其每点处切平面上与曲线切向量垂直的向量方向构成的切线面(有局部正则性)，切线面可以展开成平面，从而变为欧氏空间上平移考察。
+
+例：球面的纬线圈，赤道处会如此展为柱面，否则为锥面。假设纬度(在上半球中)为$\psi$，可作锥面展开，计算可知扇形的圆心角$\theta=2\pi\sin\psi$。通过考察平面中平移可发现，切向量沿纬线圈平行移动一圈后，转过的角度即为$\theta$[物理：\textbf{傅科摆}证明地球自转]。
+
+关于测地线问题：
+
+是否全局最短？[未必]
+
+任意两点之间是否存在测地线？[取决于曲面的完备性，如圆盘挖掉一点后相对的点间不存在测地线]
+
+测地线是否唯一？[未必，且无上界，如球面对径点间]
+
+*对圆柱面，可发现任何圆柱螺线都是测地线，因此不在同一纬线圈上会有无穷多条。
+
+\begin{hw}
+考察张角为$\theta$圆锥面两点间测地线条数最多最少。
+\end{hw}
+
+\
+
+*测地线具有\textbf{局部}最短性
+
+思路：如何证明两点间直线最短？考察挖去原点的极坐标系，计算极坐标系上的第一基本形式可得$I=\mathrm{d}\rho\otimes\mathrm{d}\rho+\rho^2\mathrm{d}\theta\otimes\mathrm{d}\theta$，于是切向量长度$|r'(t)|\ge|r_\rho(t)|$，后者恰好是直线对应参数化下的的切向量长度。
+
+建立曲面上一点处极坐标系：
+
+指数映射$\exp_p:T_p^M\to M$，$\exp_p(V)=\gamma(\frac{V}{|V|},|V|)$，其中$\gamma$是过$p$点以$\frac{V}{|V|}$为单位切向量的弧长参数测地线在$s=|V|$处的点(即沿指定方向走过指定弧长的测地线)。利用解对初值的连续性可知此映射一定对模长充分小的$V$存在[由于$S^1$紧，对每点存在必有最小值]，且若对$V$由定义一定对$tV,0<t<1$有定义。
+
+*$|V|$取定称为以$p$为心的\textbf{测地圆}
+
+由于$T_p^M$即为二维欧氏空间，考虑其上的一组基后，指数映射也是曲面的\textbf{参数化}。下面说明$r(x^1,x^2)=\exp_p(x^1e_1+x^2e_2)$是$p$附近的正则参数化：
+
+\begin{proof}
+由于存在参数化$r=r(u^1,u^2)$使得$p$点处有$\left<r_\alpha,r_\beta\right>\big|_p=\delta_\alpha^\beta$，取$e_1=r_1,e_2=r_2$，说明正则性只需说明$r_{x^1}\wedge r_{x^2}\ne0$在$p$点成立(根据光滑即得局部成立)，计算参数变换可知等价于$\det\big(\frac{u^\alpha}{x^\beta}\big)\big|_p\ne0$。
+
+事实上，$p$点处此矩阵为\textbf{单位阵}，从而结论成立。看法：考虑测地线自身的参数化代入计算。
+\end{proof}
+
+*称$(x^1,x^2)$为$P$点处的\textbf{法坐标系}，此坐标系在$P$点处的$r_1=r_{x^1},r_2=r_{x^2}$标准正交，从而第一基本形式$g_{\alpha\beta}(P)=\delta_\alpha^\beta$，且这点处Christoffel符号都为0，从而推出$g_{\alpha\beta,\gamma}(P)=0$。
+
+*$g_{\alpha\beta,\gamma}(P)=\frac{\partial}{\partial x^\gamma}\left<r_\alpha,r_\beta\right>=\left<\Gamma_{\alpha\gamma}^\eta r_\eta,r_\beta\right>+\left<r_\alpha,\Gamma_{\beta\gamma}^\eta r_\eta\right>=\Gamma_{\alpha\gamma}^\beta(P)+\Gamma_{\beta\gamma}^\alpha(P)$
+
+*证明Christoffel符号都为0：利用测地线方程与参数区域上极坐标直接计算。
+
+\begin{thm} 高斯引理
+
+从$M$上一点$P$出发的测地线与以$P$为心的测地圆正交。
+\end{thm}
+
+\begin{proof}
+在法坐标系上作参数变换将欧氏坐标化为极坐标$(\rho,\theta)$[这时称为\textbf{测地极坐标系}，可发现除原点外正则]，计算可知$\lim_{\rho\to0}F(\rho,\theta)=0$，且$F_\rho=0$[可通过内蕴或外蕴角度计算]，于是$F=0$，得证。
+\end{proof}
+
+*测地极坐标系中，$\theta$线为测地圆，$\rho$线为测地线
+
+\begin{thm}
+设$p\in M$为一点，总存在一个邻域$U$使得对$U$中任意$q$，落在$U$内的连接$pq$的测地线长度为所有连接$pq$的曲线的最短长度。
+\end{thm}
+
+\begin{proof}
+取充分小$U$使得其上有极坐标系，指数映射对应的$|V|<\varepsilon$，对$U$内的曲线$C:r(t),r\in(0,t_0)$，$L(C)=\int_0^{t_0}\sqrt{\rho_t^2+G(\rho,\theta)\theta_t^2}\mathrm{d}t\ge\int_0^{t_0}\sqrt{\rho_t^2}\mathrm{d}t=|\rho(t_0)-\rho(0)|=\rho_0$。若不完全落在$U$内，可以取落在内部的部分估算，得到长度大于等于$\varepsilon$，从而不影响最短。
+\end{proof}
+
+*问题：测地极坐标系下高斯曲率？
+
+由于其为正交活动标架，直接计算可知$\omega_1^2=\frac{(\sqrt{G})_\rho}{\sqrt{G}}\omega^2$，进一步得到$K=-\frac{(\sqrt{G})_{\rho\rho}}{\sqrt{G}}$。[当$K$为常数时，可以直接解出第一基本形式。]
+
+性质：测地极坐标系下有$\lim_{\rho\to0}\sqrt{G}=0$、$\lim_{\rho\to0}(\sqrt{G})_\rho=1$。
+
+\begin{proof}
+回到测地法坐标系进行计算，$\sqrt{G}=\sqrt{g_{\alpha\beta}x^\alpha_\theta x^\beta_\theta}$，利用测地法坐标系性质可算出结果。
+\end{proof}
+
+\begin{hw}
+考虑曲线$C(s)$，每点作与曲线切向量垂直的测地线，考虑$F=\left<r_\rho,r_s\right>$，有$F(0,s)=0$，$F_\rho$是否为0？
+\end{hw}
+
+\
+
+\textbf{测地三角形内角和}
+
+\begin{thm} 测地三角形内角和-基础形式
+
+曲面上三个点之间两两用测地线连接得到测地三角形，假设它们落在以$A$为心的测地极坐标系之内，且连接$A$与$BC$中间某点的测测地线$\alpha(s)$坐标可以写为$(f(\theta(s)),\theta(s))$，则有$\iint_{\triangle ABC}K\mathrm{d}V=\angle A+\angle B+\angle C-\pi$(角定义为测地线切向量在切空间中夹角)。
+\end{thm}
+
+\begin{proof}
+此时$\iint_{\triangle ABC}K\mathrm{d}V=\iint_{\triangle ABC}-(\sqrt{G})_{\rho\rho}\mathrm{d}\rho\mathrm{d}\theta=\int_0^{\angle A}(1-(\sqrt{G})_\rho f(\theta))\mathrm{d}\theta$。
+
+考虑$BC$与每条$\alpha(s)$的夹角$\varphi(s)$，有$\varphi(0)=\pi-\angle B,\varphi(s_0)=\angle C$，且$\begin{cases}\cos\varphi(s)=\left<\alpha'(s),r_\rho\right>\\\sin\varphi(s)=\left<\alpha'(s),\frac{r_\theta}{\sqrt{G}}\right>\end{cases}$。假设$\alpha(s)$每点坐标$(\rho(s),\theta(s))$，对第一个式子求导可得到$-\sin\varphi(s)\varphi_s=\left<r_\rho\rho_s+r_\theta\theta_s,r_{\rho\rho}\rho_s+r_{\rho\theta}\theta_s\right>$(消去由测地线知为零的$\alpha''(s)$)，化简得$-\sin\varphi(s)\varphi_s=\frac{1}{2}G_\rho(\theta_s)^2$。而第二个式子可以化简为$\sin\varphi(s)=\sqrt{G}\theta_s$，代入得$\varphi(s)=-(\sqrt{G})_\rho\theta_s$。于是$\int_0^{\angle A}-(\sqrt{G})_\rho f(\theta)\mathrm{d}\theta=\int_0^L-(\sqrt{G})_\rho\theta_s\mathrm{d}s=\angle C+\angle B-\pi$，从而得证。
+\end{proof}
+
+\subsection{局部Gauss-Bonnet公式}
+
+\textbf{测地曲率}的加入
+
+利用Liouville公式，计算可知测地极坐标系下对测地线有$\varphi_s+\frac{\sqrt{G}_\rho}{\sqrt{G}}\sin\varphi(s)=0$，而$\sin\varphi(s)=\left<\alpha_s,\frac{r_\theta}{\sqrt{G}}\right>=\left<r_\theta\theta_s,\frac{r_\theta}{\sqrt{G}}\right>=\sqrt{G}\theta_s$，于是$\varphi_s+\sqrt{G}_\rho\theta_s=0$。
+
+一般情况下$k_g(s)=\varphi_s+\sqrt{G}_\rho\theta_s$，于是对测地线$AB$、$AC$，$BC$未必为测地线时，进行积分可算出(以下$AB$记为$\gamma$，$AC$记为$\beta$，$BC$记为$\alpha$)：
+
+\
+
+Gauss-Bonnet I:
+
+在三角形$ABC$中，$\beta,\gamma$为测地线，三点都落在以$A$为心的测地极坐标系中，$\alpha$在极坐标系下坐标写成$(f(\theta),\theta)$，则有
+$$\iint_{\triangle ABC}K\mathrm{d}V=\angle A+\angle B+\angle C-\pi-\int_0^{l(\alpha)}k_g(s)\mathrm{d}s$$
+
+\
+
+Gauss-Bonnet II:
+
+多边形$A_1,\dots,A_n$落在内部某点$O$为心的测地极坐标系中，且每条边可在极坐标系下写成$(f_i(\theta),\theta)$，即只与径向\textbf{相交一次}，则记区域为$D$有：
+$$\iint_DK\mathrm{d}V+\int_{\partial D}k_g(s)\mathrm{d}s=\sum_i\angle A_i-(n-2)\pi=-\sum_i(\pi-\angle A_i)+2\pi$$
+
+\
+
+Green公式：对平面定向分段光滑简单闭曲线$C$围成区域$D$，对区域中任何光滑函数$f,g$，有$$\oint_Cf\mathrm{d}x+g\mathrm{d}y=\iint_D(g_x-f_y)\mathrm{d}x\mathrm{d}y$$
+
+Gauss-Bonnet III:
+
+考虑$D$和去掉绕$O$的某小圈和一条径向的长条后的连通区域$D_\varepsilon$，$D_\varepsilon$高斯曲率的积分极限与$D$相同，于是：
+$$\iint_DK\mathrm{d}V=\lim_{\varepsilon\to0}\iint_{D_\varepsilon}-\sqrt{G}_{\rho\rho}\mathrm{d}\varphi\mathrm{d}\theta=\lim_{\varepsilon\to0}\oint_{C_\varepsilon}-\sqrt{G}_\rho\mathrm{d}\theta=2\pi+\int_{\partial D}(\varphi_s-k_g)\mathrm{d}s$$
+
+由此可以不要求能写成$(f_i(\theta),\theta)$。
+
+\
+
+对不同点的测地极坐标系进行拼接，最终得到
+
+\begin{thm} Gauss-Bonnet定理
+
+对曲面$M$上一条分段光滑简单闭曲线$C$，围成单连通区域$D$，则有
+$$\iint_DK\mathrm{d}V+\int_{C}k_g(s)\mathrm{d}s+\sum_i(\pi-\angle A_i)=2\pi$$
+\end{thm}
+
+*另一个证明思路：由$K=\frac{-\mathrm{d}\omega_1^2}{\omega^1\wedge\omega^2}$，对微分形式进行积分，乘面积元即对$-\mathrm{d}\omega_1^2$积分，靠\textbf{Stokes定理}可计算出结论。
+
+\
+
+应用：\textbf{角差}
+
+\begin{thm} 平行移动角差
+
+对曲面上光滑简单闭曲线$C:r=r(s),s\in[0,l]$，围成单连通区域$D$，其上的Darbour标架$\{r:e_1,e_2,n\}$。沿曲面平行的单位切向量场$V(s)$，记$V(s)$与$e_1(s)$夹角$\beta(s)$，有$\beta(l)-\beta(0)=\iint_DK\mathrm{d}V$.
+\end{thm}
+
+\begin{proof}
+利用$V=\cos\beta e_1+\sin\beta e_2$直接代入计算得$\iint_DK\mathrm{d}V=\int_0^l\beta_s\mathrm{d}s$。
+\end{proof}
+
+*\textbf{角度函数}
+
+\begin{thm}
+$C:r=r(s),s\in I$为弧长参数正则曲线，$V,W$为沿其的处处非零光滑切向量场，则存在光滑函数$\varphi(s),s\in I$满足$\frac{W}{|W|}=\cos\varphi\frac{V}{|V|}+\sin\varphi J\big(\frac{V}{|V|}\big)$，其中$n$为曲面法向量，$J:S^1\subset T_pM\to S^1\subset T_pM,J(V)=n\wedge v$，于是$\{V,J(V),n\}$构成正交活动标架，这时$\varphi$称$V$到$W$的有向角。
+\end{thm}
+
+\begin{proof}
+不妨设两切向量场已被单位化，则存在$W=fV+gJ(V)$，$f,g$从内积得到，光滑，且由单位知$f^2+g^2=1$。在一点$s_0$处，可取到$\varphi(s_0)\in[0,2\pi)$，$f(s_0)=\cos s_0,g(s_0),\sin s_0$。由此构造$\varphi:I\to\mathbb{R},\varphi(s)=\varphi(s_0)+\int_{s_0}^s(fg'-f'g)\mathrm{d}s$
+
+计算可知$L(s)=(f-\cos\varphi)^2+(g-\sin\varphi)^2$的导数为零(需要利用$ff'=gg'$)，从而得证。
+\end{proof}
+
+*角差计算中存在\textbf{定向}问题
+
+\
+
+\textbf{平面曲线}
+
+对光滑简单闭曲线，此时高斯曲率为0，有$2\pi=\oint_{\partial D}k_g\mathrm{d}s$，而利用定义可发现$k_g$恰为平面曲线在定向下的\textbf{带符号曲率}。于是对平面光滑简单闭曲线$r=r(s),s\in[0,l]$，且$0,l$处各阶导函数(包含0)相等。记$\kappa$为带符号曲率，则$2\pi=\oint_C\kappa(s)\mathrm{d}s$，此处积分定向选取与曲线定向一致。
+
+\begin{dfn} 旋转指数 Rotation Index
+
+定义$i=\frac{1}{2\pi}\int_0^l\kappa(s)\mathrm{d}s$为闭曲线的旋转指数。
+\end{dfn}
+
+性质；考虑$r_s=\cos\theta e_1+\sin\theta e_2$，$\theta$取$e_1$到$r_s$的有向角，则
+$$\int_0^l\kappa(s)\mathrm{d}s=\int_0^l\left<r_{ss},J(r_s)\right>\mathrm{d}s=\int_0^l\theta_s\mathrm{d}s=\theta(l)-\theta(0)$$
+
+\subsection{整体Gauss-Bonnet公式}
+
+\textbf{全曲率}
+
+*定义为高斯曲率在整个曲面上的积分，计算可知球面积分结果为$4\pi$，环面积分结果为0[同一条线上反向算两次]。
+
+\begin{hw}
+证明旋转面上两条纬线间的全曲率为$2\pi(\sin\varphi(a)-\sin\varphi(b))$，其中$a,b$为纬线上$u$的取值，$\varphi$为这点处沿母线切向量和$(0,1)$夹的有向角。
+\end{hw}
+
+\begin{dfn} $E^3$整体曲面
+
+$E^3$的一个子集$M$称为$E^3$中的光滑曲面，若对子集中任何点，存在$E^3$中邻域$\mathcal{V}$与一个映射$r:U\subset E^2\to\mathcal{V}\cap M$，其中$U$为开集，$r$是一个可逆的正则参数化。
+\end{dfn}
+
+*也可定义为一族正则曲面片，且两个正则曲面片交的部分有光滑的正则参数变换
+
+*球面可由去掉上顶点与去掉下顶点的两个曲面片覆盖。
+
+\begin{dfn} 可定向曲面
+
+若$M=\bigcup_\alpha M_\alpha$，使得每个正则曲面片上可选取一个单位法向量$n_\alpha$，使得任何两个曲面片的交处$n_\alpha=n_\beta$，则称其可定向，否则不可定向。
+\end{dfn}
+
+*球面、柱面、环面可定向，莫比乌斯带不可定向。
+
+性质：光滑曲面$M$可定向等价于$M$上存在\textbf{处处非零}二形式。
+
+\begin{proof}
+由定义可知可定向$\Leftrightarrow$存在整体的光滑单位法向量场$n$，即对每点$p$有$n(p)$在一点处为曲面法向，此外，二形式在一点处为0$\Leftrightarrow$此点任意一对切向量映射到0，
+
+左推右：对法向量场$u$，定义二形式$\mu$，一点$p\in M$处$\mu_p:T_pM\times T_pM\to\mathbb{R}$，$\mu_p(v,w)=(n(p),v,w)$，可验证其为光滑二形式，取$v,w$线性无关即有一点处非零。
+
+右推左：对处处非零二形式$\mu$，定义向量场$n$，一点$p\in M$处找线性无关切向量$v,w$，$n(p)=\frac{v\wedge w}{\mu(v,w)}$。若有另一对线性无关切向量$v',w'$，利用双线性反对称计算可知$n$不改变，从而$n$为光滑法向量场。
+\end{proof}
+
+\begin{dfn} 紧致曲面
+
+当曲面$M$是有界闭集时称为紧致曲面。
+\end{dfn}
+
+*其存在有限子覆盖，从而可分取有限个正则曲面片拼成
+
+*类似平面\textbf{Jordan曲线定理}可以说明任何紧致曲面把空间分为了内部和外部，从而可定向。
+
+\
+
+\textbf{曲面的三角剖分}
+
+*称曲面上的三边形围成的三角形区域为二维的面，其边称为一维的面，顶点称为零维的面。
+
+\begin{dfn} 曲面的三角剖分
+
+$M$上的一族三角形区域$T_\alpha$，满足并集为整个曲面、任意两个交集若非空则为各自的零维或一维的面，且包含每点的三角形个数有限。
+\end{dfn}
+
+性质：紧致曲面上总存在二维面数有限的三角剖分(拓扑中证明)。
+
+*记不同的二维面、一维面、零维面个数为$F,E,V$。考虑对三角形的进一步划分可感受曲面三角剖分的$V-E+F$为定值(事实上其为拓扑不变量)，称为\textbf{欧拉示性数}，记作$\chi(M)$。
+
+\
+
+\begin{thm} 整体Gauss-Bonnet定理
+
+设$M$是$E^3$中紧致光滑曲面，则有
+$$\iint_MK\mathrm{d}V=2\pi\chi(M)$$
+\end{thm}
+
+\begin{proof}
+取$M$的一个三角剖分，设每个$T_i$上的内角为$\angle A_i,\angle B_i,\angle C_i$，对每片利用局部的Gauss-Bonnet公式，由于整体可定向可以发现每条边$k_g$项被反向积分两次，于是被抵消。最终得到$2\pi F=\iint_MK\mathrm{d}V+3\pi F-\sum_i(\angle A_i+\angle B_i+\angle C_i)$，所有面上所有角加和即$2\pi V$，又由于$3F=2E$可得结果。
+\end{proof}
+
+*于是任何等距变换全曲率不变
+
+*事实上对任何紧致可定向光滑曲面都对，未必需要嵌入$E^3$
+
+*拓扑结论：这样的曲面的拓扑可以由\textbf{亏格}个数$g$确定，欧拉示性数为$2-2g$。反过来，这个定理代表了几何量可以确定拓扑。
+
+\
+
+*应用：\textbf{处处非零切向量场}
+
+对紧致曲面，若存在这样的$V$，可单位化出整体的$e_1$，再结合整体$n$，有整体的正交活动标架。于是利用正交活动标架有全曲率为$\iint_M-\omega_1^2$，而利用Stokes公式，由于边界为空，全曲率必须为0，于是$M$同胚于环面。
+
+\section{几个重要定理}
+(见补充定理部分讲义)
+
+\end{document}

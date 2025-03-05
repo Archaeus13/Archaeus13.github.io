@@ -1,0 +1,593 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\title{数值分析 作业解答}
+\author{原生生物}
+\date{}
+
+\usepackage{amsmath,amssymb,enumerate,geometry,tikz}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\setlength{\parindent}{0pt}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\Homeo}{Homeo}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\supp}{supp}
+
+\begin{document}
+\maketitle
+*对应徐岩老师《数值分析》课程作业，教材为Kincaid、Cheney《数值分析》，包含期中小测。
+
+\tableofcontents
+\newpage
+\section{第一次作业}
+\begin{enumerate}
+    \item (习题6.1.2)
+    
+    由Lagrange型插值多项式的定义，必然存在$y_i,i=0,\dots,n$使得$Lf=\sum_{i=0}^ny_il_i$，而由于$(Lf)(x_t)=f(x_t)$，由$l_i$定义可知$f(x_t)=\sum_{i=0}^ny_i\delta_i^t=y_t$，从而得证一切$y_i=f(x_i)$。
+    
+    由此，$L(af+bg)=\sum_{i=0}^n(af+bg)(x_i)l_i=\sum_{i=0}^n(af(x_i)+bg(x_i))l_i=aLf+bLg$，即得证。
+    
+    \item (习题6.1.3)
+    
+    由于$l_i$次数为$n$，$l_i^2$次数为$2n$，因此$Gf$次数至多为$2n$。
+    
+    由$Gf(x_t)=\sum_{i=0}^nf(x_i)(\delta_i^t)^2=f(x_t)$可知$Gf$为给定结点的插值多项式。
+    
+    当$f$非负时，每个$f(x_i)l_i^2$非负，因此$Gf$非负。
+    
+    \item (习题6.1.4)
+    
+    由习题6.1.2的推导可知$x_0$到$x_n$上均有$Lq(x_i)=q(x_i)$，于是$Lq-q$至少有$n+1$个不同零点，但其次数不超过$n$，于是必须为0，也即$Lq=q$。
+    
+    \item (习题6.1.5)
+    
+    由习题6.1.4，令$q(x)=1$，代入即得$\sum_{i=0}^nl_i(x)=1$。
+    
+    \item (习题6.1.6)
+    
+    $f-p=f-Lf=f-\sum_{i=0}^nf(x_i)l_i$，由习题6.1.5，$f=f\sum_{i=0}^nl_i$，于是$f-p=\sum_{i=0}^n(f-f(x_i))l_i$，代入$x$即得结论。
+    
+    \item (习题6.1.7)
+    
+    内循环中每次进行两次乘法，而外循环中还有一次除法，因此总次数为$\sum_{k=1}^n(2(k-1)+1)=n^2$。
+    
+    \item (习题6.1.8)
+    
+    设$p(x)=ax^2+bx+c$可得方程$\begin{cases}c=p(0)\\a+b+c=p(1)\\2\xi a+ b=p'(\xi)\end{cases}$。当$\xi\ne\frac{1}{2}$时，有解$\begin{cases}a=\frac{p'(\xi)+p(0)-p(1)}{2\xi-1}\\b=\frac{-p'(\xi)-2\xi p(0)+2\xi p(1)}{2\xi-1}\\c=p(0)\end{cases}$，否则当$p'(\frac{1}{2})=p(1)-p(0)$时有无穷多解$\begin{cases}a=t\\b=p(1)-p(0)-t\\c=p(0)\end{cases},t\in\mathbb{R}$，其余情况无解。
+\end{enumerate}
+
+\section{第二次作业}
+\begin{enumerate}
+    \item (习题6.1.14)
+    
+    由其为奇函数，$x=0$时由取0为插值点显然满足，只需证明$x>0$的情况，$x<0$时由对称性成立。
+    
+    由6.1节定理4，存在$\xi$使得$p(x)-f(x)=\frac{\prod_{i=1}^{n-1}(x-x_i)}{n!}f^{(n)}(\xi)x$，由于$|x-x_i|\le2$，$f^(n)(\xi)$为$\sinh(\xi)$或$\cosh(\xi)$，估算知在范围内模长$\le 2$，在$x>0$时有$|p(x)-f(x)|\le\frac{2^n}{n!}x$。由于$x>0$时$(\sinh x-x)'=\frac{\mathrm{e}^x+\mathrm{e}^{-x}-2}{2}\ge0$，且$\sinh0=0$，恒有$\sinh x>x$成立，即得$|p(x)-f(x)|\le\frac{2^n}{n!}f(x)$，得证。
+    
+    \item (习题6.1.27)
+    
+    由于$\mathrm{e}^{x-1}$各阶导数为自己，$\max_{|t|\le1}|f^{(13)}(t)|\le1$，于是在Chebyshev点下误差$|p(x)-f(x)|\le\frac{1}{2^{12}13!}=\frac{1}{25505877196800}$。
+    
+    \item (习题6.2.3)
+    
+    在$x_1,\dots,x_n$以任何子列(记为$x_i^{(k)}$)趋向$x_0$时，$m_k=\max_i|x_i^{(k)}-x_0|$必然趋于0，而利用6.2节定理4，必然存在$\xi_k\in[x_0-m_k,x_0+m_k]$满足$f[x_0,x_1^{(k)},\dots,x_n^{(k)}]=\frac{f^{(n)}(\xi_k)}{n!}$，由$\xi_k\to x_0$与$f$的$n$阶导函数连续知结论。
+    
+    \item (习题6.2.19)
+    
+    记要证的函数为$p$，直接计算得结论：
+    $$p(x_0)=\frac{x_n-x_0}{x_n-x_0}u(x_0)=f(x_0),\ p(x_n)=\frac{x_n-x_0}{x_n-x_0}v(x_n)=f(x_n)$$
+    $$p(x_i)=\frac{(x_n-x_i)u(x_i)+(x_i-x_0)v(x_i)}{x_n-x_0}=\frac{x_n-x_i+x_i-x_0}{x_n-x_0}f(x_i)=f(x_i)$$
+    
+    \item (习题6.2.23)
+    
+    设$q(x)=p(x)+tx(x+1)(x-1)(x-2)$，则仍然满足在前四点上是插值多项式，且$10=q(3)=p(3)+24t=-38+24t$，于是$t=2$，即
+    $$q(x)=2-(x+1)+x(x+1)-2x(x+1)(x-1)+2x(x+1)(x-1)(x-2)$$
+    
+    \item (习题6.3.1)
+    
+    完整的均差表如下：
+    
+        \begin{tabular}[htbp]{cc|cccc}
+            0 & 2 & -9 & 3 & 7 & 5 \\
+            0 & 2 & -6 & 10 & 17 \\
+            1 & -4 & 4 & 44 \\
+            1 & -4 & 48 \\
+            2 & 44 
+        \end{tabular}
+    
+    因此所求多项式为$p(x)=2-9x+3x^2+7x^2(x-1)+5x^2(x-1)^2$。
+    
+    \item (习题6.3.2)
+    
+    $p(x)$如习题6.3.1，记此题所求为$q$，设$q(x)=p(x)+tx^2(x-1)^2(x-2)$，代入$x=3$可得$2=308+36t$，于是$t=-8.5$，即得
+    $$q(x)=2-9x+3x^2+7x^2(x-1)+5x^2(x-1)^2-8.5x^2(x-1)^2(x-2)$$
+    
+    \item (习题6.3.3)
+    
+    同Lagrange插值记
+    $$l_i=\prod_{j\ne i}\frac{x-x_j}{x_i-x_j}$$
+    考虑($t_i$为待定系数，下记$g_i=l_i^2(t_i(x-x_i)+1)$)
+    $$p(x)=\sum_{i=0}^ny_il_i^2(t_i(x-x_i)+1)$$
+    直接计算可验证此时$p(x_t)=y_t$，而由于$l_i^2$中包含所有$j\ne i$的$(x-x_j)^2$，必有$g_i'(x_j)=0,j\ne i$，于是只需保证$g_i'(x_i)=0$。
+    
+    注意到$g_i'(x_i)=2l_i(x_i)l_i'(x_i)+l_i^2(x_i)t_i$，利用$l_i(x_i)=1$可得$t_i=-2l_i'(x_i)$，进一步计算可知$l_i'(x_i)=\sum_{j\ne i}\frac{1}{x_i-x_j}$，于是$t_i=-\sum_{j\ne i}\frac{2}{x_i-x_j}$。
+    
+    综上得
+    $$p(x)=\sum_{i=0}^ny_i\left(1-\sum_{j\ne i}\frac{2}{x_i-x_j}(x-x_i)\right)\prod_{j\ne i}\frac{(x-x_j)^2}{(x_i-x_j)^2}$$
+    
+    另一方面，其次数至多为$2n+1$，根据6.3节定理1，这是$2n+1$次及以下唯一满足要求的多项式，于是次数最小。
+\end{enumerate}
+
+\section{第三次作业}
+\begin{enumerate}
+    \item (习题6.4.7)
+    
+    记三段为$S_{1,2,3}$，由$S_1(1)=S_2(1),S_1(3)=S_2(3)$可知$a=c=d$，而此时可以验证$x=1,3$处一、二阶导数均光滑，因此已经为三次样条。
+    
+    代入三个点得$\begin{cases}4a-b=26\\c=7\\4d+e=25\end{cases}$，解得$\begin{cases}a=c=d=7\\b=2\\e=-3\end{cases}$。
+    
+    \item (习题6.4.11)
+    
+    由于$d(x-1)^3$在1处的低于3阶导数均为0，必然有$a+b(x-1)+c(x-1)^2=3+x-9x^2$，直接展开对比得到$\begin{cases}a=-5\\b=-17\\c=-9\end{cases}$。
+    
+    由于0到1已确定，只需要保证$\int_1^2[f''(x)]^2\mathrm{d}x=\int_0^1(-18+6dx)^2\mathrm{d}x$最小，直接对$d$求导(这里积分求导可交换)可得$\int_0^1 12x(-18+6dx)\mathrm{d}x=0$，解得$d=4.5$。
+    
+    $f''(2)=0$也即$-18+6d=0$，于是$d=3$，不同于前面所确定的值是由于$f''(0)\ne0$，不符合自然样条的另一端点要求。
+    
+    \item (习题6.4.12)
+    
+    不是三次样条，$\lim_{x\uparrow0}f'(x)=1\ne-1=\lim_{x\downarrow0}f'(x)$，而$\lim_{x\uparrow0}f''(x)=0=\lim_{x\downarrow0}f''(x)$。
+    
+    \item (习题6.4.14)
+    
+    由形式可看出$f''(-1)=0$，且由于$2(x+1)+(x+1)^3=x^3+3x^2+5x+3$，其0处低于3阶导数与$3x^2+5x+3$相同。同理，$3x^2+5x+3=3(x-1)^2+11(x-1)+11$，其1处低于3阶导数与$3(x-1)^2+11(x-1)+11-(x-1)^3$相同。最后，$f''(2)=6-6*(2-1)=0$，于是这是一个自然三次样条。
+    
+    \item (习题6.4.26)
+    
+    由于$x^3=(x-1)^3+3(x-1)^2+3(x-1)+1$，由1处0到2阶导数相同可知$a=b=3,c=1$。由于$f''(3)=3*(3-1)+2*3=12\ne0$，不是自然三次样条。
+\end{enumerate}
+
+\section{第四次作业}
+\begin{enumerate}
+    \item (习题6.8.8)
+    
+    归纳，由条件知$p_0$偶函数，下面假设$p_{n-1}$与($n>1$时)$p_{n-2}$满足要求：
+    
+    $a_n=\left<p_{n-1},p_{n-1}\right>^{-1}\int_{-a}^axp_{n-1}^2(x)w(x)\mathrm{d}x$，由于无论$p_{n-1}$奇偶，$p_{n-1}^2$为偶函数，因此积分中为奇函数，利用对称性可知$a_n=0$，于是$p_n(x)=xp_{n-1}(x)-b_np_{n-2}(x)$。
+    
+    当$n$为偶数时，$p_{n-1}$为奇函数，$xp_{n-1}(x)$为偶函数，且$p_{n-2}$为偶函数，于是$p_n$为偶函数；
+    
+    当$n$为奇数时，$p_{n-1}$为偶函数，$xp_{n-1}(x)$为奇函数，且$p_{n-2}$为奇函数，于是$p_n$为奇函数。
+    
+    \item (习题6.8.18)
+    \begin{enumerate}[(1)]
+        \item $P_n(af+bg)=\sum_{i=1}^n\left<af+bg,u_i\right>u_i=a\sum_{i=1}^n\left<f,u_i\right>u_i+b\sum_{i=1}^n\left<g,u_i\right>u_i=aP_nf+bP_ng$，由此线性。此外，由形式即得$P_nf$被$u_1,\dots,u_n$生成，于是成立。
+        \item 由$j\le n$时$\left<\sum_{i=1}^n\left<f,u_i\right>u_i,u_j\right>=\sum_{i=1}^n\left<f,u_i\right>\left<u_i,u_j\right>=\left<f,u_j\right>$有$P_n(P_nf)=\sum_{j=1}^n\left<f,u_j\right>u_j=P_nf$，于是$P_n^2=P_n$。
+        \item 由(2)，$\left<P_nf,u_j\right>=\left<f,u_j\right>$对$j\le n$成立，于是$\left<f-P_nf,u_j\right>=\left<f,u_j\right>-\left<f,u_j\right>=0$，也即$f-P_nf\ \bot\ \mathrm{Span}(u_1,\dots,u_n)=U_n$。
+        \item 设$U_n$中某逼近为$u+P_nf$，由(3)有$\left<f-P_nf,u\right>=0$，则$\|f-u-P_nf\|^2=\|f-P_nf\|^2+\|u\|^2\ge\|f-P_nf\|^2$，从而得证。
+        \item 由(1)(3)，$\left<P_nf,g-P_ng\right>=0$，因此$\left<P_nf,g\right>=\left<P_nf,g\right>-\left<P_nf,g-P_ng\right>=\left<P_nf,P_ng\right>$，同理$\left<P_nf,P_ng\right>=\left<f,P_ng\right>$，从而得证。
+    \end{enumerate}
+    
+    \item (习题6.8.21)
+    
+    接书例2推导，由习题6.8.8，所有$a_n$必须为0，计算可得：
+    $$b_3=\frac{4}{15}\Rightarrow p_3(x)=x^3-\frac{3}{5}x$$
+    $$b_4=\frac{9}{35}\Rightarrow p_4(x)=x^4-\frac{6}{7}x^2+\frac{3}{35}$$
+    $$b_5=\frac{16}{63}\Rightarrow p_5(x)=x^5-\frac{10}{9}x^3+\frac{5}{21}x$$
+    
+    \item (习题6.9.2)
+    
+    假设为$g(x)=ax+b$，有方程组：
+    $$\begin{cases}b=\delta\\a+b-1=\delta\\\sqrt{t}-at-b=\delta\\a-\frac{1}{2\sqrt{t}}=0\end{cases}$$
+    
+    解得$\delta=\frac{1}{8},t=\frac{1}{4},g(x)=x+\frac{1}{8}$。
+    
+    \item (习题6.9.5)
+    
+    $$\|f-a\|\ge\max(|M(f)-a|,|a-m(f)|)\ge\frac{|M(f)-a|+|a-m(f)|}{2}\ge\frac{M(f)-m(f)}{2}$$
+    且当$a=\frac{M(f)+m(f)}{2}$时等号成立，因此最佳逼近是$\frac{M(f)+m(f)}{2}$。
+    
+    \item (习题6.9.16)
+    
+    记要证为最佳逼近的多项式为$g(x)$，当$a_{n+1}=0$时，$g=f$，于是为最佳逼近，否则，同乘比例不影响结果，可不妨设$a_{n+1}=1$，利用本节推论6，即证明存在$[-1,1]$中的点$x_0<\dots<x_{n+1}$使得
+    $$T_{n+1}(x_i)=(-1)^ic\|T_{n+1}\|,i\in[0,n+1],|c|=1$$
+    由在$[-1,1]$上$T_{n+1}(x)=\cos((n+1)\arccos x)$，$\|T_{n+1}\|=1$，令$x_i=\cos\frac{\pi(n+1-i)}{n+1}$，则$T_{n+1}(x_i)=\cos(n+1-i)\pi$，符合要求。
+    
+    \item (习题6.12.6)
+    
+    第一条：$\left<f,f\right>_N=\frac{1}{N}\sum_{j=0}^{N-1}|f(2\pi j/N)|^2\ge0$。
+    
+    第二条：$\left<f,g\right>_N=\frac{1}{N}\sum_{j=0}^{N-1}f(2\pi j/N)\overline{g(2\pi j/N)}=\overline{\frac{1}{N}\sum_{j=0}^{N-1}\overline{f(2\pi j/N)}g(2\pi j/N)}=\overline{\left<g,f\right>_N}$。
+    
+    第三条：将每一项左侧的$f$直接展开即得。
+    
+    不是范数：取$f(x)=\sin(Nx)$，则$\|f\|_N=0$，但$f\ne0$。
+    
+    \item (习题6.13.6)
+    
+    根据6.12节定理2，可知$\left<f,E_j\right>_{2n}=\gamma_j,\left<f,E_{n+j}\right>_{2n}=\gamma_{n+j}$，而$u_j=\sum_{k=0}^{2n-1}\gamma_k\left<E_k,E_j\right>_n=\gamma_j+\gamma_{n+j}$，由此，只需证明$v_j=\gamma_j-\gamma_{n+j}$。
+    
+    注意到$T_{n/\pi}f=\sum_{k=0}^{2n-1}\mathrm{e}^{\mathrm{i}k\pi/n}\gamma_iE_i$，于是
+    $$v_j=\mathrm{e}^{-\mathrm{i}j\pi/n}\big(\mathrm{e}^{\mathrm{i}j\pi/n}\gamma_j+\mathrm{e}^{\mathrm{i}(j+n)\pi/n}\gamma_{n-j}\big)=\gamma_j+\mathrm{e}^{\mathrm{i}\pi}\gamma_{n+j}=\gamma_j-\gamma_{n+j}$$
+    得证。
+\end{enumerate}
+
+\section{第五次作业}
+\begin{enumerate}
+    \item (习题7.1.4)
+    \begin{enumerate}
+        \item $$f'(x_0)=f'(\xi_{x_0})$$
+        \item $$f'(x_0)=\frac{f(x_0)}{x_0-x_1}+\frac{f(x_1)}{x_1-x_0}+\frac{1}{2}f''(x_0)(x_0-x_1)$$
+            $$f'(x_1)=\frac{f(x_0)}{x_0-x_1}+\frac{f(x_1)}{x_1-x_0}+\frac{1}{2}f''(x_1)(x_1-x_0)$$
+        \item (题目有误，应为$n=2$)
+        
+            $f'(x_0),f'(x_2)$分别为：
+            $$\frac{(2x_0-x_1-x_2)f(x_0)}{(x_0-x_1)(x_0-x_2)}+\frac{(x_0-x_1)f(x_1)}{(x_1-x_0)(x_1-x_2)}+\frac{(x_0-x_2)f(x_2)}{(x_2-x_0)(x_2-x_1)}+\frac{1}{6}f'''(\xi_{x_0})(x_0-x_1)(x_0-x_2)$$
+            $$\frac{(x_2-x_0)f(x_0)}{(x_0-x_1)(x_0-x_2)}+\frac{(x_2-x_1)f(x_1)}{(x_1-x_0)(x_1-x_2)}+\frac{(2x_2-x_0-x_1)f(x_2)}{(x_2-x_0)(x_2-x_1)}+\frac{1}{6}f'''(\xi_{x_2})(x_2-x_0)(x_2-x_1)$$
+    \end{enumerate}
+    
+    \item (习题7.1.6)
+    \begin{enumerate}
+        \item 
+        $$f(x+2h)=f(x)+2hf'(x)+2h^2f''(x)+\frac{4}{3}h^3f'''(x)+\frac{2}{3}h^4f^{(4)}(x)+\frac{4}{15}h^5f^{(5)}(\xi_1)$$
+        $$f(x+h)=f(x)+hf'(x)+\frac{1}{2}h^2f''(x)+\frac{1}{6}h^3f'''(x)+\frac{1}{24}h^4f^{(4)}(x)+\frac{1}{120}h^5f^{(5)}(\xi_2)$$
+        $$f(x-h)=f(x)-hf'(x)+\frac{1}{2}h^2f''(x)-\frac{1}{6}h^3f'''(x)+\frac{1}{24}h^4f^{(4)}(x)-\frac{1}{120}h^5f^{(5)}(\xi_3)$$
+        $$f(x-2h)=f(x)-2hf'(x)+2h^2f''(x)-\frac{4}{3}h^3f'''(x)+\frac{2}{3}h^4f^{(4)}(x)-\frac{4}{15}h^5f^{(5)}(\xi_4)$$
+        代入可得
+        $$LHS-RHS=\frac{h^4}{45}f^{(5)}(\xi_1)-\frac{h^4}{180}f^{(5)}(\xi_2)-\frac{h^4}{180}f^{(5)}(\xi_3)+\frac{h^4}{45}f^{(5)}(\xi_4)=O(h^4)$$
+    
+        \item 
+        $$f(x+2h)=f(x)+2hf'(x)+2h^2f''(x)+\frac{4}{3}h^3f'''(x)+\frac{2}{3}h^4f^{(4)}(x)+\frac{4}{15}h^5f^{(5)}(x)+\frac{4}{45}h^6f^{(6)}(\xi_1)$$
+        $$f(x+h)=f(x)+hf'(x)+\frac{1}{2}h^2f''(x)+\frac{1}{6}h^3f'''(x)+\frac{1}{24}h^4f^{(4)}(x)+\frac{1}{120}h^5f^{(5)}(x)+\frac{1}{720}h^6f^{(6)}(\xi_2)$$
+        $$f(x-h)=f(x)-hf'(x)+\frac{1}{2}h^2f''(x)-\frac{1}{6}h^3f'''(x)+\frac{1}{24}h^4f^{(4)}(x)-\frac{1}{120}h^5f^{(5)}(x)+\frac{1}{720}h^6f^{(6)}(\xi_3)$$
+        $$f(x-2h)=f(x)-2hf'(x)+2h^2f''(x)-\frac{4}{3}h^3f'''(x)+\frac{2}{3}h^4f^{(4)}(x)-\frac{4}{15}h^5f^{(5)}(x)+\frac{4}{45}h^6f^{(6)}(\xi_4)$$
+        代入可得
+        $$LHS-RHS=\frac{h^4}{135}f^{(6)}(\xi_1)-\frac{h^4}{960}f^{(6)}(\xi_2)-\frac{h^4}{960}f^{(6)}(\xi_3)+\frac{h^4}{135}f^{(6)}(\xi_4)=O(h^4)$$
+    \end{enumerate}
+    
+    \item (习题7.1.7)
+    \begin{enumerate}
+        \item 
+        $$f(x+3h)=f(x)+3hf'(x)+\frac{9}{2}h^2f''(x)+\frac{9}{2}h^3f'''(x)+\frac{27}{8}h^4f^{(4)}(\xi_1)$$
+        $$f(x+2h)=f(x)+2hf'(x)+2h^2f''(x)+\frac{4}{3}h^3f'''(x)+\frac{2}{3}h^4f^{(4)}(\xi_2)$$
+        $$f(x+h)=f(x)+hf'(x)+\frac{1}{2}h^2f''(x)+\frac{1}{6}h^3f'''(x)+\frac{1}{24}h^4f^{(4)}(\xi_3)$$
+        代入可得
+        $$LHS-RHS=-\frac{27h}{8}f^{(4)}(\xi_1)+2hf^{(4)}(\xi_2)-\frac{h}{8}f^{(4)}(\xi_3)=O(h)$$
+    
+        \item
+        利用习题7.1.6(a)代入可得
+        $$LHS-RHS=-\frac{2h^2}{15}f^{(5)}(\xi_1)+\frac{h^2}{120}f^{(5)}(\xi_2)+\frac{h^2}{120}f^{(5)}(\xi_3)-\frac{2h^2}{15}f^{(5)}(\xi_4)=O(h^2)$$
+        比(a)更精确。
+    \end{enumerate}
+    
+    
+    \item (习题7.1.15)
+    
+    由式(17)可得$L=\frac{4}{3}\varphi\big(\frac{h}{2}\big)-\frac{1}{3}\varphi(h)$，而
+    $$f'(x)=\varphi(h)-\frac{h^2}{6}f'''(x)-\frac{h^4}{120}f^{(5)}(\xi_1)$$
+    $$f'(x)=\varphi\big(\frac{h}{2}\big)-\frac{h^2}{24}f'''(x)-\frac{h^4}{1920}f^{(5)}(\xi_2)$$
+    于是误差项为：
+    $$f'(x)-L=\frac{h^4}{360}f^{(5)}(\xi_1)-\frac{h^4}{1440}f^{(5)}(\xi_2)$$
+    
+    \item (习题7.1.17)
+    
+    利用习题7.1.7(a)也即$\begin{cases}A+B+C+D=0\\3A+2B+C=0\\\frac{9}{2}A+2B+\frac{1}{2}C=1\\\frac{9}{2}A+\frac{4}{3}B+\frac{1}{6}C=0\end{cases}$，解得$\begin{cases}A=-1\\B=4\\C=-5\\D=2\end{cases}$，误差为$O(h^2)$。
+    
+    \item (习题7.2.1)
+    
+    设公式为$Af(0)+Bf(\frac{1}{3})+Cf(\frac{2}{3})+Df(1)$，代入$1,x,x^2,x^3$即得$\begin{cases}A+B+C+D=1\\\frac{1}{3}B+\frac{2}{3}C+D=\frac{1}{2}\\\frac{1}{9}B+\frac{4}{9}C+D=\frac{1}{3}\\\frac{1}{27}B+\frac{8}{27}C+D=\frac{1}{4}\end{cases}$，解得
+    $$\int_0^1f(x)\mathrm{d}x\approx \frac{1}{8}\bigg(f(0)+3f\big(\frac{1}{3}\big)+3f\big(\frac{2}{3}\big)+f(1)\bigg)$$
+    
+    \item (习题7.2.4)
+    
+    令$f\big(\frac{i}{4}\big)$前的系数为$a_i$，也即验证$\sum_ia_ii^j=\frac{4^i}{j+1}$对$j=0,1,2,3,4$成立，其中规定$0^0=1$，代入即得结果。
+    
+    \item (习题7.2.9)
+    
+    由题意可知$2\pi a= A_1(a+b)+A_2(a-b)$，于是$A_1=A_2=\pi$。
+    
+    由于
+    $$\int_0^{2\pi}\sin kx=0=\pi\sin{k\pi}+\pi\sin 0$$
+    $$\int_0^{2\pi}\cos(2k+1)x=0=-\pi+\pi=\pi\cos(2k+1)\pi+\pi\cos 0$$
+    于是对$f(x)=\sum_{k=0}^n\left(a_k\cos(2k+1)x+b_k\sin kx\right)$亦精确成立。    
+\end{enumerate}
+
+\section{第六次作业}
+\begin{enumerate}
+    \item 推导Gauss-Lobatto积分公式，并证明系数$A_i,i=0,\dots,n$是正的。
+    
+    考虑区间端点$a,b$时，任何不超过$2n-1$次的多项式$p(x)$都可以写成$(x-a)(x-b)q(x)+r(x-a)+s(b-x)$，其中$q(x)$是不超过$2n-3$次的多项式。
+    
+    直接代入可解出$r=\frac{p(b)}{b-a},s=\frac{p(a)}{b-a}$，而另一方面，由积分相同，假设$x_i^*$与$A_i^*,i=1,\dots,n-1$满足以新权函数$(x-a)(b-x)w(x)$构造的，对不超过$2n-3$次的多项式严格成立的高斯公式，可以直接比对系数计算出
+    
+    $$\int_a^bp(x)w(x)\mathrm{d}x=\sum_{i=1}^{n-1}A_i^*\frac{p(x_i^*)-r(x_i^*-a)-s(b-x_i^*)}{(x_i^*-a)(b-x_i^*)}+r\int_a^b(x-a)w(x)\mathrm{d}x+s\int_a^b(b-a)w(x)\mathrm{d}x$$
+    
+    进一步整理即得最终的结点与系数为：
+    $$x_i=\begin{cases}a&i=0\\x_i^*&0<i<n\\b&i=n\end{cases},A_i=\begin{cases}\frac{1}{b-a}\left(\int_a^b(b-x)w(x)\mathrm{d}x-\sum_{i=1}^{n-1}\frac{A_i^*}{x_i^*-a}\right)&i=0\\\frac{A_i^*}{(x_i^*-a)(b-x_i^*)}&0<i<n\\\frac{1}{b-a}\left(\int_a^b(x-a)w(x)\mathrm{d}x-\sum_{i=1}^{n-1}\frac{A_i^*}{b-x_i^*}\right)&i=n\end{cases}$$
+    
+    为证明$A_i>0$，考虑多项式$p_i(x)=\begin{cases}(b-x)\prod_{j=1}^{n-1}(x-x_j)^2&i=0\\(x-a)(b-x)\prod_{0<j\ne i<n}(x-x_j)^2&0<i<n\\(x-a)\prod_{j=1}^{n-1}(x-x_j)^2&i=n\end{cases}$，注意到$p_i(x)$恒非负连续，次数不超过$2n-1$，且非零点的结点有且仅有$x_i$，代入即得证$A_i>0$。
+    
+    \item (习题7.3.8)
+    
+    利用6.8节定理5构造正交多项式(由习题6.8.8只需计算$b_n$)：
+    $$p_0(x)=1,p_1(x)=x,p_2(x)=x^2-\frac{3}{5},p_3(x)=x^3-\frac{5}{7}x$$
+    利用定理1即可得到$x_i$，进一步计算$A_i$：
+    
+    \begin{enumerate}[a.]
+    \item 
+    $$x_0=-\sqrt{\frac{3}{5}},x_1=\sqrt{\frac{3}{5}},A_0=A_1=\frac{1}{3}$$
+    
+    \item 
+    $$x_0=-\sqrt{\frac{5}{7}},x_1=0,x_2=\sqrt{\frac{5}{7}},A_0=A_2=\frac{7}{25},A_1=\frac{8}{75}$$
+    \end{enumerate}
+    
+    \item (习题7.3.21)
+    \begin{enumerate}[a.]
+    \item
+    分别取$f(x)=1,x,x^2$得$\begin{cases}A+B+C=2\\A=C\\\frac{3}{5}(A+C)=\frac{2}{3}\end{cases}$，解得$\begin{cases}A=C=\frac{5}{9}\\B=\frac{8}{9}\end{cases}$。
+    
+    \item
+    $$A=\int_{-1}^1\frac{(x-0)(x-\sqrt{3/5})}{6/5}=\frac{5}{9}$$
+    $$B=\int_{-1}^1\frac{(x+\sqrt{3/5})(x-\sqrt{3/5})}{-3/5}=\frac{8}{9}$$
+    $$C=\int_{-1}^1\frac{(x+\sqrt{3/5})(x-0)}{6/5}=\frac{5}{9}$$
+    \end{enumerate}
+    
+    \item (习题7.3.22)
+    
+    $$\int_a^bf(x)\mathrm{d}x=\frac{b-a}{2}\int_{-1}^1f\bigg(\frac{b-a}{2}x+\frac{a+b}{2}\bigg)\mathrm{d}x$$
+    $$\approx\frac{b-a}{2}\bigg(\frac{5}{9}f\bigg(-\frac{b-a}{2}\sqrt{\frac{3}{5}}+\frac{a+b}{2}\bigg)+\frac{8}{9}f\bigg(\frac{a+b}{2}\bigg)+\frac{5}{9}f\bigg(\frac{b-a}{2}\sqrt{\frac{3}{5}}+\frac{a+b}{2}\bigg)\bigg)$$
+    
+    结果为：
+    \begin{enumerate}
+    \item
+    $\frac{1}{4}\pi\left(\frac{5}{9}\left(\frac{\pi}{4}\sqrt{\frac{5}{3}}+\frac{\pi}{4}\right)+\frac{5}{9}\left(\frac{\pi}{4}-\frac{\pi}{4}\sqrt{\frac{5}{3}}\right)+\frac{2\pi}{9}\right)=\frac{\pi^2}{8}$
+    
+    \item 
+    $2\left(\frac{4\sin2}{9}+\frac{5\sin(2\sqrt{5/3}+2)}{9(2\sqrt{5/3}+2)}+\frac{5\sin(2-2 \sqrt{5/3})}{9(2-2\sqrt{5/3})}\right)\approx 1.7580$
+    \end{enumerate}
+    
+    \item (习题7.4.6)
+    \begin{enumerate}
+    \item 
+    $R(0,0)=\frac{4}{3},R(1,0)=\frac{7}{6},R(2,0)=\frac{67}{60}$
+    
+    $R(1,1)=\frac{10}{9},R(2,1)=\frac{11}{10}$
+    
+    $R(2,2)=\frac{742}{675}\approx1.099$
+    
+    \item
+    $R(0,0)=\frac{\pi}{16},R(1,0)=\frac{3\pi}{64},R(2,0)=\frac{11\pi}{256}$
+    
+    $R(1,1)=\frac{\pi}{24},R(2,1)=\frac{\pi}{24}$
+    
+    $R(2,2)=\frac{\pi}{24}$
+    \end{enumerate}
+\end{enumerate}
+
+\section{第七次作业}
+\begin{enumerate}
+    \item (习题8.1.5)
+    \begin{enumerate}[a.]
+    \item
+    $t_x=x^2,t(0)=0\Rightarrow t=\frac{1}{3}x^3\Rightarrow x=\sqrt[3]{3t},t\in\mathbb{R}$
+    \item
+    $t_x=\frac{1}{1+x^2},t(0)=0\Rightarrow t=\arctan{x}\Rightarrow x=\tan{t}, t\in(-\frac{\pi}{2},\frac{\pi}{2})$
+    \item
+    $t_x=\sin{x}+\cos{x},t(0)=0\Rightarrow t=\sin{x}-\cos{x}+1=\sqrt{2}\sin(x-\frac{\pi}{4})+1\Rightarrow$
+    
+    $x=\arcsin\frac{\sqrt2}{2}(t-1)+\frac{\pi}{4},t\in(-\sqrt{2}+1,\sqrt{2}+1)$
+    \end{enumerate}
+    
+    \item (习题8.1.12)
+    
+    当$|t|\le\frac{1}{3},|x|\le1$时，$|f(x,t)|\le1+|x|+|x|^2\le 3$，于是利用定理1即得在$|t|\le\min(\frac{1}{3},\frac{1}{3})=\frac{1}{3}$内解存在。
+    
+    \item (习题8.2.2)
+    
+    直接计算验证可知$x=\frac{t^2}{4}$是解。
+    
+    利用一阶泰勒级数方法，即$x(t+h)=x(t)+hx'(t)$，而由于0点处$x=0,x'=\sqrt{x}=0$，无论如何递推都只能得到0。这是由于事实上需要二阶展开才能得到$x$的精确表示，二阶展开得到的$x''=\frac{1}{2\sqrt{x}}x'=\frac{1}{2}$(若不代入表达式会产生0/0极限)是准确的。此外，解并不唯一，$x=0$也是方程的解。
+    
+    \item (习题8.2.4)
+    
+    $$x(0)=1$$
+    $$x'=x^2+x\mathrm{e}^t\Rightarrow x'(0)=2$$
+    $$x''=(2x+\mathrm{e}^t)x'+x\mathrm{e}^t\Rightarrow x''(0)=7$$
+    $$x'''=(2x+\mathrm{e}^t)x''+(2x'+2\mathrm{e}^t)x'+x\mathrm{e}^t\Rightarrow x'''(0)=34$$
+    $$x(0.01)\approx x(0)+\frac{1}{100}x'(0)+\frac{1}{20000}x''(0)+\frac{1}{6000000}x'''(0)\approx1.020356$$
+\end{enumerate}
+
+\section{第八次作业}
+\begin{enumerate}
+    \item (习题8.3.5)
+    
+    精确到三阶下
+    $$x(t+h)=x(t)+hf+\frac{1}{2}h^2(f_t+f_xf)+\frac{1}{6}h^3((f_t+f_xf)f_x+f_{tt}+2ff_{xt}+f_{xx}f^2)+O(h^4)$$
+    
+    而
+    $$f(t+\delta_t,x+\delta_x)=f(t,x)+\delta_tf_t+\delta_xf_x+\frac{1}{2}\delta_{t}^2f_{tt}+\frac{1}{2}\delta_x^2f_{xx}+\delta_x\delta_tf_{xt}+O(|\delta|^3)$$
+    
+    于是有
+    $$\begin{cases}F_1=hf\\F_2=hf+\frac{1}{2}h^2(f_t+f_xf)+\frac{1}{8}h^3(f_{tt}+2ff_{xt}+f_{xx}f^2)\end{cases}$$
+    
+    于是
+    $$\frac{9}{4}\bigg(x(t+h)-x(t)-\frac{2}{9}F_1-\frac{1}{3}F_2\bigg)$$
+    $$=hf+\frac{3}{4}h^2(f_t+f_xf)+\frac{9}{32}h^3(f_{tt}+2ff_{xt}+f_{xx}f^2)+\frac{3}{8}h^3((f_t+f_xf)f_x)+O(h^4)$$
+    
+    而由$F_3$前系数$h$，$F_2$中三次项会成为四次，因此舍去，同理$\delta_x^2$、$\delta_x\delta_t$中只保留$\frac{9}{16}h^2f^2$、$\frac{9}{16}h^2f$一项，得到
+    $$F_3=hf+\frac{3}{4}h^2(f_t+f_xf)+\frac{3}{8}((f_t+f_xf)f_x)+\frac{9}{32}h^3(f_{tt}+2ff_{xt}+f_{xx}f^2)+O(h^4)$$
+    与上方相同，于是得证。
+    
+    \item (习题8.4.8)
+    
+    由于结点距离未定，以下不失一般性假设$t_n=0,h=1$。
+    \begin{enumerate}[a.]
+    \item
+    当$f(t,x)=1,x=t$时有$1=A+B$，当$f(t,x)=2t,x=t^2$时有$1=-2B$，联立得$\begin{cases}A=\frac{3}{2}\\B=-\frac{1}{2}\end{cases}$，即$x_{n+1}=x_n+h\big(\frac{3}{2}f_n-\frac{1}{2}f_{n-1}\big)$。
+    
+    \item
+    由数值积分
+    $$\int_0^1f(t,x(t))\mathrm{d}t=Af(0,x(0))+Bf(-1,x(-1))$$
+    分别代入$f=1,f=2t$得到$\begin{cases}1=A+B\\1=-2B\end{cases}$，联立得$\begin{cases}A=\frac{3}{2}\\B=-\frac{1}{2}\end{cases}$。
+    
+    \item
+    由定义若$f(0,x(0))=a,f(-1,x(-1))=b$，则利用插值得到$f(t,x(t))=a+(a-b)t$，于是
+    $$x(1)=x(0)+\int_0^1f(t,x(t))\mathrm{d}t=x(0)+a+\frac{1}{2}(a-b)=x(0)+\frac{3}{2}a-\frac{1}{2}b$$
+    即$A=\frac{3}{2},B=\frac{1}{2}$。
+    \end{enumerate}
+    
+    \item (习题8.4.9)
+    
+    由于结点距离未定，以下不失一般性假设$t_n=0,h=1$。
+    \begin{enumerate}[a.]
+    \item
+    当$f(t,x)=1,x=t$时有$1=A+B$，当$f(t,x)=2t,x=t^2$时有$1=2A$，联立得$\begin{cases}A=\frac{1}{2}\\B=\frac{1}{2}\end{cases}$，即$x_{n+1}=x_n+\frac{h}{2}(f_n+f_{n-1})$。
+    
+    \item
+    由数值积分
+    $$\int_0^1f(t,x(t))\mathrm{d}t=Af(1,x(1))+Bf(0,x(0))$$
+    分别代入$f=1,f=2t$得到$\begin{cases}1=A+B\\1=2A\end{cases}$，联立得$\begin{cases}A=\frac{1}{2}\\B=\frac{1}{2}\end{cases}$。
+    
+    \item
+    由定义若$f(0,x(0))=b,f(1,x(1))=a$，则利用插值得到$f(t,x(t))=b+(a-b)t$，于是
+    $$x(1)=x(0)+\int_0^1f(t,x(t))\mathrm{d}t=x(0)+b+\frac{1}{2}(a-b)=x(0)+\frac{1}{2}a+\frac{1}{2}b$$
+    即$A=\frac{1}{2},B=\frac{1}{2}$。
+    \end{enumerate}
+    
+    \item (习题8.4.13)
+    
+    由于结点距离未定，不失一般性假设$t_n=0,h=1$。由数值积分
+    $$\int_0^1f(t,x(t))\mathrm{d}t=Af(0,x(0))+Bf(-2,x(-2))+C(-4,x(-4))$$
+    分别代入$f=1,f=t,f=t^2$得到
+    $$\begin{cases}1=A+B+C\\\frac{1}{2}=-2B-4C\\\frac{1}{3}=4B+16C\end{cases}\Rightarrow\begin{cases}A=\frac{17}{12}\\B=-\frac{7}{12}\\C=\frac{1}{6}\end{cases}$$
+    
+    \item (习题8.4.17)
+    
+    也即$k=3,a_{3,2,1,0}=(1,0,0,-1),b_{3,2,1,0}=\frac{3}{8}(1,3,3,1)$。
+    
+    $$d_0=\sum_ia_i=0$$
+    $$d_1=\sum_iia_i-\sum_ib_i=3-3=0$$
+    $$d_2=\sum_i\frac{1}{2}i^2a_i-\sum_iib_i=\frac{9}{2}-\frac{9}{2}=0$$
+    $$2d_3=\sum_i\frac{1}{3}i^3a_i-\sum_ii^2b_i=9-9=0$$
+    $$6d_4=\sum_i\frac{1}{4}i^4a_i-\sum_ii^3b_i=\frac{81}{4}-\frac{81}{4}=0$$
+    $$24d_5=\sum_i\frac{1}{5}i^5a_i-\sum_ii^4b_i$$
+    由于$\sum_i\frac{1}{5}i^5a_i=\frac{243}{5}$，右侧分母不可能为5，$d_5\ne0$，阶为4。
+    
+    \item (习题8.5.1)
+    \begin{enumerate}[a.]
+    \item
+    $p(z)=z^2-1,q(z)=2z$，$p$根为$\pm 1$，$p'(1)=q(1)=2$，稳定、相容。
+    
+    \item
+    $p(z)=z^3-z,q(z)=\frac{7}{3}z^2-\frac{2}{3}z+\frac{1}{3}$，$p$根为$0,\pm1$，$p'(1)=q(1)=2$，稳定、相容。
+    
+    \item
+    $p(z)=z^3-z^2,q(z)=\frac{3}{8}z^3+\frac{19}{24}z^2-\frac{5}{24}z+\frac{1}{24}$，$p$根为$0,0,1$，$p'(1)=q(1)=1$，稳定、相容。
+    \end{enumerate}
+    
+    \item (习题8.5.4)
+    
+    $p(z)=z^2+4z-5,q(z)=4z+2$，$p$根为$1,-5$，不稳定、弱不稳定，于是不收敛；$p'(1)=q(1)=6$，相容。
+    
+    \item (习题8.5.6)
+    \begin{enumerate}[a.]
+    \item
+    $p(z)=z^2-1,q(z)=z^2-3z+4$，$p$根为$\pm1$，$p'(1)=q(1)=2$，稳定、相容，于是收敛。
+    
+    \item
+    $p(z)=z^2-2z+1$，在1重根，不稳定，于是不收敛。
+    
+    \item
+    $p(z)=z^2-z-1$，$p(1)\ne0$，不相容，于是不收敛。
+    
+    \item
+    $p(z)=z^2-3z+2$，有根为2，不稳定，于是不收敛。
+    
+    \item
+    $p(z)=z^2-1,q(z)=z^2-3z+2$，$p'(1)=2,q(1)=0$，不相容，于是不收敛。
+    \end{enumerate}
+    
+    \item (习题8.12.4)
+    
+    $$p(z)=z^2+\alpha z-(1+\alpha),q(z)=-\frac{1}{2}\alpha z^2+\frac{(4+3\alpha)}{2}z$$
+    
+    稳定：$p(z)$根为$1,-\alpha-1$，稳定性要求$-\alpha-1\in[-1,1)\Rightarrow\alpha\in(-2,0]$。
+    
+    相容：$p'(1)=2+\alpha=q(1)$，且$p(1)$为根，一定相容。
+    
+    收敛：由8.5节定理1知稳定当且仅当$\alpha\in(-2,0]$。
+    
+    A稳定：条件即对$\mathrm{Re}(\omega)<0$，$p(z)-\omega q(z)=(1+\frac{\alpha\omega}{2})z^2+(\alpha-\frac{(4+3\alpha)\omega}{2})z-\alpha-1$的根在单位圆盘内。考虑极限可知需$\omega=0$，即$p(z)$的根满足$|z|\le1$，因此至少有$\alpha\in[-2,0]$。
+    这时，由$z^2$前系数$1+\frac{\alpha\omega}{2}$实部大于等于1，必然会有两个根，解得它们为
+    $$\frac{-2\alpha+4\omega+3\alpha\omega\pm\sqrt{(1+\alpha)(4+2\alpha\omega)+\big(-2\alpha+4\omega+3\alpha\omega\big)^2}}{4+2\alpha\omega}$$
+    当$|\omega|\to\infty$时，根即为$q(z)$的根$0,\frac{4+3\alpha}{\alpha}$，分析可知预它们都在$[-1,1]$范围内须$\alpha\in[-2,-1]$，下证此即为最终结果。
+    
+    二阶：
+    $$d_0=1+\alpha-1-\alpha=0$$
+    $$d_1=2+\alpha+\frac{1}{2}\alpha-\frac{4+3\alpha}{2}=0$$
+    $$d_2=2+\frac{1}{2}\alpha+\alpha-\frac{4+3\alpha}{2}=0$$
+    $$2d_3=\frac{8}{3}+\frac{\alpha}{3}+2\alpha-\frac{4+3\alpha}{2}=\frac{2}{3}+\frac{5}{6}\alpha$$
+    其为0当且仅当$\alpha=-\frac{4}{5}$，于是$\alpha\ne-\frac{4}{5}$时为二阶。
+\end{enumerate}
+
+\section{期中小测}
+\begin{enumerate}
+    \item
+    \begin{enumerate}[(a)]
+        \item 
+        均差表如下：
+    
+        \begin{tabular}{cc|ccc}
+            -1 & 2 & -2 &    2 & -5/6 \\
+             0 & 0 &  2 & -1/2 \\
+             1 & 2 &  1 \\
+             2 & 3 & \\
+        \end{tabular}
+    
+        \item
+        由于是前三个点，使用均差表除最后一斜行外的部分得到
+        $$p(x)=2-2(x+1)+2(x+1)x$$
+    \end{enumerate}
+    
+    \item
+    由条件设$p_4^c(x)=p_4(x)+a(x+2)(x+1)(x-1)(x-2)$，代入$p_4^c(0)=3$解得$a=-\frac{1}{2}$。于是有
+    $$p_4^c(x)=3+4x+\frac{11}{2}x^2+2x^3+\frac{1}{2}x^4$$
+    
+    \item
+    由条件需要对$1,x,x^2,x^3,x^4$都精确成立，于是有
+    $$\begin{cases}A_1+A_2+A_3+A_4+A_5=2\\-A_1-\frac{1}{4}A_2+\frac{1}{4}A_4+A_5=0\\A_1+\frac{1}{16}A_2+\frac{1}{16}A_4+A_5=\frac{2}{3}\\-A_1-\frac{1}{64}A_2+\frac{1}{64}A_4+A_5=0\\A_1+\frac{1}{256}A_2+\frac{1}{256}A_4+A_5=\frac{2}{5}\end{cases}\Rightarrow\begin{cases}A_1=\frac{43}{225}\\A_2=\frac{512}{225}\\A_3=-\frac{44}{15}\\A_4=\frac{512}{225}\\A_5=\frac{43}{225}\end{cases}$$
+    
+    由于$\int_a^bf(x)\mathrm{d}x=\frac{b-a}{2}\int_{-1}^1f\big(\frac{b-a}{2}x+\frac{a+b}{2}\big)\mathrm{d}x$，可知
+    
+    $$\int_a^bf(x)\mathrm{d}x\approx\frac{b-a}{2}\left(\frac{43}{255}f(a)+\frac{15}{255}f\bigg(\frac{5a+3b}{8}\bigg)-\frac{44}{15}f\bigg(\frac{a+b}{2}\bigg)+\frac{15}{255}f\bigg(\frac{3a+5b}{8}\bigg)+\frac{43}{255}f(b)\right)$$
+    
+    \item
+    \begin{enumerate}[(a)]
+        \item 
+        由前两个条件可假设$p_3(x)=(s+tx)x^2$，而代入可得$\begin{cases}(s+ta)a^2=a^5\\2as+3a^2t=5a^4\end{cases}$，当$a\ne0$时解得
+        $$p_3(x)=-2a^3x^2+3a^2x^3$$
+    
+        \item
+        $$f(x)-p_3(x)=\frac{f^{(4)}(\xi_x)}{24}x^2(x-a)^2$$
+        由于$f^(4)(\xi_x)=120\xi_x$，代入可得
+        $$\xi_x=\frac{24(x^5+2a^3x^2-3a^2x^3)}{120x^2(x-a)^2}=\frac{1}{5}(x+2a)$$
+    \end{enumerate}
+    
+    \item
+    取$\ln$可得线性规划问题 $bx+\ln a\ \mathbf{1}\sim\ln y$，其中$\mathbf{1}$代表各分量全为1的向量，于是作最小二乘估计可得
+    $$\begin{cases}\frac{2\ln a}{a}(bx+\ln a\ \mathbf{1}-\ln y)^T\mathbf{1}=0\\2(bx+\ln a\ \mathbf{1}-\ln y)^Tx=0\end{cases}$$
+    
+    解得
+    $$\begin{cases}
+        b=\dfrac{\overline{x\ln y}-\overline{x}\overline{\ln y}}{\overline{x^2}-\overline{x}^2}
+        \\a=\exp\big(\overline{\ln y}-b\overline{x}\big)\end{cases}$$
+    此处上划线代表五项求和后取平均。代入可得
+    $$\begin{cases}a=\frac{6075}{112}\mathrm{e}^{1/10}\approx1.49\\b=\frac{1}{10}\ln\frac{112}{3}\approx0.36\end{cases}$$
+    
+    \item
+    记$X=(1,x,x^2),Y=y-x^3$，则问题变为最小的$w=(c,b,a)^T$使得$\|Xw-Y\|^2$最小，求梯度可得需(计算验证可知$X^TX$可逆)
+    $$X^TXw=X^TY\Rightarrow w=(X^TX)^{-1}X^TY$$
+    于是计算得
+    $$\begin{cases}a=-\frac{757}{56}\\b=\frac{8741}{168}\\c=-\frac{2803}{56}\end{cases}$$
+\end{enumerate}
+\end{document}
