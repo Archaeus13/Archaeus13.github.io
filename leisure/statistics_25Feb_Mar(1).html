@@ -1,0 +1,3472 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="fantasy">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Werewolf Statistics</title>
+  <!-- Tailwind CSS & DaisyUI -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.3/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'game': ['"ZCOOL KuaiLe"', 'cursive'],
+            'sans': ['"Noto Sans SC"', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    /* 基础动画效果 */
+    .tab-content {
+      display: none;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .tab-content.active {
+      display: block;
+      opacity: 1;
+      animation: fadeInRight 0.5s ease;
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* 移除统计卡片的浮动动画 */
+    .stats {
+      transition: all 0.3s ease;
+    }
+
+    .table-row-animate {
+      transition: all 0.3s ease;
+    }
+
+    .table-row-animate:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    /* 主题过渡动画 */
+    .theme-transition {
+      transition: all 0.3s ease;
+    }
+
+    /* 表格列宽固定 */
+    .table-fixed-layout {
+      table-layout: fixed;
+    }
+
+    .table-fixed-layout th,
+    .table-fixed-layout td {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    /* 定义列宽 */
+    .col-rank { width: 10%; }
+    .col-name { width: 30%; }
+    .col-games { width: 20%; }
+    .col-stats { width: 20%; }
+    .col-rate { width: 20%; }
+
+    /* 渐变色文本 */
+    [data-theme="fantasy"] .gradient-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      transition: background 0.3s ease;
+    }
+
+    [data-theme="fantasy"] .rainbow-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      transition: background 0.3s ease;
+    }
+
+    /* 暗黑模式文字颜色 */
+    [data-theme="dracula"] .gradient-text,
+    [data-theme="dracula"] .rainbow-text,
+    [data-theme="dracula"] .text-base-300 {
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      background-clip: unset !important;
+      color: hsl(var(--bc)) !important;
+    }
+
+    /* 暗黑模式下的特殊文字颜色 */
+    [data-theme="dracula"] .text-warning {
+      color: hsl(var(--wa)) !important;
+    }
+
+    [data-theme="dracula"] .text-success {
+      color: hsl(var(--su)) !important;
+    }
+
+    [data-theme="dracula"] .text-error {
+      color: hsl(var(--er)) !important;
+    }
+
+    /* 文字居中 */
+    .table th,
+    .table td,
+    .stat-title,
+    .stat-value,
+    .pagination-info {
+      text-align: center !important;
+    }
+
+    /* 胜率渐变 */
+    .winrate-gradient {
+      background: linear-gradient(90deg, 
+        hsl(0, 100%, 50%) 0%,
+        hsl(60, 100%, 50%) 50%,
+        hsl(120, 100%, 50%) 100%);
+      background-size: 200% 100%;
+    }
+
+    /* 移除旧的积分渐变样式 */
+    .points-gradient {
+      display: none;
+    }
+
+    /* 负分显示样式 */
+    .points-negative {
+      color: hsl(0, 0%, 40%) !important;
+    }
+
+    /* 最高分彩虹效果 */
+    .rainbow-text {
+      background: linear-gradient(
+        90deg,
+        #ff0000 0%,
+        #ffa500 14.28%,
+        #ffff00 28.56%,
+        #00ff00 42.84%,
+        #00ffff 57.12%,
+        #0000ff 71.4%,
+        #ff00ff 85.68%,
+        #ff0000 100%
+      );
+      background-size: 200% auto;
+      animation: rainbow 5s linear infinite;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    /* 添加积分数值的过渡动画 */
+    .points-value {
+      transition: color 0.3s ease;
+    }
+
+    @keyframes rainbow {
+      to {
+        background-position: -200% center;
+      }
+    }
+
+    /* 统一圆角样式 */
+    .card, .btn, .table, .select, .alert, .stats {
+      border-radius: 1rem !important;
+    }
+
+    .table th:first-child {
+      border-top-left-radius: 1rem !important;
+    }
+
+    .table th:last-child {
+      border-top-right-radius: 1rem !important;
+    }
+
+    .table tr:last-child td:first-child {
+      border-bottom-left-radius: 1rem !important;
+    }
+
+    .table tr:last-child td:last-child {
+      border-bottom-right-radius: 1rem !important;
+    }
+
+    /* 移除主题特定样式中的圆角设置 */
+    [data-theme="fantasy"] {
+      --primary-color: hsl(var(--p));
+      --secondary-color: hsl(var(--s));
+      --accent-color: hsl(var(--a));
+    }
+
+    [data-theme="dracula"] {
+      --primary-color: hsl(var(--p));
+      --secondary-color: hsl(var(--s));
+      --accent-color: hsl(var(--a));
+    }
+
+    /* 移除之前的 .card, .btn, .table 样式覆盖 */
+    .card {
+      box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    }
+
+    .btn {
+      text-transform: none;
+    }
+
+    .table {
+      width: 100%;
+    }
+
+    /* 添加统计卡片的特殊处理 */
+    .stats.shadow {
+      overflow: hidden;
+      border-radius: 1rem !important;
+    }
+
+    .stats > .stat:first-child {
+      border-top-left-radius: 1rem !important;
+      border-bottom-left-radius: 1rem !important;
+    }
+
+    .stats > .stat:last-child {
+      border-top-right-radius: 1rem !important;
+      border-bottom-right-radius: 1rem !important;
+    }
+
+    /* 分页按钮样式 */
+    .pagination-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding: 1rem;
+    }
+
+    .pagination-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .pagination-info {
+      font-size: 0.875rem;
+      opacity: 0.7;
+    }
+
+    /* 统一表格文字样式 */
+    .table td {
+      font-weight: 500 !important;
+    }
+
+    /* 排名前三特殊样式 */
+    .rank-top {
+      color: hsl(var(--wa)) !important;
+      font-weight: 700 !important;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-base-200">
+  <!-- 加载动画 -->
+  <div id="loading" class="fixed inset-0 bg-base-100 bg-opacity-90 z-50 hidden items-center justify-center">
+    <div class="loading loading-spinner loading-lg text-primary"></div>
+  </div>
+
+  <div class="container mx-auto px-4 py-8">
+    <!-- 标题卡片 -->
+    <div class="card bg-base-100 shadow-xl mb-8">
+      <div class="card-body text-center">
+        <h1 class="text-4xl font-game mb-4 text-primary">🐺 Werewolf Statistics 🌙</h1>
+        <div class="divider">Game Data</div>
+      </div>
+    </div>
+
+    <!-- 数据统计卡片 -->
+    <div class="stats shadow w-full mb-8">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          <i class="fas fa-users fa-2x"></i>
+        </div>
+        <div class="stat-title">Total Players</div>
+        <div class="stat-value" id="totalPlayers">-</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          <i class="fas fa-gamepad fa-2x"></i>
+        </div>
+        <div class="stat-title">Total Games</div>
+        <div class="stat-value" id="totalGames">-</div>
+      </div>
+      
+      <div class="stat">
+        <div class="stat-figure text-accent">
+          <i class="fas fa-crown fa-2x"></i>
+        </div>
+        <div class="stat-title">Highest Score</div>
+        <div class="stat-value" id="highestPoints">-</div>
+      </div>
+    </div>
+
+    <!-- 标签页 -->
+    <div class="tabs tabs-boxed justify-center mb-8">
+      <a class="tab tab-lg gap-2 tab-active" onclick="showTab('pointsSection', this)">
+        <i class="fas fa-trophy"></i>Points
+      </a>
+      <a class="tab tab-lg gap-2" onclick="showTab('winRateSection', this)">
+        <i class="fas fa-percentage"></i>Win Rate
+      </a>
+      <a class="tab tab-lg gap-2" onclick="showTab('factionRateSection', this)">
+        <i class="fas fa-balance-scale"></i>Faction Rate
+      </a>
+      <a class="tab tab-lg gap-2" onclick="showTab('factionWinRateSection', this)">
+        <i class="fas fa-chart-pie"></i>Faction Win Rate
+      </a>
+    </div>
+
+    <!-- 数据展示区域 -->
+    <div class="tab-panels">
+      <!-- 积分榜 -->
+      <div id="pointsSection" class="tab-content active">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title font-game text-2xl mb-4">
+              <i class="fas fa-trophy text-warning"></i> Points Ranking
+            </h2>
+            <div class="overflow-x-auto">
+              <table id="pointsTable" class="table table-zebra w-full">
+                <!-- 表格内容由 JS 生成 -->
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 总胜率 -->
+      <div id="winRateSection" class="tab-content">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title font-game text-2xl mb-4">
+              <i class="fas fa-percentage text-success"></i> Win Rate
+            </h2>
+            <div class="overflow-x-auto">
+              <table id="winRateTable" class="table table-zebra w-full">
+                <!-- 表格内容由 JS 生成 -->
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 阵营比率 -->
+      <div id="factionRateSection" class="tab-content">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title font-game text-2xl mb-4">
+              <i class="fas fa-balance-scale text-info"></i> Faction Rate
+            </h2>
+            <div class="overflow-x-auto">
+              <table id="factionRateTable" class="table table-zebra w-full">
+                <!-- 表格内容由 JS 生成 -->
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 阵营胜率 -->
+      <div id="factionWinRateSection" class="tab-content">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title font-game text-2xl mb-4">
+              <i class="fas fa-chart-pie text-error"></i> Faction Win Rate
+            </h2>
+            <div class="overflow-x-auto">
+              <table id="factionWinRateTable" class="table table-zebra w-full">
+                <!-- 表格内容由 JS 生成 -->
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /************************************************
+     * 0. 全局变量 & 默认排序
+     ***********************************************/
+    const tableSortConfig = {
+      pointsTable: { key: 'points', order: 'desc' },
+      winRateTable: { key: 'totalWinRate', order: 'desc' },
+      factionRateTable: { key: 'goodRate', order: 'desc' },
+      factionWinRateTable: { key: 'goodWinRate', order: 'desc' }
+    };
+
+    let globalStats = [];
+    let currentTab = 'pointsSection';
+
+    /************************************************
+     * 1. 工具函数
+     ***********************************************/
+    function showLoading() {
+      document.getElementById('loading').classList.remove('hidden');
+      document.getElementById('loading').classList.add('flex');
+    }
+
+    function hideLoading() {
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('loading').classList.remove('flex');
+    }
+
+    function formatNumber(num, decimals = 1) {
+      return Number(num).toFixed(decimals);
+    }
+
+    function formatPercentage(value) {
+      return typeof value === 'string' ? value : `${formatNumber(value)}%`;
+    }
+
+    function showToast(message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.className = `alert alert-${type} fixed bottom-4 right-4 z-50 animate__animated animate__fadeInUp`;
+      toast.innerHTML = `
+        <div>
+          <i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i>
+          <span>${message}</span>
+        </div>
+      `;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.replace('animate__fadeInUp', 'animate__fadeOutDown');
+        setTimeout(() => toast.remove(), 1000);
+      }, 3000);
+    }
+
+    /************************************************
+     * 2. 标签切换逻辑
+     ***********************************************/
+    function showTab(sectionId, element) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('tab-active'));
+      element.classList.add('tab-active');
+
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+
+      currentTab = sectionId;
+      
+      if (globalStats.length > 0) {
+        renderTable(sectionId.replace('Section', ''));
+      }
+    }
+
+    /************************************************
+     * 3. 表格渲染逻辑
+     ***********************************************/
+    function renderTable(type) {
+      const tableId = `${type}Table`;
+      const table = document.getElementById(tableId);
+      if (!table) return;
+
+      const sortedData = [...globalStats].sort((a, b) => {
+        const { key, order } = tableSortConfig[tableId];
+        let aVal = a[key];
+        let bVal = b[key];
+        
+        // 处理百分比字符串和数值
+        if (typeof aVal === 'string') {
+          aVal = parseFloat(aVal.replace('%', ''));
+        }
+        if (typeof bVal === 'string') {
+          bVal = parseFloat(bVal.replace('%', ''));
+        }
+        
+        return order === 'asc' ? aVal - bVal : bVal - aVal;
+      });
+
+      const maxPoints = Math.max(...sortedData.map(p => p.points));
+      const maxWinRate = Math.max(...sortedData.map(p => p.totalWinRate));
+
+      let html = `
+        <thead>
+          <tr class="text-base-content">
+            <th class="bg-base-200 col-rank">Rank</th>
+            <th class="bg-base-200 col-name">Player</th>
+            <th class="bg-base-200 col-games">
+              Games
+              <button class="btn btn-ghost btn-xs" onclick="toggleSort('totalGames', '${type}')">
+                <i class="fas fa-sort"></i>
+              </button>
+            </th>
+      `;
+
+      switch (type) {
+        case 'points':
+          html += `
+            <th class="bg-base-200 col-stats">
+              Points
+              <button class="btn btn-ghost btn-xs" onclick="toggleSort('points', '${type}')">
+                <i class="fas fa-sort"></i>
+              </button>
+            </th>
+          `;
+          break;
+        case 'winRate':
+          html += `
+            <th class="bg-base-200 col-stats">
+              Win Rate
+              <button class="btn btn-ghost btn-xs" onclick="toggleSort('totalWinRate', '${type}')">
+                <i class="fas fa-sort"></i>
+              </button>
+            </th>
+          `;
+          break;
+        case 'factionRate':
+          html += `
+            <th class="bg-base-200 col-rate">
+              Good Rate
+              <button class="btn btn-ghost btn-xs" onclick="toggleSort('goodRate', '${type}')">
+                <i class="fas fa-sort"></i>
+              </button>
+            </th>
+            <th class="bg-base-200 col-rate">
+              Wolf Rate
+              <button class="btn btn-ghost btn-xs" onclick="toggleSort('wolfRate', '${type}')">
+                <i class="fas fa-sort"></i>
+              </button>
+            </th>
+          `;
+          break;
+        case 'factionWinRate':
+          html += `
+            <th class="bg-base-200 col-rate">
+              Good Win Rate
+              <button class="btn btn-ghost btn-xs" onclick="toggleSort('goodWinRate', '${type}')">
+                <i class="fas fa-sort"></i>
+              </button>
+            </th>
+            <th class="bg-base-200 col-rate">
+              Wolf Win Rate
+              <button class="btn btn-ghost btn-xs" onclick="toggleSort('wolfWinRate', '${type}')">
+                <i class="fas fa-sort"></i>
+              </button>
+            </th>
+          `;
+          break;
+      }
+      html += '</tr></thead><tbody>';
+
+      sortedData.forEach((stat, index) => {
+        const rank = index + 1;
+        html += `<tr class="table-row-animate hover">`;
+        html += `
+          <td class="font-bold ${rank <= 3 ? 'text-warning' : ''}">${rank}</td>
+          <td>${stat.name}</td>
+          <td>${stat.totalGames}</td>
+        `;
+
+        switch (type) {
+          case 'points':
+            html += `
+              <td class="font-bold ${stat.points === maxPoints ? 'rainbow-text' : ''}">
+                ${formatNumber(stat.points, 1)}
+              </td>
+            `;
+            break;
+
+          case 'winRate':
+            html += `
+              <td class="font-bold ${stat.totalWinRate === maxWinRate ? 'rainbow-text' : ''}">
+                ${formatPercentage(stat.totalWinRate)}
+              </td>
+            `;
+            break;
+
+          case 'factionRate':
+            html += `
+              <td>${formatPercentage(stat.goodRate)}</td>
+              <td>${formatPercentage(stat.wolfRate)}</td>
+            `;
+            break;
+
+          case 'factionWinRate':
+            html += `
+              <td>${formatPercentage(stat.goodWinRate)}</td>
+              <td>${formatPercentage(stat.wolfWinRate)}</td>
+            `;
+            break;
+        }
+        html += '</tr>';
+      });
+
+      html += '</tbody>';
+      table.className = 'table table-zebra w-full table-fixed-layout';
+      table.innerHTML = html;
+    }
+
+    /************************************************
+     * 4. 排序逻辑
+     ***********************************************/
+    function toggleSort(key, type) {
+      const tableId = `${type}Table`;
+      const config = tableSortConfig[tableId];
+      
+      if (config.key === key) {
+        config.order = config.order === 'asc' ? 'desc' : 'asc';
+      } else {
+        config.key = key;
+        config.order = 'desc';
+      }
+      
+      renderTable(type);
+    }
+
+    /************************************************
+     * 5. 统计计算逻辑
+     ***********************************************/
+    function calculateStats(gameRecords) {
+      const playerStats = {};
+
+      gameRecords.forEach(record => {
+        record.players.forEach(player => {
+          const { name, faction } = player;
+          const playerName = name || '未知玩家';
+
+          if (!playerStats[playerName]) {
+            playerStats[playerName] = {
+              name: playerName,
+              goodWins: 0,
+              goodGames: 0,
+              wolfWins: 0,
+              wolfGames: 0,
+              totalWins: 0,
+              totalGames: 0,
+              points: 0
+            };
+          }
+          
+          const stats = playerStats[playerName];
+          stats.totalGames++;
+          
+          if (faction === 1) {
+            stats.goodGames++;
+            if (record.gameWinner === '好人') {
+              stats.goodWins++;
+              stats.totalWins++;
+              stats.points += 1;
+            } else {
+              stats.points -= 1;
+            }
+          } else {
+            stats.wolfGames++;
+            if (record.gameWinner === '狼人') {
+              stats.wolfWins++;
+              stats.totalWins++;
+              stats.points += 1.5;
+            } else {
+              stats.points -= 1;
+            }
+          }
+        });
+      });
+
+      return Object.values(playerStats).map(p => ({
+        ...p,
+        goodRate: p.totalGames > 0 ? (p.goodGames / p.totalGames) * 100 : 0,
+        wolfRate: p.totalGames > 0 ? (p.wolfGames / p.totalGames) * 100 : 0,
+        goodWinRate: p.goodGames > 0 ? (p.goodWins / p.goodGames) * 100 : 0,
+        wolfWinRate: p.wolfGames > 0 ? (p.wolfWins / p.wolfGames) * 100 : 0,
+        totalWinRate: p.totalGames > 0 ? (p.totalWins / p.totalGames) * 100 : 0
+      }));
+    }
+
+    // 添加内置的游戏记录数据
+    const gameRecords = [
+  {
+    "gameDate": "20250216",
+    "gameNumber": "1",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "6",
+        "name": "凝",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "17",
+        "name": "猫神枳",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "机械狼",
+        "faction": 0
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "35",
+        "name": "cgq",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "16",
+        "name": "石像鬼",
+        "role": "狼人",
+        "faction": 0
+      }
+    ]
+  },
+  {
+    "gameDate": "20250216",
+    "gameNumber": "2",
+    "gameType": "假面舞会",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "舞者",
+        "faction": 1
+      },
+      {
+        "id": "24",
+        "name": "不拿狼",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "27",
+        "name": "抗压狼",
+        "role": "假面",
+        "faction": 0
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "白痴",
+        "faction": 1
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "35",
+        "name": "cgq",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "16",
+        "name": "石像鬼",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "女巫",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250221",
+    "gameNumber": "1",
+    "gameType": "迷雾鸦影",
+    "gameWinner": "狼人",
+    "players": [
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "白痴",
+        "faction": 1
+      },
+      {
+        "id": "66",
+        "name": "乔妹妹给你发金水",
+        "role": "摄梦人",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "35",
+        "name": "cgq",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "24",
+        "name": "不拿狼",
+        "role": "炼金魔女",
+        "faction": 1
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "狼鸦之爪",
+        "faction": 0
+      },
+      {
+        "id": "20",
+        "name": "化曲",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "33",
+        "name": "雨新",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250221",
+    "gameNumber": "2",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "66",
+        "name": "乔妹妹给你发金水",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "16",
+        "name": "石像鬼",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "35",
+        "name": "cgq",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "24",
+        "name": "不拿狼",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "机械狼",
+        "faction": 0
+      },
+      {
+        "id": "20",
+        "name": "化曲",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "33",
+        "name": "雨新",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250221",
+    "gameNumber": "4",
+    "gameType": "石像鬼守墓人",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "35",
+        "name": "cgq",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "12",
+        "name": "折子哥",
+        "role": "守墓人",
+        "faction": 1
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "石像鬼",
+        "faction": 0
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "20",
+        "name": "化曲",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "999",
+        "name": "未知玩家",
+        "role": "平民",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250222",
+    "gameNumber": "1",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "机械狼",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "21",
+        "name": "gtx",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "34",
+        "name": "MiFthforSept.",
+        "role": "守卫",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250222",
+    "gameNumber": "2",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "狼人",
+    "players": [
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "34",
+        "name": "MiFthforSept.",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "28",
+        "name": "文远",
+        "role": "机械狼",
+        "faction": 0
+      }
+    ]
+  },
+  {
+    "gameDate": "20250222",
+    "gameNumber": "3",
+    "gameType": "假面舞会",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "假面",
+        "faction": 0
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "舞者",
+        "faction": 1
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "白痴",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "21",
+        "name": "gtx",
+        "role": "女巫",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250228",
+    "gameNumber": "1",
+    "gameType": "暗夜星辰",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "6",
+        "name": "凝",
+        "role": "觉醒狼美人",
+        "faction": 0
+      },
+      {
+        "id": "10",
+        "name": "白鹜",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "27",
+        "name": "抗压狼",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "觉醒猎人",
+        "faction": 1
+      },
+      {
+        "id": "37",
+        "name": "zty",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "预言家",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250228",
+    "gameNumber": "2",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "6",
+        "name": "凝",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "16",
+        "name": "石像鬼",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "34",
+        "name": "MiFthforSept.",
+        "role": "机械狼",
+        "faction": 0
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "27",
+        "name": "抗压狼",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "15",
+        "name": "啸傲江湖",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      }
+    ]
+  },
+  {
+    "gameDate": "20250228",
+    "gameNumber": "3",
+    "gameType": "道士幽灵狼",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "幽灵狼",
+        "faction": 0
+      },
+      {
+        "id": "20",
+        "name": "化曲",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "33",
+        "name": "雨新",
+        "role": "道士",
+        "faction": 1
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "先知",
+        "faction": 1
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "15",
+        "name": "啸傲江湖",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "37",
+        "name": "zty",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "平民",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250301",
+    "gameNumber": "1",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "21",
+        "name": "gtx",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "机械狼",
+        "faction": 0
+      },
+      {
+        "id": "33",
+        "name": "雨新",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "27",
+        "name": "抗压狼",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "猎人",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250301",
+    "gameNumber": "2",
+    "gameType": "梦魇摄梦",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "梦魇",
+        "faction": 0
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "21",
+        "name": "gtx",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "27",
+        "name": "抗压狼",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "摄梦人",
+        "faction": 1
+      },
+      {
+        "id": "34",
+        "name": "MiFthforSept.",
+        "role": "平民",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250301",
+    "gameNumber": "3",
+    "gameType": "梦魇摄梦",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "21",
+        "name": "gtx",
+        "role": "梦魇",
+        "faction": 0
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "27",
+        "name": "抗压狼",
+        "role": "摄梦人",
+        "faction": 1
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "12",
+        "name": "折子哥",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "34",
+        "name": "MiFthforSept.",
+        "role": "女巫",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250301",
+    "gameNumber": "4",
+    "gameType": "骑士狼美",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "21",
+        "name": "gtx",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "33",
+        "name": "雨新",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "狼美人",
+        "faction": 0
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "12",
+        "name": "折子哥",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "骑士",
+        "faction": 1
+      },
+      {
+        "id": "34",
+        "name": "MiFthforSept.",
+        "role": "平民",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250301",
+    "gameNumber": "5",
+    "gameType": "暗夜星辰",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "21",
+        "name": "gtx",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "33",
+        "name": "雨新",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "觉醒猎人",
+        "faction": 1
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "12",
+        "name": "折子哥",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "15",
+        "name": "啸傲江湖",
+        "role": "觉醒狼美人",
+        "faction": 0
+      }
+    ]
+  },
+  {
+    "gameDate": "20250307",
+    "gameNumber": "1",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "狼人",
+    "players": [
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "机械狼",
+        "faction": 0
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "34",
+        "name": "MiFthforSept.",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "27",
+        "name": "抗压狼",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "32",
+        "name": "啟雲",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "平民",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250307",
+    "gameNumber": "2",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "狼人",
+    "players": [
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "机械狼",
+        "faction": 0
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "27",
+        "name": "抗压狼",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "32",
+        "name": "啟雲",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "平民",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250307",
+    "gameNumber": "3",
+    "gameType": "骑士狼美",
+    "gameWinner": "狼人",
+    "players": [
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "骑士",
+        "faction": 1
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "27",
+        "name": "抗压狼",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "32",
+        "name": "啟雲",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "狼美人",
+        "faction": 0
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "守卫",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250308",
+    "gameNumber": "1",
+    "gameType": "盗宝大师",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "6",
+        "name": "凝",
+        "role": "蒙面人",
+        "faction": 1
+      },
+      {
+        "id": "21",
+        "name": "gtx",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "999",
+        "name": "未知玩家",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "12",
+        "name": "折子哥",
+        "role": "盗宝大师",
+        "faction": 0
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "34",
+        "name": "MiFthforSept.",
+        "role": "毒师",
+        "faction": 1
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "8",
+        "name": "全场唯一真预言家",
+        "role": "摄梦人",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "狼王",
+        "faction": 0
+      }
+    ]
+  },
+  {
+    "gameDate": "20250308",
+    "gameNumber": "2",
+    "gameType": "假面舞会",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "6",
+        "name": "凝",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "21",
+        "name": "gtx",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "白痴",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "假面",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "舞者",
+        "faction": 1
+      },
+      {
+        "id": "8",
+        "name": "全场唯一真预言家",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "狼人",
+        "faction": 0
+      }
+    ]
+  },
+  {
+    "gameDate": "20250314",
+    "gameNumber": "1",
+    "gameType": "预女猎白混",
+    "gameWinner": "狼人",
+    "players": [
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "33",
+        "name": "雨新",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "白痴",
+        "faction": 1
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "16",
+        "name": "石像鬼",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "27",
+        "name": "抗压狼",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "24",
+        "name": "不拿狼",
+        "role": "混血儿（狼）",
+        "faction": 0
+      }
+    ]
+  },
+  {
+    "gameDate": "20250314",
+    "gameNumber": "2",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "狼人",
+    "players": [
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "33",
+        "name": "雨新",
+        "role": "机械狼",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "16",
+        "name": "石像鬼",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "27",
+        "name": "抗压狼",
+        "role": "女巫",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250315",
+    "gameNumber": "1",
+    "gameType": "飞将谋士",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "飞将",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "8",
+        "name": "全场唯一真预言家",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "33",
+        "name": "雨新",
+        "role": "谋士",
+        "faction": 0
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "17",
+        "name": "猫神枳",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "狼人",
+        "faction": 0
+      }
+    ]
+  },
+  {
+    "gameDate": "20250315",
+    "gameNumber": "2",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "狼人",
+    "players": [
+      {
+        "id": "8",
+        "name": "全场唯一真预言家",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "17",
+        "name": "猫神枳",
+        "role": "机械狼",
+        "faction": 0
+      },
+      {
+        "id": "32",
+        "name": "啟雲",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "女巫",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250315",
+    "gameNumber": "3",
+    "gameType": "血月猎魔",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "8",
+        "name": "全场唯一真预言家",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "32",
+        "name": "啟雲",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "血月使徒",
+        "faction": 0
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "白痴",
+        "faction": 1
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "猎魔人",
+        "faction": 1
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "平民",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250315",
+    "gameNumber": "4",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "32",
+        "name": "啟雲",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "8",
+        "name": "全场唯一真预言家",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "机械狼",
+        "faction": 0
+      }
+    ]
+  },
+  {
+    "gameDate": "20250321",
+    "gameNumber": "1",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "33",
+        "name": "雨新",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "34",
+        "name": "MiFthforSept.",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "机械狼",
+        "faction": 0
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "6",
+        "name": "凝",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "8",
+        "name": "全场唯一真预言家",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "平民",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250321",
+    "gameNumber": "2",
+    "gameType": "唯邻是从",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "34",
+        "name": "MiFthforSept.",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "傀儡",
+        "faction": 0
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "20",
+        "name": "化曲",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "8",
+        "name": "全场唯一真预言家",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "狼王",
+        "faction": 0
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "平民",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250321",
+    "gameNumber": "3",
+    "gameType": "假面舞会",
+    "gameWinner": "狼人",
+    "players": [
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "32",
+        "name": "啟雲",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "白痴",
+        "faction": 1
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "假面",
+        "faction": 0
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "8",
+        "name": "全场唯一真预言家",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "舞者",
+        "faction": 1
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "狼人",
+        "faction": 0
+      }
+    ]
+  },
+  {
+    "gameDate": "20250321",
+    "gameNumber": "4",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "32",
+        "name": "啟雲",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "机械狼",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "100",
+        "name": "抗推王",
+        "role": "通灵师",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250322",
+    "gameNumber": "1",
+    "gameType": "猎人狼美",
+    "gameWinner": "狼人",
+    "players": [
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "狼美人",
+        "faction": 0
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "8",
+        "name": "全场唯一真预言家",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "24",
+        "name": "不拿狼",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "36",
+        "name": "赛恩",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "17",
+        "name": "猫神枳",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "猎人",
+        "faction": 1
+      }
+    ]
+  },
+  {
+    "gameDate": "20250322",
+    "gameNumber": "2",
+    "gameType": "机械狼通灵师",
+    "gameWinner": "狼人",
+    "players": [
+      {
+        "id": "13",
+        "name": "原生生物",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "8",
+        "name": "全场唯一真预言家",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "24",
+        "name": "不拿狼",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "34",
+        "name": "MiFthforSept.",
+        "role": "通灵师",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "猎人",
+        "faction": 1
+      },
+      {
+        "id": "20",
+        "name": "化曲",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "机械狼",
+        "faction": 0
+      },
+      {
+        "id": "17",
+        "name": "猫神枳",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "狼人",
+        "faction": 0
+      }
+    ]
+  },
+  {
+    "gameDate": "20250322",
+    "gameNumber": "3",
+    "gameType": "骑士狼美",
+    "gameWinner": "好人",
+    "players": [
+      {
+        "id": "30",
+        "name": "单身20年",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "5",
+        "name": "shadow",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "14",
+        "name": "手扶拖拉机",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "8",
+        "name": "全场唯一真预言家",
+        "role": "骑士",
+        "faction": 1
+      },
+      {
+        "id": "7",
+        "name": "大祭司wdc",
+        "role": "守卫",
+        "faction": 1
+      },
+      {
+        "id": "68",
+        "name": "Joker",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "3",
+        "name": "站边王",
+        "role": "平民",
+        "faction": 1
+      },
+      {
+        "id": "19",
+        "name": "Lilyan",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "18",
+        "name": "窗",
+        "role": "预言家",
+        "faction": 1
+      },
+      {
+        "id": "9",
+        "name": "Bernie",
+        "role": "女巫",
+        "faction": 1
+      },
+      {
+        "id": "20",
+        "name": "化曲",
+        "role": "狼人",
+        "faction": 0
+      },
+      {
+        "id": "2",
+        "name": "港爷",
+        "role": "狼美人",
+        "faction": 0
+      }
+    ]
+  }
+]
+
+
+    // 页面加载完成后立即处理数据
+    document.addEventListener('DOMContentLoaded', function() {
+      // 主题初始化
+      const themes = ['fantasy', 'dracula'];
+      let currentTheme = 0;
+
+      // 添加主题切换按钮
+      const themeBtn = document.createElement('button');
+      themeBtn.className = 'btn btn-circle btn-lg fixed bottom-4 left-4 shadow-lg';
+      themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+      themeBtn.onclick = function() {
+        currentTheme = (currentTheme + 1) % themes.length;
+        const newTheme = themes[currentTheme];
+        document.documentElement.setAttribute('data-theme', newTheme);
+        
+        // 更新图标
+        this.innerHTML = `<i class="fas ${newTheme === 'fantasy' ? 'fa-moon' : 'fa-sun'}"></i>`;
+        
+        // 添加过渡动画类
+        document.body.classList.add('theme-transition');
+        setTimeout(() => {
+          document.body.classList.remove('theme-transition');
+        }, 300);
+      };
+      document.body.appendChild(themeBtn);
+
+      // 立即处理数据
+      try {
+        globalStats = calculateStats(gameRecords);
+        
+        // 更新统计数据
+        document.getElementById('totalPlayers').textContent = globalStats.length;
+        document.getElementById('totalGames').textContent = gameRecords.length;
+        document.getElementById('highestPoints').textContent = 
+          Math.max(...globalStats.map(p => p.points)).toFixed(1);
+
+        // 渲染所有表格
+        renderTable('points');
+        showToast(`Successfully loaded ${gameRecords.length} game records!`);
+      } catch (err) {
+        console.error('Error processing data:', err);
+        showToast('Failed to process game records!', 'error');
+      }
+    });
+  </script>
+</body>
+</html> 
