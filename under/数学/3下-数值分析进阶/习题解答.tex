@@ -1,0 +1,105 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\title{数值分析进阶 作业解答}
+\author{原生生物}
+\date{}
+
+\usepackage{amsmath,amssymb,enumerate,geometry,tikz}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\setlength{\parindent}{0pt}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\Homeo}{Homeo}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\supp}{supp}
+
+\begin{document}
+\maketitle
+*对应徐岩老师《数值分析进阶》课程作业，教材为Briggs、Henson、McCormick《多网格》。
+
+\tableofcontents
+\newpage
+\section{第一次作业}
+\begin{enumerate}
+    \item (习题2.8)
+    
+    记$B_{(n-1)\times(n-1)}=(b_{ij})=\begin{cases}1&|i-j|=1\\0&|i-j|\ne1\end{cases}$，则$A=\frac{1}{h^2}\big((2+\sigma h^2)I-B\big)$，直接代入特征方程可知$\lambda_i(A)=\frac{1}{h^2}\big((2+\sigma h^2)-\lambda_i(B)\big)$，于是只需求出$B$的特征值。记$n-1$阶情况为$B_{n-1}$。
+    
+    记多项式$p_n(\lambda)=\det(\lambda I_n-B_n)$，则由Laplace展开计算可知有递推：规定$p_0(\lambda)=1$，且$p_1(\lambda)=\lambda$，有$p_{n+1}(\lambda)=\lambda p_n(\lambda)-p_{n-1}(\lambda)$。
+    
+    考虑$\lambda\in[-2,2]$，令$\lambda=2\cos\theta$，对$p_0,p_1$有$p_i(\lambda)=\frac{\sin(i+1)\theta}{\sin\theta}$，而
+    $$2\cos\theta\frac{\sin n\theta}{\sin\theta}-\frac{\sin (n-1)\theta}{\sin\theta}=\frac{\cos\theta\sin n\theta+\cos n\theta\sin\theta}{\sin n\theta}=\frac{\sin(n+1)\theta}{\sin\theta}$$
+    
+    于是归纳得$p_n(\lambda)=\frac{\sin(n+1)\theta}{\sin\theta}$，取$\lambda=2\cos\frac{k\pi}{n+1},k=1,2,\dots,n$为两两不同的$n$个实根，又由于$p_n$为$n$次首一多项式，其根必然只有这些，也即$B_n$的特征值为$2\cos\frac{k\pi}{n+1},k=1,2,\dots,n$，从而$n-1$阶情况下$A$的特征值为$\frac{1}{h^2}\big((2+\sigma h^2)-2\cos\frac{k\pi}{n}\big),k=1,\dots,n-1$，这些特征值两两不同。
+    
+    \item (习题2.10)
+    
+    由于此时$D=(\frac{2}{h^2}+\sigma)I$，$R_J=D^{-1}(D-A)=I-\frac{h^2}{2+\sigma h^2}A$，于是$R_\omega=I-\frac{h^2\omega}{2+\sigma h^2}A$。
+    
+    直接计算可知
+    $$A\alpha=\lambda\alpha\Leftrightarrow R_\omega\alpha=\bigg(1-\frac{h^2\omega\lambda}{2+\sigma h^2}\bigg)\alpha$$
+    
+    于是二者特征向量相同，对应特征值$\lambda_i(R_\omega)=1-\frac{h^2\omega\lambda_i(A)}{2+\sigma h^2}$，利用习题2.8即得特征值为
+    $$1-\omega+\frac{2\omega}{2+\sigma h^2}\cos\frac{k\pi}{n},k=1,\dots,n-1$$
+    
+    \item (习题2.14)
+    \begin{enumerate}[(a)]
+    \item 
+    由$R_G=(D-L)^{-1}U$，$R_Gw=\lambda w\Leftrightarrow Uw=\lambda(D-L)w=(D-L)\lambda Iw$。
+    
+    \item
+    方程即$\lambda(2w_j-w_{j-1})=w_{j+1}$。此递推的特征方程为$\mu^2=\lambda(2\mu-1)$，当$\lambda=0$或$1$时由边界条件得$w_j$恒为$0$，不满足特征向量要求，其余情况下必有两个不同的非零根$\mu_{1,2}=\lambda\pm\sqrt{\lambda^2-\lambda}$。由于此递推既可写为$w_{j+1}-\mu_1w_j=\mu_2(w_j-\mu_1w_{j-1})$，又可写为$w_{j+1}-\mu_2w_j=\mu_1(w_j-\mu_2w_{j-1})$，两边得到等比数列后求解二元一次方程得必有$w_j=a\mu_1^j+b\mu_2^j$。由于同乘倍数不影响结果，再代入$w_0=0$可不妨设$w_j=\mu_1^j-\mu_2^j$，且由另一边界知$\mu_1^n=\mu_2^n$。
+    
+    由$\mu_1\ne\mu_2$非零，$\frac{\mu_1}{\mu_2}$必然是某个非1的$n$次单位根，也即
+    $$\frac{\lambda+\sqrt{\lambda^2-\lambda}}{\lambda-\sqrt{\lambda^2-\lambda}}=\exp\bigg(\frac{2k\pi\mathrm{i}}{n}\bigg),k=1,\dots,n-1$$
+    变形有
+    $$1-\sqrt{1-\lambda^{-1}}=2\bigg(\frac{\lambda+\sqrt{\lambda^2-\lambda}}{\lambda-\sqrt{\lambda^2-\lambda}}+1\bigg)^{-1}=2\bigg(\exp\bigg(\frac{2k\pi\mathrm{i}}{n}\bigg)+1\bigg)^{-1}=1-\mathrm{i}\tan\frac{k\pi}{n}$$
+    进一步得
+    $$1-\frac{1}{\lambda}=-\tan^2\frac{k\pi}{n}$$
+    于是$\lambda=\cos^2\frac{k\pi}{n}$，即特征值只能为某个$\cos^2\frac{k\pi}{n},k=1,\dots,n-1$，原命题得证。
+    
+    \item
+    由上问，当$\lambda=\cos^2\frac{k\pi}{n}$时，可以解出
+    $$\mu_{1,2}=\lambda\pm\sqrt{\lambda^2-\lambda}=\cos\frac{k\pi}{n}\exp\bigg(\pm\frac{\mathrm{i}k\pi}{n}\bigg)$$
+    于是$\mu_1^j-\mu_2^j=\pm2\cos^j\frac{k\pi}{n}\sin\frac{kj\pi}{n}$，由于同乘倍数不影响结果即知对应的特征向量为
+    $$w_{k,j}=\cos^j\frac{k\pi}{n}\sin\frac{kj\pi}{n}$$
+    \end{enumerate}
+\end{enumerate}
+
+\section{第二次作业}
+\begin{enumerate}
+    \item (习题4.6)
+    \begin{enumerate}[(a)]
+    \item
+    由于方程为
+    $$Av=f,A=(a_{ij})=\frac{1}{h^2}\begin{cases}2+c_ih^2&i=j\\-1&|i-j|=1\\0&|i-j|>1\end{cases}$$
+    代入$R_J$表达式有
+    $$R_J=\mathrm{diag}((2+c_1h^2)^{-1},\dots,(2+c_{n-1}h^2)^{-1})\begin{pmatrix}&1\\1&&\ddots\\ &\ddots&&1\\ &&1&\end{pmatrix}$$
+    于是
+    $$R_\omega=\begin{pmatrix}1-\omega&\omega(2+c_1h^2)^{-1}\\\omega(2+c_2h^2)^{-1}&1-\omega&\ddots\\ &\ddots&\ddots&\omega(2+c_{n-2}h^2)^{-1}\\ &&\omega(2+c_{n-1}h^2)^{-1}&1-\omega\end{pmatrix}$$
+    而$\omega D^{-1}f=\omega h^2((2+c_1h^2)^{-1}f_1,\dots,(2+c_{n-1}h^2)^{-1}f_{n-1})^T$，因此知迭代为
+    $$v_j^{m+1}=(1-\omega)v_j^m+\frac{\omega}{2+c_jh^2}(v_{j-1}^m+v_{j+1}^m)+\omega h^2\frac{f_j}{2+c_jh^2}$$
+    整理即得原式。
+    
+    \item
+    由于$u=A^{-1}f$，有$u=R_\omega u+\omega D^{-1}f$，于是$u-v^{m+1}=R_\omega(u-v_m)$，也即误差的迭代相当于$f=0$的情况，因此
+    $$e_j^{m+1}=(1-\omega)e_j^m+\frac{\omega}{2+c_jh^2}(e_{j-1}^m+e_{j+1}^m)$$
+    
+    \item
+    代入$e_j^m=A(m)\exp(\mathrm{i}j\theta)$，两边同除以$e_j^m$得
+    $$\frac{A(m+1)}{A(m)}=1-\omega+\frac{\omega}{2+c_jh^2}(\exp(-\mathrm{i}\theta)+\exp(\mathrm{i}\theta))=1-\omega+\frac{\omega}{2+c_jh^2}2\cos\theta$$
+    
+    $c_j$取0得到
+    $$A(m+1)=A(m)(1-\omega+\omega\cos\theta)=A(m)\bigg(1-\omega\sin^2\frac{\theta}{2}\bigg)$$
+    
+    即为所求。
+    \end{enumerate}
+    
+    \item (习题4.7)
+    
+    类似习题4.6，误差迭代满足令$f=0$的$e^{m+1}=R_Ge^m$，也即$(D-L)e^{m+1}=Ue^m$。消去$\frac{1}{h^2}$得到$(2+c_ih^2)e^{m+1}_j=e^{m+1}_{j-1}+e^m_{j+1}$，变形即得要证的式子。
+    
+    代入$e_j^m=A(m)\exp(\mathrm{i}j\theta)$，并令$c_j$取0，两边同除以$\exp(\mathrm{i}j\theta)$得$2A(m+1)=A(m+1)\exp(-\mathrm{i}\theta)+A(m)\exp(\mathrm{i}\theta)$，变形得$A(m+1)=\frac{\exp(\mathrm{i}\theta)}{2-\exp(-\mathrm{i}\theta)}A(m)$，得证。    
+\end{enumerate}
+
+\end{document}

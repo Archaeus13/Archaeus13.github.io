@@ -1,0 +1,957 @@
+\documentclass[a4paper,UTF8,fontset=windows,10pt]{ctexart}
+\title{\heiti 有限元方法II\ 习题解答}
+\author{原生生物}
+\date{}
+
+\usepackage{amsmath,amssymb,enumerate,geometry}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\setlength{\parindent}{0pt}
+
+\renewcommand{\div}{\hspace{0.09em}\mathrm{div}}
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\DeclareMathOperator*{\curl}{curl}
+\DeclareMathOperator*{\diam}{diam}
+\DeclareMathOperator*{\grad}{grad}
+
+\begin{document}
+\maketitle
+
+*吴硕男老师《有限元方法II》课程作业，对应教材为Brenner、Scott《有限元方法的数学理论》。
+
+\tableofcontents
+
+\newpage
+
+\section{第一次作业}
+\begin{enumerate}
+    \item Brenner 0.x.6
+    
+    由0.4节定理已知
+    $$\|u-u_I\|_E\le\frac{\sqrt2}{2}h\|u''\|$$
+    由此只需证明存在$C_0$使得$\|u-u_I\|\le C_0h\|u-u_I\|_E$，即有$C=\frac{\sqrt2}{2}C_0$。
+        
+    两边同平方后，记$w=u-u_I$，利用同质化论证分割到区间可知只需寻找$C_0$使得
+    $$\int_0^1w^2(x)\dr x\le C_0^2\int_0^1w'(x)^2\dr x$$
+    对任何满足$w(0)=w(1)=0$的$w$成立。
+    
+    与0.4节中证明类似，可估算
+    $$w^2(x)=\bigg(\int_0^xw'(t)\dr t\bigg)^2\le\int_0^x1\dr t\int_0^xw'(t)^2\dr t\le x\|w\|_E^2$$
+    $$w^2(x)=\bigg(\int_1^xw'(t)\dr t\bigg)^2\le\int_x^11\dr t\int_x^1w'(t)^2\dr t\le (1-x)\|w\|_E^2$$
+    由此$w^2(x)\le\min(x,1-x)\|w\|_E^2$，两边积分即得可取$C_0=\frac{1}{2}$，从而$C=\frac{\sqrt2}{4}$。
+    
+    \item Brenner 0.x.11
+    
+    记$v(x_i)=v_i$，由条件$v_0=0$，于是右侧为
+    $$\sum_{i=1}^n\frac{h_i+h_{i+1}}{2}f(x_i)v_i=\sum_{i=1}^n\bigg(\frac{U_i-U_{i-1}}{h_i}-\frac{U_{i+1}-U_i}{h_{i+1}}\bigg)v_i$$
+    左侧为(按照$v_i$前的系数整理)
+    $$\sum_{i=1}^n\frac{U_i-U_{i-1}}{h_i}\frac{v_i-v_{i-1}}{h_i}h_i=\sum_{i=1}^{n-1}\bigg(\frac{U_i-U_{i-1}}{h_i}-\frac{U_{i+1}-U_i}{h_{i+1}}\bigg)v_i+\frac{U_n-U_{n-1}}{h_n}v_n$$
+    由规定$\frac{U_{n+1}-U_n}{h_{n+1}}=0$即知左右相等。
+    
+    \item Brenner 0.x.12
+    
+    利用同质化论证技术，可将要证的结论化为
+    $$\bigg|\frac{w(0)+w(1)}{2}-\int_0^1w(x)\dr x\bigg|\le C\int_0^1|w''(x)|\dr x$$
+    记$u(x)=w(x)-w(0)+(w(0)-w(1))x$，则$u(0)=u(1)=0$，要证的问题化为
+    $$\bigg|\int_0^1u(x)\dr x\bigg|\le C\int_0^1|u''(x)|\dr x$$
+    
+    由于$u(0)=u(1)=0$，$u'(x)$在$[0,1]$中存零点，设为$\xi$，则有$x\le\frac{1}{2}$时
+    $$\begin{aligned}\bigg|\int_0^1u(x)\dr x\bigg|&=\bigg|\int_0^1\int_0^xu'(t)\dr t\dr x\bigg|=\bigg|\int_0^1\int_0^x\int_\xi^tu''(s)\dr s\dr t\dr x\bigg|\\ &\le\int_0^1\int_0^x\bigg|\int_\xi^t|u''(s)|\dr s\bigg|\dr t\dr x\le\int_0^1\int_0^{1/2}\int_0^1|u''(s)|\dr s\dr t\dr x=\frac{1}{2}\int_0^1|u''(s)|\dr s\end{aligned}$$
+    同理$x>\frac{1}{2}$时将中间的0到$x$积分替换为$x$到1积分即可，于是取$C=\frac{1}{2}$符合要求。
+    
+    \item Brenner 0.x.13
+    
+    在0.x.12中取$w=fv$，利用0.x.11与原方程弱形式可验证0.x.12的左侧即为$|a(u_I-\tilde{u}_S,v)|$，从而可知左侧小于等于
+    $$\frac{1}{2}h^2\sum_{i=1}^n\int_{x_{i-1}}^{x_i}|(fv)''(x)|\dr x=\frac{1}{2}h^2\int_0^1|(fv)''(x)|\dr x$$
+    由于$v''=0$，$(fv)''=f''v+2f'v'$，直接利用柯西不等式可知上式右侧小于等于(将$f''v$放大为两倍)
+    $$\frac{1}{2}h^2(2(|f''|,|v|)+2(|f'|,|v'|))\le h^2(\|f''\|\|v\|+\|f'\|\|v'\|)\le h^2(\|f''\|+\|f'\|)(\|v'\|+\|v\|)$$
+    于是取$C=1$符合要求。
+    
+    \item Brenner 1.x.13
+    
+    通过以下的路径证明：
+    \begin{itemize}
+        \item 1.x.4
+        
+        当$n=2$时直接计算得成立，而$n=k+1$时左侧可以写为
+        $$\det\begin{pmatrix}r\frac{\partial x^{(k)}(\omega,\phi_1,\dots,\phi_{k-1})}{\partial(\omega,\phi_1,\dots,\phi_{k-1})}\\x^{(k)}(\omega,\phi_1,\dots,\phi_{k-1})\end{pmatrix}=r^k\det\begin{pmatrix}\frac{\partial x^{(k)}(\omega,\phi_1,\dots,\phi_{k-1})}{\partial(\omega,\phi_1,\dots,\phi_{k-1})}\\x^{(k)}(\omega,\phi_1,\dots,\phi_{k-1})\end{pmatrix}$$
+        对比$n=k$时的左侧，记$\theta=(\omega,\phi_1,\dots,\phi_{k-2}),\phi=\phi_{k-1}$知只需证明
+        $$\det\begin{pmatrix}\frac{\partial x^{(k)}(\theta,\phi)}{\partial(\theta,\phi)}\\x^{(k)}(\theta,\phi)\end{pmatrix}=\sin^{k-1}\phi\det\begin{pmatrix}\frac{\partial x^{(k-1)}(\theta)}{\partial\theta}\\x^{(k-1)}(\theta)\end{pmatrix}$$
+        而计算知(第二行第一个等号为行列式每行乘倍数)
+        $$\det\begin{pmatrix}\frac{\partial x^{(k)}(\theta,\phi)}{\partial(\theta,\phi)}\\x^{(k)}(\theta,\phi)\end{pmatrix}=\det\begin{pmatrix}\frac{\partial x^{(k-1)}(\theta)\sin\phi}{\partial(\theta,\phi)}&\frac{\partial\cos\phi}{\partial(\theta,\phi)}\\x^{(k-1)}(\theta)\sin\phi&\cos\phi\end{pmatrix}=\det\begin{pmatrix}\sin\phi\frac{\partial x^{(k-1)}(\theta)}{\partial\theta}&0\\x^{(k-1)}(\theta)\cos\phi&-\sin\phi\\x^{(k-1)}(\theta)\sin\phi&\cos\phi\end{pmatrix}$$
+        $$=\frac{\sin^{k-2}\phi}{\cos\phi}\det\begin{pmatrix}\frac{\partial x^{(k-1)}(\theta)}{\partial\theta}&0\\x^{(k-1)}(\theta)\cos^2\phi&-\sin\phi\cos\phi\\x^{(k-1)}(\theta)\sin^2\phi&\cos\phi\sin\phi\end{pmatrix}=\frac{\sin^{k-2}\phi}{\cos\phi}\det\begin{pmatrix}\frac{\partial x^{(k-1)}(\theta)}{\partial\theta}&0\\x^{(k-1)}(\theta)&0\\x^{(k-1)}(\theta)\sin^2\phi&\cos\phi\sin\phi\end{pmatrix}$$
+        对最后一列展开即得证。
+    
+        \item 1.x.5
+    
+        设$\Omega_\epsilon=\{x\mid\epsilon<\|x\|<1\}$，构造$f_\epsilon=|f|I_{\Omega_\epsilon}$，$I$为特征函数，利用单调收敛定理即可知只要$|f(x)|$在$\Omega_\epsilon$上的积分当$\epsilon\to0^+$时极限存在，其即为$|f(x)|$在$\Omega$上的积分，而考虑1.x.4中的极坐标，利用Fubini定理可知存在只与$n$有关的$C_n$使得
+        $$\int_{\Omega_\epsilon}|f(x)|\dr x=\int_{\Omega_\epsilon}\rho(r)\dr x=C_n\int_\epsilon^1r^{n-1}\rho(r)\dr r$$
+        从而由条件得极限存在，结论成立。
+    
+        \item 1.x.8
+    
+        不妨设$\alpha=(1,0,\dots,0)$，直接计算得结果。
+    
+        \item 1.x.11
+        
+        利用积分的绝对值不超过绝对值积分可知
+        $$r^{n-1}|\rho(r)|\le\int_r^1r^{n-1}|\rho'(t)|\dr t+r^{n-1}|\rho(1)|\le\int_r^1t^{n-1}|\rho'(t)|\dr t+|\rho(1)|\le\int_0^1t^{n-1}|\rho'(t)|\dr t+|\rho(1)|$$
+        由此其在$(0,1]$有界，设上界为$C$。
+    
+        若结论不成立，存在一列$r_j\to0$使得$r_j^{n-1}|\rho(r_j)|\ge c>0$，当$c(1+\gamma)^{n-1}>C$时，可使$|\rho(r_j+\gamma r_j)|$的上界不超过$|\rho(r_j)|$的下界，此时有(由于$r_j\to0$，可去除某些项使$(1+\gamma)r_j<1$成立)
+        $$\begin{aligned}\bigg|r_j^{n-1}\int_{r_j}^{r_j+\gamma r_j}\rho'(t)\dr t\bigg|&=|r_j^{n-1}(\rho(r_j+\gamma r_j)-\rho(r_j))|
+        \\ &\ge r_j^{n-1}(cr_j^{1-n}-C(r_j+\gamma r_j)^{1-n})=c-C(1+\gamma)^{1-n}\end{aligned}$$
+        记右侧为$\delta$，由$\gamma$取值有$\delta>0$，而左侧不超过$t^{n-1}|\rho'(t)|$在$r_j$到$r_j+\gamma r_j$的积分，由于$r_j\to 0$，可取出子列$s_j$使得$(s_j,(1+\gamma)s_j)$互不重叠，此时即知$t^{n-1}|\rho'(t)|$在$[0,1]$的积分不收敛，与条件矛盾。
+    
+        \item 1.x.12
+        
+        不妨设$\alpha=(1,0,\dots,0)$，由1.x.5可知$f$可定义弱导数，由1.x.8可直接计算知，若定义中的$\phi(x)$满足$\|x\|<\varepsilon$时$\phi(x)=0$，两侧相等。对一般的$\phi(x)$，构造一列满足$\|x\|<1/n$时$\phi_n(x)=0$的$\phi_n(x)$一致趋于$\phi(x)$，利用1.x.11可将左右两侧用控制收敛定理控制，由此可得结论成立。
+    
+        \item 1.x.13
+        
+        直接计算可知$\rho(t)=t^r$满足1.x.11的条件，由此利用1.x.12可知存在。
+    \end{itemize}
+    
+    \item Brenner 1.x.20
+    
+    先对$C^\infty(a,b)\cap W_1^1(a,b)$的$u$证明
+    $$\forall x\in(a,b),\quad u(x)\le C(\|u\|_1+\|u'\|_1)$$
+    
+    利用积分中值定理可知存在$\xi\in(a,b)$使得$\|u\|_1=(b-a)|u(\xi)|$，而另一方面
+    $$\int_a^b|u'(x)|\dr x\ge\bigg|\int_\xi^x|u'(x)|\dr x\bigg|\ge\bigg|\int_\xi^xu'(x)\dr x\bigg|=|u(\xi)-u(x)|$$
+    于是即得(取$C$为$(b-a)^{-1}$与$b-a$中较大者)
+    $$u(x)\le\frac{1}{b-a}\|u\|_1+(b-a)\|u'\|_1\le C\|u\|_{W_1^1(a,b)}$$
+    
+    由定理1.3.4可知能取出$C^\infty(a,b)\cap W_1^1(a,b)$中子列$u_n$趋于$W_1^1(a,b)$中任何函数$u$，而由于此子列在$W_1^1$范数收敛，必然在$L^1$范数收敛，因此至少几乎处处收敛，$u_n(x)\to u(x)$在$(a,b)$中几乎处处成立，因此由
+    $$\forall u_n,x,\quad u_n(x)\le C\|u_n\|_{W_1^1(a,b)}$$
+    对$u_n$取极限可知，$u\in W_1^1(a,b)$时对几乎处处的$x$有
+    $$u(x)\le C\|u\|_{W_1^1(a,b)}$$
+    而$W_1^1(a,b)$与$W_1^1[a,b]$无实质区别(任意定义$a,b$处的值不会改变无穷范数与$W_1^1$范数)，由此即得
+    $$\|u\|_\infty\le C\|u\|_{W_1^1[a,b]}$$
+    
+    \item Brenner 1.x.21
+    
+    由于$[a,b]$满足段条件，利用定理1.3.4可知对任何函数$u\in W_1^1[a,b]$，可取出$C^\infty[a,b]\cap W_1^1[a,b]$中子列$u_n$趋于$u$，即$\|u_n-u\|_{W_1^1[a,b]}\to0$。
+    
+    利用1.x.20，从上方结论可以推出$\|u_n-u\|_{L^\infty[a,b]}\to0$，而这即代表$u_n$几乎处处一致收敛到$u$，设集合$E$为例外。由于零测，$E$无内点，从而对任何$x\in E$，存在$x_n$使得$x_n\to x$，且$x_n$均为$u_n$一致收敛的点。
+    
+    利用一致收敛性可知，对任何$\varepsilon$，存在$N$使得$m,n>N$时，$\forall x_k$，$|u_m(x_k)-u_n(x_k)|<\varepsilon$。利用连续性即得
+    $$|u_m(x)-u_n(x)|\le\varepsilon$$
+    由此$u_n(x)$为柯西列，必然收敛，将收敛到的结果定义为$u$在$x$处的值，不改变$u$在$W_1^1$中所在的等价类。
+    
+    此时，根据上方证明，对任何$\varepsilon$，存在$N$使得$m,n>N$时，$\forall x\in[a,b]$，$|u_m(x)-u_n(x)|\le\varepsilon$，令$n\to\infty$即得$|u_m(x)-u(x)|\le\varepsilon$，从而得证$u_n$一致收敛到$u$，由$u_n$连续知$u$连续。
+    
+    \item Brenner 1.x.42
+    
+    利用
+    $$\frac{\partial r}{\partial x}=\cos\theta,\quad\frac{\partial r}{\partial y}=\sin\theta,\quad\frac{\partial\theta}{\partial x}=-\frac{\sin\theta}{r},\quad\quad\frac{\partial\theta}{\partial y}=\frac{\cos\theta}{r}$$
+    可知
+    $$D^\alpha v_\beta(r,\theta)=r^{\beta-k}\Theta^{(\alpha)}$$，这里$\Theta^{(\alpha)}$为某$\sin\theta,\cos\theta,\sin\beta\theta,\cos\beta\theta$的多项式。于是
+    $$\int_{\Omega_\beta}|D^\alpha v_\beta(r,\theta)|^p\dr x\dr y=\int_0^1r^{p(\beta-k)+1}\dr r\int_0^{\pi/\beta}|\Theta^{(\alpha)}|^p\dr\theta$$
+    由于$\Theta^{(\alpha)}$有界，第二项必然收敛(且不可能恒0)，而第一项收敛等价于$p(\beta-k)+1>-1$，也即当且仅当$p(\beta-k)>-2$时$v_\beta(r,\theta)\in W_p^k(\Omega_\beta)$成立。
+    
+    当$\beta=k$时，利用$p$范数极限或直接计算可发现其也在$W_\infty^k(\Omega_\beta)$中。
+    
+    \item 补充题1
+    
+    对任何$x$，取$r$使得$|B_r(x)|=|\Omega|$，设$B_r(x)\cap\Omega$为$U_1$，$B_r(x)-U_1=U_2$，$\Omega-U_1=U_3$，则由于$|U_2|=|U_3|$可知积分化为
+    $$\int_{U_1}|x-y|^{-\lambda}\dr y+\int_{U_3}|x-y|^{-\lambda}\dr y\le \int_{U_1}|x-y|^{-\lambda}\dr y+|U_3|r^{-\lambda}\le\int_{U_1}|x-y|^{-\lambda}\dr y+\int_{U_2}|x-y|^{-\lambda}\dr y$$
+    而直接利用1.x.4计算可知$B_r(x)$上$|x-y|^{-\lambda}$积分可以化为
+    $$\int_{B_r(0)}|y|^{-\lambda}\dr y=C_1(n)\int_0^rs^{-\lambda}s^{n-1}\dr s=C_2(n)(n-\lambda)^{-1}r^{n-\lambda}$$
+    而由于$|\Omega|=C_3(n)r^n$，替换$r$即得原结论成立。
+    
+    \item 补充题2
+    
+    \textbf{$p<n$情况出发估计：}
+    
+    考虑$C_0^\infty(\Omega)$中的$v$，并零延拓到$C_0^\infty(\mathbb{R}^n)$中，其余情况利用稠密性即可得证。先考虑$u\in W_p^1(\Omega),p<n$的情况。
+    
+    利用
+    $$u(x)=\int_{-\infty}^{x_i}\frac{\partial}{\partial x_i}u(x_1,\dots,x_{i-1},t,x_{i+1},\dots,x_n)\dr t$$
+    可知$u$不超过右侧绝对值在$\mathbb{R}$上的积分，对每个分量累乘可得
+    $$|u(x)|^n\le\prod_{i=1}^n\int_{\mathbb{R}}|\partial_iu|\dr t_i$$
+    两侧同作$1/(n-1)$次方后对$x$积分。注意到
+    $$\int_{\mathbb{R}}\prod_{i=1}^n\bigg(\int_{\mathbb{R}}|\partial_iu|\dr t_i\bigg)^{1/(n-1)}\dr x_j=\bigg(\int_{\mathbb{R}}|\partial_iu|\dr t_j\bigg)^{1/(n-1)}\int_{\mathbb{R}}\prod_{i\ne j}\bigg(\int_{\mathbb{R}}|\partial_iu|\dr t_i\bigg)^{1/(n-1)}\dr x_j$$
+    由H\"older不等式归纳可以证明，若$p_s>1$且$\sum_s1/p_s=1$，则有
+    $$\bigg\|\prod_su_s\bigg\|_1\le\prod_s\|u_s\|_{p_s}$$
+    从而右侧可放大为
+    $$\le\bigg(\int_{\mathbb{R}}|\partial_iu|\dr t_j\bigg)^{1/(n-1)}\prod_{i\ne j}\bigg(\iint_{\mathbb{R}^2}|\partial_iu|\dr t_i\dr x_j\bigg)^{1/(n-1)}$$
+    同理继续操作，最终每个积分会变为$|\partial_iu|$对$t_i$与$x_j,j\ne i$积分，这即为其在全空间积分，因此右侧最终变为
+    $$\le\prod_{i=1}^n\bigg(\int_\Omega|\partial_iu|\dr x\bigg)^{1/(n-1)}$$
+    将几何平均值放大为代数平均值，即可得到
+    $$\|u\|_{n/(n-1)}\le\prod_{i=1}^n\bigg(\int_\Omega|\partial_iu|\dr x\bigg)^{1/n}\le\frac{1}{n}|u|_{W_1^1}$$
+    
+    将$u$替换为$|u|^\gamma$，利用H\"older不等式可得
+    $$\||u|^\gamma\|_{n/(n-1)}\le\frac{\gamma}{n}\int_\Omega|u|^{\gamma-1}|u|_{W_1^1}\dr x\le\frac{\gamma}{n}\||u|^{\gamma-1}\|_{p/(p-1)}\|\|\nabla u\|_1\|_p$$
+    取$\gamma$满足$n\gamma/(n-1)=p(\gamma-1)/(p-1)$，则$\gamma=\frac{(n-1)p}{(n-p)}$，若$1<p<n$则其大于1，进一步计算得到
+    $$\|u\|_{np/(n-p)}\le\frac{(n-1)p}{(n-p)n}\||\nabla u|_1\|_p$$
+    
+    回到$v\in W_n^1(\Omega)$时，由于有界区域上$L^n\subset L^p$，上述推理仍然可以成立。对任何$q\ge 1$，设$p=nq/(n+q)$，可发现其小于$n$，代入上式得到
+    $$\|v\|_q\le\frac{(n-1)q}{n^2}\||\nabla v|_1\|_{nq/(n+q)}$$
+    下面对右侧进行估算，由于$\nabla v$为$n$维向量，通过幂平均不等式可知
+    $$|\nabla v|_1\le n^{-1/n}\|\nabla v\|_n$$
+    设$\|\nabla v\|_n=V$，则有$C_1$使得
+    $$\|v\|_q\le C_1(n)q\|V\|_{nq/(n+q)}$$
+    由H\"older不等式进一步得到
+    $$\|V\|_{nq/(n+q)}^{nq/(n+q)}\le\|V^{nq/(n+q)}\|_{(n+q)/q}\|1\|_{(n+q)/n}$$
+    于是
+    $$\|V\|_{nq/(n+q)}\le\|V\|_n|\Omega|^{1/q}=|v|_{W_n^1}|\Omega|^{1/q}$$
+    由此得到
+    $$\|v\|_{L^q(\Omega)}\le C(n)q|\Omega|^{1/q}|v|_{W_n^1(\Omega)}$$
+    
+    \
+    
+    \textbf{卷积出发估计：}
+    
+    由课上证明有
+    $$|v(x)|\le\frac{n}{\omega_{n-1}}\int_\Omega\frac{|\nabla v(y)|}{|x-y|^{n-1}}\dr y$$
+    设$q>n$，，取$1/s=1+1/q-1/n$，利用卷积Young不等式可得
+    $$\|v\|_{L^q}\le\frac{n}{\omega_{n-1}}\bigg(\int_\Omega\frac{1}{|w|^{(n-1)s}}\dr w\bigg)^{1/s}|v|_{W_n^1}$$
+    由于$0<(n-1)s<n$，利用引理即有
+    $$\|v\|_{L^q}\le C(n)(n-(n-1)s)^{-1/s}|\Omega|^{(1-(n-1)s/n)/s}|v|_{W_n^1}=C(n)(q/n+1/n-q/n^2)^{1/s}|\Omega|^{1/q}|v|_{W_n^1}$$
+    由于$1/s=1+1/q-1/n$，且$q>n$时$1<s\le\frac{n}{n-1}$，将括号中$1/n-q/n^2$放大至0，利用$n^{1/s}\le n$可以提到左侧，只剩下$q^{1/s}$，再利用$q^{1/q}$有界进一步化简即
+    $$\|v\|_{L^q(\Omega)}\le C_2(n)q^{1-1/n}|\Omega|^{1/q}|v|_{W_n^1(\Omega)}$$
+    
+    \
+    
+    \textbf{综合估计}：
+    
+    另一方面，当$q\le n$时，$qn^{-1/n}\le q^{1-1/n}$，于是在$p<n$出发的估计中取$C_3(n)=C(n)n^{1/n}$可知
+    $$\|v\|_{L^q(\Omega)}\le C_3(n)q^{1-1/n}|\Omega|^{1/q}|v|_{W_n^1(\Omega)}$$
+    令$C_4(n)=\max(C_2(n),C_3(n))$，即得无论$q$与$n$为何种关系，均有
+    $$\|v\|_{L^q(\Omega)}\le C_4(n)q^{1-1/n}|\Omega|^{1/q}|v|_{W_n^1(\Omega)}$$
+\end{enumerate}
+
+\section{第二次作业}
+\begin{enumerate}
+    \item Brenner 3.x.10
+    
+    设
+    $$A_1=(0,0),\quad A_2=(1,0),\quad A_3=(0,1),\quad A_4=(1/2,1/2),\quad A_5=(0,1/2),\quad A_6=(1/2,0)$$
+    即要构造在某个$A_i$是0，其余是1的二次多项式$\lambda_i$，注意三条边为$x=0$、$y=0$与$x+y-1=0$，直接计算可得
+    $$\lambda_1=(1-x-y)(1-2x-2y)$$
+    $$\lambda_2=x(2x-1)$$
+    $$\lambda_3=y(2y-1)$$
+    $$\lambda_4=4xy$$
+    $$\lambda_5=4y(1-x-y)$$
+    $$\lambda_6=4x(1-x-y)$$
+    
+    \item Brenner 3.x.12
+    
+    每个顶点处值、一阶导、二阶导共6个自由度，每边上5个自由度，中间3个自由度，计算可得总和为36，从而只需验证这些值全为0的至多七次的多项式$p$只能为0。
+    
+    考虑三边上，假设三边的方程为$\lambda_{1,2,3}(x,y)=0$，而$p$在每边上为一个至多七次的多项式，但其在顶点处的值、一阶导、二阶导与中间两个点处的值全为0，根据Hermite插值可知其只能为0，再利用课上证明的引理有
+    $$p=\lambda_1\lambda_2\lambda_3q$$
+    这里$q$为至多四次的多项式。
+    
+    接下来，考虑$p$对第一条边法向(不妨设为$x$)的导数，其为至多六次的多项式，但在三个四等分点处为0，且在顶点处一阶、二阶导全为0，因此只能为0。而利用(下标表求导)
+    $$p_x=((\lambda_1)_x\lambda_2\lambda_3+(\lambda_2)_x\lambda_1\lambda_3+(\lambda_3)_x\lambda_1\lambda_2)q+\lambda_1\lambda_2\lambda_3q_x$$
+    在第一条边上可化简为
+    $$p_x=(\lambda_1)_x\lambda_2\lambda_3q=0$$
+    于是$(\lambda_1)_x\lambda_2\lambda_3q$含有因式$\lambda_1$。由于$\lambda_1$法向为$x$，利用平面几何知其可写成$x-c$，从而$\lambda_1'$为非零常数，而$\lambda_2,\lambda_3$不可能含有因式$\lambda_1$，再由其为一次可知$q$必然含因式$\lambda_1$，同理其含$\lambda_2,\lambda_3$，因此
+    $$p=\lambda_1^2\lambda_2^2\lambda_3^2r$$
+    注意到，根据$\lambda_1,\lambda_2,\lambda_3$的定义，其在三角形内部任何点非零，因此$r$为在三角形内部三个不共线的点为0的一次多项式，根据$P_1$-Lagrange单元的结论可知其为0，从而得证$p=0$。
+    
+    \
+    
+    一般构造：对$P_k$，考虑顶点处的值、一阶导数、二阶导数，每边上$k-4$分点的值、$k-3$分点的法向导数，内部利用$P_{k-6}$-Lagrange单元($k=5$时不取点)进行构造。
+    
+    证明：自由度为(注意$k=5$时$C_{k-4}^2=0$，符合取点个数)
+    $$18+3(k-4-1)+3(k-3-1)+C_{k-4}^2=\frac{1}{2}k^2+\frac{3}{2}k+1=C_{k+2}^2$$
+    
+    从而只需验证这些值全为0的至多$k$次的多项式$p$只能为0。与之前完全类似可证明
+    $$p=\lambda_1^2\lambda_2^2\lambda_3^2r$$
+    当$k=5$时这已经说明了$r=0$，否则，由于内部符合$P_{k-6}$-Lagrange单元，而$r$是至多$k-6$次的多项式，即可知其为0，从而得证。
+    
+    \item Brenner 3.x.13
+    
+    不妨假设其为单位正方形，可发现
+    $$\phi(x,y)=(2x-1)(2y-1)$$
+    亦满足在这四个点处为0，且为非零的$Q_1$中多项式，矛盾。
+    
+    \item Brenner 3.x.15
+    
+    设$a_1=(0,1)$、$a_2=(0,-1)$、$a_3=(1,0)$、$a_4=(-1,0)$，则$(1,x,y,x^2-y^2)$在四个点的值看作行向量拼成的矩阵为
+    $$\begin{pmatrix}1&1&1&1\\0&0&1&-1\\1&-1&0&0\\-1&-1&1&1\end{pmatrix}$$
+    直接行列变换可发现此矩阵秩为4，从而只要给定四个点的值，可以唯一确定多项式$c_1+c_2x+c_3y+c_4(x^2-y^2)$，从而构成有限元。
+    
+    另一方面，$a_i$所在的边$e_i$上$(1,x,y,x^2-y^2)$的积分均值看作行向量拼成的矩阵为
+    $$\begin{pmatrix}1&1&1&1\\0&0&1&-1\\1&-1&0&0\\-2/3&-2/3&2/3&2/3\end{pmatrix}$$
+    此为上个矩阵最后一列乘$2/3$得到，因此仍然可逆，从而其构成有限元。
+    
+    两者插值不等价，前者修改除四边中点外的其他点不会改变插值结果，但后者会改变
+    
+    \item Brenner 3.x.18
+    
+    由于其自由度为$3\times 4+3=15$，与$P_4$自由度相同，只需验证这些值全为0的至多四次的多项式$p$只能为0。
+    
+    与习题3.x.12完全相同，设三边方程为$\lambda_{1,2,3}(x,y)=0$，考虑每边上的值可发现
+    $$p=\lambda_1\lambda_2\lambda_3r$$
+    这里$r$为至多一次的多项式。
+    
+    将三边的方向记为$t_{1,2,3}$\ (由于只涉及偏导为0，差负号并不影响，可任意指定正方向)，三个顶点$a_{1,2,3}$则由条件可知
+    $$\frac{\partial^2p}{\partial t_2\partial t_3}(a_1)=0,\quad\frac{\partial^2p}{\partial t_1\partial t_3}(a_2)=0,\quad\frac{\partial^2p}{\partial t_1\partial t_2}(a_3)=0$$
+    注意到，由于$\lambda_i$在第$i$条边恒为0，必然有$\frac{\partial\lambda_i}{\partial t_i}=0$，而$a_i$处又可知除了$i$以外两下标对应的$\phi$为0，上述三个求导事实上都只能保留一项，成为
+    $$\lambda_1\frac{\partial\lambda_2}{\partial t_3}\frac{\partial\lambda_3}{\partial t_2}r(a_1)=0=\lambda_2\frac{\partial\lambda_1}{\partial t_3}\frac{\partial\lambda_3}{\partial t_1}r(a_2)=\lambda_3\frac{\partial\lambda_1}{\partial t_2}\frac{\partial\lambda_2}{\partial t_1}r(a_3)=0$$
+    注意到$\lambda_i$为代表边的一次多项式，其必然只能在$t_i$方向导数为0，因此$\lambda_i$对$j\ne i$的$t_j$求导非零，再由$a_i$不在第$i$条边上可知$\lambda_i(a_i)$非零，因此只有$r(a_1)=r(a_2)=r(a_3)=0$，由其为一次多项式知只能为0，得证。
+    
+    \item Brenner 3.x.35
+    
+    事实上即为Beta函数的高维推广，由此将其值记为$B(l+1,m+1,n+1)$，下面计算$B(l+1,m+1,n+1)$的值。
+    
+    设进行了线性换元$y=Ax+b$，则$x=A^{-1}(y-b)$可发现
+    $$\frac{1}{2|T|}\int_T\lambda_1^l\lambda_2^m\lambda_3^n\dr x=\frac{1}{2|A||T|}\int_{AT+b}\lambda_1^l\lambda_2^m\lambda_3^n\dr y$$
+    而利用行列式几何意义可知$|A||T|$为$|AT+b|$，从而可不妨设$T$被仿射为了标准三角形，$p_1=(0,0)$，$p_2=(1,0)$，$p_3=(0,1)$，由此$\lambda_1=1-a-b$、$\lambda_2=a$、$\lambda_3=b$，$|T|=\frac{1}{2}$。
+    
+    注意到上述换元也可以成为单位三角形中对顶点的交换，因此交换$l,m,n$位置不会影响结果。
+    
+    代入计算可得($l,m,n\ge1$)
+    $$B(l,m,n)=\int_0^1\int_0^{1-a}(1-a-b)^{l-1}a^{m-1}b^{n-1}\dr b\dr a=\frac{1}{n}\int_0^1\int_0^{1-a}(1-a-b)^{l-1}a^{m-1}\dr b^n\dr a$$
+    注意到$1-a-b$在$b=1-a$时为0，$b^n$在$b=0$时为0，从而只要$l>1$，利用分部积分即有
+    $$B(l,m,n)=\frac{l-1}{n}\int_0^{1-a}(1-a-b)^{l-2}a^{m-1}b^n\dr b\dr a=\frac{l-1}{n}B(l-1,m,n+1)$$
+    通过对称性即可知
+    $$B(l,m,n)=\frac{n-1}{m}B(l,m+1,n-1)=\frac{l-1}{m}B(l-1,m+1,n)$$
+    由此，不断递推可得到$B(l,m,n)$为
+    $$\frac{(l-1)!(n-1)!}{m(m+1)\dots(m+n+l-3)}B(1,m+n+l-2,1)=\frac{(l-1)!(m-1)!(n-1)!}{(m+n+l-3)!}B(1,m+n+l-2,1)$$
+    最后计算
+    $$B(1,k,1)=\int_0^1\int_0^{1-a}a^{k-1}\dr b\dr a=\frac{1}{k(k+1)}$$
+    由此最终得到
+    $$B(l,m,n)=\frac{(l-1)!(m-1)!(n-1)!}{(m+n+l-1)!}$$
+    代入$B(l+1,m+1,n+1)$即得结论。
+    
+    对高维，记单纯形$\Omega$顶点为$p_1$至$p_{n+1}$，$\lambda_i$为满足$\lambda_i(p_j)=\delta_{ij}$的一次多项式，记
+    $$B(a_1,\dots,a_{n+1})=\frac{1}{n!|\Omega|}\int_\Omega\prod_{i=1}^{n+1}\lambda_i^{a_i-1}\dr x$$
+    则$a_i$均为正整数时有
+    $$B(a_1,\dots,a_{n+1})=\frac{\prod_{i=1}^{n+1}(a_i-1)!}{(a_1+\dots+a_{n+1}-1)!}$$
+    将其坐标变换为$n$个坐标平面与$x_1+\dots+x_n=1$的交，利用分部积分得到递推后，计算方法完全类似。
+    
+    \item Brenner 4.x.6
+    
+    左推右：若具有拟一致性，可知$\forall T\in T^h$有
+    $$\diam B_T\ge \rho h\diam\Omega\ge\rho\diam T$$
+    从而得证形状正则性。而对$K_1,K_2\in T^h$有
+    $$\diam K_2\ge\diam B_{K_2}\ge\rho h\diam\Omega\ge\rho\diam K_1$$
+    反之则有$\diam K_2\le\frac{1}{\rho}\diam K_1$，从而得证。
+    
+    右推左：取$K_2$为$T^h$中使$\diam B_{K_2}$最小的单元，$K_1$为$T^h$中使$\diam K_1$最大的单元，则有
+    $$\diam B_{K_2}\ge\rho\diam K_2\ge\rho c\diam K_1$$
+    若$\diam K_1$为$h$量级，则结论成立，否则可举出反例：对拟一致的网格$T^h$，考虑$M^h=T^{h^2}$，由$h^2\le h$可发现新网格具有形状正则性，且有与之前相同的$c$与$C$，但此时
+    $$\max_{T\in M^h}\{\diam B_T\}\le\max_{T\in M^h}\{\diam T\}\le h^2\diam\Omega$$
+    于是不可能存在$\rho$。
+    
+    \item Brenner 4.x.12
+    
+    *题目需要添加条件：对形状正则的一族三角剖分$T^\alpha,\alpha\in I$，存在与$\alpha$无关的$\zeta(\theta)$使得结论成立。
+    
+    分四步证明。
+    
+    \begin{enumerate}[(1)]
+        \item 形状正则性推出存角度下界
+        
+        只需说明，若一族三角形的角度没有下界，则$\frac{h}{\rho}$不存在上界，这里$h=\diam K$，$\rho$为$K$的中心的半径。利用三角形的几何性质，$h$即为$K$的最长边(由正弦定理知为$\theta$对边)，$\rho$为$K$的内切圆半径。
+    
+        设三角形最小的角为$\phi$，最大角为$\theta$，则$\theta\ge\frac{\pi-\phi}{2}$。利用几何关系可知内切圆半径不可能超过最短边长度，而$h$为最长边长度，由正弦定理即得
+        $$\frac{h}{\rho}\ge\frac{\sin\theta}{\sin\phi}\ge\frac{\sin((\pi-\phi)/2)}{\sin\phi}$$
+        从而当$\phi\to0^+$时$h/\rho\to+\infty$，得证。
+    
+        \item 存角度下界$\theta_0$推出加强的形状正则性
+        
+        我们先证明在角度下界为$\theta_0$的三角形$K$中，存在最大角$\theta$的单调增函数$f$使得$h\le\rho f(\theta)$。这里$\theta$至少为$\pi/3$，至多为$\pi-2\theta_0$。
+    
+        构造一个三个角度分别为$\theta$、$(\pi-\theta)/2$、$(\pi-\theta)/2$的等腰三角形$XYZ$，并以$X$为顶点。利用相似，可不妨设$\rho=1$，此时这个三角形的$h$只与$\theta$有关，记为$h=\varphi(\theta)$。
+    
+        将$Y$按$XY$的方向延长，则延长过程中，角$Y$逐渐减小，直到变为$\theta_0$。这个过程里，利用相似性，它遍历了一切最大角为$\theta$且角度下界为$\theta_0$的三角形。由于三角形在扩大，任何一个三角形的$\rho$都不会减小，因此$\rho\ge1$，而$h$在不断变大，因此不超过最终的$h$，将它记为$h_m$，利用正弦定理有
+        $$\frac{\varphi(\theta)}{\sin\theta}=\frac{|XZ|}{\sin((\pi-\theta)/2)},\quad\frac{h_m}{\sin\theta}=\frac{|XZ|}{\sin\theta_0}$$
+        由此即得
+        $$h\le h_m=\frac{\sin((\pi-\theta)/2)}{\sin\theta_0}\varphi(\theta)\le\frac{\sin((\pi-\theta)/2)}{\sin\theta_0}\varphi(\theta)\rho$$
+        从而记(注意此为闭区间连续函数，存最大值)
+        $$f(\theta)=\max_{\pi/3\le t\le\theta}\frac{\sin((\pi-t)/2)}{\sin\theta_0}\varphi(t)$$
+        即为所求。
+    
+        通过$h\le\varphi(\pi-2\theta_0)\rho$即可得到形状正则性成立，由此其为加强的形状正则性。
+    
+        \item 单个三角形$K$中的情况
+        
+        由于$T$为三角剖分，任何三角形单元都应与单位三角形$\hat{K}$仿射等价，在插值误差界定理中(可验证条件满足，取$l=0$)，取定$m=2$、$n=2$、$p=2$，考虑$i$为0或1的情况，即可得到存在常数$C$使得
+        $$\|u-I_Ku\|_{L^2(K)}\le C\frac{h^3}{\rho}|u|_{H^2(K)}$$
+        $$|u-I_Ku|_{H^1(K)}\le C\frac{h^3}{\rho^2}|u|_{H^2(K)}$$
+    
+        利用第一部分的证明，形状正则的一族三角剖分一定存在角度下界$\theta_0$，且此时存在关于$\theta$的单调增函数使得$h/\rho\le f(\theta)$，令
+        $$\zeta(\theta)=C(f(\theta)+f^2(\theta))$$
+        代入验证即得
+        $$\|u-I_Ku\|_{L^2(K)}+h|u-I_Ku|_{H^1(K)}\le\zeta(\theta)h^2|u|_{H^2(K)}$$
+    
+        \item 一般情况
+        
+        当单个三角形时的估算成立，由于积分可以忽略边界部分，利用全空间的插值在每个三角形上即为三角形上的插值可得
+        $$\|u-Iu\|_{L^2(\Omega)}^2=\sum_{K\in T}\|u-I_Ku\|_{L^2(K)}^2$$
+        $$|u-Iu|_{H^1(\Omega)}^2=\sum_{K\in T}|u-I_Ku|_{H^1(K)}^2$$
+        $$|u|_{H^2(\Omega)}^2=\sum_{K\in T}|u|_{H^2(K)}^2$$
+        进一步利用整个$T$中最大角一定大于等于任何三角形最大角，而其中的最大直径也至少为单个三角形的最大直径，从而由单个三角形的情况可知
+        $$\|u-I_Ku\|_{L^2(K)}^2\le\zeta^2(\theta)h^4|u|_{H^2(K)}^2$$
+        $$|u-I_Ku|_{H^1(K)}^2\le\zeta^2(\theta)h^2|u|_{H^2(K)}^2$$
+        第二项两侧乘$h^2$求和即得
+        $$\|u-Iu\|_{L^2(\Omega)}^2+h^2|u-Iu|_{H^1(\Omega)}^2\le2\zeta^2(\theta)h^4|u|_{H^2(\Omega)}^2$$
+        从而
+        $$2\zeta(\theta)h^2|u|_{H^2(\Omega)}\ge\sqrt{2(\|u-Iu\|_{L^2(\Omega)}^2+h^2|u-Iu|_{H^1(\Omega)}^2)}$$
+        再利用基本不等式即得到
+        $$\|u-Iu\|_{L^2(\Omega)}+h|u-Iu|_{H^1(\Omega)}\le2\zeta(\theta)h^2|u|_{H^2(\Omega)}$$
+        从而重新取$\zeta$为单个三角形情况的两倍即可得证。
+    \end{enumerate}
+    
+    \item Brenner 4.x.16
+    
+    先给出局部拟一致的严谨定义：
+    $$\forall x\in\Omega,\quad\exists\rho,\quad\forall T\in T^h,x\in\bar{T},\quad\diam B_T\ge\rho h\diam\Omega$$
+    
+    为证明局部拟一致，我们需要考察$T^h$中符合上述条件的$T$的性质。利用三角剖分的定义，可发现符合上述条件的$T$若记为$T_1^h,\dots,T_n^h$，则对任何$T_i^h$与$T_j^h$，存在一列$i_k$使得$i_0=i,i_s=j$，且$T_{i_{k-1}}^h$与$T_{i_k}^h$有公共面，$k=1,\dots,s$。
+    
+    通过有公共面可知$\diam T_{i_{k-1}}^h\ge\diam B_{T_{k+1}}^h$由此可得
+    $$\diam B_{T_i^h}\ge\rho\diam T_i^h\ge\rho\diam B_{T_{i+1}^h}\ge\rho^2\diam T_{i+1}^h\ge\dots\ge\rho^{s+1}\diam T_j^h$$
+    
+    与习题4.x.6类似，需要假设存在$c$使得对$\diam T_j^h$最大的$T_j^h$有$\diam T_j^h\ge ch\diam\Omega$，即有(根据定义$\rho\le 1$)
+    $$\diam B_{T_i^h}\ge c\rho^{s+1}h\diam\Omega\ge c\rho^nh\diam\Omega$$
+    
+    只要说明单纯形个数$n$有上界，即可证明拟一致性。设维度为$m$，与习题4.x.12的第一部分证明类似，若三角剖分具有拟一致性，可说明其立体角存在一致下界，由此交于同一点处的单纯形个数有上界；同理，可证明每边附近的二面角有一致下界，于是交于同一边的单纯形个数有上界......对$0,1,\dots,m-1$维单形，取上述上界的最大值，即能得到$n$的最大值。
+    
+    *这里$n$维情况的严谨说明过于复杂，上述分析只保证了在二维时是完全严谨的。
+    
+    \item 补充题
+    
+    *无法证到题中的$t_j$界，在下方讨论中给出$t_j\ge p$时对$j=0,\dots,m-1$的上界。
+    
+    省略范数针对的区域$K$，下方所有的$C_i$均代表与$K$无关的参数，记$h=h_K$。
+    
+    利用$\sigma h\le \rho_K\le h$，可知$\frac{h}{\rho_K}$可以放缩成与$K$无关的参数，也即有
+    $$|v-Iv|_{W_p^i}\le C_1h^{m-i}|v|_{W_p^m}$$
+    
+    假设$K$边界具有一定光滑性，利用Brenner教材1.6节迹定理可知
+    $$\|v\|_{L^p(\partial K)}\le C_2\|v\|_{L^p}^{1-1/p}\|v\|_{W_p^1}^{1/p}$$
+    直接对左侧放缩可知
+    $$\sum_{|\alpha|=j}\|\partial^\alpha(v-Iv)\|_{L^{t_j}(\partial K)}\le C_2\sum_{|\alpha|=j}\|\partial^\alpha(v-Iv)\|_{L^{t_j}}^{1-1/t_j}\|\partial^\alpha(v-Iv)\|_{W_{t_j}^1}^{1/t_j}$$
+    下记$\partial^\alpha(v-Iv)=v_\alpha$，分类进行讨论：
+    \begin{enumerate}
+        \item 当$t_j=p$时，可直接放缩
+        $$\|v^\alpha\|_{L^p}\le|v-Iv|_{W_p^j}\le C_1h^{m-j}|v|_{W_p^m}$$
+        $$\|v^\alpha\|_{W_p^1}\le|v-Iv|_{W_p^{j+1}}\le C_1h^{m-j-1}|v|_{W_p^m}$$
+        由此可知
+        $$\sum_{|\alpha|=j}\|\partial^\alpha(v-Iv)\|_{L^p(\partial K)}\le C_3h^{(m-j)(1-1/p)}h^{(m-j-1)/p}|v|_{W_p^m}=C_3h^{m-j-1/p}|v|_{W_p^m}$$
+        对$j=0,\dots,m-1$均成立，符合结论。
+    
+        \item 当$t_j=\infty$时，有
+        $$\sum_{|\alpha|=j}\|\partial^\alpha(v-Iv)\|_{L^\infty(\partial K)}\le C_4\sum_{|\alpha|=j}\|v_\alpha\|_{L^\infty}$$
+        为使$v$的$j$阶导无穷范数能被控制，根据嵌入定理可知须$(m-j)p>n$，此时利用$|\Omega|\le C_5h^n$即有
+        $$\|v_\alpha\|_{L^\infty}\le C_6|\Omega|^{1/n-1/p}|v_\alpha|_{W_p^1}\le C_7h^{1-n/p}|v-Iv|_{W_p^{j+1}}\le C_8h^{1-n/p+(m-j-1)}|v|_{W_p^m}$$
+        也即
+        $$\sum_{|\alpha|=j}\|\partial^\alpha(v-Iv)\|_{L^p(\partial K)}\le C_9h^{m-j-n/p}|v|_{W_p^m}$$
+        对$j=0,\dots,m-1$均成立，符合结论。
+    
+        \item 当$p<t_j<\infty$时，由于$W_{t_j}^1$可控制则$L^{t_j}$可控制，只需$W_p^m$能嵌入$W_{t_j}^{j+1}$，也即$W_p^{m-j-1}$能嵌入$L^{t_j}$，由此$j$至多为$m-2$。进一步根据嵌入定理可知：
+        \begin{itemize}
+            \item 当$p(m-j-1)\ge n$时，$t_j$可在$(p,\infty)$任取；
+            \item 当$p(m-j-1)<n$时，$t_j$最大值为$(1/p-(m-j-1)/n)^{-1}=np/(n-pm+pj+p)$。
+        \end{itemize}
+    
+        在$t_j$满足上述的界时，为估算关于$h$的次数，设$u\in W_p^{n-j-1}(K)$，考虑$\tilde{u}(x)=u(hx)$，有$\tilde{u}\in W_p^{n-j-1}(K/h)$，根据Sobolev嵌入定理可知(利用边界充分光滑时$\Omega$相关的系数只与$|\Omega|$有关，而直径为1的区域测度不超过1)存在与区域无关的$C_{10}$使得
+        $$\|\tilde{u}\|_{L^{t_j}(K/h)}\le C_{10}|\tilde{u}|_{W_p^{m-j-1}(K/h)}$$
+        直接计算即得
+        $$\|u\|_{L^{t_j}}=h^{n/t_j}\|\tilde{u}\|_{L^{t_j}(K/h)}\le C_{10}h^{n/t_j}|\tilde{u}|_{W_p^{m-j-1}(K/h)}=C_{10}h^{n/t_j+(m-j-1)-n/p}|u|W_p^{m-j-1}$$
+        代入$u$为$v_\alpha$，即可得到
+        $$\|\partial^\alpha(v-Iv)\|_{W_{t_j}^1}\le C_{11}h^{n/t_j+m-j-1-n/p}\|v-Iv\|_{W_p^m}$$
+        $$\|v-Iv\|_{L^{t_j}}\le C_{11}h^{n/t_j+m-j-1-n/p}\|v-Iv\|_{W_p^{m-1}}$$
+        再利用插值多项式误差界可知
+        $$\|\partial^\alpha(v-Iv)\|_{W_{t_j}^1}\le C_{12}h^{n/t_j+m-j-1-n/p}|v|_{W_p^m}$$
+        $$\|\partial^\alpha(v-Iv)\|_{L^{t_j}}\le C_{12}h^{n/t_j+m-j-n/p}|v|_{W_p^m}$$
+        最终作次方后合并($|\alpha|=j$的$\alpha$个数有限)得到
+        $$\sum_{|\alpha|=j}\|\partial^\alpha(v-Iv)\|_{L^p(\partial K)}\le C_{13}h^{(n-1)/t_j+m-j-n/p}|v|_{W_p^m}$$
+    \end{enumerate}
+\end{enumerate}
+
+\section{第三次作业}
+\begin{enumerate}
+    \item Brenner 5.x.8
+    
+    根据5.7节的证明，完成对偶论证只需验证$a(u,v)$符合对应的性质。由于所有系数均$L^\infty$，直接对每项使用Cauchy不等式即可知
+    $$a(u,v)\le C\|u\|_{H^1}\|v\|_{H^1}$$
+    而根据G\r{a}rding不等式即可得到推广的强制性条件满足，由此只需满足椭圆正则性假设，即
+    $$\forall v\in V,\quad a(u,v)=(f,v)$$
+    $$\forall v\in V,\quad a(v,w)=(g,v)$$
+    存唯一解$u\in V,w\in V$，且满足估算
+    $$|u|_{H^2}\le C_R\|f\|_{L^2},\quad|w|_{H^2}\le C_R\|g\|_{L^2}$$
+    由于考虑Dirichlet问题，对应的$V$即包含在$H_0^1$当中。
+    
+    这时有(采用爱因斯坦求和，将$a_{ij}$与$b_i$用上标记，$\partial_i$代表对$x_i$求偏导)
+    $$a(u,v)=\int_\Omega\big(a^{ij}\partial_iu\partial_jv+b^i\partial_iuv+b_0uv\big)\dr x$$
+    利用分部积分公式5.1.5，由$v$在边界为0可得
+    $$a(u,v)=\int_\Omega\big(-\partial_j(a^{ij}\partial_iu)+b^i\partial_iu+b_0u\big)v\dr x$$
+    由此其即对应算子$Au=f$，再由$u\in V$可知$u$在边界处为0，这就是$Au=f$的Dirichlet问题。
+    
+    对于对偶问题，仍然分部积分可得
+    $$a(v,w)=\int_\Omega\big(a^{ij}\partial_iv\partial_jw+b^i\partial_ivw+b_0vw\big)\dr x=\int_\Omega\big(-\partial_i(a^{ij}\partial_jw)-\partial_i(b^iw)+b_0w\big)v\dr x$$
+    于是记伴随算子
+    $$A^t=-\partial_i(a^{ij}\partial_j)-\partial_ib^i+b_0$$
+    由$w$在边界为0可知这对应的是$A^tw=g$的Dirichlet问题。
+    
+    由此，对偶条件即化为$Au=f$与$A^tw=g$均存唯一解，且符合估算。若其成立，可以进行相应的对偶论证得到5.7节定理中的估计。
+    
+    \item Brenner 5.x.9
+    
+    延续习题5.x.8中的讨论，同样只需对$a(u,v)$进行分析。在$v\in H^1$时，直接写出完整的分部积分结果可得
+    $$a(u,v)=\int_\Omega\big(-\partial_j(a^{ij}\partial_iu)+b^i\partial_iu+b_0u\big)v\dr x+\int_{\partial\Omega}(a^{ij}\partial_iu)v\nu_j\dr s$$
+    考虑$v\in H_0^1$时可以得到$u$在内部仍然满足$Au=f$，而利用$v$可在边界上任取知必须有
+    $$(a^{ij}\partial_iu)\nu_j=0$$
+    这就是原问题的Neumann边值条件。
+    
+    对于对偶问题，其分部积分得到的是
+    $$a(v,w)=\int_\Omega\big(-\partial_i(a^{ij}\partial_jw)-\partial_i(b^iw)+b_0w\big)v\dr x+\int_{\partial\Omega}(a^{ij}\partial_jw+b^iw)v\nu_i\dr s$$
+    与上同理，$A^tw=g$仍成立，且满足Neumman边值条件
+    $$(a^{ij}\partial_j w+b^iw)\nu_i=0$$
+    若原问题与对偶问题在Neumman边值条件下的解均存在唯一(由于$A$与$A^t$中都有常数项，无需假设相差常数意义唯一)且符合估计，仍然可以进行相应的对偶论证得到5.7节定理中的估计。
+    
+    \item Brenner 5.x.16
+    
+    *看题干本以为是要去掉条件5.7.5去证存唯一解，但是发现去掉的话估不出来，所以只能理解成5.7.3只给一边。但这样必须认为假设对一切不定二阶椭圆方程成立，否则推不出另一边。
+    
+    利用习题5.x.8，可发现$a(v,w)=(g,v)$与$a(u,v)=(f,u)$均为不定的二阶椭圆问题，因此根据假设可知连续解存在唯一且符合估算。由此，条件5.7.3的两边均成立，再假定有限元空间的插值性质后，利用定理5.7.6得到结论。
+    
+    \item Brenner 5.x.17
+    
+    由$a$对称性可知对偶问题
+    $$\forall v\in V,\quad a(v,w)=(v,\phi)$$
+    存唯一解$w\in V$，由此对$w_h\in V_h$有
+    $$(u-u_h,\phi)=a(u-u_h,w)=a(u-u_h,w-w_h)$$
+    利用$a$的定义，直接以Cauchy不等式放缩每项乘积可知
+    $$a(u,v)\lesssim C\|u\|_{H^2}\|v\|_{H^2}$$
+    从而有
+    $$(u-u_h,\phi)\lesssim\|u-u_h\|_{H^2}\|w-w_h\|_{H^2}$$
+    根据定理5.9.7，$k\ge5$时，对$s\in[3,k]$有$\|w-w_h\|_{H^2}\lesssim h^{s-1}\|w\|_{H^{s+1}}$，结合式5.9.8可知
+    $$(u-u_h,\phi)\lesssim\|u-u_h\|_{H^2}\|w\|_{H^{s+1}}\lesssim h^{s-1}\|u-u_h\|_{H^2}\|\phi\|_{H^{s-3}}$$
+    也即$s\in[3,k]$时有
+    $$\|u-u_h\|_{H^{-s+3}}\lesssim h^{s-1}\|u-u_h\|_{H^2}$$
+    令$m=s-3$得到结论。
+    
+    \item Brenner 5.x.21
+    
+    考虑坐标变换$(a,b)\to h(a',b')$，可发现对应的$r'=r/h$，$\theta'=\theta$，且$\nabla'=h\nabla$，由此可知
+    $$\int_{T_h}|\nabla(r^\beta\sin\beta\theta)-\vec{v}(a,b)|^2\dr x=\int_{T_1}|h^{-1}h^\beta\nabla'({r'}^\beta\sin\beta\theta')-\vec{v}(ha',hb')|^2h^2\dr x'$$
+    进一步整理得到其为(将新坐标系重新记为$(a,b)$)
+    $$h^{2\beta}\int_{T_1}|\nabla(r^\beta\sin\beta\theta)-h^{1-\beta}\vec{v}(hx)|\dr x$$
+    当$\vec{v}(x)\in\mathcal{P}_k(T_h)$时，可发现$h^{1-\beta}\vec{v}(hx)\in\mathcal{P}_k^2(T_1)$，且由$h>0$此变换可逆，从而构成$\mathcal{P}_k^2(T_h)$到$\mathcal{P}_k^2(T_1)$的双射，因此有
+    $$c_{k,\beta}=h^{-2\beta}\inf_{\vec{v}\in\mathcal{P}_k^2}\int_{T_h}|\nabla(r^\beta\sin\beta\theta)-\vec{v}|^2\dr x=\inf_{\vec{v}\in\mathcal{P}_k^2}\int_{T_1}|\nabla(r^\beta\sin\beta\theta)-\vec{v}|^2\dr x$$
+    
+    在$C_\infty^2(T_1)$上定义
+    $$\|\vec{f}\|^2=\int_{T_1}|\vec{f}|^2\dr x$$
+    利用Cauchy不等式可验证其为范数，且由于$\mathcal{P}_k^2(T_1)$为其有限维子空间，必为闭子空间。上述问题转化为
+    $$\inf_{\vec{v}\in\mathcal{P}_k^2}\|\nabla(r^\beta\sin\beta\theta)-\vec{v}\|$$
+    根据泛函分析中的最优逼近理论，由其为闭子空间可知必存在$\vec{v}$取到最小值。若其为0，即意味着
+    $$\vec{v}=\nabla(r^\beta\sin\beta\theta)$$
+    但直接计算可发现$\beta\ne0$时$\nabla(r^\beta\sin\beta\theta)$任何分量不为多项式，矛盾，因此$c_{k,\beta}>0$，得证。
+    
+    \item Brenner 10.x.3
+    
+    由于仍然符合$N_i$个数与$\mathcal{P}_k$维数相同，仍只需证明所有$N_i(v)=0$时$v=0$。
+    
+    通过平移与旋转不妨设原单元的曲边连接$(0,0)$与$(ch,0)$，由将此单元进行仿射变换，可使三顶点在$(0,0)$、$(1,0)$与$(0,1)$，且曲边连接$(0,0)$与$(1,0)$。由于形状正则性假设(10.2.1)，其每边放大倍数应$O(h^{-1})$。
+    
+    不妨设原本的曲边可以用光滑函数$y=f(x),x\in[0,ch]$表示，将其放大后即$y=f(chx),x\in[0,1]$，于是利用Taylor展开
+    $$y=f(0)+chxf'(0)+O(h^2)$$
+    由于$f(0)=0$、$x\in[0,1]$，即可知$|y|=O(h)$，于是这条边与直线的差距为$O(h)$，对应的边界点距离也为$O(h)$，当$h\to0$时趋于0。
+    
+    若对任何$h_0$，存在$h<h_0$使得有不为0的$v\in\mathcal{P}_k$满足条件，则可找到一列$h_n\to0$使得$v_n\ne 0$满足条件。利用线性性，可不妨设$\|v_n\|=1$，这里$\|v\|$代表其绝对值最大的系数的绝对值(如此定义范数可以与区域无关)。
+    
+    然而，利用泛函分析知识，$\mathcal{P}_k$为有限维赋范线性空间，其具有完备性，且$\|v\|=1$为紧集，于是存在其子列收敛到函数$v_0\in\mathcal{P}_k$使得$\|v_0\|=1$。又由于$h_n\to0$与$|y|=O(h)$，即可知$v_0$在$(0,0)$到$(1,0)$取直边时的Gauss-Lobatto点上均0，但此时单元成为普通的$P_k$-Lagrange单元，且各点$N_i(v_0)=0$，与$\|v_0\|=1$矛盾，从而得证。
+    
+    \item Brenner 10.x.4
+    
+    *有口胡成分，主要是默认了曲边上的多项式逼近和用多项式逼近曲边上的函数两者的界能一致。
+    
+    先说明边上的估计
+    $$\bigg|\int_e\frac{\partial u}{\partial v}w\dr x\bigg|\lesssim h_e^{k-1/2}\|u\|_{H^k(T)}\|w\|_{H^1(T)}$$
+    对任何$P\in\mathcal{P}_{k-2}$有
+    $$\bigg|\int_e\frac{\partial u}{\partial v}w\dr x\bigg|\le\bigg|\int_e\bigg(\frac{\partial u}{\partial v}-P\bigg)w\dr x\bigg|+\bigg|\int_ePw\dr x\bigg|$$
+    取边界上的$P=\pi_{k-2}\frac{\partial u}{\partial\nu}$\ (这里看作弧长$s$的函数进行插值近似)，利用H\"older不等式与Bramble-Hilbert引理可知第一项放为
+    $$\bigg\|\frac{\partial u}{\partial\nu}-P\bigg\|_{L^2(e)}\|w\|_{L^2(e)}\lesssim h^{k-1}\bigg|\frac{\partial u}{\partial\nu}\bigg|_{H^{k-1}(e)}\|w\|_{L^2(e)}$$
+    再利用局部迹不等式与Sobolev不等式即得
+    $$\bigg|\int_e\bigg(\frac{\partial u}{\partial v}-P\bigg)w\dr x\bigg|\lesssim h^{k-1}(h^{1/2}+1)\|u\|_{H^k(T)}h^{-1/2}\|w\|_{L^2(T)}\le h^{k-1/2}\|u\|_{H^k(T)}\|w\|_{H^1(T)}$$
+    对第二项，直接利用引理10.2.9处理，由于二者都是多项式得
+    $$\bigg|\int_ePw\dr x\bigg|\le h^{2k-1}\|P\|_{H^{k-2}(e)}\|w\|_{H^{k-1}(e)}$$
+    再通过插值的误差界定理可将$\|P\|_{H^{k-2}(e)}$放为$\|\partial u/\partial\nu\|_{H^{k-1}(e)}$，进一步由反向估算即得到
+    $$\bigg|\int_ePw\dr x\bigg|\le h^{2k-1}h^{-1/2}\|u\|_{H^k(T)}h^{1-k}\|w\|_{H^1(T)}=h^{k-1/2}\|u\|_{H^k(T)}\|w\|_{H^1(T)}$$
+    两项合并，最终得到结论。
+    
+    由此，仿照引理10.2.17的证明，拆分出$h^{1/2}$可将边界估计合并为
+    $$\bigg|\int_{\partial\Omega}\frac{\partial u}{\partial v}w\dr x\bigg|\lesssim h^{k-1}\|u\|_{H^k}\|w\|_{H^1}$$
+    完全类似可证明引理10.2.29，从而得到最终结论。
+    
+    \item Brenner 10.x.7
+    
+    考虑作变换$y=x/h$，定义$\bar{\zeta}(y)=\zeta(x)=\zeta(hy)$，换元到$h=1$的参考单元$T_0$上，此时边$e_0$长度为$|e|/h$。直接使用迹定理有
+    $$\|\bar{\zeta}\|_{L^2(e_0)}\le C\|\bar{\zeta}\|_{L^2(T_0)}^{1/2}\|\bar{\zeta}\|_{H^1(T_0)}^{1/2}=C\|\bar{\zeta}\|_{L^2(T_0)}^{1/2}\big(\|\bar{\zeta}\|_{L^2(T_0)}^2+|\bar{\zeta}|_{H^1(T_0)}^2\big)^{1/4}$$
+    利用基本不等式即得
+    $$\|\bar{\zeta}\|_{L^2(e_0)}^2\lesssim\|\bar{\zeta}\|_{L^2(T_0)}+|\bar{\zeta}|_{H^1(T_0)}^2$$
+    而直接换元计算可发现原单元中有
+    $$h^{-1}\|\zeta\|_{L^2(e)}^2\lesssim h^{-2}\|\zeta\|_{L^2(T)}+|\zeta|_{H^1(T)}^2$$
+    由单元的一致性条件，$h\simeq|e|$，由此即得
+    $$|e|^{-1}\|\zeta\|_{L^2(e)}^2\lesssim h^{-2}\|\zeta\|_{L^2(T)}+|\zeta|_{H^1(T)}^2$$
+    
+    \item Brenner 10.x.11
+    
+    先证明三角形$T$中若二次多项式$z$在两顶点为0，且它们中点处法向导数为0，则
+    $$\|z\|_{L^2}\le C|z|_{H^2}$$
+    利用旋转、放缩可不妨设三角形为$(0,0),(2,0),(s,t)$，且$z(0,0)=z(2,0)=0$，$(1,0)$处的法向(即$y$方向)导数为0。设
+    $$z=ax^2+by^2+cxy+dx+ey+f$$
+    则直接有
+    $$f=0,\quad 4a+2d+f=0,\quad c+e=0$$
+    于是即有
+    $$z=ax^2+by^2+cxy-2ax-cy$$
+    直接计算可发现
+    $$|z|_{H^2}\simeq|a|+|b|+|c|$$
+    而利用$x,y$有界性
+    $$\|z\|_{L^2}\lesssim|a|+|b|+|c|+|2a|+|c|\lesssim|a|+|b|+|c|$$
+    从而得证。
+    
+    只要证明可以取到$P$使得在$e$的端点的值与$z$相等，且中点法向导数也与$z$相等即可。利用旋转、放缩可不妨设$e$为$(-1,0)$到$(1,0)$，中点处为$(0,0)$，法向为$y$方向，设$z(-1,0)=a$、$z(1,0)=b$、$z_y(0,0)=c$，可直接解出
+    $$P(x,y)=\frac{b-a}{2}x+cy+\frac{a+b}{2}$$
+    从而得证。
+    
+    \item Brenner 10.x.15
+    
+    由条件可知，对$v\in V^h$有(注意由条件导数最高$r$阶)
+    $$|a(u_h-\tilde{u}_h,v)|=|(f,v)-Q(fv)|\le Ch^k\sum_{T\in T^h}\|v\|_{H^r(T)}\|f\|_{H^k(T)}$$
+    直接利用Cauchy不等式拆分右侧可知
+    $$|a(u_h-\tilde{u}_h,v)|\le Ch^k\|v\|_{H^r}\|f\|_{H^k}$$
+    取$v=u_h-\tilde{u}_h$，并利用强制性结论可知
+    $$\|u_h-\tilde{u}_h\|_{H_1}^2\lesssim|a(u_h-\tilde{u}_h,u_h-\tilde{u}_h)|\lesssim h^k\|u_h-\tilde{u}_h\|_{H^r}\|f\|_{H^k}$$
+    对右侧利用反向估算
+    $$\|u_h-\tilde{u}_h\|_{H^r}\lesssim h^{1-r}\|u_h-\tilde{u}_h\|_{H^1}$$
+    即得到最终结果。
+    
+    \item Brenner 10.x.16
+    
+    *题目缺少条件，至少需要假设$Q$是线性泛函。
+    
+    考虑分片$k-r$次多项式形成的有限元空间$P_h$，并设$f$在其中的插值为$f_h$，利用插值误差界定理可使其满足(仍假设区域具有拟一致性，估算在每个单元上成立可直接由整体范数定义推得整体成立)
+    $$\|f-f_h\|_{H^i}\lesssim h^{m-i}|f|_{H^m}$$
+    其中$i\le m\le k-r+1$，且由此有
+    $$\|f_h\|_{H^i}\le\|f-f_h\|_{H^i}+\|f\|_{H^i}\lesssim\|f\|_{H^{k-r+1}}$$
+    
+    由此，记$e=u_h-\tilde{u}_h$，与习题10.x.15同理只需估计$a(e,e)$，有
+    $$\|e\|_{H^1}^2\lesssim a(e,e)\le|(f-f_h,e)|+|Q((f-f_h)e)|+|(f_h,e)-Q(f_he)|$$
+    对第三项，由于已经保证了$f_h$为至多$k-r$次的多项式，$\|f_h\|_{H^k}\lesssim\|f_h\|_{H^{k-r}}$，将$f_h$替换$f$，由于$e\in V_h$，与习题10.x.15相同估算得
+    $$|(f_h,e)-Q(f_he)|\lesssim h^{k-r+1}\|e\|_{H^1}\|f_h\|_{H^k}\lesssim h^{k-r+1}\|e\|_{H^1}\|f_h\|_{H^{k-r}}\lesssim h^{k-r+1}\|e\|_{H^1}\|f\|_{H^{k-r+1}}$$
+    而对第一项，直接估算可得
+    $$|(f-f_h,e)|\le\|f-f_h\|_{H^0}\|e\|_{H^0}\lesssim h^{k-r+2}\|f\|_{H^{k-r+1}}\|e\|_{H^1}$$
+    最后，对第二项，利用拟一致性可知$|T|\simeq h^n$，由条件有
+    $$|Q((f-f_h)e)|\lesssim\sum_Th^n\|f-f_h\|_{L^\infty(T)}\|e\|_{L^\infty(T)}$$
+    再利用Sobolev嵌入定理可得
+    $$|Q((f-f_h)e)|\lesssim\sum_Th^nh^{k-r+1-n/2}\|f-f_h\|_{H^{k-r+1}(T)}h^{k-r+1-n/2}\|e\|_{H^{k-r+1}(T)}$$
+    再由反向估算得到
+    $$|Q((f-f_h)e)|\lesssim\sum_Th^{k-r+2}\|f-f_h\|_{H^{k-r+1}(T)}\|e\|_{H^1(T)}$$
+    将上式利用Cauchy不等式将右侧乘积的和放缩为平方和开根号，即得到了估算。三项结合得到最终结论。
+    
+    \item 补充题
+    
+    假设区域符合椭圆正则性假设，也即
+    $$|u|_{H^2}\lesssim\|\triangle u\|_{L^2}$$
+    此时原问题解即满足估计
+    $$\|u-u_h\|_h\lesssim\sqrt{\eta+\eta^{-5}}h|u|_{H^2}\lesssim\sqrt{\eta+\eta^{-5}}h\|f\|_{L^2}$$
+    
+    设$e=u_h-u_h^-$，考虑对偶问题
+    $$a^-(v,w)=(e,v)$$
+    由$a^-$与$a_h^-$的对称性，其也有唯一解且满足估计
+    $$\|w-w_h^-\|_h\lesssim\sqrt{\eta+\eta^{-5}}h|w|_{H^2}\lesssim\sqrt{\eta+\eta^{-5}}h\|e\|_{L^2}$$
+    由于$a_h^-(e,v)=0$对任何$v\in V_h$成立，有
+    $$(e,e)=a_h^-(e,w)=a_h^-(e,w-w_h)\le\|e\|_h\|w-w_h\|_h\lesssim\sqrt{\eta+\eta^{-5}}h\|f\|_{L^2}\sqrt{\eta+\eta^{-5}}h\|e\|_{L^2}$$
+    右侧直接整理为
+    $$(\eta+\eta^{-5})h^2\|f\|_{L^2}\|e\|_{L^2}$$
+    于是最终得到
+    $$\|u-u_h\|_{L^2}\lesssim(\eta+\eta^{-5})h^2\|f\|_{L^2}\le(\eta+\eta^{-5})h^2|u|_{H^2}$$
+\end{enumerate}
+
+\section{第四次作业}
+\begin{enumerate}
+    \item 
+    不妨设$r>0$。由于$|T|$与$h_T^2$只相差形状正则相关的常数，有
+    $$h_T\|r\|_{L^2}\simeq h_T^2r$$
+    而另一方面有
+    $$\|r\|_{H^{-1}}=r\sup_{v\in H_0^1}\frac{1}{\|v\|_{H_0^1}}\int_Tv\dr x$$
+    由于积分可被一范数控制，而其在有界区域上又可被二范数控制，右侧最大值必然存在。另一方面，考虑将$T$仿射变换至标准单元$T_0$，并假设$v$对应仿射后为$v_0$，利用第四章定理可知仿射变换与直接拉伸到$h_T$为1只相差形状正则相关的参数，由此根据伸缩变换下的积分换元结果可知
+    $$\int_Tv\dr x\simeq h_T^2\int_{T_0}v_0\dr x$$
+    $$\|v\|_{L^2(T)}\simeq h_T\|v_0\|_{L^2(T_0)}$$
+    $$|v|_{H_0^1(T)}\simeq h_T|(v')_0|_{H_0^1(T_0)}\simeq|v_0|_{H_0^1(T_0)}$$
+    由于实际考虑为有界区域中，$h_T$应有上界，从而$\|v\|_{H_0^1(T)}\gtrsim\|v_0\|_{H_0^1(T_0)}$，代入即得对右侧有
+    $$r\sup_{v\in H_0^1}\frac{1}{\|v\|_{H_0^1}}\int_Tv\dr x\lesssim rh_T^2\sup_{v_0\in H_0^1(T_0)}\frac{1}{\|v_0\|_{H_0^1(T_0)}}\int_Tv_0\dr x$$
+    由于标准单元上的值为与任何题中量都无关的常数，即得到了$h_T\|r\|_{L^2}\lesssim\|r\|_{H^{-1}}$。
+
+    \item
+    *需假设$V,Q$都是\textbf{自反}的。
+    
+    \begin{enumerate}
+        \item 由于$\left<f,v\right>\le\|f\|\|v\|$，固定任何$f$，其对$v$连续，而固定任何$v$，其对$f$连续。由此可知若一列$f_n$满足$\left<f_n,v\right>=0$且它们有极限$f_0$，必有$\left<f_0,v\right>=0$，这即得到$S^\circ$闭，对$^\circ F$同理。
+        
+        \item 由$^\circ(S^\circ)$闭，若$S$不闭两者不可能相等，对$(^\circ F)^\circ$同理。此外，由定义可知$S$中任何元素$v$有$\forall f\in S^\circ$，$\left<f,v\right>=0$，从而$S\subset^\circ(S^\circ)$，同理$F\subset(^\circ F)^\circ$。接下来证明当$S$为闭子空间时另一边包含成立。
+        
+        若$S$闭，对任何$x\notin S$，利用Hahn-Banach定理推论，存在有界线性泛函$f$使得$f(S)=\{0\}$且$f(x)=1$，根据定义，$f\in S^\circ$，但由$f(x)\ne0$可知$x\notin^\circ(S^\circ)$，从而可知$^\circ(S^\circ)\subset S$。
+
+        对$F$，利用自反性，$V''$与$V$等同，于是同理$F$闭时$(^\circ F)^\circ\subset F$，得证。
+
+        \item 直接由定义(与$Q$自反性)可知
+        $$^\circ R(B')=\{v\in V\mid (B'q)(v)=0,\forall q\in Q\}$$
+        根据对偶算子定义
+        $$^\circ R(B')=\{v\in V\mid (Bv)(q)=0,\forall q\in Q\}$$
+        而这即等价于$Bv=0$。
+
+        \item 若$R(B')=Z^\circ$，利用(a)可知其闭；若$R(B')$闭，利用(b)(c)有$Z^\circ=(^\circ R(B'))^\circ=R(B')$。
+    \end{enumerate}
+
+    \item
+    对任何满足$\|u\|=1$的$u$，我们先证明$\|Pu\|\le\|I-P\|$。记$x=Pu$，$y=(I-P)u$，则$u=x+y$，且可验证$Py=0$。
+
+    利用内积的平行四边形等式可知
+    $$1=\|u\|^2=\|x\|^2+\|y\|^2+2Re(x,y)$$
+    若$x=0$，由$\|Py\|=0$而$I-P\ne O$已经得证。
+    
+    若$y=0$，有$\|Pu\|=1$，而由于$I-P\ne O$，计算验证可发现$(I-P)^2=I-P$，于是取任何$I-P$像集中的元素$x$可得$\|(I-P)x\|=\|x\|$，于是$\|I-P\|\ge1$。
+
+    否则，令$w=\frac{\|y\|}{\|x\|}x+\frac{\|x\|}{\|y\|}y$。仍然利用平行四边形等式可得
+    $$\|w\|^2=\frac{\|x\|^2\|y\|^2}{\|x\|^2}+\frac{\|y\|^2\|x\|^2}{\|y\|^2}+2Re(x,y)\frac{\|x\|\|y\|}{\|y\|\|x\|}=1$$
+    且计算可验证$(I-P)x=0$，于是有
+    $$\|Pu\|=\|Px\|=\|x\|=\frac{\|x\|\|y\|}{\|y\|}=\|(I-P)w\|$$
+    从而根据算子范数定义得$\|Pu\|\le\|I-P\|$。
+    
+    由上式对任何$\|u\|=1$成立，$\|P\|\le\|I-P\|$，而计算可得$(I-P)^2=I-P$，且其非$O$或$I$，于是$\|I-P\|\le\|I-(I-P)\|=\|P\|$，综合得证。
+
+    \item 对任何$b_K\mathcal{P}_{k-2}(K)$中元素，设其为$p=\lambda_1\lambda_2\lambda_3f$，其中$f$为$k-2$次多项式。
+    
+    首先，根据散度、旋度算子性质$\nabla\cdot\nabla\times\vec{v}=0$有
+    $$\nabla\dot(\mathrm{curl}q)=\nabla\cdot\nabla\times(0,0,q)=0$$
+
+    而记$\partial_{x,y}$为对$x,y$的偏导，有
+    $$\partial_yq=(\partial_y\lambda_1)\lambda_2\lambda_3q+(\partial_y\lambda_2)\lambda_1\lambda_3q+(\partial_y\lambda_3)\lambda_1\lambda_2q+\lambda_1\lambda_2\lambda_3\partial_yq$$
+    $$-\partial_xq=-(\partial_x\lambda_1)\lambda_2\lambda_3q-(\partial_x\lambda_2)\lambda_1\lambda_3q-(\partial_x\lambda_3)\lambda_1\lambda_2q+\lambda_1\lambda_2\lambda_3\partial_xq$$
+    在边界$\lambda_1=0$上，含$\lambda_1$的项全为0，由此
+    $$(\partial_yq,-\partial_xq)=((\partial_y\lambda_1)\lambda_2\lambda_3q,-(\partial_x\lambda_1)\lambda_2\lambda_3q)$$
+    而其与$\vec{n}$内积即为
+    $$(n_x(\partial_y\lambda_1)-n_y(\partial_x\lambda_1))\lambda_2\lambda_3q$$
+    但直接计算发现，由$\vec{n}$与$\lambda_1=0$垂直可得到$n_x(\partial_y\lambda_1)=n_y(\partial_x\lambda_1)$，从而可知$\lambda_1=0$上其与$\vec{n}$内积为0，对$\lambda_2,\lambda_3$同理，这就得到了
+    $$\mathrm{curl}(b_K\mathcal{P}_{k-2}(K))\subset\mathbb{H}_k(K)$$
+    当$n=2$时，直接计算可得$\mathbb{H}_k(K)$维数为
+    $$(k+2)(k+1)-3(k+1)-(C_{k+1}^2-1)=\frac{1}{2}k(k-1)$$
+    而两多项式的旋度相等等价于梯度相等，也即相差常数，但任何两个$b_K\mathcal{P}_{k-2}(K)$中多项式差为$b_K$倍数，不会为常数，于是其维数为
+    $$C_{k-2+2}^2=\frac{1}{2}k(k-1)$$
+    由维数相等与包含性知相同。
+
+    \item *这里考虑弱形式可以有更低阶的可解性要求，从而对$v\in L^2$可以满足。
+    
+    考虑方程
+    $$\triangle u=\nabla\cdot\vec{v}$$
+    将其满足边界为0的解$\psi\in H_0^1(\Omega)$记为$\psi$，则$\nabla\cdot(\vec{v}-\nabla\psi)=0$。利用$\Omega$的单连通性即得存在$\phi$使得$\vec{v}-\nabla\psi=\mathrm{curl}\phi$，从而得证存在性。
+
+    直接计算可发现对任何$\psi\in H_0^1$与$\phi\in H^1$，若$\phi$二阶可微有(分部积分，利用边界$\psi$为0)
+    $$\int_\Omega\nabla\psi\cdot\mathrm{curl}\phi\dr x=\int_\Omega(\psi_x\phi_y-\psi_y\phi_x)\dr x=\int_\Omega(-\psi\phi_{yx}+\phi_{xy}\psi)\dr x=0$$
+    于是
+    $$\|\vec{v}\|_{L^2}^2=\|\nabla\psi\|_{L^2}^2+\|\mathrm{curl}\phi\|_{L^2}^2=\|\nabla\psi\|_{L^2}^2+\|\nabla\phi\|_{L^2}^2$$
+    再利用$(a+b)^2\le 2(a^2+b^2)$得证。
+
+    \item
+    由于$\vec{n}=(0,0,1)$，直接计算可知
+    $$\mathrm{Tr}\vec{\chi}=(\chi_2,-\chi_1,0)$$
+    于是其散度为
+    $$\frac{\partial\chi_2}{\partial x}-\frac{\partial\chi_1}{\partial y}$$
+    而这恰好为$\vec{\chi}$散度的第三个分量，也即$(\nabla\times\vec\chi)\cdot\vec{n}$，从而得证。
+
+    \item
+    记$\vec{w}$的三个分量$w_1$、$w_2$、$w_3$，以下标$x,y,z$表示偏导。
+
+    直接计算可知
+    $$\nabla\times\vec{w}=(w_{3y}-w_{2z},w_{1z}-w_{3x},w_{2x}-w_{1y})$$
+    于是$(k+1)\vec{x}\times\vec{\eta}$为
+    $$=(y(w_{2x}-w_{1y})-z(w_{1z}-w_{3x}),z(w_{3y}-w_{2z})-x(w_{2x}-w_{1y}),x(w_{1z}-w_{3x})-y(w_{3y}-w_{2z}))$$
+    而
+    $$(k+1)\nabla\mu=(w_1+xw_{1x}+yw_{2x}+zw_{3x},w_2+xw_{1y}+yw_{2y}+zw_{3y},w_3+xw_{1z}+yw_{2z}+zw_{3z})$$
+    作差得到
+    $$(w_1+xw_{1x}+yw_{1y}+zw_{1z},w_2+xw_{2x}+yw_{2y}+zw_{2z},w_3+xw_{3x}+yw_{3y}+zw_{3z})$$
+    对任何$k$次齐次多项式$f$，考虑其为$\sum_{a+b+c=k}x^ay^bz^c$可得$xf_x+yf_y+zf_z=kf$，从而上式即为$(k+1)\vec{w}$，得证。
+
+    \item
+    设$\vec{p}_k$中不超过$k-1$次的部分为$\vec{g}$，取
+    $$\vec{w}_{k-1}=\vec{g}-\vec{x}\times\frac{\nabla\times(\vec{p}_k-\vec{g})}{k+1}$$
+    $$\theta=\frac{\vec{x}\cdot(\vec{p}_k-\vec{g})}{k+1}$$
+    由于$\vec{p}_k-\vec{g}$每个分量是齐次$k$次多项式，由7可知成立。
+\end{enumerate}
+
+\section{第五次作业}
+\begin{enumerate}
+    \item 
+    直接计算有
+    $$q(x)=\frac{1}{J(\hat{x})}DF(\hat{x})q(\hat{x})=|\det DF^{-1}(x)|(DF^{-1}(x))^{-1}\hat{q}(F^{-1}(x))$$
+    设$F^{-1}(x)$每个分量为$f^i(x)$，$DF^{-1}(x)$每个元素为$d^{ij}(x)$，其逆矩阵每个元素为$d_{ij}(x)$，有$d_{ij}(x)=DF(\hat{x})$，直接计算有(重复指标代表求和，由$\det DF^{-1}$不变号，不妨设$\det DF^{-1}>0$恒成立)
+    $$\partial_iq_i=\partial_i(\det Dd_{ij}\hat{q}_j(\hat{x}))=((\partial_i\det(d^{\alpha\beta}))d_{ij}+\det(d^{\alpha\beta})\partial_id_{ij})\hat{q}_j+\det(d^{\alpha\beta})d_{ij}\partial_i\hat{q}_j$$
+    先计算左侧括号中的项，由于
+    $$\det(d^{\alpha\beta})=\det(d_{\alpha\beta})^{-1}$$
+    左侧括号中可改写为
+    $$\det(d_{\alpha\beta})^2(\det(d_{\alpha\beta})\partial_id_{ij}-(\partial_i\det(d_{\alpha\beta}))d_{ij})$$
+    将行列式展开为
+    $$\delta^{j_1\dots j_n}d_{1j_1}\dots d_{nj_n}$$
+    进一步得上式为
+    $$\delta^{j_1\dots j_n}(d_{1j_1}\dots d_{nj_n}\partial_id_{ij}-d_{1j_1}\dots\partial_id_{kj_k}\dots d_{nj_n}d_{ij})$$
+    再利用偏导可交换$\partial_ib_{jk}=\partial_kb_{ji}$，可将后未与前配对的项两两对称消去(交换$i$与$j_k$恰好对应一次符号变化)，从而得到结果为0。
+
+    由此可以得到
+    $$\partial_iq_i=\det(d^{\alpha\beta})d_{ij}\partial_i\hat{q}_j$$
+    而直接计算有
+    $$\partial_i\hat{q}_j=\partial_i\hat{x}_k\hat{\partial}_k\hat{q}_j=d^{ki}\hat{\partial}_k\hat{q}_j$$
+    于是由互逆性
+    $$\partial_iq_i=\det(d^{\alpha\beta})d^{ki}d_{ij}\hat{\partial}_k\hat{q}_j=\det(d^{\alpha\beta})\hat{\partial}_k\hat{q}_k$$
+    而
+    $$J=\det(d_{\alpha\beta})=\frac{1}{\det(d^{\alpha\beta})}$$
+    这就得到了证明。
+
+    \item
+    记$|B|=|\det B|$，则
+    $$q(x)=\frac{1}{|B|}B\hat{q}(\hat{x})$$
+    而
+    $$\dr x=\dr F(\hat{x})=|B|\dr\hat{x}$$
+    \begin{enumerate}[(1)]
+        \item 在上题中已经证明了$\partial_i=d^{ki}\hat{\partial}_k$，即$\grad=B^{-T}\widehat{\grad}$，再由$v(x)=\hat{v}(\hat{x})$可得
+        $$\int_Kq\cdot\grad v\dr x=\int_{\hat{K}}\frac{1}{|B|}B\hat{q}\cdot B^{-T}\widehat{\grad}\hat{v}|B|\dr\hat{x}$$
+        利用内积定义与$B^TB^{-T}=I$即得右侧为
+        $$\int_{\hat{K}}\hat{q}\cdot\widehat{\grad}\hat{v}\dr\hat{x}$$
+
+        \item 由上题结论
+        $$\int_Kv\div q\dr x=\int_{\hat{K}}\hat{v}\frac{1}{|B|}\widehat{\div}\hat{q}|B|\dr\hat{x}=\int_{\hat{K}}\hat{v}\widehat{\div}\hat{q}\dr\hat{x}$$
+
+        \item 利用分部积分可知
+        $$\int_Kv\div q\dr x=\int_{\partial K}q\cdot nv\dr x-\int_Kq\cdot\nabla v\dr x$$
+        从而前两问相加得结论。
+    \end{enumerate}
+
+    \item 
+    $\delta$的存在性通过一般Sobolev空间的嵌入定理可得到。
+
+    下证明对第一类N\'ed\'elec单元的交换图
+    $$\curl\Pi_k^Nv=\Pi_k^{RT}\curl v$$
+    由于$\curl N_k(K)$是$k$次多项式，其必然在$RT_k(K)$中。由此，为证明左右相等，只需证明$RT_k(K)$的各自由度均保证左右相等。
+
+    先验证第一类自由度。在某个面$F_i$上对至多$k$次多项式$p$，利用投影定义有
+    $$\int_{F_i}(\Pi_k^{RT}\curl v)\cdot np\dr s=\int_{F_i}(\curl v)\cdot np\dr s$$
+    进一步利用分部积分可知(这里$E$代表棱，$F_i$上法向量$n_t$，切向量$t$)
+    $$\int_{F_i}(\curl v)\cdot np\dr s=-\int_{F_i}v\cdot(\curl(pn))\dr s+\sum_{E\subset F_i}\int_Ep(n\times n_t)\cdot v\dr x$$
+    利用几何关系可知$n\times n_t=t$，而$\curl(pn)$为$n-1$次多项式，由此根据第一类N\'ed\'elec单元的前两类自由度与投影定义可知上式即为
+    $$\int_{F_i}(\curl v)\cdot np\dr s=-\int_{F_i}\Pi_k^Nv\cdot(\curl(pn))\dr s+\sum_{E\subset F_i}\int_Ep(n\times n_t)\cdot\Pi_k^Nv\dr x=\int_{F_i}(\curl\Pi_k^Nv)\cdot np\dr s$$
+
+    再验证第二类自由度。对任何至多$k-1$次的向量值多项式$q$，利用投影定义有
+    $$\int_K\Pi_k^{RT}\curl v\cdot q\dr x=\int_K\curl v\cdot q\dr x$$
+    再次利用分部积分可得
+    $$\int_K\curl v\cdot q\dr x=-\int_Kv\cdot(\curl q)\dr x+\sum_i\int_{F_i}(n\times v)\cdot q\dr x$$
+    由于$\curl q$为$k-2$次向量值多项式，根据第一类N\'ed\'elec单元的后两类自由度与投影定义可知上式即为
+    $$-\int_K\Pi_k^Nv\cdot(\curl q)\dr x+\sum_i\int_{F_i}(n\times \Pi_k^Nv)\cdot q\dr x=\int_K\curl\Pi_k^Nv\cdot q\dr x$$
+    综合以上两类自由度的相等即得到了结论。
+    
+    对BDM单元应仍有
+    $$\curl\Pi_k^Nv=\Pi_k^{BDM}\curl v,\quad\curl\Pi_k^{NC}v=\Pi_k^{BDM}\curl v$$
+
+    \item
+    以$\partial_i$记$\frac{\partial}{\partial x_i}$。
+    \begin{enumerate}[(1)]
+        \item 1推2
+        
+        从$p\in L^2$可先得到
+        $$\|p\|_{L^2}\lesssim\|p\|_{H^{-1}}+\sum_{i=1}^d\|\partial_ip\|_{H^{-1}}$$
+        下面证明
+        $$\|p\|_{H^{-1}}\le\varepsilon\|p\|_{L^2}+C_\varepsilon\sum_{i=1}^d\|\partial_ip\|_{H^{-1}}$$
+
+        若对某$\varepsilon$不存在，取一列$p_N\in L_0^2$使得$\|p_N\|_{L^2}=1$且$\|p_N\|_{H^{-1}}>\varepsilon+N\sum_{i=1}^d\|\partial_ip_N\|_{H^{-1}}$，利用Sobolev空间的紧嵌入性，$p_N$存在子列使左侧收敛，但这就说明了子列中$\sum_{i=1}^d\|\partial_ip_N\|_{H^{-1}}\to0$，由Poincar\'e不等式可知此时$\|p_N\|_{L^2}\to0$，与二范数恒为1矛盾。
+
+        取$\varepsilon$充分小即可得到
+        $$\|p\|_{L^2}\lesssim\sum_{i=1}^d\|\partial_ip\|_{H^{-1}}$$
+
+        \item 2推1
+        
+        对任何$p\in L^2$，设$s=\int_\Omega p\dr x$，则$p-s\in L_0^2$，且$p-s$偏导数与$p$相同，由此
+        $$\|p\|_{L^2}\le\|s\|_{L^2}+\|p-s\|_{L^2}\lesssim\|s\|_{L^2}+\sum_{i=1}^d\|\partial_ip\|_{H^{-1}}$$
+        而
+        $$\|s\|_{L^2}=\sqrt{|\Omega|}|s|\lesssim\max_{v=\pm1}(p,v)\lesssim\max_{v=\pm1}\frac{(p,v)}{\|v\|_{H^1}}$$
+        利用磨光核可以构造出$H_0^1$中的一列$v$使得其在$L^2$中趋于1且$\|v\|_{H^1}\gtrsim\|1\|_{H^1}=\|1\|_{L^2}$，从而即得到
+        $$\|s\|_{L^2}\lesssim\|p\|_{H^{-1}}$$
+        因此得证。
+    \end{enumerate}
+
+    \item
+    由Kern不等式
+    $$\|v\|_{H^1}\lesssim\|v\|_{L^2}+\|\varepsilon(v)\|_{L^2}$$
+    完全类似上题(1)，先证明对$\mu>0$存在$C_\mu$使得$v\in H_D^1$时
+    $$\|v\|_{L^2}\le\mu\|v\|_{H^1}+C_\mu\|\varepsilon(v)\|_{L^2}$$
+    若对某$\mu$不存在，取一列$v_N\in H_D^1$使得$\|v_N\|_{H^1}=1$且
+    $$\|v_N\|_{L^2}>\mu+N\|\varepsilon(v_N)\|_{L^2}$$
+    利用Sobolev空间的紧嵌入性，$v_N$存在子列使左侧收敛，从而子列中$\|\varepsilon(v_N)\|_{L^2}\to0$。
+
+    由于$\partial_j\partial_kv_i=\partial_j\varepsilon_{ik}+\partial_k\varepsilon_{ij}-\partial_i\varepsilon_{jk}$，至少可知极限中$v$各二阶导范数为0，从而由Poinca\'re不等式进一步得到其各一阶导范数为0，再由其在边界为0进一步得到$L^2$范数为0，从而$\|v_N\|_{H^1}\to0$，矛盾。
+
+    由此取充分小的$\mu$得到结论。
+
+    \item
+    对$q_h\in Q_h$、$v_h\in V_h$，直接计算得(由于$q_h$局部为常值)
+    $$(\div_hv_h,q)=\sum_Tq_h\big|_T\int_T\div v_h\dr x=\sum_Tq_h\big|_T\int_{\partial T}v_h\cdot n\dr s$$
+    由于$v_h$在每边中点的值可以任意指定，而根据一次函数的积分值即为边长乘中点值，指定
+    $$v_h\cdot n\big|_{m_e}=\frac{1}{|e|}\int v\cdot n\dr s$$
+    即可得到映射$\Pi_b:V\to V_h$使得$(\div_h\Pi_bv,q)=(\div_hv,q)$，且与课上完全相同利用CR的单元基函数二范数$O(1)$可得
+    $$\|\Pi_bv\|_{L^2}\lesssim\|v\|_{L^2}+h|v|_{H^1}$$
+    由此，可同理构造Fortin算子$\Pi_h$证明inf-sup条件(Fortin算子证明inf-sup条件的过程无需$V_h,Q_h$连续)。
+
+    设
+    $$a_h((u,p),(v,q))=2(\varepsilon_h(u),\varepsilon_h(v))-(\div_hv,p)-(\div_hu,q),\quad(u,p),(v,q)\in V\times Q+V_h\times Q_h$$
+    则原方程即可等价为
+    $$a_h((u,p),(v,q))=(f,v),\quad\forall(v,q)\in V\times Q$$
+    离散版本为
+    $$a_h((u_h,p_h),(v_h,q_h))=(f,v_h),\quad\forall(v_h,q_h)\in V_h\times Q_h$$
+    由此利用第二个Strang引理可得
+    $$\|u-u_h\|_{1,h}+\|p-p_h\|_{L^2}\le\inf_{v_h\in V_h}\|u-v_h\|_{1,h}+\inf_{q_h\in Q_h}\|p-q_h\|_{L^2}+\sup_{w\in V_h,r\in Q_h}\frac{a((u-u_h,q-q_h),(w,r))}{\|w\|_{1,h}+\|r\|_{L^2}}$$
+    由于$\mathcal{P}_1^{CR}$包含$\mathcal{P}_1$，第一项可由多项式逼近放为
+    $$\inf_{v_h\in V_h}\|u-v_h\|_{1,h}\lesssim h\|u\|_{H^2}$$
+    同理第二项可放为
+    $$\inf_{q_h\in Q_h}\|p-q_h\|_{L^2}\lesssim h\|p\|_{H^1}$$
+    对第三项，由于$Q_h\subset L^2$，分子含$r$的部分恒为0，将其重新写为
+    $$\sup_{w\in V_h}\frac{2(\varepsilon_h(u-u_h),\varepsilon_h(w))-(\div_h w,q-q_h)}{\|w\|_{1,h}}$$
+    由于$\mathcal{P}_1\subset V\cap V_h$，取$\Pi_1w$为$w$在$\mathcal{P}_1$中的投影，可得上式化为
+    $$\sup_{w\in V_h}\frac{2(\varepsilon_h(u-u_h),\varepsilon_h(w-\Pi_1w))-(\div_h(w-\Pi_1w),q-q_h)}{\|w\|_{1,h}}$$
+    利用Cauchy不等式，根据多项式逼近理论可得其
+    $$\lesssim h(\|u-u_h\|_{1,h}+\|q-q_h\|_{L^2})$$
+    于是取$h$充分小即得
+    $$\|u-u_h\|_{1,h}+\|p-p_h\|_{L^2}\lesssim h(\|u\|_{H^2}+\|p\|_{H^1})$$
+    也即有一阶误差。
+
+    \item
+    由于已知
+    $$\int_Tq_h\div\Pi_2v\dr x=\int_Tq_h\div v\dr x$$
+    取$q_h=1$可知$\Pi_2v\in V^0$，分部积分可得(利用$\Pi_2v$在边界为0)
+    $$\int_T\Pi_2v\cdot\nabla q_h\dr x=\int_Tq_h\div v\dr x$$
+    由此，考虑$\grad Q_h$上的内积
+    $$a(u_h,v_h)=\int_{\hat{K}}b_Tu\cdot v\dr x$$
+    可发现记
+    $$\Pi_2v=b_T\Pi_Bv$$
+    则$\Pi_Bv$即为$v$在$\grad Q_h$上以此内积的某种投影，于是类似多项式逼近理论(由$b_T$为$O(1)$)，取$\nabla q_h=\Pi_Bv$，利用Cauchy不等式得
+    $$\|\Pi_2v\|_{L^2}^2\simeq\|\Pi_Bv\|_{L^2}^2\lesssim h|v|_{H^1}\|\Pi_Bv\|_{L^2}$$
+    再通过反向估算
+    $$\|\Pi_2v\|_{H^1}\lesssim h^{-1}\|\Pi_2v\|_{L^2}\lesssim|v|_{H^1}$$
+    即得到最终结论。
+
+    \item
+    考虑原问题为
+    $$a((u,p),(v,q))=(f,v),\quad\forall(v,q)\in V\times Q$$
+    $$a((u,p),(v,q))=2(\varepsilon(u),\varepsilon(v))-(\div v,p)-(\div u,q)$$
+    记$\theta=u-u_h$，由$a$定义的对称性，对偶问题可写成
+    $$a((v,q),(z,r))=(\theta,v),\quad\forall(v,q)\in V\times Q$$
+    由此对任何$(z_h,r_h)\in V_h\times Q_h$应有
+    $$\|\theta\|_{L^2}^2=(\theta,\theta)=a((\theta,p-p_h),(z,r))=a((\theta,p-p_h),(z-z_h,r-r_h))$$
+    由$a$的有界性可知右侧
+    $$\lesssim(\|\theta\|_{H^1}+\|p-p_h\|_{L^2})(\|z-z_h\|_{H^1}+\|r-r_h\|_{L^2})$$
+    进一步由$z_h$与$r_h$可任取得到逼近性质
+    $$\lesssim h(\|\theta\|_{H^1}+\|p-p_h\|_{L^2})(\|z\|_{H^2}+\|r\|_{H^1})$$
+
+    对偶假设：$\|z\|_{H^2}+\|r\|_{H^1}\lesssim\|\theta\|_{L^2}$。
+
+    若此假设成立，即有
+    $$\|\theta\|_{L^2}\lesssim h(\|\theta\|_{H^1}+\|p-p_h\|_{L^2})\lesssim h\bigg(\inf_{v_h\in V_h}\|u-v_h\|_{H^1}+\inf_{q_h\in Q_h}\|p-q_h\|_{L^2}\bigg)$$
+\end{enumerate}
+\end{document}

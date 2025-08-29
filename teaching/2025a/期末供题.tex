@@ -1,0 +1,71 @@
+\documentclass[a4paper,UTF8,fontset=windows,AutoFakeBold]{ctexart}
+\pagestyle{headings}
+\title{\textbf{线性代数A\ 习题课讲义}}
+\author{原生生物}
+\date{}
+\setcounter{tocdepth}{3}
+\usepackage{amsmath,amssymb,amsthm,enumerate,geometry,hyperref,paralist,ulem}
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\ctexset{section={number=\zhnum{section}}}
+\ctexset{subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\im}{Im\,}
+\DeclareMathOperator{\Ker}{Ker\,}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Map}{Map}
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\newcommand*{\er}{\mathrm{e}}
+\newcommand*{\ir}{\mathrm{i}}
+\newcommand*{\ma}{\mathcal{A}}
+\newcommand*{\mb}{\mathcal{B}}
+\newcommand*{\mc}{\mathcal{C}}
+\newcommand*{\mi}{\mathcal{I}}
+\newcommand*{\mo}{\mathcal{O}}
+\newcommand*{\note}{\noindent *}
+
+\begin{document}
+\begin{enumerate}
+    \item (15分)设矩阵
+    $$U=\begin{pmatrix}1&1&2&2\\1&1&2&2\\2&2&3&3\\2&2&3&3\end{pmatrix}$$
+    找一个正交矩阵$P$与对角矩阵$D$使得$U=PDP^T$。
+
+    \item 在所有不超过3次的实系数多项式构成的线性空间$V$上定义
+    $$\forall f,g\in V,\quad(f,g)=\int_{-1}^1f(x)g(x)\dr x$$
+    \begin{enumerate}
+        \item (5分)证明这是$V$上的内积。
+        \item (10分)已知$1,x,x^2,x^3$构成$V$的一组基。计算此内积下的一组标准正交基。
+    \end{enumerate}
+
+    \item (10分)已知$A\in\mathbb{R}^{n\times n}$是上三角的正交阵，求所有可能的$A$。
+    
+    \item 考虑$n$维欧几里得空间$V$中的\textbf{单位}向量$u$，设$u$在一组标准正交基$S=\{\alpha_1,\dots,\alpha_n\}$下的坐标为$x\in\mathbb{R}^n$。
+    \begin{enumerate}
+        \item (5分)证明$x$是$\mathbb{R}^n$中的单位向量。
+        \item (5分)记$\mathcal{P}_u$为到$\left<u\right>$\ (表示$u$的生成子空间)的正交投影，求其在基$S$下的矩阵表示。
+        \item (5分)记$\mathcal{H}_u=\mi-2\mathcal{P}_u$，证明其为正交变换。
+        \item (5分)对任何满足$\|v\|=\|w\|$的$v,w\in V$，证明存在$u$使得
+        $$\mathcal{H}_u(v)=w$$
+    \end{enumerate}
+    
+    \item (10分)设$\ma$是$n$维酉空间$V$上的正规变换，证明若$\ma(\alpha_1),\dots,\ma(\alpha_n)$构成$V$的标准正交基，则$\ma^*(\alpha_1),\dots,\ma^*(\alpha_n)$构成$V$的标准正交基。这里$\ma^*$表示$\ma$的伴随变换。
+    
+    \item 对复方阵$A\in\mathbb{C}^{m\times n}$、$B\in\mathbb{C}^{p\times q}$，用$A\otimes B$表示矩阵的克罗内克积
+    $$A\otimes B=\begin{pmatrix}a_{11}B&\cdots& a_{1n}B\\\vdots&\ddots&\vdots\\a_{m1}B&\cdot&a_{mn}B\end{pmatrix}$$
+    以下题目可直接使用性质：$AC$、$BD$可乘时$(A\otimes B)(C\otimes D)=(AC)\otimes(BD)$。
+    \begin{enumerate}
+        \item (3分)若$A$、$B$为方阵且均可逆，证明$(A\otimes B)^{-1}=A^{-1}\otimes B^{-1}$。
+        \item (6分)证明$\rank(A\otimes B)=(\rank A)(\rank B)$。
+        \item (9分)若$A$的特征多项式为$x^3(x-1)^2(x-2)$，最小多项式为$x(x-1)(x-2)$；$B$的特征多项式为$x^2(x-1)^3(x-2)^2$，最小多项式为$x^2(x-1)^2(x-2)$，计算$A\otimes B$的Jordan标准形。
+        
+        提示：先计算$A$与$B$的Jordan标准形。
+    \end{enumerate}
+
+    \item (12分)设$V$是数域$\mathbb{K}$上的$n$维线性空间，$\alpha_1,\alpha_2,\alpha_3$是$V$中的线性无关向量组，$\beta_1,\beta_2,\beta_3$是$V$中的线性相关向量组，证明
+    $$\sum_{i=1}^3\alpha_i\otimes\alpha_i\ne\sum_{i=1}^3\beta_i\otimes\beta_i$$
+\end{enumerate}
+
+\end{document}

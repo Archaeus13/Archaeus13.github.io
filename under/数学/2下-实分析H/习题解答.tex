@@ -1,0 +1,560 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\title{实分析H 作业解答}
+\author{原生生物}
+\date{}
+
+\usepackage{amsmath,amssymb,enumerate,geometry}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\setlength{\parindent}{0pt}
+
+
+\begin{document}
+\maketitle
+*对应教材为周民强《实变函数论》，每次作业为两次讲义后的习题。
+
+\tableofcontents
+\newpage
+\section{第一次作业}
+\begin{enumerate}
+    \item (P13思考题1)
+    
+    单射：若有$f(x_1)=f(x_2)$，则$x_1=f_{n_0}(x_1)=f_{n_0}(x_2)=x_2$，由此知为单射。
+    
+    满射：若存在$t\in\mathbb{R}$使$f(x)=t$无解，则$f_{n_0}(x)=t$无解，与$f_{n_0}(t)=t$矛盾。
+    
+    因此$f$必然为一一映射。
+    
+    \item (P13思考题2)
+    
+    [理解一] $f(\mathbb{R}/\mathbb{Q})=\mathbb{R}/\mathbb{Q},f(\mathbb{Q})\subset\mathbb{Q}$，证明双射。
+    
+    假设$f$在无理数集上是一一映射，下证其在有理数集上亦为一一映射：
+    
+    单射：若有$f(q_1)=f(q_2)=q,q_1,q_2\in\mathbb{Q},q_1\ne q_2$，若$\forall q_1\le x\le q_2,f(x) = q$，则考虑其中无理数已矛盾。否则，由连续，$f$必然在$(q_1,q_2)$取到$[q_1,q_2]$上的最大值或最小值，不妨设$f(x_0)=t>q$为最大值。任取一$(q,t)$间的无理数$s$，由介值定理知$(q_1,x_0)$与$(x_0,q_2)$上至少各有一点取值为$s$，与其在无理数上为一一映射矛盾。
+    
+    满射：由于其在无理数上为满射，由介值定理知值域连续，因此必然能取到所有有理数。
+    
+    [理解二] $\mathbb{R}/\mathbb{Q}$到$f(\mathbb{R}/\mathbb{Q})$为一一映射(即$f$在无理数上为单射)，证明$f$在有理数上为单射。
+    
+    若有$f(q_1)=f(q_2)=q,q_1,q_2\in\mathbb{Q},q_1\ne q_2$，设$f([q_1,q_2])=[s,t]$，利用介值定理可知，$(s,t)$上的点在$[q_1,q_2]$上至少有两个原像，而$s,t$若不存在两个原像，必然只有一个原像，因此$[q_1,q_2]$上除了至多两点外，对每一点$x$都存在$y\ne x$使得$f(x)=f(y)$。由此，考虑$[q_1,q_2]$上存在这样的$y$的无理数点，由于$f$在无理数上是单射，对不同的无理数，找到的$y$必然是不同的有理数，因此构造了$[q_1,q_2]$上除了至多两个外的全部无理数到$[q_1,q_2]$上有理数的单射，矛盾。
+    
+    \item (P13思考题3)
+    
+    当：$f^{-1}(B)=\{x\in X|\exists b\in B, f(x) = b\}$，由满射，$\forall b\in B,\exists x\in X, f(x) = b$，从而$x\in f^{-1}(B)$，因此$B\subset f(f^{-1}(B))$。另一方面，由原像定义可知$f(f^{-1}(B))\subset B$，于是$f(f^{-1}(B))=B$。
+    
+    仅当：若$Y$只有一个元素，则不为满射可知$X$必为空集，不满足映射定义，由此$Y$至少有两个元素，任何单元集为其真子集。若不为满射，设$y\in Y$不在其值域中，则$f(f^{-1}({y}))=\varnothing$，因此原式不成立。
+\end{enumerate}
+
+\section{第二次作业}
+\begin{enumerate}
+    \item (P54习题1.4)
+    
+    (i) 成立。由于$f:X\to Y$，$f^{-1}(Y)=X$，于是
+    \[f^{-1}(Y\backslash B)=\{x|f(x)\notin B\}=X\backslash\{x|f(x)\in B\}=f^{-1}(Y)\backslash f^{-1}B\]
+    
+    (ii) 不成立。令$X=\{1,2\},Y=\{1\},f(1)=f(2)=1$，取$A=\{1\}$即矛盾。
+    
+    \item (P50思考题1)
+    
+    由P49例19知完全集是不可数集。若对某个$x$，$\forall y\in E,x-y\in\mathbb{Q}$，则由$y\to x-y$可以建立$E$到$\mathbb{Q}$的单射，矛盾。
+    
+    \item (P50思考题2)
+    
+    $\frac{1}{4}_{(10)}=0.\dot{0}\dot{2}_{(3)},\frac{1}{13}_{(10)}=0.\dot{0}0\dot{2}_{(3)}$，由此三进制表示不出现1，都在Cantor集中。
+    
+    \item (Stein P38 3)
+    
+    (a) 由于每一次挖去的开集互不相交，$C_\xi$的补集是若干开集的无交并。第$n$次挖去的长度是$(1-\xi)^{n-1}\xi$，由此补集中开集的总长度为$\sum_{n=1}^\infty (1-\xi)^{n-1}\xi=1$。
+    
+    (b) 由于开区间的外测度即为其长度，且可测集的可数并依然可测，无交并的测度即为各个集合测度之和，由(a)可知其对$(0,1)$的补集外测度为1，因此其内测度为0。
+    
+    \item (Stein P38 4)
+    
+    (a) 与上一题类似，其对$(0,1)$补集的测度为$\sum_{k=1}^\infty 2^{k-1}l_k<1$，由此其测度为$1-\sum_{k=1}^\infty 2^{k-1}l_k>0$。
+    
+    (b) 归纳构造$x_n$。取$x_k$为第$k$次挖去的区间中点，若$x$在$x_k$左侧，则$x_{k+1}$取$x_k$所在区间左侧相邻的第$k+1$次挖去的区间中点，反之亦然。
+    
+    由$\lim_{k\to\infty}l_k=0$，可知$\lim_{n\to\infty}|I_n|=0$，而$|x_k-x|\le\frac{1}{2^k}$，由此$\lim_{n\to\infty}x_n=x$。
+    
+    (c) 由闭集可知$\hat{C}'\subset\hat{C}$，与Cantor集完全相同方式取区间端点可知其为完全集。由(b)可知$\hat{C}$中没有点的邻域在其中，因此不可能包含开集。
+    
+    (d) 由完全集不可数知结论。
+\end{enumerate}
+
+\section{第三次作业}
+\begin{enumerate}
+    \item (P25 思考题14)
+    
+    全体代数数可以由整系数方程的根确定，所有整系数方程的基数为$\mathrm{N}^\mathrm{N}$，利用对角线可以与$\mathrm{N}$建立一一对应，从而基数为$\aleph_0$，而每个方程至多有限个根，因此代数数可数。由于超越数为代数数补集，其基数必为$c$。
+    
+    \item (P43 思考题2)
+    
+    收敛点集$\{x|\forall\varepsilon,\exists N,\forall m,n>N,f_n(x)-f_m(x)<\varepsilon\}$，即为$\displaystyle\bigcap_{k=1}^\infty\bigcup_{N=1}^\infty\bigcap_{m,n=N}^\infty\{x|f_n(x)-f_m(x)\le\frac{1}{k}\}$。
+    
+    由于闭集的交仍为闭集，由连续每个右侧的集合为闭集，$\displaystyle\bigcap_{m,n=N}^\infty\{x|f_n(x)-f_m(x)\le\frac{1}{k}\}$为闭集，因此收敛点集为$F_{\sigma\delta}$集。
+    
+    \item (P55 习题1.19)
+    
+    先说明每点左极限存在。假设在点$x$处左上极限$a$大于左下极限$b$，分别找趋于$a$的子列$f(a_n)$与趋于$b$的子列$f(b_n)$。
+    
+    由于极限保序，可分别取出子列(此后子列仍记为$a_n,b_n$)使得任意$a_i$的函数值大于任意$b_j$。
+    
+    对$a_n$，由于$\lim_{n\to\infty}a_n=x,\lim_{n\to\infty}f(a_n)=a,x\ge a_i,a\ge f(a_i)$，可取出单调增趋于$x$的子列，进一步从中取出函数值单调增趋于$a$的子列$a_n$，同理可取出单调增趋于$x$且函数值单调减趋于$b$的子列$b_n$。
+    
+    利用极限性质，可进一步取出子列满足$a_1<b_1<a_2<b_2<\dots$。
+    
+    任取$f(a_1)<t<f(b_1),t\in\mathbb{Q},t\ne f(x)$，利用介值性可知每个$a_i,b_i$之间都存在值为$t$的点，从而存在$x_n\to x$使得$f(x_i)=t$，但$f(x)\ne t$，与闭集矛盾。
+    
+    同理可知右极限亦存在，结合介值性即知函数连续。
+    
+    \item (P55 习题1.30)
+    
+    由Darboux定理，导函数具有介值性，再利用习题1.19得结果。
+    
+    \item (P94 习题2.1)
+    
+    先说明$m(E\cap(0,1))=0$。
+    
+    由题意，取出一列开区间$I_{1n}$使得$E\cap(0,1)\subset\bigcup_{n=1}^\infty I_{1n}$且$\sum_{k=1}^\infty m(I_{1k})<q$。接着，对每个$I_{1i}$，取出一列开区间使$E\cap I_{1i}\subset\bigcup_{n=1}^\infty I_n,\sum_{k=1}^\infty m(I_k)<qI_{1i}$，由于$\mathbb{N}^2=\mathbb{N}$，对每个$I_{1i}$取出的这些$I_k$仍为可数个，重新排列为$I_{2i}$，则$E\cap(0,1)\subset\bigcup_{i=1}^nI_{2i}$，且$\sum_{k=1}^\infty m(I_{2k})<q\sum_{k=1}^\infty m(I_{1k})<q^2$。由此，可构造出总长度小于任意$q^n$的开区间列覆盖$E\cap(0,1)$，从而$m(E\cap(0,1))=0$。
+    
+    由于$E\subset\big(\bigcup_{k\in\mathbb{Z}}E\cap(k,k+1)\big)\cup\mathbb{Z}$，后方为可数个零测集，故$m(E)=0$。
+    
+    \item (P94 习题2.2)
+    
+    对任意点集$T$，$m^*(T)=m^*(T\cap A_1)+m^*(T\cap A_1^c)$。由于$A_1\subset A_2$，$m^*(T\cap A_1^c)\ge m^*(T\cap A_2^c)$。另一方面，$m^*(T\cap A_2)\le m^*(T\cap A_1)+m^*(A_2\backslash A_1)$。若$m^*(A_2\backslash A_1)>0$，则$m^*(A_2)\ge m^*(A_1)+m^*(A_2\backslash A_1)>m^*(A_1)$矛盾，由此知其为0，故$m^*(T\cap A_2)\le m^*(T\cap A_1)$。综合两式可知$m^*(T)\ge m^*(T\cap A_2)+m^*(T\cap A_2^c)$，由此$A_2$可测。
+    
+    \item (P94 习题2.7)
+    
+    $\overline{\lim}_{k=1}^\infty E_k=\bigcap_{n=1}^\infty\bigcup_{t=n}^\infty E_t$。由于后方为递减可测集列可知
+    \[m\big(\overline{\lim}_{k=1}^\infty E_k\big)=\lim_{n=1}^\infty m\bigg(\bigcup_{t=n}^\infty E_t\bigg)\ge\lim_{n=1}^\infty\sup_{t=n}^\infty m(E_t)=\overline{\lim}_{k=1}^\infty m(E_k)\]
+    
+    \item (P94 习题2.8)
+    
+    由于$m(E_k)=1$，可知$m([0,1]\backslash E_k)=1-1=0$，有$m\big(\bigcup_{k=1}^\infty([0,1]\backslash E_k)\big)\le\sum_{k=1}^\infty m([0,1]\backslash E_k)=0$，故其为0。而$\bigcup_{k=1}^\infty([0,1]\backslash E_k)=[0,1]\backslash\bigcap_{k=1}^\infty E_k$，由此$m\big(\bigcap_{k=1}^\infty E_k\big)=1$。
+\end{enumerate}
+
+\section{第四次作业}
+\begin{enumerate}
+    \item (P78 思考题1)
+    
+    先说明第二句：若$\mathring{E}\ne\varnothing$，$\exists B(x,\varepsilon)\subset E$，由此$m(E)\ge2\varepsilon$，不可能为0。
+    
+    由于$m(E)=1$，$m([0,1]\backslash E)=0$，由上方证明知$[0,1]\backslash E$无内点，又由$E\subset[0,1]$知$\bar{E}=[0,1]$。
+    
+    \item (P78 思考题2)
+    
+    \[m^*\bigg(\bigcup_{n=1}^\infty B_n\bigg)=m^*\bigg(A_1\cap\bigcup_{n=1}^\infty B_n\bigg)+m^*\bigg(A_1^c\cap\bigcup_{n=1}^\infty B_n\bigg)=m^*(B_1)+m^*\bigg(\bigcup_{n=2}^\infty B_n\bigg)\]
+    由此归纳知$m^*\big(\bigcup_{n=1}^\infty B_n\big)\ge\sum_{i=1}^km^*(B_i)$对任意$k$成立，又由于$m^*\big(\bigcup_{n=1}^\infty B_n\big)\le\sum_{i=1}^\infty m^*(B_i)$，取极限可知只能相等。
+    
+    \item (P78 思考题5)
+    
+    由于$m(E)=\lim_{n\to\infty}m(E\cap B(0,n))$，必然存在某个$n$使得$m(E\cap B(0,n))>\alpha$，从而不妨设$E\subset[-n,n]$有界，由此只需寻找$E$中闭集。
+    
+    由$E$可测，$m^*([-n,n]\backslash E)=2n-m(E)$，由外测度定义，存在可数个开区间并集(记为$U$)覆盖$[-n,n]\backslash E$，且总测度为大于$2n-m(E)$的任何数，令其为$2n-\alpha$。
+    
+    由于$U$为开集，$U^c$为闭集，故$U^c\cap[-n,n]$为闭集，且测度为$2n-(2n-\alpha)=\alpha$，又由定义知其包含于$E$，由此得证。
+    
+    \item (P94 习题2.9)
+    
+    记$F_i=[0,1]\backslash E_i$，则$\bigcap_{i=1}^kE_k=[0,1]\backslash\bigcup_{i=1}^kF_i$，由$m\big(\bigcap_{i=1}^kE_k\big)=0$知$m\big(\bigcup_{i=1}^kF_i\big)=1$，有
+    \[\sum_{i=1}^km(E_i)=k-\sum_{i=1}^km(F_i)\le k-m\bigg(\bigcup_{i=1}^kF_i\bigg)=k-1\]
+    由此得矛盾。
+    
+    \item (P84 思考题2)
+    
+    $m^*(B)=m^*(A\cap B)+m^*(A^c\cap B),m^*(A\cup B)=m^*(A\cap(A\cup B))+m^*(A^c\cap(A\cup B))=m^*(A)+m^*(A^c\cap B)$，综合两式得证。
+    
+    \item (P95 习题2.12)
+    
+    记$C_k=B_k\backslash\bigcap_{k=1}^\infty B_k$，则$C_k$可测，有$m^*(A\cap B_k)=m^*(A\cap B_k\cap C_k)+m^*(A\cap B_k\cap C_k^c)=m^*(A\cap C_k)+m^*(E)$，由于$\lim_{k\to\infty}(B_k)=\bigcap_{k=1}^\infty B_k$，由可测知$\lim_{k\to\infty}m(C_k)=0$，由夹逼原理知$\lim_{k\to\infty}m^*(A\cap C_k)=0$，从而得证。
+    
+    \item (P95 习题2.13)
+    
+    是等测包。
+    
+    若$H$不是等测包，可知$m(H)>m^*(E)$，任取$E$的等测包$H^*$，记$H'=H\cap H^*$，其可测，由$m^*(E)\le m(H')\le m(H^*)$可知$H'$亦为等测包。由此$m(H\backslash H')=m(H)-m(H')=m(H)-m^*(E)>0$，但此集合为$H\backslash E$的可测子集，矛盾，从而得证。
+    
+    \item (P95 习题2.14)
+    
+    充分：对任意点集$A$，由$G_1,G_2$关系可知
+    \[m^*(A)=m^*(A\cap G_1)+m^*(A\cap G_1^c)\ge m^*(A\cap G_1)+m^*(A\cap G_2)-m^*(A\cap(G_2\backslash G_1^c))\]
+    \[\ge m^*(A\cap G_1)+m^*(A\cap G_2)-m^*(G_2\backslash G_1^c)=m^*(A\cap G_1)+m^*(A\cap G_2)-m^*(G_2\cap G_1)\]
+    \[=m^*(A\cap G_1)+m^*(A\cap G_2)-\varepsilon\ge m^*(A\cap E)+m^*(A\cap E^c)-\varepsilon\]
+    令$\varepsilon\to0$可知$m^*(A)\ge m^*(A\cap E)+m^*(A\cap E^c)$，从而$E$可测。
+    
+    必要：由定理2.13，构造包含$E$的开集$G$，与$E$包含的闭集$H$满足$m(G\backslash E)<\frac{\varepsilon}{2},m(E\backslash H)<\frac{\varepsilon}{2}$，再取$G_1=H^c,G_2=G$可验证成立。
+\end{enumerate}
+
+\section{第五次作业}
+\begin{enumerate}
+    \item (P107 思考题1)
+    
+    由可测定义，$\forall t\ge0, \{x:f^2(x)>t^2\}$可测，即$\{x:f(x)>t$或$f(x)<-t\}$可测，与$\{x:f(x)>0\}$及其补取交可知对非负的$t$，$\{x:f(x)>t\},\{x:f(x)<-t\}$可测，而$\{x:f(x)>-t\}=\bigcup_{n=1}^\infty\{x:f(x)<-t+\frac{1}{n}\}^c$，从而可测，综合可知$f(x)$可测。
+    
+    \item (P109 思考题6)
+    
+    未必。$f(x)=0$，$g(x)$为迪利克雷函数即为反例。
+    
+    \item (P126 习题3.2)
+    
+    由$z$连续，$(t,+\infty)$的原像为$\mathbb{R}^2$中开集$U$，由$g_1(x),g_2(x)$可测，$(g_1(x),g_2(x))$可测，由此$U$在$(g_1(x),g_2(x))$下的原像可测，即$\{x:F(x)>t\}$可测，即得证。
+    
+    \item (P126 习题3.3)
+    
+    利用右连续考虑振幅知$f(x)$不连续点至多可数，故几乎处处连续，可测，而$f'_+(x)=\lim_{n\to\infty}n(f(x+\frac{1}{n})-f(x))$，为可测函数列极限，仍然可测。
+    
+    \item (P119 思考题1)
+    
+    正确。同减去$f(x)$后可不妨设$f_n(x)$几乎处处收敛到0，下证$g(x)$几乎处处为0。
+    
+    若$m(\{x:|g(x)|>0\})>0$，由$\{x:|g(x)|>0\}=\lim_{n\to\infty}\{x:|g(x)>\frac{1}{n}|\}$考虑测度极限可知存在$\varepsilon>0$使$m(\{x:|g(x)|>\varepsilon\})>0$，记其为$\delta$。由依测度收敛定义，$\exists N,\forall n>N,m(\{x:|f_n(x)-g(x)|>\frac{\varepsilon}{2}\})<\frac{1}{2}\delta$，从而至少有$\delta-\frac{1}{2}\delta=\frac{1}{2}\delta$长度使得$|f_n(x)|>\varepsilon-\frac{\varepsilon}{2}=\frac{\varepsilon}{2},\forall n>N$，与几乎处处收敛到0矛盾。
+    
+    \item (P119 思考题4)
+    
+    是。其几乎处处有限，且除$x=0,\pi$外收敛于0，由定理3.14知依测度收敛。
+    
+    \item (P127 习题3.12)
+    
+    \[\forall\varepsilon>0,\lim_{k\to\infty}m(\{x:|f_k(x)g_k(x)|>\varepsilon\})\le\lim_{k\to\infty}m\big(\{x:|f_k(x)|>\sqrt\varepsilon\}\cup\{x:|g_k(x)|>\sqrt\varepsilon\}\big)\]
+    \[\le\lim_{k\to\infty}\big(m(\{x:|f_k(x)|>\sqrt\varepsilon\})+m(\{x:|g_k(x)|>\sqrt\varepsilon\})\big)=0\]
+    从而得证。
+    
+    \item (P109 思考题7)
+    
+    未必。$f(x)=\begin{cases}\frac{1}{x}&x\ne0\\0&x=0\end{cases}$，可发现不存在这样的$g$。    
+\end{enumerate}
+
+\section{第六次作业}
+\begin{enumerate}
+    \item (P119 思考题5)
+    
+    取$f_n(x)=\frac{1}{n}$即为反例。
+    
+    \item (P119 思考题6)
+    
+    必有几乎处处收敛。由单调可知存在逐点收敛极限$f(x)$(值为有限或$-\infty$)，对任何$\varepsilon,\delta$，$\exists N,n>N,m(\{x:|f_n(x)|>\varepsilon\})<\delta$。若存在$f_k(x)$在某正测集上小于0，取有界闭子集，设其中最小模为$\varepsilon$，测度为$\delta$，即可得矛盾。由此知$f(x)\ge0$几乎处处成立，若在某正测集大于0，取有界闭子集，设其中最小模为$\varepsilon$，测度为$\delta$，利用$f_n(x)>f(x)$知矛盾。
+    
+    \item (P123 思考题1)
+    
+    取$f(x)=\begin{cases}1&x\ge0\\0&x<0\end{cases}$即为反例，由连续函数振幅为0，必有0附近某邻域与$f(x)$几乎处处不等。
+    
+    \item (P123 思考题2)
+    
+    取连续函数列$f_n(x)$几乎处处逼近可测函数，再利用Bernstein多项式一致连续逼近$f_n(x)$，取出$P_n(x)$使$\forall x\in[a,b],|P_n(x)-f_n(x)|<\frac{1}{n}$，则$f_n(x)$收敛处$P_n(x)$收敛于相同结果，从而得证。
+    
+    \item (P189 习题4.1)
+    
+    若$m(E)>0$，记$K=\{x:f(x)=0\}$，则$m(E\backslash K)=m(E)$。由Lusin定理，取有界闭集$F\subset E\backslash K,m(F)>\frac{m(E)}{2}$使得$f$为$F$上的恒正连续函数，由其紧可取到最小值$t$，因此$\int_Ef(x)\mathrm{d}x\ge\frac{m(E)}{2}t>0$，矛盾。
+\end{enumerate}
+
+\section{第七次作业}
+\begin{enumerate}
+    \item (P143 思考题9)
+    
+    定义$g_k(x)=\max_{n=1}^kf_n(x)$，则其亦非负可测，满足逐点收敛，利用非负渐升列积分定理得证。
+    
+    \item (P149 思考题3)
+    
+    $\int_EkI_{\{x:|f(x)|>k\}}\le\int_E|f(x)|\mathrm{d}x=t$，由此$m(\{x:|f(x)|>k\})\le\frac{t}{k}$，从而得证。
+    
+    \item (P159 思考题4)
+    
+    由于$f_k(x)=f(x)I_{E_k}$满足依测度收敛于0且绝对值不超过$|f(x)|$，由控制收敛定理可知结论。
+    
+    \item (P189 习题4.9)
+    
+    由积分可数可加性与$\mathbb{R}$上开集为至多可数个不交开区间，假设一列开区间构成$U=\bigcup_n(a_n,b_n)$覆盖$E$，则$\int_Uf(x)\mathrm{d}x=\sum_n\int_{a_n}^{b_n}f(x)\mathrm{d}x$，将每个平移可知$\ge\int_{[0,t]}f(x)\mathrm{d}x$，又由于可使$m(U)-m(E)<\varepsilon$，且$f(x)\le f(1)=M$，可知对任何$\varepsilon$，$\int_Ef(x)\mathrm{d}x+M\varepsilon\ge\int_{[0,t]}f(x)\mathrm{d}x$，即得证。
+    
+    \item (P159 思考题3)
+    
+    当$t\ge0,x,x_0>0$时，$\big|\frac{1}{x+t}-\frac{1}{x_0+t}\big|=\big|\frac{x-x_0}{(x+t)(x_0+t)}\big|\le\big|\frac{1}{x}-\frac{1}{x_0}\big|$，从而$|g(x)-g(x_0)|\le\int_0^\infty\big|\frac{1}{x}-\frac{1}{x_0}\big||f(t)|\mathrm{d}t$，由$f\in L((0,+\infty))$知$x\to x_0$时$|g(x)-g(x_0)|\to0$，从而连续。
+    
+    \item (P160 思考题6)
+    
+    由一致收敛定义，可取$N$使$n>N$时$|f_n(x)-f(x)|<1$，从而$|f_n(x)|<|f_{N+1}(x)+2|$。由区域测度有限知常数可积，因此可积函数之和可积，从而由控制收敛定理知结论。
+    
+    \item (P190 习题4.10)
+    
+    假设$E\subset B(0,R)$。由$\int_{\mathbb{R}^n}|f(x)|\mathrm{d}x$存在可知正项级数$\int_{nR<|x|<(n+1)R}|f(x)|\mathrm{d}x$收敛，从而极限为0，因此任何$\varepsilon$可取$N$使得$n>N$时$\int_{nR<|x|<(n+1)R}|f(x)|\mathrm{d}x<\frac{\varepsilon}{2}$，再取$|y|>NR$，$E$一定可以包含在两个$nR<|x|<(n+1)R$中，从而$\int_{\{y\}+E}f(x)\mathrm{d}x<\varepsilon$，即得证。
+    
+    \item (P191 习题4.12)
+    
+    记$x'=ax$可不妨设$a=1$。$S(x)$由定义知以1为周期，记此级数绝对和为$T(x)$。
+    
+    利用可数零测集之并零测，假设$T(x)$在某非零测集$E_0$上不收敛，存在$k\in\mathbb{Z}$使$T(x)$在$E=E_0\cap[k,k+1]$上不收敛，由此利用单调收敛定理可知
+    \[\int_{E}T(x)\mathrm{d}x=\sum_{n\in\mathbb{Z}}\int_{E}|f(x+n)|\mathrm{d}x=\sum_{n\in\mathbb{Z}}\int_{E+\{n\}}|f(x)|\mathrm{d}x=\int_{E+\mathbb{Z}}|f(x)|\mathrm{d}x\]
+    但$T(x)$在$E$上处处为无穷，矛盾。同理，由于$\int_{[0,a]+\mathbb{Z}}|f(x)|\mathrm{d}x=\int_{[0,a]}T(x)\mathrm{d}x$，可知$S(x)$在$[0,a]$可积，
+\end{enumerate}
+
+\section{第八次作业}
+\begin{enumerate}
+    \item (P190 习题4.13)
+    
+    $\sum_{n=1}^\infty\int_\mathbb{R}n^{-p}|f(nx)|\mathrm{d}x=\sum_{n=1}^\infty n^{-1-p}\int_\mathbb{R}|f(x)|\mathrm{d}x<\infty$，从而由逐项积分定理得证。
+    
+    \item (P190 习题4.14)
+    
+    由于$\forall x>0,|x^u|<|x^s|+|x^t|$，从而$\int_{\mathbb{R}^+}|x^uf(x)|\mathrm{d}x\le\int_{\mathbb{R}^+}(|x^sf(x)|+|x^tf(x)|)\mathrm{d}x<\infty$，由此知可积，记为$\varphi(u)$。
+    \[|\varphi(u)-\varphi(u_0)|\le\int_0^1|x^\delta-x^{u_0-u+\delta}||x^{u-\delta}f(x)|\mathrm{d}x+\int_1^\infty|x^{-\delta}-x^{u_0-u-\delta}||x^{u+\delta}f(x)|\mathrm{d}x\]
+    取$\delta>0$满足$B(u,\delta)\subset(s,t)$，当$u_0-u\to0$时，$|x^{-\delta}-x^{u_0-u-\delta}|,x>1$与$|x^\delta-x^{u_0-u+\delta},x\in(0,1)|$都一致趋于0，因此$|\varphi(u)-\varphi(u_0)|\to0$，从而连续。
+    
+    \item (P190 习题4.15)
+    
+    若$f$在某正测集上大于1，利用Lusin定理，设在其中某正测闭集上最小值$1+\varepsilon$，计算知高次方会超过$c$，矛盾，由此$f$几乎处处不超过1。若在某正测集上大于0小于1，可设在其中某正测闭集上值落在$[\varepsilon,1-\varepsilon]$以内，可发现$\int_{[0,1]}f^2(x)\mathrm{d}x<\int_{[0,1]}f(x)\mathrm{d}x$，从而矛盾。由此$f(x)$几乎处处为0或1，再由可积知为1的点落在可测集上。
+    
+    对一般的$f$，先考虑$f^{2n}(x)$可知$f^2(x)$几乎处处为0或1，若$f(x)$在某正测集上为$-1$，则有$\int_{[0,1]}f^2(x)\mathrm{d}x>\int_{[0,1]}f(x)\mathrm{d}x$，矛盾，从而结论仍成立。
+    
+    \item (P190 习题4.16)
+    
+    由可积知几乎处处有限。对某个函数值有限的$x$，$n\to\infty$时$n\ln\big(1+\frac{f^2(x)}{n^2}\big)\sim\frac{f^2(x)}{n}\to0$，再由$\ln(1+x^2)\le x$知不超过$|f(x)|$，从而由控制收敛定理得证。
+    
+    \item (P190 习题4.17)
+    
+    $\int_{E_k}f(x)\mathrm{d}x=\int_{E_1}f(x)I_{E_k}\mathrm{d}x$，集合由极限定义知$\lim_{n\to\infty}I_{E_n}=I_E$，再利用$|f(x)I_{E_k}|\le|f(x)|$在$E_1$上利用控制收敛定理得证。
+    
+    \item (P190 习题4.18)
+    
+    记$E_1=\{x\in E:f(x)\le1\},E_2=\{x\in E:f(x)>1\}$，分别利用控制收敛定理与单调收敛定理即得$\int_{E_1}{f(x)}^{1/k}\mathrm{d}x\to m(E_1),\int_{E_2}{f(x)}^{1/k}\mathrm{d}x\to m(E_2)$，而$E_1,E_2$不交，从而$m(E_1)+m(E_2)=m(E)$，即得结论。
+    
+    \item (P190 习题4.19)
+    
+    记$g_k(x)=\min(f_k(x),f(x)),h_k(x)=\max(f_k(x),f(x))$，由$|g_k(x)-f(x)|+|h_k(x)-f(x)|=|f_k(x)-f(x)|$知仍依测度收敛。利用控制收敛定理可知$\int_Eg_n(x)\mathrm{d}x\to\int_Ef(x)\mathrm{d}x$，由$g_k(x)+h_k(x)=f(x)+f_k(x)$得$\int_0^1h_n(x)\mathrm{d}x\to\int_0^1f(x)\mathrm{d}x$。对任何子区间，若有$\int_Eh_n(x)\mathrm{d}x$不收敛于$\int_Ef(x)\mathrm{d}x$，利用$h_n(x)\ge f(x)$知可取出$\int_E(h_{n_k}(x)-f(x))\mathrm{d}x>\varepsilon$的子列，则$\int_0^1(h_{n_k}(x)-f(x))\mathrm{d}x>\varepsilon$，矛盾。再次利用$g_k(x)+h_k(x)=f(x)+f_k(x)$即得证。
+    
+    \item (P192 习题4.20)
+    
+    由于$\lim_{k\to\infty}\max_{i=1}^kf_i(x)=\max_{i=1}^\infty f_i(x)$，利用单调收敛定理可知$\max_{i=1}^\infty f_i(x)$在$E$上可积，再由$f_k(x)\le\max_{i=1}^\infty f_i(x)$利用控制收敛定理得证。
+    
+    \item (P192 习题4.21)
+    
+    对于其中任何满足$\lim_{k\to\infty}\int_Ef_{n_k}(x)\mathrm{d}x$存在的子列，可从中取出几乎处处收敛子列，由Fatou引理得极限$\ge\int_Ef(x)\mathrm{d}x$，即得证。
+\end{enumerate}
+
+\section{第九次作业}
+\begin{enumerate}
+    \item (P192 习题4.22)
+    
+    设积分结果为$I(t)$，由于积分内求导后为$-2x\mathrm{e}^{-x^2}\sin{2xt}$，其模不超过$2x\mathrm{e}^{-x^2}$，因此
+    $$I'(t)=\int_{[0,\infty)}-2x\mathrm{e}^{-x^2}\sin{2xt}\mathrm{d}x=\int_{[0,\infty)}\sin{2xt}\mathrm{d}\big(\mathrm{e}^{-x^2}\big)$$
+    分部积分知$I'(t)=-2tI(t)$，结合$I(0)=\frac{\sqrt\pi}{2}$即得结果。
+    
+    \item (P192 习题4.23)
+    
+    由于不可能在非零测集上有$f_k(x)>f_{k+1}(x)$，$f_k(x)$几乎处处单调递增，而零测集的可数并仍然零测，故去掉某零测集$Z$后$f_k(x)$单调递增，因此存在极限$f_0(x)$。又由于任何可测集上积分都收敛，$f_0(x)>f(x)$与$f_0(x)<f(x)$的点集测度均为0，由此得证。
+    
+    \item (P189 习题4.3)
+    
+    记$E'_k=\bigcup_{i=1}^kE_k$，再记$f_k(x)=f(x)\chi_{E'_k}(x)$，则$f_k(x)$关于$k$单调不减且几乎处处收敛于$f(x)$，在$E$上利用单调收敛定理即得证。
+    
+    \item (P189 习题4.4)
+    
+    利用积分对定义域可数可加可知$\int_\mathbb{R}f(x)\mathrm{d}x=\sum_{k\in\mathbb{Z}}\int_{[k,k+1)}f(x)\mathrm{d}x$，由$f(x)$非负知后为正项级数，因此若积分不为0可知存在$n$使$\int_{(-\infty,n]}f(x)\mathrm{d}x=t>0$，由于$F(x)$非负可知$c\ge n$时$F(x)\ge t$，从而$\int_{(-\infty,c]}F(x)\mathrm{d}x\ge(c-n)t$，$c\to\infty$时极限不存在，同样利用可数可加性知不可积。
+    
+    \item (P190 习题4.5)
+    
+    由条件可知$f_{k+1}(x)\ge f_k(x)$几乎处处成立，由于零测集可数并仍零测，在某零测集$Z$之外$f_k(x)$关于$k$单调不减，由单调收敛定理可知$E\backslash Z$上积分与极限可交换，再由积分绝对连续性知结论。
+    
+    \item (P190 习题4.8)
+    
+    假设$m(\{x:f(x)>1\})>0$，由$\{x:f(x)>1\}=\bigcup_{n=1}^\infty\{x:f(x)>1+\frac{1}{n}\}$可知存在某个$\{x:f(x)>1+\frac{1}{n}\}=t>0$，由此任何$|\chi_{E_k}(x)-f(x)|$在$\mathbb{R}$上积分至少为$\frac{t}{n}$，不收敛于0，矛盾。同理可证$m(\{x:0<f(x)<1\})=0,m(\{x:f(x)<1\})=0$，因此$f(x)$几乎处处为0或1。再由每个$\chi_{E_k}$可积可推出$f(x)$可测，从而几乎处处为某可测集的特征函数。
+\end{enumerate}
+
+\section{第十次作业}
+\begin{enumerate}
+    \item (P193 习题4.29)
+    
+    由于$g(x)$为实值函数，$E$测度有限，$\bigcap_{n=1}^\infty\{x:g(x)>n\}=\varnothing$，可知必有$n$使得$m(\{x:g(x)>n\})<\frac{m(E)}{2}$，由此$m(\{x:g(x)\le n\})\ge\frac{m(E)}{2}$，记$E_0=\{x:g(x)\le n\}$，由可积知$\int_{E\times E_0}|f(x)+g(y)|\mathrm{d}x\mathrm{d}y<\infty$，而$|f(x)+g(y)|\ge |f(x)|-n$，由此
+    \[\int_{E\times E_0}|f(x)|\mathrm{d}x\mathrm{d}y\le\int_{E\times E_0}|f(x)+g(y)|\mathrm{d}x\mathrm{d}y+n\cdot m(E\times E_0)<\infty\]
+    利用Tonelli定理由$f$可测知可积，同理$y$可积。
+    
+    \item (P193 习题4.30)
+    
+    (i) 由Tonelli定理知可交换次序，于是原式化为$\frac{\pi}{2}\int_{y>0}\frac{\mathrm{d}y}{(1+y)\sqrt{y}}=\pi\arctan\sqrt{y}\big|_0^{+\infty}=\frac{\pi^2}{2}$。
+    
+    (ii) 由(i)对$y$积分即可得到此题的式子的两倍，因此结果为$\frac{\pi^2}{4}$。
+    
+    \item (P193 习题4.31)
+    
+    利用Tonelli定理可知$m(E)\int_\mathbb{R}f(x)\mathrm{d}x=\int_\mathbb{R}F(x)\mathrm{d}x<\infty$，又由非负可测知可积。
+    
+    \item (P189 习题4.1)
+    
+    由$\{x:f(x)>0\}=\bigcup_{n=1}^\infty\{x:f(x)>\frac{1}{n}\}$与测度可数可加知若$m(E)>0$，必有某个$n$使得$m(\{x:f(x)>\frac{1}{n}\})=t>0$，从而积分至少为$\frac{t}{n}$，矛盾。
+    
+    \item (P189 习题4.2)
+    
+    由条件知$\lim_{x\to0}\frac{f(x)}{x}=t$存在，由极限定义知存在$\delta$使得$|x|<\delta$时$\frac{f(x)}{x}\in(t-1,t+1)$，从而
+    \[\bigg|\int_{[0,+\infty)}\frac{f(x)}{x}\mathrm{d}x\bigg|=\bigg|\int_{[0,\delta]}\frac{f(x)}{x}\mathrm{d}x+\int_{[\delta,+\infty)}\frac{f(x)}{x}\mathrm{d}x\bigg|<\delta(|t|+1)+\frac{1}{\delta}\int_{[\delta,+\infty)}|f(x)|\mathrm{d}x\]
+    因此有限，再由可测知积分存在。
+    
+    \item (P162 思考题7)
+    
+    令$E_k=\{x\in E:|\cos x|<1-\frac{1}{k}\}$，由于$\lim_{k\to\infty}E_k=E\backslash Z$，$Z$为$|\cos x|=1$的零测集，因此由$\int_{E\backslash Z}f(x)\mathrm{d}x=1$与单调收敛定理可知存在$E_n$使得$\int_{E_n}f(x)\mathrm{d}x>\frac{1}{2}$，而其上$\int_{E_n}f(x)|\cos x|\mathrm{d}x\le(1-\frac{1}{n})\int_{E_n}f(x)\mathrm{d}x\le\int_{E_n}f(x)\mathrm{d}x-\frac{1}{2n}$，由此$\int_Ef(x)\cos{x}\mathrm{d}x\le\int_Ef(x)|\cos x|\mathrm{d}x\le1-\frac{1}{2n}<1$，即得证。
+    
+    \item (P162 思考题8)
+    
+    $\forall\varepsilon>0,m(\{x:|f_n(x)-f(x)|>\varepsilon\})<\frac{1}{n^2\varepsilon}$，从而$\sum_{n=1}^\infty m(\{x:|f_n(x)-f(x)|>\varepsilon\})<\infty$，利用Borel-Cantelli引理知$m(\limsup_{n\to\infty}\{x:|f_n(x)-f(x)|>\varepsilon\})=0$，此即为几乎处处收敛的等价定义。
+    
+    \item (P163 思考题9)
+    
+    由于右侧级数绝对收敛，将每项写为积分形式后利用逐项积分定理即得证。
+    
+    \item (P163 思考题10)
+    
+    对$y_n\to y$，由连续知$\forall x,f(x,y_n)\to f(x,y)$，又由于其不超过$g(x)$，且$g(x)$可积，可知每个$f(x,y_n)$对$x$可积，利用控制收敛定理知$\lim_{n\to\infty}\int_Ef(x,y_n)\mathrm{d}x=\int_Ef(x,y)\mathrm{d}x$，即得证。
+\end{enumerate}
+
+\section{第十一次作业}
+\begin{enumerate}
+    \item (P193 习题4.32)
+    
+    由Tonelli定理，
+    \[\int_0^\infty|F(x)|\mathrm{d}x\le\int_0^\infty\mathrm{d}x\int_\mathbb{R}|f(t)|\chi_{t<x}\mathrm{d}t=\int_\mathbb{R}\mathrm{d}t\int_0^\infty|f(t)|\chi_{t<x}\mathrm{d}x=\int_0^\infty|tf(t)|\mathrm{d}t<\infty\]
+    
+    从而存在，同理$F(x)$在负数上也可积，因此在实轴可积。
+    
+    \item (P193 习题4.33)
+    
+    法一：将积分区间分为$[0,\varepsilon]$与$[\varepsilon,\frac{\pi}{2}]$，前一部分不超过$\frac{\pi}{2}\varepsilon$，后一部分中$\arctan{nx}$一致趋于$\frac{\pi}{2}$，因此极限与积分可交换，令$\varepsilon\to0$即知整体极限与积分可交换，从而计算结果为$\frac{\pi}{2}$。
+    
+    法二：由于区间上积分有界可直接利用控制收敛定理即得结果。
+    
+    \item (P193 习题4.34)
+    
+    类似习题4.32，将积分记为$\frac{f(t)}{t}\chi_{t>x}$即可交换。
+    
+    \item (P192 习题4.24)
+    
+    利用Fatou引理，$\int_\mathbb{R}(g(x)\pm f(x))\mathrm{d}x\le\liminf_{n\to\infty}\int_\mathbb{R}(g_n(x)\pm f_n(x))\mathrm{d}x$，由此提出$g(x)$可知
+    $$\int_\mathbb{R}\pm f_n(x)\mathrm{d}x\le\liminf_{n\to\infty}\int_\mathbb{R}\pm f_n(x)\mathrm{d}x$$
+    再由$\limsup_{n\to\infty}f_n(x)\ge\liminf_{n\to\infty}f_n(x)$可知结论。
+    
+    \item (P192 习题4.25)
+    
+    也即说明有可列极限点的点集$E$零测。假设极限点集$F=\{x_1,x_2\dots\}$，考虑
+    $$F_n=[a,b]\backslash\bigcup_{i=1}^\infty B\bigg(x_i,\frac{1}{2^in}\bigg)$$
+    $F_n$中每个点可取出没有其他$E$中点的邻域，考虑有限覆盖知$F_n\cap E$中只有有限个点，因此并中至多可列个点。而$[a,b]=F\cup \bigcup_{n=1}^\infty F_n$，从而$E$可列，因此零测。
+    
+    \item (P192 习题4.26)
+    
+    考虑$\omega(x)>\frac{1}{n}$的点，由每点有极限可取出足够接近区间，利用有限覆盖知有限，由此对$\frac{1}{n}$取并可知不连续点可数，从而得证。
+    
+    \item (P192 习题4.27)
+    
+    可发现$\chi_{E}(x)$的不连续点即为不在$E$中的$E$的极限点与不在$E^c$中的$E^c$极限点，即为$\overline{E}\backslash E\cup\overline{E^c}\backslash E^c$，而$\overline{E^c}=(E^\circ)^c$，从而即为$\overline{E}\backslash E^\circ$，即得证。
+\end{enumerate}
+
+\section{第十二次作业}
+\begin{enumerate}
+    \item (P211 思考题1)
+    
+    不可能有原函数。若其有原函数$F(x)$，由导函数处处非负知单调。利用Lebesgue定理可知导函数勒贝格可积，从而矛盾。
+    
+    \item (P211 思考题2)
+    
+    由于$G(t)$连续与$F'(t)$的定义，计算可发现右侧积分求导即为$G(x)F'(x)$，从而题中构造求导即得$g(x)F(x)$，由此得证。
+    
+    \item (P241 习题5.2)
+    
+    类似P210例5的构造，将$r_n$改换为$x_n$即可。由一致收敛性，每个函数的连续点必然为和函数的连续点，从而知满足条件。
+    
+    \item (P241 习题5.3)
+    
+    若否，假设在某正测集$B\subset E$上非零，可取出测度为$t$的正测集$C\subset B$使得$C$上导函数$f'(x)\ge\delta>0$。取$\varepsilon<t\delta$即有$\sum_i[f(b_i)-f(a_i)]\ge\int_Ef'(x)\mathrm{d}x\ge\int_Cf'(x)\mathrm{d}x\ge t\delta>\varepsilon$，矛盾。
+    
+    \item (P231 思考题1)
+    
+    不妨设$y>x$，则$|f(y)-f(x)|=\int_x^yf'(x)\mathrm{d}x\le\int_x^y|f'(x)|\mathrm{d}x\le M(y-x)$，从而得证。
+    
+    \item (P232 思考题3)
+    
+    利用定理5.10与定理5.14，设和函数$f$，则$f(x)=f(a)+\sum_{n=1}^\infty\int_a^xf'_n(x)\mathrm{d}x$，由于$f'_n(x)$非负，由单调收敛定理可知$\sum_{n=1}^\infty\int_a^xf'_n(x)\mathrm{d}x=\int_a^x\sum_{n=1}^\infty f'_n(x)\mathrm{d}x$，即得证。
+\end{enumerate}
+
+\section{第十三次作业}
+\begin{enumerate}
+    \item (P218 思考题8)
+    
+    当：$F(b)-F(a)$即为所求界。
+    
+    仅当：记$F(x)=\bigvee_a^xf$，由于$\bigvee_a^{x''}f\ge\bigvee_a^{x'}f+\bigvee_{x'}^{x''}f$，可知$F(x)$满足要求。
+    
+    \item (P218 思考题10)
+    
+    假设有$y>x,f(y)<f(x)$，则取分点$x,y$可知$\bigvee_a^bf\ge|f(b)-f(y)|+f(y)-f(x)+|f(x)-f(a)|>f(b)-f(a)$，矛盾。
+    
+    \item (P222 思考题1)
+    
+    记$f(x)=\chi_E(x)$，由条件可知$[0,1]$中$f(x)=0$的点定义式积分的的极限至少为$l$，从而不为Lebesgue点，由可积知其零测，即得证。
+    
+    \item (P222 思考题2)
+    
+    由定义可知Lebesgue点为全体无理点(有理点定义式积分的极限为1)。
+    
+    \item (P231 思考题2)
+    
+    由本节例1知其绝对连续，导数几乎处处存在，又由导数定义可知其绝对值不超过$M$。
+    
+    \item (P232 思考题4)
+    
+    由条件，$f(x)=f(\varepsilon)+\int_\varepsilon^xf'(t)\mathrm{d}t$对任何$0<\varepsilon\le x\le1$成立，而右侧积分对$\varepsilon$绝对连续，将$\varepsilon=\frac{1}{n}$取并可知$f'(x)$在$[0,1]$几乎处处存在，从而$\varepsilon\to0$时积分为$\int_0^xf'(t)\mathrm{d}t$，再由连续性即得$f(x)=f(0)+\int_0^xf'(t)\mathrm{d}t$，因此得证。
+    
+    \item (P242 习题5.4)
+    
+    引理：当$g(x)$单调增时，$\frac{1}{x}\int_0^xg(t)\mathrm{d}t$单调增。
+    
+    证明：当$x_2>x_1$时，
+    \[\frac{1}{x_2}\int_0^{x_2}g(t)\mathrm{d}t\ge\frac{\int_0^{x_1}g(t)\mathrm{d}t}{x_2}+\frac{x_2-x_1}{x_2}g(x_1)\ge(\frac{1}{x_2}+\frac{x_2-x_1}{x_1x_2})\int_0^{x_1}g(t)\mathrm{d}t=\frac{1}{x_1}\int_0^{x_1}g(t)\mathrm{d}t\]
+    
+    由此$f(x)$的Jordan分解即对应$F(x)$的Jordan分解，从而得证。
+    
+    \item (P242 习题5.5)
+    
+    根据逐点收敛可知对任何分化，$f$的变差为$f_n$的变差的极限，从而不超过$M$，由此即有$\bigvee_a^bf\le M$。
+    
+    \item (P242 习题5.6)
+    
+    对任何$\varepsilon$，可取$\delta$使得$x_1,x_2\in B(x_0,\delta)$时$|f(x_1)-f(x_2)|<\frac{\varepsilon}{2}$，从而可作$||\Delta||<\delta$的分划$\Delta$使得分划求和与$\bigvee_a^{x_0}$的差距不超过$\frac{\varepsilon}{2}$，从而去除最后一个分点$x_0$后分划求和与$\bigvee_a^{x_0}$的差距不超过$\varepsilon$，由单调有界可知$\bigvee_a^x$必然$x_0$处有右极限，利用上述推导即知为$\bigvee_a^{x_0}$，同理左极限亦为此，即得证。
+\end{enumerate}
+
+\section{第十四次作业}
+\begin{enumerate}
+    \item (P250 思考题3)
+    
+    将$|f(x)|$分为大于等于1与小于1两部分，第一部分利用非负可测函数单调收敛定理可知收敛，第二部分利用1可控制收敛，从而合并后仍收敛。
+    
+    \item (P253 思考题5)
+    
+    记$f_0(x)=f(x)^r,g_0(x)=g(x)^r$，由于$\frac{r}{p}+\frac{r}{q}=1$，对$f_0(x),g_0(x)$应用H\"oler不等式即得结论。
+    
+    \item (P289 习题6.1)
+    
+    与定义6.1后的证明类似，由$w(x)$积分为1可找到其大于某$\varepsilon$的正测度区间，考虑区间上积分可知大于等于$||f||_\infty$，而整体通过本性上界控制可知不超过$||f||_\infty$，从而得证。
+    
+    \item (P289 习题6.2)
+    
+    若在某正测集上绝对值大于$M$，取$f$为此集合的特征函数即得矛盾。
+    
+    \item (P289 习题6.4)
+    
+    记$\frac{1}{|x-t|^{1/2}}=k(x,t)$，则
+    \[||g||_2^2=\int_0^1\bigg|\int_0^1k(x,t)f(t)\mathrm{d}t\bigg|^2\mathrm{d}x\le\int_0^1\bigg(\int_0^1k(x,t)^2\mathrm{d}t\int_0^1f(t)^2\mathrm{d}t\bigg)\mathrm{d}x=||f||_2^2||k(x,t)||_2^2\]
+    代入计算即得证。
+    
+    \item (P289 习题6.5)
+    
+    由三角不等式，$||f(x)-\sin{x}||_2+||f(x)-\cos{x}||_2\ge||\sin{x}-\cos{x}||_2=\sqrt\pi>1$，即矛盾。
+    
+    \item (P290 习题6.8)
+    
+    \[\int_Ef^2(x)g(x)\mathrm{d}x\le\int_Ef^2(x)|g(x)|\mathrm{d}x\le||f^2||_{3/2}||g||_3=||f||_3^2||g||_3\]
+    由于左右相等可知中间取等，考虑取等条件可知$|f(x)|=|g(x)|$几乎处处成立，且由于
+    $$\int_Ef^2(x)(|g(x)|-g(x))\mathrm{d}x=0$$
+    假设$g$在某正测集上不为$|f|$可推矛盾，从而得证。
+    
+    
+    \item (P290 习题6.15)
+    
+    由$2\left<f,g\right>=||f+g||_2^2-||f||_2^2-||g||_2^2$类似定理6.15可计算得结论。
+\end{enumerate}
+\end{document}

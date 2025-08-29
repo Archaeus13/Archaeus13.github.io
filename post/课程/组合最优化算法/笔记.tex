@@ -1,0 +1,1256 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\pagestyle{headings}
+\title{\textbf{组合最优化算法\ 笔记}}
+\author{原生生物}
+\date{}
+\setcounter{tocdepth}{2}
+\setlength{\parindent}{0pt}
+\usepackage{amsmath,amssymb,amsthm,enumerate,geometry,paralist}
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\ctexset{section={number=\zhnum{section}}}
+\ctexset{subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+
+\newcommand{\exce}[2]{\S\textbf{练习}(#1)：{\kaishu #2}}
+\let\itemize\compactitem
+\newcommand{\proo}[1]{{\kaishu $\bullet$证明：
+\begin{itemize}
+    \item[] #1
+\end{itemize}
+}}
+\DeclareMathOperator*{\opt}{opt}
+\newcommand{\er}{\mathrm{e}}
+
+\begin{document}
+\maketitle
+
+*邵嗣烘老师《组合最优化算法》课程笔记，练习解答见对应的作业文件。
+
+*对集合以绝对值符号表集合大小。
+
+\tableofcontents
+
+\newpage
+\section{背包问题}
+\subsection{组合优化绪论}
+\exce{1.1}{描述P与NP问题。}
+
+组合优化：\textbf{有限}个对象集合(可行解集，或所有可能解)中找到最优的(有清晰的数学表示)；该集合\textbf{元素数目巨大}，往往随问题规模(用某种编码方式输入问题所需要的存储空间)指数提升，不可能遍历。
+
+\exce{1.2}{找三个组合优化问题(NP问题)使用遍历法，记录规模与计算时间。}
+
+1960年代：认为算法能被问题规模的多项式出发控制住，则称为有效。所有存在有效算法的问题可以称为一类，即P类。
+
+1970年代，发现一些“最难”的问题，称为NPC问题，它们具有等价性：只要某一个存在有效算法，则其他所有均存在有效算法。
+
+*目前为止，几乎任何组合优化问题(NP问题)要么是P的，要么是NPC的，或不知道属于哪类。
+
+组合优化主要讨论\textbf{有效算法}，也即讨论P问题，而计算复杂性理论会讨论NPC问题。
+
+*对P问题主要讨论最低复杂度的有效算法，而对NPC问题主要讨论有近似比保证的算法，两者共同目标为\textbf{避免穷举}找到最好(或较好)的解。
+
+下面以背包问题为例进行说明。
+
+\subsection{背包问题精确解}
+任给$n$个物品$I_1,\dots,I_n$，每个物品$I_i$体积$s_i$、价值$c_i$，要求$s_i$、$c_i$为正整数。另有容积$S$的背包，需要挑选物品集合$A$，使得其中物品体积和不超过$S$，且价值最高。
+
+\textbf{整数规划}：考虑$x_i$为0-1变量，为1代表放入，为0代表不放入，则问题变为$n$维0-1变量寻找可行的最优解，输入为$2n+1$个正整数，输出为$n$位，进一步变为求(下标默认为1到$n$)：
+$$\max c(\vec{x})=\sum_ic_ix_i$$
+使得
+$$\sum_is_ix_i\le S,\quad x_i\in\{0,1\}$$
+
+用opt表示上述问题的最优值，并进一步假定$s_i\le S$均成立，则至少有$\opt\ge c_i$均成立。
+
+\
+
+\textbf{精确算法}[动态规划]
+
+对编号集合$A$，令$s_A$表示其中物品体积和，$c_A$表示价值和。定义二元组$(i,j)$，其中$i$为1到$n$，$j$为0到$\sum_ic_i$间的整数。
+
+若存在$A\subset[1,i]$使得$c_A=j$且$s_A\le S$，则定义$c(i,j)$为使$s_A$最小的$A$，否则认为$c(i,j)$为nil，由此有
+$$\opt=\max_{c(n,j)\ne\text{nil}}j$$
+
+初始化：$c(1,j)$当且仅当$j=0$时为$\varnothing$，$j=c_1$时为$\{1\}$，否则为nil。
+
+循环计算：对$i$从2到$n$、$j$从0到$\sum_ic_i$，若
+$$c(i-1,j-c_i)\ne\text{nil}$$
+$$S_{c(i-1,j-c_i)}\le S-s_i$$
+且$c(i-1,j)=\text{nil}$或非空时$S_{c(i-1,j)}>S_{c(i-1,j-c_i)}+s_i$，则$c(i,j)=c(i-1,j-c_i)\cup\{i\}$，否则$c(i,j)=c(i-1,j)$。
+
+\exce{1.3}{证明此算法可以求出最优结果。}
+
+问题：复杂度为$O(n^3M)$，其中$M$为$c_i$中最大值，其为\textbf{伪多项式时间}算法，与输出内容有关。
+
+\subsection{性能比与贪婪算法}
+\textbf{近似算法}[贪婪算法]
+
+考虑价容比$c_i/s_i$，按大小递减排列，不妨设编号小的价容比更大，则直接按照从1到$n$的顺序放入$A$。若能全部放入则直接输出。否则设第$k+1$个加入时体积超过$S$，输出可行选择
+$$c_G=\max\bigg\{\sum_{i=1}^kc_k,c_{k+1}\bigg\}$$
+
+*只需要$O(n\ln n)$复杂度，远比精确算法快。贪婪算法可行的原因：模型可以排列出某种\textbf{单调性}结构。
+
+*这门课研究的主题是\textbf{有理论保障的近似算法}，此处性能比即为所需的理论保障[近似算法主要指最优值接近，可能与最优解相差甚远]。
+
+*并非所有离散算法中都存在可以满足需求的近似解，有时必须寻找最优解，例如密码学中，也不在这门课讨论的范畴内。
+
+性能比：$\opt<2c_G$，意味着结果不会太差。
+
+\proo{
+    若能全部放入则$\opt=c_G$，得证。否则，至少有
+    $$\opt\ge\sum_{i=1}^kc_i$$
+    考虑松弛后的连续线性规划问题，求
+    $$\max c(\vec{x})=\sum_ic_ix_i$$
+    使得
+    $$\sum_is_ix_i\le S,\quad x_i\in[0,1]$$
+    求出最优值$\hat{c}$\ (见下方练习)后，由定义有$\opt\le\hat{c}$，直接计算可知(不等号由无法放入第$k+1$个即得)
+    $$\hat{c}=\sum_{i=1}^kc_i+c_{k+1}\frac{S-\sum_{i=1}^ks_i}{s_{k+1}}<\sum_{i=1}^kc_i+c_{k+1}$$
+    由此即有$\hat{c}<2c_G$，从而$\opt<2c_G$，得证。
+}
+
+\exce{1.4}{证明上述线性规划问题最优解为
+$$x_j=\begin{cases}1&j=1,\dots,k\\\frac{1}{s_{k+1}}\big(S-\sum_{i=1}^ks_i\big)&j=k+1\\0&j>k+1\end{cases}$$
+}
+
+\
+
+*希望进一步提升性能比(即希望比2更小的倍数)。
+
+想法：\textbf{按价值分组}之后再按贪婪方法选择。
+
+将物品按照价值阈值$\alpha$分为两组，价值不超过$\alpha$的物品集合记为$A_\alpha$，其余为价值大于$\alpha$的物品，记为$B_\alpha$。
+
+为总价值大，应尽量多选出价值大于$\alpha$的物品，而最优解中最多能选择$\frac{\opt}{\alpha}\le\frac{2c_G}{\alpha}$个$B_\alpha$中的物品。
+
+\subsection{更好的近似算法}
+
+\textbf{分组贪婪}
+
+做法：对某$\alpha$，先利用贪婪找到$c_G$，并分出$A_\alpha$、$B_\alpha$，设$|A_\alpha|=m$，且按照价容比排序，计算出$\varepsilon=\frac{\alpha}{c_G}$。
+
+对满足$|I|\le2/\varepsilon$的集合$I\subset\{m+1,\dots,n\}$，若$\sum_{i\in I}s_i>S$则置$c(I)$为0，否则记$c_0(I)$为将体积去除$S-\sum_{i\in I}s_i$后对$A_\alpha$应用贪婪算法得到的结果，记
+$$c(I)=c_0(I)+\sum_{i\in I}c_i$$
+对所有$I$取最大值作为此算法最优结果$c_{GG}$。
+
+*分析可知计算代价最高的步骤为遍历过程，也即$O(n^{1+\varepsilon/2})$。
+
+性能比：$\opt\le(1+\varepsilon)c_{GG}$。
+
+\proo{
+    设最优解包含编号集合为$I^*$，设$\bar{I}=I^*\cap A_\alpha$，则根据之前分析可知$|\bar{I}|\le\frac{2}{\varepsilon}$，且满足(右侧因$A_\alpha$中所有物品价值不超过$\alpha$)
+    $$C(\bar{I})\le\opt\le C(\bar{I})+\alpha$$
+    而$c_{GG}\ge C(\bar{I})$，于是即得
+    $$\opt\le c_{GG}+\varepsilon c_G$$
+    只需证明$c_{GG}\ge c_G$即得结论，而通过考虑$c_G$中选择的$A_\alpha$中物品集合$I_G$，则$|I_G|\le\frac{c_G}{\alpha}$，于是$I_G$被遍历了，从而$c_G=C(\bar{I}_G)\le c_{GG}$，得证。
+}
+
+\
+
+另一种近似思路：\textbf{权衡算法}[复杂度出发改进]。
+
+设$M=\max_ic_i$，并令$c_k'=\lfloor\frac{nc_k(1+h)}{M}\rfloor$，这里$h$为某给定正整数。考虑价值变为$c_k'$后，用精确法求解最优解，利用精确算法复杂度可知其复杂度为$O(n^4h)$，记此最优解对应的原问题结果为$c_{GGG}$。
+
+性能比：$\opt\le\big(1+\frac{1}{h}\big)c_{GGG}$。
+
+\exce{2.1}{证明权衡算法的性能比结论。}
+
+\subsection{背包问题等价形式}
+
+*组合问题一般都有三种形式：\textbf{整数规划}形式、\textbf{判定}形式与\textbf{图}形式。
+
+背包问题判定形式：任给$2n+2$个正整数$S$、$s_1,\dots,s_n$、$c_1,\dots,c_n$与$K$，判定是否存在$x_1,\dots,x_n\in[0,1]$使得
+$$\sum_{i=1}^nx_is_i\le S,\quad \sum_{i=1}^nx_ic_i\ge K$$
+
+\exce{2.2}{证明背包问题存在有效算法，当且仅当其判定形式存在有效算法。}
+
+\
+
+背包问题图形式：构造网格所有顶点为$(i,j)$，其中$0\le i\le n+1$，$0\le j\le S$。
+
+当$i<n$时，连接$(i-1,j)\to(i,k)$当且仅当$j=k$，此时边权为0；或$k=j+s_i$，此时边权为$-c_i$。
+
+当$i=n$时，将所有$(n,j)$连接至$(n+1,S)$，边权为0。
+
+等价性：从$(0,0)$到$(n+1,S)$的最短路径即对应背包问题最优解的相反数。
+
+\exce{2.3}{验证图形式的等价性结论。}
+
+*非负权重最短路为P问题，但可能为负时为NPC问题。不过，由于此图为无环图，事实上仍然为P问题，但由于出现了$S$，算法事实上是伪多项式时间的。
+
+\section{最短路径问题}
+\subsection{定义与基础版本}
+\textbf{基本定义}
+
+考虑有向图$D=(V,A)$，其中$V$为顶点集，$A$为边集，每边可写为$(u,v)$或$u\to v$。
+
+\textbf{途}[walk]：顶点、边相间的序列$(v_0,a_1,v_1,a_2,v_2,\dots,a_m,v_m)$，其中$a_i$为$v_{i-1}\to v_i$的边($m$可以等于0)。
+
+\textbf{路}[pass]：顶点不重复的途。
+
+\textbf{长度}：给定每边$a$的权$l(a)$，途/路的长度定义为$\sum_il(a_i)$。
+
+\textbf{s-t图}：固定某两点为源点$s$与汇点$t$后的图。
+
+\
+
+\textbf{最短路问题-基础版本}
+
+假设所有边权均为1，求$s$为起点$t$为终点的最短(长度最小)路，定义长度为$s$与$t$间的\textbf{距离}，若不存在这样的路则称距离为$\infty$。
+
+\textbf{广度优先}遍历：记$V_i$为到$s$距离为$i$的节点集合，通过
+$$V_{i+1}=\bigg\{v\in V\backslash\bigcup_{k=0}^iV_i\ \bigg|\ \exists u\in V_i,(u,v)\in A\bigg\}$$
+
+由$V_0=\{s\}$开始遍历，直到找到$V_{i+1}=\varnothing$，可找到最短路径，且为多项式量级。
+
+\textbf{s-t割}：称$A'\subset A$为s-t割，若存$U\subset V$使得$s\in U,t\notin U$，且$A'$为所有以$U$为起点，$U$外的点为终点的边的集合(可记为$\delta^{out}(U)$)。
+
+\exce{2.4}{证明基础版本最短路问题的最优值等于不相交s-t割的最大个数。}
+
+\subsection{一般情况}
+\textbf{最短路问题-正权版本}
+
+若所有边权均为正，则可以通过$O(|V|^2)$量级的算法得到$s$为起点$t$为终点的最短路。
+
+\textbf{Dijkstra最短路径算法}：
+\begin{enumerate}
+    \item 取$U$，$f(s)=0$，其余点处$f(s)=\infty$。
+    \item 令$u$为满足$f(u)$最低的$u$；
+    \item 对每条边$a=(u,v)\in A$，若$f(v)>f(u)+l(a)$，则$f(v)=f(u)+l(a)$；
+    \item 从$U$中去除$u$，回到第二步，直到$U$为空集或其中所有点$f(u)=\infty$。
+\end{enumerate}
+
+命题：这样的迭代给出的$f(v)$即为$v$到$s$距离。
+
+\proo{
+    记实际距离为$d(v)$，根据计算过程可发现$f(v)\ge d(v)$，只需证明$v\in V\backslash U$时一直有$f(v)=d(v)$即可。
+
+    利用归纳，只要证明每步去除的$u$满足$f(u)=d(u)$即可。若否，考虑实际最短路中$U$中节点最小下标$i$，可发现$s$到$v_i$的路径长度已经$\ge f(u)$，矛盾。
+}
+
+*对稠密图，上述复杂度可以接受，但对稀疏图($|E|\ll|V|^2$)，希望有更快算法。 
+
+\textbf{优化}：考虑到主要复杂度在于求解最小顶点，算法可以达到$O((|E|+|V|)\log|V|)$量级。
+
+\exce{2.5}{利用合适的数据结构构造$O((|E|+|V|)\log|V|)$复杂度的正权最短路径算法。}
+
+\
+
+\textbf{最短路问题-无负环版本}
+
+若边权可以为负，一般无P算法，但不存在负长度[所有边权和为负]的有向环时，存在P算法。
+
+*满足上述条件的有向环，若存在s-t途，则最短s-t路存在。
+
+\proo{
+    由于不存在负长度有向环，有重复顶点时一定长度超过无重复顶点时，由此考虑所有途中长度最短的即为最短路。
+}
+
+\exce{2.6}{构造无负环最短路的Bellman-Ford算法并证明其正确性。}
+
+\subsection{优化问题算法设计概述}
+考虑可行域$\Omega$上函数$f(x)=f(x_1,\dots,x_n)$的最小/最大值问题，其取值范围离散。
+
+若原问题难以处理[可由\textbf{图灵机}严谨定义]，设计近似算法一般分为三步：
+\begin{enumerate}
+    \item 将原始问题输入参数、目标函数或可行域作一定\textbf{扰动}[实质上是更换问题，如背包问题时将离散取值修改为连续取值]，得到容易处理的问题。
+    \item 设计求解新问题的有精度[性能比]保证的算法。若所得解不是原问题的可行解，需要处理为某个接近的可行解。
+    \item 估计性能并得到保证。以值域为正的最小值问题为例，假设$f(x^*)$为$f(x)$在$\Omega$中的最优值，对应最优解$x^*$，在第一步中讲可行域限制到子集$\Gamma$上，且限制后的最优解为$y^*$，可认为$y^*$是$x^*$的近似。对$x^*$作一定变换成为$\Gamma$上的元素$y$，则有
+    $$\frac{f(y^*)}{f(x^*)}\le\frac{f(y)}{f(x^*)}$$
+    得到性能比的一个上界。
+\end{enumerate}
+
+\section{贪婪算法}
+\subsection{相关定义}
+贪婪算法一般流程：
+\begin{enumerate}
+    \item 定义\textbf{可能解集}[一般比可行域更大]上的\textbf{势函数}$f$；
+    
+    *这里假定可能解集是一些集合的集合。
+
+    \item 从$A=\varnothing$开始，每次添加元素$x_0$，使得$f(A\cup\{x_0\})$为所有$A\cup\{x\}$中的最优。
+    \item 当$f(A)$不能再改变时停止。
+\end{enumerate}
+
+\textbf{边际效应}：随着$A$中元素越来越多，增加单个元素带来的势函数增量在减小[数学上称为\textbf{次模性质}]。
+    
+*问题：如何刻画$A$不断增加元素的过程？
+
+\
+
+\textbf{独立系统}[世袭系统]：考虑元素个数有限的底集$E$，其子集族$\mathcal{I}$构成独立系统，若对任何$I\in\mathcal{I}$，有$I'\subset I\Rightarrow\in\mathcal{I}$。并称其中元素为独立集。
+
+*如图上无环子集构成的子集族。
+
+\textbf{基}：\textbf{个数最多}的独立子集。
+
+\textbf{环}：个数最少的\textbf{依赖集}[不独立的集合]。
+
+\textbf{秩}：独立集的最大元素个数。
+
+\textbf{最大独立子集问题}：设非负函数$c:E\to\mathbb{R}^+$，记$$c(I)=\sum_{e\in I}c(e)$$
+任给独立系统$(E,\mathcal{I})$与权函数$c$，求$\max_{I\in\mathcal{I}}c(I)$。
+
+
+\
+
+通过最大独立子集设计贪婪算法：
+\begin{itemize}
+    \item \textbf{最长哈密顿圈}问题：对某完全图，给定每边正整数权值，求权值最大的哈密顿圈。
+    \item 转化为最大独立子集问题。$E$为完全图边集，$\mathcal{I}$为$E$的某子集，其或构成哈密顿圈，或为若干不相交路的并，$c$即为边权。
+    \item 贪婪算法：势函数$f$即为此处的$c(I)$。将所有边按权值从大到小排序，从$A=\varnothing$开始，每次选出$c(x)$最大的满足$A\cup\{x\}\subset\mathcal{I}$的$x$加入，直到无法加入。
+\end{itemize}
+
+设这样选出的边为$I_G$，真实最优哈密顿圈为$I^*$。
+
+\textbf{性能比}：
+$$1\le\frac{c(I^*)}{c(I_G)}\le\max_{F\subset E}\frac{v(F)}{u(F)}$$
+这里$u(F)$为$F$的极大独立子集(不存在真包含它的独立子集)的个数最小值，$v(F)$为$F$的独立子集个数最大值(利用定义等价于极大独立子集个数最大值)。将不等号最右端记为$\rho$，其只依赖独立系统，与权函数无关。
+
+\proo{
+    不妨设$c(e_1)\ge c(e_2)\ge\dots\ge c(e_n)$，记$E_i$为$E$中前$i$条边构成的集合，则$E_i\cap I_G$一定是$E_i$的极大独立子集，否则能添入的边一定会被贪婪算法选到，矛盾。从而有$|E_i\cap I_G|\ge u(E_i)$。
+
+    另一方面，由$I^*$为极大独立子集，$E_i\cap I^*$也应为$E_i$的独立子集，从而$|E_i\cap I^*|\le v(E_i)$。
+    
+    注意到，当$e_i\in I_G$时$|E_i\cap I_G|-|E_{i-1}\cap I_G|=1$，否则为0，因此$c(I_G)$为
+    $$c(e_1)|E_1\cap I_G|+\sum_{i=2}^ne_i(|E_2\cap I_G|-|E_{i-1}\cap I_G|)=\sum_{i=1}^{n-1}|E_i\cap I_G|(c(e_i)-c(e_{i+1}))+|E_n\cap I_G|c(e_n)$$
+    同理
+    $$c(I^*)=\sum_{i=1}^{n-1}|E_i\cap I^*|(c(e_i)-c(e_{i+1}))+|E_n\cap I^*|c(e_n)$$
+    由于已经假设了$c(e_i)\ge c(e_{i+1})$，且$c(e_n)\ge0$，有
+    $$c(I^*)\le\sum_{i=1}^{n-1}v(E_i)(c(e_i)-c(e_{i+1}))+v(E_n)c(e_n)\le\sum_{i=1}^{n-1}\rho u(E_i)(c(e_i)-c(e_{i+1}))+\rho u(E_n)c(e_n)$$
+    而右侧即不超过$\rho c(I_G)$。
+}
+
+上述证明对任何最大独立子集问题的非负权函数贪婪算法均成立。事实上，最长哈密顿圈问题中必然有$\rho\le2$，从而性能比可以控制。
+
+\proo{
+    利用$u,v$定义，只需证明若$I,J$为$F$的两个极大独立子集，则$|J|\le 2|I|$。
+
+    若$F$中有哈密顿圈，或无哈密顿圈但有哈密顿路，则由定义则已经相等，同为顶点数/顶点数减一。
+
+    记$V_i$为$I$中度数为$i$的顶点集合，则$i$只能为1,2，$V_1$为端点集合，$V_2$为中间点集合，于是
+    $$|I|=|V_2|+\frac{1}{2}|V_1|$$
+
+    由于$I$为$F$的极大独立子集，$F$中每条边或至少有一个端点在$V_2$中，或连接$I$中同一条路的两个端点。
+
+    记$J_2\subset J$为满足至少有一个端点在$V_2$中的边集合，$J_1=J\backslash J_2$，利用$J$为极大独立集合，$J_2$最多只有两条边与$V_2$中的每一个顶点相连，因此$|J_2|\le 2|V_2|$。另一方面，$J_1$中每条边最多与$V_1$中两个端点相连，于是$|J_1|\le\frac{1}{2}|V_1|$，由此求和可知
+    $$|J|=|J_1|+|J_2|\le\frac{1}{2}|V_1|+2|V_2|\le 2|I|$$
+}
+
+\exce{3.1}{将最长有向哈密顿路问题转化为最大独立子集问题，并对应定义贪婪算法，计算性能比。}
+
+\exce{3.2}{设$(E,\mathcal{I})$是一个独立系统，且假设$E$的所有极大独立集都含有$k$个元素。考虑非负权函数$c$，仍类似前文定义$\rho$，并考虑权和最小的极大独立子集问题，设真实最优解$I'$，对应的贪婪算法选出的集合为$I_G$，证明
+$$c(I')\le c(I_G)\le\frac{1}{\rho}c(I')+\frac{\rho-1}{\rho}kM,\quad M=\max_ec(e)$$}
+
+\subsection{拟阵}
+对于任何独立系统，都可以定义相应的$\rho$，$\rho=1$时的独立系统称为\textbf{拟阵}。根据定义即可知拟阵等价于其任何子集的极大独立子集个数均相等。
+
+*上节所说的图上无环子集构成的子集族事实上构成拟阵，称为\textbf{图拟阵}。若图连通，则拟阵的基为图的生成树，结点个数$|V|-1$。
+
+\exce{3.3}{验证图拟阵构成拟阵。}
+
+*有限向量组的线性无关组构成拟阵，称为\textbf{线性拟阵}。
+
+利用拟阵的定义，若权函数\textbf{非负}，贪婪算法可以给出最大独立子集问题的最优解(设计方法类似最长哈密顿圈问题中)。
+
+反之，只要独立系统不为拟阵，对某个权函数，贪婪算法无法给出最优解。
+
+\proo{
+    存在子集合$F\subset E$使得$F$有两个大小不同的极大独立子集$I$、$I'$，不妨设$|I|>|I'|$，由此可定义如下的非负权函数
+    $$c(e)=\begin{cases}1+\varepsilon&e\in I'\\1&e\in I\backslash I'\\0&e\in E\backslash(I\cap I')\end{cases}$$
+    且$0<\varepsilon<\frac{1}{|I'|}$。进一步计算即得贪婪算法会取出$I'$，但$c(I)>c(I')$，并非最优解。
+}
+
+\
+
+若$E$的子集族$\mathcal{I}$构成独立系统，则$E$上存在$k$个拟阵$\mathcal{G}_1,\dots,\mathcal{G}_k$，使得
+$$\mathcal{I}=\bigcap_{i=1}^k\mathcal{G}_i$$
+
+\proo{
+    记$c_1,\dots,c_k$是$\mathcal{I}$的全部极小相关集(也即极小的非独立子集的集合)，下面构造对应的$\mathcal{G}_1,\dots,\mathcal{G}_k$。对每个$i=1,\dots,k$定义
+    $$\mathcal{G}_i=\{F\subset E\mid c_i\not\subset F\}$$
+
+    利用它们为全部极小相关集可验证$\mathcal{G}_i$为独立系统且交为$\mathcal{G}$，只需证明$\mathcal{G}_i$为拟阵。
+    
+    考虑$\mathcal{G}_i$中，对任何$F\subset E$，若$c_1\not\subset F$，则$F$自身(且只有自身)为极大独立子集，否则，其每一个极大独立子集为去掉$c_i$中任一个元素，由此个数均为$|F|-1$。
+}
+
+\exce{3.4}{验证证明中构造的$\mathcal{G}_i$为独立系统，且交为$\mathcal{G}$。}
+
+反之，设$\mathcal{I}=\cap_{i=1}^k\mathcal{G}_i$，且$\mathcal{G}_i$为拟阵，则$\mathcal{I}$为独立系统，且$\rho\le k$。
+
+\proo{
+    可验证独立系统的交仍为独立系统，从而得证其为独立系统。
+
+    对任何$E$的子集$F$，只需证明$v(F)\le ku(F)$，也即$F$的两个极大独立子集$I,J$大小至多相差$k$倍($|J|\le k|I|$)。
+
+    设$I_i$为$\mathcal{G}_i$中$I\cup J$的极大独立子集，且其包含$I$\ (考虑从$\mathcal{G}_i$的独立子集$I$开始添加元素，直到极大)。任给元素$e\in J\backslash I$，下证其最多出现在$k-1$个$I_i\backslash I$中。若否，其出现在全部$k$个$I_i$中，则$e\cup\{I\}$为$\mathcal{G}$的独立子集，与$I$的极大性矛盾。
+    
+    由此即得
+    $$\sum_{i=1}^k|I_i|-k|I|=\sum_{i=1}^k|I_i\backslash I|\le(k-1)|J\backslash I|\le (k-1)|J|$$
+    同理构造$J_i$可知(等号利用了拟阵的性质)
+    $$k|J|\le\sum_{i=1}^k|J_i|=\sum_{i=1}^k|I_i|\le k|I|+(k-1)|J|$$
+    从而得证。
+}
+
+*\textbf{最大三维匹配问题}：任给三个不相交的集合$X,Y,Z$，给定$X\times Y\times Z$上的非负权函数$c$，求$X\times Y\times Z$的一个子集，使得任意两三元组无共同元素，且三元组权和最大。
+
+给定拟阵$(E,\mathcal{G})$，对任何$A\subset E$，定义$A$的\textbf{秩}$r(A)$为其中极大独立子集的最大个数。
+
+\subsection{次模函数}
+\textbf{次模函数}：函数$f:2^E\to\mathbb{R}$\ (或要求值域非负)满足对$E$任意两子集$A,B$有
+$$f(A\cup B)+f(A\cap B)\le f(A)+f(B)$$
+
+\exce{3.5}{证明$r(A)$是次模函数。}
+
+*直接定义$f(A)=|A|$可发现其也为次模函数。
+
+\textbf{单调增函数}：满足$A\subset B$时$f(A)\le f(B)$的函数$f:2^E\to\mathbb{R}$。
+
+\textbf{边际效应}：对$2^E$上的次模函数$f$，则对任何$A,C\subset E$，有
+$$\Delta_Cf(A)\le\sum_{x\in C}\Delta_xf(A),\quad \Delta_Cf(A)=f(A\cup C)-f(A),\quad\Delta_xf(A)=f(A\cup\{x\})-f(A)$$
+
+\proo{
+    引理：$f$为次模函数等价于对任何$A\subset B\subset E,x\notin B$有
+    $$\Delta_xf(A)\ge\Delta_xf(B)$$
+
+    左推右：上式即为$f(A\cup\{x\})-f(A)\ge f(B\cup\{x\})-f(B)$，而
+    $$B\cup\{x\}=(A\cup\{x\})\cup B,\quad A=(A\cup\{x\})\cap B$$
+    从而由次模函数定义得证。
+
+    右推左：从$\Delta_xf(A)\ge\Delta_xf(B)$可以归纳得到对任何$C\cap B=\varnothing$有$\Delta_Cf(A)\ge\Delta_Cf(B)$，也即
+    $$f(A\cup C)-f(A)\ge f(B\cup C)-f(B)$$
+    对任何集合$D,E$考虑
+    $$A=D\cap E,\quad B=E,\quad C=D\backslash E$$
+    即可发现
+    $$f(D)+f(E)\ge f(D\cup E)+f(D\cap E)$$
+
+    \
+
+    原命题证明：由于交集部分不影响可不妨设$A\cap C=\varnothing$。设$C=\{x_1,\dots,x_n\}$，则利用引理可知
+    $$\Delta_Cf(A)=\sum_{i=1}^n\Delta_{x_i}f(A\cup\{x_1,\dots,x_{i-1}\})\ge\sum_{i=1}^n\Delta_{x_i}f(A)$$
+    从而得证。
+
+}
+
+\
+
+\textbf{最小集合覆盖}
+
+任给集合$S$与$S$的子集构成的子集族$\mathcal{C}$，满足其中所有子集并为$c$，求$\mathcal{C}$中个数最少的并为$S$的子集。对$\mathcal{C}$的一个子集族，定义函数
+$$f(\mathcal{A})=\bigg|\bigcup_{A\in\mathcal{A}}A\bigg|$$
+由于$f(\mathcal{A})+f(\mathcal{B})-f(\mathcal{A}\cup\mathcal{B})$表示既在$\cup_{A\in\mathcal{A}}A$中又在$\cup_{B\in\mathcal{B}}B$中的元素个数，由此利用定义其为次模函数，
+
+贪婪算法构造：输入$S$与$\mathcal{C}$，初始化$\mathcal{A}=\varnothing$，只要$f(\mathcal{A})<|S|$，选取$C\in\mathcal{C}$使得$\Delta_Cf(\mathcal{A})$最大，并加入$\mathcal{A}$，在$f(\mathcal{A})=|S|$时输出。
+
+\textbf{性能比}：若上述算法选出的集合个数为$g$，真实最优中元素个数为$m$，设$\gamma$为$\mathcal{C}$中最大子集的元素个数，则
+$$1\le\frac{g}{m}\le 1+\ln\gamma$$
+
+\proo{
+    设$\mathcal{A}_G=\{A_1,\dots,A_g\}$为贪婪法给出的解，且按照选出顺序排列，也即$A_{i+1}$可以覆盖最多未被$A_i$覆盖的元素，将后者构成的集合记为$U_i$，，并记$\mathcal{A}_i=\{A_1,\dots,A_i\}$，则$|U_i|=|S|-f(\mathcal{A}_i)$。
+    
+    设最优解为$\mathcal{A}^*=\{C_1,\dots,C_m\}$。由于$U_i$一定可被最优解覆盖，一定存在$C_j$至少覆盖了$U_i$中$\frac{|S|-f(\mathcal{A}_i)}{m}$个元素。
+
+    由此，利用定义可知
+    $$f(\mathcal{A}_{i+1})-f(\mathcal{A}_i)\ge\frac{|S|-f(\mathcal{A}_i)}{m}$$
+    也即
+    $$|S|-f(\mathcal{A}_{i+1})\le(|S|-f(\mathcal{A}_i))\bigg(1-\frac{1}{m}\bigg)$$
+    利用$\er$的定义归纳得
+    $$|U_i|\le|S|\er^{-i/m}$$
+    由于$|U_i|$从$|S|$递减到0，一定存在$i_0\le g$使得$|U_{i_0+1}|<m\le|U_{i_0}|$，之后最多迭代$m-1$次，由此
+    $$g\le i_0+m\le m\bigg(1+\ln\frac{|S|}{m}\bigg)\le m(1+\ln\gamma)$$
+}
+
+*事实上$f(\mathcal{A}_{i+1})-f(\mathcal{A}_i)$的估算可以由次模性推出，规避更具体的抽屉原理运用。
+\proo{
+    利用贪婪算法定义可知
+    $$f(\mathcal{A}_{i+1})-f(\mathcal{A}_i)=\Delta_{\mathcal{A}_{i+1}}f(\mathcal{A}_i)\ge\Delta_{C_j}f(\mathcal{A}_i)$$
+    对$j$求和即得
+    $$m\big(f(\mathcal{A}_{i+1})-f(\mathcal{A}_i)\big)\ge\sum_{j=1}^m\Delta_{C_j}f(\mathcal{A}_i)$$
+    而
+    $$|S|-f(\mathcal{A}_i)=f(\mathcal{A}_i\cup\mathcal{A}^*)-f(\mathcal{A}_i)=\sum_{j=1}^m\Delta_{C_j}f(\mathcal{A}_i\cup\mathcal{A}^*_{j-1})$$
+    再通过次模性可得成立。
+}
+
+\
+
+\textbf{最小次模覆盖}：给定$E$，定义$2^E$上单调增非负正规(即$f(\varnothing)=0$)次模函数$f$，求
+$$\min c(A)=\sum_{x\in A}c(x)$$
+这里$A\in\Omega_f=\{A\subset E\mid\forall x\in E,\Delta_xf(A)=0\}$。
+
+\exce{4.1}{给出能化为最小次模覆盖问题的实例，并结合实例解释下方性能比结论的含义。}
+
+贪婪算法构造：只要存在$x\in E$使得$\Delta_xf(A)>0$，就选取$\frac{\Delta_xf(A)}{c(x)}$最大的$x$，并置$A=A\cup\{x\}$。
+
+\textbf{性能比}：
+$$\frac{c(A_G)}{c(A^*)}\le H(\gamma),\quad\gamma=\max_{x\in E}f(\{x\}),\quad H(t)=\sum_{i=1}^t\frac{1}{i}\le1+\ln t$$
+
+\proo{
+    引理：$f$为单调增次模函数的充要条件为
+    $$\forall A\subset B\subset E,\quad\forall x\in E,\quad\Delta_xf(A)\ge\Delta_xf(B)$$
+    
+    引理证明：考虑一个一个添入元素可知单调增等价于
+    $$\forall A\subset E,\quad\forall x\in E,\quad\Delta_xf(A)\ge0$$
+    由此结合次模函数的等价定义(见之前证明中引理)即得证。
+
+    \
+
+    引理2：$f$为单调增次模函数，则
+    $$\Omega_f=\{A\subset E\mid f(A)=f(E)\}$$
+
+    证明：留作习题。
+
+    \
+
+    命题证明：记
+    $$A^*=\{y_1,\dots,y_h\},\quad r_i=\Delta_{x_i}f(A_{i-1}),\quad\zeta_{y,i}=\Delta_yf(A_{i-1}),\quad\zeta_{y,k+1}=\Delta_yf(A_G)=0$$
+    定义$A^*$上的权函数$w$，希望将$A_G$的权分配给$A^*$中元素，且其中每个$y$得到的权不超过$H(\gamma)c(y)$，也即想要
+    $$c(A_G)\le\sum_{y\in A^*}w(y),\quad w(y)\le c(y)H(\gamma)$$
+    将上方条件称为第一式与第二式，我们验证如下的定义符合要求：
+    $$w(y)=\sum_{i=1}^k(\zeta_{y,i}-\zeta_{y,i+1})\frac{c(x_i)}{\gamma_i}$$
+    利用次模性与正规性计算可发现
+    $$\sum_{y\in A_*}\sum_{i=1}^k(\zeta_{y,i}-\zeta_{y,i+1})=\sum_{y\in A^*}f(\{y\})\ge\sum_{j=1}^n\Delta_{y_j}f(A^*_{j-1})=f(A^*)=f(A_G)=\sum_{i=1}^kr_i$$
+
+    \
+
+    第一式：配凑得
+    $$w(y)=\frac{c(x_1)}{r_1}\zeta_{y,1}+\sum_{i=2}^k\bigg(\frac{c(x_i)}{r_i}-\frac{c(x_{i-1})}{r_{i-1}}\bigg)\zeta_{y,i}$$
+    $$c(A_G)=\sum_{i=1}^k\bigg(\sum_{j=i}^kr_j-\sum_{j=i+1}^kr_j\bigg)\frac{c(x_i)}{r_i}=\frac{c(x_1)}{r_1}\sum_{j=1}^kr_j+\sum_{i=2}^k\bigg(\frac{c(x_i)}{r_i}-\frac{c(x_{i-1})}{r_{i-1}}\bigg)\sum_{j=i}^kr_j$$
+    因此只需证
+    $$\sum_{j=i}^kr_j\le\sum_{y\in A^*}\zeta_{y,i}$$
+    而左侧为
+    $$f(A_G)-f(A_{i-1})=f(A^*)-f(A_{i-1})=f(A^*\cup A_{i-1})-f(A_{i-1})=\Delta_{A^*}(A_{i-1})\le\sum_{y\in A_k}\Delta_yf(A_{i-1})$$
+    从而得证。
+
+    \
+
+    第二式：对$\zeta_{y,i}$进行讨论。若其大于0，利用贪婪算法定义可知
+    $$\frac{c(x_i)}{r_i}\le\frac{c(y)}{\zeta_{y,i}}$$
+    再由定义可知$\zeta_{y,i}\ge\zeta_{y,i+1}$，于是可记$l_y$为使得$\zeta_{y,i}>0$的最大$i$，有
+    $$w(y)=\sum_{i=1}^{l_y}(\zeta_{y,i}-\zeta_{y,i+1})\frac{c(x_i)}{r_i}\le\sum_{i=1}^{l_y}(\zeta_{y,i}-\zeta_{y,i+1})\frac{c(y)}{\zeta_{y,i}}$$
+    利用放缩可估算出前方系数不超过$H(f(\{y\}))\le c(y)H(\gamma)$。
+}
+
+*这里的证明思路为微调法，通过权重分配估计出结果。
+
+\exce{4.2}{证明$f$为单调增次模函数时
+$$\Omega_f=\{A\subset E\mid f(A)=f(E)\}$$}
+
+*练习(4.3)见附录。
+
+*记$A_G=\{x_1,\dots,x_k\}$，$A_0=\varnothing$，$A_i=\{x_1,\dots,x_i\}$，若对每个$i=1,\dots,k$有$\Delta_{x_i}f(A_{i-1})\ge c(x_i)$，则
+$$c(A_G)\le\bigg(1+\ln\frac{f(A^*)}{c(A^*)}\bigg)c(A^*)$$
+
+\proo{
+    仍设$A^*=\{y_1,\dots,y_h\}$，记$a_i=f(A^*)-f(A_i)$，且$a_0=f(A^*)$，则有
+    $$\Delta_{x_i}f(A_{i-1})=a_{i-1}-a_i$$
+    由选择$x_j$时的策略并放缩可得
+    $$\frac{a_{j-1}-a_j}{c(x_j)}\ge\max_{1\le i\le h}\frac{\Delta_{y_i}f(A_{j-1})}{c(y_i)}\ge\frac{\sum_{i=1}^h\Delta_{y_i}f(A_{j-1})}{c(A^*)}\ge\frac{\Delta_{A^*}f(A_{j-1})}{c(A^*)}=\frac{f(A^*)-f(A_{j-1})}{c(A^*)}$$
+    倒数第二个等号是由于真解在$\Omega_f$中。由于分母即为$a_{j-1}$，整理即得对任何$j=1,\dots,k$有
+    $$a_j\le a_{j-1}\bigg(1-\frac{c(x_j)}{c(A^*)}\bigg)$$
+    另一方面，对$a_0$，利用假设有
+    $$a_0=f(A^*)=f(A_k)\ge\sum_{i=1}^kc(x_i)=c(A_k)\ge c(A^*)$$
+    且$a_k=0$，
+
+    由于$f$单调增，$a_i$单调减，由此一定存在某个非负整数$r\le k$使得
+    $$a_{r+1}<c(A^*)\le a_r$$
+    而通过之前的估算可知
+    $$\frac{a_r-a_{r+1}}{c(A_{r+1})}\ge\frac{a_r}{c(A^*)}$$
+    为了结合以上两式，设$a''=a_r-c(A^*)\ge0$、$a'=c(A^*)-a_{r+1}>0$，且将$c(A_{r+1})$拆分成$c'$与$c''$的和，使得$c'a''=a'c''$\ (即比例相同)，则有
+    $$\frac{a'}{c'}=\frac{a_r-a_{r+1}}{c(A_{r+1})}\ge\frac{a_r}{c(A^*)}$$
+    于是再利用$c'=c(A_{r+1})-c''$可计算得放缩
+    $$c(A^*)=a_{r+1}+a'\le a_r\bigg(1-\frac{c''}{c(A^*)}\bigg)$$
+    进一步，反复利用之前估算放缩$a_r$可知
+    $$c(A^*)\le a_0\prod_{i=1}^r\bigg(1-\frac{c(x_1)}{c(A^*)}\bigg)\bigg(1-\frac{c''}{c(A^*)}\bigg)$$
+    再由$1+x\le\er^x$可知
+    $$\frac{c(A^*)}{a_0}\le\exp\bigg(-\frac{c''+\sum_{i=1}^rc(x_i)}{c(A^*)}\bigg)$$
+    取$\ln$即
+    $$c''+\sum_{i=1}^rc(x_i)\le c(A^*)\ln\frac{a_0}{c(A^*)}$$
+    而
+    $$\sum_{i=r+2}^kc(x_i)\le\sum_{i=r+2}^k\Delta_{x_i}f(A_{i-1})=a_{r+1}$$
+    将上两式的左侧求和加$c'$，并将$c'$放大为$a'$\ (利用之前得到的估计与$a_r\ge c(A^*)$)，即可得到最终估算
+    $$c(A_k)\le c(A^*)\ln\frac{a_0}{c(A^*)}+a'+a_{r+1}$$
+    这就是结论。
+
+}
+
+\subsection{最大割问题}
+最大割问题：对无向无权图$G=(V,E)$，对于$A,B\subset V$，用$E(A,B)$表示所有连接$A,B$中顶点的边集，最大割即为要找
+$$\max_{A\subset V}|E(A,A^c)|$$
+
+*利用蒙特卡洛方法可以做到期望意义下近似比$\alpha_{GW}\approx 0.878$。
+
+\exce{4.4}{设计近似比$\ge1/2$的最大割贪婪算法。}
+
+另一个近似比：$\alpha_T\approx0.531$，人类历史上第一个大于0.5下界的最大割贪婪算法，称为\textbf{递归谱分解}。
+
+思路：给图上的顶点赋予$\{-1,0,1\}$中的取值以逐步确定(某种\textbf{松弛}想法)，总体想法即，给定每点处$-1,0,1$中的某个值，记$G_0=G$，以某种规则定义$G$上每个顶点的取值，$L_1$、$U_1$、$R_1$表示$G_0$中取值为$-1,0,1$的顶点集合，取$G_1=G_0[U_1]$代表$U_1$在$G$上的\textbf{诱导子图}(只保留$U_1$中的顶点与连接$U_1$两点的边)，并重新按规则定义取值、作分解，直到某次分解后不再存在$U_N$，设此次对应的为$G_{N-1}$，其分解出$L_N$与$R_N$。
+
+从后往前，得到全图划分为一系列的顶点子集
+$$(L_N,R_N),\quad(L_{N-1},R_{N-1}),\quad\dots,\quad(L_1,R_1)$$
+
+我们只需要定义合适的\textbf{划分规则}与\textbf{拼合规则}即可。
+
+\begin{itemize}
+    \item \textbf{拼合规则}
+    
+    希望每次拼出来的是$G_N$中的较大割。
+    
+    记第$t$轮中
+    $$C_t=|E(L_t,R_t)|,\quad X_t=|E(L_t\cup R_t,U_t)|,\quad M_t=C_t+X_t+|E(L_t,L_t)|+|E(R_t,R_t)|$$
+    这里$M_t$即为总边数。
+
+    第一步，考虑$G_{N-1}$的分割，有$(L_{N-1}\cup L_N,R_{N-1}\cup R_N)$与$(R_{N-1}\cup L_N,L_{N-1}\cup R_N)$两种备选，前者的割值为
+    $$C_N+C_{N-1}+|E(L_N,R_{N-1})|+|E(L_{N-1},R_N)|$$
+    后者为
+    $$C_N+C_{N-1}+|E(L_N,L_{N-1})|+|E(R_{N-1},R_N)|$$
+    而又注意到
+    $$X_{N-1}=|E(L_N,R_{N-1})|+|E(L_{N-1},R_N)|+|E(L_N,L_{N-1})|+|E(R_N,R_{N-1})|$$
+    由此选取较大的结果必然满足割值至少为
+    $$C_N+C_{N-1}+\frac{1}{2}X_{N-1}$$
+
+    不断重复上述方法合并可以得到最终的两分割。
+
+    *由此，只要分的某一步
+    $$C_t+\frac{1}{2}X_t\le\frac{1}{2}M_t$$
+    新产生的割值过小，可直接采用近似比$1/2$的贪婪算法，会有更好的效果。
+
+    \item \textbf{划分规则}
+    
+    0.531近似比对应方案：每步最大化
+    $$\frac{C_t}{M_t-X_t/2}$$
+
+    0.614近似比对应方案：每步最大化
+    $$\frac{C_t+X_t/2}{M_t}$$
+
+    *后者更符合之前的割值估算，而事实上计算有
+    $$1\ge\frac{C_t+X_t/2}{M_t}\ge\frac{C_t}{M_t-X_t/2}$$
+    这也是后者相较前者更好的原因。
+
+    前者的理由：计算可发现
+    $$\frac{C_t}{M_t-X_t/2}=\frac{2|E(L_t,R_t)|}{\mathrm{vol}(L_t\cup R_t)}$$
+    这里vol指度数之和，也即其在选择
+    $$\max\bigg\{\frac{2|E(A,B)|}{\mathrm{vol}(A\cup B)},\quad A\cap B=\varnothing,\mathrm{vol}(A\cup B)\ne0\bigg\}$$
+    
+    *相当于寻找某个子图中的最大割，称为对偶Cheeger问题。虽然直接求解此问题比最大割问题更难，但其更易于估算。
+
+    针对图$G$中的对偶Cheeger问题，将其写为三值向量形式，也即找
+    $$\max\bigg\{1-\frac{\sum_{\{i,j\}\in E}|y_i+y_j|}{\sum_{i\in V}d_i|y_i|},\quad\vec{y}\in\{-1,0,1\}^n,\sum_{i\in V}d_i|y_i|\ne0\bigg\}$$
+
+    \exce{4.5}{验证对偶Cheeger问题可以等价为三值向量形式。}
+
+    将其写成
+    $$\min\bigg\{\frac{\sum_{\{i,j\}\in E}|y_i+y_j|}{\sum_{i\in V}d_i|y_i|},\quad\vec{y}\in\{-1,0,1\}^n,\sum_{i\in V}d_i|y_i|\ne0\bigg\}$$
+    只需对此问题进行近似算法设计即可。
+
+    *不妨假设\textbf{所有点的度数均非零}(否则其不会在此问题中有影响)，这样$\vec{y}$只要所有分量不全为0即可。
+\end{itemize}
+为进行近似比分析，设$G_N=G[U_t]=(V_t,E_t)$，并记$\rho_t=|E_t|/|E|$，其应随$t$单调下降，且$\rho_0=1$，记$\rho_N=0$。可发现根据定义有
+$$M_t=(\rho_t-\rho_{t+1})|E|$$
+设并图的最大割值为(最大割一定超过原图一半的证明见贪婪算法)
+$$(1-\varepsilon)|E|,\quad\varepsilon\in\bigg(0,\frac{1}{2}\bigg)$$
+
+\
+
+待解决问题：给出三值向量化后的\textbf{对偶Cheeger问题}的近似算法。
+
+思路：谱方法[Spectral]，从比较好的连续解$\vec{x}$产生离散解$\vec{y}$，并保证近似比(这里$r$为$\varepsilon$某函数)
+$$\frac{\sum_{\{i,j\}\in E}|y_i+y_j|}{\sum_{i\in V}d_i|y_i|}\le r(\varepsilon)$$
+
+\textbf{连续解构造}：取$\vec{x}$为图的Laplace矩阵$L=D-A$的广义特征值问题$L\vec{x}=\lambda D\vec{x}$属于最大特征值的特征向量(这里$D$为各点度数排成的对角阵，$A$为邻接矩阵，在无向图中对称)，下先证明有
+$$\vec{x}^T(D+A)\vec{x}\le2\varepsilon\vec{x}^TD\vec{x}$$
+\proo{
+    省略向量符号。原式可等价于
+    $$x^T(D-A)x\le2(1-\varepsilon)x^TDx$$
+    其即等价于
+    $$\frac{x^T(D-A)x}{x^TDx}\ge2(2-\varepsilon)$$
+    利用矩阵特征值理论可知
+    $$x=\arg\max_{x\ne\mathbf{0}}\frac{x^T(D-A)x}{x^TDx}$$
+    于是有(中间的等号是由于可验证$y^T(D-A)y$即是最大割问题的矩阵表示)
+    $$\frac{x^T(D-A)x}{x^TDx}\ge\max_{y_i\in\{-1,1\}}\frac{y^T(D-A)y}{y^TDy}=\frac{4(1-\varepsilon)|E|}{2|E|}=2(1-\varepsilon)$$
+}
+
+\exce{5.1}{证明$L$对应的广义特征值问题$L\vec{x}=\lambda D\vec{x}$属于最大特征值的特征向量$\vec{x}$满足
+$$\vec{x}=\arg\max_{\vec{x}\ne\mathbf{0}}\frac{\vec{x}^TL\vec{x}}{\vec{x}^TD\vec{x}}$$}
+
+由上方结论，变形可发现有
+$$\frac{\sum_{\{i,j\}\in E}(x_i+x_j)^2}{\sum_{i\in V}d_ix_i^2}\le 2\varepsilon$$
+
+\textbf{离散解构造}：产生$n$个三值向量$\vec{y}^k\in\{-1,0,1\}^n$，满足
+$$y_i^k=\begin{cases}-1&x_i<-|x_k|\\1&x_i>|x_k|\\0&|x_i|\le|x_k|\end{cases}$$
+并取使得结果最小者为$\vec{y}$，则应有
+$$\frac{\sum_{\{i,j\}\in E}|y_i+y_j|}{\sum_{i\in V}d_i|y_i|}\le2\sqrt\varepsilon$$
+
+*称为双阈值谱分解[2TSC]，这里双阈值即为$\pm|x_k|$。
+
+\proo{
+    不妨设$|x_1|\le|x_2|\le\cdots\le|x_n|=1$\ (所有过程均齐次，乘比例不影响)。考虑如下随机：
+    \begin{enumerate}
+        \item 按均匀分布取$t\in[0,1]$；
+        \item 向量$\vec{Y}\in\{-1,0,1\}^n$定义为
+        $$Y_i=\begin{cases}-1&x_i<-\sqrt{t}\\1&x_i>\sqrt{t}\\0&|x_i|\le\sqrt{t}\end{cases}$$
+    \end{enumerate}
+    下证
+    $$\frac{\sum_{\{i,j\}\in E}|y_i+y_j|}{\sum_{i\in V}d_i|y_i|}\le\frac{\mathbb{E}\big(\sum_{\{i,j\}\in E}|Y_i+Y_j|\big)}{\mathbb{E}\big(\sum_{i\in V}d_i|Y_i|\big)}$$
+    左侧为(讨论$t\in[|x_i|,|x_{i+1}|]$的情况，这时$\vec{Y}=\vec{y}^i$)
+    $$\min_{1\le k\le n}\frac{\sum_{\{i,j\}\in E}|y_i^k+y_j^k|}{\sum_{i\in V}d_i|y_i^k|}=\min_{t\in[0,1]}\frac{\sum_{\{i,j\}\in E}|Y_i+Y_j|}{\sum_{i\in V}d_i|Y_i|}$$
+    根据上方讨论，将期望展开为求和，利用
+    $$\min_i\frac{a_i}{b_i}\le\frac{\sum_ia_i}{\sum_ib_i}$$
+    即可发现成立。
+
+    直接计算可知
+    $$\mathbb{E}(|Y_i|)=\int_0^{x_i^2}1\mathrm{d}t=x_i^2$$
+    为计算$\mathbb{E}(|Y_i+Y_j|)$，按$x_i$、$x_j$是否同号讨论，即可得到
+    $$\mathbb{E}(|Y_i+Y_j|)=\begin{cases}|x_i^2-x_j^2|&x_ix_j<0\\x_i^2+x_j^2&x_ix_j>0\end{cases}$$
+    无论何种情况均有
+    $$\mathbb{E}(|Y_i+Y_j|)\le|x_i+x_j|(|x_i|+|x_j|)$$
+    最终得到(利用Cauchy不等式后将$(|x_i|+|x_j|)^2$放为$2x_i^2+2x_j^2$)
+    $$\frac{\sum_{\{i,j\}\in E}|y_i+y_j|}{\sum_{i\in V}d_i|y_i|}\le\frac{\sum_{\{i,j\}\in E}|x_i+x_j|(|x_i|+|x_j|)}{\sum_id_ix_i^2}\le\frac{\sqrt{\sum_{\{i,j\}\in E}(x_i+x_j)^2\sum_{\{i,j\}\in E}(2x_i^2+2x_j^2)}}{\sum_id_ix_i^2}$$
+    注意到分母第二项即为$2d_ix_i^2$即可得结论。
+}
+
+\
+
+\textbf{最终近似比}：在$0<\varepsilon<\frac{1}{16}$时，设上述递归谱分解得到的割值为$c$，有
+$$c\ge(1-4\sqrt\varepsilon+8\varepsilon)|E|$$
+
+*这里$\frac{1}{16}$来自$\frac{1}{2}=2\sqrt\varepsilon$，若$\varepsilon>\frac{1}{16}$，求解对偶Cheeger问题得到的近似比不如直接使用贪婪算法，此时计算可得近似比至少
+$$\frac{1/2|E|}{(1-\varepsilon)|E|}>0.533$$
+否则有近似比至少
+$$\frac{1-4\sqrt\varepsilon+8\varepsilon}{1-\varepsilon}\ge\frac{1}{2}(\sqrt{65}-7)\approx0.531$$
+
+\exce{5.2}{从割值的估算出发验算最终的近似比结论。}
+
+\proo{
+    先证明$G_t$的最大割值至少为$\big(1-\frac{\varepsilon}{\rho_t}\big)|E_t|$。
+
+    由于$\varepsilon|E|$的边不在$G$的最大割中，对最大割在$G_t$上诱导的而分割，进行二分割后剩余的边至多$\varepsilon|E|$，也即$G_t$的割值至少为
+    $$\rho_t|E|-\varepsilon|E|=\bigg(1-\frac{\varepsilon}{\rho_t}\bigg)|E_t|$$
+    对$G_t$进行递归谱分解后，至少会得到$C_t+\frac{1}{2}X_t$的边，因此所得比例至少为
+    $$\frac{C_t+X_t/2}{M_t}\ge\frac{C_t}{M_t-X_t/2}=\frac{2|E(L_t,R_t)|}{\mathrm{vol}(L_t\cup R_t)}\ge1-2\sqrt\frac{\varepsilon}{\rho_t}$$
+    由此RSC算法至少得到边数为
+    $$\bigg(1-2\sqrt\frac{\varepsilon}{\rho_t}\bigg)(\rho_t-\rho_{t+1})|E|$$
+    若$\rho_t\ge16\varepsilon$且$\rho_{t+1}\ge16\varepsilon$，使用双阈值方法生成分割，此时数量即为
+    $$|E|\int_{\rho_{t+1}}^{\rho_t}\bigg(1-2\sqrt{\frac{\varepsilon}{\rho_t}}\bigg)\mathrm{d}r\ge|E|\int_{\rho_{t+1}}^{\rho_t}\bigg(1-2\sqrt{\frac{\varepsilon}{r}}\bigg)\mathrm{d}r$$
+
+    若$\rho_t\ge16\varepsilon\ge\rho_{t+1}$，则部分用双阈值方法， 部分采用贪婪，分界点在$r=16\varepsilon$，此时界为
+    $$|E|(\rho_t-16\varepsilon)\bigg(1-2\sqrt{\frac{\varepsilon}{\rho_t}}\bigg)+|E|(16\varepsilon-\rho_{t+1})\frac{1}{2}$$
+    与上类似积分放缩为
+    $$|E|\int_{16\varepsilon}^{\rho_t}\bigg(1-2\sqrt{\frac{\varepsilon}{r}}\bigg)\mathrm{d}r+|E|\int_{\rho_{t+1}}^{16\varepsilon}\frac{1}{2}\mathrm{d}r$$
+    若$\rho_t<16\varepsilon$且$\rho_{t+1}<16\varepsilon$，全部使用贪婪算法，界放为
+    $$|E|\int_{\rho_{t+1}}^{\rho_t}\frac{1}{2}\mathrm{d}r$$
+
+    综上，全部拼接后可得最终切割后至少得到的边数为
+    $$|E|\bigg(\int_{16\varepsilon}^1\bigg(1-2\sqrt\frac{\varepsilon}{r}\bigg)\mathrm{d}r+\int_0^{16\varepsilon}\frac{1}{2}\mathrm{d}r\bigg)$$
+    直接积分得到结果。
+}
+
+\section{图与线性规划}
+\subsection{图论问题}
+\textbf{团}：即完全子图，图中最大团的大小称为\textbf{团数}$\omega(G)$。
+
+\textbf{独立集}：两两互不相邻的顶点构成的集合，图中最大独立集的大小称为\textbf{独立数}$\alpha(G)$。
+
+\textbf{Ramsey数}：任意正整数$r,s$，存在最小正整数$n$，使得$n$阶完全图二染色必然出现颜色$A$的$r$阶团或颜色$B$的$s$阶团，记为$R(r,s)$。
+
+*可以构造出$R(3,3)>5$，讨论可进一步证明$R(3,3)=6$。
+
+*求解精确值非常困难，相关工作基本为上下界估计。
+
+\
+
+\textbf{minor}：$H$可以通过原图$G$进行若干次删点、删边、收缩边(将一条边与相邻两顶点合为一个)得到。
+
+\textbf{着色}：使得相邻顶点不同色的对顶点的染色，至少需要的颜色数称为图的\textbf{色数}$\chi(G)$。$k$-染色为使用$k$种颜色的满足条件的染色方法。
+
+\textbf{Hadwiger猜想}：若$G$的是无环图且不包含$K_t$-minor，则其色数小于$t$。
+
+*其$t=5$的情况可以推出四色定理。
+
+*由于判断是否存在指定minor的算法是低复杂度的，其被彻底解决可以带来图染色算法的飞跃发展。
+
+\
+
+\textbf{顶点覆盖}：与图中所有边都相交的顶点集。最小顶点覆盖的大小称为\textbf{顶点覆盖数}$\tau(G)$。
+
+\textbf{团覆盖}：一组团$C_1,\dots,C_K$使得每个$C_i$是图的一个团，且它们的并集覆盖了$V$。最少的团覆盖的大小称为图的\textbf{团覆盖数}$\bar{\chi}(G)$。
+
+\
+
+\textbf{补图}：顶点集与$G$相同，与$G$的边之并为完全图，且与$G$无公共边的图，记为$\bar{G}$。
+
+基本关系：
+\begin{itemize}
+    \item $\alpha(G)=\omega(\bar{G})$；
+    \item $\bar{\chi}(G)=\chi(\bar{G})$；
+    \item $\omega(G)\le\chi(G)$；
+    \item $\alpha(G)\le\bar{\chi}(G)$；
+    \item $\tau(G)=|V|-\alpha(G)$。
+\end{itemize}
+
+\exce{5.3}{证明上述图的基本量间的关系。}
+
+\textbf{k-部图}：能将$n$个顶点划分为$k$个非空子集，使得仅当顶点属于不同子集时存在边。
+
+\textbf{Tur\'an图}：能将$n$个顶点划分为$k$个非空子集，使得当且仅当属于不同子集时存在边。这样的图记作$T_{k,n}$。
+
+Tur\'an定理：若$G$是简单图且其中不包含大于等于2阶的完全图，则$e(G)\le e(T_{k-1,n})$，这里$e$代表边的个数。
+
+\
+
+\textbf{一些P问题}
+
+*\textbf{独立数计算}是NPC问题(可以约化为SAT问题)。此外，判断$\alpha(G)\ge k$是否成立或$\alpha(G)\le4$是否成立仍为NPC问题；对3-正则(每个顶点度数为3)平面图$G$，计算独立数仍为NPC问题。
+
+*根据之前基本关系，团数与顶点覆盖数也为NPC问题。
+
+*独立集问题可以约化为点染色问题，由此色数也为NPC问题。对3-正则平面图$G$，计算色数为NPC问题；判定3-正则图是否色数为3是NPC问题。但\textbf{判定色数是否为2是P问题}。
+
+\
+
+\textbf{平面图}：一个图是平面图当且仅当$K_5$和$K_{3,3}$不为其minor(这里$K_{3,3}$代表两部分均三个顶点且互相完全连接的二部图)。
+
+*也可描述为不包含$K_5$或$K_{3,3}$的剖分，剖分指任何边上可以随便加点。
+
+*\textbf{四色定理}：平面图色数至多为4。
+
+\textbf{AGC问题}：找到色数不超过$c$的图的$d$-染色，其中$3\le c\le d$。
+
+*即使对$c=3$、$d=6$的情况，复杂度仍然未知。
+
+\subsection{线性规划}
+*本节及之后主要讨论线性规划问题[Linear Programing, LP]与利用线性规划构造的近似算法。
+
+\
+
+\textbf{标准形式}
+$$\min_\Omega cx,\quad\Omega=\{x\in\mathbb{R}^n\mid Ax=b,\ x\ge0\}\quad A\in\mathbb{R}^{m\times n},\quad c\in\mathbb{R}^{1\times n},\quad b\in\mathbb{R}^{m\times 1}$$
+
+*几何：可行域$\Omega$为多面体，称\textbf{顶点}(只要$x$为$y,z$的中点，且$x,y,z\in\Omega$，则必须$x=y=z$的$x$)为极点。
+
+若最优解存在，则\textbf{至少一个最优解在顶点上}。
+
+\proo{
+    设最优解中含有零分量最多的一个(未必唯一)为$x^*$，下证$x^*$为顶点。若否，存在$y$、$z$使得$x^*=\frac{y+z}{2}$，且三者互不相同。
+
+    由于$x^*$为最优解，从$cx^*=\frac{1}{2}(cy+cz)$可知只能$cy=cz=cx^*$，从而三者均为最优解，于是$x^*$与$y$连线上的任何点$x^*+\alpha(y-x^*),\alpha\in\mathbb{R}$直接计算可知均为最优解，记此集合为$l$。
+
+    验证可知$l$上任何点满足$Ax=b$，其参数方程为
+    $$(x^*_1+\alpha(y_1-x^*_1),x^*_2+\alpha(y_2-x^*_2),\dots,x^*_2+\alpha(y_n-x^*_n))$$
+    对$x^*$为0的分量，若$y$大于0则$z$小于0，反之亦然，于是从$y,z\in\Omega$可知$y$对应分量为0，由此直线上任何点在$x^*$为0的分量为0。但是，由于$y\ne x^*$，一定存在$y_j-x^*_j\ne0$。对所有满足此条件的分量$j_1,\dots,j_r$，选取出其中$\frac{x^*_j}{|y_j-x^*_j|}$最小的一个，记为$j_0$，并取$\alpha=-\frac{x^*_{j_0}}{y_{j_0}-x^*_{j_0}}$。计算可发现这样的$\alpha$可以保证结果仍在$\Omega$中，且第$j_0$个分量为0，而$x^*$的第$j_0$个分量为0，又已知$x^*$为0的分量在$l$中均为0，即与为0分量最多矛盾。
+}
+
+设$A$第$i$列为$a_i$，若$x\in\Omega$，则$x$是顶点当且仅当满足$x_j\ne0$的$x_j$\ (记为$J=\{j_1,\dots,j_k\}$)对应的$a_j$线性无关。
+
+\proo{
+    右推左：仍然反证，若结论不成立，设$x=\frac{y+z}{2}$，且$y\ne x\ne z$，与上个证明相同得$x$为0的分量$y,z$亦为0，因此用$x_J$表示$x$在$J$中的分量构成的向量，代入可知$x_J$、$y_J$、$z_J$均满足关于$u$的方程
+    $$a_{j_1}u_1+a_{j_2}u_2+\dots+a_{j_k}u_k=b$$
+    但根据线性无关性，此方程组的解应至多唯一，矛盾。
+
+    左推右：若线性相关可发现上述方程组的解不止一个，由于$x_J$必然为解，且$x_J>0$，由解空间连续性必然存在解$x'_J$使得其各分量与$x_J$的差距小于$x_J$的分量，由此即可验证$x'_J$、$2x_J-2x'_J$扩充而成的向量$y,z$满足$x=\frac{y+z}{2}$，且$y,z\in\Omega$，$y\ne z\ne x$，矛盾。
+}
+
+\
+
+\textbf{对偶理论}
+
+标准形的对偶问题为
+$$\min_{\Omega'} yb,\quad\Omega'=\{y\in\mathbb{R}^{1\times n}\mid yA\le c\}$$
+有如下结论：
+\begin{enumerate}
+    \item 对$x\in\Omega$、$y\in\Omega'$有$cx\ge yb$。
+    \item 原问题与对偶问题的解一定属于如下四种情况之一：
+    \begin{itemize}
+        \item $\Omega=\Omega'=\varnothing$；
+        \item $\Omega\ne\varnothing$，但无最优解，$\Omega'=\varnothing$；
+        \item $\Omega'\ne\varnothing$，但无最优解，$\Omega=\varnothing$；
+        \item 两问题均有最优解。
+    \end{itemize}
+    \item 若\textbf{互补松弛条件}$cx=yb$成立，则$x,y$分别为原问题、对偶问题的最优解。
+    \item 若$x,y$分别为原问题、对偶问题的最优解，则$cx=yb$，从而两问题最优值相同。
+\end{enumerate}
+
+*标准形对偶问题的结论事实上来自一般的线性规划对偶定义，也即下方练习题。
+
+\exce{5.4}{设$c\in\mathbb{R}^n$、$b\in\mathbb{R}^m$、$A\in\mathbb{R}^{m\times n}$，定义原始问题与对偶问题分别为
+$$\min_\Omega c^Tx,\quad\Omega=\{x\in\mathbb{R}^n\mid Ax\ge b,\ x\ge0\}$$
+$$\min_{\Omega'} b^Tw,\quad\Omega'=\{w\in\mathbb{R}^m\mid w^TA\ge c^T,\ w\ge0\}$$
+考察它们的解的性质。}
+
+\
+
+\textbf{应用：最小顶点覆盖}
+
+*也即给定每点权重，寻找顶点覆盖中权和最小的一个。
+
+设顶点为1到$n$，原问题转化为优化问题：求$c^Tx=c_1x_1+\dots+c_nx_n$最小值，满足
+$$x_i+x_j\ge1,\quad\forall\{i,j\}\in E$$
+$$x_i\in\{0,1\},\quad\forall i=1,\dots,n$$
+
+将其松弛为，求$c_1x_1+\dots+c_nx_n$最小值，满足
+$$x_i+x_j\ge1,\quad\forall\{i,j\}\in E$$
+$$x_i\in[0,1],\quad\forall i=1,\dots,n$$
+成为线性规划问题。
+
+*此问题的可行域形式为$Ax\ge b$、$x\in[0,1]$，设辅助变量$y=Ax-b$、$z=1-x$，即有
+$$Ax-y=b,\quad x+z=1,\quad x\ge0,\quad y\ge0,\quad z\ge0$$
+成为标准形式，从而此的确为线性规划。
+
+为设计近似算法，已知线性规划可以求解，并设最优解$x^*$。对$x^*$进行四舍五入，即大于等于1/2时输出1，否则为0，成为原问题的一个近似解$x^A$。
+
+此近似算法可以达到2的近似比，也即$c^Tx^A$不超过真实最优解的两倍。
+
+\proo{
+    对任何一条边$\{i,j\}\in E$，有$x_i^*+x_j^*\ge1$，于是至少一个$\ge1/2$，四舍五入后$x_i^A+x_j^A\ge1$，由此可知$x^A$为可行解。
+
+    记$\sum_ic_ix_i=c^Tx$，由于$x_i^A\le 2x_i^*$，可知$c^Tx^A\le2c^Tx^*$。然而，松弛后的问题的最优解一定比原问题最优解更小，从而得到结论。
+}
+
+由于只需要四舍五入的结果，我们希望对线性规划也可采用充分快的近似算法求解。
+
+简单起见，考虑$c$所有分量为1的情况，此时即为计算$\tau(G)$。我们考虑另一种松弛思路：求$\sum_ix_i$最小值，使得
+$$x_i+x_j\ge1,\quad\forall\{i,j\}\in E$$
+$$x_i\ge0,\quad\forall i=1,\dots,n$$
+
+分析可知，此问题的对偶问题为，求$\sum_{\{i,j\}\in E}y_{ij}$的最大值，使得
+$$\sum_{j\mid\{i,j\}\in E}y_{ij}\le1,\quad\forall i=1,\dots,n$$
+$$y_{ij}\ge0,\quad\forall\{i,j\}\in E$$
+
+将原始问题称为问题I、线性规划原问题称为问题II、对偶问题称为问题III。
+
+对问题III的任何一个可行解，假设其有0-1形式，则第一个约束表示每个顶点连接的边中至多能选取一条，此时的最优问题即称为\textbf{最大匹配}问题(每个顶点至多与一条相连的边集合称为图的\textbf{匹配}，由此每个0-1可行解为一个匹配)。
+
+从匹配出发给出问题I的可行解：若与顶点$i$连接的边有在匹配中的，则令$x_i=1$，否则为0。
+
+*若找到某个\textbf{极大匹配}作为$y$的近似解，可证明其对应的$x$构成原问题的一个2-近似解。
+
+\subsection{舍入方法}
+*都只能针对某类问题，一般没有通用性。
+
+\
+
+\textbf{基础可行解}
+
+不妨设$m<n$且$\mathrm{rank}(A)=m$以保证可行域非空。由已证，$x$为$\Omega$的顶点当且仅当$A$的对应列向量线性无关。由此，顶点$x$最多有$m$个非零分量。
+
+设$A$的列的某极大线性无关组$a_{j_1},\dots,a_{j_m}$，指标集称为\textbf{可行基}$J$，当$j\ne J$时$x_j=0$的解称为\textbf{基础可行解}。直接利用线性方程组知识计算可知可行基$J$对应的唯一基础可行解为$x_J=A_J^{-1}b$、其余分量为0。
+
+*若$x_J$所有分量非零，称为\textbf{非退化}的，否则称为退化的。对于退化的基础可行解，其可能成为不同基对应的基础可行解。
+
+若一个线性规划问题所有基础可行解都非退化，称其满足\textbf{非退化假设}。
+
+*可证明基础可行解与极点等价，一定存在基础可行解为最优解。
+
+\exce{6.1}{给出一个不满足非退化假设的线性规划问题，使其存在基础可行解到可行基的双射。}
+
+\
+
+\textbf{管道舍入：最大权命中集}
+
+给定有限集$E$与其子集族$\mathcal{C}$，$w$是定义在$\mathcal{C}$上的非负权函数，任给正整数$p$，求含有$E$中$p$个元素的子集$A$使得$\mathcal{C}$中与$A$有交的子集的权值之和最大。
+
+\textbf{整数规划}形式：元素为1到$n$，$\mathcal{C}=\{S_1,\dots,S_m\}$，$w(S_i)=w_i$，求最大值
+$$L(x)=\sum_{j=1}^mw_j\min\bigg\{1,\sum_{i\in S_j}x_i\bigg\}$$
+使得$\sum_{i=1}^nx_i=p$，且$x_i\in\{0,1\}$。
+
+*最大值可等价于
+$$F(x)=\sum_{j=1}^mw_j\bigg(1-\prod_{i\in S_j}(1-x_i)\bigg)$$
+
+$L(x)$松弛到$x_i\in[0,1]$后实际上是线性规划(见下方)，而$F(x)$并非线性规划，但$F(x)$事实上是更易于设计舍入算法。
+
+\textbf{松弛问题}比较：$x_i\in[0,1]$时$F(x)\ge\big(1-\frac{1}{\er}\big)L(x)$。
+
+\proo{
+    考虑某$\mathcal{C}$中子集$S_j$，且$|S_j|=k$。
+
+    将几何平均数放大为算术平均数可知
+    $$1-\prod_{i\in S_j}(1-x_i)\ge1-\bigg(1-\frac{\sum_{i\in S_j}x_i}{k}\bigg)^k$$
+
+    对$f(z)=1-\big(1-\frac{z}{k}\big)^k$，求导估算可发现其为单调增凹函数，且$f(0)=0$，当$z\in[0,1]$时，有$f(z)/z\ge f(1)$，即$f(z)\ge zf(1)$，而$z>1$时$f(z)>f(1)$，于是$f(z)\ge f(1)\min(1,z)$。由此再利用$\er$的极限形式得证。
+}
+
+为将原问题松弛为线性规划，引入$z_1,\dots,z_m$，并将问题变为求$\sum_jw_jz_j$最大值使得
+$$\sum_{i\in S_j}x_i\ge z_j,\quad\forall j=1,\dots,m$$
+$$0\le z_j\le1,\quad\forall j=1,\dots,m$$
+$$0\le x_i\le1,\quad\forall i=1,\dots,n$$
+$$\sum_{i=1}^nx_i=p$$
+
+此问题的解$x^*$中若有不属于$\{0,1\}$分量，至少有两个(否则和不可能为整数)，将$x^*$赋值给$x$，重复执行，对两个$x_k,x_j\in(0,1)$，定义
+$$x(\varepsilon)=\begin{cases}x_i&i\notin\{j,k\}\\x_j+\varepsilon&i=j\\x_k-\varepsilon&i=k\end{cases}$$
+将$\varepsilon$分别取为$\varepsilon_1=-\min\{x_j,1-x_k\}$与$\varepsilon_2=\min\{1-x_j,x_k\}$，比较$F(x(\varepsilon_1))$与$F(x(\varepsilon_2))$，以较大者进行这两个分量的舍入，直到所有分量被舍入。
+
+*由于舍入过程保证了和不变，结果恒为可行解。
+
+\textbf{近似比}：舍入过程中$F$不下降，设舍入结果为$x^A$，从而有
+$$L(x^A)=F(x^A)\ge F(x^*)\ge\bigg(1-\frac{1}{\er}\bigg)L(x^*)\ge\bigg(1-\frac{1}{\er}\bigg)\opt$$
+
+\proo{
+    只需证明$F(x(\varepsilon))$关于$\varepsilon$是凸函数(可发现其事实上是二次函数)即可。
+
+    由于$x,j,k$已固定，对每个$l=1,\dots,m$，只需考虑三种情况，分类讨论。$S_l$不含$j,k$时对应的求和中为常数，凸；$S_l$含$j,k$中一个时对应的求和中为线性函数，凸；$S_l$含$j,k$时对应的求和中为二次函数，观察二次项系数可知凸。
+}
+
+*由此管道舍入的核心为某种将乘积放为求和进行估算，并通过乘积进行舍入。
+
+\exce{6.2}{用管道舍入给出最大可满足性问题的$\frac{\er}{\er-1}$近似算法。}
+
+\
+
+\textbf{迭代舍入：广义生成网络问题}
+
+*基本方案，通过多次求解线性规划问题进行更好的舍入。
+
+给定图$G=(V,E)$、边上的非负权函数$c$与正整数$k>0$，求一个$k$-边连通的子图，使得其中边权值之和最小。
+
+先给出基本的求解方法：
+\begin{itemize}
+    \item \textbf{连通性质}
+    
+    $F$为$k$-边连通的当且仅当对图的顶点集合任何划分$S,S^c$\ (要求它们均非空)，其中都至少存在$F$中的$k$条边。
+    \item \textbf{整数规划}
+    
+    对$x_e\in\{0,1\},\forall e$，求
+    $$\min\sum_{e\in E}c_ex_e$$
+    使得
+    $$\forall S\subset V,S\notin\{\varnothing,V\},\quad\sum_{e\in\delta_G(S)}x_e\ge k$$
+    这里$\delta_G(S)$为$G$中恰有一个端点在$S$中的所有边组成的集合。
+
+    *可验证其符合要求，但此时不等式约束为指数量级个，看似线性规划也无法方便求解。
+
+    \item \textbf{连续松弛}
+
+    若线性规划问题具有性质：对任何不可行解$x$，可以在多项式时间找到其不满足的约束条件(称为\textbf{分离神谕}[separation oracle])，则即使约束条件个数为指数个，也能用\textbf{椭球法}在多项式时间找到其最优解(省略过程细节)。
+
+    于是，将$x_e$松弛到$[0,1]$后，我们希望找到上述的分离神谕。
+
+    \item \textbf{网络流转化}
+    
+    将松弛问题的可行域设为$\Omega$，给定$x_e$事实上相当于给$G$的每条边赋予$[0,1]$中的值，将其看作每边的流量上界。
+
+    由此，约束条件事实上可以转化为，对任何顶点对$s$与$t$，$s$到$t$的最大流至少是$k$，由此只需要计算$s$到$t$的最大流。
+
+    \proo{
+        根据网络流的知识，最大流问题与最小割问题互为对偶，于是等价。也即，任两点$s,t$之间的最大流值等于$s\in S$、$t\in S^c$的最小割值$\min E(S,S^c)$。
+        
+        原问题条件可以看作对任何图割，割值$E(S,S^c)$至少为$k$，而任两点最大流为图割最多为$k$；反之，若存在$E(S,S^c)<k$，任取$s\in S$、$t\in S^c$可得矛盾。
+    }
+
+    由于最大流/最小割问题是P问题，对任何$x\notin\Omega$，若有某个分量不在$[0,1]$中则已经在$|E|$量级找到其不满足的条件，否则只需对任何两点(这是$|V|^2$量级的)求解最大流问题，若发现最大流低于$k$，将其对应的最小割找到即得到不满足的条件。
+
+    *上述算法也是判断一个子图是否$k$-边连通的多项式算法。
+\end{itemize}
+
+迭代舍入的算法为：
+\begin{enumerate}
+    \item 输入$G$、$k$与$c$，初始$F=\varnothing$\ (可将其看作边集合)；
+    \item 构造对应的迭代LP问题
+    $$\min\sum_{e\in E\backslash F}c_ex_e$$
+    $$\forall e\in E,\quad x_e\in[0,1]$$
+    $$\forall S\subset V,\quad\sum_{e\in\delta_{G\backslash F}(S)}x_e\ge f_0(S)-|\delta_F(S)|$$
+    $$f_0(S)=\begin{cases}0&S\in\{\varnothing,V\}\\k&S\notin\{\varnothing,V\}\end{cases}$$
+    并求最优解$x^*$；
+    \item 将$F$扩充为$F\cup\{e\mid x_e^*\ge 1/3\}$；
+    \item 若$F$已经$k$-边连通，输出，否则回到第二步。
+\end{enumerate}
+
+我们需要先证明算法的有效性。
+
+\textbf{弱超模函数}：$f$为$V$的子集到$\mathbb{Z}$的函数，满足$f(V)=0$，且对任何$A,B\subset V$，以下两式至少一个成立(这里$A-B$表示属于$A$不属于$B$的函数)：
+$$f(A)+f(B)\le f(A-B)+f(B-A),\quad f(A)+f(B)\le f(A\cap B)+f(A\cup B)$$
+
+*\textbf{超模函数}：其相反数是次模函数，也即第二式恒成立。
+
+*\textbf{强超模函数}：两式均恒成立。
+
+引理：对弱超模函数$f$，线性规划问题
+$$\min\sum_{e\in E}c_ex_e$$
+$$\forall e\in E,\quad x_e\in[0,1]$$
+$$\forall S\subset V,\quad\sum_{e\in\delta_G(S)}x_e\ge f(S)$$
+的每个基础可行解都包含至少一个$x_e\ge\frac{1}{3}$的分量。
+
+\proo{
+    若$A,B\subset V$满足互不为子集且交非空，则称它们是公平相交的。若$V$的一个子集族不包含两个公平相交的集合，则称它是层状的。
+
+    用$a_S$表示$S\subset V$对应的不等式约束的行向量，也即将每个约束写为$a_Sx\ge f(S)$。若某个约束$a_Sx=f(S)$对$x$取等，称其对$x$是积极的，也称对应的$S$对$x$是积极的。
+
+    设$x$的基础可行解非零分量为$k$\ (也即存在$k$条边$e$使得$x_e>0$)，则利用线性规划理论可知至少存在$k$个积极约束，对应的$a_S$线性无关。
+
+    \
+
+    引理：若$x$为一个基础可行解，且每个$x_e\in(0,1)$，则图$G$中存在一个$V$的层状积极子集族$\mathcal{F}$，满足：
+    \begin{enumerate}
+        \item $|\mathcal{F}|=|E|$；
+        \item $\{a_S\mid S\in\mathcal{F}\}$线性无关；
+        \item 任何$S\in\mathcal{F}$有$f(S)\ge1$；
+        \item 存在$S\in\mathcal{F}$使得$\delta_G(S)\le3$。
+    \end{enumerate}
+
+    引理证明：
+    \begin{enumerate}
+        \item 秩性质
+        
+        考虑任何一个$V$的极大的层状积极子集族$\mathcal{L}$，先证明$\{a_S\mid S\in\mathcal{L}\}$的秩为$|E|$。
+
+        若否，根据列数可知其秩应小于$|E|$，用$\mathrm{span}\{L\}$表示$\{a_S\mid S\in\mathcal{L}\}$生成的线性空间。利用线性规划基础可行解的结论，所有积极约束对应的$a_S$集合秩应为$|E|$，于是存在积极集$A$满足$a_A\notin\mathrm{span}\{L\}$。
+
+        由极大性，$A$无法添进$\mathcal{L}$，于是其与$\mathcal{L}$中某个集合公平相交。取所有符合要求的$A$中，与$\mathcal{L}$中公平相交个数最少的集合，仍记为$A$，并设$B\in\mathcal{L}$与$A$公平相交。利用$f$为弱超模函数可知
+        $$f(A)+f(B)\le f(A-B)+f(B-A),\quad f(A)+f(B)\le f(A\cap B)+f(A\cup B)$$
+        至少成立一个。
+
+        若第一式成立，记$S_1=A-B$、$S_2=B\cap A$、$S_3=B-A$、$S_4=(A\cup B)^c$，第一式可写为
+        $$f(A)+f(B)\le f(S_1)+f(S_3)$$
+        再记
+        $$m_{ij}=\sum_{e\in E(S_i,S_j)}x_e$$
+        由$A,B$积极可知
+        $$f(A)=a_Ax=m_{13}+m_{14}+m_{23}+m_{24},\quad f(B)=m_{31}+m_{34}+m_{21}+m_{24}$$
+        $$f(S_1)\le a_{S_1}x=m_{12}+m_{13}+m_{14},\quad f(S_3)\le m_{31}+m_{32}+m_{34}$$
+        由无向图，$m_{ij}=m_{ji}$，对比即可得到
+        $$f(S_1)+f(S_3)+2m_{24}\le f(A)+f(B)$$
+        由此第一式成立只能$m_{24}=0$\ (根据$x_e>0$知只能$E(S_2,S_4)=\varnothing$)，且$S_1,S_3$积极。
+
+        然而，由$a_A\notin\mathrm{span}(\mathcal{L})$可知$a_{S_1},a_{S_3}$至少有一个不在$\mathrm{span}(\mathcal{L})$中：
+        \begin{itemize}
+            \item 若$a_{S_1}\notin\mathrm{span}(\mathcal{L})$，由于$B$与$A$公平相交但$B$不与$S_1$公平相交，只需证明$C\in\mathcal{L}$且$C$与$S_1$公平相交则$A$与$C$公平相交，即与个数最少性矛盾，而这只需要证明$C$不包含于$A$，即$C-A$非空。
+            
+            利用公平相交性，$S_1\cap C\ne\varnothing$，于是$C-B$非空，但由它们都在$\mathcal{L}$中可知$C$包含$B$\ (此时$B-A\subset C-A$非空)或$C\cap B=\varnothing$\ (此时$C-A=C-S_1$)，均矛盾。
+
+            \item 若$a_{S_3}\notin\mathrm{span}(\mathcal{L})$同上可证。
+        \end{itemize}
+
+        若第二式成立可完全类似考虑$S_1,\dots,S_4$证明矛盾，从而推出原结论成立。
+
+        \item 前三条件存在性
+        
+        由上述，考虑$\{a_S\mid S\in\mathcal{L}\}$的极大线性无关组，即可满足前两个条件。
+
+        此外，由积极集定义可知$f(S)=a_Sx$，根据$a_S$非负且有1分量、每个$x_e\in(0,1)$可知$f(S)>0$，而由$f(S)$为整数，其至少为1。
+
+        \item 森林转化
+        
+        下面证明条件4成立。反证，若这样的$S$不存在，也即对任何$S\in\mathcal{F}$有$|\delta_G(S)|\ge4$。
+
+        由$\mathcal{F}$为层状积极子集族，根据定义可发现$\mathcal{F}$中的集合以包含关系连边($A,B$有边当且仅当$A\supset B$且不存在$C$使得$A\supset C\supset B$)可以构造一个森林$T$，设其顶点$V'$、边$E'$。
+
+        对每个$G$中顶点$u\in V$、$e\in E$，且$u$为$e$的一个端点，称$(u,e)$为$G$中一个端点。若$(u,e)$对$S\in\mathcal{F}$满足，$u\in S$且对任何$S$的真子集$S'\in\mathcal{F}$有$u\notin S'$，则记$(u,e)\in P(S)$，下面利用此映射计数。
+
+        对$T$的子树$T'$，记
+        $$P(T')=\bigcup_{S\in V'(T')}P(S)$$
+        下面证明$|P(T')|\ge2|V(T')|+2$，则$|P(T)|\ge 2|\mathcal{F}|+2=2|E|+2$，但总端点数至多$2|E|$，矛盾。
+
+        \item 端点计数
+
+        利用归纳法。首先，由假设，$T$的每个叶子结点$S$应有$|P(S)|\ge4$。
+        
+        对任何森林$T'$，只需说明其为子树的情况成立，利用层状子集族特性可知不交子树对应的端点集合不交，从而求和得证。下假设对$T'$的任何孩子结论均成立。
+        
+        若$T'$的根$R$至少有两个孩子节点，其每个孩子对应的子树$T_i$，利用层状子集族性质可知不同子树对应的端点不会重复，因此
+        $$|P(T')|\ge|P(T_1)|+\dots+|P(T_k)|\ge2(|V(T_1)|+\dots+|V(T_k)|)+2k=2|V(T')|+2k-2$$
+        从而成立。
+
+        若$R$只包含一个孩子节点$S$，记$T_1$为以$S$为根的子树，由归纳假设
+        $$|P(T_1)|\ge 2|V(T_1)|+2$$
+
+        若$P(R\backslash S)$中至少有两个端点，则由定义可知$|P(T)|-|P(T_1)|\ge2$，已经得证。否则，只要证明$\delta_G(R)$与$\delta_G(S)$恰好相差一条边$e$，即可从$a_Rx=f(R)$、$a_Sx=f(S)$得到$x_e=|f(R)-f(S)|$。但左侧不为整数，右侧为整数，矛盾。
+
+        由线性无关性，$\delta_G(R)$与$\delta_G(S)$不可能完全相同(否则$a_R=a_S$)，从而也可得到$P(R\backslash S)$不可能为空。由此，$P(R\backslash S)$中恰包含一个端点$(u,e)$，讨论可发现$\delta_G(R)$与$\delta_G(S)$至多相差$e$，得证。
+
+    \end{enumerate}
+
+    \
+
+    利用此引理，解中$x_e=0$的边可以直接去掉，只考虑子图，而$x_e=1$的边已经符合$\ge\frac{1}{3}$的要求。又由于$\mathcal{F}$中一定有$S$使得$|\delta_G(S)|\le3$，利用
+    $$\sum_{e\in\delta_G(S)}x_e=f(S)\ge1$$
+    即可得到结论。
+}
+
+\exce{6.3}{证明对弱超模函数$f$与$G$的子图$F$，$f(S)-|\delta_F(S)|$仍为弱超模函数。}
+
+*可验证$f_0(S)$是弱超模函数，由此根据上方练习(本质上是由于$\delta_F(S)$是强次模函数)可知算法的确可以在多项式次迭代后结束。
+
+\exce{6.4}{证明迭代舍入算法给出了原问题的一个3-近似解。}
+
+\subsection{最小顶点覆盖}
+*继续研究\textbf{无需求解线性规划问题}的近似算法。
+
+回顾之前对非加权的最小顶点覆盖问题的讨论，考虑其加权形式：求$c_1x_1+\dots+c_nx_n$最小值，满足
+$$x_i+x_j\ge1,\quad\forall\{i,j\}\in E$$
+$$x_i\in\{0,1\},\quad\forall i=1,\dots,n$$
+\begin{itemize}
+    \item 对偶构造
+    
+    如之前，对应的LP为将$x_i$松弛到$[0,1]$。其对偶问题DP为
+    $$\max\sum_{\{i,j\}\in E}y_{ij}$$
+    $$\sum_{j\mid\{i,j\}\in E}y_{ij}\le c_i,\quad y_{ij}\ge0$$
+
+    \item 对偶问题近似求解
+    
+    从全0出发，不断选择$\{i,j\}\in E$，将$y_{ij}$增加到不超过约束的最大可能值，直到不能再选择边(对于非加权形式，这样即得到一个极大匹配)。
+
+    \item 原问题近似解构造
+    
+    $x_i=1$当且仅当$x_i$对应的约束是积极的，即
+    $$\sum_{j\mid\{i,j\}\in E}y_{ij}=c_i$$
+
+    将此解称为$x_A$。
+
+    *若某条边两端点的约束均不积极，可以增加这条边的$y_{ij}$的值，矛盾，因此$x^A$确为可行解。
+\end{itemize}
+
+\
+
+近似比结论：
+$$\sum_{i=1}^nc_ix_i^A\le2\opt$$
+\proo{
+    将$x^A$中$x_i^A=1$的下标集合记为$S$，即有(每条边最多被求和了两次)
+    $$\sum_{i\in S}c_i=\sum_{i\in S}\sum_{j\mid\{i,j\}\in E}y_{ij}\le2\sum_{j\mid\{i,j\}\in E}y_{ij}$$
+    由线性规划问题与对偶问题最优值相同，右侧求和不超过$2\opt$，从而得证。
+}
+
+\subsection{多胞体理论}
+想法：考虑\textbf{多胞体}，即线性规划问题的可行域。既然可以将整数规划后松弛为线性规划在对应可行域找解后舍入，是否能利用多胞体中直接寻找整数规划近似解？
+
+\
+
+\textbf{二部图最优匹配}：给定二部图$G=(V,E)$，每边存在权重。若边集的子集$M$互相无公共顶点，则称其为$G$的一个匹配。求使权值和最大的匹配。
+
+记边集的权和
+$$\omega(E')=\sum_{e\in E'}\omega_e$$
+问题即变为求匹配$M\subset E$使得$\omega(M)$最大。
+
+记示性向量
+$$x_e^{E'}=\begin{cases}1&e\in E'\\0&e\notin E'\end{cases}$$
+则可得到整数规划形式为(这里$e\ni v$表示$v$是$e$的一个端点)
+$$\max\ \omega\cdot x$$
+$$x\in\{0,1\}^{|E|},\quad\sum_{e\ni v}x_e\le1,\quad\forall v\in V$$
+
+\
+
+将$\{0,1\}$松弛为$[0,1]$即对应线性规划问题。由于第二个条件可保证任何$x_e\le1$，事实上只需要$x\ge0$即可，其对偶问题为
+$$\min\sum_vy_v$$
+$$y\ge0,\quad y_{v_1}+y_{v_2}\ge\omega_e,\quad\forall e=(v_1,v_2)$$
+
+利用对偶理论可发现原问题对偶问题最优解相同，且计算可发现\textbf{原问题最优解可在0-1向量取到}。
+
+考虑$\omega$全为1的情况，此时同样可计算证明\textbf{对偶问题的最优解在0-1向量取到}，此时其对偶问题的最优解可以取为最小顶点覆盖问题的解。
+
+\textbf{K\"onig定理}：\textbf{二部图}最大匹配数等于其最小顶点覆盖数(一般图未必成立)。
+
+*多胞体理论的发展即来源于二部图最大匹配的特殊性。
+
+\
+
+仍回到整数规划问题，考虑另一种松弛方式：将可行域\textbf{松弛到凸包}。利用目标函数是线性函数，其必然是凸函数，由此松弛到凸包后解不变。
+
+由此，若原问题凸包恰好为松弛后线性规划问题的可行域，则两者解等价，二部图恰好满足此性质，从而成立。
+
+*多胞体理论：通过别的途径得到多胞体，判断和松弛后的线性规划可行域是否吻合。
+\newpage
+\appendix
+\section{报告}
+\begin{enumerate}
+    \item 组合优化的硬件应用
+    \item 半定规划与蒙特卡洛方法
+    
+    \exce{4.3}{证明半定规划的原问题与对偶问题都有内点可行解时，原问题与对偶问题必存最优解，且满足互补条件。}
+    \item 后量子密码的数学基础
+    \item 基本图割问题的等价谱定理
+    \item 组合优化与博弈论
+\end{enumerate}
+\end{document}

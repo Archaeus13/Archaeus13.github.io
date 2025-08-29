@@ -1,0 +1,3682 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../combinational/">
+      
+      
+        <link rel="next" href="../logisim/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.5">
+    
+    
+      
+        <title>2. 案例分析 - Digital Lab 2023</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0e669242.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+    Welcome to the Digital Lab Homepage of USTC!
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Digital Lab 2023" class="md-header__button md-logo" aria-label="Digital Lab 2023" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M384 96v224H64V96h320zM64 32C28.7 32 0 60.7 0 96v224c0 35.3 28.7 64 64 64h117.3l-10.7 32H96c-17.7 0-32 14.3-32 32s14.3 32 32 32h256c17.7 0 32-14.3 32-32s-14.3-32-32-32h-74.7l-10.7-32H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm464 0c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h64c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48h-64zm16 64h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16s7.2-16 16-16zm-16 80c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16zm32 160a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Digital Lab 2023
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. 案例分析
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="light-blue"  aria-label="切换到夜晚模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到夜晚模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到白天模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到白天模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lab0/intro/" class="md-tabs__link">
+          
+  
+  实验准备
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lab1/intro/" class="md-tabs__link">
+          
+  
+  Lab1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lab2/intro/" class="md-tabs__link">
+          
+  
+  Lab2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lab3/intro/" class="md-tabs__link">
+          
+  
+  Lab3
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../intro/" class="md-tabs__link">
+          
+  
+  Lab4
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lab5/intro/" class="md-tabs__link">
+          
+  
+  Lab5
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lab6/intro/" class="md-tabs__link">
+          
+  
+  Lab6
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lab7/intro/" class="md-tabs__link">
+          
+  
+  Lab7
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lab8/intro/" class="md-tabs__link">
+          
+  
+  Lab8
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lab9/intro/" class="md-tabs__link">
+          
+  
+  Lab9
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Digital Lab 2023" class="md-nav__button md-logo" aria-label="Digital Lab 2023" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M384 96v224H64V96h320zM64 32C28.7 32 0 60.7 0 96v224c0 35.3 28.7 64 64 64h117.3l-10.7 32H96c-17.7 0-32 14.3-32 32s14.3 32 32 32h256c17.7 0 32-14.3 32-32s-14.3-32-32-32h-74.7l-10.7-32H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm464 0c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h64c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48h-64zm16 64h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16s7.2-16 16-16zm-16 80c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16zm32 160a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+
+    </a>
+    Digital Lab 2023
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验准备
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验准备
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab0/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    软件使用
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            软件使用
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab0/markdown/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Markdown 使用教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab0/logisim/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logisim 使用教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab0/vivado/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vivado 安装教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab0/web/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网站链接
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab1
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Lab1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab1/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab1/verilog1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Verilog 语法（上）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab1/verilog2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Verilog 语法（下）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab1/verilog_coding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Verilog 编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab1/tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验练习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab1/FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Lab2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab2/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab2/verilog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. 再遇 Verilog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab2/testbench/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 编写测试文件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab2/simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 使用 Vivado 进行仿真
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab2/tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验练习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab2/FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab3
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Lab3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab3/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2" >
+        
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab3/FPGAOL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. FPGAOL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab3/vivado/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 综合与实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab3/signals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 信号处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab3/bugs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Verilog 常见问题分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab3/tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验练习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab3/FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab4
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Lab4
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" checked>
+        
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feedback/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0. 反馈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinational/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. 设计流程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    2. 案例分析
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    2. 案例分析
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 ★ 组合逻辑元件
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 ★ 组合逻辑元件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    2.1.1 编码器
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.1 编码器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2111" class="md-nav__link">
+    2.1.1.1 简单编码器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2112" class="md-nav__link">
+    2.1.1.2 优先编码器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    2.1.2 译码器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    2.1.3 加法器
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.3 加法器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2131-1bit" class="md-nav__link">
+    2.1.3.1 1bit 半加器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2132-1bit" class="md-nav__link">
+    2.1.3.2 1bit 全加器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2 实际应用
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 实际应用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    2.2.1 日期电路
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-6bits-5" class="md-nav__link">
+    2.2.2 6bits 5 的倍数检测器
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.2 6bits 5 的倍数检测器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2221" class="md-nav__link">
+    2.2.2.1 暴力枚举
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2222" class="md-nav__link">
+    2.2.2.2 长除法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logisim/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Logisim 的自动电路生成
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验练习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab5
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Lab5
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab5/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_2" >
+        
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab5/sequential/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. 时序逻辑元件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab5/FSM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 有限状态机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab5/example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 案例分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab5/tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验练习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab5/FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab6
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Lab6
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab6/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_2" >
+        
+          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab6/adder/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    超前进位加法器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab6/ALU.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ALU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab6/performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    性能分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab6/shifter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    移位器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab6/tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验练习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab6/FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab7
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Lab7
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab7/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_2" >
+        
+          <label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab7/arithmetic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    算数电路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab7/complex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    复数运算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab7/tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验练习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab7/FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab8
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Lab8
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab8/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10_2" >
+        
+          <label class="md-nav__link" for="__nav_10_2" id="__nav_10_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab8/modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模块化设计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab8/tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验练习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab8/FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab9
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Lab9
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab9/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_2" >
+        
+          <label class="md-nav__link" for="__nav_11_2" id="__nav_11_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab9/communication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通信接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab9/tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验练习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab9/FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 ★ 组合逻辑元件
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 ★ 组合逻辑元件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    2.1.1 编码器
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.1 编码器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2111" class="md-nav__link">
+    2.1.1.1 简单编码器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2112" class="md-nav__link">
+    2.1.1.2 优先编码器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    2.1.2 译码器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    2.1.3 加法器
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.3 加法器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2131-1bit" class="md-nav__link">
+    2.1.3.1 1bit 半加器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2132-1bit" class="md-nav__link">
+    2.1.3.2 1bit 全加器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2 实际应用
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 实际应用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    2.2.1 日期电路
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-6bits-5" class="md-nav__link">
+    2.2.2 6bits 5 的倍数检测器
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.2 6bits 5 的倍数检测器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2221" class="md-nav__link">
+    2.2.2.1 暴力枚举
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2222" class="md-nav__link">
+    2.2.2.2 长除法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+<h1 id="_1"><strong>案例分析</strong></h1>
+<p>在本小节中，我们将为大家介绍一些常见的组合逻辑电路，包括加法器、编码器、译码器等。这些电路在数字电路中应用极为广泛，是数字电路设计的基础。
+此外，我们还会介绍一些使用组合逻辑电路解决的问题，从需求出发，一步步设计组合逻辑电路，并最终编程实现。</p>
+<hr class="hr-my" data-content="(●′∀｀●) 我是分隔线 (●′∀｀●)">
+
+<h2 id="21"><strong>2.1 ★ 组合逻辑元件</strong></h2>
+<h3 id="211"><strong>2.1.1 编码器</strong></h3>
+<!-- 
+
+现在，我们先来考虑一种最简单的情形：数字-二进制编码。对于给定的阿拉伯数字 0~7，我们需要将其翻译成对应的二进制编码。这里我们不妨简单将每个数字的二进制编码视作其二进制表示，这样就得到了下面的对应关系：
+
+<div class="highlight"><pre><span></span><code>0 - 000         1 - 001
+2 - 010         3 - 011
+4 - 100         5 - 101
+6 - 110         7 - 111
+</code></pre></div>
+
+为了形式化表述这个问题，我们将每一个阿拉伯数字抽象为一根线，这样输入就可以记作 $I_7\sim I_0$，某一位输入为 1 时代表输入的是对应的阿拉伯数字。我们用 $A_2\sim A_0$ 代表输出信号，用于指示阿拉伯数字对应的二进制编码。例如：当仅有 $I_5$ 为 1 时，输出应当为 $A_2A_1A_0=101$。我们可以得到下图所示的真值表：
+
+<figure markdown>
+  ![Image title](./figs/example/encode_1.png){ width="500" }
+</figure>
+
+考虑到我们的输入是一个阿拉伯数字，因此任意时刻 $I_7\sim I_0$ 中有且仅有一个为 1，我们不用担心其他情况的出现。在注意到这一事实后，我们可以很直接地写出该编码器的一个逻辑表达式：
+
+$$
+A_2 = I_7 + I_6 + I_5 + I_4
+$$
+
+$$
+A_1 = I_7 + I_6 + I_3 + I_2
+$$
+
+$$
+A_0 = I_7 + I_5 + I_3 + I_1
+$$
+
+???+ Note "Tips"
+
+    这里列出的逻辑表达式是建立在任意时刻 $I_7\sim I_0$ 中有且仅有一个为 1 的基础上的。如果不考虑这一条件，则对应的就是优先编码器了。
+
+
+基于此，我们可以写出数据流描述下对应的 Verilog 代码：
+
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Encoder</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Encoder</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">                    </span><span class="n">I</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">                    </span><span class="n">A</span>
+<span class="p">);</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="mh">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="mh">7</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="mh">6</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="mh">5</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="mh">4</span><span class="p">];</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="mh">7</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="mh">6</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="mh">3</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="mh">2</span><span class="p">];</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="mh">7</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="mh">5</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="mh">3</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="mh">1</span><span class="p">];</span><span class="w"> </span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+
+我们也可以使用行为级描述：
+
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Encoder</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Encoder</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w">       </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">                </span><span class="n">I</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w">  </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">                </span><span class="n">A</span>
+<span class="p">);</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<span class="w">        </span><span class="mh">8</span><span class="mb">&#39;b1000</span><span class="nl">_0000:</span><span class="w">   </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b111</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">8</span><span class="mb">&#39;b0100</span><span class="nl">_0000:</span><span class="w">   </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b110</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">8</span><span class="mb">&#39;b0010</span><span class="nl">_0000:</span><span class="w">   </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b101</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">8</span><span class="mb">&#39;b0001</span><span class="nl">_0000:</span><span class="w">   </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b100</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">8</span><span class="mb">&#39;b0000</span><span class="nl">_1000:</span><span class="w">   </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b011</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">8</span><span class="mb">&#39;b0000</span><span class="nl">_0100:</span><span class="w">   </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b010</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">8</span><span class="mb">&#39;b0000</span><span class="nl">_0010:</span><span class="w">   </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b001</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">8</span><span class="mb">&#39;b0000</span><span class="nl">_0001:</span><span class="w">   </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b000</span><span class="p">;</span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w">        </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b000</span><span class="p">;</span>
+<span class="w">    </span><span class="k">endcase</span>
+<span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+-->
+
+<h4 id="2111"><strong>2.1.1.1 简单编码器</strong></h4>
+<p>编码，是信息从一种形式或格式转换为另一种形式的过程，简单来讲就是语言的翻译过程。在计算机领域，我们需要将日常使用的自然语言翻译成计算机能够理解的二进制编码，这就是编码过程。能够实现该功能的数字电路我们称之为编码器。</p>
+<div class="admonition tip">
+<p class="admonition-title">例子：国王与电话线</p>
+<p>某位国王想要与自己王国的四个区域建立电话联系，于是便为这四个区域各拉了一条电话线，它们汇总在皇宫的信号接收机。我们假定<strong>同一时间至多只有一个区域与国王通话</strong>。现在国王的需求是：当有电话进来时，接收机能够显示当前通话的区域编号。</p>
+</div>
+<p>我们把上面的场景形式化描述一下：输入信号有四位，分别记为 <span class="arithmatex">\(I_3\sim I_0\)</span>；为了区分四个不同的区域，我们需要 <span class="arithmatex">\(\log_24=2\)</span> bits 的二进制编码，也就是说输出信号有两位，分别记为 <span class="arithmatex">\(Y_1\sim Y_0\)</span>。我们可以列出下图所示的真值表：</p>
+<figure>
+<p><a class="glightbox" href="../figs/encode.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image title" src="../figs/encode.jpg" width="500" /></a></p>
+</figure>
+<details class="info" open="open">
+<summary>注意</summary>
+<p>上面的真值表仅描述了最简单的情况，没有涵盖所有可能的输入。事实上输出仅有 <span class="arithmatex">\(Y_1Y_0\)</span> 是不够的，因为现在的设计无法区分<strong>来自 0 号地区的电话响起</strong>和<strong>没有电话响起</strong>这两个事件。为了编码器功能的完整性，我们还需要额外的信号来输出当前是否有电话响起，也即当前是否有合法的输入。</p>
+<p>你将在实验练习部分解决这个问题。</p>
+</details>
+<p>如何用 Verilog 语言描述编码器呢？我们给出如下的行为级描述代码：</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Encode.v</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Encode</span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w">       </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">                   </span><span class="n">I</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w">  </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">                   </span><span class="n">Y</span>
+<span class="p">);</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b1000</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b0100</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b0010</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b0001</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
+<span class="w">    </span><span class="k">endcase</span>
+<span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+<p>这里我们假定对于真值表列出情况之外的输入，译码器统一输出 0。</p>
+<h4 id="2112"><strong>2.1.1.2 优先编码器</strong></h4>
+<div class="admonition tip">
+<p class="admonition-title">例子：国王与电话线 2.0</p>
+<p>现在，国王与四个地区的联系更为频繁了，<strong>同一时间与国王通话的区域数目没有限制</strong>，此时我们必须要有手段处理电话同时接入的情况。国王希望按照地区编号由大到小的顺序设定优先级，当多个区域同时接入电话时，国王会选择接听编号最大的那一个。</p>
+</div>
+<p>普通编码器虽然能实现编码的功能，但它仍有不少局限性，其中之一就表现为：普通编码器的输入端只能同时存在一个高电平信号，当我们不小心输入了多个高电平信号，比如输入 <code>I = 4'b1111</code>，根据代码编码器输出的结果为 <code>2'b00</code>, 与正常输入 <code>I = 4'b0001</code> 的输出结果相同，但我们无法判断此时输入了一个错误的信号。</p>
+<p>为了消除这种弊端，我们设想一种新的编码器：它的每个输入端有着不同的重要程度（更专业地说，有着不同的优先级），只要更重要的输入端输入了有效信号，我们就不再考虑来自其他输入端的信号。例如：当 <span class="arithmatex">\(I_3\)</span> 输入有效信号时，就不再考虑来自 <span class="arithmatex">\(I_2 \sim I_0\)</span> 输入的信号，而在输出端直接输出 <code>2'b11</code>。仅有 <span class="arithmatex">\(I_3\)</span> 输入无效信号（为 0）时才会检查 <span class="arithmatex">\(I_2\sim I_0\)</span> 的内容。这就是优先编码器的思想。</p>
+<p>一个符合要求的优先编码器真值表如下：</p>
+<figure>
+<p><a class="glightbox" href="../figs/example/prio_encode.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image title" src="../figs/example/prio_encode.png" width="500" /></a>
+<br />
+<!-- <figcaption>优先编码器真值表</figcaption> --></p>
+</figure>
+<details class="note" open="open">
+<summary>Tips</summary>
+<p>这里我们使用 <code>x</code> 代表输入为 0/1 均可。不难看出，上面的真值表涵盖了所有 16 种可能的输入。</p>
+</details>
+<p>这里，我们引入了输入有效信号 <code>valid</code>。如果输入为 <code>I = 4'b0000</code> 则 <code>valid</code> 输出 0，表示当前并没有电话接入。</p>
+<p>那么，如何使用 Verilog 语言描述呢？我们知道 case 语句是没有优先级顺序的，只能为每一种情况指定其对应的输出：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">case</span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b0000</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span><span class="w"> </span>
+<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"> </span>
+<span class="w">        </span><span class="k">end</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b1000</span><span class="p">,</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b1001</span><span class="p">,</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b1010</span><span class="p">,</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b1011</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b1100</span><span class="p">,</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b1101</span><span class="p">,</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b1110</span><span class="p">,</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b1111</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="p">;</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">end</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b0100</span><span class="p">,</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b0101</span><span class="p">,</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b0110</span><span class="p">,</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b0111</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="p">;</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">end</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b0010</span><span class="p">,</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b0011</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">;</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">end</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b0001</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">end</span>
+<span class="w">    </span><span class="k">endcase</span>
+<span class="k">end</span>
+</code></pre></div></td></tr></table></div>
+<p>此外，我们也可以尝试使用 <code>if-else-if</code> 结构完成模块描述。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">I</span><span class="p">[</span><span class="mh">3</span><span class="p">])</span><span class="w"> </span>
+<span class="w">        </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="p">;</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">I</span><span class="p">[</span><span class="mh">2</span><span class="p">])</span>
+<span class="w">        </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="p">;</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">I</span><span class="p">[</span><span class="mh">1</span><span class="p">])</span>
+<span class="w">        </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">;</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">I</span><span class="p">[</span><span class="mh">0</span><span class="p">])</span>
+<span class="w">        </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">        </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
+<span class="w">        </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></td></tr></table></div>
+<p>这样自然能实现需求，但当输入信号位宽较多，例如为 64bits 时，代码编写起来就十分繁琐了。此时我们可以使用 <code>casez</code> 语法等效替代：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">casez</span><span class="w"> </span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b1</span><span class="o">???:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b01</span><span class="o">??:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b001</span><span class="o">?:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b0001</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
+<span class="w">            </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">end</span>
+<span class="w">    </span><span class="k">endcase</span>
+<span class="k">end</span>
+</code></pre></div></td></tr></table></div>
+<details class="question" open="open">
+<summary>思考</summary>
+<p>上面三种写法在 Vivado 生成的 RTL 电路中是什么样子的呢？你可以创建一个项目自己尝试一下。</p>
+</details>
+<h3 id="212"><strong>2.1.2 译码器</strong></h3>
+<p>译码是编码的逆过程。编码过程将二进制代码所代表的特定含义『翻译』成对应的自然语言，而译码则是将自然语言『翻译』成机器能理解的二进制语言。</p>
+<div class="admonition tip">
+<p class="admonition-title">例子：国王与电话线 3.0</p>
+<p>在你学习《数字电路实验》的这段时间，国王将自己的领土扩展到了八个区域，并连接好了对应的电话线和优先编码器。现在，国王希望你能够帮助他设计一款译码器，根据输入的 3bits 编号 <span class="arithmatex">\(A_2\sim A_0\)</span> 接通对应区域的电话线。</p>
+</div>
+<p>简而言之，我们需要将输入的信号 <span class="arithmatex">\(A_2\sim A_0\)</span> 翻译为对应的阿拉伯数字。同样地，我们使用 <span class="arithmatex">\(Y_7\sim Y_0\)</span> 表示 8 种可能的阿拉伯数字。因此译码器的真值表如下图所示：</p>
+<figure>
+<p><a class="glightbox" href="../figs/example/decode_1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image title" src="../figs/example/decode_1.png" width="500" /></a></p>
+</figure>
+<p>这里由于输入只有 3 bits，因此总可能的输入只有 <span class="arithmatex">\(2^3=8\)</span> 种。</p>
+<p>译码器的 Verilog 代码如下：</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Decoder</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Decoder</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">             </span><span class="n">A</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">        </span><span class="n">Y</span>
+<span class="p">);</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="w">        </span><span class="mh">3</span><span class="mb">&#39;b000</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0000</span><span class="n">_0001</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">3</span><span class="mb">&#39;b001</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0000</span><span class="n">_0010</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">3</span><span class="mb">&#39;b010</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0000</span><span class="n">_0100</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">3</span><span class="mb">&#39;b011</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0000</span><span class="n">_1000</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">3</span><span class="mb">&#39;b100</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0001</span><span class="n">_0000</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">3</span><span class="mb">&#39;b101</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0010</span><span class="n">_0000</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">3</span><span class="mb">&#39;b110</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0100</span><span class="n">_0000</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">3</span><span class="mb">&#39;b111</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b1000</span><span class="n">_0000</span><span class="p">;</span>
+<span class="w">    </span><span class="k">endcase</span>
+<span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="213"><strong>2.1.3 加法器</strong></h3>
+<p>接下来的例子是关于加法器的。常用的加法器分类如下图所示。</p>
+<figure>
+<p><a class="glightbox" href="../figs/adder.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image title" src="../figs/adder.png" width="400" /></a>
+  </p>
+<figcaption>加法器的分类</figcaption>
+</figure>
+<h4 id="2131-1bit"><strong>2.1.3.1 1bit 半加器</strong></h4>
+<p>我们首先从最简单的一位半加器开始说起。半加运算是指<strong>不考虑来自低位的进位的加法</strong>，实现半加运算的电路被称之为半加器。</p>
+<p>我们知道，二进制加法与十进制加法本质上是一致的，只是数字变成了二进制。这样的好处是每一位上可能的情况只有 <span class="arithmatex">\(2^2=4\)</span> 种而不是 <span class="arithmatex">\(10^2=100\)</span> 种。四种情况就是 1 bit 加法的四种可能：0+0、0+1、1+0、1+1。假定输入的两个 1bit 数为 a 和 b，由于结果可能是两位，我们引入两个 1bit 变量 s 和 c 表示结果，其中 s 表示低位，c 表示高位。据此，我们可以列出下面的真值表：</p>
+<figure>
+<p><a class="glightbox" href="../figs/HA.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image title" src="../figs/HA.jpg" width="400" /></a>
+  </p>
+<figcaption>一位半加器真值表</figcaption>
+</figure>
+<details class="abstract" open="open">
+<summary>你知道吗</summary>
+<p>我们常常使用 s 代表求和，用 c 代表进位。其中 s 是 sum 的缩写，c 是 carry 的缩写。</p>
+</details>
+<p>从上面的真值表中，我们不难得到 s、c 关于 a、b 的逻辑表达式。</p>
+<div class="arithmatex">\[
+s=a\text{ XOR }b
+\]</div>
+<div class="arithmatex">\[
+c=a\text{ AND }b
+\]</div>
+<p>由此便可以得到半加器的逻辑电路图：</p>
+<figure>
+<p><a class="glightbox" href="../figs/HA_circuit.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image title" src="../figs/HA_circuit.png" width="400" /></a>
+  </p>
+<figcaption>半加器电路图</figcaption>
+</figure>
+<p>对应的 verilog 代码如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">HalfAdder</span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w">           </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="k">output</span><span class="w">          </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">c</span>
+<span class="p">);</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<h4 id="2132-1bit"><strong>2.1.3.2 1bit 全加器</strong></h4>
+<p>当涉及到多位加法时，除了最低位外，每一位都需要考虑来自低位的进位。因此半加器就需要进行一定的改进，支持两个加数以及低位进位三个数的想加。这种运算称为全加运算，实现电路被称为全加器。</p>
+<figure>
+<p><a class="glightbox" href="../figs/FA.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image title" src="../figs/FA.jpg" width="500" /></a>
+  </p>
+<figcaption>一位全加器真值表</figcaption>
+</figure>
+<p>从真值表中得到逻辑表达式如下</p>
+<div class="arithmatex">\[
+    s = \overline{a\cdot b\cdot \overline{cin}+a\cdot \overline{b}\cdot cin+\overline{a}\cdot b\cdot cin+\overline{a}\cdot \overline{b}\cdot \overline{cin}}
+\]</div>
+<div class="arithmatex">\[
+    c = \overline{\overline{a}\cdot \overline{b}+\overline{b}\cdot \overline{cin}+\overline{a}\cdot \overline{cin}}
+\]</div>
+<p>这个式子就复杂了一些，但也可以用逻辑门直接搭出，</p>
+<figure>
+<p><a class="glightbox" href="../figs/FA_circuit_1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image title" src="../figs/FA_circuit_1.png" width="500" /></a>
+  </p>
+<figcaption>一位全加器电路图</figcaption>
+</figure>
+<p>我们也可以直接使用先前的半加器搭建全加器。考虑半加器的功能是实现不考虑进位的加法，全加器在此基础上额外引入了前位进位 cin，我们可以将三个数的加法拆解为两次两个数的加法。示意图如下：</p>
+<figure>
+<p><a class="glightbox" href="../figs/FA_circuit.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image title" src="../figs/FA_circuit.png" width="500" /></a>
+  </p>
+<figcaption>使用半加器搭建全加器</figcaption>
+</figure>
+<p>用 verilog 的描述如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">FullAdder</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w">       </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">cin</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w">      </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">cout</span>
+<span class="p">);</span>
+<span class="kt">wire</span><span class="w"> </span><span class="n">temp_s</span><span class="p">,</span><span class="w"> </span><span class="n">temp_c_1</span><span class="p">,</span><span class="w"> </span><span class="n">temp_c_2</span><span class="p">;</span>
+<span class="n">HalfAdder</span><span class="w"> </span><span class="n">ha1</span><span class="p">(</span>
+<span class="w">    </span><span class="p">.</span><span class="n">a</span><span class="p">(</span><span class="n">a</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">b</span><span class="p">(</span><span class="n">b</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">s</span><span class="p">(</span><span class="n">temp_s</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">c</span><span class="p">(</span><span class="n">temp_c_1</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="n">HalfAdder</span><span class="w"> </span><span class="n">ha2</span><span class="p">(</span>
+<span class="w">    </span><span class="p">.</span><span class="n">a</span><span class="p">(</span><span class="n">temp_s</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">b</span><span class="p">(</span><span class="n">cin</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">s</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">c</span><span class="p">(</span><span class="n">temp_c_2</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="n">HalfAdder</span><span class="w"> </span><span class="n">ha3</span><span class="p">(</span>
+<span class="w">    </span><span class="p">.</span><span class="n">a</span><span class="p">(</span><span class="n">temp_c_1</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">b</span><span class="p">(</span><span class="n">temp_c_2</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">s</span><span class="p">(</span><span class="n">cout</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">c</span><span class="p">()</span>
+<span class="p">);</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<p>对于大多数的应用场景，Verilog 描述加法器最合适的方式是行为描述而不是门级描述。我们完全可以使用 Verilog 的 "+" 运算符描述加法。<strong>前提是你需要明白加法器的构造与基本原理！</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">FullAdder</span><span class="w"> </span>
+<span class="p">#(</span>
+<span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="n">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="w"> </span><span class="p">#</span><span class="w"> </span><span class="err">默认宽度为</span><span class="mh">8</span><span class="kt">bit</span>
+<span class="p">)(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="w"> </span><span class="mh">0</span><span class="p">]</span><span class="w">      </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w">                   </span><span class="n">cin</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="w"> </span><span class="mh">0</span><span class="p">]</span><span class="w">     </span><span class="n">s</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w">                  </span><span class="n">cout</span>
+<span class="p">);</span>
+<span class="k">assign</span><span class="w"> </span><span class="p">{</span><span class="n">cout</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cin</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<h2 id="22"><strong>2.2 实际应用</strong></h2>
+<h3 id="221"><strong>2.2.1 日期电路</strong></h3>
+<p>我们考虑下面这个例子。</p>
+<details class="tip" open="open">
+<summary>例子：明天的日期？</summary>
+<p>某同学想要在开发板上搭载一个日历模块，其中一项功能需求是根据当前的日期计算明天的日期。模块的输入输出描述如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Tomorrow</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">         </span><span class="n">todayMonth</span><span class="p">,</span><span class="w">         </span><span class="c1">// 今天的月份，范围 1~12</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">         </span><span class="n">todayDayInMonth</span><span class="p">,</span><span class="w">    </span><span class="c1">// 今天的日期，范围 1~31</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">         </span><span class="n">todayDayInWeek</span><span class="p">,</span><span class="w">     </span><span class="c1">// 今天星期几，范围 1~7</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">        </span><span class="n">tomorrowMonth</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">        </span><span class="n">tomorrowDayInMonth</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">        </span><span class="n">tomorrowDayInWeek</span>
+<span class="p">);</span>
+<span class="p">......</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+</details>
+<p>我们可以将功能拆解成两部分：计算日期以及计算星期，因为二者是独立的。</p>
+<p>计算星期很简单，每一周都有 7 天，因此只需要判断当天是否是星期日即可。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">NextDayInWeek</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">         </span><span class="n">today</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">tomorrow</span>
+<span class="p">);</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">today</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">3</span><span class="mi">&#39;d7</span><span class="p">)</span>
+<span class="w">        </span><span class="n">tomorrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">3</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="n">tomorrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">today</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">3</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+<p>计算日期则相对复杂一些。我们暂时先不考虑闰年的影响，每个月可能有 28、30 或 31 天，此时就需要使用分支语句进行描述</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">NextDayInMonth</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">         </span><span class="n">today</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">         </span><span class="n">month</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">tomorrow</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">next_month</span>
+<span class="p">);</span>
+<span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">DaysOfMonth</span><span class="p">;</span><span class="w"> </span><span class="c1">// 本月有多少天</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">month</span><span class="p">)</span>
+<span class="w">        </span><span class="mh">2</span><span class="o">:</span><span class="w"> </span><span class="n">DaysOfMonth</span><span class="o">=</span><span class="w"> </span><span class="mh">5</span><span class="mi">&#39;d28</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="p">,</span><span class="w"> </span><span class="mh">6</span><span class="p">,</span><span class="w"> </span><span class="mh">9</span><span class="p">,</span><span class="w"> </span><span class="mh">11</span><span class="o">:</span><span class="w"> </span><span class="n">DaysOfMonth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">5</span><span class="mi">&#39;d30</span><span class="p">;</span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">DaysOfMonth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">5</span><span class="mi">&#39;d31</span><span class="p">;</span>
+<span class="w">    </span><span class="k">endcase</span>
+<span class="k">end</span>
+
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">today</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">DaysOfMonth</span><span class="p">)</span><span class="w"> </span>
+<span class="w">        </span><span class="n">tomorrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">5</span><span class="mi">&#39;d1</span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="n">tomorrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">today</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">5</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="k">end</span>
+
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">today</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">DaysOfMonth</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">month</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">4</span><span class="mi">&#39;d12</span><span class="p">)</span>
+<span class="w">            </span><span class="n">next_month</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">4</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">            </span><span class="n">next_month</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">month</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">4</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="n">next_month</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">month</span><span class="p">;</span>
+<span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+<p>最后，将两个模块组合起来，即可得到最终的模块。</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Tomorrow</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Tomorrow</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">         </span><span class="n">todayMonth</span><span class="p">,</span><span class="w">         </span><span class="c1">// 今天的月份，范围 1~12</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">         </span><span class="n">todayDayInMonth</span><span class="p">,</span><span class="w">    </span><span class="c1">// 今天的日期，范围 1~31</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">         </span><span class="n">todayDayInWeek</span><span class="p">,</span><span class="w">     </span><span class="c1">// 今天星期几，范围 1~7</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">        </span><span class="n">tomorrowMonth</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">        </span><span class="n">tomorrowDayInMonth</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">        </span><span class="n">tomorrowDayInWeek</span>
+<span class="p">);</span>
+
+<span class="n">NextDayInWeek</span><span class="w"> </span><span class="n">nday</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">.</span><span class="n">today</span><span class="p">(</span><span class="n">todayDayInWeek</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">tomorrow</span><span class="p">(</span><span class="n">tomorrowDayInWeek</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="n">NextDayInMonth</span><span class="w"> </span><span class="n">nmonth</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">.</span><span class="n">today</span><span class="p">(</span><span class="n">todayDayInMonth</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">month</span><span class="p">(</span><span class="n">todayMonth</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">tomorrow</span><span class="p">(</span><span class="n">tomorrowDayInMonth</span><span class="p">),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">next_month</span><span class="p">(</span><span class="n">tomorrowMonth</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="222-6bits-5"><strong>2.2.2 6bits 5 的倍数检测器</strong></h3>
+<p>如题，我们需要设计一个电路，检测输入的 6bits 二进制数是否为 5 的倍数。检验一个数是不是5的倍数，我们可以将其转换为十进制数，然后判断是否能被 5 整除。但是还有一个最为朴素的做法：枚举！</p>
+<h4 id="2221"><strong>2.2.2.1 暴力枚举</strong></h4>
+<p>6bit 二进制数的取值范围为 0~63，我们可以枚举所有的情况，然后判断是否为 5 的倍数。我们可以使用 Verilog 的 case 语句来实现这一功能。</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">BruteForce</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">BruteForce</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w">           </span><span class="p">[</span><span class="mh">5</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">x</span><span class="p">,</span><span class="w">             </span><span class="c1">// 输入的 6bit 二进制数</span>
+<span class="w">    </span><span class="k">output</span><span class="w">   </span><span class="kt">reg</span><span class="w">             </span><span class="n">isMultipleOf5</span>
+<span class="p">);</span>
+<span class="k">always</span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">case</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="w">        </span><span class="mh">000000</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">000101</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">001010</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">001111</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">010100</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">011001</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">011110</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">100011</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">101000</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">101101</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">110010</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">110111</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">111100</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">endcase</span>
+<span class="k">end</span>
+
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+<p>显然，上述方法在面对更大的数时就不太适用了，毕竟我们不太可能枚举所有的情况。那么我们该如何设计一个通用的电路呢？</p>
+<p>一个自然的想法是构建一个有限状态机，通过状态机的状态来记录当前的余数，并通过结束时落到的状态确定最终余数。由于一个数除以 5 的余数只可能是 0~4 ，因此我们可以设计一个 3bits 的状态机，用于记录当前的余数。</p>
+<p>很可惜，这并不属于组合逻辑的范畴，因为状态机需要记录当前的状态，而状态的改变是需要时间的。因此我们需要引入时钟信号，将其变成时序逻辑——这也是我们将在 Lab5 中介绍的内容。</p>
+<p>而现在，我们只能另辟蹊径，寻找另一种自然的方法。这就是我们接下来要介绍的长除法。</p>
+<h4 id="2222"><strong>2.2.2.2 长除法</strong></h4>
+<p>由于位数已经固定为 6bits，因此我们可以直接使用 Verilog 的除法运算符。但是这样的做法并不符合我们的初衷，我们希望能够自己设计一个电路，而不是直接使用现成的运算符。</p>
+<p>我们以 6bits 二进制数除以 5 为例，假设我们要计算 011011 除以 101，我们可以模拟除法竖式的过程。</p>
+<div class="admonition example">
+<p class="admonition-title">竖式除法</p>
+<p>011011，取前三位的 011，余 11，向下一位借位，得到 110，再余 01，向下一位借位，得到 011，再余11，向下一位借一位，得到111，取101，余10，结束。</p>
+</div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">LongDivision</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">LongDivision</span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w">           </span><span class="p">[</span><span class="mh">5</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">       </span><span class="n">num</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w">                  </span><span class="n">isMultipleOf5</span>
+<span class="p">);</span>
+<span class="w">    </span><span class="kt">reg</span><span class="w">             </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">       </span><span class="n">lend_1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">reg</span><span class="w">             </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">       </span><span class="n">lend_2</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">reg</span><span class="w">             </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">       </span><span class="n">lend_3</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">reg</span><span class="w">             </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">       </span><span class="n">lend_4</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">always</span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">        </span><span class="n">lend_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">4</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b101</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">num</span><span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">4</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b101</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">num</span><span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">4</span><span class="p">];</span>
+<span class="w">        </span><span class="n">lend_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">lend_1</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">[</span><span class="mh">3</span><span class="p">]}</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b101</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">{</span><span class="n">lend_1</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">[</span><span class="mh">3</span><span class="p">]}</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b101</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="n">lend_1</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span><span class="w"> </span><span class="n">num</span><span class="p">[</span><span class="mh">3</span><span class="p">]};</span>
+<span class="w">        </span><span class="n">lend_3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">lend_2</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">[</span><span class="mh">2</span><span class="p">]}</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b101</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">{</span><span class="n">lend_2</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">[</span><span class="mh">2</span><span class="p">]}</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b101</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="n">lend_2</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span><span class="w"> </span><span class="n">num</span><span class="p">[</span><span class="mh">2</span><span class="p">]};</span>
+<span class="w">        </span><span class="n">lend_4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">lend_3</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">[</span><span class="mh">1</span><span class="p">]}</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b101</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">{</span><span class="n">lend_3</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">[</span><span class="mh">1</span><span class="p">]}</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b101</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="n">lend_3</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span><span class="w"> </span><span class="n">num</span><span class="p">[</span><span class="mh">1</span><span class="p">]};</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">lend_4</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b0</span><span class="p">)</span>
+<span class="w">            </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">            </span><span class="n">isMultipleOf5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+<!-- >>>>>>> e8c334724953743108807c0f17803b423097ba50 -->
+
+<div class="admonition quote">
+<p class="admonition-title">参考资料</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/639192378">数字电路基础：编码器和译码器</a></li>
+</ul>
+</div>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 29, 2023</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+  <h2 id="__comments">评论</h2>
+  <!-- Insert generated snippet here -->
+    <script src="https://giscus.app/client.js"
+        data-repo="wintermelon008/USTC-DigitalLab-Discussion"
+        data-repo-id="R_kgDOKJcNog"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOKJcNos4CYvRc"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+    </script>
+
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+          /* Instruct Giscus to change theme */
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+                
+
+  
+    <div class="md-source-date">
+      <small>
+          Authors: <span class='git-page-authors git-authors'><a href='mailto:richardzheng@mail.ustc.edu.cn'>Archaeus13</a>, <a href='mailto:1904346407@qq.com'>wintermelon008</a>, <a href='mailto:128877425+sihhangchen@users.noreply.github.com'>陈思航</a></span>
+      </small>
+    </div>
+  
+
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../combinational/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 1. 设计流程" rel="prev">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                1. 设计流程
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../logisim/" class="md-footer__link md-footer__link--next" aria-label="下一页: 3. Logisim 的自动电路生成" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                3. Logisim 的自动电路生成
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © USTC-Digital Lab 2023
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://soc.ustc.edu.cn" target="_blank" rel="noopener" title="soc.ustc.edu.cn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.87 11.525c.071.013.13.084.13.157v3.033a.166.166 0 0 1-.13.157l-2.875.535a.243.243 0 0 0-.17.151l-.898 2.242a.252.252 0 0 0 .017.229l1.633 2.379a.167.167 0 0 1-.02.204l-2.144 2.144a.167.167 0 0 1-.203.019l-2.338-1.604a.23.23 0 0 0-.224-.008l-1.03.55a.121.121 0 0 1-.17-.062l-2.125-5.135a.161.161 0 0 1 .062-.192l.258-.158c.048-.03.113-.08.163-.125a3.354 3.354 0 1 0-3.612 0c.05.046.115.096.163.125l.258.158a.16.16 0 0 1 .062.192L8.552 21.65a.121.121 0 0 1-.17.063l-1.03-.55a.23.23 0 0 0-.224.007L4.79 22.775a.168.168 0 0 1-.204-.019l-2.145-2.144a.167.167 0 0 1-.019-.204l1.633-2.38a.251.251 0 0 0 .017-.228l-.897-2.242a.244.244 0 0 0-.17-.15L.13 14.871a.166.166 0 0 1-.13-.157v-3.032c0-.073.059-.144.13-.157l2.947-.548a.253.253 0 0 0 .175-.15l.903-2.108a.246.246 0 0 0-.014-.227L2.424 5.989a.167.167 0 0 1 .019-.203L4.587 3.64a.166.166 0 0 1 .204-.019L7.337 5.37c.06.041.163.048.229.016l2.043-.836c.07-.023.137-.1.15-.173l.567-3.047a.167.167 0 0 1 .157-.131h3.034c.073 0 .143.059.157.13l.567 3.048a.25.25 0 0 0 .15.173l2.043.836a.252.252 0 0 0 .23-.016l2.546-1.748a.166.166 0 0 1 .203.02l2.144 2.144c.052.051.06.143.02.203l-1.718 2.503a.245.245 0 0 0-.014.227l.903 2.108a.256.256 0 0 0 .175.15l2.946.548"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://vlab.ustc.edu.cn" target="_blank" rel="noopener" title="vlab.ustc.edu.cn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 1h16a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1m0 8h16a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1m0 8h16a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1M9 5h1V3H9v2m0 8h1v-2H9v2m0 8h1v-2H9v2M5 3v2h2V3H5m0 8v2h2v-2H5m0 8v2h2v-2H5Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.expand", "navigation.footer", "content.code.copy"], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.78eede0e.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

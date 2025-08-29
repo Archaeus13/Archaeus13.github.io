@@ -1,0 +1,758 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\title{复分析H 作业解答}
+\author{原生生物}
+\date{}
+
+\usepackage{amsmath,amssymb,enumerate,geometry}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\setlength{\parindent}{0pt}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\Res}{Res}
+
+\begin{document}
+\maketitle
+*对应教材为史济怀、刘太顺《复变函数》与Stein《复分析》。
+
+\tableofcontents
+\newpage
+\section{第一次作业}
+\begin{enumerate}
+    \item (1.3节定理、1.3.5)
+
+    (1) 设$z=x+iy$，与$N$点连线为$(tx,ty,1-t),t\in\mathbb{R}$，与球面交点满足$t^2x^2+t^2y^2+(1-t)^2=1$，除$t=0$外解为$t=\frac{2}{x^2+y^2+1}=\frac{2}{|z|^2+1}$，带入得交点为$(\frac{z+\bar{z}}{|z|^2+1},\frac{z-\bar{z}}{|z|^2+1},\frac{|z|^2-1}{|z|^2+1})$。
+
+    (2) 由(1)直接计算验证，$\frac{x_1+\mathrm{i}x_2}{1-x_3}=\frac{z+\bar{z}+z-\bar{z}}{|z|^2+1-(|z|^2-1)}=z$，由此得证。
+
+    (3) 过$N$点圆对应直线：过$N$圆周与$N$连直线组成平面，与复平面的交为直线，而$N$与复平面直线确定平面，与球面交为过$N$点圆。
+
+    不过$N$点圆对应圆：由旋转对称，不妨设复平面上圆为$(x-a)^2+y^2=r^2$，由(1)可知对径点$(a-r,0),(a-r,0)$在球面上对应点的中点为
+    \[\left(\frac{a-r}{1+(a-r)^2}+\frac{a+r}{1+(a+r)^2},0,\frac{1}{2}\left(\frac{(a-r)^2-1}{1+(a-r)^2}+\frac{(a+r)^2-1}{1+(a+r)^2}\right)\right)\]
+
+    而圆上一点$(a+r\cos\theta,r\sin\theta)$对应点为
+    \[\left(\frac{2(a+r\cos\theta)}{1+a^2+r^2+2r\cos\theta},\frac{2r\sin\theta}{1+a^2+r^2+2r\cos\theta},\frac{-1+a^2+r^2+2r\cos\theta}{1+a^2+r^2+2r\cos\theta}\right)\]
+
+    计算知两者距离为$2r\sqrt{\frac{1}{(1+(a+r)^2)(1+(a-r)^2)}}$，与$\theta$无关，因此对应的点为一个球与单位球的交点，即为圆，由此得证。
+
+    \item (1.2.14)
+
+    (1) 此时$\bar{\beta}z+\beta\bar{z}+d=0$，设$\beta=m+n\mathrm{i},z=x+y\mathrm{i}$，可得$2mx+2ny+d=0$，从而为直线。
+
+    (2) 此时可化为$(az+\beta)(a\bar{z}+\bar{\beta})=\beta\bar{\beta}-ad$，即$|az+\beta|=\sqrt{|\beta|^2-ad}$，圆心为$-\frac{\beta}{a}$，半径$\frac{\sqrt{|\beta|^2-ad}}{a}$。
+
+    \item (2.2.2)
+
+    *以下设$f=u+\mathrm{i}v$，且$u_x$代表$\frac{\partial u}{\partial x}$
+
+    (1) 由于$u=C$，由CR方程知$v_x=v_y=0$，从而$v=C'$，由此得证。
+
+    (2) 与(1)同理知$u_x=u_y=0$，由此得证。
+
+    (3) 由题意$u^2+v^2=C$，求偏导得$\begin{cases}uu_x+vv_x=0\\uu_y+vv_y=0\end{cases}$，代入CR方程知$\begin{cases}uv_y-vu_y=0\\uu_y+vv_y=0\end{cases}$，从而$(u^2+v^2)v_y=0$，分析知$v_y=0$，同理$u_x=u_y=v_x=0$，由此得证。
+
+    (4) $v=0$时由(2)知结果，否则有$u=Cv$，求偏导代入CR方程得$\begin{cases}v_y=-Cu_y\\u_y=Cv_y\end{cases}$，解得$u_y=v_y=0$，同理$u_x=v_x=0$，由此得证。
+
+    (5) 对$u=v^2$求偏导代入CR方程得$\begin{cases}v_y=-2vu_y\\u_y=2vv_y\end{cases}$，从而$(4v^2+1)u_y=0$，同理$u_x=v_x=v_y=0$，由此得证。
+
+    \item (2.2.3)
+
+    设$f=u+\mathrm{i}v$，则$u=\sqrt{xy},v=0$，$u_x=\frac{\sqrt{y}}{2\sqrt{x}}$，0处偏导为从$x$方向趋于0，由此为0，同理$u_y(0)=0$，因此满足CR方程。
+
+    由于$f$只有$xy\ge0$时有意义，0不为定义域内点，因此不实可微，从而不可微。
+
+    \item (2.2.11)
+
+    设$f=u+\mathrm{i}v$，则$\log|f(z)|=\frac{1}{2}\log(u^2+v^2)$，对$x$求两次偏导得
+    \[\frac{(u^2+v^2)(uu_{xx}+vv_{xx})-u^2u_x^2-v^2v_x^2+u^2v_x^2+v^2u_x^2-4uvu_xv_x}{(u_2+v_2)^2}\]
+
+    对$y$求两次偏导即为把此式中$x$替换为$y$，由CR方程，$u_xv_x=-u_yv_y,u_x^2=v_y^2,u_y^2=v_x^2$，对两偏导可消去除第一项外的全部项，再由$u,v$调和消去第一项，可知$\log|f(z)|$调和。
+
+    $\arg f(z)$可以为$\arctan{\frac{v}{u}}$(正半轴上为0)、$\arctan{\frac{v}{u}}\pm\pi$。由于定义域不包含负半轴，在各交界处连续变化，因此只需要考察$\arctan{\frac{v}{u}}$是否调和。对$x$求两阶偏导得
+    \[\frac{u^3v_{xx}-v^3u_{xx}-u^2vu_{xx}+uv^2v_{xx}+(v^2-u^2)u_xv_x+uv(u_x^2-v_x^2)}{(u^2+v^2)^2}\]
+
+    仍类似上一种情况求和可消去，由此调和。
+
+    对$|f(z)|$，记$g(z)=\log|f(z)|$，则$|f(z)|=\mathrm{e}^{g(z)}$，因此$\Delta|f(z)|=\mathrm{e}^g(g_{xx}+g_{yy}+g_x^2+g_y^2)$，由$g$调和知其为$\mathrm{e}^g(g_x^2+g_y^2)$，由此$|f(z)|$调和只能$g$为常数，即$|f(z)|$为常数，由2.2.2(3)知$f$为常数，矛盾。
+
+    \item (2.2.15)
+
+    令$u(z)=\ln|z|$，计算知其调和。若存在共轭调和函数$v$，由CR方程知$v_y=\frac{x}{x^2+y^2},v_x=-\frac{y}{x^2+y^2}$，积分得$v=\arctan\frac{y}{x}+C$。即$v$在每一点必须为$\Arg z+\{0,\pi\}$中元素加上某共同的$C$，分析知无论如何选择也不能连续，矛盾。
+
+    \item (2.3.3)
+
+    若$f'(1)\ne0$且$\arg f'(1)\ne0$，设其为$r(\cos\theta+\mathrm{i}\sin\theta)$，由对称不妨设$\theta\in(0,\pi]$。由导数连续，
+    \[\forall\varepsilon,\exists\delta,|z|<\delta\Rightarrow\left|\frac{f(z+1)-1}{z}-r(\cos\theta+\mathrm{i}\sin\theta)\right|<\varepsilon\]
+
+    由此$|f(z+1)|>|1+rz(\cos\theta+\mathrm{i}\sin\theta)|-\varepsilon|z|$。
+
+    当$\theta\le\frac{\pi}{2}$时，取$\arg z=\frac{3\pi}{2}-\theta$，否则取$\arg z=0$，再令$\varepsilon<\min(\frac{r}{4},\frac{r^2}{4})$，即有$|z+1|<1,|f(z+1)|>1$，矛盾。
+
+    \item (2.2.4)
+
+    令$g(z)=\frac{f(z_0z)}{f(z_0)}$，则其满足2.2.3条件，由此$g'(1)=\frac{z_0f'(z_0)}{f(z_0)}>0$，即得证。
+\end{enumerate}
+
+\section{第二次作业}
+\begin{enumerate}
+    \item (2.4.6)
+    
+    *设主支辐角范围为$(0,2\pi)$
+    
+    由于$\log z=\log|z|+\mathrm{i}\arg z$，$\re\log z^2=2\log|z|,\im\log z^2=\arg z^2=\begin{cases}2\arg z&\arg z<\pi\\2\arg z-2\pi&\arg z\ge\pi\end{cases}$。
+    
+    \item (2.4.23)
+    
+    记$\Delta_c\Log\left(\frac{z^2-1}{z}\right)$为简单闭曲线$C$绕一圈的变化量，由于$f(z)=\log\left|\frac{z^2-1}{z}\right|+\mathrm{i}\Arg\left(\frac{z^2-1}{z}\right)$
+    
+    \[\Delta_cf(z)=\mathrm{i}(\Delta_c\Arg(z+1)+\Delta_c\Arg(z-1)-\Delta_c\Arg z)\]
+    
+    由此，$f(z)$支点为$-1,0,1$，所给域中的简单闭曲线或不包含支点，或包含$0,1$两个支点，第二种情况$\Delta_c=0+2\pi-2\pi=0$，由此可分出单值分支。
+    
+    \item (2.4.11)
+    
+    $\mu=\frac{1}{2}$时，$(z^\mu)^2$与$z^{2\mu}$为单值函数，$(z^2)^\mu$为多值函数，由此与前两者不同。
+    
+    设$\mu=a+b\mathrm{i}$由于$z^\mu=\mathrm{e}^{a\log|z|-b(\arg z+2k\pi)}\mathrm{e}^{\mathrm{i}(b\log|z|+a(\arg z+2k\pi))}$，且$z^2$为单值函数，$(z^\mu)^2$的实部与虚部指数分别对应乘2，因此即为$\mathrm{e}^{2a\log|z|-2b(\arg z+2k\pi)}\mathrm{e}^{\mathrm{i}(2b\log|z|+2a(\arg z+2k\pi))}$，此即$z^{2\mu}$，因此前两者相等。
+    
+    \item (2.4.22)
+    
+    $f(z)=\frac{1}{z}\big(\frac{z}{1-z}\big)^p$，多值部分为$\big(\frac{z}{1-z}\big)^p$，但$\Arg\frac{z}{1-z}=\Arg z-\Arg(1-z)$，在所给域中，任何简单闭曲线或不包含$0,1$，或均包含，绕一周后$\Arg\frac{z}{1-z}$不变，由此可分出单值分支。
+    
+    \item (2.4.26)
+    
+    由于此函数支点为$\{-1,1\}$，而挖去线段后域中任何简单闭曲线不可能围绕支点，由此可分出单值分支。
+    
+    $f(z)=\log|1-z^2|+\mathrm{i}\Arg(1-z^2)$，考虑$z$沿$|z-1|=1$的下半圆从0连续变化到2，则$\Arg(1-z)$增大$\pi$，$\Arg(1+z)$不变，由此最终结果为$f(2)=\log3+\mathrm{i}\pi$。
+    
+    \item (2.4.27)
+    
+    由定理2.4.7可知其可分出单值分支，由于
+    \[f(z)=|1-z|^{3/4}|1+z|^{1/4}\exp\left(\mathrm{i}(\frac{3}{4}\Arg(1-z)+\frac{1}{4}\Arg(1+z))\right)\]
+    
+    $\mathrm{i}$从$[-1,1]$的左侧变化到$\mathrm{-i}$，$\Arg(1-z)$增大$\frac{\pi}{2}$，$\Arg(1+z)$增大$\frac{3\pi}{2}$，因此$f(-\mathrm{i})=\sqrt2\mathrm{e}^{\frac{5\pi}{8}\mathrm{i}}$。
+\end{enumerate}
+
+\section{第三次作业}
+\begin{enumerate}
+    \item (P73 命题2.5.7)
+    
+    构造分式线性变换$f(z)=(z,z_2,z_3,z_4)$，计算知$f(z_2)=1,f(z_3)=0,f(z_4)=\infty$。
+    
+    当$\im(z_1,z_2,z_3,z_4)=0$时，由于分式线性变换不改变交比，而变换后的交比为$f(z_1)$，因此$f(z_1)$为实数，即变换后成为圆周。由于$L^{-1}$亦为分式线性变换，因此$z_1,z_2,z_3,z_4$共圆。
+    
+    当$z_1,z_2,z_3,z_4$共圆时，变换后$L(z_1)$与$0,1,\infty$共圆，必在实轴上，因此$\im(z_1,z_2,z_3,z_4)=0$。
+    
+    \item (2.5.3)
+    
+    充分：记$z=x+y\mathrm{i}$。当$\im z\ge0$时，$\im w(z)=\im\dfrac{(ax+b+ay\mathrm{i})(cx+d-cy\mathrm{i})}{(cx+d)^2+c^2y^2}$，分子虚部即为$ay(cx+d)-cy(ax+b)=(ad-bc)y\ge0$，由此得证。
+    
+    必要：考虑边界可知其必然把实轴映射到实轴，代入$0,\infty$可知$\frac{a}{c},\frac{b}{d}\in\mathbb{R}\cup\{\infty\}$。由于$c,d$不全为0，不妨设$c=1$，此时若$b,d\notin\mathbb{R}$，代入1可推出$ad=bc$，矛盾，因此$a,b,c,d$的比例为实数。由于$\im w(\mathrm{i})>0$，可知$\im(a\mathrm{i}+b)(d-c\mathrm{i})=ad-bc>0$，由此得证。
+    
+    \item (2.5.4)
+    
+    (i) $\begin{cases}a+b=\mathrm{i}(c+d)\\b-a\mathrm{i}=0\\b-a=-\mathrm{i}(d-c)\end{cases}$，不妨设$a=1$可解得$w=\dfrac{z+\mathrm{i}}{-\mathrm{i}z+1}$。
+    
+    (ii) $\begin{cases}b-a\mathrm{i}=\mathrm{i}(d-c\mathrm{i})\\b+a\mathrm{i}=0\\b+a=-\mathrm{i}(d+c)\end{cases}$，不妨设$a=1$可解得$w=\dfrac{z-\mathrm{i}}{(2-\mathrm{i})z+2\mathrm{i}-1}$。
+    
+    \item (2.5.5)
+    
+    由命题2.5.7证明过程可直接写出其为$(z,x_2,x_1,x_3)=\dfrac{z-x_1}{z-x_3}\cdot\dfrac{x_3-x_2}{x_1-x_2}$。
+    
+    \item (2.4.15)
+    
+    设$\varphi(z_1)=\varphi(z_2)$，化简得$\frac{z_1-z_2}{z_1z_2}(z_1z_2-1)=0$，若$z_1\ne z_2$，则只能$z_1z_2=1$。
+    
+    (i) 两复数乘积为1时辐角关于$x$轴对称，因此上半平面必然为单叶性域。
+    
+    (ii) 与(i)同理得结论。
+    
+    (iii) 两复数模均小于1，积的模仍小于1，因此无心单位圆盘内部必然为单叶性域。
+    
+    (iv) 两复数模均大于1，积的模仍大于1，因此单位圆盘外部必然为单叶性域。
+    
+    \item (2.4.16)
+    
+    考虑对每点解方程可知前两问的像为复平面去除$(-\infty,-1]\cup[+1,\infty)$，后两问的像为复平面去除$[-1,1]$。
+    
+    \item (2.5.16)
+    
+    先作变换$z_1=\mathrm{e}^{\mathrm{i}z}$，可变为半圆$\{z:|z|<1,\re{z}>0\}$。为利用Rokovsky函数，作$z_2=-\mathrm{i}z_1$将其旋转至下半平面，再作$z_3=\frac{1}{2}\big(z_2+\frac{1}{z_2}\big)$即可验证成立。复合$z_1,z_2,z_3$后可发现所需变换即为$\sin z$。
+    
+    \item (2.5.18)
+    
+    先将月牙域变为角状域，将$-1$移至0，1移至$\infty$，由此构造分式线性变换$z_1=\frac{z+1}{z-1}$，像为$\{z:\arg z\in(-\frac{5\pi}{6},-\frac{\pi}{2})\}$，再放大、旋转$z_2=z_1^3,z_3=\mathrm{i}z_2$，即得整个上半平面。再做分式线性变换$z_4=\frac{z_3-\mathrm{i}}{-\mathrm{i}z_3+1}$可得结果。复合后变换为$\frac{3z^2+1}{z^3+3z}\mathrm{i}$。
+    
+    \item (2.5.21)
+    
+    (题目表述有歧义，根据例6.1.6，$\rho$由所给域唯一确定，而不能任意给定)
+    
+    先求公共对称点。设对直线的对称点为$-x,x$，由对圆对称可知$(a-x)(a+x)=r^2$，从而对称点为$\pm\sqrt{a^2-r^2}$，从而类似理2.5.17可构造$w(z)=\lambda\frac{z+\sqrt{a^2-r^2}}{z-\sqrt{a^2-r^2}}$，取$z=0$可知$\lambda=\mathrm{e}^{\mathrm{i}\theta}$，由此得变换。
+\end{enumerate}
+
+\section{第四次作业}
+\begin{enumerate}
+    \item (3.1.5)
+    
+    设$z=r\mathrm{e}^{\mathrm{i}\theta}$，可得原积分化为
+    \[\mathrm{i}r^{n+k+1}\int_{\theta=0}^{2\pi}\mathrm{e}^{\mathrm{i}\theta(n-k+1)}\mathrm{d}\theta=\begin{cases}0&n-k+1\ne0\\2\pi\mathrm{i}&n-k+1=0\end{cases}\]
+    
+    \item (3.1.9)
+    
+    由Green公式，
+    \[\frac{1}{2\mathrm{i}}\int_\gamma\bar{z}\mathrm{d}z=\frac{1}{2\mathrm{i}}\int_\gamma(x-y\mathrm{i})\mathrm{d}x+(y+x\mathrm{i})\mathrm{d}y=\frac{1}{2\mathrm{i}}\int_\Omega 2\mathrm{i}\mathrm{d}x\mathrm{d}y=\int_\Omega\mathrm{d}x\mathrm{d}y\]
+    即为面积。
+    
+    \item (3.1.11)
+    
+    (i) 由连续，$\forall\varepsilon,\exists\delta,\forall |z-z_0|<\delta,|f(z)-f(z_0)|<\varepsilon$，从而$r<\delta$时$|f(z_0+r\mathrm{e}^{\mathrm{i}\theta})-f(z_0)|<\varepsilon$，故
+    \[\bigg|\frac{1}{2\pi}\int_{\theta=0}^{2\pi}f(z_0+r\mathrm{e}^{\mathrm{i}\theta})\mathrm{d}\theta-f(z_0)\bigg|\le\frac{1}{2\pi}\int_{\theta=0}^{2\pi}|f(z_0+r\mathrm{e}^{\mathrm{i}\theta})-f(z_0)|\mathrm{d}\theta<\varepsilon\]
+    从而得证。
+    
+    (ii) 令$z=z_0+\mathrm{e}^{\mathrm{i}\theta}$，左式即化为(i)的形式。
+    
+    \item (3.1.12)
+    
+    (i) 在3.1.11(i)中，将$\theta$积分限换为$\theta_0$与$\theta_0+\alpha$，过程不变，结论仍然成立，从而换元仍可得到3.1.11(ii)中式子。令$g(z)=(z-a)f(z)$，则由极限补充$a$点定义可知$g(z)$可在$D$上连续，利用3.1.12(ii)知左侧等于$\mathrm{i}(\theta_0+\alpha-\theta_0)g(a)=\mathrm{i}\alpha A$。
+    
+    (ii) 仍令$g(z)=(z-a)f(z)$，并换元$z=a+r\mathrm{e}^{\mathrm{i}\theta}$，可化为类似3.1.11(i)形式，类似估算得成立。
+    
+    \item (3.2.1)
+    
+    (ii) 原式$=\int_{|z|=2}\frac{1}{z}\mathrm{d}z+\int_{|z|=2}\frac{1}{z-1}\mathrm{d}z=4\pi\mathrm{i}$
+    
+    (iv) 原式$=\int_{|z-a\mathrm{i}|=\varepsilon}\frac{\mathrm{e}^z}{(z-a\mathrm{i})(z+a\mathrm{i})}\mathrm{d}z+\int_{|z+a\mathrm{i}|=\varepsilon}\frac{\mathrm{e}^z}{(z-a\mathrm{i})(z+a\mathrm{i})}\mathrm{d}z$
+    
+    令$\varepsilon$足够小并趋于0，左侧为$\frac{\mathrm{e}^{a\mathrm{i}}}{a\mathrm{i}+a\mathrm{i}}\int_{|z-a\mathrm{i}|=\varepsilon}\frac{1}{z-a\mathrm{i}}\mathrm{d}z=\frac{\pi\mathrm{e}^{a\mathrm{i}}}{a}$，同理右侧为$\frac{\pi\mathrm{e}^{-a\mathrm{i}}}{-a}$，从而和为$\frac{2\pi\mathrm{i}}{a}\sin a$。
+    
+    \item (3.2.2)
+    
+    由全纯可知对任何$R$积分结果不变，再由习题3.1.12(ii)知结论。
+    
+    \item (3.2.4)
+    
+    (i) 由全纯可知对任何$r$积分结果不变，再由习题3.1.11(i)知结论。
+    
+    (ii) 由(i)，
+    \[\frac{1}{\pi r^2}\int_{|z|<r}f(z)\mathrm{d}x\mathrm{d}y=\frac{1}{\pi r^2}\int_{|z|<r}Rf(R\mathrm{e}^{\mathrm{i}\theta})\mathrm{d}R\mathrm{d}\theta=\frac{1}{\pi r^2}\int_0^rRf(0)\mathrm{d}R=f(0)\]
+    
+    \item (3.3.4)
+    
+    从1到0的线段上原积分的结果为$\arctan x\big|^0_1=-\frac{\pi}{4}$，将$\gamma$添上此线段成为闭曲线。
+    
+    由原式$=\frac{1}{2\mathrm{i}}\big(\int_\gamma\frac{1}{z-\mathrm{i}}\mathrm{d}z+\int_\gamma\frac{1}{z+\mathrm{i}}\mathrm{d}z\big)$，任何闭曲线上的积分结果根据绕转不同只能为$\frac{k\cdot2\pi\mathrm{i}}{2\mathrm{i}}=k\pi,k\in\mathbb{Z}$。
+    
+    由此，题中积分加上$-\frac{\pi}{4}$后为$k\pi$，故为$\frac{\pi}{4}+k\pi,k\in\mathbb{Z}$。
+    
+    \item (3.3.5)
+    
+    对不同的两点$z_1,z_2$，$f(z_2)-f(z_1)=\int_{z_1}^{z_2}f'(z)\mathrm{d}z$。由于$z$为凸域，可考虑直接连接两点的线段上的积分，即$\int_0^1f'(z_1+t(z_2-z_1))(z_2-z_1)\mathrm{d}t$。由于$f'(z)$实部大于0，$\frac{f(z_2)-f(z_1)}{z_2-z_1}$的实部亦大于0，故两者不等，原命题得证。
+\end{enumerate}
+
+\section{第五次作业}
+\begin{enumerate}
+    \item (3.4.5)
+    
+    (i)
+    \[\frac{1}{2\pi\mathrm{i}}\int_{|\zeta|=1}\bigg(2+\zeta+\frac{1}{\zeta}\bigg)f(\zeta)\frac{\mathrm{d}\zeta}{\zeta}=\frac{1}{2\pi\mathrm{i}}\int_{|\zeta|=1}\frac{f(\zeta)(\zeta+1)^2\mathrm{d}\zeta}{\zeta^2}=(f(\zeta)(\zeta+1)^2)'|_{\zeta=0}=f(0)+2f'(0)\]
+    
+    代换$\zeta=\mathrm{e}^{\mathrm{i}\theta}$即可得原式。
+    
+    (ii) 类似(i)，考虑$\displaystyle\frac{1}{2\pi\mathrm{i}}\int_{|\zeta|=1}\bigg(2-\zeta-\frac{1}{\zeta}\bigg)f(\zeta)\frac{\mathrm{d}\zeta}{\zeta}$知结论。
+    
+    \item (3.4.6)
+    
+    由(i)左右相等，其实部相等，而左侧积分内实部$\ge0$，从而$\re(2f(0)+f'(0))\ge0$，同理$\re(2f(0)-f'(0))\ge0$，由此得结论。
+    
+    \item (3.4.7)
+    
+    令$D=\{z:\re z\in[a,b]\}$，$f|_{D\cap G}$由对称原理可全纯开拓到$\{z:\arg z\in(-\frac{\pi}{4},\frac{\pi}{4}),\re z\in[a,b]\}$，再由唯一性定理可推出$f|_{D\cap G}=0$，再次利用得$f(z)=0$。
+    
+    \item (3.4.9)
+    
+    记$z=r\mathrm{e}^{\mathrm{i}\theta}$，则右侧积分为
+    \[\frac{1}{2\pi\mathrm{i}}\int_{|z|=r}\frac{2u(z)}{z^2}\mathrm{d}z=\frac{1}{2\pi\mathrm{i}}\int_{|z|=r}\frac{f(z)}{z^2}\mathrm{d}z+\frac{1}{2\pi\mathrm{i}}\int_{|z|=r}\frac{\overline{f(z)}}{z^2}\mathrm{d}z=f'(0)+\overline{\frac{1}{2\pi\mathrm{i}}\int_{|z|=r}\frac{f(z)}{\overline{z}^2}\mathrm{d}z}\]
+    而$\int_{|z|=r}\frac{f(z)}{\overline{z}^2}\mathrm{d}z=\int_{|z|=r}\frac{z^2f(z)}{r^4}\mathrm{d}z$，由$z^2f(z)$全纯知为0，从而得证。
+    
+    \item (3.5.2)
+    
+    由条件知$\forall a,\exists C, \forall z\in B(a,R), |f(z)|\le CR^\alpha$，取$n=[a]+1$可知$|f^{(n)}(a)|\le n!R^{\alpha-n}$，令$R\to\infty$知$|f^{(n)}(a)|=0$，从而$f$是不超过$[\alpha]$次的多项式。
+    
+    \item (3.5.4)
+    
+    令$g(z)=\frac{f(z)-\mathrm{i}}{f(z)+\mathrm{i}}$，将$f(z)$值域变换到$B(0,1)$，且不改变紧性，由有界知为常值，故$f$为常值。
+    
+    \item (3.5.6)
+    
+    由导数定义可知连续，而由Cauchy积分公式知对任何不通过$z_0$的闭曲线$\gamma$有$\int_\gamma\frac{f(z)-f(z_0)}{z-z_0}\mathrm{d}z=(f(z)-f(z_0))|_{z=z_0}=0$，通过$z_0$时利用极限逼近可知为0，由此得证。
+    
+    \item (4.1.12)
+    
+    引理：对区域$D$内的任何有界闭集$U$，存在$r$使得以$\forall x\in U,B(x,r)\subset D$。若否，存在一列点$x_n\in D$使得$B(x_n,\frac{1}{n})\nsubseteq D$，由紧性知$x_n$有聚点$x$，设$B(x,\varepsilon)\subset D$，考虑充分大的$N$使得$n>N$时$x_n\in B(x,\frac{\varepsilon}{2})\subset D$。再使$n>\frac{\varepsilon}{2}$即知矛盾。
+    
+    记$f_n=u_n+\mathrm{i}v_n$，若$v_n$处处发散已得证，否则不妨设$\sum_{n=1}^\infty v_n(z_0)$收敛，则$\sum_{n=1}^\infty f_n(z_0)$收敛。
+    
+    由3.4.9，对其中有界闭集$U$，$\forall z\in U$，取对应的$B(z,r)$，并取$r$更小使所有$B(z,r)$并的闭包在$D$中，记为$\overline{U_r}$，则有$f_n'(z)=\frac{1}{\pi r}\int_0^{2\pi}u_n(z+r\mathrm{e}^{\mathrm{i}\theta})\mathrm{e}^{-\mathrm{i}\theta}\mathrm{d}\theta$。由柯西判别准则知$\forall\varepsilon,\exists N,\forall n,m>N,\forall z\in \overline{U_r},|\sum_{k=n}^mu_k(z)|<\varepsilon$，从而$|\sum_{k=n}^mf_k'(z)|\le\frac{1}{\pi r}\int_0^{2\pi}|\sum_{k=n}^mu_m(z+r\mathrm{e}^{\mathrm{i}\theta})\mathrm{e}^{\mathrm{i}\theta}|\mathrm{d}\theta<\frac{2\varepsilon}{r}$，由柯西判别准则即知$\sum_{n=1}^\infty f_n'(z)$在$D$中内闭一致收敛。
+    
+    利用定理4.1.5，由于$f_n(z)$为$f_n'(z)$从$z_0$到$z$道路上的积分，由一点收敛可知逐点收敛。在任意连通紧集$U\subset D$中，以每点为半径作闭包包含于$D$的开圆，再利用有限覆盖取出有限个，并取这有限个开圆并的闭包，所得集合包含$U$，且任何两点间存在不超过这些开圆直径之和(记为$L$)的道路，再由长大不等式即知$|\sum_{k=n}^mf_k(z)|\le|\sum_{k=n}^mf_k(z')|+L\sup_{z\in U}|\sum_{k=n}^mf_k'(z)|$，$z'$为$U$中任意一点，从而由柯西判别准则知一致收敛。对不连通的紧集，先类似上方取有限开覆盖闭包成为有限个不连通紧集，再在每个连通分支间添加道路即成为连通紧集，由此知$\sum_{n=1}^\infty f(z)$内闭一致收敛。
+    
+    \item (4.1.13)
+    
+    记$d_n(z)=f_n(z)-f_{n-1}(z),f_0(z)=0$，由定理4.1.9知结论。
+    
+    \item (4.1.14)
+    
+    (i) 考虑$D=\{z:\re z\ge x_0+\varepsilon\},\varepsilon>0$，由于$\sum_{n=1}^\infty a_n\mathrm{e}^{-\lambda_nz_0}$收敛，可知$|a_n\mathrm{e}^{-\lambda_nz_0}|$趋于0，从而有界，$\forall z\in D,\forall n,|a_n\mathrm{e}^{\lambda_n(z_0-z_n)}|\le|a_n\mathrm{e}^{-\lambda_n\varepsilon}|=|a_n\mathrm{e}^{-\lambda_nz_0}||\mathrm{e}^{\lambda_n(z_0-\varepsilon)}|\le|a_n\mathrm{e}^{-\lambda_nz_0}||\mathrm{e}^{\lambda_1(z_0-\varepsilon)}|$有界，由Abel判别法可知$\sum_{n=1}^\infty a_n\mathrm{e}^{-\lambda_nz}$在$D$内一致收敛。利用4.1.12中证明的引理，半平面里任何紧集必然包含在某个$D$中，从而得证。
+    
+    (ii) 半平面里$|a_n\mathrm{e}^{-\lambda_nz}|\le|a_n\mathrm{e}^{-\lambda_nz_0}|$，由Weierstrass判别法可知绝对一致收敛。
+    
+    \item (定理4.2.9)
+    
+    改变$a_0$的值可不妨设$S=0$。记$S_n=\sum_{k=0}^na_n$，则$\lim_{n\to\infty}S_n=0$，于是
+    \[\sum_{n=0}^\infty a_nz^n=\lim_{N\to\infty}\sum_{n=0}^{N-1}S_n(z^n-z^{n+1})+S_Nt^N=(1-z)\sum_{n=0}^\infty S_nz^n\]
+    $\forall\varepsilon$，分段估计知$\exists N,\forall n>N,p,|\sum_{k=n}^{n+p} a_kz^k|<\varepsilon(1+\frac{|1-z|}{1-|z|})$。当$z\in S_\alpha(1)$，估算可知$\frac{|1-z|}{1-|z|}$在$B(1,t)$内可确定上界，从而可知极限存在为0。
+    
+    \item (例4.2.10)
+    
+    由例4.2.7收敛半径为1，求导后和为$\frac{1}{1-z}$，其原函数为$-\Log(1-z)+z_0$，考虑0点值知结果为$-\log(1-z)$。
+\end{enumerate}
+
+\section{第六次作业}
+\begin{enumerate}
+    \item (4.2.2)
+    
+    (ii) $\sqrt[n]{\dfrac{1}{2^{n^2}}}=\dfrac{1}{2^n}$，$n\to\infty$时为0，由此收敛半径为无穷，
+    
+    (iv) $\lim_{n\to\infty}\sqrt[n]{\dfrac{n^n}{n!}}=\mathrm{e}$，由此收敛半径为$\frac{1}{\mathrm{e}}$。
+    
+    \item (4.2.4)
+    
+    (i) $|z|<1$时$\sum_{n=0}^\infty|a_nz^n|<\sum_{n=0}^\infty a_0|z^n|=\frac{a_0}{1-|z|}$，由此绝对收敛，故收敛，从而$R\ge1$。
+    
+    (ii) *$R>1$时有反例。如令$a_n=\begin{cases}\frac{1}{(k+1)4^n}&n=4k\\\frac{1}{(k+1)4^{n+1}}&n=4k+1,4k+2,4k+3\end{cases}$，可发现收敛半径为4，但在$z=4\mathrm{i}$不收敛。
+    
+    当$R=1,z\ne1$时，由于$|\sum_{n=0}^Az^n|=\big|\frac{1-z^{n+1}}{1-z}\big|\le\frac{2}{|1-z|}$对$A$有界，$a_n$单调趋于0，由Dirichlet判别法知收敛。
+    
+    \item (4.2.7)
+    
+    由一致收敛，$\forall0<r<1,\int_{|z|=r}f(z)\overline{f(z)}\mathrm{d}z=2\pi\sum_{n=0}^\infty a_nr^n\cdot\overline{a_n}r^n=2\pi\sum_{n=0}^\infty|a_n|^2r^{2n}$。由$f$有界$M$，此式对$0<r<1$有上界$2\pi M^2$。由此， $\sum_{n=0}^\infty|a_n|^2$的任意部分和由极限可知不超过$M^2$，从而根据单调有界知收敛，即得证。
+    
+    \item (4.2.8)
+    
+    (i) 由定义$\overline{\lim}_{n\to\infty}\sqrt[n]{a_n}<\infty$，而$\lim_{n\to\infty}\sqrt[n]{\frac{1}{n!}}=0$，由此知收敛半径为无穷，即为整函数。
+    
+    (ii) *区域应为$|z|\le r<R$，且将不等式中$R$换为$r$。
+    
+    由$\sum_{n=0}^\infty a_nr^n$收敛，可知$|a_nr^n|$有上界$M$。
+    
+    \[|\varphi^{(k)}(z)|=\bigg|\sum_{n=0}^\infty\frac{a_{n+k}}{n!}z^n\bigg|\le\sum_{n=0}^\infty\bigg|\frac{a_{n+k}}{n!}\bigg||z|^n\le\sum_{n=0}^\infty\frac{M}{r^k}\frac{|z|^n}{r^nn!}=\frac{M}{r^k}\mathrm{e}^{\frac{|z|}{r}}\]
+    
+    \item (4.3.1)
+    令$g(z)=(z-a)f(z)$，定义$g(a)=0$。由$f$全纯可知$g$在$B\backslash\{a\}$全纯，又利用连续由Cauchy积分定理可知在$B$上全纯，因此$a$至少为1阶零点，从而由命题4.3.4知$f$在$a$点全纯。
+    
+    \item (4.3.4)
+    
+    (i)
+    \[\frac{1}{2\pi\mathrm{i}}\int_{|\zeta|=R}f(\zeta)\frac{\zeta^{n+1}-z^{n+1}}{(\zeta-z)\zeta^{n+1}}\mathrm{d}\zeta=\sum_{k=0}^n\frac{1}{2\pi\mathrm{i}}\int_{|\zeta|=R}f(\zeta)\frac{z^k}{\zeta^{z+1}}\mathrm{d}\zeta=\sum_{k=0}^n\frac{z^k}{k!}\cdot\frac{k!}{2\pi\mathrm{i}}\int_{|\zeta|=R}\frac{f(\zeta)}{\zeta^{z+1}}\mathrm{d}\zeta\]
+    由Cauchy积分公式知即为左式。
+    
+    (ii) 由$f(z)=\frac{1}{2\pi\mathrm{i}}\int_{|\zeta|=R}\frac{f(\zeta)}{\zeta-z}\mathrm{d}\zeta$减去第一问即得结果。
+    
+    \item (4.3.6)
+    
+    (i) 由定义$a_n=\frac{f^{(n)}(0)}{n!}$，记$\re f(z)=u(z)$，与习题3.4.9类似得结果。
+    
+    (ii)
+    \[\frac{1}{\pi}\int_0^{2\pi}u(r\mathrm{e}^{\mathrm{i}\theta})\mathrm{e}^{-\mathrm{i}n\theta}\mathrm{d}\theta=\frac{1}{\pi}\int_0^{2\pi}\big(u(r\mathrm{e}^{\mathrm{i}\theta})-A(r)\big)\mathrm{e}^{-\mathrm{i}n\theta}\mathrm{d}\theta\]
+    \[\le\frac{1}{\pi}\int_0^{2\pi}\big|u(r\mathrm{e}^{\mathrm{i}\theta})-A(r)\big|\mathrm{d}\theta=\frac{1}{\pi}\int_0^{2\pi}\big(A(r)-u(r\mathrm{e}^{\mathrm{i}\theta})\big)\mathrm{d}\theta=2A(r)-2u(0)\]
+    最后一步利用Cauchy积分公式取实部。
+    
+    \item (4.3.7)
+    
+    (i) 记$\re f(z)=u(z)$，由习题4.3.6(i)，$|a_n|\le\frac{1}{\pi}\int_0^{2\pi}|u(\mathrm{e}^{\mathrm{i}\theta})|\mathrm{d}\theta=\frac{1}{\pi}\int_0^{2\pi}u(\mathrm{e}^{\mathrm{i}\theta})\mathrm{d}\theta=2u(0)=2$。
+    
+    (ii) 第一个不等号：取$|z|<r<1$，由习题3.4.8知
+    \[u(z)=\frac{1}{2\pi}\int_{0}^{2\pi}u\bigg(\frac{r\mathrm{e}^{\mathrm{i}\theta}+z}{r\mathrm{e}^{\mathrm{i}\theta}-z}\bigg)u(r\mathrm{e}^{\mathrm{i}\theta})\mathrm{d}\theta=\frac{1}{2\pi}\int_{0}^{2\pi}\frac{r^2-|z|^2}{|r\mathrm{e}^{\mathrm{i}\theta}-z|^2}u(r\mathrm{e}^{\mathrm{i}\theta})\mathrm{d}\theta\]\[\ge\frac{r-|z|}{r+|z|}\frac{1}{2\pi}\int_{0}^{2\pi}u(r\mathrm{e}^{\mathrm{i}\theta})\mathrm{d}\theta=\frac{r-|z|}{r+|z|}\]
+    令$r\to1^-$可知成立。
+    
+    第二个不等号：由模定义可知结果。
+    
+    第三个不等号：$|f(z)|\le1+\sum_{n=1}^\infty|a_nz^n|\le1+\sum_{n=1}^\infty2|z|^n=\frac{1+|z|}{1-|z|}$。
+    
+    (iii) 由(ii)知$g(z)=\frac{1}{f(z)}$也满足题设条件，考虑其二次、三次项利用(i)得结果。
+    
+    \item (4.3.14)
+    
+    (i) $\sum_{n=0}^\infty f^{(n)}(a)z^n$收敛半径至少为1，由习题4.2.8(i)知结论。
+    
+    (ii) $\mathbb{C}$上的紧集不妨设包含在$B(a,R)$中。则
+    \[\bigg|\sum_{k=n+1}^{n+p}f^{(k)}(a)\bigg|=\bigg|\sum_{k=n+1}^{n+p}\sum_{m=0}^{\infty}\frac{(z-a)^m}{m!}f^{(k+m)}(a)\bigg|\]
+    \[=\bigg|\sum_{m=0}^\infty\frac{(z-a)^m}{m!}\sum_{k=0}^{p-1}f^{(k+m)}(a)\bigg|\le\sum_{m=0}^\infty\bigg|\frac{(z-a)^m}{m!}\bigg|\bigg|\sum_{k=m}^{m+p-1}f^{(k)}(a)\bigg|\]
+    由于收敛，可取$n$足够大使$\big|\sum_{k=m}^{m+p-1}f^{(k)}(a)\big|<\varepsilon$，此时原式不超过
+    \[\sum_{m=0}^\infty\bigg|\frac{(z-a)^m}{m!}\bigg|\varepsilon=\sum_{m=0}^\infty\frac{|z-a|^m}{m!}\varepsilon=\mathrm{e}^{|z-a|}\varepsilon\le\mathrm{e}^R\varepsilon\]
+    由此即有内闭一致收敛。    
+\end{enumerate}
+
+\section{第七次作业}
+\begin{enumerate}
+    \item (5.1.2)
+    
+    (i) $-\sum_{n=-1}^\infty(n+2)(1-z)^n$
+    
+    (iii) 原式为$\Log(1-\frac{1}{z})-\Log(1-\frac{2}{z})$，即$\sum_{n=0}^\infty\frac{2^n-1}{n}z^{-n}$。
+    
+    (iv) 分别展开后相乘可知结果为$\displaystyle\pm\sum_{n=0}^\infty\sum_{k=0}^n(-1)^n2^k\begin{pmatrix}\frac{1}{2}\\n-k\end{pmatrix}\begin{pmatrix}\frac{1}{2}\\k\end{pmatrix}z^{-n+1}$
+    
+    \item (5.2.6)
+    
+    由有一列零点逼近$z_0$可知$z_0$不为极点，若其为可去奇点，由唯一性定理知$f$恒为0，矛盾，从而得证。
+    
+    \item (5.2.7)
+    
+    $A=\infty$直接取极点逼近即可。假设对所有有限的$A$，都有收敛于$z_0$的点列$z_n$满足$f(z_n)=A$，结论成立，否则设某$A$不满足此条件，即存在$r$使得$f(z)\ne A,\forall z\in B(z_0,r)\backslash z_0$，考虑$B(z_0,r)\backslash z_0$中的$\frac{1}{f(z)-A}$，由习题5.2.6可知$z_0$为$\frac{1}{f(z)-A}$的本性奇点，计算知$\frac{1}{f(z)-A}$收敛到$\mathbb{C}_\infty$中任何数可得$f$亦有此性质，从而得证。
+    
+    \item (5.2.8)
+    
+    由于$\re f(z)>0$，不可能存在子列收敛到实部小于0的数，从而不为本性奇点。由实部不为0可知$\frac{1}{f}$亦在此区域全纯，且计算得其非零处实部大于0。利用习题3.2.5可知$\frac{1}{f}$在零点处实部大于0，因此不为0，从而得证。
+    
+    \item (5.3.5)
+    
+    (i) 设$f(z)=\sum_{n=0}^\infty a_nz^n$考虑$g(z)=\frac{f(z)+f(-z)}{2}=\sum_{n=0}^\infty a_{2n}z^{2n}$，由于0为$\mathbb{R},\mathrm{i}\mathbb{R}$的交可知$a_0=0$，从而$h(z)=\frac{g(z)}{z^2}$仍为整函数且满足$h(\mathbb{R})\subset\mathbb{R},h(\mathrm{i}\mathbb{R})\subset\mathrm{i}\mathbb{R}$，由此归纳可知$g=0$，即得证。
+    
+    (ii) 记$f_0(z)=zf(z)$，满足上问条件，因此为奇函数，从而考虑展开式可知$f(z)$为偶函数。
+    
+    \item (5.3.6)
+    
+    由定理5.3.3知$f$为有理函数。因此其为$z^2+z+\frac{1}{z-1}+\frac{1}{z-2}+\frac{1}{(z-2)^2}+\frac{5}{4}$。
+\end{enumerate}
+
+\section{第八次作业}
+\begin{enumerate}
+    \item (补充题)
+    
+    定义$F_\varepsilon(z)=F(z)\mathrm{e}^{-\varepsilon z^\alpha},1<\alpha<2$，则其在$S$上全纯，$\overline{S}$上连续。当$\arg z=\pm\frac{\pi}{4}$时，考虑辐角可知$|F_\varepsilon(z)|=|f(z)|\mathrm{e}^{-\varepsilon|z|^2\cos\frac{\pi\alpha}{4}}\le1$，且类似得$\lim_{z\to\infty}F_\varepsilon(z)=0$，因此将区域分为两部分后由最大模原理知$|F_\varepsilon(z)|\le1$，令$\varepsilon\to0$即得结果。
+    
+    \item (4.5.4)
+    若否，不妨设$M(r_0)>M(r_1),r_0<r_1$，则$B(0,r_1)$上的最大模不在边界取到，矛盾。
+    
+    \item (4.5.5)
+    若某不为常数的多项式$P(z)$无根，则考虑$\frac{1}{P(z)}$可发现其无穷远处趋于0，且无零点。但利用习题4.5.4可知$M(r)$在$[0,\infty)$上递增，与存在$R$使$|z|>R$时$\big|\frac{1}{P(z)}\big|<\big|\frac{1}{P(0)}\big|$矛盾。
+    
+    \item (4.5.6)
+    设$g(z)=f\big(\frac{R^2}{z}\big)$，由$\lim_{z\to\infty}f(z)$存在知0是$g$的可去奇点，从而可使$g\in H(B(0,R))\cup C(\overline{B(0,R)})$，利用习题4.5.4知$\max_{z=r}|g(z)|$随$r$增加单调增，由非常数可知严格递增，从而$M(r)$严格减。
+    
+    \item (4.5.9)
+    
+    当$M(r_1)=0$或$M(r_2)=0$时，类似习题3.4.7使用Schwarz对称原理可知$f$恒为0，否则记$g(z)=M(r_1)^\frac{\log r_2/z}{\log r_2/r_1}M(r_2)^\frac{\log z/r_1}{\log r_2/r_1}$，有$|g(z)|=M(r_1)^\frac{\log r_2/|z|}{\log r_2/r_1}M(r_2)^\frac{\log |z|/r_1}{\log r_2/r_1}$，由此知边界上有$|f(z)|\le|g(z)|$，对$\frac{f}{g}$运用最大模原理可知$\overline{\Omega}$中$|f(z)|\le|g(z)|$，从而$M(r)\le M(r_1)^\frac{\log r_2/r}{\log r_2/r_1}M(r_2)^\frac{\log r/r_1}{\log r_2/r_1}$，两边取$\log$即得结论。
+    
+    \item (4.4.1)
+    
+    在每个点附近作充分小圆盘，利用Cauchy积分定理知只需考虑一个零点处。设某零点$z_0$附近$f(z)=(z-z_0)^kh(z)$，$h(z_0)\ne0$，则去掉全纯部分$\frac{h'(z)}{h(z)}$后积分即为$\frac{1}{2\pi\mathrm{i}}\int_{B(z_0,\varepsilon)}\frac{g(z)k}{z-z_0}=kg(z_0)$，因此得证。
+    
+    \item (4.4.3)
+    
+    由介值定理可知其有正实根，由于右半平面$|\mathrm{e}^{-z}|<1$，根一定落在$|z-\lambda|=1$内，而记$g(z)=z-\lambda$，利用Rouch\'e定理可知$f(z)$在此内的根个数与$g(z)$相同，即得证。
+    
+    \item (4.4.4)
+    
+    先说明$P(z)=\sum_{k=0}^na_kz^k$零点都在$B(0,1)$中。其显然无正实根，而若$z_0$为零点，考虑$(1-z_0)P(z_0)$可知$a_nz_0^{n+1}=a_0+\sum_{k=1}^n(a_k-a_{k-1})z_0^k$，若$|z_0|\ge1$，利用无正实根可估算得左侧模大于右侧，矛盾。
+    
+    利用其有$n$个零点，可知$z$绕$|z|=1$转一圈时$P(z)$转了$n$圈，从而与虚轴有$2n$个交点，即至少有$2n$个不同的$\theta$使得$\re P(\mathrm{e}^{\mathrm{i}\theta})$为0，即题目中的式子至少有$2n$个不同零点。
+    
+    另一方面，记$z=\mathrm{e}^{\mathrm{i}\theta}$，则所求式子乘$z^n$后为$z$的$2n$次多项式，因此至多有$2n$个不同零点，即得证。
+    
+    \item (4.4.6)
+    
+    由于此级数在$B(0,1)$收敛于$\frac{1}{(1-z)^2}$，且幂级数的收敛满足内闭一致收敛，利用Hurwitz定理得证。
+    
+    \item (4.4.7)
+    
+    由于此级数在复平面上收敛于$\mathrm{e}^z$，且幂级数的收敛满足内闭一致收敛，利用Hurwitz定理得证。
+    
+    \item (4.4.11)
+    
+    (ii) $|z|=1$时$|2z^5-z^3+3z^2-z|\le2+1+3+1<8$，不存在零点。
+    
+    (iv) $|z|=1$时$|\mathrm{e}^z+1|\le|\mathrm{e}+1|<4$，因此其零点个数与$-4z^n$相同，为$n$个。
+\end{enumerate}
+
+\section{第九次作业}
+\begin{enumerate}
+    \item (4.4.12)
+    
+    由于$|f(z)|<|z|$在边界成立，由Rouch\'e定理知$z-f(z)$与$z$在$B(0,1)$内解个数相同，即得证。
+    
+    \item (4.4.13)
+    
+    (i) 由习题1.1.5知$|z|=1$时$|f(z)|=1$，从而由Rouch\'e定理知$f(z)-b$与$f(z)$在$B(0,1)$内零点个数相同，可验证$f(z)$零点恰为$a_1,\dots,a_n$，均在$B(0,1)$中，从而得证。
+    
+    (ii) 类似(i)由Rouch\'e定理知$b-f(z)$与$b$在$B(0,1)$内零点个数相同，即$B(0,1)$内无零点，而边界上$|f(z)|=1$因此无零点，从而只需说明$f(z)$有$n$个零点。$f(z)-b$的分子为关于$z$的$n$次多项式$\prod_{k=1}^n(a_k-z)-b\prod_{k=1}^n(1-\overline{a_k}z)$，当后半部分为0时$|z|>1$，因此前半部分不为0，由此此多项式的根不可能使后半部分为0，也即分母不为0，因此均为整个分式的根，从而得证。
+    
+    \item (4.4.14)
+    
+    利用辐角原理知$\frac{1}{2\pi\mathrm{i}}\int_{|z|=R}\frac{f'(z)}{f(z)}\mathrm{d}z=N$，令$z=R\mathrm{e}^{\mathrm{i}\theta}$可得$\frac{1}{2\pi}\int_0^{2\pi}z\frac{f'(z)}{f(z)}\mathrm{d}\theta=N$，取实部即可知实部最大值$\ge N$。
+    
+    \item (4.4.17)
+    
+    由定理4.4.6与连续性可知$f(D)=G$，于是对任何$f(z_0),z_0\in D$，有$f(z_0)\notin\Gamma$。$f(z)-f(z_0)$在$D$中根的个数为(不妨设两曲线定向相同)$\frac{1}{2\pi\mathrm{i}}\int_\gamma\frac{f'(z)}{f(z)-f(z_0)}\mathrm{d}z=\frac{1}{2\pi\mathrm{i}}\int_\Gamma\frac{w}{w-f(z_0)}\mathrm{d}w$，而后者即为$z=f(z_0)$在$G$中根的个数，因此为1，从而得证。
+    
+    \item (4.5.12)
+    
+    当$f$为常数时，直接估算知成立。
+    
+    当$f$不为常数且$f(0)=0$时，由习题4.5.11知$|f(Rz)|\le\frac{2A(R)|z|}{1-|z|}$，再由最大模原理知结论(由于$\re f(z)$为调和函数，其最大值在边界取到)。
+    
+    当$f(0)\ne0$时，令$g(z)=f(z)-f(0)$，则$|f(z)|\le|g(z)|+|f(0)|$，再利用上一种情况可知
+    \[M(r)\le\frac{2r}{R-r}\max_{|z|=R}g(z)+|f(0)|\le\frac{2r}{R-r}A(R)+\frac{2r}{R-r}|f(0)|+|f(0)|\]
+    化简得结论。
+    
+    \item (4.5.13)
+    
+    (i)
+    令$\varphi(z)=\frac{z-1}{z+1}$，其将右半平面映射到$B(0,1)$，且1映射到0，因此对$w=\varphi\circ f$利用Schwarz引理知$|w(z)|\le|z|$，此时$f(z)=\frac{1+w(z)}{1-w(z)}$。
+    
+    第一个不等号：计算知$\re f(z)=\re\frac{1+w(z)}{1-w(z)}=\frac{1-|w(z)|^2}{|1-w(z)|^2}\ge\frac{1-|w(z)|}{1+|w(z)|}\ge\frac{1-|z|}{1+|z|}$。
+    
+    第二个不等号：由实部与模定义知结论。
+    
+    第三个不等号：计算知$|f(z)|\le\frac{1+|w(z)|}{1-|w(z)|}\le\frac{1+|z|}{1-|z|}$。
+    
+    (ii)
+    由$z_0$处等号成立可推出$|w(z_0)|=|z_0|$，从而$w(z)=\mathrm{e}^{\mathrm{i}\theta}z$，代入即得证。
+    
+    \item (4.5.15)
+    
+    由于$\overline{B(0,1)}$为紧集，若其中有无穷多零点则存在聚点，因此$f$恒为0，矛盾。由其有有限多零点，类似习题4.5.17右侧g$g(z)$，令$h(z)=\frac{f(z)}{g(z)}$，其在$|z|=1$时模为1，且$h(B(0,1))\subset B(0,1)\backslash\{0\}$，考虑$h$与$\frac{1}{h}$可知$|h(z)|=1$，由习题2.2.2可知$h(z)$只能为常数，由模为1设其为$\mathrm{e}^{\mathrm{i}\theta}$，则$f(z)=\mathrm{e}^{\mathrm{i}\theta}g(z)$。由$f(z)$为整函数，若有非零根，会导致$g(z)$在某处趋于无穷，矛盾，因此只能$f(z)=\mathrm{e}^{\mathrm{i}\theta}z^n$。
+    
+    \item (4.5.17)
+    
+    当$f$零点总重数为1时，设$f(z_1)=0$，利用定理4.5.6直接知结论，利用归纳法，下假设$f$零点总重数为$k-1$时结论成立。
+    
+    当$f$零点总重数为$k$时，设$f(z_1)$为$k_1$重零点，可设$f(z)=(z-z_1)^{k_1}g(z)$，$g(z)$其他零点与$f(z)$相同，但$z_1$不为零点，考虑$h(z)=f(z)\frac{1-\overline{z_1}z}{z_1-z}=(z-z_1)^{k_1-1}g(z)(1-\overline{z_1}z)$，由于$1-\overline{z_1}z$在$B(0,1)$中无零点，$h(z)$只有$z_1$的零点重数比$f(z)$少一重，从而零点总重数为$k-1$。利用归纳假设后两侧同乘$\big|\frac{z_1-z}{1-\overline{z_1}z}\big|$即得证。
+    
+    \item (4.5.20)
+    
+    记$h(z)=\frac{f(z_1)-f(z)}{1-\overline{f(z_1)}f(z)}\frac{1-\overline{z_1}z}{z_1-z}\frac{1-\overline{z_2}z}{z_2-z}$，由$z_1,z_2$均为$f(z_1)-f(z)$零点可知$h(z)\in H(B(0,1))$。$|z|=1$时$|h(z)|=\big|\frac{f(z_1)-f(z)}{1-\overline{f(z_1)}f(z)}\big|$，由$f(B(0,1))\subset B(0,1)$知模不超过1，从而由最大模原理$h(B(0,1))\subset\overline{B(0,1)}$，由此$|h(0)|\le1$，代入得证。
+    
+    \item (4.5.24)
+    
+    记$w(z)=\frac{z-\mathrm{i}}{z+\mathrm{i}}$，其为上半平面到$B(0,1)$的全纯同构，由此构造$\varphi:\Aut(B(0,1))\to\Aut(\mathbb{C}^+)$，$\varphi(f)=w^{-1}\circ f\circ w$，可知$\varphi$为群同构，由此可知$\Aut(\mathbb{C}^+)$即为所有$w^{-1}\circ f\circ w$，其中$f\in\Aut(B(0,1))$。
+\end{enumerate}
+
+\section{第十次作业}
+\begin{enumerate}
+    \item (4.5.18)
+    
+    *题目有误，左侧分母应为$|f(0)|-|z|$。
+    
+    左：由Schwarz-Pick定理可知$\big|\frac{f(0)-f(z)}{1-\overline{f(0)}f(z)}\big|\le|z|$，由习题1.1.6(iii)可知$\frac{|f(0)|-|f(z)|}{1-|f(0)f(z)|}\le\big|\frac{f(0)-f(z)}{1-\overline{f(0)}f(z)}\big|$，从而$\frac{|f(0)|-|f(z)|}{1-|f(0)f(z)|}\le\big|\frac{f(0)-f(z)}{1-\overline{f(0)}f(z)}\big|\le|z|$，变形即得证。
+    
+    右：由习题1.1.6(iii)可知$\frac{|f(z)|-|f(0)|}{1-|f(0)f(z)|}\le\big|\frac{f(0)-f(z)}{1-\overline{f(0)}f(z)}\big|$，从而$\frac{|f(z)|-|f(0)|}{1-|f(0)f(z)|}\le|z|$，变形即得证。
+    
+    \item (4.5.21)
+    
+    利用4.5.18，记$g(z)=\frac{f(z)}{z}$，又由$g(0)=f'(0)$可去奇点即得证。
+    
+    \item (4.5.22)
+    
+    利用Schwarz-Pick定理可知$\big|\frac{f(0)-f(z)}{1-\overline{f(0)}f(z)}\big|\le|z|$，记$g(z)=\frac{f(0)-f(z)}{1-\overline{f(0)}f(z)}$，利用$g(z)$替换$f(z)$知要证的式子可化为$|f(0)|z|^2-g(z)|\le|z||1-\overline{f(0)}g(z)|$，同平方后可进一步化为$(|z|^2-|g(z)|^2)(1-|z|^2|f(0)|^2)\ge0$，从而成立。
+    
+    \item (4.5.29)
+    
+    通过平移可不妨设$z_0=0$，在闭包在$D$中的某邻域$B(0,r)$展开为Taylor级数$z+\sum_{n=2}^\infty a_nz^n$。考虑使得$a_n\ne0$的大于1的最小的$n$，记其为$m$。记$f_k(z)$为$f(z)$迭代$k$次的函数，可发现$f_k(z)$可在邻域中展开为$z+Na_mz^m+\dots$。由$D$有界可设$f_k(z)$有上界$M$，考虑$\overline{B(0,r)}$上的积分可知$|Na_mr^m|=\big|\frac{1}{2\pi}\int_0^{2\pi}f_N(r\mathrm{e}^{\mathrm{i}\theta})\mathrm{e}^{-\mathrm{i}m\theta}\mathrm{d}\theta\big|$，由长大不等式知$|Na_mr^m|<M$对任何$N$成立，与$a_m\ne0$矛盾。
+    
+    \item (4.5.30)
+    
+    记$g(z)=\tan\frac{\pi f(z)}{4}$，可发现$g(z)\in B(0,1)$且$g(0)=0$，从而$|g(z)|\le|z|$。
+    
+    $|\tan w|=\big|\frac{\mathrm{e}^{\mathrm{i}w}-\mathrm{e}^{\mathrm{-i}w}}{\mathrm{e}^{\mathrm{i}w}+\mathrm{e}^{-\mathrm{i}w}}\big|=\big|\frac{\mathrm{e}^{2\mathrm{i}w}-1}{\mathrm{e}^{2\mathrm{i}w}+1}\big|$，由于$\frac{|\mathrm{e}^{2\mathrm{i}w}|-1}{|\mathrm{e}^{2\mathrm{i}w}|+1}\le\big|\frac{\mathrm{e}^{2\mathrm{i}w}-1}{\mathrm{e}^{2\mathrm{i}w}+1}\big|$，代入$w=\frac{\pi}{4}f(z)$后化简可得第二问的式子。
+    
+    另一方面，利用$|\tan w|=\big|\frac{\mathrm{e}^{2\mathrm{i}w}-1}{\mathrm{e}^{2\mathrm{i}w}+1}\big|$可知$\tan|\re w|\le|\tan w|$，代入化简可得第一问的式子。
+    
+    \item (补充题)
+    
+    记$f(z)=\frac{\sin z}{z^7-1}$，在$z=\mathrm{e}^{\frac{2k\pi\mathrm{i}}{7}}$时利用命题5.4.5知$\Res(f,z)=7\mathrm{e}^{\frac{12k\pi\mathrm{i}}{7}}\sin\big(\mathrm{e}^{\frac{2k\pi\mathrm{i}}{7}}\big)$，从而所求积分为$14\pi\mathrm{i}\sum_{k=0}^6\mathrm{e}^{\frac{12k\pi\mathrm{i}}{7}}\sin\big(\mathrm{e}^{\frac{2k\pi\mathrm{i}}{7}}\big)$。
+    
+    \item (5.5.1)
+    
+    (1) $f(z)=\frac{z^2+1}{z^4+1}$为偶函数，可直接考虑$(-\infty,\infty)$上积分的值，利用推论5.5.2可知其为$$2\pi\mathrm{i}\Res(f,\mathrm{e}^{\frac{\pi\mathrm{i}}{4}})+2\pi\mathrm{i}\Res(f,\mathrm{e}^{\frac{3\pi\mathrm{i}}{4}})=2\pi\mathrm{i}\bigg(\frac{1}{2\sqrt2\mathrm{i}}+\frac{1}{2\sqrt2\mathrm{i}}\bigg)=\sqrt2\pi$$
+    从而所求积分为其一半，即$\frac{\sqrt2}{2}\pi$。
+    
+    (7) 被积函数为偶函数，因此可考虑实轴上积分。记$f(z)=\frac{z\mathrm{e}^{\mathrm{i}az}}{z^2+b^2}$，利用正实轴上方充分大半圆围道，其上积分值为$2\pi\mathrm{i}\Res(f,b\mathrm{i})=\pi\mathrm{e}^{-ab}$，而由Jordan引理可知半圆部分在无穷远处积分趋于0，从而此即为实轴上积分，由此所求结果为$\frac{\pi}{2}\mathrm{e}^{-ab}$。
+\end{enumerate}
+
+\section{第十一次作业}
+\begin{enumerate}
+    \item (5.5.1)
+    
+    *$f$表示题目中的被积函数
+    
+    (14) 考虑$\im z\in(0,2\pi),|\re z|<t$的矩形区域边界，区域中只有$\pi\mathrm{i}$处不全纯，且$t\to\infty$时左右边界积分趋于0，而上边界积分为下边界的$-\mathrm{e}^{2\pi\mathrm{i}p}$倍，由此设积分结果为$I$可知$(1-\mathrm{e}^{2\pi\mathrm{i}p})I=2\pi\mathrm{i}\Res(f,\pi\mathrm{i})$，因此$I=\frac{2\pi\mathrm{i}}{1-\mathrm{e}^{2\pi\mathrm{i}p}}(-\mathrm{e}^{\pi\mathrm{i}p})=\frac{\pi}{\sin{p\pi}}$。
+    
+    (15) 可发现$\Res(f,\mathrm{i})=\frac{(-\mathrm{i}-1)^p}{2},\Res(f,-\mathrm{i})=\frac{(\mathrm{i}-1)^p}{2}$，由定理5.5.14取$r=1-p,s=p$可知结论。
+    
+    (17) 可发现$\Res(f,\mathrm{i})=\frac{\sqrt[4]{-4\mathrm{i}}}{2\mathrm{i}},\Res(f,-\mathrm{i})=-\frac{\sqrt[4]{4\mathrm{i}}}{2\mathrm{i}}$，由定理5.5.14取$r=\frac{3}{4},s=\frac{1}{4}$可知结论。
+    
+    (21) 图示曲线上积分为0，而类似例5.5.12可知弧线上取极限积分为0，从而实轴积分与虚轴积分相等，取实部知所求积分为$\re\big(\int_0^\infty\frac{\log x+\mathrm{i}\frac{\pi}{2}}{-x^2-1}\mathrm{d}(x\mathrm{i})\big)=\frac{\pi}{2}\int_0^\infty\frac{1}{x^2+1}\mathrm{d}x=\frac{\pi^2}{4}$。
+    
+    (29) 类似例5.5.12知$z=1$处先绕开再逼近结果不改变，因此$\int_{|z|=1}\frac{\log(z-1)}{z}\mathrm{d}z=\log(z-1)\big|_{z=0}=\pi\mathrm{i}$，令$z=\mathrm{e}^{\mathrm{i}\theta}$后取实部可知$\int_0^{2\pi}\log|1-\mathrm{e}^{\mathrm{i}\theta}|\mathrm{d}\theta=0$，由对称性可知$\int_0^\pi\log|1-\mathrm{e}^{\mathrm{i}\theta}|\mathrm{d}\theta=0$，而$|1-\mathrm{e}^{\mathrm{i}\theta}|=2\sin\frac{\theta}{2}$，代入换元即可知结论。
+    
+    \item (6.1.2)
+    
+    不妨设$z_0\in B(a,r)$，由于亚纯性，可取关于边界对称的域$D'\subset D$使得其在$B(a,r)$内除了$z_0$外不包含其他$f(z)=A$的点或极点。在其中记$g(z)=\frac{z-w_0}{z-z_0}(f(z)-A)$，可发现$g(D'\cap\partial B(a,r))\subset\partial B(0,R)$且在其中全纯，从而利用Schwarz对称原理可延拓。由去掉极点后连续性可知在域中零点有极限点的亚纯函数亦只能为0，在$D'$在$B(a,r)$外的部分仍有$g(z)=\frac{z-w_0}{z-z_0}(f(z)-A)$，由$g(w_0)$与$g(z_0)$关于$\partial B(0,R)$对称可知$g(w_0)$为非零实数，因此只能$w_0$为$f$的一阶极点。由于$f(z)=A+\frac{z-z_0}{z-w_0}g(z)$，$g(z)$在$D'$上全纯，可知$f'(z_0)=\frac{g(z_0)}{z_0-w_0}$，$\Res(f,w_0)=(w_0-z_0)g(w_0)$，又由$g(z_0)$与$g(w_0)$关于$\partial B(0,R)$对称可知结论。
+    
+    \item (6.1.3)
+    
+    若$f$不恒为0，可取关于$\partial B(0,r)$对称的$D$使得$f$在$D\cap B(0,R)\backslash\overline{B(0,r)}$上恒不为0，由此利用Schwarz对称原理可将$f$延拓至$D$上，但此时利用唯一性定理可知$f$恒为0，矛盾。
+    
+    \item (6.1.4)
+    
+    与习题6.1.3证明相同。
+    
+    \item (6.2.3)
+    
+    不妨设$z_0=1$，否则考虑级数$\sum_{n=0}^\infty a_n\frac{z^n}{z_0^n}$即可。
+    
+    类似定理6.2.3证明可将幂级数延拓为$B(0,\delta),\delta>1$上的亚纯函数$f(z)$，可设其在1处的Laurent展开为$\frac{b}{z-1}+\sum_{n=0}^\infty b_n(z-1)^n$，记$g(z)=f(z)-\frac{b}{z-1}$，可发现其在$B(0,\delta)$全纯。而其在0处的展开为$\sum_{n=0}^\infty (a_n+b)z^n$，由收敛半径大于1考虑1处可知$\lim_{n\to\infty}a_n+b=0$，从而$\lim_{n\to\infty}a_n=-b$，因此两项之比极限为1。
+    
+    \item (6.2.9)
+    
+    类似习题6.2.3知存在$b_1,\dots,b_m$使$\sum_{n=0}^\infty a_nz^n+\sum_{k=1}^m\frac{b_k}{z_k-z}$收敛，展开后取$z=1$可知$\lim_{n\to\infty}a_n-\sum_{k=1}^mb_kz_k^{-n-1}=0$，从而$\lim_{n\to\infty}|a_n|\le\sum_{k=1}^m|b_k|$，由此可知有界。
+    
+    \item (6.2.10)
+    
+    此题过于复杂，疑似没有范围内的合理方法。
+\end{enumerate}
+
+\section{第十二次作业}
+\begin{enumerate}
+    \item (7.1.3)
+    
+    由Montel定理知$f_n$有内闭一致收敛子列，设其收敛至$f$，记$g_n=f_n-f$，则$\lim_{n\to\infty}g_n(z_k)=0,\forall k$。在任何紧集$K$上，若$g_n$不一致收敛于0，由于其仍为正规族，存在一致收敛且收敛结果不为0的子列，假设收敛到$h$，由$h(z_k)=0,\forall k$即与唯一性定理矛盾，从而得证。
+    
+    \item (7.1.4)
+    
+    类似习题4.1.12，对$D$中任何紧集$K$，可扩张至紧集$K'$使得其包含$z_0$且其中任意两点存在长度不超过$M$的道路。取$r$使得$K'$中每点$z$作$\overline{B(z,r)}$取并后仍在$D$中，利用习题3.4.9可知$f'(z)=\frac{1}{\pi r}\int_0^{2\pi}\re(z+r\mathrm{e}^{\mathrm{i}\theta})\mathrm{e}^{-\mathrm{i}\theta}\mathrm{d}\theta$，取模可得$|f'(z)|\le\frac{2}{r}\re f(z)\le\frac{2}{r}|f(z)|$。从而利用微分方程得$K'$中任何$f(z)$的模不超过$|f(z_0)|\mathrm{e}^{2M/r}$，因此内闭一致有界，由Montel定理知为正规族。
+    
+    第二条不成立的反例为$f_n(z)=n$。
+    
+    \item (7.1.6)
+    
+    由$D$有界可知取$M_0=\frac{M+m(D)}{2}$即有$D$上$|f(z)|\le\frac{|f(z)|^2+1}{2}$的积分不超过$M_0$。对$D$中任何紧集$K$，类似习题4.1.12可取$r$使得$K$中每点$z$作$\overline{B(z,r)}$取并后仍在$D$中，利用平均值原理可知
+    \[|f(z)|=\frac{1}{\pi r^2}\bigg|\iint_{B(z,r)}f(w)\mathrm{d}x\mathrm{d}y\bigg|\le\frac{1}{\pi r^2}\iint_{B(z,r)}|f(w)|\mathrm{d}x\mathrm{d}y\le\frac{M_0}{\pi r^2}\]
+    从而内闭一致有界，由Montel定理知为正规族。
+    
+    \item (7.2.1)
+    
+    记$\varphi$将$D$双全纯映射至$B(0,1)$，则$\varphi\circ f$为有界整函数，从而为常值，由$\varphi$为单射知$f$为常值。
+    
+    \item (7.2.2)
+    
+    由平移不妨设$a=0$，记题中不等式左右分别为$r,R$。
+    
+    考虑$\varphi:B(0,1)\to D,\varphi(z)=rz$，可发现$f\circ\varphi$为保持原点的$B(0,1)\to B(0,1)$映射，利用Schwarz引理可知$(f\circ\varphi)'(0)\le 1$，即$rf'(a)\le1$，从而不等式左半边得证。
+    
+    考虑$\psi:D\to B(0,1),\psi(z)=\frac{z}{R}$，可发现$\psi\circ f^{-1}$为保持原点的$B(0,1)\to B(0,1)$映射，利用Schwarz引理可知$(\psi\circ f^{-1})'(0)\le 1$，即$\frac{(f^{-1})'(0)}{R}\le1$，由$(f^{-1})'(0)=\frac{1}{f'(0)}$可知得不等式右半边。
+    
+    \item (7.2.3)
+    
+    记$\varphi(z)=\frac{z-f(p)}{1-\overline{f(p)}z}$，考虑$\varphi\circ f\circ g^{-1}$，可发现其为0映射到0的$B(0,1)$自同构，从而其为$\mathrm{e}^{\mathrm{i}\theta}z$，从而代换$z$为$g(z)$可知$\varphi(f(z))=\mathrm{e}^{\mathrm{i}\theta}g(z)$。取$z=a$后两边求导得$f'(a)|f(p)|^2=\mathrm{e}^{\mathrm{i}\theta}g'(a)$，由$f'(a)>0$可知$\mathrm{e}^{\mathrm{i}\theta}$与$g'(a)$方向相反，从而$g(z)=\mathrm{e}^{-\mathrm{i}\theta}\varphi(f(z))=\frac{g'(a)}{|g'(a)|}\varphi(f(z))$，即为欲证的式子。
+\end{enumerate}
+
+\section{第十三次作业}
+\begin{enumerate}
+    \item (Stein习题4.1)
+    
+    *设中度连续条件对应的界为$C$，即$|f(x)|\le\frac{C}{1+x^2}$
+    
+    (a) $A(\zeta)-B(\zeta)=\int_{-\infty}^\infty f(x)\mathrm{e}^{-2\pi\mathrm{i}\zeta(x-t)}\mathrm{d}x=\hat{f}(\zeta)\mathrm{e}^{2\pi\mathrm{i}\zeta t}=0$
+    
+    (b) 由于其在上半、下面平面皆全纯，且交界处连续，由6.1节Painlev\'e原理可知其为整函数。而上半平面注意到$\mathrm{e}$的指数的实部必定小于0，因此$F(z)\le\int_{-\infty}^t |f(x)|\mathrm{d}x\le C\pi$，类似可知下半平面有界，从而整体有界，由整函数知为常数。由于积分不超过$\int_{-\infty}^t|\mathrm{e}^{-2\pi\mathrm{i}\zeta(x-t)}|\mathrm{d}x$，$\zeta$从虚轴趋于无穷时为0，因此其恒为0。
+    
+    (c) 取$\zeta=0$即可知积分恒为0，从而其在任何区间积分为0，由连续性知恒0。
+    
+    \item (Stein习题4.3)
+    
+    利用书推论5.5.7，类似例5.5.8可知第一个积分结果。在正半轴上第二个积分为$\frac{1}{2\pi a-2\pi\mathrm{i}x}$，负半轴上为$\frac{1}{2\pi a+2\pi\mathrm{i}x}$，从而得结论。
+    
+    \item (Stein习题4.6)
+    
+    由Stein习题4.3计算结果，利用Stein定理2.4可得结论。
+    
+    \item (Stein习题4.8)
+    
+    由$\tilde{f}$只在$[-M,M]$不为0知反变换存在，从而$f(x)=\int_{-M}^M\hat{f}(\zeta)\mathrm{e}^{2\pi\mathrm{i}x\zeta}\mathrm{d}\zeta$，由于有限区间积分可与求导交换，
+    \[a_n=\frac{f^{(n)}(0)}{n!}=\frac{(2\pi\mathrm{i})^n}{n!}\int_{-M}^M\hat{f}(\zeta)\zeta^n\mathrm{e}^{2\pi\mathrm{i}x\zeta}\mathrm{d}\zeta\big|_{x=0}=\frac{(2\pi\mathrm{i})^n}{n!}\int_{-M}^M\hat{f}(\zeta)\zeta^n\mathrm{d}\zeta\]
+    
+    对另一边，由条件知$\limsup_{n\to\infty}|a_n|^{1/n}=0$，从而收敛半径为无穷，因此为整函数。由极限定义知充分大的$a_n$满足$|a_n|\le\frac{(M+\frac{\varepsilon}{2})^n}{n!}$，再对前面的项估算即可取出充分大$A_\varepsilon$。
+    
+    \item (Stein习题4.10)
+    
+    先说明在$x$轴上$\hat{f}(\xi)=O(\mathrm{e}^{-a'\xi^2})$。由于其为$\int_{-\infty}^\infty f(x)\mathrm{e}^{-2\pi\mathrm{i}x\xi}\mathrm{d}x$，将$x$换元为$x-y\mathrm{i}$可得
+    \[|\hat{f}(\xi)|\le\int_{-\infty}^\infty|f(x-y\mathrm{i})|\mathrm{e}^{-2\pi y\xi}\mathrm{d}x=O(\mathrm{e}^{-2\pi y\xi+by^2})\]
+    
+    令$y=d\xi$，再取$d$充分小使$-2\pi d\xi+bd^2<0$，即知存在$a'$使$\hat{f}(\xi)=O(\mathrm{e}^{-a'\xi^2})$。
+    
+    而$\hat{f}(\xi+\mathrm{i}\eta)=\int_{-\infty}^\infty f(x)\mathrm{e}^{-2\pi\mathrm{i}x\xi}\mathrm{e}^{2\pi x\eta}\mathrm{d}x$，记$g(x)=f(x)\mathrm{e}^{2\pi x\eta}$，则$|g(x+\mathrm{i}y)|\le c\mathrm{e}^{-ax^2+by^2+2\pi x\eta}$，由于$2\pi x\eta\le\frac{ax^2}{2}+\frac{2}{a}\pi^2\eta^2$，记$t=\frac{2}{a}\pi^2,a_0=\frac{a}{2}$可知$|g(x+\mathrm{i}y)|\le c\mathrm{e}^{t\eta^2}\mathrm{e}^{-a_0x^2+by^2}$，从而$\frac{\hat{f}(\xi+\mathrm{i}\eta)}{\mathrm{e}^{t\eta^2}}=\frac{\hat{g}(\xi)}{\mathrm{e}^{t\eta^2}}=O(\mathrm{e}^{-a'\xi^2})$，由此即得证。
+    
+    \item (Stein习题4.11)
+    
+    当$x^2\le y^2$时，$|z|^2\le2c_1y^2$，从而$|f(z)|=O(\mathrm{e}^{2c_1y^2-x^2})$，只需在$x^2>y^2$时证明可找到后取系数的最大值/最小值即可，利用对称性，只需证明$\arg z\in[0,\frac{\pi}{4}]$时结论成立，记此区域为$D$。
+    
+    利用无界区域的最大模原理，设$g(z)$在$D$上全纯且边界连续，$|g(z)|\le C_1\mathrm{e}^{C_2z^2}$，则边界上$g(z)\le M$可推出区域中$g(z)\le M$。若假设区域中$|g(z)|\le C_1\mathrm{e}^{C_2z^2}$且$|g(x)|\le C\mathrm{e}^{-Ax^2},|g(x\mathrm{e}^{\mathrm{i}\pi/4})|\le C\mathrm{e}^{Bx^2},x>0$，记$g_\delta(z)=g(z)\mathrm{e}^{(A-\delta+\mathrm{i}(B+\delta))z^2}$，利用无界区域的最大模原理可知$g_\delta(z)\le C|\mathrm{e}^{(A-\delta+\mathrm{i}(B+\delta))z^2}|$，令$\delta\to0$可得$|g(z)|\le C\mathrm{e}^{-A(x^2-y^2)+2Bxy}$，从而利用$2Bxy\le\frac{Ax^2}{2}+\frac{2B^2y^2}{A}$类似Stein习题4.10即得到$|f(z)|$的估计。
+\end{enumerate}
+
+\section{第十四次作业}
+\begin{enumerate}
+    \item (Stein习题5.3)
+    
+    设$t=\im(\tau)$，由提示可知
+    \[\Theta(z)\le\sum_{|n|<\frac{4|z|}{t}}\exp(-\pi n^2t+2\pi n|z|)+\sum_{|n|\ge\frac{4|z|}{t}}\exp(-\pi n^2\frac{t}{2})\le\frac{8|z|}{t}\exp(2\pi\frac{4|z|^2}{t})+M\]
+    从而其阶不超过2。
+    
+    \item (Stein习题5.4)
+    
+    (a) 见提示，考虑$n<c|z|$与$n\ge c|z|$时类似Stein习题5.3拆分估算即可，再利用Stein定理2.1由(b)中证明不收敛的部分可得阶恰好为2。
+    
+    (b) 由于$\arctan x\sim x$，有
+    \[\sum\frac{1}{|z_n|^2}=\sum_{n,m=1}^\infty\frac{1}{n^2t^2+m^2}\ge\sum_{n=1}^\infty\int_1^\infty\frac{1}{n^2t^2+x^2}\mathrm{d}x=\sum_{n=1}^\infty\frac{1}{nt}\bigg(\frac{\pi}{2}-\arctan\frac{1}{nt}\bigg)=\infty\]
+    从而$\sum\frac{1}{|z_n|^2}$不收敛，而利用Stein定理2.1可知指数为$2+\varepsilon,\varepsilon>0$时收敛，从而得证。
+    
+    \item (Stein习题5.5)
+    
+    见提示，对$|t|$求导可知不等式左侧的极值，从而得不等式成立，将积分分为$|t|\le(A|z|)^{1/(\alpha-1)}$与$|t|>(A|z|)^{1/(\alpha-1)}$两段类似Stein习题5.3估算即可。另一方面，取$z=-x\mathrm{i},x\in\mathbb{R}$可知阶不低于$\frac{\alpha}{\alpha-1}$，从而恰好为$\frac{\alpha}{\alpha-1}$。
+\end{enumerate}
+
+\section{第十五次作业}
+\begin{enumerate}
+    \item (Stein习题5.10)
+    
+    (a) $\rho=1$，零点为$2k\pi\mathrm{i},k\in\mathbb{Z}$，由0为一阶零点可知
+    \[\mathrm{e}^z-1=z\mathrm{e}^{Az+B}\prod_{n=1}^\infty\bigg(1-\frac{z}{2n\pi\mathrm{i}}\bigg)\bigg(1+\frac{z}{2n\pi\mathrm{i}}\bigg)=z\mathrm{e}^{Az+B}\prod_{n=1}^\infty\bigg(1+\frac{z^2}{4n^2\pi^2}\bigg)\]
+    考虑$\frac{\mathrm{e}^z-1}{z}$，令$z\to0$可知$B=0$，再由$\frac{\mathrm{e}^z-1}{\mathrm{e}^{z/2}}$
+    为奇函数可知$A=\frac{1}{2}$，从而分解为$z\mathrm{e}^{z/2}\prod_{n=1}^\infty(1+\frac{z^2}{4n^2\pi^2})$。
+    
+    (b) $\rho=1$，零点为$k+\frac{1}{2},k\in\mathbb{Z}$，从而类似上方配对可知
+    \[\cos{\pi z}=\mathrm{e}^{Az+B}\prod_{n=1}^\infty\bigg(1-\frac{4z^2}{(2n-1)^2}\bigg)\]
+    令$z\to0$可知$B=0$，再由其为偶函数可知$A=0$，从而分解为$\prod_{n=1}^\infty(1-\frac{4z^2}{(2n-1)^2})$。
+    
+    \item (Stein习题5.11)
+    
+    若$f(z)\ne a$，则由Hadamard分解定理可知$f(z)-a=\mathrm{e}^{g(z)}$，且$g(z)$为多项式，若其为0次，则$f(z)$为常数，符合要求，否则对任何$b$，$g(z)=\log(b-a)$有解，因此$f(z)=b$有解，矛盾。
+    
+    \item (Stein习题5.12)
+    
+    由于$f(z)\ne0$，由Hadamard分解定理可知$f(z)=\mathrm{e}^{p(z)}$，$p$为多项式，若$p(z)$超出一次，$f'(z)=p'(z)\mathrm{e}^{p(z)}$必有零点，矛盾，因此只能为至多一次的多项式，从而为$az+b$。
+    
+    \item (Stein习题5.13)
+    
+    由于$\mathrm{e}^z-z$为一阶整函数，其若有有限多零点，由Hadamard分解定理可分解为$\mathrm{e}^{Az+B}p(z)$，其中$p$为多项式。右侧在除以$\mathrm{e}^{Az}$后在无穷远处极限为常数或无穷，而原式不可能满足这点，故矛盾。
+    
+    \item (Stein习题5.14)
+    
+    若否，其由Hadamard分解定理可分解为$\mathrm{e}^{p(z)}q(z)$，其中$p,q$为多项式，但此式阶与$p$的次数相同，为整数，因此矛盾。
+\end{enumerate}
+\end{document}

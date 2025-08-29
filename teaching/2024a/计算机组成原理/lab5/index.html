@@ -1,0 +1,2456 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lab4/CPU/">
+      
+      
+        <link rel="next" href="flow/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.5">
+    
+    
+      
+        <title>实验介绍 - COD Lab 2024</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0e669242.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5-cpu" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+    Welcome to the COD Lab Homepage of USTC!
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="COD Lab 2024" class="md-header__button md-logo" aria-label="COD Lab 2024" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M384 96v224H64V96h320zM64 32C28.7 32 0 60.7 0 96v224c0 35.3 28.7 64 64 64h117.3l-10.7 32H96c-17.7 0-32 14.3-32 32s14.3 32 32 32h256c17.7 0 32-14.3 32-32s-14.3-32-32-32h-74.7l-10.7-32H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm464 0c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h64c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48h-64zm16 64h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16s7.2-16 16-16zm-16 80c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16zm32 160a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            COD Lab 2024
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              实验介绍
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="切换到夜晚模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到夜晚模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到白天模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到白天模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../lab1/" class="md-tabs__link">
+          
+  
+  Lab1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../lab2/" class="md-tabs__link">
+          
+  
+  Lab2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../lab3/" class="md-tabs__link">
+          
+  
+  Lab3
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../lab4/" class="md-tabs__link">
+          
+  
+  Lab4
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  Lab5
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../lab6/" class="md-tabs__link">
+          
+  
+  Lab6
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../lab7/" class="md-tabs__link">
+          
+  
+  Lab7
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../other/note/" class="md-tabs__link">
+          
+  
+  其他内容
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="COD Lab 2024" class="md-nav__button md-logo" aria-label="COD Lab 2024" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M384 96v224H64V96h320zM64 32C28.7 32 0 60.7 0 96v224c0 35.3 28.7 64 64 64h117.3l-10.7 32H96c-17.7 0-32 14.3-32 32s14.3 32 32 32h256c17.7 0 32-14.3 32-32s-14.3-32-32-32h-74.7l-10.7-32H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm464 0c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h64c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48h-64zm16 64h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16s7.2-16 16-16zm-16 80c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16zm32 160a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+
+    </a>
+    COD Lab 2024
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab1
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lab1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_1" >
+        
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    RV32I 指令集
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            RV32I 指令集
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/rars/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RARS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/src/RISCV_ref.pdf" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RV32I 指令集手册
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_2" >
+        
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LA32R 指令集
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            LA32R 指令集
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/asm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LA32R 简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/lars/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LARS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/src/LA32R_ref.pdf" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LA32R 指令集手册
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Lab2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/RF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    寄存器堆
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/ALU/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ALU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/IP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IP 核
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab3
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Lab3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/CPU/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简单单周期 CPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/proj/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    项目框架介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/SIM_intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LA32R 仿真框架使用手册
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/PDU_intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PDU 使用手册
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/problem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    问题汇总
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab4
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Lab4
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2" >
+        
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/CPU/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    完整单周期 CPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab5
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Lab5
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    实验目的
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    实验内容
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    实验检查与提交
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2" >
+        
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    流水化处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CPU/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    流水线CPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab6
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Lab6
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_2" >
+        
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab6/hazard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    冒险处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab6/CPU/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    完整流水线CPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab7
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Lab7
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_2" >
+        
+          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    实验教程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            实验教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab7/temple_code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实验代码解析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab7/cache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cache介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    其他内容
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            其他内容
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../other/note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    课程日历
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../other/ask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    提问的智慧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../other/markdown/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Markdown 教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../other/logisim/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logisim 教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    实验目的
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    实验内容
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    实验检查与提交
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+<h1 id="5-cpu"><strong>实验 5：无冒险流水线 CPU</strong></h1>
+<h2 id="_1"><strong>实验目的</strong></h2>
+<p>在本次实验中，我们尝试将上一次实验设计的 CPU 流水化，形成一个不考虑冒险的流水线 CPU。</p>
+<h2 id="_2"><strong>实验内容</strong></h2>
+<div class="admonition question">
+<p class="admonition-title">任务 1：写优先的寄存器堆（3 分）</p>
+<ol>
+<li>
+<p>请根据实验文档中的介绍将寄存器堆改为写优先的模式，并仿真测试正确性。</p>
+</li>
+<li>
+<p><strong>在实验报告中回答</strong>，对于本次实验中的五级流水线 CPU，连续执行以下的指令序列后，<strong>若寄存器堆没有使用写优先</strong>，运行结束后 x4 与 x5 中的结果是什么？</p>
+<div class="highlight"><pre><span></span><code><span class="nf">addi</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span>
+<span class="nf">addi</span><span class="w"> </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span>
+<span class="nf">addi</span><span class="w"> </span><span class="no">x3</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span>
+<span class="nf">addi</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span>
+<span class="nf">addi</span><span class="w"> </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span>
+<span class="nf">addi</span><span class="w"> </span><span class="no">x3</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span>
+<span class="nf">addi</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span>
+<span class="nf">add</span><span class="w">  </span><span class="no">x4</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">x2</span>
+<span class="nf">add</span><span class="w">  </span><span class="no">x5</span><span class="p">,</span><span class="w"> </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="no">x3</span>
+<span class="nf">nop</span>
+<span class="nf">nop</span>
+<span class="nf">nop</span>
+</code></pre></div>
+</li>
+</ol>
+<details class="note">
+<summary>关于 nop</summary>
+<p>nop 代表什么也不做的指令，这里是为了保证充分运行。其在 RV32I 与 LA32R 中具体形式有差别，详见实验文档。</p>
+</details>
+</div>
+<div class="admonition question">
+<p class="admonition-title">任务 2：无冒险流水线（7 分）</p>
+<p>正确设计并例化四个段间寄存器，连线以实现无冒险流水线 CPU。最终，你需要在 FPGAOL 上上板运行，并通过我们给出的测试程序。</p>
+<details class="note">
+<summary>Lab5 需要实现的指令</summary>
+<p>本次实验需要支持 Lab3、Lab4 中的所有指令，以及 nop 指令。nop 指令具体对应怎样的指令，请参考对应的指令集手册。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">LA32R 中指令</th>
+<th style="text-align: center;">RV32I 中指令</th>
+<th style="text-align: center;">指令功能</th>
+<th style="text-align: center;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">add.w rd, rj, rk</td>
+<td style="text-align: center;">add rd, rs1, rs2</td>
+<td style="text-align: center;">GR[rd] = GR[rj] + GR[rk] </br> x[rd] = x[rs1] + x[rs2]</td>
+<td style="text-align: center;">整数加法</td>
+</tr>
+<tr>
+<td style="text-align: center;">addi.w rd, rj, imm</td>
+<td style="text-align: center;">addi rd, rs1, imm</td>
+<td style="text-align: center;">GR[rd] = GR[rj] + sext(imm) </br> x[rd] = x[rs1] + sext(imm)</td>
+<td style="text-align: center;">整数加法</td>
+</tr>
+<tr>
+<td style="text-align: center;">sub.w rd, rj, rk</td>
+<td style="text-align: center;">sub rd, rs1, rs2</td>
+<td style="text-align: center;">GR[rd] = GR[rj] - GR[rk] </br> x[rd] = x[rs1] - x[rs2]</td>
+<td style="text-align: center;">整数减法</td>
+</tr>
+<tr>
+<td style="text-align: center;">slt rd, rj, rk</td>
+<td style="text-align: center;">slt rd, rs1, rs2</td>
+<td style="text-align: center;">GR[rd] = (GR[rj] &lt; GR[rk]) </br> x[rd] = (x[rs1] &lt; x[rs2])</td>
+<td style="text-align: center;">有符号整数比较</td>
+</tr>
+<tr>
+<td style="text-align: center;">sltu rd, rj, rk</td>
+<td style="text-align: center;">sltu rd, rs1, rs2</td>
+<td style="text-align: center;">GR[rd] = (GR[rj] &lt;u GR[rk]) </br> x[rd] = (x[rs1] &lt;u x[rs2])</td>
+<td style="text-align: center;">无符号整数比较</td>
+</tr>
+<tr>
+<td style="text-align: center;">and rd, rj, rk</td>
+<td style="text-align: center;">and rd, rs1, rs2</td>
+<td style="text-align: center;">GR[rd] = GR[rj] &amp; GR[rk] </br> x[rd] = x[rs1] &amp; x[rs2]</td>
+<td style="text-align: center;">按位与</td>
+</tr>
+<tr>
+<td style="text-align: center;">or rd, rj, rk</td>
+<td style="text-align: center;">or rd, rs1, rs2</td>
+<td style="text-align: center;">GR[rd] = GR[rj] | GR[rk] </br> x[rd] = x[rs1] | 𝑥[rs2]</td>
+<td style="text-align: center;">按位或</td>
+</tr>
+<tr>
+<td style="text-align: center;">xor rd, rj, rk</td>
+<td style="text-align: center;">xor rd, rs1, rs2</td>
+<td style="text-align: center;">GR[rd] = GR[rj] ^ GR[rk] </br> x[rd] = x[rs1] ^ 𝑥[rs2]</td>
+<td style="text-align: center;">按位异或</td>
+</tr>
+<tr>
+<td style="text-align: center;">sll.w rd, rj, rk</td>
+<td style="text-align: center;">sll rd, rs1, rs2</td>
+<td style="text-align: center;">GR[rd] = GR[rj] &lt;&lt; GR[rk][4:0]  </br> x[rd] = x[rs1] &lt;&lt; x[rs2][4:0]</td>
+<td style="text-align: center;">逻辑左移</td>
+</tr>
+<tr>
+<td style="text-align: center;">srl.w rd, rj, rk</td>
+<td style="text-align: center;">srl rd, rs1, rs2</td>
+<td style="text-align: center;">GR[rd]= GR[rj] &gt;&gt; GR[rk][4:0]  </br> x[rd] = x[rs1] &gt;&gt; x[rs2][4:0]</td>
+<td style="text-align: center;">逻辑右移</td>
+</tr>
+<tr>
+<td style="text-align: center;">sra.w rd, rj, rk</td>
+<td style="text-align: center;">sra rd, rs1, rs2</td>
+<td style="text-align: center;">GR[rd] = GR[rj] &gt;&gt;&gt; GR[rk][4:0]  </br> x[rd] = x[rs1] &gt;&gt;&gt; x[rs2][4:0]</td>
+<td style="text-align: center;">算术右移</td>
+</tr>
+<tr>
+<td style="text-align: center;">slli.w rd, rj, imm</td>
+<td style="text-align: center;">slli rd, rs1, shamt</td>
+<td style="text-align: center;">GR[rd] = GR[rj] &lt;&lt; imm </br> x[rd] = x[rs1] &lt;&lt; shamt</td>
+<td style="text-align: center;">逻辑左移</td>
+</tr>
+<tr>
+<td style="text-align: center;">srli.w rd, rj, imm</td>
+<td style="text-align: center;">srli rd, rs1, shamt</td>
+<td style="text-align: center;">GR[rd] = GR[rj] &gt;&gt; imm </br> x[rd] = x[rs1] &gt;&gt; shamt</td>
+<td style="text-align: center;">逻辑右移</td>
+</tr>
+<tr>
+<td style="text-align: center;">srai.w rd, rj, imm</td>
+<td style="text-align: center;">srai rd, rs1, shamt</td>
+<td style="text-align: center;">GR[rd] = GR[rj] &gt;&gt;&gt; imm </br>  x[rd] = x[rs1] &gt;&gt;&gt; shamt</td>
+<td style="text-align: center;">算术右移</td>
+</tr>
+<tr>
+<td style="text-align: center;">slti rd, rj, imm</td>
+<td style="text-align: center;">slti rd, rs1, imm</td>
+<td style="text-align: center;">GR[rd] = (GR[rj] &lt; sext(imm)) </br> x[rd] = (x[rs1] &lt; sext(imm))</td>
+<td style="text-align: center;">有符号整数比较</td>
+</tr>
+<tr>
+<td style="text-align: center;">sltui rd, rj, imm</td>
+<td style="text-align: center;">sltiu rd, rs1, imm</td>
+<td style="text-align: center;">GR[rd] = (GR[rj] &lt;u sext(imm)) </br> x[rd] = (x[rs1] &lt;u sext(imm))</td>
+<td style="text-align: center;">无符号整数比较</td>
+</tr>
+<tr>
+<td style="text-align: center;">andi rd, rj, imm</td>
+<td style="text-align: center;">andi rd, rs1, imm</td>
+<td style="text-align: center;">GR[rd] = GR[rj] &amp; zext(imm)  </br> x[rd] = x[rs1] &amp; sext(imm)</td>
+<td style="text-align: center;">按位与</td>
+</tr>
+<tr>
+<td style="text-align: center;">ori rd, rj, imm</td>
+<td style="text-align: center;">ori rd, rs1, imm</td>
+<td style="text-align: center;">GR[rd] = GR[rj] | zext(imm)   </br> x[rd] = x[rs1] | sext(imm)</td>
+<td style="text-align: center;">按位或</td>
+</tr>
+<tr>
+<td style="text-align: center;">xori rd, rj, imm</td>
+<td style="text-align: center;">xori rd, rs1, imm</td>
+<td style="text-align: center;">GR[rd] = GR[rj] ^ zext(imm)   </br> x[rd] = x[rs1] ^  sext(imm)</td>
+<td style="text-align: center;">按位异或</td>
+</tr>
+<tr>
+<td style="text-align: center;">lu12i.w rd, imm</td>
+<td style="text-align: center;">lui rd, imm</td>
+<td style="text-align: center;">GR[rd] = imm &lt;&lt; 12 </br> x[rd] = sext(imm &lt;&lt; 12)</td>
+<td style="text-align: center;">加载高20位立即数</td>
+</tr>
+<tr>
+<td style="text-align: center;">pcaddu12i rd, imm</td>
+<td style="text-align: center;">auipc rd, imm</td>
+<td style="text-align: center;">GR[rd] = pc + sext(imm &lt;&lt; 12) </br> x[rd] = pc + sext(imm[31:12] &lt;&lt; 12)</td>
+<td style="text-align: center;">加载加上 PC 的高 20 位立即数</td>
+</tr>
+<tr>
+<td style="text-align: center;">ld.w rd, rj, imm</td>
+<td style="text-align: center;">lw rd, offset(rs1)</td>
+<td style="text-align: center;">GR[rd] = Mem[GR[rj] + imm] </br> x[rd] = sext(M[x[rs1] + sext(offset)])</td>
+<td style="text-align: center;">加载字</td>
+</tr>
+<tr>
+<td style="text-align: center;">ld.h rd, rj, imm</td>
+<td style="text-align: center;">lh rd, offset(rs1)</td>
+<td style="text-align: center;">GR[rd] = SLU(Mem[GR[rj] + imm]) </br> x[rd] = SLU((M[x[rs1] + sext(offset)]))</td>
+<td style="text-align: center;">加载半字</td>
+</tr>
+<tr>
+<td style="text-align: center;">ld.b rd, rj, imm</td>
+<td style="text-align: center;">lb rd, offset(rs1)</td>
+<td style="text-align: center;">GR[rd] = SLU(Mem[GR[rj] + imm]) </br> x[rd] = SLU((M[x[rs1] + sext(offset)]))</td>
+<td style="text-align: center;">加载字节</td>
+</tr>
+<tr>
+<td style="text-align: center;">ld.hu rd, rj, imm</td>
+<td style="text-align: center;">lhu rd, offset(rs1)</td>
+<td style="text-align: center;">GR[rd] = SLU(Mem[GR[rj] + imm]) </br> x[rd] = SLU((M[x[rs1] + sext(offset)]))</td>
+<td style="text-align: center;">无符号加载半字</td>
+</tr>
+<tr>
+<td style="text-align: center;">ld.bu rd, rj, imm</td>
+<td style="text-align: center;">lbu rd, offset(rs1)</td>
+<td style="text-align: center;">GR[rd] = SLU(Mem[GR[rj] + imm]) </br> x[rd] = SLU((M[x[rs1] + sext(offset)]))</td>
+<td style="text-align: center;">无符号加载字节</td>
+</tr>
+<tr>
+<td style="text-align: center;">st.w rd, rj, imm</td>
+<td style="text-align: center;">sw rs2, offset(rs1)</td>
+<td style="text-align: center;">Mem[GR[rj] + imm] = GR[rd] </br> M[x[rs1] + sext(offset)] = x[rs2]</td>
+<td style="text-align: center;">存储字</td>
+</tr>
+<tr>
+<td style="text-align: center;">st.h rd, rj, imm</td>
+<td style="text-align: center;">sh rs2, offset(rs1)</td>
+<td style="text-align: center;">Mem[GR[rj] + imm] = SLU(GR[rd]) </br> M[x[rs1] + sext(offset)] = SLU(x[rs2])</td>
+<td style="text-align: center;">存储半字</td>
+</tr>
+<tr>
+<td style="text-align: center;">st.b rd, rj, imm</td>
+<td style="text-align: center;">sb rs2, offset(rs1)</td>
+<td style="text-align: center;">Mem[GR[rj] + imm] = SLU(GR[rd]) </br> M[x[rs1] + sext(offset)] = SLU(x[rs2])</td>
+<td style="text-align: center;">存储字节</td>
+</tr>
+<tr>
+<td style="text-align: center;">jirl rd, rj, <em>label</em></td>
+<td style="text-align: center;">jalr rd, offset(rs1)</td>
+<td style="text-align: center;">GR[rd] = pc + 4; pc = <em>label</em>  </br> x[rd] = pc+4; pc=(x[rs1]+sext(offset))&amp;~1;</td>
+<td style="text-align: center;">间接相对跳转并链接</td>
+</tr>
+<tr>
+<td style="text-align: center;">b <em>label</em></td>
+<td style="text-align: center;">j offset(jal x0, offset)（伪指令）</td>
+<td style="text-align: center;">pc = <em>label</em>  </br> pc += sext(offset)</td>
+<td style="text-align: center;">无条件跳转</td>
+</tr>
+<tr>
+<td style="text-align: center;">bl <em>label</em></td>
+<td style="text-align: center;">jal rd, offset</td>
+<td style="text-align: center;">GR[1] = pc + 4; pc = <em>label</em>  </br> x[rd] = pc+4; pc += sext(offset)</td>
+<td style="text-align: center;">函数（子程序）调用并链接</td>
+</tr>
+<tr>
+<td style="text-align: center;">beq rj, rd, <em>label</em></td>
+<td style="text-align: center;">beq rs1, rs2, offset</td>
+<td style="text-align: center;">if (GR[rj] GR[rd]) pc = <em>label</em> </br> if (rs1 == rs2) pc += sext(offset)</td>
+<td style="text-align: center;">相等跳转</td>
+</tr>
+<tr>
+<td style="text-align: center;">bne rj, rd, <em>label</em></td>
+<td style="text-align: center;">bne rs1, rs2, offset</td>
+<td style="text-align: center;">if (GR[rj] GR[rd]) pc = <em>label</em> </br> if (rs1 != rs2) pc += sext(offset)</td>
+<td style="text-align: center;">不等跳转</td>
+</tr>
+<tr>
+<td style="text-align: center;">blt rj, rd, <em>label</em></td>
+<td style="text-align: center;">blt rs1, rs2, offset</td>
+<td style="text-align: center;">if (GR[rj] &lt; GR[rd]) pc = <em>label</em> </br> if (rs1 &lt; rs2) pc += sext(offset)</td>
+<td style="text-align: center;">有符号小于跳转</td>
+</tr>
+<tr>
+<td style="text-align: center;">bge rj, rd, <em>label</em></td>
+<td style="text-align: center;">bge rs1, rs2, offset</td>
+<td style="text-align: center;">if (GR[rj] &gt;= GR[rd]) pc = <em>label</em> </br> if (rs1 &gt;= rs2) pc += sext(offset)</td>
+<td style="text-align: center;">有符号大于等于跳转</td>
+</tr>
+<tr>
+<td style="text-align: center;">bltu rj, rd, <em>label</em></td>
+<td style="text-align: center;">bltu rs1, rs2, offset</td>
+<td style="text-align: center;">if (GR[rj] &lt;u GR[rd]) pc = <em>label</em>  </br> if (rs1 &lt;u rs2) pc += sext(offset)</td>
+<td style="text-align: center;">无符号小于跳转</td>
+</tr>
+<tr>
+<td style="text-align: center;">bgeu rj, rd, <em>label</em></td>
+<td style="text-align: center;">bgeu rs1, rs2, offset</td>
+<td style="text-align: center;">if (GR[rj] &gt;=u GR[rd]) pc = <em>label</em> </br> if (rs1 &gt;=u rs2) pc += sext(offset)</td>
+<td style="text-align: center;">无符号大于等于跳转</td>
+</tr>
+</tbody>
+</table>
+</details>
+<div class="admonition warning">
+<p class="admonition-title">注意</p>
+<p>为了实现流水线 CPU，你需要注意以下的内容：</p>
+<ul>
+<li>正确实现了段间寄存器的 flush 功能。</li>
+<li>正确将各个信号连接到段间寄存器上。特别地，commit 系列的信号需要从其产生开始，经过段间寄存器一直流水到最后。</li>
+<li><code>commit</code> 信号本身在 IF 段产生（为 1），经过段间寄存器来到 WB 段，最终连接到 CPU 的输出端口。</li>
+<li>debug 端口不需要经过段间寄存器。</li>
+<li>我们预设的 PC 是始终 +4。在 EX 段发现分支错误（实际上的 PC 是 + offset）之后，需要正确<strong>清零</strong>两条 nop 指令的 commit 信号。简单起见，我们建议你将其他的控制信号也一并<strong>清空</strong>。</li>
+<li>修改仿真框架中 <code>configs.vh</code> 里的 CPU 类型（<code>CORE_TYPE</code>），将其设置为 <code>`PIPELINE</code>。</li>
+</ul>
+</div>
+<details class="note">
+<summary>LA32R 的测试汇编程序</summary>
+<p>下面两个测试都需要通过（上板、仿真框架都可以使用这两个测试）。</p>
+<ul>
+<li>测试程序 1 <a href="testcases/la_1.s">在这里</a></li>
+<li>测试程序 2 <a href="testcases/la_2.s">在这里</a></li>
+</ul>
+</details>
+<details class="note">
+<summary>RV32I 的测试汇编程序</summary>
+<p>下面两个测试都需要通过。</p>
+<ul>
+<li>测试程序 1 <a href="testcases/rv_1.s">在这里</a></li>
+<li>测试程序 2 <a href="testcases/rv_2.s">在这里</a></li>
+</ul>
+</details>
+</div>
+<h2 id="_3"><strong>实验检查与提交</strong></h2>
+<p>本次实验布置时间为 2024-04-15，持续一周。相应的 DDL 节点如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">组别</th>
+<th style="text-align: center;">检查 DDL</th>
+<th style="text-align: center;">报告提交 DDL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">周一组</td>
+<td style="text-align: center;">2024-04-22</td>
+<td style="text-align: center;">2024-04-29</td>
+</tr>
+<tr>
+<td style="text-align: center;">周三组</td>
+<td style="text-align: center;">2024-04-24</td>
+<td style="text-align: center;">2024-05-01</td>
+</tr>
+</tbody>
+</table>
+<p>在 DDL 之后，但在 5.6、5.8 及之前检查的，至多只能得到 90% 分数；5.6、5.8 之后检查的，至多只能得到 60% 分数。</p>
+<div class="admonition warning">
+<p class="admonition-title">提醒</p>
+<p>实验的 DDL 为当天晚上 21:30。助教有权利在 21:30 准时停止检查，请大家合理安排好自己的时间。能否线上检查、能否在其他时间检查请咨询本组的助教。</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">关于实验报告</p>
+<p>实验报告需要大家提交 PDF 格式。我们推荐大家使用 Markdown 或者 Latex 撰写实验报告，这样可以直接导出为 PDF。大家也可以使用 Word、WPS 等进行报告撰写，最后转换为 PDF 格式。我们不推荐也不拒绝大家手写实验报告，但请将其拍照扫描成 PDF 文件后再上传。我们不接受任何因为文件格式错误而导致成绩异常的申诉请求！</p>
+<p>在实验报告中，你需要给出每一项任务的答案，并附上必要的说明过程（或截图）。</p>
+<p><strong>特别地：实验报告的字数和排版与最终得分无关。影响得分的仅有内容正确性与完整性。</strong></p>
+</div>
+<p>实验报告提交的地址在<a href="https://soc.ustc.edu.cn/">这里</a>。</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 16, 2024</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+  <h2 id="__comments">评论</h2>
+  <!-- Insert generated snippet here -->
+    <script src="https://giscus.app/client.js"
+        data-repo="wintermelon008/USTC-CODLab-Discussion"
+        data-repo-id="R_kgDOLYIFuA"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLYIFuM4Cdhlu"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+    async>
+    </script>
+
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+          /* Instruct Giscus to change theme */
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+                
+
+  
+    <div class="md-source-date">
+      <small>
+          Authors: <span class='git-page-authors git-authors'><a href='mailto:richardzheng@mail.ustc.edu.cn'>Z Richard</a>, <a href='mailto:1904346407@qq.com'>wintermelon008</a></span>
+      </small>
+    </div>
+  
+
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../lab4/CPU/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 完整单周期 CPU" rel="prev">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                完整单周期 CPU
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="flow/" class="md-footer__link md-footer__link--next" aria-label="下一页: 流水化处理" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                流水化处理
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © USTC-COD Lab 2023 - 2024
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://soc.ustc.edu.cn" target="_blank" rel="noopener" title="soc.ustc.edu.cn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.87 11.525c.071.013.13.084.13.157v3.033a.166.166 0 0 1-.13.157l-2.875.535a.243.243 0 0 0-.17.151l-.898 2.242a.252.252 0 0 0 .017.229l1.633 2.379a.167.167 0 0 1-.02.204l-2.144 2.144a.167.167 0 0 1-.203.019l-2.338-1.604a.23.23 0 0 0-.224-.008l-1.03.55a.121.121 0 0 1-.17-.062l-2.125-5.135a.161.161 0 0 1 .062-.192l.258-.158c.048-.03.113-.08.163-.125a3.354 3.354 0 1 0-3.612 0c.05.046.115.096.163.125l.258.158a.16.16 0 0 1 .062.192L8.552 21.65a.121.121 0 0 1-.17.063l-1.03-.55a.23.23 0 0 0-.224.007L4.79 22.775a.168.168 0 0 1-.204-.019l-2.145-2.144a.167.167 0 0 1-.019-.204l1.633-2.38a.251.251 0 0 0 .017-.228l-.897-2.242a.244.244 0 0 0-.17-.15L.13 14.871a.166.166 0 0 1-.13-.157v-3.032c0-.073.059-.144.13-.157l2.947-.548a.253.253 0 0 0 .175-.15l.903-2.108a.246.246 0 0 0-.014-.227L2.424 5.989a.167.167 0 0 1 .019-.203L4.587 3.64a.166.166 0 0 1 .204-.019L7.337 5.37c.06.041.163.048.229.016l2.043-.836c.07-.023.137-.1.15-.173l.567-3.047a.167.167 0 0 1 .157-.131h3.034c.073 0 .143.059.157.13l.567 3.048a.25.25 0 0 0 .15.173l2.043.836a.252.252 0 0 0 .23-.016l2.546-1.748a.166.166 0 0 1 .203.02l2.144 2.144c.052.051.06.143.02.203l-1.718 2.503a.245.245 0 0 0-.014.227l.903 2.108a.256.256 0 0 0 .175.15l2.946.548"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://vlab.ustc.edu.cn" target="_blank" rel="noopener" title="vlab.ustc.edu.cn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 1h16a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1m0 8h16a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1m0 8h16a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1M9 5h1V3H9v2m0 8h1v-2H9v2m0 8h1v-2H9v2M5 3v2h2V3H5m0 8v2h2v-2H5m0 8v2h2v-2H5Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.expand", "navigation.footer", "content.code.copy"], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.78eede0e.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

@@ -1,0 +1,1124 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\pagestyle{headings}
+\title{\textbf{流体力学\ 笔记}}
+\author{原生生物}
+\date{}
+\setcounter{tocdepth}{2}
+\setlength{\parindent}{0pt}
+\usepackage{amsmath,amssymb,amsthm,enumerate,geometry}
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\ctexset{section={number=\zhnum{section}}}
+\ctexset{subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+
+\begin{document}
+\maketitle
+
+*王晓宏老师[流体力学基础]课堂笔记
+
+\tableofcontents
+
+\newpage
+
+\section{绪论}
+流体定义-宏观态中除固体外的液态、气态均属于流体
+
+基本框架：
+\begin{itemize}
+    \item 物理定律[质量守恒、动量守恒、角动量守恒、能量守恒]
+    \item 流体性质[粘性、可压缩、表面张力等]
+    \item 运动形式
+\end{itemize}
+
+分支：粘性流体力学(粘性影响)、气体动力学(可压缩影响)、分层流(流体空间中密度不均)、渗流(多孔介质中流动)、湍流、燃烧学(含化学反应)等，流体力学基础主要研究理想不可压缩流体。
+
+数学基础[场论]：
+$$\nabla=\big(\frac{\partial}{\partial x},\frac{\partial}{\partial y},\frac{\partial}{\partial z}\big)$$
+
+梯度$\nabla\phi$、散度$\nabla\cdot\vec{v}$、旋度$\nabla\times\vec{v}$
+
+梯度定理$$\iint_A\phi\vec{n}\dr A=\int_{\tau}\nabla\phi\dr\tau$$
+
+散度定理(Gauss定理)$$\iint_{\partial V}\vec{v}\cdot\vec{n}\dr A=\iiint_V\nabla\cdot\vec{v}\dr V$$
+
+旋度定理(Stokes定理)$$\oint_{\partial A}\vec{v}\cdot\dr\vec{l}=\iint_A(\nabla\times\vec{v})\cdot\vec{n}\dr A$$
+
+*混沌：确定的问题表现出\textbf{宏观}的随机性，或对初始条件非常敏感引起的随机[常由非线性项导致]，例：$x_{n+1}=\lambda x_n(1-x_n)$在$\lambda,x_0$取值适当时此数列能够在$[0,1]$稠密。流体力学中：\textbf{湍流}，如不同雷诺数流体绕柱运动后的混乱状态[但数学上，缘于N-S方程，并没有严谨的分析，至今未能解决]。
+
+\section{流体基本性质}
+\subsection{物理性质}
+\textbf{连续介质假设}
+
+利用连续性的研究需要将流体划分为\textbf{微元}(流体质点)，而此划分的基本要求为所有\textbf{宏观物理量可定义}，如
+$$\rho=\lim_{\Delta\tau\to\Delta\tau^*}\frac{\Delta m}{\Delta\tau}$$
+$\Delta\tau$为体积元，有意义的最低体积$\Delta\tau^*$一般为分子自由程$\lambda$的立方，更小时分子热运动影响明显，不再具有宏观意义。
+
+由此，为其可定义，需要$\Delta\tau^*$可以看作0，也即\textbf{分子自由程不能太大}、\textbf{观测尺度不能太小}。
+
+*研究第一种情况的为稀薄气体动力学，第二种则为微尺度流体力学。
+
+*大数定律保证了考察尺度中分子量足够大时可以表现出确定的宏观性质。
+
+\textbf{连续介质假设}：流体上所有的宏观物理量是空间和时间的连续光滑函数[一般至少要求\textbf{二阶可微}]。
+
+*数学知识的局限性，非光滑情况难以研究
+
+\
+
+\textbf{易变形性}
+
+流体与固体差别[材料角度]：静止流体不能承受\textbf{剪切应力}，从而受到剪切力会导致运动。
+
+\
+
+\textbf{粘性}
+
+流体粘性是\textbf{分子动量交换}的宏观表现[摩擦]。
+
+牛顿粘性平板[思想实验]：上下两面积$A$充分大平板中放流体，两板距离$b$，下方静止，上方向右以速度$U$运动，则推测保持运动所用的力
+$$F\propto\frac{UA}{b}$$
+记$\mu=\frac{UA}{Fb}$，称为\textbf{动力学粘度}，只与流体本身的属性相关。
+
+*无滑移条件：固壁上流体的速度等于固体的速度
+
+*注意到单位面积受力$\frac{F}{A}$即为所受的剪切应力$\tau$，而从垂直截面看来，流体中某个长方形的部分在$\dr t$时间后变为平行四边形，则此时角度变化[\textbf{角应变}]\ $\dr\gamma=\frac{U\dr t}{b}$，于是$\frac{U}{b}=\frac{\dr\gamma}{\dr t}$为角的变形速率。
+
+于是方程也可写为：$\tau=\mu\dot{\gamma}$，剪切应力与角应变速率正比，此为流体作为材料的\textbf{本构关系}。
+
+*后文定义的角应变率$\varepsilon$为直角变形速率的\textbf{一半}，因此对应剪切应力的本构关系为$\tau=2\mu\varepsilon$。
+
+*固体：弹性力与应变大小相关；流体：剪切应力与角应变快慢相关。
+
+满足上述关系的流体称为\textbf{牛顿流体}，小分子流体一般满足，否则称为\textbf{非牛顿流体}[本课程只研究牛顿流体]。
+
+例：圆筒粘度计。圆筒高$h$，内径$r$，外径$r+e$，内外间填充流体后以角速度$\omega$旋转，则受力
+$$F=2\pi rh\mu\frac{r\omega}{e}$$
+从而可算出扭矩$M=Fr$，功率$N=M\omega$。
+
+*能将嵌套圆柱近似为平面要求$e\ll r$。
+
+\
+
+\textbf{可压缩性}
+
+体积模量：压强与体积相对变化量的比值
+$$K=-\frac{\dr p}{\dr\tau/\tau}=\rho\frac{\dr p}{\dr\rho}$$
+水的体积模量为空气的$10^4$倍量级，一般视为液体不可压缩。
+
+*第二个等号是由于$\tau\rho$步滨，从而可以得到$\rho\dr\tau+\tau\dr\rho=0$。
+
+另一方面，声速近似满足
+$$c=\sqrt{\frac{\dr p}{\dr\rho}}=\sqrt{\frac{K}{\rho}}$$
+气体运动速度比声速为马赫数$M_a=\frac{v}{c}$，于是气体在低速运动($M_a<0.2$)时一般认为不可压缩，否则需要考虑压缩性影响，\textbf{密度}、\textbf{速度}、\textbf{压力}均相关，无法解耦，复杂度大幅度增加。
+
+*声速代表无穷小扰动在介质中的传播速度，因此马赫数会影响运动产生的扰动的传播方式，从而作为高低速判据。
+
+*拉瓦尔喷管：利用可压缩性，将压力势能转化为动能，从而达到超音速。
+
+事实上空气中声速340米每秒，而12级台风的速度也仅40米每秒，因此日常生活中气体运动都无需考虑可压缩性。当气体超音速时(注意\textbf{并非介质中物体}，而是介质本身)流过静止物体，周围必然存在亚音速区域，但这其中速度可能发生\textbf{强间断}，此间断即激波，跨过激波速度突变，压力、温度迅速上升。[数学上，描述超音速为双曲型方程，马赫锥对应渐近线，而描述亚音速为椭圆型方程。]
+
+*激波内部，温度、压力梯度很大，无法看作连续性介质，流体力学无法生效。流体力学的处理方式为将其看作间断，左右通过\textbf{守恒}匹配。
+
+\
+
+\textbf{表面张力}
+
+表面张力产生的\textbf{毛细现象}与固体、液体材料性质均相关，一般在直径毫米/微米级的管道中或微重力下的流体运行时考虑。
+
+\subsection{流体运动学}
+描述流体运动的数学方法：
+\begin{enumerate}
+    \item \textbf{拉格朗日法}，描述每个流体质点，通过每个流体质点上的物理量描述流体状况。标注流体质点：将流体在$t=0$时刻每个质点的空间坐标作为其坐标$\xi$，在此后追踪其运动，所有物理量[包含\textbf{空间位置}]是流体质点与时间的函数。
+    \item \textbf{欧拉法}，描述每个空间中的点$x$，所有物理量都是空间位置与时间的函数[不再关注单个流体质点的运动过程]。
+\end{enumerate}
+
+由于描述同一个流场，一般情况下可以相互转化。由于相互转化本质要求反函数关系存在，对\textbf{局部}来说要求Jacobi阵可逆。
+
+\
+
+\textbf{欧拉$\to$拉格朗日}
+
+假设已知$v(x,t)$，下面计算$\xi,t$下$v$的表示$v_\xi(\xi,t)$，这里$v$为速度。
+
+根据速度定义，$v=\frac{\dr x}{\dr t}$，考虑0时刻的某个位置$\xi$，则求解
+$$\frac{\dr x}{\dr t}=v(x,t),x(0)=\xi$$
+得到的$x(t)$即代表了0时刻$\xi$出发的点[换而言之，这点的拉格朗日坐标为$\xi$]的轨迹$x(\xi,t)$，于是再代入即得
+$$v_\xi(\xi,t)=v(x(\xi,t),t)$$
+
+例如，对$v=x+t$，记$x(0)=\xi$，求解$\frac{\dr x}{\dr t}=x+t,x(0)=\xi$可得到$x=(\xi+1)\mathrm{e}^t-t-1$，从而
+$$v=(\xi+1)\mathrm{e}^t-t-1+t=(\xi+1)\mathrm{e}^t-1$$
+
+\
+
+\textbf{拉格朗日$\to$欧拉}
+
+假设已知$v_\xi(\xi,t)$，可反解出$v(x,t)$。直接利用$\frac{\dr x}{\dr t}=v_\xi(\xi,t)$可以从$x(0)=\xi$积分出$x(\xi,t)$，解出$\xi(x,t)$代入可得到$v(x,t)=v_\xi(\xi(x,t),t)$。
+
+例如，对$v=(\xi+1)\mathrm{e}^t-1$，直接积分可得
+$$x(\xi,t)=\int_0^t\big((\xi+1)\mathrm{e}^t-1\big)\dr t+\xi=(\xi+1)\mathrm{e}^t-t-1$$
+从而
+$$\xi(x,t)=\frac{x+t+1}{\mathrm{e}^t}-1$$
+于是有
+$$v=\bigg(\frac{x+t+1}{\mathrm{e}^t}-1+1\bigg)\mathrm{e}^t-1=x+t$$
+
+\
+
+*拉格朗日法表达式复杂，不能直接反映参数空间分布，不适合描述运动变形特征；欧拉法表达式简单、直接，描述流体元运动变形，因此是流体力学中常用的解析方法。
+
+\
+
+\textbf{速度场}：$v=v(\mathbf{x},t)$，$\mathbf{x}$一般为二维或三维。
+
+\textbf{流量}：通过某个截面的\textbf{体积流量}$Q=\iint_A\vec{v}\cdot\vec{n}\dr A$，\textbf{质量流量}$\dot{m}=\iint_A\rho\vec{v}\cdot\vec{n}\dr A$。\textbf{均质不可压缩}情况下$\rho$为常数，两者成固定比例。
+
+对一个管道的任何两个不同截面，\textbf{不可压缩}的情况下通过它们的体积流量必然相同。
+
+证明：考虑它们形成的封闭曲面，只需证明$\iint_A\vec{v}\cdot\vec{n}\dr A=0$，而根据前文Gauss定理，其与$\iiint_\tau\nabla\cdot\vec{v}\dr\tau$相同，这里$\tau$是封闭曲面围成的立体。只要$\nabla\cdot\vec{v}=0$此式即满足，在不可压缩时成立。
+
+*由此类似得$\nabla\cdot(\rho\vec{v})=0$可推出质量流量相同，其中一种成立的情况是\textbf{定常流动}。
+
+\
+
+\textbf{定常流动}
+
+定义：任何空间点上的物理量不随时间变化的流动[依赖于\textbf{参考系}]，数学上对应流体力学方程组的\textbf{稳态解}。
+
+考虑匀速水流流过一静止圆柱体，当速度较小时是定常的，但速度增大时会变为非定常[出现一系列的漩涡，形成\textbf{卡门涡街}]，进一步增大则成为湍流。事实上，数学上对圆柱绕流的解既有定常解，也有非定常解，随参数变化，定常解可变为非定常解，即动力系统中的\textbf{分岔}现象。
+
+*流体的\textbf{雷诺数}增大可引起这样的变化
+
+*\textbf{边界条件不依赖时间不能得到定常结论}
+
+*若参考系变化，圆柱匀速低速运动，站在岸边，则显然不为定常流动，而参考系为圆柱则定常。参考系变换意义：速度越大处压力越小只适用于定常流动，例如设计机翼时，必须以飞机为参考系才能得到正确的结论。
+
+\
+
+\textbf{流动的维数}
+
+考虑一个$z$方向无穷长圆柱管道，流体在其中定常流动，则空间上在$z$方向对称，又由于圆的对称性，速度$u(r,\theta,z,t)$只与$r$\ [点到圆柱中心距离]有关，可写为$u(r)$，这就是一维的流动问题。事实上此问题可解出解析解，$u(r)$为\textbf{抛物线}。
+
+*此降维事实上是从空间对称性认为解也是对称的，但\textbf{空间对称性的前提是时间对称性}，也即\textbf{只有定常流动时可以将流动降维}。
+
+对机翼而言，上方速度高，下方速度低，从而压强差产生升力[\textbf{儒可夫斯基变换}]。事实上，其是将三维的绕翼流动降维到机翼\textbf{近似无限长}的二维空间利用复变函数讨论。
+
+\subsection{流体运动几何描述}
+\textbf{迹线}：流体质点的运动轨迹，即为之前欧拉表示推出的拉格朗日表示[若确定质点并非通过0时刻的位置，而为其他时刻的位置，也可以类似代入不同的初始条件得到解]。
+
+\textbf{流线}：流场中的一条曲线，使得其每点的切线方向为速度方向[与电场线、磁感线的定义类似]。若速度已知，其方程即$\vec{r}'(t)\times\vec{v}(\vec{r}(t))=\mathbf{0}$，或写成$\vec{v}\times\dr\vec{r}=\mathbf{0}$，按分量$\vec{v}=(u,v,w),\vec{r}=(x,y,z)$展开即$\frac{\dr x}{u}=\frac{\dr y}{v}=\frac{\dr z}{w}$。
+
+性质：不相交(除非速度为0的\textbf{驻点}[滞止点]或速度为无穷的\textbf{奇点}处)、不中断(除非遇到边界)、定常流动时与迹线相同
+
+*流线计算：直接代入某时刻速度场$\vec{v}=\vec{v}(x,y,z)$求解微分方程可得到结果。例如二维时若某时刻速度场为$u=kx,v=-ky$，则流线方程为$\frac{\dr x}{x}=-\frac{\dr y}{y}$，从而全部流线为$xy=C$，结合经过的点可以得到具体的流线方程。
+
+*对非定常流动，将$t$看作参数即可算出每个时刻的流线方程。
+
+\textbf{流管}：对某不是流线的闭合曲线，通过其上每点的流线围成一个圆管，即称为流管。根据流线性质，流管亦在非特殊点不能相交、不能中断。
+
+*分析工程问题的基本结构
+
+\
+
+\textbf{脉线}：对流场的某一特定点不断输入颜色液体，液体质点在流场中构成的曲线为脉线。[\textbf{定常流动}中与迹线、流线相同。]
+
+*实验观察流场结构常用：\textbf{雷诺圆管实验}：圆管中匀速流动的液体，向一个点连续放入红墨水，低速时顺流接近直线[层流]，高速时只有开始为直线，后续变得混乱[湍流]。原因：流动\textbf{失稳}，层流在高雷诺数时变为不稳定平衡，遭到扰动即成为湍流，但具体机制仍不明确。
+
+*雷诺数$\mathrm{Re}=\frac{\rho vD}{\mu}$，其中$\mu$为动力粘度，$v$为速度，$D$为圆管直径，$\rho$为密度。
+
+\
+
+\textbf{流体线}：流场中固定流体质点组成的一条线[可任意指定]，流动过程中不会自相交。
+
+\textbf{流体面}：流场中固定流体质点组成的一个面，流动过程中不会自相交、不会中断、不会出现空洞。
+
+*本质是由于\textbf{连续介质假设}，因此保持\textbf{拓扑性质}。
+
+*由于流体面不会出现空洞，考虑一个闭曲面，其内部与外部的流体不会出现交换。
+
+\
+
+\textbf{加速度场的计算}
+
+利用拉格朗日法表示，$\vec{v}_\xi=\vec{v}_\xi(\xi,t)$，代表0时刻处在$\xi$的流体质点在$t$时刻的速度，则其加速度为$\frac{\dr}{\dr t}\vec{v}_\xi(\xi,t)$。
+
+由于欧拉观点常用，需要在欧拉观点$\vec{v}(\vec{x},t)$下表示质点的加速度。准确来说，将$x,y,z$都是$\xi,t$的函数有
+$$a=\frac{\dr}{\dr t}\vec{v}(x(\xi,t),y(\xi,t),z(\xi,t),t)=\frac{\partial \vec{v}}{\partial t}+\frac{\partial \vec{v}}{\partial x}\frac{\partial x}{\partial t}+\frac{\partial \vec{v}}{\partial y}\frac{\partial y}{\partial t}+\frac{\partial \vec{v}}{\partial z}\frac{\partial z}{\partial t}=\frac{\partial \vec{v}}{\partial t}+\frac{\partial \vec{v}}{\partial x}u+\frac{\partial \vec{v}}{\partial y}v+\frac{\partial \vec{v}}{\partial z}w$$
+这里$\vec{v}=(u,v,w)$。
+
+另一方面，这个式子也可以写成
+$$a=\frac{\partial \vec{v}}{\partial t}+(\vec{v}\cdot\nabla)\vec{v}$$
+对时间导数称为\textbf{当地加速度}，第二项称为\textbf{迁移加速度}，整体记作$\frac{Dv}{Dt}$，这里$D=\frac{\partial}{\partial t}+\vec{v}\cdot\nabla$表示对质点的导数，称为\textbf{随体导数}。与上述推导相同可得，质点上的任何物理量$B$随时间的变化速率应为$\frac{DB}{Dt}$。
+
+例：$(u,v,w)=(x+t,ty,xz)$，则
+$$\frac{\partial\vec{v}}{\partial t}=(1,y,0),\frac{\partial\vec{v}}{\partial x}=(1,0,z),\frac{\partial\vec{v}}{\partial y}=(0,t,0),\frac{\partial\vec{v}}{\partial z}=(0,0,x)$$
+于是加速度为$(1,y,0)+(x+t)(1,0,z)+ty(0,t,0)+xz(0,0,x)=(1+x+t,y+t^2y,xz+tz+x^2z)$。
+
+\subsection{一点邻域内相对运动}
+
+流体的\textbf{变形}：
+\begin{enumerate}
+    \item \textbf{线应变率}[线变形]：沿坐标轴方向微小线段，单位时间内单位长度的变化速率。例如，二维空间中，考虑$M(0,0)$、$A(\Delta x,0)$、$B(\Delta x,\Delta y)$、$C(0,\Delta y)$，一段时间$\Delta t$后变为$M'A'B'C'$，则[$\varepsilon_{xx}$代表垂直$x$轴平面向$x$方向的应变速率]
+    $$\varepsilon_{xx}=\frac{\overline{M'A'}-\Delta x}{\Delta t\Delta x}$$
+    
+    *若$M,A$的$y$方向速度一样，则向量$M'A'$与$MA$方向相同；若$x$方向速度亦一样，则长度也相同。于是线应变速率的产生来自$M,A$的速度不同。
+
+    *根据近似，有($\frac{\partial\vec{v}}{\partial x}\Delta x$即为两点速度差别)
+    $$\vec{M'A'}=\vec{MA}+\frac{\partial\vec{v}}{\partial x}\Delta x\Delta t$$
+    对长度差进行泰勒展开，令$\Delta x\to0,\Delta t\to0$可得$\varepsilon_{xx}=\frac{\partial u}{\partial x}$，同理可得类似定义的$\varepsilon_{yy}=\frac{\partial v}{\partial y},\varepsilon_{zz}=\frac{\partial w}{\partial z}$。
+
+    *考虑二维的\textbf{应变率矩阵}$\begin{pmatrix}\varepsilon_{xx}&\varepsilon_{xy}\\\varepsilon_{yx}&\varepsilon_{yy}\end{pmatrix}$即可进一步得出受力[缘于流体本构关系]。
+    
+    *由于$\Delta x,\Delta y,\Delta t$很小，弯曲为高阶小量，可以将$M'A'B'C'$近似视为平行四边形。
+
+    \item \textbf{体应变率}[体变形]：单位时间内单位体积的变化速率，类似上方计算行列式后舍弃二阶小量可得到$\Delta t$后的体积近似为
+    $$(1+\varepsilon_{xx}\Delta t)(1+\varepsilon_{yy}\Delta t)(1+\varepsilon_{zz}\Delta t)\Delta x\Delta y\Delta z$$
+    作差后省略高阶小量得到体应变率为$\varepsilon_{xx}+\varepsilon_{yy}+\varepsilon_{zz}$，这恰好是$\nabla\cdot\vec{v}$，即速度场的\textbf{散度}。
+
+    *这也是应变速率矩阵的\textbf{迹}。
+
+    *不可压缩流动：任何一块流体在运动过程中体积保持不变，即$\nabla\cdot\vec{v}=0$，此时任何流管进出口体积流量相同，和流动是否定常无关。
+
+    \item \textbf{角应变率}[角变形]：单位时间直角的变化速率的\textbf{一半}，考虑二维情况下的直角$AMB$，其再$\Delta t$后变为$A'M'B'$。类似之前可知$A'M'$与$AM$的角度差近似为[$\frac{\partial v}{\partial x}\Delta x$为两者$y$方向速度差别，乘$\Delta t$后代表$y$方向拉开距离，近似为弧长除以$\Delta x$就是夹角]
+    $$\delta\alpha=\frac{\partial v}{\partial x}\Delta x\Delta t\cdot\frac{1}{\Delta x}=\frac{\partial v}{\partial x}\Delta t$$
+    同理，$B'M'$与$BM$角度差近似为$\delta\beta=\frac{\partial u}{\partial y}\Delta t$，于是角应变率
+    $$\varepsilon_{xy}=\varepsilon_{yx}=\frac{1}{2}\frac{\delta\alpha+\delta\beta}{\Delta t}=\frac{1}{2}\bigg(\frac{\partial v}{\partial x}+\frac{\partial u}{\partial y}\bigg)$$
+
+    *类似材料力学中切应力$\tau_{xy}=\tau_{yx}$\ [否则角加速度会无穷大，证明见后文]，此处必然有$\varepsilon_{xy}=\varepsilon_{yx}$，否则与连续介质假设矛盾。
+
+    *与线应变率共同组成应变率矩阵，当坐标系旋转时，利用\textbf{正交相似}可以得到新坐标系的应变率矩阵[若变换结果不为标准正交基，则一般为相合]。又由于应变率矩阵是对称阵，其可以正交相似对角化，因此总存在方向只有线应变率没有角应变率。此外，仅当应变率矩阵半正定或半负定时，能保证坐标系旋转下所有应变一定同向。
+
+    *相似矩阵迹相等，因此体应变速率与坐标系选取无关。
+\end{enumerate}
+
+\
+
+\textbf{应变率矩阵}
+
+三维的应变率矩阵可以写为$\begin{pmatrix}\varepsilon_{xx}&\varepsilon_{xy}&\varepsilon_{xz}\\\varepsilon_{yx}&\varepsilon_{yy}&\varepsilon_{yz}\\\varepsilon_{zx}&\varepsilon_{zy}&\varepsilon_{zz}\end{pmatrix}$，根据之前推导，我们有
+$$\varepsilon_{ij}=\frac{1}{2}\bigg(\frac{\partial v_i}{\partial x_j}+\frac{\partial v_j}{\partial x_i}\bigg)$$
+
+\textbf{张量}(从爱因斯坦开始广泛应用，简化曲面上几何的表示)：0、1、2阶分别对应标量、矢量、矩阵。
+
+\textbf{爱因斯坦求和约定}：下标相同且不在左侧出现意味着对所有可能项求和，例如矩阵乘法$c=Ab$可以写成$c_i=\sum_jb_{ij}a_j=b_{ij}a_j$，散度为$\nabla\cdot\vec{v}=\frac{\partial v_j}{\partial x_j}$，随体导数就可以写为
+$$\frac{Dv_i}{Dt}=\frac{\partial v_i}{\partial t}+v_j\frac{\partial v_i}{\partial x_j}$$
+
+\
+
+\textbf{流体元的旋转}
+
+*自转角速度定义为\textbf{角平分线旋转角速度}
+
+仍然类似之前考虑$AMB$变成$A'M'B'$，但由于是角平分线的旋转，应为差而非和，即[此处$z$方向旋转代表$xy$平面的旋转]
+$$\omega_z=\frac{\delta\alpha-\delta\beta}{2}=\frac{1}{2}\bigg(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\bigg)$$
+同理可得$\omega_x,\omega_y$，根据定义有
+$$\vec{\omega}=\frac{1}{2}\nabla\times\vec{v}$$
+
+*另一个看法：考虑绕质点的$xy$平面内小圈，半径为$a$，小圈的切向量$\dr\vec{l}$，则其附近的旋转为
+$$\omega_z=\lim_{a\to0}\frac{1}{a}\frac{1}{2\pi a}\oint_L\vec{v}\cdot\dr\vec{l}$$
+根据旋度定理即可将右侧化为
+$$\lim_{a\to0}\frac{1}{2\pi a^2}\iint_A\big(\nabla\times\vec{v}\big)\cdot\vec{n}_z\dr A=\frac{1}{2}\big(\nabla\times\vec{v}\big)\cdot\vec{n}_z$$
+
+\
+
+例：[理想牛顿平板]$\begin{cases}u=ky\\v=0\end{cases}$，直接计算可知其$\varepsilon_{xx}=\varepsilon_{yy}=0,\varepsilon_{xy}=\varepsilon_{yx}=\frac{1}{2}k$，而自转$\omega=-\frac{1}{2}k$。
+
+\
+
+\
+
+\textbf{亥姆霍兹速度分解定理}
+
+流体微团的运动可以分为\textbf{平动}、\textbf{转动}与\textbf{变形}三部分。
+
+考虑$x$分量变化($u(M_0)$表示平动速度)
+$$u(M)=u(M_0)+\frac{\partial u}{\partial x}\dr x+\frac{\partial u}{\partial y}\dr y+\frac{\partial u}{\partial z}\dr z$$
+进行代数变形后可写为
+$$u(M)=u(M_0)+\varepsilon_{xx}\dr x+\varepsilon_{xy}\dr y+\varepsilon_{xz}\dr z+\omega_y\dr z-\omega_z\dr y$$
+同理考虑另外两分量可得
+$$\vec{v}(M)=\vec{v}(M_0)+\frac{1}{2}\big(\nabla\times\vec{v}\big)\times\dr\vec{r}+\dr\vec{r}E$$
+这里$\dr\vec{r}=(\dr x,\dr y,\dr z)$，$\vec{\omega}$已经展开，$E$表示应变率矩阵，最后一项为矩阵乘法。三项即分别表示平动、转动与变形。
+
+*叉乘的张量表示：$\vec{A}\times\vec{B}=\varepsilon_{ijk}a_ib_j\vec{e}_k$，这里$\vec{e}_k$表示$k$方向单位矢量，$\varepsilon_{ijk}$在$i,j,k$有元素相等时为0，否则为置换$(ijk)$的\textbf{交换数}[与行列式计算类似]，称为置换张量。
+
+\subsection{涡量与速度环量}
+
+$\Omega=\nabla\times\vec{v}=2\vec{\omega}$，称为\textbf{涡量}，满足$\Omega\times\dr\vec{r}=0$的曲线称为\textbf{涡线}。
+
+\textbf{涡管}：对某不是涡线的闭合曲线，通过其上每点的涡线围成一个圆管，即称为涡管。[与流管类似，不会中断、相交。]
+
+\textbf{涡通量}：过涡管某截面$A$，定义涡通量
+$$J=\iint_A\Omega\cdot\vec{n}\dr A$$
+涡管不同截面的涡通量相等[\textbf{良好定义性}]：由于$\Omega=\nabla\times\vec{v}$有$\nabla\cdot\Omega=0$，从而利用散度定理可知涡管中封闭曲面净流出涡量为0，即流入涡量与流出涡量相同，也即不同截面涡通量相等。
+
+\
+
+\textbf{速度环量}
+
+对某封闭曲线，速度环量$\Gamma=\oint_L\vec{v}\cdot\dr\vec{l}$，根据旋度定理可知\textbf{涡通量与速度环量一致}。
+
+例：二维流动$u=2y,v=3x$，利用旋度定理可知流场中沿圆$x^2+y^2=1$的速度环量为
+$$\oint 2y\dr x-3x\dr y=\iint\bigg(\frac{\partial(-3x)}{\partial x}-\frac{\partial(2y)}{\partial y}\bigg)\dr A=\iint(-5)\dr A=-5\pi$$
+
+\
+
+\textbf{几种流动分类}
+
+\textbf{层流}代表确定性的流动，\textbf{湍流}则具有更多随机性。自然界与工程实际中流动绝大多数都为湍流，但难以刻画[难点：为何随机、如何产生、如何描述、如何计算，目前只有\textbf{唯象}的理论]。
+
+\textbf{有旋流动}即流场中涡量处处为0的流动[只有平动，\textbf{无自转}，这门课重点研究]，而\textbf{有旋流动}指涡量非零的流动。
+
+*此外还可以区分内流与外流，在工程上会有更多应用
+
+\section{微分形式的基本方程}
+\subsection{质量守恒}
+\textbf{系统}：由固定流体质点组成的流体团[拉格朗日观点]。
+
+系统满足的物理规律：\textbf{质量守恒}、\textbf{牛顿第二定律}、\textbf{热力学第一定律}
+
+\textbf{控制体}：固定的空间点组成的区域[欧拉观点]。
+
+可以利用\textbf{质量}、\textbf{动量}、\textbf{动量矩}、\textbf{能量}守恒进行分析。
+
+*只需考虑流入/流出控制体的质量、动量、能量与外界对控制体的作用
+
+\
+
+\textbf{质量守恒方程}
+
+取微小控制体，流入的质量与流出的质量差异造成密度差异。
+
+为方便，考虑边长$\delta x,\delta y$的小矩形，则$\delta t$时间，$\delta y$边两侧单位时间单位长度流量差$\frac{\partial(\rho u)}{\partial x}\delta x$，再乘$\delta y\delta t$就是这段时间内的净流出量；同理，$\delta x$边的净流出量为$\frac{\partial(\rho v)}{\partial y}\delta y\delta x\delta t$。而两者之和应是总质量增加量[密度变化乘面积$\delta x\delta y$]\ $\frac{\partial\rho}{\partial t}\delta t\delta x\delta y$的相反数，对比得到方程
+$$-\frac{\partial(\rho u)}{\partial x}-\frac{\partial(\rho v)}{\partial y}=\frac{\partial\rho}{\partial t}$$
+三维时类似，可写成
+$$\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\vec{v})=0$$
+
+*张量表述$\frac{\partial\rho}{\partial t}+\frac{\partial(\rho v_j)}{\partial x_j}=0$。
+
+*由$\nabla\cdot(\rho\vec{v})=\rho\nabla\cdot\vec{v}+\vec{v}\cdot\nabla\rho$，可将此式化为
+$$\nabla\cdot\vec{v}=-\frac{1}{\rho}\frac{D\rho}{Dt}$$
+也即单位密度的减小对应体应变率，对不可压缩流动即可推出$\frac{D\rho}{Dt}=0$，即流体质点运动过程中密度不变，体变形速率为0。
+
+*回顾前文\textbf{不可压缩}时流管两不同截面通过的体积流量相同，与流动是否定常无关。
+
+例：不可压缩流动$x$方向速度$u=-\frac{cy}{x^2+y^2}$，则$y$方向速度须满足$\frac{\partial v}{\partial y}=-\frac{\partial u}{\partial x}$，因此积分得到$v=\frac{cx}{x^2+y^2}+f(x)$。
+
+*质量守恒方程又称\textbf{连续性方程}。
+
+\subsection{流体元的受力}
+
+\textbf{质量力}：来自\textbf{场}的作用，并非接触力(如重力)，$\vec{f}(x,y,z)$表示该点处单位\textbf{质量}流体所受的作用力，即
+$$\vec{f}(x,y,z)=\lim_{\delta\tau\to0}\frac{\delta F_b}{\rho\delta\tau}$$
+
+*反过来，已知质量力即有$F_b=\iiint_\tau\rho\vec{f}\dr\tau$
+
+*也可类似定义体积力，根据定义式可知其为$\rho\vec{f}$
+
+\
+
+\textbf{表面力}：\textbf{接触}产生的作用力，代表外表面单位面积受力，即
+$$\lim_{\delta A\to0}\frac{\delta F_s}{\delta A},F_s=\iint_A\vec{p}_s\dr A$$
+这里$\vec{p}$代表面上的法向应力(压强)。
+
+取长方体流体元，表面力即代表应力[下标第一个字母代表面的法线方向，指定面；第二个字母代表该面受力的方向]：
+$$p_{xx}=\lim_{\delta A\to0}\frac{\delta F_{xx}}{\delta A},\tau_{xy}=\lim_{\delta A\to0}\frac{\delta F_{xy}}{\delta A}$$
+由此有\textbf{应力矩阵}$P=\begin{pmatrix}p_{xx}&\tau_{xy}&\tau_{xz}\\\tau_{yx}&p_{yy}&\tau_{yz}\\\tau_{zx}&\tau_{zy}&p_{zz}\end{pmatrix}$。
+
+证明$\tau_{xy}=\tau_{yx}$：为方便考虑二维情况$xy$平面，对原点的力矩为[质量力与法向应力产生力矩为高阶小量，可忽略，左侧两倍是由于对称的两边产生相同的力矩]
+$$(2\tau_{xy}\Delta y)\frac{\Delta x}{2}-(2\tau_{yx}\Delta x)\frac{\Delta y}{2}=I\dot{\varepsilon}$$
+这里$I$为转动惯量$\int r^2\dr m$，为$(\Delta x)^4$阶小量[$m$为二阶，$r^2$也为二阶]，$\varepsilon$为角速度。若$\tau_{xy}\ne\tau_{yx}$，则$\dot{\varepsilon}$为$\frac{1}{(\Delta x)^2}$阶无穷大，不符合连续介质假设。
+
+若已知应力矩阵，求过该点某一法向为$\vec{n}$平面单位面积受力：仍考虑二维情况，在该点附近作直角三角形，直角边在坐标轴上，斜边法线方向为$\vec{n}$。设三边长$\Delta x,\Delta y,\Delta l$，根据三角函数知识有
+$$\vec{n}=\bigg(\frac{\Delta x}{\Delta l},\frac{\Delta y}{\Delta l}\bigg)$$
+由受力平衡[质量力仍为小量]可得
+$$\begin{cases}p_{nx}\Delta l=p_{xx}\Delta x+\tau_{yx}\Delta y\\p_{ny}\Delta l=p_{yy}\Delta y+\tau_{xy}\Delta x\end{cases}$$
+也即\textbf{任何方向压强}$\vec{p}_n=\vec{n}P$，这里$\vec{n}$为行向量。对三维类似可得仍有此关系式。
+
+*由此也类似证明了前文的坐标系旋转后应力矩阵正交相似。
+
+\textbf{静止流体}的应力状态：静止流体\textbf{不能承受剪切应力}，因此无论如何正交相似都是对角阵，只能为单位阵的倍数。又由于流体元只能承受压力、不能承受拉力，必然有$p_{xx}<0$，即应力矩阵为$P=-pI,p>0$。
+
+*对\textbf{理想流体}也满足此性质
+
+\subsection{牛顿流体}
+
+条件：
+\begin{enumerate}
+    \item 应力与应变率成线性关系；
+    \item 各向同性[即应力与应变力关系无关坐标系选择]；
+    \item 角变形率为0\ [静止时法向压力等于静压强]。
+\end{enumerate}
+
+定义\textbf{平均压强}$p=-\frac{1}{3}(p_{xx}+p_{yy}+p_{zz})$\ [由于此处讨论的未必是平衡态系统，此压强与热力学中压强的一致性是难以证明的]，记应力矩阵$P=(p_{ij})$，对牛顿流体有\textbf{本构关系}：
+$$p_{ij}=-\bigg(p+\frac{2}{3}\mu\nabla\cdot\vec{v}\bigg)\delta_{ij}+2\mu\varepsilon_{ij}$$
+此处$\delta_{ij}$当$i=j$时为1，否则为0；$\mu$代表动力学粘度；$\varepsilon_{ij}$为\textbf{应变率矩阵}的对应项。
+
+*根据之前的计算，$\varepsilon_{ij}$也可写成$\frac{1}{2}\big(\frac{\partial v_i}{\partial x_j}+\frac{\partial v_j}{\partial x_i}\big)$，由此计算可验证$p_{11}+p_{22}+p_{33}=-3p$。
+
+*记应变率矩阵为$E$，则有
+$$P=-\bigg(p+\frac{2}{3}\mu\nabla\cdot\vec{v}\bigg)I+2\mu E$$
+左右同时相似仍成立，因此有各向同性；流体静止时$P$为对角阵，从而$E$为对角阵，角变形率为0。
+
+*反之，根据动力粘度定义有$p_{ij}=2\mu\varepsilon_{ij},i\ne j$，进一步结合各向同性可得到$P=xI+2\mu E$，再根据左右迹相同即能解出$x=-p-\frac{2}{3}\mu\nabla\cdot\vec{v}$。
+
+*分子量100以下的\textbf{小分子量流体}一般可视为牛顿流体。
+
+*对不可压缩牛顿流体，由于$\nabla\cdot\vec{v}=0$，直接有$P=-pI+2\mu E$；对非牛顿流体，常见$P$可写为$E$的多项式形式，且最高次数超过一次。
+
+\
+
+\textbf{动量守恒方程}
+
+为方便，考虑二维情况下两边长$\Delta x,\Delta y$的流体元。其质量$\delta m$近似为$\rho\Delta x\Delta y$，根据牛顿第二定律，$\delta m\vec{a}=\delta F$，而由前文，$\vec{a}=\frac{D\vec{v}}{Dt}$，由此方程左侧为
+$$\rho\Delta x\Delta y\frac{D\vec{v}}{Dt}$$
+方程右侧分为质量力与表面力，由质量力定义可知其近似为$m\vec{f}=\rho\Delta x\Delta y\vec{f}$。对于表面力，考虑$x$方向，其由左右的$p_{xx}$与上下的$\tau_{yx}$合成，为
+$$\bigg(p_{xx}+\frac{\partial p_{xx}}{\partial x}\Delta x\bigg)-p_{xx}\Delta y+\bigg(\tau_{yx}+\frac{\partial \tau_{yx}}{\partial y}\Delta y\bigg)\Delta x-\tau_{yx}\Delta x=\bigg(\frac{\partial p_{xx}}{\partial x}+\frac{\partial\tau_{yx}}{\partial y}\bigg)\Delta x\Delta y=(\nabla\cdot P_x)\Delta x\Delta y$$
+这里$P_x$代表$P$的第一列。
+
+由此，记$\nabla\cdot P=(\nabla\cdot P_x,\nabla\cdot P_y,\nabla\cdot P_z)$，可得方程
+$$\rho\frac{D\vec{v}}{Dt}=\rho\vec{f}+\nabla\cdot P$$
+或根据随体导数的定义写成
+$$\frac{\partial\vec{v}}{\partial t}+(\vec{v}\cdot\nabla)v=\vec{f}+\frac{1}{\rho}\nabla\cdot P$$
+对三维情况，类似推导可知成立。
+
+\
+
+\textbf{不可压缩流动的NS方程}
+
+对不可压缩流动，代入$\nabla\cdot\vec{v}=0$可化简动量方程。由于
+$$\nabla\cdot P=\nabla\cdot(-pI+2\mu E)=-\nabla\cdot(pI)+2\mu\nabla\cdot E$$
+根据定义可得第一项为$-\nabla p$，而代入$\varepsilon_{ij}$的表达式可得第二项的$x$分量为
+$$2\mu\nabla\cdot(\varepsilon_{xx},\varepsilon_{yx},\varepsilon_{zx})=\mu\bigg(2\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}+\frac{\partial^2v}{\partial x\partial y}+\frac{\partial^2u}{\partial z^2}+\frac{\partial^2w}{\partial x\partial z}\bigg)$$
+由$\nabla\cdot\vec{v}=0$有
+$$\frac{\partial}{\partial x}(\nabla\cdot\vec{v})=\frac{\partial^2u}{\partial x^2}+\frac{\partial^2v}{\partial x\partial y}+\frac{\partial^2w}{\partial x\partial z}=0$$
+即有
+$$2\mu\nabla\cdot E_x=\mu\nabla^2u$$
+类似可得$y,z$方向成立的关系式。记$\nabla^2\vec{v}=(\nabla^2u,\nabla^2v,\nabla^2w)$，动量方程即化为
+$$\frac{\partial\vec{v}}{\partial t}+(\vec{v}\cdot\nabla)\vec{v}=\vec{f}-\frac{1}{\rho}\nabla p+\nu\nabla^2\vec{v}$$
+这里$\nu=\frac{\mu}{\rho}$称为\textbf{运动粘度}，出于解的适定性，$\nu$必须为正。
+
+*此方程与$\nabla\cdot\vec{v}=0$结合称为\textbf{Navier-Stokes方程}[NS方程]。
+
+*对单个质点，经典力学中动量守恒与角动量[又称\textbf{动量矩}]守恒是统一的，因此质量守恒与动量守恒已经描述完备；但之后研究质点系时，就需要分别考察动量与动量矩。
+
+*对理想流体，粘度$\nu=0$，因此可以去掉$\nu\nabla^2\vec{v}$项，此时称为\textbf{欧拉方程}。
+
+边界条件：
+\begin{enumerate}
+    \item \textbf{固体壁}：对一般NS方程，固壁条件为流体在边界上的速度与固体运动速度相同[\textbf{无滑移}条件]。对欧拉方程，由于流体不可能穿过固壁，必然有\textbf{法向速度}相等，但切向速度未必相等，称为滑移条件(由于欧拉方程阶数更低，所需边界条件更少)。
+    \item \textbf{不同流体交界}：两侧的速度、压强都相等[压强若不等会出现无穷大加速度]，剪切应力$\tau$亦相等。同样，对欧拉方程，两侧切向速度未必相等，剪切应力也未必相等。
+    \item \textbf{自由面}(如水上方是空气时可视为自由面)：剪切力$\tau=0$，从而$\varepsilon_{ij}$在$i\ne j$时为0，但两侧压强仍然相等。对欧拉方程，只要求压强相等。
+\end{enumerate}
+
+*\textbf{内流}为管道中流动，需要给定进出口条件，实际进出口可能非常复杂；\textbf{外流}分析无穷大空间运动，需要给定无穷远边界条件。由于管壁的摩擦，一般只有外流在远离避免处可以作理想流体假设。
+
+例：密度$\rho$的水层在重力下沿倾角$\theta$的无穷长斜坡作定常流动，水层深$h$，水面上大气压强0，宽度无限大，不计摩擦，计算液层内速度与方向分布。
+
+根据空间对称性，分布只与离板面距离有关，设沿斜坡向下为$x$正方向，垂直斜坡向上为$y$正方向，只需考虑$u=u(y),v=v(y),p=p(y)$。根据NS方程有(注意倾斜坐标系下$g$的分量表示，由定常可去掉对$t$的偏导，由对称可去掉对$x$的偏导)
+$$\begin{cases}\frac{\partial v}{\partial y}=0\\v\frac{\partial u}{\partial y}=g\sin\theta+\frac{\mu}{\rho}\frac{\partial^2u}{\partial y^2}\\v\frac{\partial v}{\partial y}=-g\cos\theta-\frac{1}{\rho}\frac{\partial p}{\partial y}+\frac{\mu}{\rho}\frac{\partial^2v}{\partial y^2}\end{cases}$$
+边界条件为$u(0)=v(0)=0,p(h)=0$，且由于$h$处$\tau=0$，有$\frac{\partial v}{\partial x}+\frac{\partial u}{\partial y}=0$。
+由第一个方程，$v$为常数，结合边界条件知$v=0$，于是方程化简为$g\sin\theta+\frac{\mu}{\rho}\frac{\partial^2u}{\partial y^2}=0,-g\cos\theta-\frac{1}{\rho}\frac{\partial p}{\partial y}=0$，综合边界条件解得$u=\frac{\rho g\sin\theta}{2\mu}(2hy-y^2),p=\rho g(h-y)\cos\theta$。
+
+*对于可压缩流动，由于有额外变量$\rho$，除了动量守恒与质量守恒外需要额外方程描述$p,\rho$的关系，这称为流体的\textbf{状态方程}。对于\textbf{完全气体}[即理想气体]，由热力学知识可知$p=\rho RT$，即正比关系。由于又多出变量$T$，进一步增添能量守恒才能完全求解。反之，对不可压缩流动，能量守恒与动量守恒\textbf{解耦}，不需要求解温度场时无需能量守恒方程。
+
+*对湍流的研究：\textbf{相信}湍流能通过NS方程描述，并通过系综平均进行研究。然而，由于非线性项存在，系综平均无法线性展开，会相差独立的\textbf{雷诺应力}项$R_{ij}=\langle u_iu_j\rangle-\langle u_i\rangle\langle u_j\rangle$，研究仍然非常困难。通过假设高斯分布，从而$\langle vvvv\rangle=\langle vv\rangle^2$，可以进行求解(周培源)。
+
+\subsection{速度环量守恒}
+\textbf{速度环量}：$\Gamma=\oint\vec{v}\cdot\dr\vec{l}$，对封闭流体线谈论。
+
+定理：\textbf{速度环量随体导数等于加速度环量}，即
+$$\frac{D\Gamma}{Dt}=\oint\frac{D\vec{v}}{Dt}\cdot\dr\vec{l}$$
+证明：考虑$\vec{l}(t,\tau)$，$\tau$为空间参数，利用随体导数定义可知$\frac{D}{Dt}(\dr\vec{l})=\dr\vec{v}$，于是左侧等于
+$$\oint\frac{D}{Dt}(\vec{v}\cdot\dr\vec{l})=\oint\frac{D\vec{v}}{Dt}\cdot\dr\vec{l}+\oint\vec{v}\cdot\dr\vec{v}$$
+第二项为全微分$\dr\frac{v^2}{2}$的环路积分，必然为0，从而得证。
+
+\
+
+\textbf{开尔文速度环量守恒定理}
+
+\textbf{理想流体}在\textbf{质量力有势}与\textbf{流场正压}[即密度由压力确定，$\rho=\rho(p)$]时，对任何流体线的速度环量$\Gamma$不变。
+
+证明：由流场正压可得$\nabla\rho\times\nabla p=0$，从而再利用梯度无旋计算得$\nabla\times\big(\frac{1}{\rho}\nabla p\big)=0$，因此$\frac{1}{\rho}\nabla p$是有势场，记其为$\nabla\hat{P}$，称$\hat{P}$为\textbf{压力函数}。
+
+由于质量力有势，设其可写为$-\nabla U$，则根据理想流体$\nabla\cdot P=-\nabla p$，代入动量守恒方程有
+$$\frac{D\Gamma}{Dt}=\oint\frac{D\vec{v}}{Dt}\cdot\dr\vec{l}=\oint\bigg(\vec{f}-\frac{1}{\rho}\nabla p\bigg)\cdot\dr\vec{l}=\oint(-\nabla U-\nabla\hat{P})\cdot\dr\vec{l}=-\oint\dr(U+\hat{P})=0$$
+
+*不可压缩流动满足$\rho$不变，是流场正压的特殊情况。
+
+\
+
+继续假设在单连通区域中，回顾涡量定义有$\Gamma=\iint_A\vec{\Omega}\cdot\vec{n}\dr A$。在速度环量守恒成立的条件下，由于$\Gamma$为常数，只要某刻是无旋流动，所有$\Gamma=0$，此后一直都是无旋流动。[从空间角度，即\textbf{上游无旋，下游永远无旋}。]
+
+*不可压缩流动$\nabla\cdot\vec{v}=0$，无旋流动$\vec{v}=\nabla\varphi$，从而无旋不可压缩时有$\triangle\phi=0$，速度场直接由\textbf{Laplace方程}确定。
+
+\
+
+\textbf{静流体压强场}
+
+通过静力学平衡可以推出容器中静止流体，表面接触空气，压强为$p_0$，则流体深度$h$处压强为$p_0+\rho gh$。[从NS方程的视角，由静止流体$\vec{v}=0$也可以推出。]
+
+*无论容器何种形状，若接触空气的面压强$p_0$，在此面下方距离$h$\ (可以为负)的面压强仍为$p_0+\rho gh$。对于多种流体，利用交界面压强相同即可计算。
+
+\section{积分形式的基本方程}
+\subsection{雷诺输运公式}
+*积分形式意义：\textbf{工程估算}、微分形式基本方程的标准推导方法
+
+\textbf{流体系统}的随体导数：某流体\textbf{系统}$\tau_0$中，若某时间其与\textbf{控制体}$CV$重合，则此时对某物理量$\eta$的积分的随体导数满足
+$$\frac{D}{Dt}\int_{\tau_0}\eta\dr\tau=\int_{\tau_0}\bigg(\frac{D\eta}{Dt}\dr\tau+\eta\frac{D}{Dt}\dr\tau\bigg)$$
+由体应变率定义为$\frac{1}{\dr\tau}\frac{D(\dr\tau)}{Dt}$，$\frac{D}{Dt}\dr\tau=\nabla\cdot\vec{v}\dr\tau$，直接将随体导数拆分化简可得
+$$\frac{D}{Dt}\int_{\tau_0}\eta\dr\tau=\frac{\partial}{\partial t}\int_{CV}\eta\dr\tau+\int_{CV}\nabla\cdot(\eta\vec{v})\dr\tau=\frac{\partial}{\partial t}\int_{CV}\eta\dr\tau+\iint_A(\vec{v}\cdot\vec{n})\eta\dr A$$
+这里等号利用高斯定理，$A$指$CV$的边界，此即称为\textbf{雷诺输运公式}。
+
+*类似此推导过程可以利用积分形式基本方程推导出微分形式基本方程。
+
+*也可利用随体导数定义考虑$\Delta t$时刻后流体团的位置计算极限，则前后重合部分的积分成为第一项，不重合部分的差成为第二项。
+
+*物理意义：实现流体系统与控制体的转换。
+
+\
+
+\textbf{质量守恒方程}
+
+取$\eta$为$\rho$，由于流体系统质量守恒，可以得到
+$$\frac{\partial}{\partial t}\int_{CV}\rho\dr\tau+\int_{CV}\nabla\cdot(\rho\vec{v})\dr\tau=0$$
+于是化为微分的形式有
+$$\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\vec{v})=0$$
+
+*物理意义：边界上流入的静质量导致控制体内密度增加。
+
+*工程应用：通常取流管为控制体，不可压缩流动时流入流出体积流量相同，定常流动时流入流出质量流量相同，由此可以对管道流量进行估算。
+
+例：\textbf{小孔出流}，圆柱形容器，截面积$A$，其中装密度$\rho$水，深$H$处开面积$A_1$小孔，求小孔之上的水流完的时间。假设其为\textbf{准定常流动}，即每个时刻认为是定常的，利用能量守恒可知高$h$时流出速度为$v=\sqrt{2gh}$，从而可得到$\rho A\frac{\dr h}{\dr t}+\rho A_1\sqrt{2gh}=0$，直接求解代入边界条件即得$H$与$t$关系$T=\frac{A}{A_1}\sqrt{\frac{2H}{g}}$。[也可将$\int_0^\tau\dr t$由前式换元为对$h$积分。]
+
+*此方法仅为工程估算，未必精确。
+
+\subsection{伯努利方程}
+条件[在其他条件的情况下也可能有对应的伯努利方程，此处先讨论最基本的]：
+\begin{enumerate}
+    \item 理想流体
+    \item 定常流动
+    \item 质量力有势
+    \item 均质不可压缩[事实上绝热等熵流动也成立]
+    \item 沿流线(或涡线)
+\end{enumerate}
+
+由不可压缩理想流体，利用欧拉方程变形可得到
+$$\frac{\partial\vec{v}}{\partial t}+\nabla\frac{v^2}{2}-\vec{v}\times(\nabla\times\vec{v})=\vec{f}-\frac{1}{\rho}\nabla p$$
+利用定常流动，$\frac{\partial\vec{v}}{\partial t}$为0。
+
+沿\textbf{流线或涡线}对两边积分，由于对涡线$(\nabla\times\vec{v})\cdot\dr\vec{l}=0$，对流线$\vec{v}\times\dr\vec{l}=0$，无论对哪种都有
+$$(\vec{v}\times(\nabla\times\vec{v}))\cdot\dr\vec{l}=0$$
+假设$f=-\nabla U$，再由均质即得到
+$$\oint\nabla\bigg(\frac{v^2}{2}+\frac{p}{\rho}+U\bigg)\cdot\dr\vec{l}=0$$
+即沿流线$\frac{v^2}{2}+\frac{p}{\rho}+U$为常数，这就是\textbf{伯努利方程}。
+
+*物理意义：沿流线或涡线机械能相等，即流体质点运动过程中机械能不变，本质是理想流体流动的\textbf{机械能守恒}方程。
+
+*若\textbf{流场正压}，设压力函数$\nabla\hat{P}$，则类似得到沿流线$\frac{v^2}{2}+\hat{P}+U$为常数。
+
+*也可从开尔文速度环量守恒推导，利用此观点，由于无旋流动任何流体线都是涡线，即有此时$\frac{v^2}{2}+\hat{P}+U$\textbf{在整个流场中为常数}，此时可利用Laplace方程可进一步\textbf{求解速度场}。
+
+例：分析机翼，\textbf{机翼参考系}下近似满足伯努利方程，由于重力场$U=gh$，机翼附近$h$近似常数，因此伯努利方程化为$\frac{v^2}{2}+\frac{p}{\rho}=C$，由于需要升力，应满足上方$p_1$小于下方$p_2$，从而$v_1>v_2$。[注意到以上讨论是在假设定常的机翼参考系中，若强行在非定常流动的地面参考系使用伯努利方程，则反而可能推出压力向下。]
+
+\
+
+\textbf{伯努利方程应用}
+
+\textbf{皮托测速管}：利用近似无外场时$\frac{v_A^2}{2}+\frac{p_A}{\rho}=\frac{v_B^2}{2}+\frac{p_B}{\rho}$，并通过测量U型管左右高度差得到$p_A-p_B=\rho_wg\Delta h$，保持一端速度为0即可测定另一端速度。
+
+\textbf{文丘里管流量计}：仍利用U型管，从体积流量相等得到$v_AA_1=v_BA_2$，结合$p_A-p_B$可解出$v_A,v_B$，从而得到流量。[类似原理也可设计不同流量计。]
+
+之前提到的\textbf{小孔出流}问题也可直接通过伯努利方程得到出口处速度。
+
+*事实上管道流动中边界层无法视为理想流体，但由于中间部分可视为理想流体，且边界压强连续，测量仍然是有效的。
+
+*\textbf{空泡}：液体运动过程中速度不均，内部局部压力下降，局部汽化，成为小的空泡。[其中只含有商量水汽，破裂时冲击力可能即答，腐蚀金属表面。]
+
+*\textbf{管道流动能量损失}：伯努利方程的守恒为理想流体情况，对实际流体，机械能会有损失，来源于粘性，具体损耗为$\frac{1}{2}\rho v^2\frac{l}{d}\lambda(\mathrm{Re})$，也即
+$$\Delta\bigg(\frac{\rho v^2}{2}+p+\rho U\bigg)=\frac{1}{2}\rho v^2\frac{l}{d}\lambda(\mathrm{Re})$$
+这里$l$为长度，$d$为直径。
+
+*水力学角度：伯努利方程结合粘性损耗可以计算水头线。
+
+\
+
+\textbf{非定常流动伯努利方程}
+
+在伯努利方程除定常外其他条件满足时，由于$\frac{\partial \vec{v}}{\partial t}$的积分不可忽略，有
+$$\int_A^B\frac{\partial\vec{v}}{\partial t}\cdot\dr\vec{l}=\bigg(\frac{v^2}{2}+\frac{p}{\rho}+U\bigg)\bigg|_B^A$$
+
+*物理意义：机械能的损失用来加速流动。
+
+*在一维流动的情况中，$\nabla\times\vec{v}$必然为0，因此对任何一段积分都满足上式。
+
+*\textbf{详谬}：考虑虹吸管，高处瓶子比低处瓶子高$h$，中间由管道连接，从高处瓶子的水面内伸入低处瓶子的水面内。假设瓶子无穷大，则可以看作定常流动，考虑一条从高处瓶子水面经管道到低处瓶子水面的流线，则两水面处压强、体积、速度相等，但高度不等。[实际原因：管道出口处存在涡面，速度导数间断，无法直接使用伯努利方程。]
+
+例：\textbf{等截面U形管内振荡}，设两边相同高度点为0，右端初始高为$h$，速度为0，液体总长度$L$，求右端高度$z$随时间变化。由于可看作一维流动，$\frac{\partial v}{\partial t}=\frac{\dr^2z}{\dr t^2}$恒定，且两端的$v^2$、$\frac{p}{\rho}$一致，代入非定常流动伯努利方程可得
+$$\frac{\dr^2z}{\dr t^2}L+2gz=0$$
+从而解得
+$$z=h\cos\bigg(\sqrt{\frac{2g}{L}}t\bigg)$$
+
+例：考虑\textbf{等截面直角管道}ABC，垂直段AB与水平段BC长度均为$L$。管中盛满水，C处有阀门，突然打开后A、C均接大气，压强$p_a$，计算此时管中压强分布。由于管道截面积相等，瞬间的管道加速度均相等，因此运用非定常流动伯努利方程有
+$$2L\frac{\partial v}{\partial t}=gL$$
+于是$\frac{\partial v}{\partial t}=\frac{g}{2}$。在垂直段$AB$的任一点$D$，到$A$的距离为$z$，继续利用非定常流动伯努利方程到$A$积分有$$z\frac{\partial v}{\partial t}=gL+\frac{p_a}{\rho}-g(L-z)-\frac{p_D}{\rho}$$
+于是解出$p_D=p_a+\frac{1}{2}\rho gz$。类似处理可得水平段沿流线到管口A总长度为$z$处压强为$p_a+\rho g\big(L-\frac{1}{2}z\big)$。
+
+例：密度为$\rho$的静止不可压理想流体中，一个\textbf{球形气泡}以$R_a=R_a(t)$的规律膨胀。设球泡内压力为$p_b$，无穷远处压力为$p_\infty$，推导$R_a$满足的微分方程[Rayleigh-Plesset方程]。利用连续性方程，距离球心$R$处流速$v$满足$4\pi R^2v=4\pi R_a^2\frac{\dr R_a}{\dr t}$，此外根据非定常流动伯努利方程有
+$$\int_{R_a}^\infty\frac{\partial v}{\partial t}\dr R+\frac{p_\infty}{\rho}=\frac{1}{2}\bigg(\frac{\dr R_a}{\dr t}\bigg)^2+\frac{p_b}{\rho}$$
+化简积分可推出[注意]
+$$R_a\frac{\dr^2R_a}{\dr t^2}+\frac{3}{2}\bigg(\frac{\dr R_a}{\dr t}\bigg)^2=\frac{p_b-p_\infty}{\rho}$$
+
+*若考虑等温膨胀压强变化，还满足$p_b(t)\frac{4}{3}\pi R_a^3(t)$为常数，需要联合求解。
+
+\subsection{积分形式动量方程}
+\textbf{动量守恒}
+
+考虑某流体系统，动量为$\vec{P}=\int\rho\vec{v}\dr\tau$，于是根据牛顿第二定律有$\frac{D\vec{P}}{Dt}=\sum\vec{F}$。
+
+推导微分形式动量守恒方程：
+$$\frac{D\vec{P}}{Dt}=\frac{D}{Dt}\int\rho\vec{v}\dr\tau=\int\frac{D}{Dt}(\rho\vec{v}\dr\tau)=\int\rho\frac{D\vec{v}}{Dt}\dr\tau$$
+$$\sum\vec{F}=\int\rho\vec{f}\dr\tau+\iint_A\vec{p}\dr A=\int\rho\vec{f}\dr\tau+\int\nabla\cdot P\dr\tau$$
+这里第一行的最后一步是由于连续性方程，$\frac{D(\rho\dr\tau)}{Dt}=0$，而第二行最后一步是由于压强$\vec{p}=\vec{n}P$\ [$P$为应力矩阵]利用高斯公式计算。由此，通过两行相等即可得到微分形式的动量守恒方程。
+
+\
+
+\textbf{工程应用}
+
+利用雷诺输运方程改写积分形式动量守恒方程的左侧可得
+$$\frac{\partial}{\partial t}\int\rho\vec{v}\dr\tau+\iint_A\rho\vec{v}(\vec{v}\cdot\vec{n})\dr A=\sum\vec{F}$$
+定常流动时即有$\iint_A\rho\vec{v}(\vec{v}\cdot\vec{n})\dr A=\sum\vec{F}$。
+
+*物理含义：流入控制体的动量与外力引起控制体动量增加
+
+管道定常流动时，进一步假设进出口流体速度\textbf{均匀分布}，进口为$\vec{v}_1$，出口为$\vec{v}_2$，由于\textbf{质量流量}同为$\dot{m}$，由质量流量定义与均匀性可知$\dot{m}(\vec{v}_2-\vec{v}_1)=\sum\vec{F}$。多个进出口时累加可得类似的结论。
+
+\
+
+\textbf{工程应用}
+
+\textbf{一维喷管理想流体}，已知流量$Q$，流体密度$\rho$，管道进出口截面积分别为$A_0,A_3$，出口处为大气压，求喷管受力[假设水平放置，忽略重力]。由于连通性，可不妨采用\textbf{相对大气压}，即出口处气压设为0。根据伯努利方程可知
+$$\frac{p_0}{\rho}=\frac{1}{2}\bigg(\frac{Q^2}{A_3^2}-\frac{Q^2}{A_0^2}\bigg)$$
+另一方面根据动量守恒有
+$$\rho Q\bigg(\frac{Q}{A_3}-\frac{Q}{A_0}\bigg)=p_0A_0-F$$
+代入即得喷管受力$F$。
+
+*若采用绝对大气压，第一个式子左侧改为$\frac{p_0}{\rho}-\frac{p_a}{\rho}$，从而第二个式子右端会相差$p_a(A_3-A_0)$，但积分可发现这事实上与\textbf{大气对喷管外侧的作用力}抵消，因此结果仍然相同[另一个看法：动量守恒中对外力的积分实质上是内外的压强差，从而可不妨设外部压强为0]。
+
+*在考虑$pV=nRT$等热学过程时不能考虑相对大气压。
+
+\textbf{二维水平弯曲喷管中理想流体}，仍不考虑重力，除之前条件外还已知管道弯曲角度$\theta$，求受力。伯努利方程形式仍然相同，而记$v_0=\frac{Q}{A_0},v_3=\frac{Q}{A_3}$，根据动量守恒应有
+$$\begin{cases}\rho Q(v_3\cos\theta-v_0)=p_0A_0-F_x\\-\rho QV_3\sin\theta=-F_y\end{cases}$$
+即可解出$F$。
+
+\textbf{二维水平自由射流理想流冲击运动导流片}，仍不考虑重力，设喷管进出口截面积均$A$，除之前条件外还已知小车以向前的匀速$U$前进，喷管在小车上，求流体冲击小车的作用功率。取\textbf{沿小车坐标系}转化为定常流动，则流速为$v=\frac{Q}{A}-U$，根据水平方向动量守恒即有(左侧的$\rho vA$代表参考系下的质量流量)
+$$\rho vA(v\cos\theta-v)=-F_x$$
+功率即为$F_xU$。
+
+\textbf{粘性流体圆管流动入口压降}，设圆管入口处流速均匀为$U$，经充分长距离变为抛物面$u(r)=u_m\big(1-\frac{r^2}{R^2}\big)$，忽略壁面摩擦，求压力损耗$\Delta P=P_1-P_2$。由连续性方程可得体积流量守恒，从而
+$$\pi R^2U=\int_0^Ru_m\bigg(1-\frac{r^2}{R^2}\bigg)2\pi r\dr r$$
+于是有$u_m=2U$。根据动量守恒即有(由于出口速度不均匀，不能直接用之前的公式)
+$$P_1-P_2=\int_0^R\rho u^2(r)2\pi r\dr r-\rho U^2\pi R^2$$
+
+\subsection{积分形式动量矩方程}
+流体系统动量矩为
+$$\vec{L}=\int\rho(\vec{r}\times\vec{v})\dr\tau$$
+于是根据动量矩定理有
+$$\frac{D}{Dt}\int\rho(\vec{r}\times\vec{v})\dr\tau=\sum\vec{M}$$
+
+仍可利用雷诺输运方程改写左侧，\textbf{定常流动}时
+$$\iint_A\rho(\vec{r}\times\vec{v})(\vec{v}\cdot\vec{n})\dr A=\sum\vec{M}=\sum\vec{r}\times\vec{F}$$
+
+\
+
+\textbf{工程应用}
+
+\textbf{欧拉涡轮机}，流体在圆环中定常流动，流体内半径$r_1$外半径$r_2$，内外边缘的切向流速分别为$v_{\theta 1},v_{\theta 2}$，径向流速$v_{r1},v_{r2}$，带动内轮以角速度$\omega$转动，计算功率。匀速转动时功率为受到力矩$T_s$与角速度$\omega$乘积，根据定常流动的动量矩守恒可得
+$$T_s=\iint_A\rho(\vec{r}\times\vec{v})(\vec{v}\cdot\vec{n})\dr A$$
+注意此处面$A$为内外表面作差，而内外表面$\vec{r}\times\vec{v}$都恒定，可提出，剩下的部分积分后由定义恰为质量流量$\dot{m}$，因此$T_s=\dot{m}(r_2v_{\theta 2}-r_1v_{\theta 1})$，代入功率方程即得结果。
+
+*进一步结合出水口计算质量流量即可估算\textbf{涡流式离心泵}的的功率
+
+\textbf{无摩擦洒水器}，两侧管道长$R$，管道出口偏折角度与法线夹角$\theta$\ (即偏折角$\frac{\pi}{2}-\theta$)，管口大小$A$，体积流量$Q$，水从中心轴底部流入，均分到喷水管左右两管口，计算转动角速度$\omega$。以洒水器中的水为控制体，由于匀速旋转，每点$\vec{r}\times{v}$始终恒定，于是雷诺输运方程改写后第一项仍然为0。而匀角速度转动，角加速度为0，因此洒水器所受合力矩为0，即
+$$\iint_A\rho(\vec{r}\times\vec{v})(\vec{v}\cdot\vec{n})\dr A=0$$
+类似之前推导，左侧即为$\dot{m}(r_2v_{\theta 2}-r_1v_{\theta 1})$，轴心处$r_1=0$，因此必然有$v_{\theta 2}=0$，而此为洒水器速度减相对速度$\omega R-\frac{Q}{2A}\cos\theta$\ (2来源于水流均分)，于是$\omega=\frac{Q}{2AR}\cos\theta$。
+
+*过程中$v_{\theta 2}=0$证明了水流合速度为切向
+
+\textbf{有摩擦洒水器}，在上方假设下，若有摩擦，实际转动角速度为$\omega$，求洒水器受到摩擦力矩$T_s$与功率$\dot{W}_s$。根据力矩守恒，此时有$T_s=\dot{m}Rv_{\theta 2}$，根据质量流量与相对速度可知
+$$T_s=\rho QR\bigg(\omega R-\frac{Q}{2A}\cos\theta\bigg)$$
+再乘$\omega$即得$\dot{W}_s$。
+
+*另解：考虑随洒水器运动的相对坐标系，根据加速度关系，此时水流收到质量力\textbf{科氏力}$\vec{f}=-\vec{a}=-2\omega\times\vec{v}_r$，也即方向为切向，大小为$-2\omega v_r=-\omega\frac{Q}{A}$，质量力产生的力矩为
+$$M_k=2\int_0^R\rho f rA\dr r=-\rho\omega QR^2$$
+相对坐标系下，切向速度即为$v_\theta=-\frac{Q}{2A}\cos\theta$，于是类似之前根据动量矩守恒可得
+$$T_s+M_k=\dot{m}rv_\theta=-\frac{\rho Q^2R}{A}\cos\theta$$
+由此即可计算对应结果。
+
+\textbf{平面水流射向斜壁}，流体密度$\rho$，射流速度$v_0$，宽度$h$，平壁与速度方向夹角$\theta$，忽略粘性及重力，求平壁所受作用力与作用点位置[设水流中心线与平壁交点为坐标原点]。假设分成的上下两股流分别厚$h_1,h_2$，根据伯努利方程可知对应速度大小$v_1=v_2=v_0$，于是根据连续性方程可得$h_1+h_2=h$。由沿平板方向动量守恒可得
+$$-\rho V_1^2h_1+\rho V_2^2h_2=\rho V_0^2h\cos\theta$$
+解得
+$$h_1=\frac{1}{2}(1-\cos\theta)h,h_2=\frac{1}{2}(1+\cos\theta)h$$
+从而再根据垂直平板方向动量守恒有$F=-\rho v_0^2h\sin\theta$。假设合力作用点位置为平板上与原点距离$e$处，过此点动量矩守恒可知
+$$\rho v_0^2h_1\frac{h_1}{2}-\rho v_0^2h_2\frac{h_2}{2}=\rho v_0^2h\sin\theta e$$
+解得$e=-\frac{1}{2}h\cot\theta$。
+
+*\ $v_1=v_2=v_0$是由于\textbf{流线平行}且进出口表面为大气压，通过N-S方程，速度均匀可推出$\nabla p=0$，于是压强恒定，可以认为内部压强都是大气压。
+
+\subsection{积分形式能量方程}
+设$e$为单位质量流体的内能(\textbf{比内能})，而单位质量流体动能为$\frac{v^2}{2}$，因此流体系统总能量为
+$$\int\rho\bigg(e+\frac{v^2}{2}\bigg)\dr\tau$$
+由此根据\textbf{热力学第一定律}可得
+$$\frac{D}{Dt}\int\rho\bigg(e+\frac{v^2}{2}\bigg)\dr\tau=\dot{Q}+W=\iint_Aq_\lambda\dr A+\int\rho q_R\dr\tau+\int\rho\vec{f}\cdot\vec{v}\dr\tau+\iint\vec{p}\cdot\vec{v}\dr A$$
+四项分别表示热传导、热辐射、质量力做功与面力做功。
+
+*此处无对流项，是因为考虑流体系统时左侧已经包含了对流部分。
+
+*根据Fourier定律，$q_\lambda=-k\nabla T\cdot\vec{n}=-k\frac{\partial T}{\partial\vec{n}}$，而对理想流体，事实上由统计物理可以推出$k=0$，于是不考虑热辐射时为绝热流动。
+
+在\textbf{绝热}条件下，只需要考虑两项做功项，而\textbf{定常流动}可用雷诺输运公式改写第一项，从而有绝热定常流动时
+$$\iint\rho\bigg(e+\frac{v^2}{2}\bigg)(\vec{v}\cdot\vec{n})\dr A=\int\rho\vec{f}\cdot\vec{v}\dr\tau+\iint\vec{p}\cdot\vec{v}\dr A$$
+
+若\textbf{质量力有势}$U$，由定常流动质量守恒可得$\nabla\cdot(\rho\vec{v})=0$，从而
+$$\int\rho\vec{f}\cdot\vec{v}\dr\tau=-\int\rho\vec{v}\cdot\nabla U\dr\tau=-\int\nabla\cdot(\rho\vec{v}U)\dr\tau=-\iint\rho(\vec{v}\cdot\vec{n})U\dr A$$
+也即质量力有势时可改写右侧第一项为面积分。
+
+若假设\textbf{理想流体}，由于$\vec{p}=-p\vec{n}$，可改写右侧第二项为$\iint p(\vec{v}\cdot\vec{n})\dr A$。
+
+于是，在质量力有势的理想流体时，改写右侧并移项有
+$$\iint \rho\bigg(e+\frac{v^2}{2}+\frac{p}{\rho}+U\bigg)(\vec{v}\cdot\vec{n})\dr A=0$$
+
+进一步假设\textbf{不可压缩}，则根据保持体积可知$\frac{D}{Dt}(\rho e\dr\tau)=0$，类似之前推导即有$\iint_A\rho e\vec{v}\cdot\vec{n}\dr A=0$，于是有
+$$\iint\rho\bigg(\frac{v^2}{2}+\frac{p}{\rho}+U\bigg)(\vec{v}\cdot\vec{n})\dr A=0$$
+
+*若进出口速度均匀，此式即成为\textbf{伯努利方程}，否则对进出口面积分作差即为\textbf{沿总流的伯努利方程}。
+
+*推导\textbf{可压缩流动伯努利方程}：由于条件有定常流动，可以反过来将其写为
+$$\frac{D}{Dt}\int\rho\bigg(e+\frac{v^2}{2}+\frac{p}{\rho}+U\bigg)\dr\tau=0$$
+由连续性$\frac{D}{Dt}(\rho\dr\tau)=0$，于是
+$$\int\rho\frac{D}{Dt}\bigg(e+\frac{v^2}{2}+\frac{p}{\rho}+U\bigg)\dr\tau=0$$
+也即有
+$$\frac{D}{Dt}\bigg(e+\frac{v^2}{2}+\frac{p}{\rho}+U\bigg)=0$$
+从而沿流线其守恒。
+
+*根据热力学中内能为$H-pV$，此处$e+\frac{p}{\rho}$即为单位质量的\textbf{焓}$h$，于是忽略质量力时沿流线$h+\frac{v^2}{2}$守恒。
+
+*对\textbf{理想气体}绝热[\textbf{等熵}]定常流动，假设\textbf{质量力可忽略}，则方程为
+$$\frac{D}{Dt}\bigg(e+\frac{v^2}{2}+\frac{p}{\rho}\bigg)=0$$
+代入\textbf{欧拉方程}$\frac{D\vec{v}}{Dt}=\vec{f}-\frac{1}{\rho}\nabla p=-\frac{1}{\rho}\nabla p$进一步计算得
+$$\frac{D}{Dt}\bigg(e+\frac{p}{\rho}\bigg)=\vec{v}\cdot\frac{1}{\rho}\nabla p=\frac{1}{\rho}\frac{Dp}{Dt}$$
+根据左侧微分内为$h=c_PT$，再理想气体状态方程$p=\rho RT$展开右侧即得
+$$c_P\frac{DT}{Dt}=\frac{RT}{\rho}\frac{D\rho}{Dt}+R\frac{DT}{Dt}$$
+从而由$c_V=c_P-R$得
+$$\frac{c_V}{T}\frac{DT}{Dt}=\frac{R}{\rho}\frac{D\rho}{Dt}$$
+注意到$\frac{1}{\alpha}\frac{\dr\alpha}{\dr\beta}=\frac{\dr\ln\alpha}{\beta}$对$\beta$取$x,y,z,t$都成立，结合即有
+$$c_V\frac{D\ln T}{Dt}=R\frac{D\ln \rho}{Dt}$$
+从而$\frac{D}{Dt}(c_P\ln T-R\ln\rho)=0$，将$T=\frac{p}{\rho R}$代入可得(注意$c_Vln R$为常数，求导为0)
+$$0=\frac{D}{Dt}\bigg(c_V\ln p-c_V\ln\rho-c_V\ln R-R\ln\rho)=\frac{D}{Dt}\bigg(c_V\ln p-c_P\ln\rho)=\frac{D}{Dt}\bigg(c_V\ln\frac{p}{\rho^\gamma}\bigg)$$
+此处$\gamma$为绝热指数$\frac{c_P}{c_V}$，于是即有
+$$\frac{D}{Dt}\frac{p}{\rho^\gamma}=0$$
+
+\
+
+\textbf{微分形式能量方程}
+
+由$\frac{D}{Dt}(\rho\dr\tau)=0$能量守恒方程左侧可以化为
+$$\int\rho\frac{D}{Dt}\bigg(e+\frac{v^2}{2}\bigg)\dr\tau$$
+根据之前，热传导项为
+$$\iint q_\lambda\dr A=\iint k\nabla T\cdot\vec{n}\dr A=\int\nabla\cdot(k\nabla T)\dr\tau$$
+而设应力矩阵为$P$有
+$$\iint\vec{p}\cdot\vec{v}\dr A=\iint \vec{n}P\cdot\vec{v}\dr A=\int\nabla\cdot(\vec{v}P)\dr\tau$$
+于是全部化为体积分得到
+$$\rho\frac{D}{Dt}\bigg(e+\frac{v^2}{2}\bigg)=\nabla\cdot(k\nabla T)+\rho q_R+\rho\vec{f}\cdot\vec{v}+\nabla\cdot(\vec{v}P)$$
+
+\
+
+\textbf{工程应用}
+
+考虑传热$\dot{Q}$与流体做功$\dot{W}$，假设某流体机械稳定[定常]工作，忽略质量力有
+$$\iint\rho\bigg(e+\frac{v^2}{2}\bigg)(\vec{v}\cdot\vec{n})\dr A=\dot{Q}-\dot{W}+\iint\vec{p}\cdot\vec{v}\dr A$$
+若出入口均匀，则有
+$$\dot{m}\bigg(e+\frac{v^2}{2}+\frac{p}{\rho}\bigg)\bigg|^{in}_{out}=\dot{Q}-\dot{W}$$
+此为流体机械的能量守恒方程[$\dot{W}$为输入轴功，$\dot{Q}$为损耗，差为实际功率]。
+
+*注意到$e+\frac{v^2}{2}=h=c_pT$，只要有进出口温度、速度、面积与流体性质即可估算涡轮机的\textbf{传热率}。
+
+\textbf{轴轮式风机}，风扇将室外静止大气吸入室内，假设进出口截面均为大气压，风扇功率$\dot{W}$，出口速率$v_2$，截面积$A_2$，空气密度$\rho$，求单位质量流体的有效功率与效率。由于进出口$p,\rho,T$一致，单位质量流体的有用功率$\Delta w=\frac{v_2^2}{2}$，于是效率为
+$$\eta=\frac{\dot{m}\Delta w}{\dot{W}}=\frac{\rho v_2^3A_2}{2\dot{W}}$$
+
+\section{更多应用}
+\subsection{无量纲化}
+*实验角度目的：用于衡量不同尺度实验情况与真实情况的接近程度
+
+N-S方程无量纲化过程：
+\begin{enumerate}
+    \item 选取特征尺度[特征长度$L$、特征速度$V$、特征时间$T$、特征压力$P$、特征质量力$g$]、
+    \item 无量纲化
+    $$x^*=\frac{x}{L},\quad \vec{v}^*=\frac{\vec{v}}{V},\quad t^*=\frac{t}{T},\quad p^*=\frac{p}{P}$$
+    \item 代入N-S方程得到无量纲版本
+    $$\mathrm{Sr}\frac{\partial \vec{v}^*}{\partial t^*}+(\vec{v}^*\cdot\nabla^*)\vec{v}^*=\mathrm{Fr}\vec{f}^*-\mathrm{Eu}\nabla^*p^*+\frac{1}{\mathrm{Re}}\nabla^{*2}\vec{v}^*$$
+    *无量纲化使得$(\vec{v}^*\cdot\nabla^*)\vec{v}^*$前系数1，则$\mathrm{Sr},\mathrm{Fr},\mathrm{Eu},\mathrm{Re}$均为无量纲数。
+\end{enumerate}
+
+*实验模拟要求方程无量纲化后得到的\textbf{无量纲系数}相同，从而保证方程的一致性；此外，模型与实际情况要求几何相似，从而保证无量纲化后\textbf{边界条件}与实际相同。
+
+*由于实际调整的变量有限，无量纲系数可能非常多，一致性非常难以保持，只能保持我们认为\textbf{主要}的无量纲系数一致，但出于湍流等情况数值模拟的困难，实验验证仍然是必要的。
+
+无量纲数的物理意义：
+\begin{enumerate}
+    \item 斯特哈尔数$\mathrm{Sr}=\frac{L}{VT}$为非定常惯性力除以迁移惯性力；
+    \item 弗鲁德数$\mathrm{Fr}=\frac{V}{\sqrt{gL}}$为惯性力除以质量力；
+    \item 欧拉数$\mathrm{Eu}=\frac{P}{\rho V^2}$为压力除以惯性力；
+    \item 雷诺数$\mathrm{Re}=\frac{\rho VL}{\mu}$为惯性力除以粘性力。
+\end{enumerate}
+
+*实际情况下，特征尺度的选择方式是重要的，关系到实验的可靠性。
+
+\
+
+考虑圆管流动方程，给定特征速度$V$、特征长度$L$，取
+$$x^*=\frac{x}{L},\quad \vec{v}^*=\frac{\vec{v}}{V},\quad t^*=\frac{t}{L/V}$$
+即可得到无量纲化方程
+$$\frac{\partial \vec{v}^*}{\partial t^*}+(\vec{v}^*\cdot\nabla^*)\vec{v}^*=\nabla^*(\mathrm{Fr}\vec{f}^*\cdot r-\mathrm{Eu}p^*)+\frac{1}{\mathrm{Re}}\nabla^{*2}\vec{v}^*,\quad\nabla^*\cdot\vec{v}^*=0$$
+
+*意义：实验发现\textbf{层流}与\textbf{湍流}两种流动状态，临界约为$\mathrm{Re}=2300$。
+
+*对理想流体，雷诺数趋于无穷，一般情况下雷诺数越大，边界层越薄，边界层的梯度越大。
+
+\subsection{流体静力学}
+基本方程[\textbf{欧拉平衡方程}]：
+$$\int\rho\vec{f}\dr\tau+\iint\vec{p}\dr A=0$$
+由于静止流体\textbf{不能承受剪切应力}，有$\vec{p}=-p\vec{n}$得
+$$\int(\rho \vec{f}-\nabla p)\dr\tau=0$$
+最终得到
+$$\vec{f}=\frac{1}{\rho}\nabla p$$
+
+*从微分形式动量方程也可直接推出
+
+*由此，质量力方向与\textbf{等压面}处处垂直，若有势场$\vec{f}=-\nabla U$，则等压面、等势面垂直[静止水的自由面是平的]。
+
+\
+
+\textbf{平衡条件}：由欧拉平衡方程直接计算可得
+$$\vec{f}\cdot(\nabla\times\vec{f})=0$$
+
+*此式仅为能够静止的\textbf{必要条件}，未必充分。
+
+*有势场下计算可发现$\nabla\rho\times\nabla p=0$，也即等压面、等密度面也重合，即密度可由压力确定，\textbf{流场正压}。
+
+*例：\textbf{不同密度液体的分界面}：由于分界处$\dr p=\rho_1\vec{f}\cdot\dr\vec{r}=\rho_2\vec{f}\cdot\dr\vec{r}$，计算可得
+$$\bigg(\frac{1}{\rho_1}-\frac{1}{\rho_2}\bigg)\dr p=0$$
+由于密度不同，即可得出$\dr p=0$，分界面为等压面[水油分界面是平的]。
+
+\
+
+\textbf{帕斯卡原理}：作用于密闭流体之上地压强可大小不变地由流体传到容器各部分。
+
+*例：重力场下$\dr p=\rho\vec{f}\cdot\vec{r}=\rho g\dr z$，液体同高度处压强一定相等，考虑两水平开口大小不同的容器，对小口施加压力即可在大口处得到面积倍数的压力[\textbf{液体杠杆}]。
+
+\
+
+\textbf{平壁总压力}
+
+\textbf{矩形闸门}沉没在大气压自由面的水中，长$L$宽$b$，$L$边与自由液面夹角$\theta$，$b$边与自由液面平行，求闸门单位宽度受力与等效作用点。
+
+设$L$边延长线与自由液面交点O，记$L_A<L_B$为延长线线上O到端点距离，直接对$p\dr l$积分可得总受力为
+$$F=\int_{L_A}^{L_B}\rho gl\sin\theta\dr l=\frac{1}{2}\rho g(L_B^2-L_A^2)\sin^2\theta$$
+方向垂直于闸门，可分解得到$x,z$方向的作用力。对力矩，即有
+$$M=\int_{L_A}^{L_B}pl\dr l=\frac{1}{3}\rho g(L_B^3-L_A^3)\sin\theta$$
+从而$M/F$得到作用点。
+
+水中闸门的一段为半径$R$的\textbf{1/4圆弧}，最高点a处深$h$，竖直向上，最低点b处水平，求此段单位宽度受力。
+
+取圆弧对应扇形作为控制体，考虑其受力平衡，直接计算分量可得
+$$F_x=\int_h^{h+R}\rho gz\dr z,\quad F_z=\rho ghR+\frac{1}{4}\rho g\pi R^2$$
+从而即得合力。由压力方向可知过圆心力矩为0，因此合力过圆心，由此即可由合力方向延长出作用点。
+
+\
+
+\textbf{浮力}
+
+\textbf{阿基米德定律}：浸入静止流体中的物体受到浮力作用，大小等于物体排开的流体重量，方向竖直向上并通过排开流体的形心。
+
+证明：
+$$\vec{F}=-\iint(p_a+\rho gz)\vec{n}\dr A=-\rho g\int\nabla z\dr\tau=-\rho g\tau\vec{k}$$
+这里$\vec{k}$为$z$方向单位矢量，即$\nabla z$。对作用点则需要积分计算力矩进行证明。
+
+*更简单的理解：直接将物体换为流体，浮力与材料无关，由此直接利用静止时的平衡可得结果。
+
+*例：水油分界面油在上[利用浮力定律可得水在上是不稳定平衡，油在上是稳定平衡]。
+
+*水下物体[\textbf{潜体}]平衡：假设重力浮力能够平衡，\textbf{重心低于形心}则稳定[重力、浮力能构成恢复力偶]，高则不稳定。若二者重合，与在水中位置关系无关，随遇平衡。
+
+*浮体：稳定平衡时重心可以高于形心，倾斜时由于没入水中的部分变化，仍可能有恢复力偶[于是判断附体平衡应判断重心与\textbf{稳心}高度关系]。稳心与形心距离$\frac{I_\xi}{\tau}$，这里$I_\xi$为绕倾斜轴的\textbf{转动惯量}，$\tau$为体积。
+
+\
+
+例：\textbf{大气压强分布}
+
+温度分布：0km到11km为对流层，温度随高度线性降低$T=T_0-\beta z$；11km到20km为同温层，温度$T=T_d$不变，交界处对应压强、高度为$p_d,z_d$。
+
+根据之前推导，由理想气体近似
+$$\dr p=-\rho g\dr z=\frac{pg}{RT}\dr z$$
+于是可得对流层
+$$p=p_0\bigg(1-\frac{\beta}{T_0}z\bigg)^{g/(\beta R)}$$
+同温层
+$$p=p_d\exp\bigg(-\frac{g}{RT_d}(z-z_d)\bigg)$$
+*从$p$出发也可得到$\rho$的关系式。
+
+\
+
+例：\textbf{均质液体相对平衡}
+
+车厢中的液体\textbf{匀加速运动}：考虑相对运动参考系，有惯性质量力$-a$，于是自由面满足
+$$0=\dr p=-\rho a\dr x-\rho g\dr z$$
+由此即得方程为$z=-\frac{a}{g}x+C$，为倾斜直线，由体积守恒确定常数$C$。
+
+*由此任何一点压强为$p=-\rho ax-\rho gz+p_0$，$p_0$可通过液面大气压确定。由此可发现仍然有$p=p_a+\rho gh$，$h$为该点水深。
+
+考虑柱形容器中的液体\textbf{匀角速度旋转}，则相对参考系下$f_x=\omega^2x,f_y=\omega^2y$，于是分析可得
+$$0=\dr p=\rho(\omega^2x\dr x+\omega^2y\dr y-g\dr z)$$
+于是平衡方程为
+$$z=\frac{\omega^2}{2g}r^2+C$$
+由体积守恒确定常数$C$，仍有压强$p=p_a+\rho gh$。
+
+*若转轴并非$z$轴，可能产生更复杂的关系。
+
+*考虑一封闭圆筒，高$H=2\mathrm{m}$，半径$R=0,5\mathrm{m}$，注水高度$H_0=1.5\mathrm{m}$，已知大气压强$p_0$。随角速度增大，液面边缘会逐渐变高，继续加速，液面会有部分与顶面重合，计算液面刚接触圆筒底部时的$\omega$。利用空气体积不变与液面为抛物面可算得此时液面顶部的半径$r_2$：
+$$\frac{1}{2}\pi r_2^2H=\pi R^2(H-H_0)$$
+仍可利用$z_s=\frac{\omega^2}{2g}r^2+z_0$，代入$z_0=0,r=r_2,z_s=H$即可解出$\omega$。
+
+\subsection{理想二维流动}
+\textbf{不可压缩理想流体}
+
+\textbf{无旋定常}情况：质量力有势、均质不可压缩理想流体，则伯努利方程处处为常数，$\frac{v^2}{2}+U+\frac{p}{\rho}=C$，意味着整个流场\textbf{机械能相等}。
+
+例：\textbf{有自由面的势涡}，均质不可压缩理想流体重力场下定常流动，速度分布为$v=\frac{C}{r}$，方向为切向，若有自由面，求自由面方程。直接验证可知其在$r>0$处无旋，从而$\frac{v^2}{2}+gz+\frac{p}{\rho}$处处守恒。考虑自由面的水平渐进面，若为$z=z_0$，利用守恒，考虑面上$r\to\infty$可知
+$$gz_0+\frac{p_0}{\rho}=\frac{v^2}{2}+gz+\frac{p}{\rho}$$
+根据自由面定义，其$p$恒定，于是代入$v=\frac{C}{r}$即有
+$$g(z_0-z)=\frac{C^2}{2r^2}$$
+为旋转双曲面方程。
+
+*事实上，根据速度环量定义可知$C=\frac{\Gamma}{2\pi}$，于是$\Gamma$守恒，此亦可得到无旋。[靠近$r=0$处速度无穷大，形成\textbf{线涡}，是非零速度环量的来源。]
+
+回顾之前，定义理想流体无旋流动的\textbf{速度势}：由$\nabla\times\vec{v}=0$，若区域单连通，存在$\varphi$使得$\vec{v}=\nabla\varphi$，其称为速度势。若流动不可压缩，$\nabla\cdot\vec{v}=0$，从而$\triangle\phi=0$，可化为Laplace方程求解。
+
+*流动区域可能复杂，导致求解困难，不过由Laplace方程的线性性，其解可以看作某些基本解叠加，从而方便求解。
+
+*对非定常流动，$\phi$可能为$\phi(x,y,z,t)$与时间有关，此时利用速度势的定义结合伯努利方程推导可知$\frac{\partial\varphi}{\partial t}+\frac{v^2}{2}+U+\frac{p}{\rho}=f(t)$，即\textbf{与空间位置无关}。
+
+例：\textbf{绕流问题}，假设无穷远处为匀速流动$\vec{v}_\infty$，中间放物体，则求解方程须速度势满足圆柱面上$\frac{\partial\varphi}{\partial\vec{n}}=0$，这里$\vec{n}$为物体表面的法向量，且无穷远处$\nabla\varphi=\vec{v}_\infty$。
+
+*二维时还需要添加环量条件(绕物体的速度环量)，非定常时则还需要含时的方程。
+
+\
+
+\textbf{二维平面不可压缩流动}
+
+\textbf{流函数}：由连续性方程$\nabla\cdot\vec{v}=0$，即$\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}=0$，根据场论知识存在$\psi$使得$u=\frac{\partial\psi}{\partial y},v=-\frac{\partial\psi}{\partial x}$。[$u,v$与$\psi$的关系本质为二维的旋度。]
+
+*注意到涡量
+$$\omega=\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}=-\triangle\psi$$
+于是若无旋则有$\triangle\psi=0$。事实上，考虑无旋时的速度势$\varphi$与其对$u,v$的关系，记
+$$W(x+\mathrm{i}y)=\varphi+\mathrm{i}\psi$$
+则$W(z)$满足柯西黎曼方程，于是是\textbf{复解析函数}，可直接利用复变函数知识分析，也即\textbf{二维不可压缩无旋流动}是相对易于解决的[只需要构造符合边界条件的复解析函数，无需再研究是否满足方程]。
+
+二维时的NS方程为
+$$\begin{cases}\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}=0\\\frac{\partial u}{\partial t}+u\frac{\partial u}{\partial x}+v\frac{\partial u}{\partial y}=f_x-\frac{1}{\rho}\frac{\partial p}{\partial x}+\frac{\mu}{\rho}\big(\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}\big)\\\frac{\partial v}{\partial t}+u\frac{\partial v}{\partial x}+v\frac{\partial v}{\partial y}=f_y-\frac{1}{\rho}\frac{\partial p}{\partial y}+\frac{\mu}{\rho}\big(\frac{\partial^2v}{\partial x^2}+\frac{\partial^2v}{\partial y^2}\big)\end{cases}$$
+
+而利用速度势与涡量即可化为
+$$\frac{\partial\omega}{\partial t}+u\frac{\partial\omega}{\partial x}+v\frac{\partial\omega}{\partial y}=\frac{\partial f_y}{\partial x}-\frac{\partial f_x}{\partial y}+\frac{\mu}{\rho}\bigg(\frac{\partial^2\omega}{\partial x^2}+\frac{\partial^2\omega}{\partial y^2}\bigg)$$
+与$\omega=-\triangle\psi,u=\frac{\partial\psi}{\partial y},v=-\frac{\partial\psi}{\partial x}$。这就是\textbf{流函数-涡量}求解方法。
+
+*流函数的等值线为流线，$\dr\psi=0\Leftrightarrow-v\dr x+u\dr y=0$，从而亦有
+$$\dr Q=\vec{v}\cdot\vec{n}\dr l=u\cos\theta\dr l-v\sin\theta\dr l=u\dr y-v\dr x=\dr\psi$$
+流函数两点值之差为流量$Q$\ [这里指有向流量，需要提前规定正负的指向]。
+
+\
+
+\textbf{二维不可压缩理想流体无旋流动}
+
+将之前定义的$W(z)=\varphi+\mathrm{i}\psi$称为\textbf{复势}。根据定义可知\textbf{复速度}
+$$\frac{\dr W}{\dr z}=u-\mathrm{i}v$$
+于是有[利用$\dr z=\dr x+\mathrm{i}\dr y$展开即得]
+$$\oint_C\frac{\dr W}{\dr z}\dr z=\Gamma+\mathrm{i}Q$$
+
+首先回顾极坐标：利用极坐标系下
+$$\nabla\varphi=\frac{\partial\varphi}{\partial r}\vec{e}_r+\frac{1}{r}\frac{\partial\varphi}{\partial\theta}\vec{e}_\theta,\quad\nabla\cdot\vec{v}=\frac{1}{r}\frac{\partial(rv_r)}{\partial r}+\frac{1}{r}\frac{\partial v_\theta}{\partial\theta}=0$$
+对比坐标可得到
+$$v_r=\frac{\partial\varphi}{\partial r}=\frac{1}{r}\frac{\partial\psi}{\partial\theta},\quad v_\theta=\frac{1}{r}\frac{\partial\varphi}{\partial\theta}=-\frac{\partial\psi}{\partial r}$$
+
+*注意$\frac{\partial\vec{e}_r}{\partial\theta}=\vec{e}_\theta,\frac{\partial\vec{e}_\theta}{\partial\theta}=-\vec{e}_r$。
+
+由于复势具有线性性[也即不可压缩无旋流动问题有\textbf{线性性}]，一般流动可以看作\textbf{典型流动}的叠加：
+\begin{enumerate}
+    \item \textbf{均匀流}，设大小$U_\infty$，角度$\theta_0$，即$u=U_\infty\cos\theta_0,v=U_\infty\sin\theta_0$，则有$W(z)=U_\infty z\mathrm{e}^{-\mathrm{i}\theta_0}$；
+    \item \textbf{点源}，$v_r=\frac{Q}{2\pi r},v_\theta=0$，则有$W(z)=\frac{Q}{2\pi}\ln z$，$Q$代表点源强度，为正代表源，为负代表汇；
+    \item \textbf{点涡}，$v_r=0,v_\theta=\frac{\Gamma}{2\pi r}$，则有$W(z)=-\frac{\Gamma}{2\pi}\mathrm{i}\ln z$，$\Gamma$代表点涡强度。
+    \item \textbf{偶极子}，相距$\Delta x$，源强度$\pm Q$的两点源，$M=Q\Delta x$恒定，$\Delta x$趋于0时复势为
+    $$W(z)=\frac{Q}{2\pi}\ln\bigg(z-\frac{\Delta x}{2}\bigg)-\frac{Q}{2\pi}\ln\bigg(z+\frac{\Delta x}{2}\bigg)\simeq-\frac{M}{2\pi}\frac{1}{z}$$
+\end{enumerate}
+
+\subsection{圆柱绕流}
+\textbf{无环量圆柱绕流}
+
+边界条件[圆柱半径为$a$]：
+\begin{enumerate}
+    \item 无穷远处不妨设为沿$x$轴正方向，速度$V_\infty$；
+    \item 圆柱表面为流线，$\psi=0$；
+    \item 环量条件$\Gamma=0$。
+\end{enumerate}
+
+构造解思路：考虑圆心放置偶极子，增加均匀流后恰好为圆柱绕流解，再解出$M=2\pi a^2V_\infty$即
+$$W(z)=V_\infty\bigg(z+\frac{a^2}{z}\bigg),\quad\begin{cases}\varphi=V_\infty\big(r+\frac{a^2}{r}\big)\cos\theta\\\psi=V_\infty\big(r-\frac{a^2}{r}\big)\sin\theta\end{cases}$$
+
+*事实上，也可直接从\textbf{Rokovsky变换}出发考虑得到共形映射。
+
+可验证其符合边界条件，进一步得到速度场
+$$\begin{cases}v_r=V_\infty\big(1-\frac{a^2}{r^2}\big)\cos\theta\\v_\theta=-V_\infty\big(1+\frac{a^2}{r^2}\big)\sin\theta\end{cases}$$
+
+边界处$v_r=0,v_\theta=-2V_\infty\sin\theta$，由此可根据伯努利方程计算压强
+$$p\big|_{r=a}=p_\infty+\frac{1}{2}\rho\big(V_\infty^2-V|_{r=a}^2\big)=p_\infty+\frac{1}{2}\rho V_\infty^2(1-4\sin^2\theta)$$
+由于常数项绕圆柱法向积分为0，后方$\sin^2\theta$关于$x,y$轴对称 ，因此总压力为0，即\textbf{圆柱不受力}。由于对称性或压强方向，也可得\textbf{圆柱不受力矩}。
+
+*黏性作用下会产生\textbf{压差阻力}，实践中一般比摩擦阻力高得多。
+
+\
+
+\textbf{有环量圆柱绕流}
+
+边界条件[圆柱半径为$a$]：
+\begin{enumerate}
+    \item 无穷远处不妨设为沿$x$轴正方向，速度$V_\infty$；
+    \item 圆柱表面为流线，$\psi=0$；
+    \item 环量条件，绕圆柱环量[逆时针为正]为有限值$\Gamma$。
+\end{enumerate}
+
+在无环量情况额外添加\textbf{点涡}得到
+$$W(z)=V_\infty\bigg(z+\frac{a^2}{z}\bigg)-\frac{\mathrm{i}\Gamma}{2\pi}\ln z$$
+
+与无环量完全类似可验证的确为解，速度场
+$$\begin{cases}v_r=V_\infty\big(1-\frac{a^2}{r^2}\big)\cos\theta\\v_\theta=-V_\infty\big(1+\frac{a^2}{r^2}\big)\sin\theta+\frac{\Gamma}{2\pi r}\end{cases}$$
+
+*称速度为0的点为\textbf{驻点}，$\Gamma$会影响逐点的位置，随$\Gamma$增大驻点从圆柱表面移动到$y$轴上。
+
+圆柱受压强
+$$p|_{r=a}=p_\infty+\frac{1}{2}\rho V_\infty^2\bigg(1-4\sin^2\theta+\frac{2\Gamma\sin\theta}{\pi aV_\infty}-\frac{\Gamma^2}{4\pi^2a^2V_\infty^2}\bigg)$$
+积分得受力为$\rho V_\infty\Gamma$，方向为$y$轴负方向。
+
+*由于流动对$x$轴不对称，会产生\textbf{升力}，但由对$y$对称不存在阻力。
+
+\
+
+*实际问题中，随流速增大会导致边界层失稳，涡旋脱落。
+
+*根据\textbf{黎曼映照定理}，任何复平面上单连通区域都可以保角变换成圆，从而只需要将圆柱绕流问题的解作\textbf{保角变换}[边界条件不改变]，就可以得到一般绕流问题的解。例如，圆可以通过\textbf{茹科夫斯基变换}$w=\frac{1}{2}\big(z+\frac{c^2}{z^2}\big)$变换为翼型，从而得到对应的解。由于对应翼型尾部不光滑，导致间断，从而可算出尾部会产生正比于$V_\infty$的环量，进而有正比于$\rho V_\infty^2$的升力[起飞需要跑道的原理]。
+
+\newpage
+
+来自王晓宏老师的思考问题：考虑方程组
+$$\frac{\partial S_w}{\partial t}+\nabla\cdot(\lambda_1(S_w)\nabla p)=0$$
+$$\frac{\partial S_o}{\partial t}+\nabla\cdot(\lambda_2(S_o)\nabla p)=0$$
+$$S_w+S_o=1,\quad\lambda_1(S_w)>0,\quad\lambda_2(S_o)>0$$
+其中$\lambda_1,\lambda_2$均单调增，给出它的一个辛格式差分。
+
+
+\end{document}

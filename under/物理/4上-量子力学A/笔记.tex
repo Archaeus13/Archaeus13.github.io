@@ -1,0 +1,3295 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\pagestyle{headings}
+\title{\textbf{量子力学\ 笔记}}
+\author{原生生物}
+\date{}
+\setcounter{tocdepth}{2}
+\setlength{\parindent}{0pt}
+\usepackage{amsmath,amssymb,amsthm,enumerate,geometry}
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\ctexset{section={number=\zhnum{section}}}
+\ctexset{subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\newcommand*{\ir}{\mathrm{i}}
+\newcommand*{\er}{\mathrm{e}}
+\newcommand*{\ket}[1]{|#1\rangle}
+\newcommand*{\bra}[1]{\langle#1|}
+\newcommand*{\bk}[2]{\langle#1|#2\rangle}
+\newcommand*{\blk}[3]{\langle#1|#2|#3\rangle}
+\DeclareMathOperator{\tr}{tr}
+\newcommand*{\be}{\mathbf{e}}
+\newcommand*{\br}{\mathbf{r}}
+\newcommand*{\bp}{\mathbf{p}}
+\newcommand*{\ba}{\mathbf{A}}
+\newcommand*{\bj}{\mathbf{J}}
+\newcommand*{\bl}{\mathbf{L}}
+
+\begin{document}
+\maketitle
+
+*杨焕雄老师《量子力学讲义》笔记
+
+\tableofcontents
+
+\newpage
+\section{绪言}
+\subsection{玻尔氢原子模型}
+为克服卢瑟福模型稳定性困难假设：
+\begin{enumerate}
+    \item 电子围绕原子核在稳定轨道运动，量子化条件为角动量$L=n\hbar$，$\hbar=\frac{h}{2\pi}$为\textbf{约化普朗克常数}；
+    \item 电子在稳定轨道运动时不向外发射电磁辐射；
+    \item 轨道半径不能连续变化，但可以突变，突变时伴有电磁辐射发射或吸收
+    $$\nu_{i\to f}=\nu_{fi}=\frac{E_f-E_i}{h}$$
+\end{enumerate}
+
+成就：理论上预测了原子大小
+$$a=\frac{4\pi\epsilon_0\hbar^2}{\mu e^2}\approx0.53\times10^{-10}\text{m}$$
+且写出了正确的氢原子能级公式
+$$E_n=-\frac{\mu}{2\hbar^2n^2}\bigg(\frac{e^2}{4\pi\epsilon_0}\bigg)^2=-\frac{1}{n^2}13.6\text{eV}$$
+奠定了氢原子光谱频率计算的理论基础。
+
+缺陷：没有给出稳定轨道电子不向外电磁辐射的理由[与经典电动力学违背]，无法预测谱线强度，也无法对多电子原子适用。
+
+*从能级公式可以得到氢原子光谱的\textbf{频率分布}
+$$\nu_{fi}=E_f-E_i=\frac{-E_1}{h}\bigg(\frac{1}{i^2}-\frac{1}{f^2}\bigg)$$
+其满足Ritz结合律
+$$\nu(a,c)=\nu(a,b)+\nu(b,c),\quad\nu(m,n)=-\nu(n,m)$$
+
+*记$\frac{-E_1}{hc}$为Rydberg常数，约为$1.097\times10^7\text{m}$。
+
+\subsection{Heisenberg的修正}
+核心思想：量子物理正确的理论描写中只应出现\textbf{实验可以测量的物理量}。由于\textbf{谱线频率}可以测量，其应进入量子力学理论，且受Ritz结合律制约；由于核外电子轨道无法检验，应\textbf{摒弃电子位置坐标}；\textbf{谱线强度}可以测量，因此也应进入量子力学中。
+
+玻尔模型中，核外电子的每个轨道利用周期性都可以进行Fourier级数展开，假设第$n$个展开为
+$$\mathbf{r}(n,t)=\sum_{\alpha\in\mathbb{Z}}\mathbf{a}(n,\alpha)\exp(-\ir\omega(n)\alpha t)$$
+为方便，考虑$x$分量的展开
+$$x(n,t)=\sum_{\alpha\in\mathbb{Z}}a(n,\alpha)\exp(-\ir\omega(n)\alpha t)$$
+
+*由于$x$为实数，系数必然满足$a(n,\alpha)=a^*(n,-\alpha)$，这里上标$*$为共轭。
+
+根据量子化条件$nh=\int_0^{2\pi/\omega(n)}\mu\dot{x}^2\dr t$可得到[注意$\exp(-\ir\omega(n)\alpha t)$的正交性]
+$$nh=2\pi\mu\sum_{\alpha\in\mathbb{Z}}\alpha^2\omega(n)|a(n,\alpha)|^2$$
+
+*若认为准连续，则可两侧同时求导。
+
+由于电子轨道无法检验，$x(n,t)$并无意义，但Fourier级数中的$a(n,\alpha)\exp(-\ir\omega(n)\alpha t)$应当保留，作代换$a(n,\alpha)\to a(n,n-\alpha)$，$\omega(n)\alpha\to\omega(n,n-\alpha)=\omega(n-\alpha)-\omega(n)$可得到数组[这里$m=n-\alpha$，物理意义为$n\to m$的跃迁]
+$$x_{nm}=a(n,m)\exp(-\ir\omega(n,m)t)$$
+其取代了电子位置坐标$x(n,t)$的地位，代表\textbf{电子位置}。
+
+光谱线$\nu(n,m)$的强度[\textbf{高斯单位制}下]可以用自发跃迁的辐射功率表征
+$$P(n,m)=\frac{e^2}{3c^3}\omega^4(n,m)|\ddot{x}_{nm}|^2$$
+于是$x_{nm}$物理意义为跃迁过程的振幅。
+
+*由实验得$|P(m,n)|=|P(n,m)|$，注意到根据定义$\omega(m,n)=-\omega(n,m)$，即有$x_{mn}=x_{nm}\er^{\ir\theta}$或$x_{mn}=x_{nm}^*\er^{\ir\theta}$。而由$x_{mn}$表达式计算即得必须$x_{mn}=x_{nm}^*\er^{\ir\theta}$，即
+$$a(m,n)=a^*(n,m)\er^{\ir\theta}$$
+
+*由此代替后从玻尔量子化条件的差分代换得Heisenberg量子化条件：
+$$h=4\pi\mu\sum_{\alpha\in\mathbb{Z}}\bigg(|a(n,n+\alpha)|^2\omega(n,n+\alpha)+|a(n,n-\alpha)|^2\omega(n,n-\alpha)\bigg)$$
+
+*玻尔理论中$x^2(n,t)$作为简谐振子势能的关键，也应该用数组替换，若替换为$b(n,m)\exp(-\ir\omega(n,m)t)$，利用Ritz结合律可得到必有
+$$b(n,m)=\sum_{l\in\mathbb{Z}}a(n,l)a(l,m)$$
+于是$a(m,n)=a^*(n,m)\er^{\ir\theta}$可得$b(m,n)=b^*(n,m)\er^{2\ir\theta}$。由于不同力学量性质上的一致性，应有$\theta=2n\pi$，从而最终得到
+$$a(n,m)=a^*(m,n),\quad b(n,m)=b^*(m,n)$$
+
+\subsection{矩阵力学}
+上述$a,b$的关系事实上可以看作无穷维矩阵的乘法运算。
+
+若将$x_{nm}$记为无穷维矩阵$X$，则$X^2$矩阵元应为
+$$(X^2)_{nm}=\sum_{l\in\mathbb{Z}}x_{nl}x_{lm}$$
+而利用$x_{nm}$的表达式与$\omega(n,l)+\omega(l,m)=\omega(n,m)$计算即得
+$$(X^2)_{nm}=b(n,m)\exp(-\ir\omega(n,m)t)$$
+
+由此，玻尔模型中的位置坐标$x(n,t)$替换为无穷维矩阵$X$，其矩阵元$x_{nm}$诠释电子在能级之间自发跃迁的概率幅。由于电子不能同一能级跃迁，必有$a(n,n)=0$，于是$x_{nn}=0$；此外，根据$a$与$\omega$的性质，有$x_{nm}^*=x_{mn}$，即$X$是\textbf{厄米矩阵}。
+
+*事实上，经典力学体系中所有力学量均应替换为厄米矩阵。
+
+直接计算可知矩阵元时间导数满足[注意$\omega$与$\nu$的关系有$\hbar\omega(n,m)=E_m-E_n$]
+$$\dot{x}_{nm}=-\frac{\ir}{\hbar}(E_m-E_n)x_{nm}$$
+
+引入矩阵$H=(h_{nm}),h_{nm}=E_n\delta_{nm}$，这里$\delta_{nm}$在$m,n$相等时为1，否则为0，称为体系的\textbf{哈密顿矩阵}，则上述方程可以写为
+
+$$\dot{X}=\frac{1}{\ir\hbar}(XH-HX)$$
+
+记\textbf{对易子}$[A,B]=AB-BA$，则有
+$$\dot{X}=\frac{1}{\ir\hbar}[X,H]$$
+
+事实上完整的Heisenberg运动方程还包含$\dot{P}=\frac{1}{\ir\hbar}[P,H]$，这里$P$代表动量对应的厄米矩阵$P=\mu\dot{X}$，对保守力体系有$H=\frac{P^2}{2\mu}+V(X)$。
+
+假设牛顿第二定律替换为矩阵形式后仍然成立，则有[右侧第一个等号利用$P$和$P$的多项式可交换]
+$$\dot{P}=-\frac{\partial V(X)}{\partial X}\Longrightarrow [P,H]=[P,V(X)]=-\ir\hbar\frac{\partial V(X)}{\partial X}$$
+记$\Omega=[X,P]$，则根据之前计算知[和的右侧为0可以将$V(X)$理解为泰勒展开，从而类似多项式可交换]
+$$\dot{\Omega}=[\dot{X},P]+[X,\dot{P}]=\bigg[\frac{1}{\mu}P,P\bigg]+\bigg[X,-\frac{\partial V(X)}{\partial X}\bigg]=0$$
+于是$\Omega$\textbf{与时间无关}。
+
+*事实上直接带入$p_{nm}=\mu\dot{x}_{nm}$计算可知
+$$\Omega_{nm}=-\ir\mu\sum_{l\in\mathbb{Z}}x_{nl}x_{lm}\big(\omega(l,m)-\omega(n,l)\big)$$
+继续计算$\Omega_{nn}$得到
+$$2\ir\mu\sum_{\alpha\in\infty}\bigg(|a(n,n+\alpha)|^2\omega(n,n+\alpha)+|a(n,n-\alpha)|^2\omega(n,n-\alpha)\bigg)$$
+进一步利用Heisenberg量子化条件即知其为$\ir\hbar$。对非对角元，注意到$\dot{\Omega}_{nm}=-\ir\omega(n,m)\Omega_{nm}$，且$\omega(n,m)\ne0$，于是即得为0。
+
+综上所述知$\Omega_{nm}=\ir\hbar\delta_{nm}$，于是$[X,P]=\ir\hbar I$，称为\textbf{量子力学基本对易关系}。
+
+*物质波假设的基础上，Schr\"odinger建立了波动力学，亦成功求出了氢原子玻尔能级公式，人们意识到矩阵力学与波动力学的等价性，在Born提出概率诠释后，量子力学理论框架正式建立。
+
+\section{态与力学量}
+\subsection{Stern-Gerlach实验}
+一束中性银原子进入非均匀磁场中运动方向发生偏折。
+
+*银原子电中性，由带正电原子核与47个带负电核外电子构成。原子核很重，磁矩可忽略；46个内层电子基态下总磁矩为0；剩下的一个\textbf{价电子}事实上是基态银原子磁矩来源。
+
+由于此偏转只考虑$z$方向的轨道角动量，高斯单位制下有
+$$F_z=\frac{gq}{2Mc}\frac{\partial B(z)}{\partial z}L_3$$
+
+\begin{enumerate}
+    \item 若经典力学正确，$L_3=|\mathbf{L}|\cos\theta$取值连续，银原子连续分布；
+    \item 若考虑轨道角动量理论，$L_3=0,\pm\hbar,\pm2\hbar,\dots$屏幕上应出现奇数条线；
+    \item 事实上形成\textbf{两条}线，意味着存在\textbf{自旋}。
+\end{enumerate}
+
+自旋角动量$\mathbf{S}$是电子的一种内禀角动量，电子自旋本质属性在于任何方向投影只有两个取值$\pm\frac{\hbar}{2}$，其\textbf{与自转不同}[自转仍属于轨道角动量，投影取值奇数个]。
+
+*自旋磁矩与角动量关系为$\mu_S=\frac{q}{Mc}\mathbf{S}$，对应$g$因子为2。
+
+*总角动量$\mathbf{J}=\mathbf{L}+\mathbf{S}$，取值量子化。
+
+\
+
+\textbf{朴素状态观点}
+
+为了更好探究电子的状态，我们称SGn为非均匀磁场以单位矢量$\mathbf{n}$为轴线的SG装置，$\ket{\pm n}$为n方向取值为$\pm\frac{\hbar}{2}$的自旋态。
+
+从实验结果可知，通过SGz完成自旋态\textbf{测量}后[即银离子落在观测屏后]，自旋态为$\ket{\pm z}$的概率$p_\pm$均为0.5，也即两条亮斑强度相同。
+
+朴素观点：通过SGz后应为自旋态$\ket{\Psi}=p_+\ket{+z}+p_-\ket{-z}$。由此，自旋态全体组成二维矢量空间$\mathcal{H}_2$，且可以定义两矢量的内积；内积下$\ket{\pm n}$组成完备基矢量，即$\bk{\pm n}{\pm n}=1,\bk{\pm n}{\mp n}=0$；概率可通过态矢量与基的内积表达$p_\pm=\bk{\pm z}{\Psi}$。
+
+下面考察更多的实验以检验朴素观点：
+\begin{enumerate}
+    \item 在SGz后，将筛选出的$\ket{+z}$继续通过SGz，得到的仍是$\ket{+z}$，这验证了$\ket{+z}$中没有$\ket{-z}$的成分，即正交性。
+    
+    \item 在SGz后，将筛选出的$\ket{+z}$继续通过SGx，得到$\ket{\pm x}$各一半，若按照朴素观点，应有
+    $$\ket{+z}=\frac{1}{2}\big(\ket{+x}+\ket{-x}\big)$$
+    然而，在SGz后，将筛选出的$\ket{-z}$继续通过SGx，得到$\ket{\pm x}$各一半，若按照朴素观点，$\ket{-z}$表达式与$\ket{+z}$相同，与正交性矛盾。
+
+    可尝试取
+    $$\ket{-z}=\frac{1}{2}\big(\ket{+x}-\ket{-x}\big)$$
+    但此时系数并不与概率等同。
+
+    \item 先通过SGz筛选出$\ket{+z}$，再通过SGx筛选出$\ket{+x}$，最后通过SGz，得到$\ket{\pm z}$各一半。
+    
+    由此可得到表示
+    $$\ket{\pm x}=\frac{1}{2}\big(\ket{+z}\pm\ket{-z}\big)$$
+    仍然与质朴概率诠释矛盾。
+
+    \item 先通过SGz筛选出$\ket{+z}$，再通过SGx，但得到的两束重新合为一束后继续通过SGz，最终只有$\ket{+z}$。
+    
+    由$\ket{\pm x}$的定义，有
+    $$\frac{1}{2}\big(\ket{+x}+\ket{-x}\big)=\frac{1}{2}\ket{+z}$$
+    与实际结果相同，但此时得到$\ket{+z}=\frac{1}{2}\ket{+z}$。
+\end{enumerate}
+
+\
+
+\textbf{概率幅}
+
+自旋态全体组成二维\textbf{复}线性空间$\mathcal{H}_2$，且可以定义两矢量的内积；内积下$\ket{\pm n}$组成完备基矢量；一般的态可以表示为基矢量线性叠加
+$$\ket{\psi}=c_+\ket{+n}+c_-\ket{-n}$$
+但这里复数$c_\pm$并不表示概率，而是称为\textbf{概率幅}。
+
+*两态内积结果$\bk{\varphi}{\psi}$称为$\psi$跃迁到$\varphi$的概率幅。
+
+电子分布概率可用模长平方表示，即$\ket{\psi}=c_1\ket{\phi_1}+c_2\ket{\phi_2}$时有
+$$\bk{\psi}{\psi}=\|c_1\|^2\bk{\phi_1}{\phi_1}+\|c_2\|^2\bk{\phi_2}{\phi_2}+c_1^*c_2\bk{\phi_1}{\phi_2}+c_1c_2^*\bk{\phi_2}{\phi_1}$$
+
+*后两项称为干涉项，代表类似电子衍射实验中的干涉条纹。
+
+*当$\phi_1,\phi_2$为正交基时，观测为它们的概率比即为$\|c_1\|^2:\|c_2\|^2$。
+
+*由此，乘常数不改变此概率比例，也不改变量子态。
+
+\subsection{希尔伯特空间}
+\textbf{量子力学假设1}：量子力学状态由Hilbert空间$\mathcal{H}$中的矢量$\ket{\psi}$描写。
+
+*希尔伯特空间定义：\textbf{完备}的\textbf{复内积}空间。其未必有限维，完备指任何柯西列存极限。
+
+$\ket{\psi}$称为\textbf{态矢量}，包含状态信息。我们认为$\ket{\psi}$与$c\ket{\psi},c\ne0$\textbf{等价}，即只关心方向而非大小。
+
+\textbf{量子力学假设2}[态叠加原理]：量子态$\ket{\alpha},\ket{\beta}$线性组合$c_\alpha\ket{\alpha}+c_\beta\ket{\beta}$也是体系的量子态。
+
+*于是态矢量服从的微分方程必然是\textbf{线性方程}。
+
+\textbf{复内积}：不可交换，满足
+$$\bk{\varphi}{\psi}=\bk{\psi}{\varphi}^*$$
+
+*内积为0称为\textbf{正交}，0与$\ket{0}$是不同的概念，后者作为一个非零矢量的记号。
+
+正定性：$\bk{\psi}{\psi}\ge0$，且等号成立当且仅当$\ket{\psi}=0$。
+
+记$\sqrt{\bk{\psi}{\psi}}$为$\ket{\psi}$的\textbf{模}，由于等价性，可不妨设
+$$\ket{\Psi}=\frac{1}{\sqrt{\bk{\psi}{\psi}}}\ket{\psi}$$
+$\ket{\Psi}$是$\ket{\psi}$的\textbf{归一化}，模长为1。称$\mathcal{N}=\bk{\psi}{\psi}^{-1/2}$为$\ket{\psi}$的归一化常数。
+
+*零矢量并不是态矢量。
+
+\
+
+\textbf{对偶空间}：$\tilde{\mathcal{H}}$是$\mathcal{H}\to\mathbb{C}$的线性映射构成的线性空间集合。由其为希尔伯特空间，根据代数结论，对其中任何元素都存在$\ket{\psi}$使得其能写成
+$$\ket{\varphi}\to\bk{\psi}{\varphi}$$
+将此映射记为$\bra{\psi}$，则$\tilde{\mathcal{H}}$即为所有左矢$\bra{\psi}$的集合。
+
+左矢\textbf{不是态矢量}，而是态矢量到复数的映射。右矢与对应的左矢称为\textbf{对偶元素}，称为厄米共轭，记作$\dagger$，有
+$$\ket{\psi}^\dagger=\bra{\psi},\quad\bra{\psi}^\dagger=\ket{\psi},\quad c^\dagger=c^*$$
+而内积定义的对第二个分量双线性可得到
+$$(c_1\ket{\psi_1}+c_2\ket{\psi_2})^\dagger=c_1^*\bra{\psi_1}+c_2^*\bra{\psi_2}$$
+
+*厄米共轭具有逆变性质，即可验证
+$$\bk{\psi}{\varphi}^\dagger=\ket{\varphi}^\dagger\bra{\psi}^\dagger$$
+
+\
+
+\textbf{线性算符}：$\mathcal{H}$上满足
+$$\hat{A}(c_1\ket{\psi_1}+c_2\ket{\psi_2})=c_1\hat{A}(\ket{\psi_1})+c_2\hat{A}(\ket{\psi_2})$$
+的映射$\hat{A}$被称为\textbf{线性算符}。
+
+*可省略括号将$\hat{A}(\ket{\psi})$记作$\hat{A}\ket{\psi}$。
+
+*算符$\hat{I}\ket{\psi}=\ket{\psi}$称为\textbf{单位算符}。
+
+*对任何两个右矢$\ket{\psi},\ket{\varphi}$，可以定义它们的\textbf{外积}$\ket{\psi}\bra{\varphi}$，其即是映射
+$$(\ket{\psi}\bra{\varphi})\ket{\phi}=\bk{\varphi}{\phi}\ket{\psi}$$
+也是一个算符[右侧为$\ket{\psi}$的数乘]。
+
+\textbf{对易子}：$[\hat{A},\hat{B}]=\hat{A}\hat{B}-\hat{B}\hat{A}$，这里的乘积作为映射表示\textbf{复合}，可验证算符乘积一般不可交换，因此对易子未必为0。
+
+*若$\hat{A}\hat{B}=\hat{B}\hat{A}=\hat{I}$，则称两算符\textbf{互逆}，记作$\hat{A}^{-1}=\hat{B},\hat{B}^{-1}=\hat{A}$。
+
+算符的\textbf{函数}定义为多项式形成的幂级数，如量子态时间演化方程会出现
+$$\er^{-\ir t\hat{H}/\hbar}=\sum_{n=0}^\infty\frac{(-\ir t/\hbar)^n}{n!}\hat{H}^n$$
+
+算符的\textbf{厄米共轭算符}$\hat{A}^\dagger$定义为$\tilde{\mathcal{H}}$上的映射，满足
+$$\bra{\psi}\hat{A}^\dagger=(\hat{A}\ket{\psi})^\dagger$$
+
+*由于外积也可以看成映射
+$$\bra{\phi}(\ket{\psi}\bra{\varphi})=\bk{\phi}{\psi}\bra{\varphi}$$
+它同样也是$\tilde{\mathcal{H}}$上的厄米共轭算符，而有限维情况下，算符可以写成外积的线性叠加[$\hat{i}$构成一组单位正交基]：
+$$\hat{A}=\sum_{ij}c_{ij}\ket{i}\bra{j}$$
+由定义得$(\ket{i}\bra{j})^\dagger=\ket{j}\bra{i}$，利用厄米共轭的逆变性质即有
+$$\hat{A}^\dagger=\sum_{ij}c_{ij}^*\ket{j}\bra{i}$$
+数学上形式相同，因此算符所在的是$\mathcal{H}$还是$\tilde{\mathcal{H}}$一般不影响作用。
+
+*记号$\blk{\psi}{\hat{A}}{\varphi}$代表$\bk{\psi}{\hat{A}\varphi}$或$\bk{\psi\hat{A}}{\varphi}$，不过将$\hat{A}$形式上看作何种不影响结果，因此无需刻意固守作用方向，而利用厄米共轭性质即可以验证
+$$\blk{\beta}{\hat{A}^\dagger}{\alpha}=(\hat{A}\ket{\beta})^\dagger\ket{\alpha}=\bk{\alpha}{\hat{A}\beta}^*=\blk{\alpha}{\hat{A}}{\beta}^*$$
+
+*若有限维空间，右矢写成向量，则算符可写为矩阵，厄米共轭即为\textbf{共轭转置}。
+
+\subsection{厄米算符}
+若$\hat{X}=\hat{X}^\dagger$，或等价地，对任何$\ket{\psi},\ket{\phi}$有
+$$\blk{\psi}{\hat{X}}{\phi}=\blk{\phi}{\hat{X}}{\psi}^*$$
+则称$\hat{X}$为\textbf{厄米算符}。
+
+*有限维时其矩阵表示为厄米矩阵，由于$\blk{\psi}{\hat{X}}{\psi}=\blk{\psi}{\hat{X}}{\psi}^*$，对角元均实数。
+
+\textbf{本征方程}：当有右矢$\ket{\psi}$满足$\hat{A}\ket{\psi}=a\ket{\psi}$时，可把其记作$\ket{a}$，称为$\hat{A}$属于\textbf{本征值}$a$的\textbf{本征矢量}。
+
+*全体本征值一般称为其本征值谱。
+
+*若本征值对应的本征矢量唯一[在乘非零常数等价意义下]，则称其\textbf{非简并}，否则称其\textbf{简并}，\textbf{简并度}为其本征值生成空间维数。
+
+\
+
+\textbf{厄米算符的本征值与本征矢量}
+
+若属于本征值$a,b$的某本征矢量$\ket{a},\ket{b}$，则
+$$\hat{A}\ket{a}=a\ket{a}\Rightarrow\blk{b}{\hat{A}}{a}=a\bk{b}{a}$$
+求共轭即有$\blk{a}{\hat{A}}{b}=a^*\bk{a}{b}$，而另一方面类似得$\blk{a}{\hat{A}}{b}=b\bk{a}{b}$，于是
+$$(a^*-b)\bk{a}{b}=0$$
+取$b=a$得到厄米算符本征值\textbf{均为实数}，于是$a^*=a$，进一步得到$b\ne a$时属于不同本征值的本征矢量\textbf{正交}。
+
+若本征值$a_i$存在简并，假设所有本征值均有限简并，则有线性无关本征矢量$\ket{a_{i1}},\ket{a_{i2}},\dots,\ket{a_{if}}$。根据线性空间知识，存在与$\hat{A}$对易的线性算符$\hat{B}$\ [即$[\hat{A},\hat{B}]=0$，0代表将任何量子态映射到0的线性算符]使得
+$$\hat{B}\ket{a_{i\alpha}}=b_\alpha\ket{a_{i\alpha}}$$
+且$b_\alpha$互不相同，也即通过$\hat{A},\hat{B}$的本征值共同标记\textbf{解除了简并}。
+
+*若存在为厄米算符的$\hat{B}$，则必有
+$$\bk{a_{i\alpha}}{a_{j\beta}}=c_{i\alpha}\delta_{ij}\delta_{\alpha\beta},\quad c_{i\alpha}\ne0$$
+即找到了一组彼此正交的本征矢量[无论是否属于同一本征值]，可通过本征右矢归一化将所有$c_{i\alpha}$取为1。
+
+\textbf{量子力学假设3}：量子力学体系的力学量由$\mathcal{H}$中的线性厄米算符表示，且其本征矢量中可以选出$\mathcal{H}$的\textbf{一组完备基}。任一量子态下测量此力学量总是以一定概率得到对应厄米算符的某个本征值。
+
+*注意无穷维时厄米算符的本征矢量未必可以选出一组完备基[\textbf{有限维时必定可以}]，这是定义要求而非结论，因此一般的厄米算符未必是力学量算符。如无特殊说明，以下考虑\textbf{有限维}情况。
+
+若力学量处于归一化的叠加态：
+$$\ket{\Psi}=\sum_ic_i\ket{a_i},\quad\bk{\Psi}{\Psi}=\sum_i|c_i|^2=1$$
+这里$\ket{a}_i$为$\hat{A}$的本征矢量构成的标准正交基，则对$\hat{A}$的测量将导致其以$|c_i|^2$概率跃迁到$\ket{a_i}$上，从而测得$a_i$。
+
+*计算可得
+$$\ket{\Psi}=\sum_ic_i\ket{a_i}=\sum_i\bk{a_i}{\Psi}\ket{a_i}=\bigg(\sum_i\ket{a_i}\bra{a_i}\bigg)\ket{\Psi}$$
+于是$\sum_i\ket{a_i}\bra{a_i}=\hat{I}$，称为\textbf{本征矢量系的完备性公式}。
+
+\
+
+\textbf{投影算符}
+
+对前述矢量$\ket{a_i}$，其投影算符定义为$\hat{\Gamma}_i=\ket{a_i}\bra{a_i}$。
+
+*由于其对叠加态$\ket{\Psi}$作用为$\hat{\Gamma_i}\ket{\Psi}=c_i\ket{a_i}$，为其在$\ket{a_i}$分量上的投影，因此称为投影算符。
+
+*根据之前验证，其为厄米算符，且其\textbf{平方与自身相等}。
+
+直接计算可知其本征值只有0与1，1不简并，本征矢量为$\ket{a_i}$，0是简并的，$\ket{a_j},j\ne i$构成本征矢量的一组正交基，由此其本征矢量系包含$\ket{a_k},\forall k$，完备于是是\textbf{力学量算符}。
+
+*注意到$\hat{A}$与$\hat{\Gamma_i}$存在共同的一组本征矢量完备基，直接设$\ket{\Psi}=\sum_ic_i\ket{a_i}$计算即得
+$$[\hat{A},\hat{\Gamma_i}]=0$$
+根据$\hat{A}\ket{\Psi}$的表示事实上可以得到
+$$\hat{A}=\sum_ia_i\ket{a_i}\bra{a_i}$$
+
+此外，利用其本征矢量计算可知
+$$\tr(\hat{\Gamma_i})=\sum_j\blk{a_j}{\hat{\Gamma_i}}{a_j}=\blk{a_i}{\hat{\Gamma_i}}{a_i}=1$$
+且根据之前完备性条件有$\sum_i\hat{\Gamma_i}=\hat{I}$。
+
+\
+
+\textbf{密度算符}
+
+若量子力学体系可以用一个态矢量描写，则称其为\textbf{纯态}[纯态可能是叠加态]。
+
+纯态可以用归一化的态矢量$\ket{\Psi}$\ [满足$\bk{\Psi}{\Psi}=1$]表示，对应可以定义算符
+$$\hat{\rho}=\ket{\Psi}\bra{\Psi}$$
+称为其\textbf{密度算符}。
+
+*其是厄米算符，事实上是纯态上的投影算符，仍有迹为1。其有非简并本征值1，本征矢量$\ket{\Psi}$；简并本征值0，对应本征矢量为与$\ket{\Psi}$正交的全部矢量。
+
+*由于投影性质，有
+$$\tr(\hat{\rho}^2)=\tr(\hat{\rho})=1$$
+这事实上是纯态与混合态的特征差别。
+
+引入密度算符意义：简化纯态下\textbf{力学量平均值}的计算。
+
+对纯态$\ket{\Psi}=\sum_ic_i\ket{a_i}$与对应的力学量算符$\hat{A}$，由于$\ket{\Psi}$坍缩到$\ket{a_i}$的概率为$|c_i|^2$，其系综平均值为
+$$\langle\hat{A}\rangle_\Psi=\sum_ia_i|c_i|^2=\sum_ia_i|\bk{a_i}{\Psi}|^2$$
+直接计算可得其可以化为
+$$\langle\hat{A}\rangle_\Psi=\sum_i\bk{a_i}{\Psi}\blk{\Psi}{\hat{A}}{a_i}$$
+若将$\ket{\Psi}\bra{\Psi}$合并，即得其为$\tr(\hat{\rho}\hat{A})$；若乘法交换后将$\sum_i\ket{a_i}\bra{a_i}$合并，即得其为$\blk{\Psi}{\hat{A}}{\Psi}$。
+
+*维数有限时迹可交换，也可等价写为$\tr(\hat{A}\hat{\rho})$。
+
+\section{表象理论}
+\subsection{表象理论基础}
+\textbf{波函数}
+
+量子力学教材中，常引入三维空间中平方可积的波函数$\Psi(\mathbf{r})$，即满足
+$$\int_V|\Psi(\mathbf{r})|^2\dr^3x<\infty$$
+
+下面考虑其与态矢量的关系。若$\ket{\Psi}$所在态矢量空间$\mathcal{H}$中存在某力学量$F$，使得其算符$\hat{F}$对应的本征矢量$\ket{f_i}$构成一组单位正交基，则此基下的表示称为选择了$F$\textbf{表象}：
+$$\ket{\Psi}=\sum_i\bk{f_i}{\Psi}\ket{f_i}$$
+
+习惯上把$\ket{\Psi}$的\textbf{坐标}$\bk{f_i}{\Psi}$称为$F$表象中的\textbf{波函数}。若$\hat{F}$本征值有限或可数，常把波函数表示为列矩阵，但连续时就成为了通常的函数，如考虑一维，位置算符的本征值是一切$r\in\mathbb{R}$，于是
+$$\Psi(r)=\bk{r}{\Psi}$$
+这里$|\Psi(r)|^2$即表示被观测在$r$的某种概率[事实上因为连续性，最终对应连续随机变量]。
+
+*因此，\textbf{希尔伯特空间并不是波函数组成的空间}，其事实上是隐藏的，\textbf{粒子运动状态组成的空间}。
+
+在给定表象(以坐标表象为例)后，由于基的性质，即知线性组合$a\ket{\Psi}+b\ket{\Phi}$的表象为$a\Psi(r)+b\Phi(r)$，而由完备与正交性可知内积
+$$\bk{\Psi}{\Phi}=\sum_r\Psi(r)^*\Phi(r)\bk{r}{r}=\int\Psi(r)^*\Phi(r)\dr r$$
+于是波函数定义要求平方可积即为\textbf{模长有限}，关于三维位置的含义事实上代表三次相容的测量，将在之后解释。
+
+\
+
+\textbf{力学量矩阵}
+
+*本部分中的表示是在$\mathcal{H}$维度有限或更一般的可数时推导的，连续时有类似的结论，但一般无法显式写出。
+
+考虑$F$表象中，其基为$\ket{f_i}$，表象理论中将$\ket{\Psi}$替换为列向量$\Psi$，$\Psi_i=\bk{f_i}{\Psi}$。
+
+此时，计算得对力学量算符有
+$$\hat{A}=\sum_{ij}\blk{f_i}{\hat{A}}{f_j}\ket{f_i}\bra{f_j}$$
+将$A_{ij}=\blk{f_i}{\hat{A}}{f_j}$对应的方阵记为$A$，则厄米条件可写为$A_{ij}=A_{ji}^*$，即为厄米矩阵条件。而从$\hat{A}\ket{\Psi}=\ket{\Phi}$可计算得$\Phi_i=\sum_jA_{ij}\Psi_i$，也即选择表象后可将力学量写为\textbf{矩阵}，\textbf{作用化为矩阵乘法}。
+
+*对$\hat{F}$自身，有$\blk{f_i}{\hat{F}}{f_i}=f_i\delta_{ij}$，即其为实对角矩阵。
+
+此时由于左矢满足$\bra{\Psi}=\sum_j\bk{\Psi}{f_j}{f_j}$，可将左矢看作\textbf{行向量}$\Psi^\dagger$，其对右矢的作用结果$\bk{\Psi}{\Phi}=\Psi^\dagger\Phi$。
+
+\
+
+\textbf{表象变换}
+
+对不同力学量算符$F,G$可以建立不同表象，若对应基为$\ket{f_i},\ket{g_j}$，可建立表象间的变换。
+
+考虑态矢量空间中的算符
+$$\hat{U}=\sum_i\ket{g_i}\bra{f_i}$$
+计算可知$\hat{U}\ket{f_i}=\ket{g_i}$，且$\hat{U}^{-1}=\sum_i\ket{f_i}\bra{g_i}$。由于有$\hat{U}^\dagger=\hat{U}^{-1}$，其为\textbf{幺正算符}[酉算符]。
+
+由于
+$$\blk{f_i}{\hat{U}}{f_j}=\blk{g_i}{\hat{U}}{g_j}=\bk{f_i}{g_j}$$
+其在$F,G$表象下矩阵元不变，记为$U$，则计算可知
+$$\Psi^F=U\Psi^G,\quad\Psi^G=U^\dagger\Psi^F$$
+这里$\Psi$上标代表在不同表象下的列向量，进一步计算得对算符有
+$$A^G=U^\dagger A^FU,\quad A^F=UA^GU^\dagger$$
+也即对应算符的矩阵表示为\textbf{酉相似}变换。
+
+\subsection{相容力学量}
+
+若$[\hat{A},\hat{B}]=0$，则称二者\textbf{相容}，否则称\textbf{不相容}。
+
+根据数学知识可得，若几个力学量算符相容，则它们可以拥有\textbf{完备的共同本征态系}。
+
+*此结论在有限维时相当于两对易的可角化矩阵可以同时被对角化，通过考察每个$a_i$的简并度与对角矩阵交换条件可以证明。
+
+例如，若$[\hat{A},\hat{B}]=0$，则可以选取$\mathcal{H}$的一组\textbf{标准正交基}$\ket{a_i,b_i}$，满足它们同时为$\hat{A},\hat{B}$的本征矢量，即
+$$\hat{A}\ket{a_i,b_i}=a_i\ket{a_i,b_i},\quad\hat{B}\ket{a_i,b_i}=b_i\ket{a_i,b_i}$$
+
+物理图像：对$\ket{\Psi}$的相容力学量的观测中，先测量$A$，得到坍缩为某本征右矢，不妨设为某$\ket{a_2}$，而再对$B$测量得到$\ket{a_2}$以$|\bk{a_2,b_i}{a_2}|^2$的概率坍缩为$\ket{a_2,b_i}$，不妨设坍缩为$\ket{a_2,b_2}$，此时达到共同的本征矢量，测量$A,B$能得到确定结果$a_2$与$b_2$，也即\textbf{相容力学量可以同时确定测量值}。
+
+*这里$\ket{a_2,b_i}$表示某个$a_i=a_2$的$\ket{a_i,b_i}$。这里若本征值$a_2$是简并的，$\ket{a_2}$未必在$\ket{a_i,b_i}$中，只能保证其由所有$a_i=a_2$的$\ket{a_i,b_i}$线性组合得到。
+
+\
+
+\textbf{力学量完全集}：若有某些两两对易的力学量$A,B,C,\dots$使得可取出一组标准正交基$\ket{a_i,b_i,c_i,\dots}$，满足其中每个同时为每个力学量的本征矢量，且由$a_i,b_i,c_i,\dots$唯一确定[即满足对每个力学量为给定本征值的右矢在等价意义下唯一]，则称它们形成了体系的一个力学量完全集[CSCO, Complete Set of Compatible Observables]。
+
+*有限维时，即代表这些矩阵可同时对角化，且对任何两个不同对角位置，总有某个矩阵使得对应的对角元不同。对单个力学量来说，其是力学量完全集意味着\textbf{本征值无简并}。
+
+\
+
+\textbf{不相容力学量}：由其均为厄米算符，计算可知$[\hat{A},\hat{B}]=\ir\hat{C}$，$\hat{C}$为厄米算符。根据数学知识，若$\mathcal{H}$有限维有$\tr\hat{C}=0$。
+
+不相容力学量\textbf{没有完备的共同本征右矢系}，但仍可能有共同本征右矢。
+
+\subsection{测不准关系}
+回顾之前对力学量在态下平均值的定义$\langle\hat{A}\rangle_\Psi$，下面均考虑$\ket{\Psi}$态下，定义误差算符
+$$\Delta\hat{A}=\hat{A}-\langle\hat{A}\rangle\hat{I}$$
+则不确定度定义为
+$$\Delta A=\sqrt{\langle(\Delta\hat{A})^2\rangle}=\sqrt{\langle\hat{A}^2\rangle-\langle\hat{A}\rangle^2}$$
+
+测不准关系：设$[\hat{A},\hat{B}]=\ir\hat{C}$，直接计算可得$\Delta\hat{A},\Delta\hat{B}$是厄米算符，且$[\Delta\hat{A},\Delta\hat{B}]=\ir\hat{C}$。
+
+任取实数$\zeta$，右矢$\ket{\Psi}$，记
+$$\ket{\eta}=\big(\zeta\Delta\hat{A}-\ir\Delta\hat{B}\big)\ket{\psi}$$
+则计算得[这里均值皆指$\ket{\Psi}$意义下]
+$$\bk{\eta}{\eta}=\zeta^2(\Delta A)^2+(\Delta B)^2+\zeta\langle\hat{C}\rangle\ge0$$
+
+利用二次函数知识取最小值即有
+$$(\Delta A)^2(\Delta B)^2\ge\frac{\langle C\rangle^2}{4}$$
+
+*量子力学基本原理之一为\textbf{基本对易关系}
+$$[\hat{x}_i,\hat{p}_j]=\ir\hbar\delta_{ij}\hat{A}$$
+这里$i,j$表示坐标、动量的不同分量，由此代入上方可得
+$$\Delta x_i\Delta p_j\ge\frac{\hbar}{2}\delta_{ij}$$
+最早出自Heisenberg假设，因此称为\textbf{Heisenberg测不准原理}。
+
+\section{位置与动量}
+\subsection{位置表象}
+考虑粒子限制在一条直线[$x$轴]上运动，其位置算符$\hat{x}$以所有$x'\in\mathbb{R}$为本征值，对应的完备本征矢量组记为$\ket{x'}$。此处，由于本征值构成\textbf{连续谱}，完备性条件为积分
+$$\int_\mathbb{R}\ket{x'}\bra{x'}\dr x'=\hat{I}$$
+
+*由于我们必须选取某种表象才能表达$\mathcal{H}$上的矢量和算符，这里的$\ket{x'}$与$\hat{x}$并没有更显式的形式。接下来会推导它们在位置表象下的表述，从而成为一个相对显式的表达。
+
+由此，态矢量的展开也为积分
+$$\ket{\psi}=\int_\mathbb{R}(\ket{x}\bra{x})\ket{\psi}\dr x=\int_\mathbb{R}\dr x\ket{x}\bk{x}{\psi}$$
+从而\textbf{波函数}$\psi(x)=\bk{x}{\psi}$。
+
+考虑$\ket{x'}$在位置表象下的表示，由于
+$$\ket{x'}=\int_\mathbb{R}\dr x\ket{x}\bk{x}{x'}$$
+根据$\delta$函数定义[可直观理解为0处为无穷，其余处为0，积分为1的广义函数]，可写为$\psi_{x'}(x)=\bk{x}{x'}=\delta(x-x')$。
+
+*离散谱时此处为$\bk{x_i}{x_j}=\delta_{ij}$，但此处连续时的$\delta$函数导致了\textbf{无法正常归一化}[事实上连续谱本征态均如此]，且可验证其\textbf{并不平方可积}。但是，出于量子力学的推广，其仍能表示$\mathcal{H}$的一组基[此处的基与函数空间事实上推广了线性代数中的讨论]：根据Dirac函数的性质有
+$$\Psi(x)=\int_\mathbb{R}\dr x'\delta(x-x')\Psi(x')$$
+于是任何坐标的确可以通过与基的内积得到。
+
+*根据前一章对表象下线性组合与内积的讨论，可以用位置表象下的$\psi(x)$\textbf{替代}量子态$\ket{\psi}$
+
+\
+
+\textbf{概率分布}
+
+由平方可积与等价性，可以设$\psi(x)$满足\textbf{归一化条件}
+$$\int_\mathbb{R}\dr x|\psi(x)|^2=1$$
+
+此时，由于轴上$|\psi(x)|^2$积分为1与概率同$|\psi(x)|^2$成比例的性质，粒子处在$\psi(x)$时其\textbf{概率密度函数}为$\rho(x)=|\psi(x)|^2$，也即$\dr x\to 0$时在$[x,x+\dr x]$区间找到粒子的概率为$|\psi(x)|^2\dr x$。
+
+*由上章，$\alpha(x),\beta(x)$内积为
+$$\int_\mathbb{R}\dr x\alpha^*(x)\beta(x)$$
+
+\
+
+\textbf{位置表象下的算符}
+
+对算符$\hat{A}$而言，直接计算有
+$$\blk{\alpha}{\hat{A}}{\beta}=\bra{\alpha}\bigg(\int_\mathbb{R}\dr x\ket{x}\bra{x}\bigg)\hat{A}\bigg(\int_\mathbb{R}\dr y\ket{y}\bra{y}\bigg)\ket{\beta}=\iint_{\mathbb{R}^2}\dr x\dr y\alpha^*(x)\blk{x}{\hat{A}}{y}\beta(y)$$
+这里$\blk{x}{\hat{A}}{y}$为$\hat{A}$的某种意义上的矩阵元，但其实无需显式写出。
+
+设$F$为某能写为幂级数的函数，$\hat{A}=F(\hat{x})$，则由于$\hat{x}\ket{y}=y\ket{y}$即有$\hat{x}^n\ket{y}=y^n\ket{y}$，线性组合得$F(\hat{x})\ket{y}=F(y)\ket{y}$，于是
+$$\blk{x}{F(\hat{x})}{y}=\bk{x}{F(y)y}=F(y)\delta(x-y)$$
+因此
+$$\blk{\alpha}{F(\hat{x})}{\beta}=\int_\mathbb{R}\dr x\alpha^*(x)F(x)\beta(x)$$
+也即能写为位置算符函数的算符可以在计算时直接\textbf{替换为位置的函数}。
+
+于是类似地，在位置表象中，我们放弃用厄米矩阵表示算符$\hat{A}$的正常思路，而是用\textbf{波函数空间中的等效算符}$\hat{\mathcal{A}}$实现，定义要求满足
+$$\hat{\mathcal{A}}\Psi(x)=\blk{x}{\hat{A}}{\Psi},\quad\forall x$$
+由于对$\Psi$成立只需要对一组基$\ket{y}$成立，这也即
+$$\hat{\mathcal{A}}\delta(x-y)=\blk{x}{\hat{A}}{y},\quad\forall x,y$$
+
+此时即可以计算
+$$\blk{\alpha}{\hat{A}}{\beta}=\int_\mathbb{R}\dr x\alpha^*(x)\hat{\mathcal{A}}\beta(x)$$
+
+于是，对$F(\hat{x})$而言，其等效算符即为$\psi(x)\to F(x)\psi(x)$。
+
+\subsection{动量表象}
+若体系在三维空间运动，位置算符事实上为$\hat{x}_1,\hat{x}_2,\hat{x}_3$三个部分，量子力学假定$[\hat{x}_i,\hat{x}_j]=0,i\ne j$，于是根据上章可知三算符\textbf{可同时测准}，可合并记为$\hat{\br}=(\hat{x}_1,\hat{x}_2,\hat{x}_3)$，其满足本征方程
+$$\hat{\br}\ket{\br'}=\br'\ket{\br'}$$
+这里$\br'=(x_1',x_2',x_3')$，而$\ket{\br'}=\ket{x_1',x_2',x_3'}$代表此三个相容力学量的\textbf{完备共同本征态系}。
+
+*此式事实上表达$\hat{x}_i\ket{\br'}=x_i'\ket{\br'},i=1,2,3$。
+
+我们定义$\hat{\br}^\dagger$为对其每个分量取厄米共轭，于是它成为厄米算符，且
+$$bk{\br}{\br'}=\delta(\br-\br')$$
+这里$\delta$为三维的Dirac函数。
+
+与一维完全类似，有
+$$\int\dr^3x\ket{\br}\bra{\br}=\hat{I},\quad\psi(\br)=\bk{\br}{\psi}$$
+
+\
+
+\textbf{空间平移}
+
+为了定义动量算符，我们先考虑$\ket{\br}$的空间平移变换。若$\br$无穷小平移$\dr\br$，对应本征矢量为$\ket{\br+\dr\br}$。若存在$\hat{J}$使得
+$$\ket{\br+\dr\br}=\hat{J}(\dr\br)\ket{\br}$$
+则称其为\textbf{无穷小空间平移算符}。
+
+其可以作用在任何态矢量上：
+$$\hat{J}(\dr\br)\ket{\psi}=\hat{J}(\dr\br)\int\dr^3x\ket{\br}\bk{\br}{\psi}=\int\dr^3x\ket{\br+\dr\br}\psi(\br)$$
+
+其性质为：
+\begin{enumerate}
+    \item 不改变任何概率分布，也即不改变态矢量模长，为\textbf{幺正算符}
+    $$\hat{J}^\dagger(\dr\br)=\hat{J}^{-1}(\dr\br)$$
+    \item 可加性
+    $$\hat{J}(\dr\br)\hat{J}(\dr\br')=\hat{J}(\dr\br+\dr\br')$$
+    从而$\hat{J}^{-1}(\dr\br)=\hat{J}(-\dr\br)$；
+    \item 零位移空间平移变换为单位算符
+    $$\lim_{\dr\br\to0}\hat{J}(\dr\br)=\hat{I}$$
+\end{enumerate}
+
+*由此，群论上，所有无穷小空间平移变换形成了一个阿贝尔群，称为\textbf{平移变换群}，且群中算符均幺正。
+
+由此，我们可以把无穷小平移变换写为[这里$\frac{\ir}{\hbar}$为指定的参数]
+$$\hat{J}(\dr\br)=\hat{I}-\frac{\ir}{\hbar}\dr\br\cdot\hat{\bp}$$
+其中$\hat{\bp}$为厄米算符，群论视角下为平移变换群的\textbf{生成元}，而物理上即诠释为体系的\textbf{动量算符}。
+
+*平移算符和动量的关联来源于理论力学中的理解，\textbf{空间平移不变性}对应\textbf{动量守恒}，此后的哈密顿算符、角动量算符均类似。
+
+*按维度可写为$(\hat{p}_1,\hat{p}_2,\hat{p}_3)$，量子力学亦假设其两两对易，于是可同时确定，从而本征右矢系可以记为$\ket{\bp}=\ket{p_1,p_2,p_3}$，在$\hat{\bp}$表象[称为\textbf{动量表象}]下的波函数为$\psi(\bp)=\bk{\bp}{\psi}$。
+
+*与位置表象完全类似可证明，若某算符可写为$F(\hat{\bp})$，则其作用可等效为$F(\bp)$对波函数作乘法。
+
+\subsection{位置与动量关系}
+\textbf{相容性}
+
+由定义可知任何$\ket{\br'}$不是空间平移算符的本征态，但另一方面计算有
+$$[\hat{\br},\hat{J}(\dr\br)]\ket{\br'}=\dr\br\ket{\br'+\dr\br}$$
+忽略$\dr\br$的二次项可得到$[\hat{\br},\hat{J}(\dr\br)]$以$\dr\br$为本征值，本征矢量为所有$\ket{\br'}$，进一步计算即得
+$$[\hat{\br},\dr\br\cdot\hat{\bp}]=\ir\hbar\dr\br\hat{I}$$
+
+*这里交换子为对$\hat{\br}$逐分量交换，右侧$\dr\br\hat{I}$代表逐分量为$\dr x_i\hat{I}$的算子。
+
+逐分量列出等式，由$\dr x_i$可独立改变即得到
+$$[\hat{x}_i,\hat{p}_j]=\ir\hbar\delta_{ij}$$
+即为基本对易关系。
+
+*对有限的平移变换$\hat{J}(\mathbf{a})$，考虑划分为$N$个$\frac{\mathbf{a}}{N}$平移，并令$N$趋于无穷，复合得到
+$$\hat{J}(\mathbf{a})=\lim_{N\to\infty}\bigg(\hat{I}-\frac{\ir}{\hbar}\frac{\mathbf{a}\cdot\hat{\bp}}{N}\bigg)^n=\exp(-\ir\mathbf{a}\cdot\hat{\bp}/\hbar)$$
+也可直接将$\exp$展开为级数表示。
+
+\
+
+\textbf{位置表象下的动量}
+
+由于[忽略二阶小量]
+$$\hat{J}(\dr\br)\ket{\psi}=\int\dr^3x\ket{\br+\dr\br}\bk{\br}{\Psi}=\int\dr^3x\ket{\br}\Psi(\br-\dr\br)=\int\dr^3x\ket{\br}\big(\Psi(\br)-\dr\br\cdot\nabla\Psi(\br)\big)$$
+于是代入$\hat{p}$表达式计算即有
+$$\blk{\br}{\hat{p}}{\Psi}=-\ir\hbar\nabla\Psi(\br)$$
+也即等效于作用为\textbf{位置表象波函数空间}的算符$\hat{P}$有
+$$\hat{P}\Psi(\br)=-\ir\hbar\nabla\Psi(\br)$$
+即$\hat{P}=-\ir\hbar\nabla$，每个分量对应为偏导。
+
+先考虑\textbf{一维}情况，动量算符的本征方程在位置表象下即为[这里$\phi_p(x)$为波函数]
+$$\hat{P}_x\phi_p(x)=-\ir\hbar\frac{\dr}{\dr x}\phi_p(x)=p\phi_p(x)$$
+可直接得到通解为
+$$\phi_p(x)=\mathcal{N}\exp(\ir px/\hbar)$$
+
+为解决本征值是否为实数与归一化常数$\mathcal{N}$的选择，我们需要先考察动量算符的\textbf{厄米性}。考虑位置表象波函数定义域为$[a,b]$，由于
+$$\blk{\varphi}{\hat{p}_x}{\psi}=\int_a^b\dr x\varphi^*(x)\hat{P}_x\psi(x)$$
+其厄米性要求即可计算得转化为
+$$\int_a^b\dr x\varphi^*(x)\frac{\dr\psi(x)}{\dr x}=-\int_a^b\dr x\psi(x)\frac{\dr\varphi^*(x)}{\dr x}$$
+根据分部积分，实质上为$\varphi^*(x)\psi(x)\big|^b_a=0$。
+
+\
+
+\textbf{边界条件}
+
+考虑五种情况分析上述边界条件以确定动量算符是否为力学量算符：
+\begin{enumerate}
+    \item $x$轴有限区间$[a,b]$，边界条件$\Psi(a)=\Psi(b)=0$。
+    
+    此时边界条件满足，$\hat{p}_x$为厄米算符，但由于动量本征函数不满足条件，\textbf{本征值方程无解}，不能作为体系的力学量算符。
+
+    \item $x$轴有限区间$[a,b]$，边界条件$\Psi(a)=\er^{\ir\theta}\Psi(b)$，这里实数$\theta$给定。
+
+    此时边界条件满足，$\hat{p}_x$为厄米算符，动量本征函数满足边界条件当且仅当$p$取
+    $$p_n=\bigg(\frac{2\pi n-\theta}{b-a}\bigg)\hbar,\quad n\in\mathbb{Z}$$
+    此时动量算符是体系的力学量算符，上述本征函数系可以形成位置表象波函数空间的完备基，计算得归一化系数$\mathcal{N}=(b-a)^{-1/2}$。
+
+    *然而，此时\textbf{位置坐标不是力学量}，因为$\hat{x}$的等效波函数空间算符$\hat{X}$作用在$\Psi(x)$上成为$x\Psi(x)$，不再满足周期性边界体条件，于是其不能成为线性算符。
+
+    \item 整个$x$轴，边界条件[这称为\textbf{束缚态}边界条件]$\lim_{x\to\pm\infty}\Psi(x)=0$。
+    
+    此时边界条件满足，$\hat{p}_x$为厄米算符，但本征函数不满足边界条件。然而，由于连续函数可以表达为Fourier积分
+    $$\Psi(x)=\mathcal{N}\int_\mathbb{R}\dr pC(p)\er^{\ir px/\hbar}$$
+    动量本征函数系\textbf{仍然能作为一组基}，正如位置算符的本征函数系$\delta(x-x')$那样。
+
+    *值得注意的是，第一种情况下，有限区间并没有这样的表达，因此无法视作一组基。
+
+    此时本征值$p$可以为连续谱，利用$\delta(x-x')=\int_\mathbb{R}\dr p\bk{x}{p}\bk{p}{x'}$从Fourier出发可得归一化常数为$\mathcal{N}=(2\pi\hbar)^{-1/2}$。
+
+    \item 整个$x$轴，边界条件[这称为\textbf{散射态}边界条件]$|x|$充分大时$\Psi(x)\approx A\er^{\ir kx}+B\er^{-\ir kx}$。
+    
+    与上一种情况完全类似，动量算符为力学量算符，归一化常数$\mathcal{N}=(2\pi\hbar)^{-1/2}$，傅里叶积分意义下形成一组完备基。
+
+    \item 三维空间运动，满足束缚态边界条件$\lim_{|\br|\to\pm\infty}\Psi(\br)=0$或散射态边界条件$|\br|$充分大时$\Psi(\br)\approx A\er^{\ir\mathbf{k}\cdot\br}+B\er^{-\ir\mathbf{k}\cdot\br}$。
+    
+    动量算符$\hat{\bp}$或等效的$\hat{P}=-\ir\hbar\nabla$为体系的力学量算符，本征值$\bp$[可看作三方向动量先后测量]形成连续谱，本征函数[三方向归一化系数应相乘]
+    $$\phi_\bp(\br)=\frac{1}{(2\pi\hbar)^{3/2}}\exp(\ir\bp\cdot\br/\hbar)$$
+    满足正交归一条件
+    $$\int\dr^3x\phi_(\br)\phi_{\bp'}^*(\br)=\delta(\bp-\bp')$$
+    与\textbf{完备性条件}
+    $$\int\dr^3p\phi_\bp(\br)\phi_\br^*(\br')=\delta(\br-\br')$$
+
+    对任何波函数而言，其可以展开为
+    $$\Psi(\br)=\int\dr^3pC(\bp)\phi_\bp(\br)=\frac{1}{(2\pi\hbar)^{3/2}}\int\dr^3pC(\bp)\exp(\ir\bp\cdot\br/\hbar)$$
+    根据前述正交归一与完备性条件可算得
+    $$C(\bp)=\int\dr^3x'\Psi(\br')\phi_\bp^*(\br')=\frac{1}{(2\pi\hbar)^{3/2}}\int\dr^3x'\Psi(\br')\exp(-\ir\bp\cdot\br'/\hbar)$$
+
+    *这事实上就是Fourier变换与逆变换的形式。
+\end{enumerate}
+
+*类似可定义动量表象与动量表象下的波函数$C(\bp)$，动量表象下的讨论与位置表象完全相似。
+
+\section{时间演化}
+\subsection{薛定谔方程}
+\textbf{时间演化算符}
+
+为考虑态矢量$\ket{\Psi(t)}$\ [这里$\ket{\Psi(t)}$并非波函数，而是对每个时间存在一个态矢量]随时间的演化过程，我们定义\textbf{时间演化算符}
+$$\ket{\Psi(t)}=\hat{U}(t,t_0)\ket{\Psi(t_0)},\quad t>t_0$$
+
+*时间$t$\textbf{并不是力学量算符}，而是刻画演化的参数。
+
+为保证态矢量模长不变$\hat{U}$为\textbf{幺正算符}，即
+$$\hat{U}(t,t_0)^\dagger\hat{U}(t,t_0)=\hat{I}$$
+其满足结合律[设$t_2>t_1>t_0$]
+$$\hat{U}(t_2,t_0)=\hat{U}(t_2,t_1)\hat{U}(t_1,t_0)$$
+且应有
+$$\lim_{t\to t_0}\hat{U}(t,t_0)=\hat{I}$$
+
+与空间平移算符类似，我们可以假设\textbf{无穷小时间演化算符}为
+$$\hat{U}(t_0+\dr t,t_0)=\hat{I}-\frac{\ir}{\hbar}\dr t\hat{H}$$
+这里$\hat{H}$是态矢量空间的厄米算符，量纲分析可得其有能量量纲，因此量子力学假定其为\textbf{体系的哈密顿算符}。
+
+*有些场合中，其具有与经典相同的形式$\hat{H}=\frac{\hat{p}^2}{2\mu}+V(\hat{r})$。
+
+由此利用结合律可得
+$$\hat{U}(t+\dr t,t_0)=\bigg(\hat{I}-\frac{\ir}{\hbar}\dr t\hat{H}\bigg)\hat{U}(t,t_0)$$
+从上式考虑$\hat{U}(t,t_0)$对$t$的导数有
+$$\ir\hbar\frac{\partial}{\partial t}\hat{U}(t,t_0)=\hat{H}\hat{U}(t,t_0)$$
+这称为时间演化算符的薛定谔[Schr\"odinger]方程，作用在$\ket{\Psi(t_0)}$上得到
+$$\ir\hbar\frac{\partial}{\partial t}\ket{\Psi(t)}=\hat{H}\ket{\Psi(t)}$$
+即态矢量的\textbf{薛定谔方程}。
+
+*若$\hat{H}$不显含$t$，与空间平移类似可得到时间演化算符为$\hat{U}(t,t_0)=\exp\big(-\frac{\ir}{\hbar}\hat{H}(t-t_0)\big)$。
+
+\
+
+\textbf{薛定谔方程}
+
+考虑位置表象下，若$t$时刻波函数$\Psi_t(\br)$，可写为$\Psi(\br,t)$，定义表象波函数空间中的等价哈密顿算符满足$\hat{\mathcal{H}}\Psi(\br,t)=\blk{\br}{\hat{H}}{\Psi(t)}$，则计算可得时间演化方程为
+$$\ir\hbar\frac{\partial}{\partial t}\Psi(\br,t)=\hat{\mathcal{H}}\Psi(\br,t)$$
+
+*若有$\hat{H}=\frac{\hat{p}^2}{2\mu}+V(\hat{r})$，直接计算可得$\hat{\mathcal{H}}=-\frac{\hbar^2}{2\mu}\nabla^2+V(\br)$，对应的即为薛定谔本人提出的原版方程。
+
+\
+
+\textbf{概率守恒}
+
+波函数概率诠释中，$\rho(\br,t)=|\Psi(\br,t)|^2$表示$t$时刻$\br$附近发现粒子的概率体密度，下面考察其与薛定谔方程的相容。
+
+考虑上述原版方程的情况，利用$|\Psi|^2=\Psi^*\Psi$及薛定谔方程两侧同取导数化简得[利用$\nabla^2=\nabla\cdot\nabla$]
+$$\ir\hbar\frac{\partial}{\partial t}\rho(\br,t)+\frac{\hbar^2}{2\mu}\nabla\cdot\big(\Psi^*(\br,t)\nabla\Psi(\br,t)-\Psi(\br,t)\nabla\Psi^*(\br,t)\big)=0$$
+
+将加号右侧记作$\nabla\cdot\bj(\br,t)$，其中$\bj(\br,t)$称为\textbf{概率流密度矢量}。
+
+利用\textbf{高斯定理}，对闭合曲面$S$包含的某区域有
+$$\frac{\dr}{\dr t}\int_\Omega\dr^3x\rho(\br,t)=\int_\Omega\dr^3x\frac{\partial}{\partial t}\rho(\br,t)=-\oint_S\dr\mathbf{s}\cdot\bj(\br,t)$$
+代表若$\Omega$中找到粒子的概率增加，必有概率流通过边界进入$\Omega$内，即为\textbf{守恒性}。
+
+*若$\Omega$为全空间，假设波函数已归一化[从而无穷处必然为0]，计算即有全空间$\rho(\br,t)$的积分不改变，从而\textbf{归一化条件不变}，\textbf{粒子不会凭空产生或消失}。
+
+以下除非特别声明，我们均假设$\hat{H}$\textbf{不显含时间}，此时与理论力学中结论相似，其为体系的\textbf{能量算符}。量子力学假定$\hat{H}$是力学量算符，因此能量本征值方程
+$$\hat{H}\ket{E}=E\ket{E}$$
+必然有解。
+
+*由$\hat{H}$厄米性，能量本征值为实数，本征右矢全体可形成一组完备基。
+
+*若体系处在束缚态，能量本征值一般离散，记为$E_n$，对应本征态$\ket{E_n}$，满足离散的归一化与完备性条件$\bk{E_m}{E_n}=\delta_{mn},\sum_n\ket{E_n}\bra{E_n}=\hat{I}$。
+
+\
+
+\textbf{定态}
+
+若系统处在某个\textbf{能量本征态}，或包含$\hat{H}$在内的一组相容力学量算符完全集中的某个共同本征态，则称其处在定态。
+
+*\textbf{定态薛定谔方程}即为上述的能量本征值方程。
+
+*在本征值不同时，本征态的线性组合不再是本征态，因此定态的线性组合一般不是定态[但仍是可能的量子态]。
+
+假设能量本征值离散，$\hat{H}$不显含时间，则泰勒展开计算得时间演化算符可以写为
+$$\hat{U}(t,t_0)=\exp\big(-\ir\hat{H}(t-t_0)/\hbar\big)\sum_n\ket{E_n}\bra{E_n}=\sum_n\exp\big(-\ir E_n(t-t_0)/\hbar\big)\ket{E_n}\bra{E_n}$$
+
+于是若初始时为定态$\ket{\Psi(t_0)}=\ket{E_n}$，计算即知演化到$t$时刻为
+$$\ket{\Psi(t)}=\exp\big(-\ir E_n(t-t_0)/\hbar\big)\ket{E_n}$$
+由于相差常数乘法的意义上等价，此相位因子并不影响状态，即\textbf{仍然处于此定态}[这即是定态的含义]。
+
+*反之，初始为$\sum_kc_k\ket{E_n}$时，演化为$\sum_kc_k\exp\big(-\ir E_k(t-t_0)/\hbar\big)\ket{E_k}$，由于不同$E_k$对应系数不同，状态会改变。
+
+*位置表象记$E$对应的本征态为$\psi_E(\br)$，则$\hat{H}\psi_E(\br)=E\psi_E(\br)$，对原版方程的情况有
+$$-\frac{\hbar^2}{2\mu}\nabla^2\psi_E(\br)+V(\br)\psi_E(\br)=E\psi_E(\br)$$
+其时间演化仅相差相位因子，因此计算可得位置分布的概率密度$\rho_E$与概率流密度$\bj$均不随时间改变，概率守恒定律退化为
+$$\nabla\cdot\bj_E(\br)=0$$
+
+\subsection{系综平均值的演化}
+假设力学量算符含时间，则其平均值为
+$$\langle\hat{O}\rangle_\Psi=\blk{\Psi(t)}{\hat{O}(t)}{\Psi(t)}$$
+
+根据薛定谔方程取厄米共轭可得左矢满足
+$$-\ir\hbar\frac{\partial}{\partial t}\bra{\Psi(t)}=\bra{\Psi(t)}\hat{H}$$
+直接计算可知[注意由线性性知对$\blk{\Psi(t)}{\hat{O}(t)}{\Psi(t)}$求导等于分别对三项求导再求和]
+$$\frac{\dr}{\dr t}\langle\hat{O}\rangle_\Psi=\bigg<\frac{\partial\hat{O}}{\partial t}\bigg>_\Psi+\frac{1}{\ir\hbar}\langle[\hat{O},\hat{H}]\rangle_\Psi$$
+
+*于是，若对某算符有$[\hat{O},\hat{H}]=0$，且其不显含时间，即知其对任何态的系综平均值不变，因此是\textbf{守恒量}。
+
+考虑原版方程的$\hat{H}$，取算符为$\hat{\br}$与$\hat{\bp}$，则计算可知
+$$[\hat{x}_k,\hat{H}]=\ir\hbar\frac{\hat{p}_k}{\mu},\quad[\hat{p}_k,\hat{H}]=-\ir\hbar\frac{\partial V(\hat{\br})}{\partial\hat{x}_k}$$
+即有
+$$\frac{\dr}{\dr t}\langle\hat{\br}\rangle_\Psi=\frac{\langle\hat{\bp}\rangle_\Psi}{\mu},\quad\frac{\dr}{\dr t}\langle\hat{\bp}\rangle_\Psi=-\langle\nabla V(\hat{\br})\rangle_\Psi$$
+这称为\textbf{Ehrenfest定理}。
+
+*类似保守力场中\textbf{哈密顿正则方程}的对应。
+
+*若体系处于定态，由此即得有$\langle\hat{\bp}\rangle_\Psi=\langle\nabla V(\hat{\br})\rangle_\Psi=0$。
+
+\
+
+\textbf{绘景}[picture]
+
+*用于确定不涉及力学量测量时态矢量与力学量算符是否随时间演化。
+
+\textbf{薛定谔绘景}：态矢量随时间演化，力学量算符与其对应的完备本征系不随时间演化，以下标$S$表示。
+
+\textbf{海森堡绘景}：态矢量不随时间演化，力学量算符随时间演化，以下标$H$表示。
+
+由于真实可观测的只有$\bk{\psi}{\phi}$与$\blk{\psi}{\hat{A}}{\phi}$，只要保证二者一致就可以等价看待。
+
+之前讨论的薛定谔绘景中，$\ket{\psi(t)}_S=\hat{U}(t,t_0)\ket{\psi(t_0)},\hat{A}(t)_S=\hat{A}(t_0)$，于是由$\hat{U}$幺正性$\bk{\psi}{\phi}$不变，而
+$$\blk{\psi(t)}{\hat{A}(t_0)}{\phi(t)}_S=\bra{\psi(t_0)}\hat{U}^\dagger(t,t_0)\hat{A}(t_0)\hat{U}(t,t_0)\ket{\phi(t_0)}$$
+
+若采用海森堡绘景，有$\ket{\psi(t)}_H=\ket{\psi(t_0)}$，此时可知
+$$\hat{A}_H(t)=\hat{U}^\dagger(t,t_0)\hat{A}(t_0)\hat{U}(t,t_0)$$
+
+*由此即可看出二者的变换关系，由于观测结果相同，事实上等价。
+
+对表象而言，由于薛定谔绘景中的$\hat{A}_S$不随时间演化，在其\textbf{不显含}$t$时即可认为其与其在某$F$表象中的矩阵元$\blk{f_i}{\hat{A}}{f_j}_S$均不随时间演化。
+
+在海森堡绘景中，若选取$F$表象，由于
+$$\hat{F}_H(t)=\hat{U}^\dagger(t,t_0)\hat{F}_H(t_0)\hat{U}(t,t_0)$$
+代入本征方程即可得到
+$$\ket{f_i(t)}_H=\hat{U}^\dagger(t,t_0)\ket{f_i(t_0)}_H$$
+而对应本征值$f_i$并不随时间演化[由于$\hat{U}$幺正，这从线性代数中相似的性质也可推出]。
+
+*由于对矩阵元的计算$\blk{f_i}{\hat{A}}{f_j}$与前述$\blk{\psi}{\hat{A}}{\phi}$完全相同，其不依赖绘景的选择，于是可记$(A_H)_{ij}=(A_S)_{ij}=A_{ij}$，进而
+$$\hat{A}_H(t)=\sum_{ij}A_{ij}\ket{f_i(t)}_H\bra{f_i(t)}_H,\quad\hat{A}_S(t)=\sum_{ij}A_{ij}\ket{f_i}_S\bra{f_i}_S$$
+
+\
+
+\textbf{海森堡运动方程}
+
+在海森堡绘景下，假设$\hat{A}_H(t_0)$不显含时间参数$t$，直接计算即可得到[这里省略$\hat{U}$的参数$(t,t_0)$]
+$$\frac{\dr\hat{A}_H(t)}{\dr t}=\frac{1}{\ir\hbar}\big(\hat{U}^\dagger\hat{A}_H(t_0)\hat{H}\hat{U}-\hat{U}^\dagger\hat{A}(t_0)\hat{H}\hat{U}\big)$$
+
+约定$\hat{T}$不显含$t$后可直接写出$\hat{U}$，计算得$[\hat{H},\hat{U}]=[\hat{H},\hat{U}^\dagger]=0$，从而交换后进一步化简得到
+$$\frac{\dr\hat{A}_H(t)}{\dr t}=\frac{1}{\ir\hbar}[\hat{A}_H(t),\hat{H}]$$
+
+*这称为\textbf{海森堡运动方程}，与薛定谔绘景中的含时薛定谔方程相当。
+
+*以一维自由运动粒子$\hat{H}=\frac{\hat{p}^2}{2\mu}$为例(省略下标$H$)，由于将$\hat{p}$代入上述运动方程得到由此恒为0，由此有$\hat{p}$不随时间演化，再代入$\hat{x}$计算求解得到
+$$\frac{\dr\hat{x}}{\dr t}=\frac{\hat{p}(0)}{\mu}\quad\Rightarrow\quad\hat{x}(t)=\hat{x}(0)+\frac{\hat{p}(0)}{\mu}t$$
+与自由质点运动方程相似，但事实上由于$[\hat{x}(0),\hat{x}(t)]=\frac{\ir\hbar t}{\mu}$，根据测不准原理可知$\Delta x(t)\Delta x(0)\ge\frac{\hbar t}{2\mu}$，即随着时间推移位置坐标误差会增加，对应微观粒子\textbf{波动性}。
+
+\subsection{规范变换}
+考虑问题：对等价波函数$\psi'(\br,t)=\er^{\ir\alpha}\psi(\br,t)$而言，实数$\alpha$是否可以是$\br,t$的函数？
+
+*根据概率诠释，由于概率分布没有变化，的确可以视为同一个量子态。
+
+对原版方程
+$$\ir\hbar\frac{\partial\psi}{\partial t}=-\frac{\hbar^2}{2\mu}\nabla^2\psi+V(\br,t)\psi$$
+直接代入可知$\alpha$非常值时$\psi'(\br,t)$一般不为解。这个结论破坏了概率诠释带来的等价性，主要问题在于原版方程的局限性：其$V(\br,t)$项只适合\textbf{保守力体系}，且不适于描写\textbf{内禀自旋非零}的粒子运动。因此，可能需要改变$\hat{H}$的形式。
+
+若$\frac{\partial\psi'}{\partial t}$与$\nabla\psi'$也与$\psi$的对应量只差相位，则方程即可保证满足，因此将导数替换为\textbf{协变导数}，记[这里$\phi,\ba$为描写某类相互作用的经典场]
+$$D_t=\frac{\partial}{\partial t}+\ir\phi(\br,t),\quad\mathbf{D}=\nabla-\ir\ba(\br,t),\quad\mathbf{D}^2=\mathbf{D}\cdot\mathbf{D}$$
+则计算可得，对于方程
+$$\ir\hbar D_t\psi=-\frac{\hbar^2}{2\mu}\mathbf{D}^2\psi\quad\Leftrightarrow\quad\ir\hbar\frac{\partial\psi}{\partial t}=-\frac{\hbar^2}{2\mu}(\nabla-\ir\ba)^2\psi+\hbar\phi\psi$$
+当变换$\psi'=\psi\er^{\ir\alpha}$时，$\ba$与$\phi$对应变换$\ba'=\ba+\nabla\alpha,\phi'=\phi-\frac{\partial\alpha}{\partial t}$即可保持$\psi'$仍为解。
+
+*一般的$\psi'=\psi\er^{\ir\alpha}$称为波函数\textbf{规范变换}，选取$\alpha$即相当于选取规范。
+
+*若将$(\phi,\ba)$解释为电磁场的规范势，由此得到的哈密顿算符
+$$\hat{H}=-\frac{\hbar^2}{2\mu}(\nabla-\ir\ba)^2+\hbar\phi$$
+是电磁场中带电粒子[质量为$\mu$，电荷量$\hbar$，这里规范势与通常规范势相差量纲]的哈密顿算符，从而看出\textbf{规范对称性决定基本相互作用力}，此体系的性质将在之后的章节中研究。
+
+*经典电动力学中，带电粒子物理动量$\mathbf{p}=m\mathbf{v}$，而正则动量$\mathbf{P}=m\mathbf{v}-\hbar\ba$，可以利用正则量子化将正则动量算符化为$\hat{\mathbf{P}}=-\ir\hbar\nabla$，再进一步得到物理动量。物理动量的本征值、分布概率与均值\textbf{无关规范选择}。
+
+*若存在函数$\alpha$使得$\ba=-\nabla\alpha,\phi=\frac{\partial\alpha}{\partial t}$，则这样的电磁场称为\textbf{纯规范}，由之前可知纯规范可规范变换为0，从而事实上不存在。
+
+由于概率诠释必然带来波函数规范变换下的不变，薛定谔方程也应有此性质，从而：
+\begin{enumerate}
+    \item 量子力学研究的粒子必然参与某种规范相互作用(如电磁相互作用)，即必然携带着某种规范场的荷(如电荷)；
+    \item 出现在薛定谔方程中的$\hat{H}$必然包含规范场的规范势$(\phi,\ba)$的贡献；
+    \item 原版薛定谔方程可看作$V(\br,t)$仅作为与外界相互作用有效势能的\textbf{唯象方程}；
+    \item 原版薛定谔方程亦可看作修正版在规范要求$\psi'(\br,t)$与$\psi(\br,t)$\ [除$\alpha$为常数时外]不等价时的形式。
+\end{enumerate}
+
+\section{传播子}
+\subsection{定义}
+费曼假设量子力学体系随时间自然演化时，位置表象中的波函数$\Psi(\br,t)$能写为较早时刻$t'$时波函数的叠加，即
+$$\Psi(\br,t)=\int\dr^3x'G(\br,t;\br',t')\Psi(\br',t')$$
+这里的$G$即为\textbf{传播子}。
+
+费曼假设连接$(\br,t)$与$(\br',t')$的所有路径都对传播子有贡献，记$S(i,f)$为沿某可能路径计算的作用量有
+$$G(\br,t;\br',t')=A\sum\exp\bigg(\frac{\ir}{\hbar}S(i,f)\bigg)$$
+
+*这里求和表示对所有路径求和，经典力学仅允许$\delta S=0$的路径，而量子力学认为所有路径权重相同，只有相位差别。
+
+从而，若$t'=t-\epsilon,\epsilon\to 0^+$，则路径趋于唯一，有
+$$G(\br,t;\br',t')=A\exp\bigg(\frac{\ir}{\hbar}\int_{(\br',t')}^{\br,t}L(\dot{\br},\br)\dr\tau\bigg)\approx A\exp\bigg(\frac{\ir}{\hbar}\epsilon L_{ave}\bigg)$$
+这里$L_{ave}$为经典拉格朗日量在无穷小时间间隔中的平均值。
+
+\
+
+\textbf{一维体系}
+
+设一维体系拉格朗日量$L(x,\dot{x})=\frac{m}{2}\dot{x}^2-V(x)$，其在无穷小时间间隔$t'$到$t$时$x'$变化到$x$，平均值可以近似为
+$$L_{ave}\approx\frac{m}{2}\bigg(\frac{x-x'}{t-t'}\bigg)^2-V\bigg(\frac{x+x'}{2}\bigg)$$
+由$\epsilon=t-t'$，记$\mu=x-x'$，代入可得此时
+$$G(x,t;x',t')=A\exp\bigg(\frac{\ir m\eta^2}{2\hbar\epsilon}\bigg)\exp\bigg(-\frac{\ir}{\hbar}\epsilon V\bigg(x-\frac{\eta}{2}\bigg)\bigg)$$
+将第二个$\exp$泰勒展开到一阶，换元$x'$为$\eta$得到
+$$\Psi(x,t)=A\int_\mathbb{R}\dr\eta\ \exp\bigg(\frac{\ir m\eta^2}{2\hbar\epsilon}\bigg)\bigg(1-\frac{\ir}{\hbar}\epsilon V\bigg(x-\frac{\eta}{2}\bigg)\bigg)\Psi(x-\eta,t-\epsilon)$$
+将$\Psi(x-\eta,t-\epsilon)$对$t$泰勒展开到一阶，最终保留一阶项得到近似
+$$\Psi(x,t)=A\int_\mathbb{R}\dr\eta\ \exp\bigg(\frac{\ir m\eta^2}{2\hbar\epsilon}\bigg)\bigg(\Psi(x-\eta,t)-\frac{\ir}{\hbar}\epsilon V\bigg(x-\frac{\eta}{2}\bigg)\Psi(x-\eta,t)-\epsilon\frac{\partial\Psi(x-\eta,t)}{\partial t}\bigg)$$
+再将$\Psi$与$V$对$\eta$泰勒展开，整理得到
+$$\Psi(x,t)=A\sum_{n=0}^\infty\frac{(-1)^n}{n!}\bigg(\frac{\partial^n\Psi(x,t)}{\partial x^n}-\epsilon\frac{\partial^{n+1}\Psi(x,t)}{\partial x^n\partial t}-\frac{\ir\epsilon}{\hbar}\bigg(\sum_{m=0}^n\frac{n!}{2^mm!(n-m)!}\frac{\partial^mV(x)}{\partial x^m}\frac{\partial^{n-m}\Psi(x,t)}
+{\partial x^{n-m}}\bigg)\bigg)F_n(\epsilon)$$
+这里
+$$F_n(\epsilon)=\int_\mathbb{R}\dr\eta\ \eta^n\exp\bigg(\frac{\ir m\eta^2}{2\hbar\epsilon}\bigg)$$
+$n$为奇数时由对称性知为0，为偶数时分部计算可得到为
+$$F_{2n}(\epsilon)=(2n-1)!!\frac{(\ir h\epsilon)^n}{m^n}\sqrt{\frac{2\pi\ir\hbar\epsilon}{m}}$$
+
+再次保留$\epsilon$一阶项，最终得到
+$$\Psi(x,t)=A\sqrt{\frac{2\pi\ir\hbar\epsilon}{m}}\bigg(\Psi(x,t)-\frac{\ir}{\hbar}V(x)\Psi(x,t)-\epsilon\frac{\partial\Psi(x,t)}{\partial t}+\frac{\ir\hbar\epsilon}{2m}\frac{\partial^2\Psi(x,t)}{\partial x^2}\bigg)$$
+
+*将$A$取为$\sqrt{\frac{m}{2\pi\ir\hbar\epsilon}}$即得到一维保守力场中的薛定谔方程，表明了费曼的逻辑体系是合理的。
+
+*过程中只包含经典作用量$S$，但仍描述了量子力学信息，类似上方近似可得到传播子实际上近似为
+$$G(x,t;x',t')=\sqrt{\frac{m}{2\pi\ir\hbar\epsilon}}\exp\bigg(\frac{\ir\epsilon}{\hbar}\bigg(\frac{m\mu^2}{2\epsilon}-V(x)\bigg)\bigg)$$
+
+\subsection{物理意义}
+考虑\textbf{海森堡绘景}下，传播子定义式可写为
+$$\bk{x_b(t_b)}{\Psi}=\int_\mathbb{R}\dr x'G(x_b,t_b;x',t_a)\bk{x'(t_a)}{\Psi}$$
+若取$\ket{\Psi}=\ket{x_a(t_a)}$，代入即得到
+$$\bk{x_b(t_b)}{x_a(t_a)}=\int_\mathbb{R}\dr x'G(x_b,t_b;x',t_a)\delta(x'-x_a)=G(x_b,t_b;x_a,t_a)$$
+
+也即其表示$\ket{x_a(t_a)}$自发演化到$\ket{x_b(t_b)}$的跃迁概率幅。
+
+对有限大小的时间间隔$t_a<t_b$，将时间$N$等分，记$t_k=t_a+k\epsilon,\epsilon=\frac{t_b-t_a}{N}$，则根据上方推导有近似
+$$\bk{x_k(t_k)}{x_{k-1}(t_{k-1})}=\sqrt{\frac{m}{2\pi\ir\hbar\epsilon}}\exp\bigg(\frac{\ir\epsilon}{\hbar}\bigg(\frac{m(x_k-x_{k-1})^2}{2\epsilon}-V(x_k)\bigg)\bigg)$$
+
+利用每个时刻的完备性条件，将后方$\exp$中内容记作$\frac{\ir}{\hbar}S(x_k,x_{k-1})$，这里$S$代表路径积分，并记左侧系数为$A$，则分为$N$段后可以写为[这里连乘展开顺序为从左到右]
+$$\bk{x_b(t_b)}{x_a(t_a)}=A^{N-1}\int_{\mathbb{R}^{N-1}}\prod_{k=1}^{N-1}\dr x_k(t_k)\prod_{k=1}^{N}\bk{x_k(t_k)}{x_{k-1}(t_{k-1})}$$
+记$\dr^{N-1}x(t)$为左侧连乘，即有
+$$G(x_b,t_b;x_a,t_a)=\lim_{N\to\infty}\bigg(\frac{m}{2\pi\ir\hbar\epsilon}\bigg)^{N/2}\int_{\mathbb{R}^{N-1}}\exp\bigg(\frac{\ir}{\hbar}\sum_{k=1}^NS(x_k,x_{k-1})\bigg)\dr^{N-1}x(t)$$
+$\epsilon\to0$时，即有$S(a,b)=\sum_{k=1}^NS(x_k,x_{k-1})$，为真正意义上的路径积分，从而与传播子的路径积分表达式一致。
+
+\
+
+\textbf{薛定谔绘景视角}
+
+薛定谔绘景下，传播子事实上是$\blk{\br}{\hat{U}(t,t')}{\br'}$。由于薛定谔绘景下态矢量演化为$\ket{\Psi(t)}=\hat{U}(t,t')\ket{\Psi(t')}$，位置表象下有
+$$\bk{\br}{\Psi(t)}=\int\dr^3x'\blk{\br}{\hat{U}(t,t')}{\br'}\bk{\br'}{\Psi(t')}$$
+即符合传播子定义式。
+
+假设$\hat{H}$不显含时间参数，本征值离散，完备本征矢量系[亦可能是包含$\hat{H}$的某力学量完全集的]\ $\ket{E_n}$满足$\hat{H}\ket{E_n}=E_n\ket{E_n}$，对应波函数$\psi_n(\br)$，则利用$\hat{U}$表达式计算知
+$$G(\br,t;\br',t')=\sum_n\exp\big(-\ir E_n(t-t')/\hbar\big)\psi_n(\br)\psi_n^*(\br')$$
+
+可验证其符合$t\to t'$时为$\delta(\br-\br')$的条件，且根据偏微分方程知识，其是含时薛定谔方程的\textbf{Green函数}，例如对原版方程时的$\hat{H}$，其满足微分方程
+$$\bigg(-\frac{\hbar^2}{2m}\nabla^2+V(\br)-\ir\hbar\frac{\partial}{\partial t}\bigg)G(\br,t;\br',t)=-\ir\hbar\delta(\br-\br')\delta(t-t')$$
+
+\section{一维量子力学体系}
+\subsection{一维薛定谔方程}
+采用薛定谔绘景，并假设一维哈密顿算符
+$$\hat{H}=\frac{\hat{p}}{2\mu}+V(x)\quad\Rightarrow\quad\hat{\mathcal{H}}=-\frac{\hbar^2}{2\mu}\frac{\partial^2}{\partial x^2}+V(x)$$
+若\textbf{定态薛定谔方程}$\hat{\mathcal{H}}\psi(x)=E\psi(x)$存在特解$\psi_E(x)$，原方程即有定态特解
+$$\Psi_E(x,t)=\psi_E(x)\exp(-\ir Et/\hbar)$$
+
+*束缚态情形$\lim_{|x|\to\infty}\Psi(x)=0$，能量本征函数可正常归一化，从而从分部积分计算可得
+$$E=\int_\mathbb{R}\psi_E^*(x)(E\psi_E(x))\dr x=\frac{\hbar^2}{2\mu}\int_\mathbb{R}\bigg|\frac{\dr\psi_E(x)}{\dr x}\bigg|^2\dr x+\int_\mathbb{R}V(x)|\psi_E(x)|^2\dr x$$
+若$V$最小值为$V_{\min}$，从此表达式可看出$E\ge V_{\min}$，即为体系束缚态\textbf{能级下限}。
+
+\
+
+\textbf{自由粒子}
+
+对自由粒子，由于$V(x)=0$，记$k=\sqrt{\frac{2\mu E}{\hbar^2}}$，一维时定态薛定谔方程即为$\psi''(x)+k^2\psi(x)=0$，解得[这里$A(k),A(-k)$为常数]
+$$\psi(x)=A(k)\exp(\ir kx)+A(-k)\exp(-\ir kx)$$
+由于物理上有意义的波函数在$x\to\pm\infty$不发散，$k$必然取实数值，由对称可不妨设非负，对应的$E=\frac{\hbar^2k^2}{2\mu}\ge0$形成连续谱。
+
+通常将能量本征函数写为$\psi_p(x)=A(p)\exp(\ir px/\hbar)$，其\textbf{二重简并}，这里$p$可以看作粒子的动量，而本征值即为$E=\frac{p^2}{2\mu}$，对$\pm p$一致。
+
+*只需将$\hat{H}$与$\hat{p}$一起构成力学量完全集，$\psi_p(x)$作为二者共同本征矢即可解除简并。
+
+*由于自由粒子能量本征值为连续谱，$\psi_p(x)$无法正常归一化，取$A(p)=\frac{1}{\sqrt{2\pi\hbar}}$即可满足连续谱的归一化条件
+$$\int_\mathbb{R}\psi^*_{p'}(x)\psi_p(x)\dr x=\delta(p-p')$$
+为验证此积分结果，可两边对$p-p'$从$-\epsilon$到$\epsilon$积分，$\epsilon>0$，交换积分次序后左侧即化为
+$$\frac{1}{\pi}\int_\mathbb{R}\frac{\sin(\epsilon x)}{x}\dr x=\frac{1}{\pi}\int_\mathbb{R}\frac{\sin(\epsilon x)}{\epsilon x}\dr(\epsilon x)=\frac{1}{\pi}\int_{\mathbb{R}}\frac{\sin x}{x}\dr x$$
+利用复变知识可算得其为1，符合右侧积分结论。
+
+含时形式的\textbf{定态}波函数为
+$$\Psi_p(x,t)=\frac{1}{\sqrt{2\pi\hbar}}\exp\bigg(\ir\frac{p}{\hbar}x-\ir\frac{p^2}{2\mu\hbar}t\bigg)$$
+
+*定态时有确定的动量[$\Delta p=0$]，此时出现在各处的概率密度$\rho(x,t)=\frac{1}{2\pi\hbar}$，$\Delta x=\infty$，符合测不准原理。
+
+若自由粒子处在若干定态的叠加态，类似上方得到其可以写为
+$$\Psi(x,t)=\frac{1}{\sqrt{2\pi\hbar}}\int_\mathbb{R}\dr p\ A(p)\exp\bigg(\ir\frac{p}{\hbar}x-\ir\frac{p^2}{2\mu\hbar}t\bigg)$$
+这里$A(p)$表示初始时刻叠加态包含各定态的系数。
+
+用$k=\frac{p}{\hbar}$代换后可得到
+$$\Psi(x,t)=\frac{1}{\sqrt{2\pi}}\int_\mathbb{R}\dr k\ A(k)\exp(\ir kx-\ir\omega(k)t)$$
+其中$\omega(k)=\frac{k^2\hbar}{2\mu}$，此时称自由粒子所处量子态为\textbf{德布罗意波包}。若波幅集中在$[k_0-\Delta k,k_0+\Delta k]$，$A(k)$几乎恒为$A(k_0)$，再对$\omega(k)$在$k_0$处泰勒展开可计算到一阶得到近似[这里$\omega'$为求导而非上标]
+$$\Psi(x,t)\approx 2A(k_0)\frac{\sin\big((x-\omega'(k_0)t)\Delta k\big)}{x-\omega'(k_0)t}\er^{\ir(k_0x-\omega(k_0)t)}$$
+
+*波包中心位置满足$x-\omega'(k_0)t=0$，而其移动速度，即波包\textbf{群速度}$v_g=\omega'(k_0)=\frac{k_0\hbar}{\mu}$，这恰好是粒子运动速度$\frac{p_0}{\mu}$，$p_0$为波数$k_0$对应的动量$k_0\hbar$。
+
+\
+
+\textbf{伽利略变换}
+
+*我们直接分析一般的三维情况。
+
+考虑相对速度$\mathbf{V}$的两惯性系$K,K'$，$|\mathbf{V}|\ll c$，坐标变换为
+$$\br'=\br-\mathbf{V}t,\quad t'=t$$
+
+*若时空中存在非相对性质点，静止质量$\mu$，相对于$K$的动量$\bp$，能量$E=\frac{\bp^2}{2\mu}$，根据经典力学理论可知变换参考系后$\bp'=\bp-\mu\mathbf{V},E'=E-\mathbf{V}\cdot\bp+\frac{1}{2}\mu V^2$。
+
+对量子力学而言，假设自由粒子波函数分别为$\Psi(\br,t)$与$\Psi'(\br',t')$。考虑粒子属于$\hat{\bp}$的某本征态[此式的求解过程与上方完全相同，自由粒子情况下$\hat{H}$正比$\hat{p}^2$，对处于动量本征态则对能量定态]
+$$\Psi(\br,t)=\frac{1}{(2\pi\hbar)^{3/2}}\exp\bigg(\frac{\ir}{\hbar}\bigg(\bp\cdot\br-\frac{p^2t}{2\mu}\bigg)\bigg)$$
+而在$K'$系中，由于动量本征值[即观测到的动量]必然满足$\bp'=\bp-\mu\mathbf{V}$，结合$\br'=\br-\mathbf{V}t$计算可知
+$$\Psi'(\br',t')=\exp\bigg(-\frac{\ir\mu}{\hbar}\bigg(\mathbf{V}\cdot\br-\frac{1}{2}V^2t\bigg)\bigg)\Psi(\br,t)$$
+
+由此可得$|\Psi'(\br',t')|^2=|\Psi(\br,t)|^2$，即粒子概率密度与惯性系选择\textbf{无关}。
+
+\
+
+\textbf{薛定谔方程不变性}
+
+由于上方动量算符本征态的变换不涉及$\bp$，以它们为一组基即可得到任何波函数都满足伽利略变换
+$$\Psi'(\br',t')=\exp\bigg(-\frac{\ir\mu}{\hbar}\bigg(\mathbf{V}\cdot\br-\frac{1}{2}V^2t\bigg)\bigg)\Psi(\br,t)$$
+
+下面证明伽利略变换下薛定谔方程保持不变当且仅当波函数满足此变换形式。利用$t,\br$与$t',\br'$关系计算坐标变换可发现伽利略变换下$\nabla=\nabla'$，且
+$$\frac{\partial}{\partial t}=\frac{\partial t'}{\partial t}\cdot\nabla'+\frac{\partial t'}{\partial t}\frac{\partial}{\partial t'}=\frac{\partial}{\partial t'}-\mathbf{V}\cdot\nabla'$$
+
+若伽利略变换下保持不变对应
+$$\Psi(r,t)=\er^{\ir\alpha(\br',t')}\Psi(\br',t'),\quad\alpha(\br',t')\in\mathbb{R}$$
+
+代入变换前后的薛定谔方程计算可得
+$$\alpha(\br',t')=\frac{\mu}{\hbar}\bigg(\br'\cdot\mathbf{V}+\frac{1}{2}V^2t\bigg)+C$$
+此在等价意义下即与之前结论相同。
+
+\
+
+*非相对论性自由粒子薛定谔方程\textbf{无法描写粒子产生与湮灭}。
+
+\subsection{势阱与势垒}
+\textbf{有限深方势阱}
+
+$$V(x)=\begin{cases}V_0&x\le-\frac{a}{2}\\0&-\frac{a}{2}<x<\frac{a}{2}\\V_0&x\ge\frac{a}{2}\end{cases}$$
+
+*由于$V$最低为0，能量本征值必然有$E\ge0$，且束缚态时$E<V_0$。
+
+从左到右三段分别记为$I,II,III$，则定态薛定谔方程可写为
+$$\frac{\dr^2\psi^{II}(x)}{\dr x^2}+k^2\psi^{II}(x)=0,\quad k=\sqrt{\frac{2\mu E}{\hbar^2}}$$
+$$\frac{\dr^2\psi^{I,III}(x)}{\dr x^2}-\kappa^2\psi^{I,III}(x)=0,\quad \kappa=\sqrt{\frac{2\mu(V_0-E)}{\hbar^2}}$$
+
+*约定$k\ge0,\kappa>0$，由于束缚态边界条件要求$\psi(x)$在无穷处为0，解第二个方程得必有
+$$\psi^I(x)=C\exp(\kappa x),\quad\psi^{III}(x)=D\exp(-\kappa x)$$
+对第一个方程有
+$$\psi^{II}(x)=A\cos(kx)+B\sin(kx)$$
+且有连续性条件$\psi^I\big(-\frac{a}{2}\big)=\psi^{II}\big(-\frac{a}{2}\big),\psi^{II}\big(\frac{a}{2}\big)=\psi^{III}\big(\frac{a}{2}\big)$。
+
+*事实上利用阶梯函数表示$V(x)$，考虑空间积分可以得到$\psi(x)$一阶空间导数也具有连续性。
+
+定理：一维量子力学体系束缚态\textbf{能量本征值不简并}。
+
+证明：若某$\hat{H}$对应的定态薛定谔方程，给定$E$时存在解$\psi_1,\psi_2$，直接计算可知
+$$\frac{\dr}{\dr x}(\psi_1(x)\psi_2'(x)-\psi_2(x)\psi_1'(x))=0$$
+再利用边界条件即知只能为0，分离$\psi_1,\psi_2$写为$\ln$可知两者只能相差倍数，事实上等价，从而能量本征值不简并。
+
+*应用在有限深方势阱上，由于其对称性，$\psi(x)$为解则$\psi(-x)$为解，从而$\psi(-x)=c\psi(x)$，由$c^2=1$知$c=\pm1$，$c=1$时称此本征函数具有\textbf{偶宇称}，$c=-1$时称\textbf{奇宇称}。
+
+\textbf{偶宇称解}：此时只能$\psi^{II}(x)=A\cos(kx)$，且$C=D$，代入之前的连续性条件可进一步确定$A$与$k$，得到
+$$\psi^I(x)=C\exp(\kappa x),\quad\psi^{II}(x)=C\sqrt{\frac{2\mu V_0}{\hbar^2k^2}}\exp(-\kappa a/2)\cos(kx),\quad\psi^{III}(x)=C\exp(-\kappa x)$$
+$$\tan\frac{ka}{2}=\sqrt{\frac{2\mu V_0}{\hbar^2k^2}-1}$$
+
+利用三角函数知识估算可得能量本征值谱为
+$$\frac{ka}{2}=p\pi+\arccos\frac{\hbar k}{\sqrt{2\mu V_0}},\quad p\in\mathbb{N}$$
+解的范围为$p\pi\le\frac{ka}{2}<p\pi+\frac{\pi}{2}$。
+
+若$\sqrt{2\mu V_0}\gg\hbar k$，例如$V_0\to\infty$时，粒子束缚在方势阱内部，此时$\arccos\frac{\hbar k}{\sqrt{2\mu V_0}}\to\frac{\pi}{2}$，有
+$$k=(2p+1)\frac{\pi}{a},\quad E=\frac{\pi^2\hbar^2}{2\mu a^2}(2p+1)^2,\quad p\in\mathbb{N}$$
+近似得到本征函数系为(范围外为0)
+$$\psi(x)=\sqrt{\frac{2}{a}}\cos\bigg((2p+1)\frac{\pi x}{a}\bigg),\quad x\in\bigg(-\frac{a}{2},\frac{a}{2}\bigg)$$
+
+\textbf{奇宇称解}：完全类似可得到
+$$\psi^I(x)=-C\exp(\kappa x),\quad\psi^{II}(x)=C\sqrt{\frac{2\mu V_0}{\hbar^2k^2}}\exp(-\kappa a/2)\sin(kx),\quad\psi^{III}(x)=C\exp(-\kappa x)$$
+$$\cot\frac{ka}{2}=-\sqrt{\frac{2\mu V_0}{\hbar^2k^2}-1}$$
+能量本征值谱为
+$$\frac{ka}{2}=\bigg(p+\frac{1}{2}\bigg)\pi+\arccos\frac{\hbar k}{\sqrt{2\mu V_0}},\quad p\in\mathbb{N}$$
+解的范围为$p\pi+\frac{\pi}{2}\le\frac{ka}{2}<(p+1)\pi$。
+
+若$\sqrt{2\mu V_0}\gg\hbar k$，例如$V_0\to\infty$时，粒子束缚在方势阱内部，有
+$$k=2(p+1)\frac{\pi}{a},\quad E=\frac{2\pi^2\hbar^2}{\mu a^2}(p+1)^2,\quad p\in\mathbb{N}$$
+近似得到本征函数系为(范围外为0)
+$$\psi(x)=\sqrt{\frac{2}{a}}\sin\bigg((p+1)\frac{2\pi x}{a}\bigg),\quad x\in\bigg(-\frac{a}{2},\frac{a}{2}\bigg)$$
+
+\textbf{非束缚态}
+
+若$E>V_0>0$，类似之前讨论，取$\tilde{\kappa}=\sqrt{\frac{2\mu}{\hbar^2}(E-V_0)},k=\sqrt{\frac{2\mu E}{\hbar^2}}$，则一般解为
+$$\psi^I(x)=A\exp(\ir\tilde{\kappa}x)+B\exp(-\ir\tilde{\kappa}x)$$
+$$\psi^{II}(x)=F\exp(\ir kx)+G\exp(-\ir kx)$$
+$$\psi^{III}(x)=C\exp(\ir\tilde{\kappa}x)+D\exp(-\ir\tilde{\kappa}x)$$
+
+*最常见的非束缚态情况为散射态，例如左侧入射则$D=0$。定态散射下概率守恒定律为$\frac{\dr J(x)}{\dr x}=0$，这里$J$即为概率流密度，直接计算可得到这时定态散射中概率守恒意味着$|B|^2+|C|^2=|A|^2$。
+
+\
+
+\textbf{方势垒}
+
+$$V(x)=\begin{cases}0&x\le a\\V_0&-a<x<a\\V_0&x\ge a\end{cases}$$
+
+只考虑$0<E<V_0$的情形，从左到右三段分别记为$I,II,III$，记$k=\frac{\sqrt{2\mu E}}{\hbar},\kappa=\sqrt{\frac{2\mu(V_0-E)}{\hbar^2}}$，则可直接解出
+$$\psi^I(x)=A\exp(\ir kx)+B\exp(-\ir kx)$$
+$$\psi^{II}(x)=F\exp(\kappa x)+G\exp(-\kappa x)$$
+$$\quad\psi^{III}(x)=C\exp(\ir kx)+D\exp(-\ir kx)$$
+
+*利用概率守恒可计算得到$|A|^2+|D|^2=|B|^2+|C|^2$。
+
+结合波函数及其一阶导的连续性可得到
+$$\begin{pmatrix}A\\B\end{pmatrix}=\frac{1}{2}\begin{pmatrix}(1-\ir\kappa/k)\exp(-\kappa a+\ir ka)&(1+\ir\kappa/k)\exp(\kappa a+\ir ka)\\(1+\ir\kappa/k)\exp(-\kappa a-\ir ka)&(1-\ir\kappa/k)\exp(\kappa a-\ir ka)\end{pmatrix}\begin{pmatrix}F\\G\end{pmatrix}$$
+$$\begin{pmatrix}F\\G\end{pmatrix}=\frac{1}{2}\begin{pmatrix}(1+\ir k/\kappa)\exp(-\kappa a+\ir ka)&(1-\ir k/\kappa)\exp(-\kappa a-\ir ka)\\(1-\ir k/\kappa)\exp(\kappa a+\ir ka)&(1+\ir k/\kappa)\exp(\kappa a-\ir ka)\end{pmatrix}\begin{pmatrix}C\\D\end{pmatrix}$$
+
+*由此可得到$A,B$与$C,D$的线性关系。
+
+若$D=0$，对应的散射图像即代表粒子从左侧入射，以一定的概率幅反射、一定的概率幅透射。记反射系数与透射系数
+$$\mathcal{R}=\frac{|B|^2}{|A|^2},\mathcal{J}=\frac{|C|^2}{|A|^2}$$
+则概率守恒定律即为$\mathcal{R}+\mathcal{J}=1$，可直接计算验证成立。
+
+*一般情况下$\mathcal{J}\ne0$，不符合经典力学，此即为著名的\textbf{势垒隧穿}效应。在$\kappa a\gg1$时，计算可得近似结果
+$$\mathcal{J}\approx16\bigg(\frac{\kappa k}{\kappa+k}\bigg)^2\exp(-4\kappa a)$$
+
+\textbf{散射矩阵}
+
+由于存在线性关系
+$$\begin{pmatrix}A\\B\end{pmatrix}=M\begin{pmatrix}C\\D\end{pmatrix}$$
+或写成
+$$\quad\begin{pmatrix}B\\C\end{pmatrix}=S\begin{pmatrix}A\\D\end{pmatrix}$$
+矩阵$M$或$S$完全表达了定态散射信息，例如$D=0$时即有
+$$\mathcal{J}=\frac{1}{|M_{11}|^2}=|S_{21}|^2$$
+因此需要找到确定矩阵元的方法。
+
+$S$称为散射矩阵，由于概率守恒定律意味着$S$不改变模长，数学知识可知$S$为二维幺正矩阵，即满足$S^\dagger S=I$，其可以一般性地写为
+$$\begin{pmatrix}u\exp(\ir\alpha)&\ir\sqrt{1-u^2}\exp(\ir\beta)\\\ir\sqrt{1-u^2}\exp(i(\alpha-\beta+\gamma))&u\exp(\ir\gamma)\end{pmatrix}$$
+
+*另一方面，由于$A,B,C,D$满足的关系固定，两边改写、对比系数得到
+$$M_{11}=\frac{1}{S_{21}},\quad M_{12}=-\frac{S_{22}}{S_{21}},\quad M_{21}=\frac{S_{11}}{S_{21}},\quad M_{22}=\frac{1}{S_{12}^*}$$
+
+\textbf{对称性制约}
+
+直接验证可知$\psi(x)$为方势垒的解，则$\psi^*(x)$为属于同一本征值的解，而此时代入计算可知$A,B$更换为$B^*,A^*$，$C,D$更换为$D^*,C^*$，从而
+$$\begin{pmatrix}A^*\\D^*\end{pmatrix}=S\begin{pmatrix}B^*\\C^*\end{pmatrix}$$
+两边同作共轭后左乘$S^T$即可得到$S=S^T$，于是$S_{12}=S_{21}$。
+
+类似地，验证知$\psi(-x)$为同一本征值的解，由此计算可得$S_{11}=S_{22},S_{12}=S_{21}$，从而$S$事实上可写为
+$$\begin{pmatrix}u&\ir\sqrt{1-u^2}\\\ir\sqrt{1-u^2}&u\end{pmatrix}\exp(\ir\beta)$$
+
+\
+
+$\delta$\textbf{函数势阱}
+
+考虑$V(x)=-g\delta(x)$，耦合常数$g>0$。
+
+*由概率诠释，仍可假定波函数在0连续，但一阶空间导数未必连续，事实上对定态薛定谔方程的解$\psi(x)$，在$-\epsilon$到$\epsilon$积分$E\psi(x)$可得估算
+$$\int_{-\epsilon}^\epsilon E\psi(x)\dr x=\frac{\dr\psi(x)}{\dr x}\bigg|_{x=\epsilon}-\frac{\dr\psi(x)}{\dr x}\bigg|_{x=-\epsilon}+\frac{2\mu g}{\hbar^2}\psi(0)$$
+于是趋于0时左侧为0，右侧即为左右导数差。
+
+\textbf{束缚态解}
+
+若$E<0$，对应束缚态，记$\kappa=\sqrt{-\frac{2\mu E}{\hbar^2}}$，$x\ne0$时定态薛定谔方程利用束缚态边界条件可得解为
+$$\psi(x)=\begin{cases}B\exp(\kappa x)&x<0\\A\exp(-\kappa x)&x>0\end{cases}$$
+利用原函数、导函数原点条件可知$A=B,\kappa=\frac{\mu g}{\hbar^2}$，也即存在一个能量本征值$E=-\frac{\mu g^2}{2\hbar^2}$的束缚态。
+
+*由结果形式可知其有偶宇称，计算得归一化常数$A=\sqrt{\kappa}$。
+
+\textbf{散射态解}
+
+若$E>0$，对应散射态解，记$k=\sqrt{\frac{2\mu E}{\hbar^2}}$，不妨考虑从左侧入射，则
+$$\psi(x)=\begin{cases}A\exp(\ir kx)+B\exp(-\ir kx)&x<0\\C\exp(\kappa x)&x>0\end{cases}$$
+
+利用原函数、导函数原点条件可知
+$$\frac{B}{A}=\ir\frac{\mu g}{k\hbar^2}\bigg(1-\ir\frac{\mu g}{k\hbar^2}\bigg)^{-1},\quad\frac{C}{A}=\bigg(1-\ir\frac{\mu g}{k\hbar^2}\bigg)^{-1}$$
+
+从而可发现满足概率守恒定律$\mathcal{R}+\mathcal{J}=1$。
+
+也即在$E>0$时，无论$E$多小，总有一定概率透射；只要$E$不趋于无穷，总有一定概率反射。
+
+\subsection{简谐振子}
+其势能为
+$$V(x)=\frac{1}{2}m\omega^2x^2$$
+束缚态时能量取值范围$[0,+\infty)$。
+
+记$\xi=\sqrt{\frac{m\omega}{\hbar}}x,\lambda=\frac{2E}{\hbar\omega}$，定态薛定谔方程可以写为
+$$\frac{\dr^2\psi(\xi)}{\dr\xi^2}+(\lambda-\xi^2)\psi=\bigg(\frac{\dr}{\dr\xi}-\xi\bigg)\bigg(\frac{\dr}{\dr\xi}+\xi\bigg)\psi(\xi)+(\lambda-1)\psi(\xi)=0$$
+
+考虑束缚态边界条件，$\xi\to\infty$时中间方程的第二项可以忽略，从而可以得到一个渐进解$\psi(\xi)=\er^{-\xi^2/2}$，可设真实解为$\psi(\xi)=\er^{-\xi^2/2}u(\xi)$，则计算可知$u$满足
+$$u''(\xi)-2\xi u'(\xi)+(\lambda-1)u(\xi)=0$$
+由于$\xi=0$不是方程奇点，设其为幂级数$u(\xi)=\sum_{k=0}^{\infty}c_k\xi^k$，则系数满足递推
+$$c_{k+2}=\frac{2k-\lambda-1}{(k+1)(k+2)}c_k$$
+
+由于$c_0,c_1$可任取，将偶次项、奇次项分为函数$u_1(\xi),u_2(\xi)$，即得到两线性无关的级数解，但分析可知，若两级数均有无穷项，它们均$\sim\er^{\xi^2}$，得到的$\psi(\xi)$无法满足边界条件，不成为解。因此必须从某项开始$u_1(\xi)$中的$c_{2k}=0$或$u_2(\xi)$中的$c_{2k+1}=0$\ [也即实质上是多项式]，根据递推式即存在$n$使得$\lambda=2n+1$。
+
+*当$n$为偶数时$u_1(\xi)$为多项式，$n$为奇数时$u_2(\xi)$为多项式，根据$\lambda$定义即知能量
+$$E_n=\bigg(n+\frac{1}{2}\bigg)\hbar\omega,\quad n\in\mathbb{N}$$
+
+这时对应次数的$u_1(\xi),u_2(\xi)$称为\textbf{厄米多项式}，记作$H_n(\xi)$。由于$c_0,c_1$可任取，一般规定最高次项次数$c_n=2^n$，此时的$n$次厄米多项式记为$H_n(\xi)$。
+
+\
+
+\textbf{简谐振子的本征系}
+
+利用递推可得到母函数公式
+$$\er^{-s^2+2\xi s}=\sum_{n=0}^\infty\frac{H_n(\xi)}{n!}s^n$$
+从而利用泰勒展开计算有
+$$H_n(\xi)=(-1)^n\er^{\xi^2}\frac{\partial^n\er^{-\xi^2}}{\partial\xi^n}$$
+计算积分
+$$\int_\mathbb{R}\er^{-s^2+2\xi s}\er^{-t^2+2\xi t}\er^{-\xi^2}=\sqrt{\pi}\er^{2st}$$
+并通过母函数展开可得到厄米多项式的正交性
+$$\int_\mathbb{R}H_m(\xi)H_n(\xi)\er^{-\xi^2}\dr\xi=\sqrt{\pi}2^nn!\delta_{mn}$$
+
+于是，记$\alpha=\sqrt{\frac{m\omega}{\hbar}}$，可得到对应$E_n$的能量本征函数
+$$\psi_n(x)=\sqrt{\frac{\alpha}{\sqrt{\pi}2^nn!}}\er^{-\alpha^2x^2/2}H_n(\alpha x)$$
+其满足正交归一条件$\int_\mathbb{R}\dr x\psi_m(x)\psi_n(x)=\delta_{mn}$。
+
+*此本征函数不简并，$\psi_n(-x)=(-1)^n\psi_n(x)$，从而有确定的宇称。
+
+\
+
+\textbf{基态}
+
+由于基态能量$E_0=\frac{1}{2}\hbar\omega\ne0$，其称为零点能，意味着微观简谐振子的波动性。其波函数为$\psi_0(x)=\frac{\alpha^{1/2}}{\pi^{1/4}}\er^{-\alpha^2x^2/2}$，概率分布为高斯分布。
+
+$\alpha^{-1}$为谐振子的特征长度，此时计算得$V(x)=E_0$，按牛顿力学，$|x|>\alpha^{-1}$是不可能的，但实际上仍有概率。
+
+\
+
+\textbf{Dirac解法}
+
+由于谐振子$\hat{H}=\frac{1}{2m}\hat{p}^2+\frac{1}{2}m\omega^2\hat{x}^2$，利用$[\hat{x},\hat{p}]=\ir\hbar$可以作分解
+$$\hat{H}=\frac{1}{2}\bigg(\frac{\hat{p}}{\sqrt{m\hbar\omega}}+\ir\sqrt{\frac{m\omega}{\hbar}}\hat{x}\bigg)\bigg(\frac{\hat{p}}{\sqrt{m\hbar\omega}}-\ir\sqrt{\frac{m\omega}{\hbar}}\hat{x}\bigg)\hbar\omega+\frac{1}{2}\hbar\omega$$
+记$\hat{a}=\frac{1}{\sqrt2}\big(\frac{\hat{p}}{\sqrt{m\hbar\omega}}-\ir\sqrt{\frac{m\omega}{\hbar}}\hat{x}\big),\hat{N}=\hat{a}^\dagger\hat{a}$，则$\hat{H}=\hat{N}\hbar\omega+\frac{1}{2}\hbar\omega$，这里$\hat{N}$常称为\textbf{占有数算符}。
+
+由于$\hat{N}^\dagger=\hat{N}$，其厄米，且根据定义验证可知本征值大于等于0。由于$\hat{N},\hat{H}$相差恒等算符，本征态一致。
+
+设$\hat{N}$对本征值$n$的本征态$\ket{n}$，则直接计算可知
+[此关系称为$\hat{a}$是$\hat{N}$的本征值的\textbf{降算符}，$\hat{a}^\dagger$是$\hat{N}$的本征值的\textbf{升算符}]
+$$\hat{N}\hat{a}\ket{n}=(n-1)\hat{a}\ket{n},\quad\hat{N}\hat{a}^\dagger\ket{n}=(n+1)\hat{a}^\dagger\ket{n}$$
+由于能级不简并，本征矢量相差倍数意义下唯一，于是$\hat{a}\ket{n}=\lambda(n)\ket{n-1},\hat{a}^\dagger\ket{n}=\nu(n)\ket{n+1}$，又由于计算可知
+$$|\lambda(n)|^2=\blk{n}{\hat{a}^\dagger\hat{a}}{n}=n$$
+$$|\nu(n)|^2=\blk{n}{\hat{a}\hat{a}^\dagger}{n}=\blk{n}{\hat{N}+\hat{I}}{n}=n+1$$
+即
+$$\hat{a}\ket{n}=\sqrt{n}\ket{n-1},\hat{a}^\dagger\ket{n}=\sqrt{n+1}\ket{n+1}$$
+
+由于$\hat{N}$本征值非负，不断作用$\hat{a}$需要终止，而当且仅当$n=0$时能终止，因此$\hat{N}$本征值即为非负整数，从而代入$\hat{H}$表达式得到
+$$E_n=\bigg(n+\frac{1}{2}\bigg)\hbar\omega,\quad n\in\mathbb{N}$$
+
+*由于$\hat{x}=\ir\sqrt{\frac{\hbar}{2m\omega}}(\hat{a}-\hat{a}^\dagger),\hat{p}=\sqrt{\frac{m\hbar\omega}{2}}(\hat{a}+\hat{a}^\dagger)$，可以计算$\hat{x}\ket{n},\hat{p}\ket{n}$等。由此也可验证不确定性关系$(\Delta x)_0(\Delta p)_0=\frac{\hbar}{2}$。
+
+*由于不确定性关系为$\Delta x\Delta p\ge\frac{\hbar}{2}$，满足等号成立的状态称为\textbf{相干态}，即为最小不确定的量子态，最接近经典情况。
+
+\
+
+\textbf{Dirac-位置表象本征函数}
+
+由于$\hat{a}\ket{0}=0$，利用完备性关系与$\blk{x}{\hat{p}}{y}=-\ir\hbar\frac{\partial}{\partial x}\delta(x-y),\blk{x}{\hat{x}}{y}=x\delta(x-y)$，可将
+$$0=\blk{x}{\hat{p}/\sqrt{m\hbar\omega}-\ir\sqrt{m\omega/\hbar}\hat{x}}{0}$$
+化为
+$$\psi_0'(x)+\alpha^2x\psi_0(x)=0,\quad\alpha=\sqrt{\frac{m\omega}{\hbar}}$$
+
+分离$\dr x$与$\dr\psi_0(x)$后积分可解得归一化的
+$$\psi_0(x)=\sqrt{\frac{\alpha}{\sqrt{\pi}}}\er^{-\alpha^2x^2/2}$$
+
+而利用$\hat{a}^\dagger$作用效果有$\ket{n}=\frac{1}{\sqrt{n!}}(\hat{a}^\dagger)^n\ket{0}$，直接计算可得
+$$\psi_n(x)=\frac{1}{\sqrt{2^nn!}\ir^n}\bigg(\frac{1}{\alpha}\frac{\partial}{\partial x}-\alpha x\bigg)^n\psi_0(x)=\ir^n\sqrt{\frac{\alpha}{2^nn!\sqrt{\pi}}}H_n(\xi)\er^{-\xi^2/2}$$
+这里$\xi=\alpha x$，多项式$H_n(\xi)$满足关系
+$$H_n(\xi)=(-1)^n\er^{\xi^2/2}\bigg(\frac{\partial}{\partial\xi}-\xi\bigg)^n\er^{-\xi^2/2}$$
+
+可验证此关系与之前的公式等价，从而$H_n(\xi)$仍然是厄米多项式，从而求解出的$\psi_n$在相差倍数的意义下与之前的等价。
+
+\
+
+\textbf{玻色谐振子}
+
+哈密顿算符定义为
+$$\hat{H}_B=\frac{1}{2}\hbar\omega(\hat{a}_B^\dagger\hat{a}_B+\hat{a}_B\hat{a}_B^\dagger)$$
+这里$\hat{a}_B^\dagger,\hat{a}_B$是$\hat{N}_B=\hat{a}_B^\dagger\hat{a}_B$的本征值的升降算符，且满足对易关系
+$$[\hat{a}_B,\hat{a}_B^\dagger]=I$$
+
+*于是计算可知$\hat{H}_B=\hbar\omega\big(\hat{N}_B+\frac{1}{2}\big)$，之前Dirac解法中的推导过程均仍满足，$\ket{0}$称为\textbf{真空态}，任何本征态为
+$$\ket{n_B}=\frac{1}{\sqrt{n_B!}}(\hat{a}_B^\dagger)^{n_B}\ket{0}$$
+
+为方便讨论，下方省略下标$B$，我们证明三个关于玻色谐振子\textbf{相干态}的结论：
+\begin{enumerate}
+    \item 降算符$\hat{a}$的任意本征态$\ket{\alpha}$均为相干态。
+    
+    对归一化的本征态，直接计算可得$\blk{\alpha}{a}{\alpha}=\alpha,\blk{\alpha}{a^\dagger}{\alpha}=\blk{\alpha}{a}{\alpha}^\dagger=\alpha^*$，其他结论类似，代入
+    $$\hat{x}=\ir\sqrt{\frac{\hbar}{2m\omega}}(\hat{a}-\hat{a}^\dagger),\quad\hat{p}=\sqrt{\frac{m\hbar\omega}{2}}(\hat{a}+\hat{a}^\dagger)$$
+    即可计算得到$(\Delta x)_\alpha=\sqrt{\frac{\hbar}{2m\omega}},(\Delta p)_\alpha=\sqrt{\frac{m\hbar\omega}{2}}$，从而$(\Delta x)_\alpha(\Delta p)_\alpha=\frac{\hbar}{2}$，确为相干态。
+
+    \item 归一化的相干态$\ket{\alpha}$可表示为$\hat{N}$\ [或$\hat{H}$]的本征矢量$\ket{n}$的线性叠加$\er^{-|\alpha|^2/2}\sum_{n=0}^\infty\frac{\alpha^n}{\sqrt{n!}}\ket{n}$。
+    
+    由完备性可设$\ket{\alpha}=\sum_{n=0}^\infty c_n(\alpha)\ket{n}$，由于$\hat{a}\ket{n}=\sqrt{n}\ket{n-1}$，两边对比系数即知$c_n(\alpha)$的递推，从而$c_n(\alpha)=\frac{\alpha^n}{\sqrt{n!}}c_0(\alpha)$。
+
+    由于$\ket{n}$是归一化的，直接计算即可得$|c_0(\alpha)|^2\er^{|\alpha|^2}=0$，从而可取$c_0(\alpha)=\er^{-|\alpha|^2/2}$，与结论形式相同。
+
+    \item 玻色谐振子的基态$\ket{0}$也是$\hat{a}$属于0本征值的本征矢量，从而是特殊的相干态。
+    
+    在上一结论的展开式中代入$\alpha=0$即可得到$\hat{a}$对$\ket{0}$满足$\ket{a}\ket{0}=0$，从而得证。
+
+\end{enumerate}
+
+\
+
+\textbf{费米谐振子}
+
+定义\textbf{反对易}$\{\hat{a},\hat{b}\}=\hat{a}\hat{b}+\hat{b}\hat{a}$，费米谐振子的哈密顿算符定义为
+$$\hat{H}_F=\frac{1}{2}\hbar\omega(\hat{a}_F^\dagger\hat{a}_F-\hat{a}_F\hat{a}_F^\dagger)$$
+这里$\hat{a}_F^\dagger,\hat{a}_F$是$\hat{N}_F=\hat{a}_F^\dagger\hat{a}_F$的本征值的升降算符，且满足反对易关系
+$$\{\hat{a}_F,\hat{a}_F^\dagger\}=\hat{I},\quad\{\hat{a}_F,\hat{a}_F\}=\{\hat{a}_F^\dagger,\hat{a}_F^\dagger\}=0$$
+
+*反对易关系第二条即代表平方为0。
+
+*计算可知$\hat{H}_F=\hbar\omega\big(\hat{N}_F-\frac{1}{2}\big)$
+
+利用反对易关系有
+$$\hat{N}_F^2=\hat{a}_F^\dagger(\hat{I}-\hat{a}_F^\dagger\hat{a}_F)\hat{a}_F=\hat{a}_F^\dagger\hat{a}_F=\hat{N}_F$$
+因此代入本征值方程可知本征值只有0或1，对应本征态$\ket{0},\ket{1}$，$\ket{0}$仍称为真空态，计算得其满足
+$$\hat{H}_F\ket{0}=-\frac{1}{2}\hbar\omega\ket{0}$$
+
+本征值为0、1暗含泡利不相容原理，计算可得$[\hat{N}_F,\hat{a}_F]=-\hat{a}_F,[\hat{N}_F,\hat{a}_F^\dagger]=\hat{a}_F^\dagger$，从而进一步有
+$$\hat{a}_F\ket{0}=0,\quad\hat{a}_F\ket{1}=\ket{0},\quad\hat{a}_F^\dagger\ket{0}=\ket{1},\quad\hat{a}_F^\dagger\ket{1}=0$$
+
+考虑一个二维希尔伯特空间，$\ket{0},\ket{1}$对应坐标$\psi_0=\begin{pmatrix}0\\1\end{pmatrix},\psi_1=\begin{pmatrix}1\\0\end{pmatrix}$，则有坐标表示
+$$a_F=\begin{pmatrix}0&0\\1&0\end{pmatrix},\quad a_F^\dagger=\begin{pmatrix}0&1\\0&0\end{pmatrix},\quad N_F=\begin{pmatrix}1&0\\0&0\end{pmatrix},H_F=\frac{1}{2}\hbar\omega\begin{pmatrix}1&0\\0&-1\end{pmatrix}$$
+
+*记\textbf{泡利矩阵}$\sigma_1=\begin{pmatrix}0&1\\1&0\end{pmatrix},\sigma_2=\begin{pmatrix}0&-\ir\\\ir&0\end{pmatrix},\sigma_3=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$，它们都是厄米矩阵，则算符可以写为$$a_F=\frac{1}{2}(\sigma_1-\ir\sigma_2),\quad\hat{a}_F=\frac{1}{2}(\sigma_1+\ir\sigma_2),\quad H_F=\frac{1}{2}\hbar\omega\sigma_3$$
+
+\subsection{超对称方法}
+\textbf{超对称简谐振子}
+
+*此对称性存在于玻色自由度与费米自由度之间，但实验目前未证明真实存在。
+
+考虑由相同频率的费米与玻色子构成的体系，哈密顿算符为
+$$\hat{H}=\hat{H}_B+\hat{H}_F=\hbar\omega(\hat{N}_B+\hat{N}_F)$$
+
+其本征态$\ket{n_B,n_F}$由$n_B,n_F$唯一确定，从而$\hat{H}$的本征值
+$$E_{n_B,n_F}=(n_B+n_F)\hbar\omega,\quad n_B\in\mathbb{N},n_F\in\{0,1\}$$
+
+*其真空态为$\ket{0,0}$，对应能量为0，其他能级均二重简并，$\ket{n_B,1},\ket{n_B+1,0}$对应同一本征值，前者称为费米型本征态，后者称为玻色型本征态。
+
+通常约定$[\hat{a}_B,\hat{a}_F]=[\hat{a}_B^\dagger,\hat{a}_F]=[\hat{a}_B,\hat{a}_F^\dagger]=[\hat{a}_B^\dagger,\hat{a}_F^\dagger]=0$，这是由于它们分属不同的自由度，由此有
+$$\hat{a}_B\ket{n_B+1,n_F}=\sqrt{n_B+1}\ket{n_B,n_F}$$
+对$\hat{a}_F$类似，可视为仅对$n_F$作用。
+
+定义$\hat{Q}=\hat{a}_B^\dagger\hat{a}_F$，则$\hat{Q}^\dagger=\hat{a}_B\hat{a}_F^\dagger$，可发现
+$$\hat{Q}\ket{n_B,1}=\sqrt{n_B+1}\ket{n_B+1,0},\quad\hat{Q}^\dagger\ket{n_B+1,0}=\sqrt{n_B+1}\ket{n_B,1}$$
+即实现了从属同一本征值的能量本征态转换。
+
+*由于$\hat{a}_F^2=0$，可知$\hat{Q}^2=(\hat{Q}^\dagger)^2$，且整理计算有
+$$\{\hat{Q},\hat{Q}^\dagger\}=\frac{\hat{H}}{\hbar\omega},\quad[\hat{H},\hat{Q}]=[\hat{H},\hat{Q}^\dagger]=0$$
+由此可称$\hat{Q},\hat{Q}^\dagger$与$\hat{H}$形成了\textbf{阶化李代数}，称为$N=1$超对称代数。
+
+\
+
+\textbf{超对称量子力学}
+
+位置表象下，超对称量子力学体系仍通过$\hat{Q},\hat{Q}^\dagger$定义：
+$$\hat{Q}=\frac{1}{\sqrt{2\mu}}(\hat{P}+\ir W(x))\sigma_+,\quad\hat{Q}^\dagger=\frac{1}{\sqrt{2\mu}}(\hat{P}-\ir W(x))\sigma_-$$
+这里$W$称为\textbf{超势}，且
+$$\hat{P}=-\ir\hbar\frac{\dr}{\dr x},\quad\sigma_{\pm}=\frac{1}{2}(\sigma_1\pm\ir\sigma_2)$$
+
+*此处的波函数为两个波函数组成的列向量$\begin{pmatrix}\psi(x)\\\phi(x)\end{pmatrix}$，矩阵$\sigma_\pm$作用即为矩阵乘法，标量算符作用代表对两个元素分别作用。
+
+定义$\hat{A}_\pm=\frac{1}{\sqrt{2\mu}}(\hat{P}\mp\ir W(x))$，则$\hat{A}_-=\hat{A}_+^\dagger$，计算可知
+$$\hat{H}=\{\hat{Q},\hat{Q}^\dagger\}=\hat{A}_-\hat{A}_+\sigma_+\sigma_-+\hat{A}_+\hat{A}_-\sigma_-\sigma_+=\begin{pmatrix}\hat{A}_-\hat{A}_+&0\\0&\hat{A}_+\hat{A}_-\end{pmatrix}$$
+
+记左上角、右下角分别为$\hat{H}_-,\hat{H}_+$，则计算可得
+$$\hat{H}_\pm=\frac{\hat{P}^2}{2\mu}+V_\pm(x),\quad V_{\pm}(x)=\frac{1}{2\mu}\bigg(W(x)^2\pm\hbar\frac{\dr W(x)}{\dr x}\bigg)$$
+
+*超对称量子力学将$\hat{H}_\pm$定义的普通量子力学体系联系在一起。
+
+*由于$\hat{Q}\hat{Q}^\dagger$与$\hat{Q}^\dagger\hat{Q}$均半正定，利用定义可知$\hat{H}$半正定，同理$\hat{H}_\pm$亦半正定。[这里半正定指本征值为非负实数。]
+
+以$\ket{0}$表示$\hat{H}$的基态，若$\hat{Q}\ket{0}=\hat{Q}^\dagger\ket{0}=0$，则称体系\textbf{具有超对称性}，此时$\hat{H}\ket{0}=0$，否则称超对称性发生了自发破缺。
+
+体系具有超对称性时，计算可知$\ket{0}$的波函数即为$\psi_0(x)\begin{pmatrix}1\\0\end{pmatrix}$，且$\psi_0(x)$满足$\hat{A}_+\psi_0(x)=0$，进一步计算得
+$$W(x)=-\hbar\frac{\dr\ln\psi_0(x)}{\dr x}$$
+根据定义，$\psi_0(x)$亦为$\hat{H}_-=\hat{A}_-\hat{A}_+$最小本征值0的基态波函数，$\hat{H}_-\psi_0(x)=0$。
+
+*除了$\hat{H}_-$的零本征值外，$\hat{H}_\pm$具有完全相同的本征值谱，这是由于$\hat{H}_-\psi(x)=\lambda\psi(x)$可以直接计算出$\hat{H}_+(\hat{A}_+\psi(x))=\lambda\hat{A}_+\psi(x)$，但0时$\hat{A}_+\psi(x)=0$，并非真正的本征矢量。
+
+\
+
+\textbf{超对称体系示例}
+
+考虑一维无限深势阱，$V(x)$在$[0,a]$为0，其余为无穷，则质量为$\mu$的粒子处于束缚态，回顾之前推导[综合奇、偶宇称解]可知能量本征值为
+$$E_n=\frac{n^2\pi^2\hbar^2}{2\mu a^2},\quad n\in\mathbb{N}^*$$
+归一化的本征函数系为
+$$\Psi_n(x)=\sqrt{\frac{2}{a}}\sin\frac{n\pi x}{a},\quad x\in[0,a]$$
+
+受此启发考虑限制在$[0,a]$的一维量子力学体系，基态波函数为$\Psi_1(x)$，则根据超对称性条件可构造超势
+$$W(x)=-\hbar\frac{\dr\ln\Psi_1(x)}{\dr x}=-\frac{\pi\hbar}{a}\cot\frac{\pi x}{a}$$
+由此利用$\hat{H}_\pm$的表达式可知
+$$\hat{H}_+=-\frac{\hbar^2}{2\mu}\frac{\dr^2}{\dr x^2}+\frac{\pi^2\hbar^2}{2\mu a^2}\frac{1+\cos^2(\pi x/a)}{1-\cos^2(\pi x/a)},\quad\hat{H}_-=-\frac{\hbar^2}{2\mu}\frac{\dr^2}{\dr x^2}-\frac{\pi^2\hbar^2}{2\mu a^2}$$
+
+对应的$V_+$是无限深势阱，但$\hat{H}_+$本征值的直接求解是困难的。不过，对$\hat{H}_-$，可直接求解得到
+$$E_n^-=\frac{(n^2-1)\pi^2\hbar^2}{2\mu a^2},\quad\psi_n^-(x)=\sqrt{\frac{2}{a}}\sin\frac{n\pi x}{a},x\in[0,a],\quad n\in\mathbb{N}^*$$
+从而根据$\hat{H}_\pm$本征值与本征矢量的关系，利用
+$$\hat{A}_+=\frac{1}{\sqrt{2\mu}}\bigg(-\ir\hbar\frac{dr}{\dr x}-\ir W(x)\bigg)$$
+可直接计算出$\hat{H}_+$的本征值、本征态为
+$$E_n^+=\frac{n(n+2)\pi^2\hbar^2}{2\mu a^2},\quad\psi_n^+(x)=-\frac{\ir\hbar}{\sqrt{\mu a}}\frac{\pi}{2a}\frac{n\sin\big((n+2)\pi x/a\big)-(n+2)\sin(n\pi x/a)}{\sin(\pi x/a)},x\in[0,a]\quad n\in\mathbb{N}^*$$
+
+*计算极限可发现其的确满足束缚态条件，但此$\psi_n^+$并未归一化。
+
+\
+
+\textbf{形状不变性}
+
+一般情况下超对称方法只能将表观相差大的$\hat{H}_\pm$联系在一起，不过若势能$V_\pm(x)$具有形状不变性，它们的本征值问题可以共同精确求解。
+
+定义：$V_+(a,a_i)=V_-(x,a_{i+1})+R(a_{i+1})$，这里$a_i,i\in\mathbb{N}$为某些常参数。
+
+此时算符满足$\hat{H}_+(a_i)=\hat{H}_-(a_{i+1})+R(a_{i+1})$，约定$\hat{H}_-(a_i)$基态能量为0，设本征函数为$\psi_0^-(x,a_{i})$，则根据超对称关系可计算得到
+$$\hat{H}_+(a_i)\psi_0^-(x,a_{i+1})=R(a_{i+1})\psi_0^-(x,a_{i+1})$$
+即$R(a_{i+1})$是$\hat{H}_+(a_i)$的基态能量，根据超对称关系其同样也是$\hat{H}_-(a_i)$的第一激发态能量。
+
+*物理逻辑要求$R(a_{i+1})>0$。
+
+定义哈密顿算符序列
+$$\hat{H}^{(0)}=\hat{H}_-(a_i),\quad\hat{H}^{(n)}=\hat{H}_-(a_n)+\sum_{i=1}^nR(a_i)$$
+类似上方推导，$\hat{H}^{(0)}$的基态能量本征值为0，第$n$激发态能量本征值$\sum_{i=1}^nR(a_i)$，这也是$\hat{H}^{(k)}$的第$n-k$激发态能量本征值。
+
+\
+
+\textbf{例}：考虑一维有限深势阱
+$$V(x)=-U_0\mathrm{sech}^2(\alpha x),\quad U_0>0,\quad\alpha>0$$
+以此的哈密顿算符变形[添加$\frac{\hbar^2A^2}{2\mu}$项以使超势可以求解]作为$\hat{H}_-$：
+$$V_-(x)=\frac{\hbar^2A^2}{2\mu}-U_0\mathrm{sech}^2(\alpha x),\quad W(x)=A\hbar\tanh(\alpha x)$$
+
+*增添后原势阱每个能量本征值即等于$\hat{H}_-$对应本征值减$\frac{\hbar^2A^2}{2\mu}$。
+
+代入$V_-$与$W$的方程可得到关于$A$的二次方程，由物理合理性得到参数$A$为
+$$A=-\frac{\alpha}{2}\bigg(1-\sqrt{1+\frac{8\mu U_0}{\alpha^2\hbar^2}}\bigg)$$
+进一步代入可得到
+$$V_-(x,U_0)=U_0+\frac{\alpha^2\hbar^2}{4\mu}\bigg(1-\sqrt{1+\frac{8\mu U_0}{\alpha^2\hbar^2}}\bigg)-U_0\mathrm{sech}^2(\alpha x)$$
+$$V_+(x,U_0)=U_0+\frac{\alpha^2\hbar^2}{4\mu}\bigg(1-\sqrt{1+\frac{8\mu U_0}{\alpha^2\hbar^2}}\bigg)-\bigg(U_0+\frac{\alpha^2\hbar^2}{2\mu}\bigg(1-\sqrt{1+\frac{8\mu U_0}{\alpha^2\hbar^2}}\bigg)\bigg)\mathrm{sech}^2(\alpha x)$$
+
+*为使势能有形状不变性，需要$\mathrm{sech}^2(\alpha x)$前系数为负，分析可发现这需要$U_0\gg\frac{\alpha^2\hbar^2}{8\mu}$。
+
+定义
+$$U_1=U_0+\frac{\alpha^2\hbar^2}{2\mu}\bigg(1-\sqrt{1+\frac{8\mu U_0}{\alpha^2\hbar^2}}\bigg)$$
+计算可得
+$$V_+(x,U_0)=V_-(x,U_1)+R(U_1),\quad R(U_1)=\frac{\alpha^2\hbar^2}{2\mu}\sqrt{1+\frac{8\mu U_1}{\alpha^2\hbar^2}}$$
+
+*由此其为合乎物理逻辑的形状不变势。
+
+规定$\hat{H}_-$基态能量本征值为0，计算可得到原势阱中基态能量本征值为
+$$E_0=-U_0+\frac{\alpha^2\hbar^2}{4\mu}\bigg(\sqrt{1+\frac{8\mu U_0}{\alpha^2\hbar^2}}-1\bigg)$$
+根据条件有$-U_0<E_0<0$，符合物理直觉。
+
+计算可得
+$$2+\sqrt{1+\frac{8\mu U_1}{\alpha^2\hbar^2}}=\sqrt{1+\frac{8\mu U_0}{\alpha^2\hbar^2}}$$
+从而原势阱第一激发态能量本征值为基态能量本征值增添$R(U_1)$，即为
+$$E_1=-U_0+\frac{\alpha^2\hbar^2}{4\mu}\bigg(3\sqrt{1+\frac{8\mu U_0}{\alpha^2\hbar^2}}-5\bigg)$$
+
+为求解更高激发态，类似计算发现可取
+$$U_{i+1}=U_i+\frac{\alpha^2\hbar^2}{2\mu}\bigg(1-\sqrt{1+\frac{8\mu U_i}{\alpha^2\hbar^2}}\bigg)$$
+则满足
+$$\sqrt{1+\frac{8\mu U_{i+1}}{\alpha^2\hbar^2}}=-2+\sqrt{1+\frac{8\mu U_i}{\alpha^2\hbar^2}},\quad V_+(x,U_i)=V_-(x,U_{i+1})+R(U_{i+1}),\quad i\in\mathbb{N}$$
+由此可知
+$$E_i-E_{i-1}=R(U_i)=\frac{\alpha^2\hbar^2}{2\mu}\bigg(\sqrt{1+\frac{8\mu U_0}{\alpha^2\hbar^2}}-2i\bigg)$$
+
+于是计算有
+$$E_n=E_0+\sum_{i=1}^n(E_i-E_{i-1})=-\frac{\alpha^2\hbar^2}{8\mu}\bigg(\sqrt{1+\frac{8\mu U_0}{\alpha^2\hbar^2}}-(2n+1)\bigg)^2$$
+
+*由此体系的束缚态有限，需满足$E_n>E_{n-1}$。
+
+\
+
+\textbf{一维氢原子模型}：考虑$V(x)=-\frac{e^2}{x}$，对应体系在$E<0$时为束缚态，由于势阱深度无限，束缚态数目无限。
+
+将此体系$\hat{H}$增添$\frac{\mu e^4}{2\hbar^2}$可得
+$$W(x)=\frac{\mu e^2}{\hbar}=\frac{\mu e^2}{\hbar}-\frac{\hbar}{x},\quad V_-(x)=-\frac{e^2}{x}+\frac{\mu e^4}{2\hbar^2},\quad V_+(x)=-\frac{e^2}{x}+\frac{\mu e^4}{2\hbar^2}+\frac{\hbar^2}{\mu x^2}$$
+
+*由于$\hat{H}_-$基态能量为0，一维氢原子最低能量本征值即为$-\frac{\mu e^4}{2\hbar^2}$，符合玻尔能级公式。
+
+由于$V_\pm$形式并不构成形状不变势，需要修正，定义
+$$U_-(x,n)=-\frac{e^2}{x}+\frac{\mu e^4}{2\hbar^2(n+1)^2}+\frac{\hbar^2n(n+1)}{2\mu x^2},\quad U_+(x,n)=-\frac{e^2}{x}+\frac{\mu e^4}{2\hbar^2(n+1)^2}+\frac{\hbar^2(n+1)(n+2)}{2\mu x^2}$$
+$$R(n)=\frac{\mu e^4}{2\hbar^2}\bigg(\frac{1}{n^2}-\frac{1}{(n+1)^2}\bigg)$$
+
+*这时$W(x,n)=\frac{\mu e^2}{(n+1)\hbar}-\frac{(n+1)\hbar}{x}$，可验证上方定义能形成符合物理诠释的形状不变势。
+
+*由于$U_-(x,0)=V_-(x)$，这样修正后仍可正确计算出各激发态的能量本征值，对原问题即
+$$E_{n+1}-E_n=R(n),\quad E_n=E_0+\sum_{i=1}^n(E_i-E_{i-1})=-\frac{\mu e^4}{2n^2\hbar^2}$$
+符合玻尔能级公式。
+
+\section{角动量}
+\subsection{转动与角动量算符}
+量子力学假设：角动量是态矢量空间\textbf{转动变换的生成元}，是力学量算符。
+
+\
+
+\textbf{三维空间转动}
+
+利用几何知识可知三维空间保原点转动变换可写为$V'=RV$，这里$V,V'$为三维矢量，$R$为某\textbf{实正交矩阵}，由于转动不改变定向还应满足$\det R=1$。
+
+考虑绕三个坐标轴转角为$\phi$的转动[这里$c_\phi,s_\phi$为$\cos\phi,\sin\phi$的简写]
+$$R(\phi,e_1)=\begin{pmatrix}1&& \\ &c_\phi&-s_\phi\\ &s_\phi&c_\phi\end{pmatrix},\quad R(\phi, e_2)=\begin{pmatrix}c_\phi&&s_\phi\\ &1&\\-s_\phi&&c_\phi\end{pmatrix},\quad R(\phi,e_3)=\begin{pmatrix}c_\phi&-s_\phi&\\s_\phi&c_\phi&\\ &&1\end{pmatrix}$$
+
+*事实上所有$R(\phi,e_i)$是三维旋转变换群$SO(3)$\ [$SO(3)$即为所有三维行列式为1的正交阵]的生成元。
+
+泰勒展开可得到转角$\delta\phi$的无穷小转动为
+$$R(\delta\phi,e_a)=I-\ir\delta\phi X_a,\quad X_1=\ir\begin{pmatrix} &&\\ &&-1\\ &1&\end{pmatrix},\quad X_2=\ir\begin{pmatrix}&&1\\ &&\\-1&&\end{pmatrix},\quad X_3=\ir\begin{pmatrix}&-1&\\1&&\\ &&\end{pmatrix}$$
+利用张量记号，记$\epsilon_{abc}$为只有$1a,2b,3c$位置为1，其他为0的矩阵的行列式值，则可写为$(X_a)_{bc}=-\ir\epsilon_{abc}$，满足$[X_a,X_b]=\ir\epsilon_{abc}X_c$。
+
+*可验证转轴方向单位矢量为$\mathbf{n}$时的无穷小转动
+$$R(\delta\phi,\mathbf{n})=I-\ir\delta\phi(n_1X_1+n_2X_2+n_3X_3)$$
+右端括号中可简记为$\mathbf{n}\cdot\mathbf{X}$，这里$\mathbf{X}$实际是三阶张量。
+
+*经典力学中，忽略二阶小量计算认为\textbf{无穷小转动可交换}，但这里注重一阶小量前的\textbf{系数矩阵}[在此后的量子情况中对应算符]，是不对易的。
+
+\
+
+\textbf{态矢量空间转动}
+
+对任何三维转动$R\in SO(3)$，应存在线性算符$\hat{D}(R)$，将$\ket{\Psi}$映射到$\ket{\Psi_R}$，且保持长度不变。此算符称为态矢量空间的\textbf{转动变换算符}。
+
+由模长不变，$\hat{D}(R)$必为\textbf{幺正}变换，且由于旋转复合性质，其应满足$\hat{D}(R_1)\hat{D}(R_2)=\hat{D}(R_1R_2)$。
+
+*这在数学上即代表$\hat{D}(R)$全体构成$SO(3)$群的一个幺正表示。
+
+对应一般的无穷小转动$R(\delta\phi,\mathbf{n})=I-\ir\delta\phi\mathbf{n}\cdot\mathbf{X}$，无穷小的转动变换算符应有
+$$\hat{D}(\delta\phi,\mathbf{n})=\hat{D}(R(\delta\phi,\mathbf{n}))=\hat{I}-\ir\frac{\delta\phi}{\hbar}\mathbf{n}\cdot\hat{\bj}$$
+这里三维算符$\hat{\bj}$即为无穷小转动的生成元，量子力学诠释为体系\textbf{角动量算符}，是厄米的。
+
+仿照经典转动，角动量算符各分量满足对易关系[可作为等价定义]
+$$[\hat{J}_a,\hat{J}_b]=\ir\hbar\epsilon_{abc}\hat{J}_c$$
+
+*与位置、动量不同，由于角动量算符各分量互相不对易，不存在共同本征矢量系，也即无法同时测量。
+
+\
+
+\textbf{本征值问题}
+
+由对称性，可不妨考虑$\hat{J}_3$的本征值与本征矢量。
+
+定义角动量平方算符$\hat{J}^2=\hat{J}_1^2+\hat{J}_2^2+\hat{J}_3^2$，计算可验证$[\hat{J}_i,\hat{J}^2]=0$，因此$\hat{J}_3$与$\hat{J}^2$可存在共同本征矢量系。
+
+考虑$\hat{J}^2$与$\hat{J}_3$的共同本征值问题[假定它们构成力学量完全集]，本征矢量$\ket{a,m}$满足
+$$\hat{J}^2\ket{a,m}=a\hbar^2\ket{a,m},\quad\hat{J}_3\ket{a,m}=m\hbar\ket{a,m}$$
+
+*注意这里$a,m$并非本征值，而是相差$\hbar^2$与$\hbar$倍。
+
+定义\textbf{阶梯算符}$\hat{J}_\pm=\hat{J}_1\pm\ir\hat{J}_2$，由$\hat{J}_1,\hat{J}_2$厄米性可知$\hat{J}_\pm^\dagger=\hat{J}_\pm$，则有
+$$[\hat{J}_+,\hat{J}_-]=2\hbar\hat{J}_3,\quad[\hat{J}_3,\hat{J}_\pm]=\pm\hbar\hat{J}_\pm,\quad[\hat{J}^2,\hat{J}_\pm]=0,\quad\hat{J}^2=\hat{J}_+\hat{J}_-+\hat{J}_3^2-\hbar\hat{J}_3=\hat{J}_-\hat{J}_++\hat{J}_3^2+\hbar\hat{J}_3$$
+
+*可进一步计算得
+$$\hat{J}_3\hat{J}_\pm\ket{a,m}=(m\pm 1)\hbar\hat{J}_\pm\ket{a,m},\quad\hat{J}^2\hat{J}_\pm\ket{a,m}=a\hbar^2\hat{J}_\pm\ket{a,m}$$
+因此阶梯算符是$\hat{J}_3$本征值的升降算符。由力学量完全集的性质，必有$\hat{J}_\pm\ket{a,m}=N_\pm\ket{a,m\pm 1}$，这里$N_\pm$是待定的归一化常数。
+
+利用厄米性，$\hat{J}_i^2=\hat{J}_i^\dagger\hat{J}_i$，直接展开计算可知$\langle\hat{J}^2\rangle_\Psi\ge\langle\hat{J}_3^2\rangle_\Psi$，取$\ket{\Psi}=\ket{a,m}$得到$a\ge m^2$，由此$m$存在上限$j$、下限$j'$，满足
+$$a\ge j^2,\quad a\ge(j')^2,\quad\hat{J}_+\ket{a,j}=0,\quad\hat{J}_-\ket{a,j'}=0$$
+利用$\hat{J}$用阶梯算符表达的形式，计算即得
+$$a=j(j+1)=j'(j'-1)$$
+由$j(j+1)=j'(j'-1)$，两边同加$\frac{1}{4}$，结合$j'\le j$即得$j'=-j$，于是可将共同本征态记为$\ket{j,m}$，满足
+$$\hat{J}^2\ket{j,m}=j(j+1)\hbar^2\ket{j,m},\quad\hat{J}_3\ket{j,m}=m\hbar\ket{j,m},\quad -j\le m\le j$$
+
+*由于$\hat{J}_-$逐次作用于$\ket{j,j}$可得到$\ket{j,-j}$，必然有$j=\frac{n}{2},n\in\mathbb{N}$，也即其必然为\textbf{半整数}。
+
+\
+
+\textbf{角动量表象}
+
+根据力学量完全集的性质，全体$\ket{j,m}$可作为态矢量空间$\mathcal{H}$的一组基，这组基下称为$\hat{J}_3$表象，满足
+$$\blk{j',m'}{\hat{J}^2}{j,m}=j(j+1)\hbar^2\delta_{jj'}\delta_{mm'},\quad\blk{j',m'}{\hat{J}_3}{j,m}=m\hbar\delta_{jj'}\delta_{mm'}$$
+
+下面计算$\hat{J}_1$与$\hat{J}_2$在此表象的坐标。由于
+$$\hat{J}_\pm\ket{j,m}=N_\pm\ket{j,m\pm1},\quad\bra{j,m}\hat{J}_{\mp}=N_\pm^*\bra{j,m\pm1}$$
+对比系数可得到$|N_\pm|^2=\hbar^2(j(j+1)-m(m\pm 1))$，整体相位因子不影响概率诠释与归一化，因此可写出
+$$N_\pm=\hbar\sqrt{j(j+1)-m(m\pm 1)}$$
+于是
+$$\blk{j',m'}{\hat{J}_\pm}{j,m}=\hbar\sqrt{j(j+1)-m(m\pm1)}\delta_{jj'}\delta_{m\pm1,m'}$$
+
+*线性组合即得$\hat{J}_1,\hat{J}_2$，$\hat{J}_1$在$\hat{J}_3$表象下为实对称矩阵，$\hat{J}_2$为纯虚的反对称矩阵。
+
+*若$j=\frac{1}{2}$，$\hat{J}_3$表象下$\hat{\bj}$即可写为$\frac{\hbar}{2}(\sigma_1,\sigma_2,\sigma_3)$，这里$\sigma_i$即为上章的\textbf{泡利矩阵}，满足
+$$\sigma_a\sigma_b=\delta_{ab}I+\ir\epsilon_{abc}\sigma_c$$
+
+\
+
+\textbf{轨道角动量}
+
+类似经典力学，轨道角动量算符为$\hat{\bl}=\hat{\br}\times\hat{\bp}$，或在位置表象波函数空间
+$$\hat{\bl}=-\ir\hbar\br\times\nabla$$
+
+*可验证其满足角动量算符定义要求的对易关系，因此确为一类角动量算符。
+
+考虑球坐标系$(r,\theta,\phi)$下，变换关系为[用$c,s$加下标$u$简写$\sin u,\cos u$]
+$$\be_r=\be_3c_\theta+\be_1s_\theta c_\phi+\be_2s_\theta s_\phi$$
+$$\be_\theta=-\be_3s_\theta+\be_1c_\theta c_\phi+\be_2c_\theta s_\phi$$
+$$\be_\phi=-\be_1s_\phi+\be_2c_\phi$$
+
+计算可得[$\partial$加下标$u$简写$\frac{\partial}{\partial u}$，此后有时仍用此简写]
+$$\hat{L}_1=\ir\hbar(s_\phi\partial_\theta+\cot\theta c_\phi\partial_\phi)$$
+$$\hat{L}_2=-\ir\hbar(c_\phi\partial_\theta-\cot\theta s_\phi\partial\phi)$$
+$$\hat{L}_3=-\ir\hbar\partial_\phi$$
+$$\hat{L}^2=-\hbar^2\bigg(\frac{1}{s_\theta}\partial_\theta(s_\theta\partial_\theta)+\frac{1}{s_\theta^2}\partial_\phi^2\bigg)$$
+
+*可验证仍有$[\hat{L}^2,\hat{L}_a]=0$，群论中称$\hat{L}^2$为$\hat{L}_i$生成的$SO(3)$的卡西米尔算符。
+
+设位置表象下对应的波函数$Y_{lm}$，本征值方程即为
+$$\hat{L}_3Y_{lm}=m\hbar Y_{lm},\quad\hat{L}^2Y_{lm}=l(l+1)\hbar^2Y_{im}$$
+也即
+$$\begin{cases}\partial_\phi Y=\ir mY\\s_\theta\partial_\theta(s\theta\partial_\theta)Y+\big(s_\theta^2l(l+1)-m^2\big)Y=0\end{cases}$$
+
+\
+
+\textbf{球谐函数}
+
+从第一个方程可知$Y_{lm}$可写为$Y(\theta,\phi)=\Theta(\theta)\er^{\ir m\phi}$，若其在转动下为单值函数，即$Y(\theta,\phi+2\pi)=Y(\theta,\phi)$，则可得到$m$为整数[称为\textbf{磁量子数}]。
+
+*对一般角动量，根据上一部分推导可知$m$必然为半整数，但未必整，因为概率诠释下[即考虑模长]相差相位无区别，如$l=m=\frac{1}{2}$时
+$$Y(\theta,\phi)=\sqrt{s_\theta}\er^{\ir\phi/2},\quad\theta\in[0,\pi],\phi\in[0,2\pi]$$
+也是可接受的解，在概率诠释下于单位球表面单值。
+
+对轨道角动量而言，记
+$$\hat{q}_1=\frac{1}{\sqrt2}(x_1-\ir\hbar\partial_{x_2}),\quad\hat{q}_2=\frac{1}{\sqrt2}(x_1+\ir\hbar\partial_{x_2}),\quad\hat{p}_1=-\frac{1}{\sqrt2}(x_2+\ir\hbar\partial_{x_1}),\quad\hat{p}_2=\frac{1}{\sqrt2}(x_2-\ir\hbar\partial_{x_1})$$
+则计算有
+$$\hat{L}_3=\frac{1}{2}(\hat{q}_1^2+\hat{p}_1^2)-\frac{1}{2}(\hat{q}_2^2+\hat{p}_2^2)$$
+将其写为$\hat{H}_1-\hat{H}_2$，可发现二者为相互独立[即$[\hat{H}_1,\hat{H}_2]=0$]的简谐振子的哈密顿算符，对应质量$M=1$，角频率$\omega=1$。
+
+根据数学知识可知存在表象使得$\hat{H}_1,\hat{H}_2$同为对角阵，于是$\hat{L}_3$的本征值应为$\hat{H}_1,\hat{H}_2$本征值在某排列下对应作差，而$\hat{H}_1,\hat{H}_2$本征值均为所有$\big(n+\frac{1}{2}\big)\hbar,n\in\mathbb{N}$，其差必然为整数。
+
+事实上，数学上可以解得，对$\hat{L}^2$的本征值$l(l+1)\hbar,l\in\mathbb{N}$与$\hat{L}_3$的本征值$m\hbar,m=-l,-l+1,\dots,l$，共同本征函数为球谐函数
+$$Y_{lm}(\theta,\phi)=(-1)^m\sqrt{\frac{2l+1}{4\pi}\frac{(l-m)!}{(l+m)!}}P_l^m(\cos\theta)\er^{\ir m\phi}$$
+
+$P_l^m$为\textbf{缔合勒让德多项式}，满足[当$m=0$时可以省略上标，即为普通的勒让德多项式]
+$$\frac{1}{s_\theta}\partial_\theta(s_\theta\partial_\theta)P_l^m(c_\theta)+\bigg(l(l+1)-\frac{m^2}{s_\theta^2}\bigg)P_l^m(c_\theta)=0$$
+
+*根据特殊函数理论，球谐函数满足单位球面的正交归一关系
+$$\int_0^2\pi\dr\phi\int_0^\pi\sin\theta\dr\theta Y_{lm}^*(\theta,\phi)Y_{l'm'}(\theta,\phi)=\delta_{ll'}\delta_{mm'}$$
+
+*前几个球谐函数显示表达式为
+$$Y_{00}(\theta,\phi)=\frac{1}{\sqrt{4\pi}},\quad Y_{10}(\theta,\phi)=\sqrt{\frac{3}{4\pi}}\cos\theta,\quad Y_{1,\pm1}(\theta,\phi)=\mp\sqrt{\frac{3}{8\pi}}\sin\theta\er^{\pm\ir\phi}$$
+$Y_{00}$为常数，对所有角动量分量都是本征函数，对应本征值均为0。
+
+\subsection{自旋}
+
+\textbf{自旋角动量}
+
+假设电子存在两种角动量，轨道角动量$\hat{\bl}$与自旋角动量$\hat{\mathbf{S}}$，自旋角动量在空间任何方向的投影[即$\hat{S}_i$的本征值]只可能为$\pm\frac{\hbar}{2}$。
+
+*原子物理中，与自旋相联系的\textbf{自旋磁矩}$\mu_S=\frac{e\hbar}{2mc}$。
+
+*自旋角动量\textbf{并不是自转}：看作自转则会得到自转线速度$205c$，$c$为光速，这个结果是荒谬的。更准确来说，其应被称为\textbf{内禀角动量}。
+
+回到SG实验，其证明了电子的内禀角动量在$z$方向有两种取值，由于其为角动量，根据之前推导可知本征值只能为$\pm\frac{\hbar}{2}$，将$\hbar$前的系数称为自旋相关的\textbf{自旋量子数}$m_s$，则对应的$\hat{S}^2$本征值为$s(s+1)\hbar^2=\frac{3}{4}\hbar^2$，这里$s$即为\textbf{角量子数}。
+
+*电子自旋的$s=\frac{1}{2}$，可称其自旋为$\frac{1}{2}$。
+
+*实验表明，内禀角动量刻画了各种粒子的内禀属性。自旋量子数$s$根据角动量的推导可知必然为半整数，其为整数代表粒子服从Bose-Einstein统计[玻色子]，否则服从Fermi-Dirac统计[费米子]。
+
+\
+
+\textbf{旋量波函数}
+
+由于自旋的存在，电子不止具有三个自由度，还存在内禀自由度，因此必须增加自旋角动量投影$S_3$，波函数成为$\psi(\br,S_3)$，$S_3$只有$\pm\frac{\hbar}{2}$两取值，因此其也可写为
+$$\psi(\br,S_3)=\begin{pmatrix}\psi(\br,+\hbar/2)\\\psi(\br,-\hbar/2)\end{pmatrix}$$
+称为旋量波函数。
+
+*这时$|\psi(\br,+\hbar/2)|^2$代表电子自旋向上[即$m_s=\frac{1}{2}$]且在$\br$处的概率密度，对$\br$积分得到自旋向上概率，归一化条件为
+$$\sum_{S_3=\pm\hbar/2}\int\dr^3x|\psi(\br,S_3)|^2=1$$
+或用旋量波函数的向量形式写为[这里$\psi$为二维列向量]
+$$\int\dr^3x\psi^\dagger(\br,S_3)\psi(\br,S_3)=1$$
+
+*某些特殊情况下[位置与自旋独立]，波函数可以分离变量$\psi(\br,S_3,t)=\varphi(\br,t)\chi(S_3)$，这时$\chi(S_3)=\begin{pmatrix}a\\b\end{pmatrix}$，$|a|^2,|b|^2$表示自旋向上/向下的概率，归一化条件即为$\chi^\dagger\chi=1$。
+
+\
+
+\textbf{自旋角动量算符}
+
+记其为$\hat{\mathbf{S}}$，其为态矢量空间的线性厄米算符，且满足一般角动量算符的对易关系。
+
+记\textbf{泡利算符}$\hat{\sigma}=\frac{2}{\hbar}\hat{\mathbf{S}}$，由$\hat{S}_i$本征值可知$\hat{\sigma}_i$本征值只能为$\pm1$，因此$\hat{\sigma}_i^2=\hat{I},i=1,2,3$，由此计算得
+$$\hat{\sigma}_i\hat{\sigma}_j=\delta_{ij}+\ir\epsilon_{ijk}\hat{\sigma}_k,\quad\{\hat{\sigma}_i,\hat{\sigma}_j\}=2\delta_{ij}$$
+
+\textbf{泡利表象}：将$\hat{\sigma}_3$矩阵表示为泡利矩阵$\sigma_3$，求解可得到$\hat{\sigma}_1$矩阵表示为
+$$\begin{pmatrix}0&\er^{\ir\alpha}\\\er^{-\ir\alpha}&0\end{pmatrix}$$
+由于相差相因子不影响，可取$\alpha=0$，矩阵即成为泡利矩阵$\sigma_1$，进一步得到$\hat{\sigma}_2$的矩阵表示即为$\sigma_2$。
+
+*计算发现$\sigma_3$属于$\pm1$的本征态在此表象下即为$\begin{pmatrix}1\\0\end{pmatrix}$与$\begin{pmatrix}0\\1\end{pmatrix}$，满足正交归一条件。
+
+*此表象下$\sigma_1$属于$\pm1$的本征态为$\dfrac{1}{\sqrt2}\begin{pmatrix}1\\1\end{pmatrix},\dfrac{1}{\sqrt2}\begin{pmatrix}1\\-1\end{pmatrix}$，$\sigma_2$属于$\pm1$的本征态为$\dfrac{1}{\sqrt2}\begin{pmatrix}1\\\ir\end{pmatrix},\dfrac{1}{\sqrt2}\begin{pmatrix}1\\-\ir\end{pmatrix}$。
+
+*在旋量波函数下，自旋角动量算符即可写为泡利矩阵，对应作用为矩阵乘法。
+
+\
+
+\textbf{光子自旋}
+
+与电子不同，光子自旋量子数为$s=1$。
+
+\textbf{光子的薛定谔方程}：考察真空麦克斯韦方程组，无电流、电荷存在的区域，只存在两个独立方程
+$$\nabla\times\mathbf{E}=-\frac{\partial\mathbf{B}}{\partial t},\quad\nabla\times\mathbf{B}=\mu_0\epsilon_0\frac{\partial\mathbf{E}}{\partial t}$$
+记\textbf{复场强}
+$$\Psi=\sqrt{\frac{\epsilon_0}{2}}\mathbf{E}+\ir\frac{\mathbf{B}}{\sqrt{2\mu_0}}$$
+则此两方程可写为
+$$\ir\hbar\frac{\partial\Psi}{\partial t}=\hbar c\nabla\times\Psi,\quad\nabla\cdot\Psi=0$$
+利用张量记号，引入厄米矩阵$S_i,i=1,2,3$使得$(S_i)_{ab}=-\ir\epsilon_{iab}$，则方程可改写为
+$$\ir\hbar\frac{\partial\Psi}{\partial t}=-\ir\hbar c(\mathbf{S}\cdot\nabla)\Psi,\quad\nabla\cdot\Psi=0$$
+
+这里$\mathbf{S}=(S_1,S_2,S_3)$。因此，光子的波函数也应为满足上式的三维列向量$\Psi$，这即给出了其时间演化方程[事实上与麦克斯韦方程组等价]，哈密顿算符为
+$$\hat{H}=-\ir\hbar c\mathbf{S}\cdot\nabla=c\mathbf{S}\cdot\hat{\bp}$$
+与完全相对论性粒子能量动量关系$E=pc$对应。
+
+*由于光子$\Psi$的物理意义，$|\Psi|^2$代表电磁场能量密度，体现的是电磁波波动性，\textbf{并非概率波}。其积分为能量，不能归一化，且$\Psi$与$\er^{\ir\alpha}\Psi$描述不同光子态。
+
+*在$t$时刻$\br$处发现光子的概率密度为
+$$\rho(\br,t)=\frac{|\Psi(\br,t)|^2}{\int\dr^3x'|\Psi(\br',t)|^2}$$
+电磁场能量密度非零的任意场点都可能发现光子，因此单光子体系下位置矢径算符\textbf{没有本征态}[这里位置表象下位置矢径算符并非$\br$，因为$\Psi$满足$\nabla\cdot\Psi$约束时$x\Psi$并不满足，因此$\br$并非算符]。
+
+上述方程中，$\mathbf{S}\hbar$即是位置表象下光子的自旋角动量算符[其作用于波函数上为$(S_1\Psi,S_2\Psi,S_3\Psi)$]，类似电子泡利矩阵，可验证$[S_i,S_j]=\ir\epsilon_{ijk}S_k,S^2=2I$，因此$s(s+1)=2$，光子自旋为1。
+
+*由于$S_3=\begin{pmatrix}0&-\ir&0\\\ir&0&0\\0&0&0\end{pmatrix}$，计算可得对应其本征值$m_s=1,-1,0$的本征态分别为
+$$\Psi_1=\frac{1}{\sqrt2}\begin{pmatrix}1\\\ir\\0\end{pmatrix},\quad\Psi_{-1}=\frac{1}{\sqrt2}\begin{pmatrix}1\\-\ir\\0\end{pmatrix},\quad\Psi_0=\begin{pmatrix}0\\0\\1\end{pmatrix}$$
+由此光子波函数可写为$\psi_1(\br,t)\Psi_1+\psi_{-1}(\br,t)\Psi_{-1}+\psi_0(\br,t)\Psi_0$，这里小写$\psi$为函数。
+
+*只有0自旋态时，将$\psi_0(\br,t)\Psi_0$代入薛定谔方程[这意味着$\mathbf{E},\mathbf{B}$都只有$z$方向分量]可得$\psi_0$只能为恒定值，也即电、磁均为为匀强场，在单光子体系中不可能出现。
+
+*根据类似形式，可猜测零质量相对论性标量自由粒子哈密顿算符为$\hat{H}=c|\hat{p}|$，质量$\mu$的非相对论性标量自由粒子哈密顿算符为$\hat{H}=\frac{\hat{p}^2}{2\mu}$，而对质量$\mu$的非相对论性自由电子应满足
+$$\hat{H}=\frac{1}{2\mu}(\hat{\sigma}\cdot\hat{p})^2$$
+事实上可计算验证，这与$\hat{H}=\frac{\hat{p}^2}{2\mu}$完全相同，但此形式仍然具有意义，见下章。
+
+\subsection{总角动量}
+量子力学体系中，自旋角动量与轨道角动量对任意分量应满足$[\hat{L}_i,\hat{S}_j]=0$，也即二者独立。其和$\hat{\bj}=\hat{\bl}+\hat{\mathbf{S}}$定义为\textbf{总角动量}。
+
+*一般情况下，若某体系有两独立角动量算符，可定义和为总角动量。
+
+*计算可发现$\hat{\bj}$也满足角动量算符的要求，于是对$\hat{J}_3,\hat{J}^2$共同本征态$\ket{j,m}$满足
+$$\hat{J}_3\ket{j,m}=m\hbar\ket{j,m},\quad\hat{J}^2\ket{j,m}=j(j+1)\hbar^2\ket{j,m}$$
+这里$j$为\textbf{角量子数}，$m$为\textbf{磁量子数}，$m=-j,-j+1,\dots,j$。
+
+\
+
+\textbf{C-G系数}
+
+考虑一般的$\hat{\bj}=\hat{\bj}_1+\hat{\bj}_2$，假设已知$\hat{J}_{13},\hat{\bj}_1^2$的本征态为$\ket{j_1,m_1}$，$\hat{J}_{23},\hat{\bj}_2^2$的本征态为$\ket{j_2,m_2}$。
+
+此体系中，由于独立性，需要$\hat{J}_{13},\hat{\bj}_1^2,\hat{J}_{23},\hat{\bj}_2^2$才能构成力学量完全集。另一方面，计算对易性可发现力学量完全集也可取为$\hat{\bj}_1^2,\hat{\bj}_2^2,\hat{J}^2,\hat{J}_3$，当给定$j_1,j_2$后，对应$(2j_1+1)(2j_2+1)$维子空间[由$m_1,m_2$的选取]，下面确定后选择一种完全集时$j$的可能取值。将前一种完全集对应的共同本征矢量记作$\ket{j_1,j_2;m_1,m_2}$，后一种记作$\ket{j_1,j_2;j,m}_J$。
+
+利用正交归一性可知给定$j_1,j_2$后
+$$\hat{I}=\sum_{m_1,m_2}\ket{j_1,j_2;m_1,m_2}\bra{j_1,j_2;m_1,m_2}$$
+于是
+$$\ket{j_1,j_2;j,m}_J=\sum_{m_1,m_2}\ket{j_1,j_2;m_1,m_2}\bk{j_1,j_2;m_1,m_2}{j_1,j_2;j,m}_J$$
+这里右侧的内积称为\textbf{Clebsch-Gordan系数}，或简称C-G系数。
+
+由$\hat{J}_3=\hat{J}_{13}+\hat{J}_{23}$，计算即得$\hat{J}_3\ket{j_1,j_2;m_1,m_2}=(m_1+m_2)\hbar\ket{j_1,j_2;m_1,m_2}$，因此$\ket{j_1,j_2;m_1,m_2}$是$\hat{J}_3$属于$m_1+m_2$的本征矢量。
+
+展开式两边同作用$\hat{J}_3$，对比系数即可知C-G系数非零必须$m=m_1+m_2$，展开式可重新写为[为$\hat{J}_3$本征矢量代表其中只含有$m=m_1+m_2$的成分，因此这个写法是自然的]
+$$\ket{j_1,j_2;j,m}_J=\sum_{m_1=-j_1}^{j_1}\ket{j_1,j_2;m_1,m-m_1}\bk{j_1,j_2;m_1,m-m_1}{j_1,j_2;j,m}_J$$
+
+*此处求和只包含$m-m_1\in[-j_2,j_2]$的项。
+
+事实上，为使展开合理，还需验证$\hat{J}_3,\hat{J}^2$是$j_1,j_2$给定后的子空间中的线性厄米算符[数学上意味着子空间是它们的\textbf{不变子空间}]。对$\hat{J}_3$，由于上方已经验证了子空间中均为$\hat{J}_3$的本征矢量，结论自然满足。对$\hat{J}^2$记阶梯算符$\hat{J}_{a\pm}=\hat{J}_{a1}\pm\ir\hat{J}_{a2}$，则计算可知
+$$\hat{J}^2=\hat{\bj}_1^2+\hat{\bj}_2^2+2\hat{J}_{13}\hat{J}_{23}+\hat{J}_{1+}\hat{J}_{2-}+\hat{J}_{1-}\hat{J}_{2+}$$
+从而利用阶梯算符性质进一步计算得
+$$\begin{aligned}\hat{J}^2\ket{j_1,j_2;m_1,m_2}&=(j_1(j_1+1)+j_2(j_2+1)+2m_1m_2)\hbar^2\ket{j_1,j_2;m_1,m_2}\\ &+\sqrt{(j_2(j_2+1)-m_2(m_2-1))(j_1(j_1+1)-m_1(m_1+1))}\hbar^2\ket{j_1,j_2;m_1+1,m_2-1}\\ &+\sqrt{(j_2(j_2+1)-m_2(m_2+1))(j_1(j_1+1)-m_1(m_1-1))}\hbar^2\ket{j_1,j_2;m_1-1,m_2+1}\end{aligned}$$
+于是作用后的确还在子空间中，得证。
+
+为使$j$取到最大值，即需$m$取到最大值，此时必然$m_1=j_1,m_2=j_2$，得到最大值时$m=j=j_1+j_2$，这时C-G系数$\bk{j_1,j_2;m_1,m_2}{j_1,j_2;j_1+j_2,j_1+j_2}_J=\delta_{m_1,j_1}\delta_{m_2,j_2}$，且$\bk{j_1,j_2;j_1,j_2}{j_1,j_2;j,j}_J=\delta_{j,j_1+j_2}$。
+
+由于维数为$(2j_1+1)(2j_2+1)$，且$j$取定时$m$有$2j+1$种取值，假定$j$取相差整数的值，即取值范围$j_m,j_m+1,\dots,j_1+j_2$，可得
+$$(2j_1+1)(2j_2+1)=\sum_{j=j_m}^{j_1+j_2}(2j+1)$$
+结合$j\ge0$即知$j_m=|j_1-j_2|$。
+
+由阶梯算符$\hat{J}_\pm=\hat{J}_{1\pm}+\hat{J}_{2\pm}$即可计算C-G系数。记$j_0=j_1+j_2$，利用之前的$\ket{j_1,j_2;j_0,j_0}_J=\ket{j_1,j_2;j_1,j_2}$，两边作用$\hat{J}_-$得到[可验证其即为$\hat{J}_3$的降算符且不改变$\hat{J}^2$本征值$j_0$]
+$$\ket{j_1,j_2;j_0,j_0-1}_J=\sqrt{\frac{j_1}{j_0}}\ket{j_1,j_2;j_1-1,j_2}+\sqrt{\frac{j_2}{j_0}}\ket{j_1,j_2;j_1,j_2-1}$$
+再利用$\ket{j_1,j_2;j_0,j_0-1}_J$与$\ket{j_1,j_2;j_0-1,j_0-1}_J$正交与归一条件即有
+$$\ket{j_1,j_2;j_0-1,j_0-1}_J=\sqrt{\frac{j_2}{j_0}}\ket{j_1,j_2;j_1-1,j_2}-\sqrt{\frac{j_1}{j_0}}\ket{j_1,j_2;j_1,j_2-1}$$
+类似递推可得所有系数。
+
+\
+
+\textbf{电子的总角动量}
+
+由于电子$s=\frac{1}{2}$确定，力学量完全集可选为$\hat{L}^2,\hat{L}_3,\hat{S}_3$或$\hat{L}^2,\hat{J}^2,\hat{J}_3$\ [相当于上一部分讨论去掉$\hat{S}^2$]。
+
+利用旋量波函数的写法，$\hat{L}^2,\hat{J}^2,\hat{J}_3$共同本征态可写为列矩阵[这里由于只涉及转动，可利用球坐标书写，且由对称性与$r$无关]
+$$\Psi(\theta,\phi,S_3)=\begin{pmatrix}\psi_1(\theta,\phi)\\\psi_2(\theta,\phi)\end{pmatrix}$$
+
+设对$\hat{L}^2,\hat{J}_3$本征值为$l(l+1)\hbar^2,m_j\hbar$，则可直接写出方程
+$$\hat{L}^2\psi_1=l(l+1)\hbar^2\psi_1,\quad\hat{L}^2\psi_2=l(l+1)\psi_2$$
+$$\hat{L}_3\begin{pmatrix}\psi_1\\\psi_2\end{pmatrix}+\frac{\hbar}{2}\begin{pmatrix}1&\\ &-1\end{pmatrix}\begin{pmatrix}\psi_1\\\psi_2\end{pmatrix}=m_j\hbar\begin{pmatrix}\psi_1\\\psi_2\end{pmatrix}$$
+
+利用轨道角动量本征态为球谐函数，可解出
+$$\Psi(\theta,\phi,S_3)=\begin{pmatrix}aY_{lm}(\theta,\phi)\\bY_{l,m+1}(\theta,\phi)\end{pmatrix}$$
+这里$m=m_j-\frac{1}{2}$，$a,b$为参数。
+
+下面设对$\hat{J}^2$本征值为$j(j+1)\hbar^2$，进一步求解。设$\hat{\bl}$的阶梯算符为$\hat{L}_\pm$，直接计算可得
+$$\hat{J}^2=\begin{pmatrix}\hat{L}^2+\frac{3}{4}\hbar^2+\hbar\hat{L}_3&\hbar\hat{L}_-\\\hbar\hat{L}_+&\hat{L}^2+\frac{3}{4}\hbar^2-\hbar\hat{L}_3\end{pmatrix}$$
+将$\hat{L}^2$用升降算符展开，利用对易性直接计算可知
+$$\hat{L}_\pm Y_{lm}=\hbar\sqrt{l(l+1)-m(m\pm 1)}Y_{l,m\pm 1}$$
+
+*由阶梯算符的升降性可知能写为$Y_{l,m\pm 1}$乘系数，约定系数取实数后类似之前计算平方可得结果。
+
+由此整理可得
+$$\begin{cases}\bigg(l(l+1)+\frac{3}{4}+m-j(j+1)\bigg)a+\sqrt{l(l+1)-(m+1)(m+1-1)}b=0\\\sqrt{l(l+1)-m(m+1)}a+\bigg(l(l+1)-\frac{1}{4}-m-j(j+1)\bigg)b=0\end{cases}$$
+
+若其有非零解，计算行列式可知等价于$j=l\pm\frac{1}{2}$。
+
+*事实上根据上一部分推导，由于$s=\frac{1}{2}$，$j$的范围可以直接得到。
+
+$j=l+\frac{1}{2}$时$\frac{a}{b}=\sqrt{\frac{l+m+1}{l-m}}$，$j=l-\frac{1}{2}$时$\frac{a}{b}=-\sqrt{\frac{l-m}{l+m+1}}$，由此即得到了完整的解，或用$j,m_j$写成
+$$\psi_{ljm_j}=\frac{1}{\sqrt{2j}}\begin{pmatrix}\sqrt{j+m_j}Y_{j-1/2,m_j-1/2}\\\sqrt{j-m_j}Y_{j-1/2,m_j+1/2}\end{pmatrix},\quad j=l+\frac{1}{2}$$
+$$\psi_{ljm_j}=\frac{1}{\sqrt{2j+2}}\begin{pmatrix}-\sqrt{j-m_j+1}Y_{j+1/2,m_j-1/2}\\\sqrt{j+m_j+1}Y_{j+1/2,m_j+1/2}\end{pmatrix},\quad j=l-\frac{1}{2}$$
+
+*在$l=0$时不存在自旋-轨道耦合，总角动量即为自旋。
+
+\section{三维量子力学}
+\subsection{氢原子}
+\textbf{有心力场}
+
+*定义为$V(\br)=V(r)$，经典力学中计算即有$\bl=\br\times\bp$为守恒量。
+
+量子力学中，位置表象下有心力场哈密顿算符为
+$$\hat{H}=-\frac{\hbar^2}{2\mu}\nabla^2+V(r)$$
+直接计算可知$[\hat{\bl},\hat{p}^2]=[\hat{\bl},V(r)]=0$，于是$[\hat{\bl},\hat{H}]=0$，回顾第五章时间演化规律可知其为守恒量算符。
+
+由此，有心力场下轨道角动量增添$\hat{H}$即能得到力学量完全集$\hat{H},\hat{L}^2,\hat{L}_3$。
+
+在球坐标下计算可知此时的定态薛定谔方程[能量本征值方程]可写为
+$$\bigg(-\frac{\hbar^2}{2\mu r}\partial_r^2r+\frac{\hat{L}^2}{2\mu r^2}+V(r)\bigg)\psi_E(r,\theta,\phi)=E\psi_E(r,\theta,\phi)$$
+
+*第一项称为径向动能算符，第二项称为\textbf{离心势能}。
+
+由于$\psi_E$为$\hat{L}^2,\hat{L}_3$的共同本征矢量，可得其能写为$R(r)Y_{lm}(\theta,\phi)$，代入能量本征值方程可得
+$$\bigg(\frac{1}{r}\frac{\dr^2}{\dr r^2}r+\frac{2\mu}{\hbar^2}(E-V(r))-\frac{l(l+1)}{r^2}\bigg)R(r)=0$$
+
+*若记$\chi(r)=rR(r)$，其满足
+$$\chi''(r)+\bigg(\frac{2\mu}{\hbar^2}(E-V(r))-\frac{l(l+1)}{r^2}\bigg)\chi(r)=0$$
+
+这里$R(r)$或$\chi(r)$称为\textbf{径向波函数}，对应方程为\textbf{径向薛定谔方程}。由于此方程并未出现$m$，中心力场能级简并度一般为$2l+1$，$R,\chi$也可记为$R_l,\chi_l$。
+
+由于$V(r)$常见形式为$\frac{1}{2}\mu\omega^2r^2$或$\frac{\alpha}{r}$，可以假定$r^2V(r)$在0处趋于0，由此径向薛定谔方程在0的邻域近似为[$E-V(r)$项由于次数高于$r^{-2}$，在0处可以忽略]
+$$R_l''(r)+\frac{2}{r}R_l'(r)-\frac{l(l+1)}{r^2}R_l(r)=0$$
+设0附近$R_l(r)\sim r^s$，可解出$s=l$或$-(l+1)$。
+
+由概率诠释，波函数平方0处应收敛，由此可知$R_l^2(r)r^2$在0处有限，若$l\ge1$，$s=-l-1$的解不满足条件；而$l=0$时的$\frac{1}{r}$，由于$\nabla^2\frac{1}{r}$在0处不收敛，其不可能为薛定谔方程解。综合可知$s=l$。
+
+\
+
+\textbf{氢原子能级}
+
+将长度除以玻尔半径$a=\frac{\hbar^2}{\mu e^2}$，能量除以$\mathcal{E}=\frac{\mu e^4}{\hbar^2}$，从而所有力学量无量纲化，得到\textbf{原子单位制}，这时径向薛定谔方程可写为
+$$\chi_l''(r)+\bigg(2E+\frac{2}{r}-\frac{l(l+1)}{r^2}\bigg)\chi_l(r)=0$$
+
+两奇点在0处与无穷处。0处根据之前分析，$R_l(r)\sim r^l$，于是$\chi_l(r)\sim r^{l+1}$；无穷远处。假设\textbf{束缚态}，$\chi_l(r)$趋于0，得到近似$\chi_l''(r)+2E\chi_l(r)=0$，结合束缚态边界条件可知当且仅当$E<0$时有符合要求的解，$\chi_l(r)\sim\er^{-\beta r},\beta=\sqrt{-2E}$。
+
+由此设$\chi_l(r)=r^{l+1}\er^{-\beta r}u(r)$，此处$u(r)$应在0处非零有限，代入方程，并记$\xi=2\beta r$，得到[这里求导指对$\xi$求导]
+$$\xi u''+(2l+2-\xi)u'-\bigg(l+1-\frac{1}{\beta}\bigg)u=0$$
+此方程为\textbf{合流超几何方程}，记$\gamma=2l+2,\alpha=l+1-\frac{1}{\beta}$进行求解。
+
+由于$u(r)$在0处非零有限，可设其展开为
+$$u(\xi)=\sum_{j=0}^\infty c_j\xi^j,\quad c_0\ne 0$$
+
+*若不考虑$u(r)$非零有限，利用常微分方程知识可作广义幂级数展开$\sum_{j=0}^\infty c_j\xi^{j+s},c_0\ne0$，此时考虑首项可得$s(\gamma+s-1)=0$，也即还存在$s=1-\gamma$的可能。
+
+代入方程即得系数满足递推
+$$c_{j+1}=\frac{\alpha+j}{(j+1)(\gamma+j)}c_j,\quad j\in\mathbb{N}$$
+
+$c_0=1$的$u(\xi)$称为\textbf{合流超几何函数}$F(\alpha,\gamma,\xi)$，也可将级数写为
+$$F(\alpha,\gamma,\xi)=\sum_{k=0}^\infty d_k\frac{\xi^k}{k!},\quad d_0=1,\quad d_{k+1}=\frac{\alpha+k}{\gamma+k}d_k,k\in\mathbb{N}$$
+
+*当$\gamma\ne0$与负整数时此解才有意义，根据$\gamma=2l+2$可知其必为正整数，满足要求。
+
+由于$k\to\infty$时$d_k\approx d_{k-1}$，若$d_k$恒不为0，$F(\alpha,\gamma,\xi)$在无穷处接近$\er^\xi$，不满足束缚态边界条件，因此，其必须实际上是多项式，从而$\alpha$需满足
+$$\alpha=l+1-\frac{1}{\beta}=-n_r,\quad n_r\in\mathbb{N}$$
+由此定义总量子数$n=n_r+l+1$，其为正整数，而$\beta=\frac{1}{n}$，也即能量为
+$$E=-\frac{1}{2}\beta^2=-\frac{1}{2n^2},\quad n\in\mathbb{N}$$
+
+回到国际单位制，乘$\frac{\mu e^4}{\hbar^2}$后即得到了\textbf{玻尔能级公式}。
+
+*对给定的$E_n$，角量子数可取$0,1,\dots,n-1$，再结合磁量子数$m$的$2l+1$可能值，其总和的两倍[考虑自旋量子数]$2n^2$\ 即为能级$E_n$实际简并度。
+
+*类似结论对类氢离子也成立，只需将原子核电荷量$e$替换为$Ze$，$Z$为原子数，由此玻尔能级公式为
+$$E_n=-\frac{Z^2\alpha^2}{2n^2}\mu c^2,\quad\alpha=\frac{e^2}{\hbar c},\quad n\in\mathbb{N}^*$$
+
+\
+
+\textbf{氢原子本征态}
+
+由于上方的求解，束缚态能量本征函数为
+$$\psi_{nlm}(r,\theta,\phi)=R_{nl}(r)Y_{lm}(\theta,\phi),\quad R_{nl}(r)=\mathcal{N}_{nl}\xi^l\er^{-\xi/2}F(-n+l+1,2l+2,\xi)$$
+
+其为$\hat{H}$的本征值$-\frac{1}{2n^2}$，$\hat{L}^2$本征值$l(l+1)\hbar^2$，$\hat{L}_3$本征值$m\hbar$的共同本征矢量。
+
+由$\int_0^\infty\chi_{nl}^2(r)\dr r=1$计算可知归一化常数为
+$$\mathcal{N}_{nl}=\frac{2}{a^{3/2}n^2(2l+1)!}\sqrt{\frac{(n+l)!}{(n-l-1)!}}$$
+
+*国际单位制下$\xi$与电子径向位置$r$的实际关系为$\xi=\frac{2r}{na}$。
+
+*合流超几何函数为多项式时在数学上本质是\textbf{缔合拉盖尔多项式}，但相差比例系数，从而导致归一化常数不同，具体来说有表达式[这里$\mathcal{L}_q$为拉盖尔多项式，$\mathcal{L}^p_q$即为缔合拉盖尔多项式]
+$$F(-n+l+1,2l+2,\xi)\sim\mathcal{L}_{n-l-1}^{2l+1}(\xi),\quad\mathcal{L}_{q-p}^p(\xi)=(-1)^p\frac{\dr^q}{\dr\xi^q}\mathcal{L}_q(\xi),\quad\mathcal{L}_q(\xi)=\er^\xi\frac{\dr^q}{\dr\xi^q}(\xi^q\er^{-\xi})$$
+
+*径向波函数的前几项为
+$$R_{10}(r)=\frac{2}{a^{3/2}}\er^{-r/a},\quad R_{20}(r)=\frac{1}{\sqrt{2}a^{3/2}}\bigg(1-\frac{r}{2a}\bigg)\er^{-r/(2a)},\quad R_{21}(r)=\frac{r}{2\sqrt{6}a^{5/2}}\er^{-r/(2a)}$$
+
+回到国际单位制，不计自旋时，对$E_n=-\frac{\mu e^4}{2\hbar^2n^2}$存在着$n^2$个相互正交的能量本征函数$\psi_{nlm}$，被$l,m$唯一确定，也即$\hat{H},\hat{L}^2,\hat{L}_3$，形成了力学量完全集。
+
+根据概率诠释，在$(r,r+\dr r)$球壳中找到电子概率为
+$$r^2\dr r\int\dr\Omega|\psi_{nlm}|^2=\chi_{nl}^2(r)\dr r$$
+
+当$l=n-1$时，$\alpha=0$，从而$\chi_{n,n-1}(r)\sim r^n\er^{-r/(na)}$，称为\textbf{圆轨道}，求导知极大值所在的径向位置为$n^2a$，称为\textbf{最概然半径}，与旧量子论中电子轨道半径完全一致。
+
+而在$(\theta,\phi)$方向立体角中找到粒子的概率类似可知正比于
+$$|P_l^m(\cos\theta)|^2\dr\Omega$$
+与方位角$\phi$无关，绕$z$轴旋转对称，$l=0$时$P_0^0(\cos\theta)=1$，于是球对称。
+
+\
+
+\textbf{电流密度与磁矩}
+
+类似概率流密度，定义某定态$\psi$的电流密度矢量为
+$$\mathbf{j}=\frac{\ir e\hbar}{2\mu}(\psi^*\nabla\psi-\psi\nabla\psi^*)$$
+
+对$\psi_{nlm}$，由于$R_{nl}(r)$与$P_l^m(\cos\theta)$均为实函数，必有$j_r=j_\theta=0$，而对$\phi$，球坐标下计算可知
+$$j_\phi=-\frac{me\hbar}{\mu r\sin\theta}|\psi_{nlm}|^2$$
+
+而由经典电动力学，轨道磁矩
+$$\mathbf{M}=\frac{1}{2c}\int\br\times\mathbf{j}(\br)\dr^3x$$
+利用$\psi_{nlm}$的归一化条件即可计算得$M_1=M_2=0$，且$$M_3=-\mu_Bm,\quad\mu_B=\frac{e\hbar}{2\mu c}$$
+因此$m$称为磁量子数。
+
+*可定义轨道磁矩算符$\hat{\mu}_l=-\frac{e}{2\mu c}\hat{\mathbf{L}}$，计算可发现上方的$\mathbf{M}$即为轨道磁矩算符在$\psi_{nlm}$下的系综平均值。
+
+*若考虑电子自旋，也可定义自旋磁矩算符$\hat{\mu}_s=-\frac{e}{\mu c}\hat{\mathbf{S}}$\ [此式来源见本章后续内容]。
+
+*将磁矩与相应角动量的比值称为\textbf{回转磁比率}，并用$g$因子加以描述，即写成$\hat{\mu}_j=-\frac{ge}{2\mu c}\hat{\bj}$，对氢原子中的电子有$g_l=1,g_s=2$。
+
+\
+
+\textbf{代数解法}
+
+*本节介绍泡利求解氢原子能级的方式。
+
+考虑氢原子体系$\hat{H}=\frac{\hat{\bp}^2}{2\mu}-\frac{e^2}{r}$。
+
+经典力学中，有心力场中已有$\mathbf{L}$守恒，若满足平方反比形式$V(r)=-\frac{e^2}{r}$，求导利用牛顿第二定律可得到
+$$\ba=\frac{1}{\mu e^2}\bp\times\mathbf{L}-\frac{\br}{r}$$
+亦为守恒量，称为Lagrange-Runge-Lenz矢量。
+
+其替换为算符即
+$$\hat{\ba}=\frac{1}{\mu e^2}\hat{\bp}\times\hat{\mathbf{L}}-\frac{\hat{\br}}{r}$$
+
+*可验证其厄米性[利用$\hat{\bp}\times\hat{\mathbf{L}}=-\hat{\mathbf{L}}\times\hat{\bp}$]与守恒性[此后称算符\textbf{守恒}均指与$\hat{H}$对易]。
+
+此外，其满足对易关系
+$$[\hat{L}_i,\hat{A}_j]=\ir\hbar\epsilon_{ijk}\hat{A}_k$$
+对体系角动量算符满足这样形式关系的算符称为\textbf{矢量算符}。
+
+*根据角动量算符定义，角动量算符自身必然为矢量算符。此体系中还可验证$\hat{\bp},\hat{\br}/r$为矢量算符。此外，计算可证明矢量算符的线性组合与叉乘仍为矢量算符。
+
+计算得其与轨道角动量算符的关系还有
+$$\hat{\ba}\cdot\hat{\mathbf{L}}=\hat{\mathbf{L}}\cdot\hat{\ba}=0$$
+$$[\hat{A}_i,\hat{A}_j]=\ir\hbar\bigg(-\frac{2\hat{H}}{\mu e^4}\bigg)\epsilon_{ijk}\hat{L}_k$$
+
+对能量本征态，$\hat{H}$可替换为$E$，对于束缚态$E<0$时，由此定义约化的Runge-Lenz算符
+$$\hat{\mathbf{M}}=\sqrt{-\frac{\mu e^4}{2E}}\hat{\ba}$$
+即满足$[\hat{M}_i,\hat{M}_j]=\ir\hbar\epsilon_{ijk}\hat{L}_k$。
+
+利用上述关系通过复杂的计算可得到
+$$\hat{A}^2=\frac{2}{\mu e^4}\hat{H}(\hat{L}^2+\hbar^2)+\hat{I}$$
+
+考虑$E<0$的束缚态，将$\hat{H}$替换为$E$后，定义
+$$\hat{\bj}_\pm=\frac{1}{2}(\hat{\mathbf{M}}\pm\hat{\mathbf{L}})$$
+可将上述关系化为
+$$4\mathbf{J}_+^2+\hbar^2\hat{I}=-\frac{\mu e^4}{2E}\hat{I}$$
+由于可验证$\mathbf{J}_+$符合角动量算符的对易关系，其本征值必然为$j(j+1)\hbar^2,j=0,\frac{1}{2},\dots$，于是$E$必须为
+$$E(j)=-\frac{\mu e^4}{\hbar^2}\frac{1}{2(2j+1)^2}$$
+这就是玻尔能级公式。
+
+\subsection{带电粒子}
+\textbf{高斯单位制}
+
+设下标$g$代表高斯单位制中的值，考虑真空中的麦克斯韦方程组，高斯单位制的变换为[下方分别为电场强度、磁感应强度、电荷密度、电流密度]
+$$\mathbf{E}=\frac{\mathbf{E}_g}{\sqrt{4\pi\epsilon_0}},\quad\mathbf{B}=\sqrt{\frac{\mu_0}{4\pi}}\mathbf{B}_g,\quad\rho=\sqrt{4\pi\epsilon_0}\rho_g,\quad\mathbf{j}=\sqrt{4\pi\epsilon}\mathbf{j}_g$$
+而对规范势，高斯单位制的变换为
+$$\ba=\sqrt{\frac{\mu_0}{4\pi}}\ba_g,\quad\phi=\frac{\phi_g}{\sqrt{4\pi\epsilon_0}}$$
+考虑介质时，磁化强度、极化强度满足
+$$\mathbf{M}=\sqrt{\frac{4\pi}{\mu_0}}\mathbf{M}_g,\quad\mathbf{P}=\mathbf{P}_g\sqrt{4\pi\epsilon_0}$$
+
+力学相关物理量，如$\br,\bp,t$等单位无变化，其他物理量则可从上方基本物理量确定。下面的讨论\textbf{采用高斯单位制}，省略下标$g$。
+
+\
+
+\textbf{带电粒子经典哈密顿量}
+
+为构造电磁场中的哈密顿算符，需要先考虑经典情况。对质量$\mu$，电荷量$q$，速度$\mathbf{v}$的粒子，设电磁场规范势为$(\phi,\ba)$，则经典哈密顿量可写为
+$$H=\frac{1}{2\mu}\bigg(\mathbf{P}-\frac{q}{c}\ba\bigg)^2+q\phi$$
+
+这里$\mathbf{P}$为\textbf{正则动量}，由哈密顿正则方程有
+$$\dot{\br}=\nabla_{\mathbf{P}}H,\quad\dot{\mathbf{P}}=-\nabla_{\br}H$$
+由前一式可解出$\mathbf{P}=\mu\mathbf{v}+\frac{q}{c}\ba$，后一式即代表粒子经典动力学方程，化简可得
+$$\mu\ddot{\br}=q\mathbf{E}+\frac{q}{c}\mathbf{v}\times\mathbf{B}$$
+即为洛伦兹力公式。
+
+*由电动力学知识有[以下$\partial_t$为$\frac{\partial}{\partial t}$的简写]
+$$\mathbf{E}=-\nabla\phi-\frac{1}{c}\partial_t\ba,\quad\mathbf{B}=\nabla\times\ba$$
+代入验证即得结论。
+
+\
+
+\textbf{库伦规范下的薛定谔方程}
+
+利用正则量子化，将$\mathbf{P}$替换为动量算符$\hat{\bp}=-\ir\hbar\nabla$，即可得到位置表象下的哈密顿算符
+$$\hat{H}=\frac{1}{2\mu}\bigg(-\ir\hbar\nabla-\frac{q}{c}\ba\bigg)^2+q\phi$$
+
+*由此即可写出薛定谔方程$-\ir\hbar\partial_t\psi=\hat{H}\psi$。
+
+由电动力学知识，$(\phi,\ba)$进行规范变换下电磁场不变，取\textbf{库伦规范}有
+$$\hat{\bp}\cdot\ba-\ba\cdot\hat{\bp}=-\ir\hbar\nabla\cdot\ba=0$$
+
+此时薛定谔方程可写为
+$$\ir\hbar\partial_t\psi=\bigg(\frac{1}{2\mu}\hat{\bp}^2-\frac{q}{\mu c}\ba\cdot\hat{\bp}+\frac{q^2}{2\mu c^2}\ba^2+q\phi\bigg)\psi$$
+
+由于速度算符
+$$\hat{\mathbf{v}}=\frac{1}{\mu}\bigg(\hat{\bp}-\frac{q}{c}\ba\bigg)$$
+概率密度仍为$\rho=\psi^*\psi$，但概率流密度应表达为
+$$\mathbf{j}=\frac{1}{2}(\psi^*\hat{\mathbf{v}}\psi+\psi\hat{\mathbf{v}}^*\psi^*)$$
+由此仍可计算验证$\partial_t\rho+\nabla\cdot\mathbf{j}=0$。
+
+*此前的概率流密度表达式事实上是代入$\hat{\mathbf{v}}=\hat{\bp}/\mu$，并相差倍数。
+
+\textbf{规范对称性}：由电动力学知识，若作规范变换
+$$\ba'=\ba+\nabla\chi(\br,t),\quad\phi'=\phi-\frac{1}{c}\partial_t\chi(\br,t)$$
+则电磁场均不改变，由此经典电动力学方程不变。量子力学中，为使薛定谔方程
+$$-\ir\hbar\partial_t\psi'=\bigg(\frac{1}{2\mu}\bigg(-\ir\hbar\nabla-\frac{q}{c}\ba'\bigg)^2+q\phi'\bigg)\psi'$$
+仍成立，须对$\psi$作规范变换$\psi'=\exp\big(\frac{\ir q}{\hbar c}\chi(\br,t)\big)\psi$，由于不影响概率诠释，事实上不变。
+
+*证明过程与第五章中几乎完全相同，根据第五章，也可理解为规范不变性\textbf{导致了}电磁相互作用的存在，称为\textbf{规范原理}。
+
+\
+
+\textbf{电子内禀磁矩}
+
+回顾之前的位置表象下自由电子哈密顿算符形式[可计算知右侧等号成立]
+$$\hat{H}=\frac{\hat{\bp}^2}{2\mu}=\frac{1}{2\mu}(\hat{\sigma}\cdot\hat{\bp})^2$$
+这里$\hat{\sigma}$代表自旋，在旋量波函数表示下为$\sigma=(\sigma_1,\sigma_2,\sigma_3)$，各分量为泡利矩阵。
+
+在附加外磁场$\mathbf{B}=\nabla\times\ba$，无电场[即$\phi=0$]时，$\hat{H}$必须采用后一种表示形式，类似上一部分替换正则动量后计算得到旋量波函数表示下[注意电子电荷$q=-e$]
+$$\hat{H}=\frac{1}{2\mu}\bigg(\sigma\cdot\bigg(\hat{\bp}+\frac{e}{c}\ba\bigg)\bigg)^2=\frac{1}{2\mu}\bigg(\hat{\bp}+\frac{e}{c}\ba\bigg)^2-\mu_s\cdot\mathbf{B},\quad\mu_s=-\frac{e\hbar}{2\mu c}\sigma$$
+
+*代入$\sigma$表达式有$\mu_s=-\frac{e}{\mu c}\hat{\mathbf{S}}$，即称为自旋磁矩算符。
+
+\
+
+\textbf{Aharonov-Bohm效应}
+
+回顾带电粒子下的薛定谔方程，其只与$\ba,\phi$有关，且有规范变换下的不变性。
+
+Aharonov与Bohm预言：即使运动区域中$\mathbf{B}$恒为0，只要$\mathbf{A}\ne0$，量子力学行为仍然可能受影响。[这与经典粒子性质完全不同。]此预言被实验证实，因此称为Aharonov-Bohm效应。
+
+以下讨论在柱坐标系$(r,\varphi,z)$中进行。考察$z$方向无限延伸的载流螺线管，横截面为$r\le a$，其内部存在均匀磁场
+$$\mathbf{B}=B\mathbf{e}_3\theta(a-r)$$
+这里阶梯函数$\theta(x)$当$x\ge0$时为1，否则为0。利用对称性可知$\ba$在$\varphi$方向，由库伦规范直接解得[结合$r=a$处连续性]
+$$\ba=\frac{B}{2r}\big(r^2\theta(a-r)+a^2\theta(r-a)\big)\mathbf{e}_\varphi$$
+由此，螺线管外部磁感应强度恒0，但$\ba$非零。记磁通量$\Phi=\pi a^2B$可知外部为$\frac{\Phi}{2\pi r}e_\varphi$。
+
+考虑质量$\mu$，带电$q$的带电粒子在$r=b>a$，$z$恒定的某圆环运动，利用之前讨论可写出定态薛定谔方程[不存在电场，因此可取$\phi=0$]
+$$\bigg(-\frac{\hbar^2}{2\mu}\nabla^2+\frac{\ir\hbar q}{\mu c}\ba\cdot\nabla+\frac{q^2}{2\mu c^2}\ba^2\bigg)\Psi=E\Psi$$
+设$\Psi$仅依赖极角$\varphi$，则考虑柱坐标系中的方程可得
+$$\Psi''(\varphi)-2\ir\beta\Psi'(\varphi)+\epsilon\Psi=0,\quad\beta=\frac{q\Phi}{2\pi\hbar c},\epsilon=\frac{2\mu b^2E}{\hbar^2}-\beta^2$$
+由其为线性常系数二阶微分方程，可直接得到通解[$C_i$为参数]
+$$\Psi(\phi)=C_1\exp\big(\ir(\beta+b\sqrt{2\mu E}/\hbar)\varphi\big)+C_2\exp\big(\ir(\beta-b\sqrt{2\mu E}/\hbar)\varphi\big)$$
+
+再结合边界条件$\Psi(\varphi)=\Psi(\varphi+2\pi)$即可得到一般$C_1,C_2$只有一个非零，对应的$\beta\pm\frac{b}{\hbar}\sqrt{2\mu E}=n\in\mathbb{N}$，从而计算可知
+$$E_n=\frac{\hbar^2}{2\mu b^2}\bigg(n-\frac{q\Phi}{2\pi\hbar c}\bigg)^2,\quad n\in\mathbb{N}$$
+$n\ne0$时每个本征值二重简并，与$\Phi$产生了关系。
+
+下面考虑另一个实验验证，即\textbf{双缝干涉实验}，在双缝后增加一小片磁场[例如插入载流螺线管]，考察屏上与缝连接不经过磁场的位置条纹是否变化。
+
+由无磁场处$\nabla\times\ba=0$，可取规范函数$\chi=-\int_P\ba\cdot\dr\br$，这里$P$表示延某单连通区域中的路径积分，从而即得$\nabla\chi=-\ba$，这样规范变换后的$\ba'=0$，而
+$$\Psi'=\Psi\exp\bigg(-\frac{\ir q}{\hbar c}\int_P\ba\cdot\dr\br\bigg)$$
+设两电子波函数为$\Psi_1,\Psi_2$，普通双缝干涉实验中对应$\ba$处处为0的情况，电子出现在观测屏的概率幅即为$\Psi_1'+\Psi_2'$，但加入螺线管后可知$\Psi_1+\Psi_2$为[这里$P$为$P_2$反向连接$P_1$得到的路径]
+$$\Psi=\Psi_1'\exp\bigg(\frac{\ir q}{\hbar c}\int_{P_1}\ba\cdot\dr\br\bigg)+\Psi_2'\exp\bigg(\frac{\ir q}{\hbar c}\int_{P_2}\ba\cdot\dr\br\bigg)=\exp\bigg(\frac{\ir q}{\hbar c}\int_{P_1}\ba\cdot\dr\br\bigg)\bigg(\Psi_1'+\Psi_2'\exp\bigg(\frac{\ir q}{\hbar c}\int_P\ba\cdot\dr\br\bigg)\bigg)$$
+由于两电子到螺线管的路径有差异，改变了相位差，从而引起了干涉条纹移动。
+
+\subsection{光谱结构}
+\textbf{正常塞曼效应}
+
+定义：原子置于强磁场中后某条光谱线分裂为三条。
+
+*量子力学角度，这即代表简并的能级发生了分裂，简并被外磁场之间相互作用的哈密顿量解除。
+
+根据原子物理知识，跃迁\textbf{不改变自旋状态}，因此可以忽略自旋项[其为恒定值]，位置表象下哈密顿算符可写为
+$$\hat{H}=\frac{1}{2\mu}\bigg(\hat{\bp}+\frac{e}{c}\ba\bigg)^2+V(r)$$
+这里$V(r)=-e\phi$为原子核与内层电子产生的势能。
+
+由于原子尺度下外磁场可看作\textbf{匀强场}，不妨设只有$z$方向为$B$，其余为0，这时计算得满足库伦规范的
+$$\ba=-\frac{1}{2}\br\times\mathbf{B}=\bigg(-\frac{1}{2}yB,\frac{1}{2}xB,0\bigg)$$
+由此代入计算得到
+$$\hat{H}=\frac{1}{2\mu}\hat{\bp}^2+\frac{eB}{2\mu c}\hat{L}_3+\frac{e^2B^2}{8\mu c^2}(x^2+y^2)+V(r)$$
+其中轨道角动量算符$\hat{L}_3=x\hat{p}_y-y\hat{p}_x$，利用原子尺度估算可知$B^2$项可忽略，从而哈密顿算符写为
+$$\hat{H}=\frac{1}{2\mu}\hat{\bp}^2+V(r)-\hat{\mu}\cdot\mathbf{B},\quad\hat{\mu}=-\frac{e}{2\mu c}\hat{\mathbf{L}}$$
+
+计入外磁场后，$\hat{\mathbf{L}}$不再守恒[与$\hat{H}$对易]，但由$\hat{L}_3$、$\hat{L}^2$均与$\hat{L}_3$对易可得二者仍守恒，从而力学量完全集仍可选为$\hat{H},\hat{L}^2,\hat{L}_3$，由后两者守恒仍可设本征态在球坐标下写为
+$$\psi_{n_rlm}(r,\theta,\varphi)=R_{n_rl}(r)Y_{lm}(\theta,\varphi)$$
+这里$l\in\mathbb{N},m=-l,-l+1,\dots,l$。设其对应的能量本征值为$E_{n_rlm}$，计算可发现
+$$E_{n_rlm}=E_{n_rl}+m\frac{e B\hbar}{2\mu c}$$
+$E_{n_rl}$为
+$$\hat{H}_0=\frac{1}{2\mu}\hat{\bp}^2+V(r)$$
+的本征值，即为不添加外磁场时的谱线。
+
+*具体来说，由于$\hat{H}_0$与$\hat{H}$只相差$\hat{L}_3$，$\hat{H}_0,\hat{L}^2,\hat{L}_3$与$\hat{H},\hat{L}^2,\hat{L}_3$的共同本征函数完全相同，因此本征值存在对应关系。而计算$\hat{H}_0\psi_{n_rlm}$得只与$R_{n_rl}(r)$有关，因此本征值可写成$E_{n_rl}$，为$2l+1$重简并。
+
+*添加磁场后，$\hat{H}_0$的本征值完全解除简并，原本的能级$E_{n_rl}$分裂为$2l+1$个能级，相邻能级间距$\hbar\omega_L$，其中$\omega_L=\frac{eB}{2\mu c}$称为\textbf{Larmor频率}。
+
+*对光谱线而言，由于量子跃迁\textbf{选择定则}，谱线$\omega$将分裂为$\omega,\omega\pm\omega_L$三条谱线，且距离随外磁场线性增大[此处利用能量与频率关系$E=\hbar\omega$]。
+
+\
+
+\textbf{朗道能级}
+
+对不计自旋的\textbf{自由电子}而言，$V(r)=0$，且其无法忽略$B^2$项，从而哈密顿量写为
+$$\hat{H}=\frac{1}{2\mu}\hat{\bp}^2+\frac{eB}{2\mu c}\hat{L}_3+\frac{e^2B^2}{8\mu c^2}(x^2+y^2)$$
+分解为$\hat{H}=\hat{H}_1+\hat{H}_2=\hat{H}_1+\hat{H}_0+\hat{H}'$，这里
+$$\hat{H}_1=\frac{\hat{p}_z^2}{2\mu},\quad\hat{H}_0=\frac{1}{2\mu}(\hat{p}_x^2+\hat{p}_y^2)+\frac{e^2B^2}{8\mu c^2}(x^2+y^2),\quad\hat{H}'=\omega_L(x\hat{p}_y-y\hat{p}_x)=\omega_L\hat{L}_z$$
+
+由于$\hat{H}_1$与其他二者不同方向，其为完全独立的自由运动，结合$\hat{p}_z$解除简并，对本征值$p_z$的本征态为[不考虑归一化]\ $\er^{\ir p_zz/\hbar}$。下面求解$\hat{H}_2$的本征态$\psi(x,y)$。
+
+在极坐标系($\rho,\varphi$)下计算，可将两算符重新写为
+$$\hat{H}_0=-\frac{\hbar^2}{2\mu}\bigg(\frac{1}{\rho}\partial_\rho(\rho\partial_\rho)+\frac{1}{\rho^2}\partial_\varphi^2\bigg)+\frac{1}{2}\mu\omega_L^2\rho^2,\quad\hat{H}'=-\ir\hbar\omega_L\partial_\varphi$$
+
+计算可发现$[\hat{H}_0,\hat{H}']=0$，于是考虑$\hat{H}_2$的本征函数可考虑二者共同的本征函数。直接写出$\hat{H}'$本征函数为$\er^{\ir m\varphi},m\in\mathbb{Z}$，设共同本征函数$\psi(\rho,\varphi)=R(\rho)\er^{\ir m\varphi}$，$\hat{H}_2$本征值$E$，得到径向方程
+$$-\frac{\hbar^2}{2\mu}\bigg(\frac{1}{\rho}\partial_\rho(\rho\partial_\rho)-\frac{m^2}{\rho^2}\bigg)R(\rho)+\frac{1}{2}\mu\omega_L^2\rho^2R(\rho)=(E-m\hbar\omega_L)R(\rho)$$
+记$\rho=\sqrt{\frac{\hbar}{\mu\omega_L}}\xi$，可得到
+$$\bigg(\partial^2_\xi+\frac{1}{\xi}\partial_\xi-\frac{m^2}{\xi^2}-\xi^2\bigg)R(\xi)+2\bigg(\frac{E}{\hbar\omega_L}-m\bigg)R(\xi)=0$$
+
+仍然与之前类似，先考察零处与无穷远处。
+
+零处保留$\xi$最低次项近似为
+$$\bigg(\partial^2_\xi+\frac{1}{\xi}\partial_\xi-\frac{m^2}{\xi^2}\bigg)R(\xi)$$
+考虑$R(\xi)=\xi^k$形式的解，发现可以$k=|m|$或$-|m|-1$，后者不满足概率诠释收敛性，因此只能为$\xi^{|m|}$。
+
+无穷远处近似为$(\partial_\xi+\xi)R(\xi)=0$，于是$R(\xi)\sim\er^{-\xi^2/2}$。
+
+于是记$R(\xi)=\xi^{|m|}\er^{-\xi^2/2}u(\xi)$，则其在0处非零有限，可发现作代换[由于范围为正数，此代换不影响解]\ $\zeta=\xi^2$后方程变为合流超几何方程的形式
+$$\zeta u''(\zeta)+(|m|+1-\zeta)u'(\zeta)+\bigg(\frac{E}{2\hbar\omega_L}-\frac{m+|m|+1}{2}\bigg)u(\xi)$$
+与之前完全相同，可知解为
+$$u(\xi)=F\bigg(\frac{m+|m|+1}{2}-\frac{E}{2\hbar\omega_L},|m|+1,\xi^2\bigg)$$
+同样考虑无穷处情况知$F$须中断为多项式，从而第一个参数为负整数或0，记为$-n_\rho$即可得到径向本征值[即称为\textbf{朗道能级}]
+$$E_{n_\rho m}=(2n_\rho+m+|m|+1)\hbar\omega_L,\quad n_\rho\in\mathbb{N},m\in\mathbb{Z}$$
+对应的径向本征函数
+$$R_{n_\rho,|m|}(\xi)\sim\xi^{|m|}\er^{-\xi^2/2}F(-n_\rho,|m|+1,\xi^2)$$
+
+*对任何$n_\rho$，当$m<0$时，对应的本征值$(2n_\rho+1)\hbar\omega_L$无穷重简并，
+
+*若将此能量视为与外磁场相互作用能$-\mu_zB$，等效磁矩
+$$\mu_z=-(2n_\rho+m+|m|+1)\frac{\er\hbar}{2Mc}<0$$
+也即自由电子受外磁场作用时有抗磁性。
+
+\
+
+\textbf{自旋轨道耦合哈密顿算符}
+
+*实验发现，正常塞曼效应未必总是成立，谱线的其他分裂情况即称为\textbf{反常塞曼效应}，为解释其原因，需要考虑自旋角动量与轨道角动量的耦合。
+
+定义自旋、轨道耦合能的哈密顿算符为
+$$\hat{H}'=\zeta(r)\hat{\mathbf{S}}\cdot\hat{\mathbf{L}},\quad\zeta(r)=\frac{1}{2\mu^2c^2r}\frac{\dr V(r)}{\dr r}$$
+
+*当外磁场很强时，这项可以忽略，但较弱时不可忽略。
+
+考虑中心力场$V(r)$中的电子，位置表象下[仍考虑旋量波函数形式]实际哈密顿算符为
+$$\hat{H}=-\frac{\hbar^2}{2\mu}\nabla^2+V(r)+\zeta(r)\hat{\mathbf{S}}\cdot\hat{\mathbf{L}}$$
+
+计算可发现这时$\hat{\mathbf{S}},\hat{\mathbf{L}}$都不再是守恒量，但利用$[\hat{L}_i,\hat{S}_j]=0$可得$\hat{\bj}$仍然守恒。此外，$\hat{L}^2$也仍然守恒，因此可取力学量完全集为$\hat{H},\hat{L}^2,\hat{J}^2,\hat{J}_3$。
+
+回顾第八章计算电子总角动量时，我们已经求出了$\hat{L}^2,\hat{J}^2,\hat{J}_3$的共同本征态$\psi_{ljm_j}$，且得到了$j=l\pm1/2$。利用$\hat{\mathbf{S}}\cdot\hat{\mathbf{L}}=\frac{1}{2}\big(\hat{J}^2-\hat{L}^2-\frac{3}{4}\hbar^2\big)$即得
+$$(\hat{\mathbf{S}}\cdot\hat{\mathbf{L}})\Psi_{ljm_j}=\frac{\hbar^2}{2}\bigg(j(j+1)-l(l+1)-\frac{3}{4}\bigg)\Psi_{ljm_j}$$
+
+*利用力学量完全集的性质，$\hat{\mathbf{S}}\cdot\hat{\mathbf{L}}$的本征值问题即已完全解决，其本征矢量必然能写为上述形式。
+
+于是，取$\hat{H},\hat{L}^2,\hat{J}^2,\hat{J}_3$为力学量完全集，可假设共同本征态
+$$\psi(r,\theta,\varphi,S_z)=R(r)\Psi_{ljm_j}(\theta,\varphi,S_z)$$
+
+由此径向薛定谔方程为
+$$\bigg(-\frac{\hbar^2}{\mu}\frac{1}{r^2}\frac{\dr}{\dr r}r^2\frac{\dr}{\dr r}+V(r)+\frac{l(l+1)}{\hbar^2}{2\mu r^2}+\frac{l\hbar^2}{2}\zeta(r)\bigg)R(r)=ER(r),\quad j=l+1/2$$
+$$\bigg(-\frac{\hbar^2}{\mu}\frac{1}{r^2}\frac{\dr}{\dr r}r^2\frac{\dr}{\dr r}+V(r)+\frac{l(l+1)}{\hbar^2}{2\mu r^2}-\frac{(l+1)\hbar^2}{2}\zeta(r)\bigg)R(r)=ER(r),\quad j=l-1/2$$
+
+*此能量将与量子数$n,l,j$都有关，可记作$E_{nlj}$，考虑$m_j$的取值可知其$2j+1$重简并。
+
+*对碱金属原子，$V(r)$是吸引力且$V(\infty)=0,V(r)<0$，因此几乎处处有$\zeta(r)>0$，$j=l+1/2$的能级略高于$j=l-1/2$的能级，且两能级很靠近，这就解释了碱金属原子光谱的\textbf{双线结构}。计算表明，能级分裂随原子序数增大而增大，$Z$越大则越明显。
+
+\
+
+\textbf{反常塞曼效应}
+
+现在对反常塞曼效应进行讨论，令$\mathbf{B}=Be_3$，出于与之前相同的理由忽略自旋项与$B^2$项，而添加自旋-轨道耦合项后成为
+$$\hat{H}=\frac{1}{2\mu}\hat{\bp}^2+\frac{eB}{2\mu c}\hat{L}_3+V(r)+\zeta(r)\hat{\mathbf{S}}\cdot\hat{\mathbf{L}}$$
+
+*若不忽略自旋项，将无法保证$\hat{J}^2$为守恒量算符。
+
+仍然取力学量完全集为$\hat{H},\hat{L}^2,\hat{J}^2,\hat{J}_3$，共同本征态仍然可表为[径向函数$R$与上一部分完全相同]
+$$\psi_{nljm_j}(r,\theta,\varphi,S_z)=R_{nlj}(r)\Psi_{ljm_j}(\theta,\varphi,S_z)$$
+本征值对应即为
+$$E_{nljm_j}=E_{nlj}+m_j\frac{e\hbar B}{2\mu c},\quad m_j=-j,-j+1,\dots,j$$
+
+注意到，正常塞曼效应中磁场解除了$2l+1$重简并，由于轨道角动量$l$为偶数，$2l+1$为奇数。而$j=l\pm1/2$，解除$2j+1$重简并会产生偶数条谱线，这就解释了反常塞曼效应。
+
+\subsection{全同粒子体系}
+定义：静止质量、电荷、自旋、磁矩、寿命等\textbf{内禀属性}完全相同的粒子称为全同粒子。
+
+全同粒子体系中，任何可观测量[包括哈密顿量]对两粒子交换不变，称为体系的\textbf{交换对称性}。
+
+*由此即带来不可分辨性。
+
+考虑氦原子两电子组成的体系，哈密顿算符为
+$$\hat{H}=\frac{\hat{\bp_1}^2}{2m}+\frac{\hat{\bp_2}^2}{2m}-\frac{2e^2}{r_1}-\frac{2e^2}{r_2}+\frac{e^2}{|\br_1-\br_2|}$$
+
+*这里三四两项为原子核带来的电势，最后一项为相互作用产生的电势。
+
+对应的波函数可写为$\psi(\br_1,t_1,S_{31},\br_2,t_2,S_{32})$，定义\textbf{交换算符}
+$$\hat{P}_{12}\psi(\br_1,t_1,S_{31},\br_2,t_2,S_{32})=\psi(\br_2,t_2,S_{32},\br_1,t_1,S_{31})$$
+
+*更一般地，对$N$个粒子组成的全同粒子体系，$\hat{P}_{ij}$表示交换第$i,j$个粒子全部坐标的算符。根据交换对称性要求，必有$\hat{P}_{ij}\Psi$与$\Psi$等价，即相差非零常数因子。再根据定义$\hat{P}_{ij}^2=\hat{I}$，因此有
+$$\hat{P}_{ij}\Psi=\pm\Psi$$
+实验表明，自旋量子数$s$为整数的粒子组成的全同粒子体系满足上式$+$号成立，否则上式$-$号成立[回顾之前，这即为玻色子、费米子的定义]。
+
+仍然考虑双粒子体系的情况，由于双粒子的状态可被两粒子分别的状态唯一确定，态矢量可记作$\ket{\psi_1,\psi_2}$，$\psi_1,\psi_2$分别表示两个粒子的波函数，由此可知
+$$\hat{P}_{12}\ket{\psi_1,\psi_2}=\ket{\psi_2,\psi_1}$$
+
+考虑到$\psi_j$构成波函数空间标准正交基时[不妨设为离散]，全部$\ket{\psi_i,\psi_j}$应形成标准正交基，由此计算知
+$$\blk{\psi_i,\psi_j}{\hat{P}_{12}}{\psi_k,\psi_l}=\blk{\psi_i,\psi_j}{\hat{P}_{12}^\dagger}{\psi_k,\psi_l}=\delta_{il}\delta_{jk}$$
+
+*更准确来说，对费米子体系有$\hat{P}\ket{\psi_i,\psi_i}=-\ket{\psi_i,\psi_i}$，因此只能为0，这样的态不存在[称为\textbf{泡利不相容原理}]，应为其他所有$\ket{\psi_i,\psi_j},i\ne j$构成基。
+
+也即$\hat{P}_{12}$是厄米算符，结合平方为1知其为\textbf{幺正算符}。代入之前的$\hat{H}$\ [利用$\hat{H}$交换下标1、2后不变]可发现
+$$\hat{P}_{12}^{-1}\hat{H}\hat{P}_{12}=\hat{H}$$
+于是$[\hat{P}_{12},\hat{H}]=0$，其为守恒量算符。
+
+\
+
+\textbf{全同粒子体系}
+
+忽略粒子相互作用，则哈密顿算符可写为[$\hat{h}$为单粒子哈密顿算符，其应以$q$为参数]
+$$\hat{H}=\hat{h}(q_1)+\hat{h}(q_2)$$
+设$\hat{h}(q)$正交归一的本征函数系为$\varphi_k(q)$，对应本征值$\epsilon_k$。
+
+*这里内积即看作$\varphi(q)_i^*\varphi_j(q)$对$q$积分，$q$可能为矢量。
+
+考虑两粒子玻色子体系，若波函数$\psi_{k_1k_2}^S(q_1,q_2)$，内积应为$\psi_{k_1k_2}^{S*}(q_1,q_2)\psi_{k_1'k_2'}(q_1,q_2)$对$q_1,q_2$积分，由此利用交换对称性与$\ket{\varphi_i,\varphi_j}$构成完备正交基可知
+$$\psi_{k_1k_2}^S(q_1q_2)=\begin{cases}\varphi_k(q_1)\varphi_k(q_2)&k_1=k_2=k\\\frac{1}{\sqrt2}\big(\varphi_{k_1}(q_1)\varphi_{k_2}(q_2)+\varphi_{k_2}(q_1)\varphi_{k_1}(q_2)\big)&k_1\ne k_2\end{cases}$$
+
+多粒子时，假设总数为$N$，有$n_i$个玻色子处在$\varphi_{k_i}$上$i=1,2,\dots,s$，$k_i$互不相同，则类似上方可知符合交换对称性的波函数写为
+$$\sum_{n_1\cdots n_s}^S\sim\sum_{\mathcal{P}}\mathcal{P}\bigg(\prod_{i_1=1}^{n_1}\varphi_{k_1}(q_{i_1})\prod_{i_2=n_1+1}^{n_1+n_2}\varphi_{k_2}q_({i_2})\cdots\bigg)$$
+这里$\mathcal{P}$表示对所有$q_i$的下标$i$进行任意置换，由于对同一$k_i$后的坐标交换不改变这项，实际上总项数为$\frac{N!}{\prod_in_i!}$。
+
+类似地，对费米子体系，考虑到交换反对称性与泡利不相容可得
+$$\psi_{k_1k_2}^A(q_1,q_2)=\frac{1}{\sqrt2}\big(\varphi_{k_1}(q_1)\varphi_{k_2}(q_2)-\varphi_{k_2}(q_1)\varphi_{k_1}(q_2)\big)$$
+
+多粒子时，完全类似可知费米子体系的归一化波函数为[这里$(\varphi_i(q_j))$表示指定第$i$行第$j$列值的矩阵]
+$$\psi_{k_1\dots k_N}^A(q_1,\dots,q_N)=\frac{1}{\sqrt{N!}}\det(\varphi_i(q_j))$$
+
+*多粒子仍然满足$k_i=k_j$时无意义的泡利不相容原理。
+
+*若多粒子体系波函数不能表达为单粒子波函数乘积，则称为\textbf{纠缠态}，多费米子体系必然处在纠缠态，而多玻色子体系当所有粒子$\varphi_k$一致时不处在纠缠态。
+
+\
+
+\textbf{氦原子}
+
+考虑两电子的氦原子，其自旋角动量分别为$\hat{\mathbf{S}}_{1,2}$，根据独立性可知$[\hat{S}_{1i},\hat{S}_{2j}]=0$，总角动量为
+$$\hat{\mathbf{S}}=\hat{\mathbf{S}}_1+\hat{\mathbf{S}}_2$$
+
+其为独立角动量算符求和，仍为角动量算符。由于电子$s=\frac{1}{2}$确定，实际自由度为2\ [由每个自由度对应二维，态矢量空间为四维向量空间]，选择$\hat{S}_{13},\hat{S}_{23}$作为力学量完全集。
+
+矩阵\textbf{张量积}记号：$A_{m\times n}$与$B_{p\times q}$的张量积定义为$mp\times nq$维矩阵
+$$A\otimes B=\begin{pmatrix}b_{11}A&\cdots&b_{1q}A\\\vdots&\ddots&\vdots\\b_{p1}A&\cdots&b_{pq}A\end{pmatrix}$$
+*可验证有$AC,BD$存在时$(A\otimes B)(C\otimes D)=(AC)\otimes(BD)$。
+
+利用张量积记号，由于$\hat{S}_{13},\hat{S}_{23}$在单粒子泡利表象下均为$\frac{\hbar}{2}\sigma_3$，其在双粒子时事实上可以写为
+$$\hat{S}_{13}=\frac{\hbar}{2}\sigma_3\otimes I_2,\quad\hat{S}_{23}=\frac{\hbar}{2}I_2\otimes\sigma_3$$
+
+考虑$\sigma_3$属于本征值1的本征矢量$e_1$与属于$-1$的本征矢量$e_2$，对$S_{13},S_{23}$的共同本征态[注意到$I$以任何矢量为本征矢量]，应为所有$e_i\otimes e_j,i,j\in\{1,2\}$。
+
+由于任何四维矢量可写为$\alpha\otimes\beta$，$\alpha,\beta$为二阶矢量，交换算符可写为
+$$\hat{P}_{12}(\alpha\otimes\beta)=\beta\otimes\alpha$$
+考虑上述的基得到表示
+$$P_{12}=\begin{pmatrix}1&0&0&0\\0&0&1&0\\0&1&0&0\\0&0&0&1\end{pmatrix}$$
+为满足交换对称性或反对称性，满足全同性的的态矢量应为$P_{12}$本征值1或$-1$的本征矢量，这样构成的一组正交归一化的态为
+$$e_1\otimes e_1,\quad\frac{1}{\sqrt2}(e_1\otimes e_2+e_2\otimes e_1),\quad e_2\otimes e_2,\quad\frac{1}{\sqrt2}(e_1\otimes e_2-e_2\otimes e_1)$$
+前三个满足交换对称，最后一个交换反对称，分别记为$\chi_{11},\chi_{10},\chi_{1,-1},\chi_{00}$。
+
+*计算可发现二、四两个纠缠态并非$\hat{S}_{13},\hat{S}_{23}$的本征矢量。
+
+计算得$\hat{S}^2$矩阵表示为
+$$S^2=\frac{3}{2}\hbar^2I_4+\frac{\hbar^2}{2}\sum_{i=1}^3\sigma_i\otimes\sigma_i=\frac{3}{2}\hbar^2I_4+\frac{\hbar^2}{2}P_{12}$$
+于是$P_{12}$的本征矢量与$S^2$一致，本征值$s(s+1)\hbar^2$，前三个$s=1$，最后一个$s=0$，再考虑$\hat{S}_3$的本征值$m_s$可知上述记法事实上是$\chi_{sm_s}$。前三个构成\textbf{自旋三重态}，最后一个为\textbf{自旋单态}。
+
+\section{近似方法简介}
+\subsection{定态微扰论}
+考虑定态薛定谔方程$\hat{H}\ket{\psi_n}=E_n\ket{\psi_n}$，其本征值直接求解是困难的，但可考虑将$\hat{H}$写为两部分和
+$$\hat{H}=\hat{H}_0+\hat{H}'=\hat{H}_0+\lambda\hat{W}$$
+这里无量纲参数$\lambda\ll1$，$\hat{H}'$可视为微扰，若$\hat{H}_0$本征值易于求解，只需将微扰级数展开即可得到各阶近似。
+
+\
+
+\textbf{非简并态}
+
+设$\hat{H}_0\ket{n}=E_n^{(0)}\ket{n}$已经解出，能级$E_n^{(0)}$均非简并。
+
+考虑到二级近似[忽略$\lambda^3$及以上的小量]，假设
+$$E_n\approx E_n^{(0)}+\lambda E_n^{(1)}+\lambda^2E_n^{(2)}$$
+$$\ket{\psi_n}\approx\ket{n}+\lambda\ket{\psi_n^{(1)}}+\lambda^2\ket{\psi_n^{(2)}}$$
+于是直接作乘法舍弃高阶小量可得到新的定态薛定谔方程
+$$E_n\ket{\psi_n}\approx E_n^{(0)}\ket{n}+\lambda\big(E_n^{(0)}\ket{\psi_n^{(1)}}+E_n^{(1)}\ket{n}\big)+\lambda^2\big(E_n^{(0)}\ket{\psi_n^{(2)}}+E_n^{(1)}\ket{\psi_n^{(1)}}+E_n^{(2)}\ket{n}\big)$$
+$$\hat{H}\ket{\psi_n}\approx\hat{H}_n\ket{n}+\lambda\big(\hat{H}_0\ket{\psi_n^{(1)}}+\hat{W}\ket{n}\big)+\lambda^2\big(\hat{H}_0\ket{\psi_n^{(2)}}+\hat{W}\ket{\psi_n^{(1)}}\big)$$
+
+零阶项即为$\hat{H}_0$本征方程，已经满足，而一阶项对应
+$$\hat{H}_0\ket{\psi_n^{(1)}}+\hat{W}\ket{n}=E_n^{(0)}\ket{\psi_n^{(1)}}+E_n^{(1)}\ket{n}$$
+二阶项对应
+$$\hat{H}_0\ket{\psi_n^{(2)}}+\hat{W}\ket{\psi_n^{(1)}}=E_n^{(0)}\ket{\psi_n^{(2)}}+E_n^{(1)}\ket{\psi_n^{(1)}}+E_n^{(2)}\ket{n}$$
+
+\textbf{一级近似求解}：由非简并，所有$\ket{n}$满足正交归一性，可考虑$\hat{H}_0$表象下，记$W_{mn}=\blk{m}{\hat{W}}{n}$，一阶项方程两端与$\ket{m}$内积，由$\hat{H}_0$厄米性得到
+$$E_n^{(1)}\delta_{mn}=(E_m^{(0)}-E_n^{(0)})\bk{m}{\psi_n^{(1)}}=W_{mn}$$
+
+由此即有$m=n$时$E_n^{(1)}=W_{nn}$，且
+$$\bk{m}{\psi_n^{(1)}}=-\frac{W_{mn}}{E_m^{(0)}-E_n^{(0)}},\quad m\ne n$$
+
+由此有一级近似下
+$$E_n\approx E_n^{(0)}+\lambda W_{nn}$$
+$$\ket{\psi_n}\approx\ket{n}-\lambda\sum_{m\ne n}\frac{W_{mn}}{E_m^{(0)}-E_n^{(0)}}\ket{m}+C_n\lambda\ket{n}$$
+下面确定常数$C_n$。
+
+利用$\ket{\psi_n}$满足归一化条件，对比一阶项得$\bk{n}{\psi_n^{(1)}}+\bk{\psi_n^{(1)}}{n}=0$，于是$C_n$为纯虚数，设其为$\ir\delta_n$，则由一阶项为0可知[对$\er^{\ir\lambda\delta_n}$泰勒展开]
+$$\ket{\psi_n}\approx(1+\ir\lambda\delta_n)\ket{n}-\lambda\sum_{m\ne n}\frac{W_{mn}}{E_m^{(0)}-E_n^{(0)}}\ket{m}\approx\er^{\ir\lambda\delta_n}\bigg(\ket{n}-\lambda\sum_{m\ne n}\frac{W_{mn}}{E_m^{(0)}-E_n^{(0)}}\ket{m}\bigg)$$
+由于整体相因子不影响波函数，可取$\delta_n=0$，从而有近似
+$$\ket{\psi_n}\approx\ket{n}-\lambda\sum_{m\ne n}\frac{W_{mn}}{E_m^{(0)}-E_n^{(0)}}\ket{m}$$
+
+\textbf{二级近似}：二级近似下常只关心能级修正，将二阶项方程两端与$\ket{n}$内积得到
+$$E_n^{(2)}=-\ir\delta_n(E_n^{(1)}-W_{nn})-\sum_{m\ne n}\frac{|W_{mn}|^2}{E_m^{(0)}-E_n^{(0)}}$$
+
+*这里$\delta_n$定义即为$\ir\delta_n=\bk{n}{\psi_n^{(1)}}$，注意到$C_n$纯虚成立性不依赖近似级别，但取$\delta_n=0$需要一级近似。
+
+若欲求$\ket{\psi^{(2)}}$，可与$\ket{m}$内积后计算，形式相对复杂，然而，为了证明$\delta_n$仍可取为0，分析是必要的。
+
+将二阶项方程两端与$m\ne n$的$\ket{m}$内积得到[代入$\psi_n^{(1)}$的表达式]
+$$\bk{m}{\psi_n^{(2)}}=-\frac{W_{nn}W_{mn}}{(E_m^{(0)}-E_n^{(0)})^2}+\sum_{k\ne n}\frac{W_{mk}W_{kn}}{(E_m^{(0)}-E_n^{(0)})(E_k^{(0)}-E_n^{(0)})}-\ir\delta_n\frac{W_{mn}}{E_m^{(0)}-E_n^{(0)}},\quad m\ne n$$
+利用$\ket{\psi_n}$满足归一化条件，对比二阶项得
+$$\bk{n}{\psi_n^{(2)}}+\bk{\psi_n^{(2)}}{n}+\bk{\psi_n^{(1)}}{\psi_n^{(1)}}=0$$
+利用$\ket{n}$正交归一性，可得$\bk{n}{\psi_n^{(2)}}$实部为
+$$-\frac{1}{2}\delta_n^2-\frac{1}{2}\sum_{m\ne n}\frac{|W_{mn}|^2}{(E_m^{(0)}-E_n^{(0)})^2}$$
+设$\bk{n}{\psi_n^{(2)}}$虚部为实数$\theta_n$，完全类似(但更为复杂)可得到二阶近似下$\psi_n$可写为
+$$\begin{aligned}\psi_n\approx\er^{\ir(\lambda\delta_n+\lambda^2\theta_n)}\bigg(\ket{n}&-\lambda\sum_{m\ne n}\frac{W_{mn}}{E_m^{(0)}-E_n^{(0)}}\ket{m}-\frac{\lambda^2}{2}\sum_{m\ne n}\frac{|W_{mn}^2|}{(E_m^{(0)}-E_n^{(0)})}\ket{n}\\ &+\lambda^2\sum_{m\ne n}\bigg(-\frac{W_{nn}W_{mn}}{(E_m^{(0)}-E_n^{(0)})^2}+\sum_{k\ne n}\frac{W_{mk}W_{kn}}{(E_m^{(0)}-E_n^{(0)})(E_k^{(0)}-E_n^{(0)})}\bigg)\ket{m}\bigg)\end{aligned}$$
+
+由此出于相同的理由，可取$\delta_n=\theta_n=0$，得到$\ket{\psi_n}$在二级近似下的表达式，此时即有能量满足
+$$E_n\approx E_n^{(0)}+\lambda W_{nn}-\lambda^2\sum_{m\ne n}\frac{|W_{mn}|^2}{E_m^{(0)}-E_n^{(0)}}$$
+
+*注意到，上方表达式利用$\hat{H}'=\lambda\hat{W}$合并后都可得到不显含$\lambda$的形式，因此只要$\hat{H}'$视作微扰，都能如此处理，无需显式写出$\lambda\hat{W}$。例如记$H'_{mn}=\blk{m}{\hat{H}'}{n}$，即得能量二级近似
+$$E_n\approx E_n^{(0)}+H'_{nn}-\sum_{m\ne n}\frac{|H'_{mn}|^2}{E_m^{(0)}-E_n^{(0)}}$$
+
+\
+
+\textbf{计算例}
+
+\begin{enumerate}
+    \item 电介质\textbf{极化率}
+    
+    $$\hat{H}_0=-\frac{\hbar^2}{2\mu}\frac{\dr^2}{\dr^2x}+\frac{1}{2}\mu\omega^2x^2,\quad\hat{H}'=-q\mathcal{E}x$$
+
+    这里$\mathcal{E}$为$x$方向施加的电场强度，离子电荷量$q$，无外电场时各向同性电介质中可看作简谐振动，于是哈密顿算符为$\hat{H}_0$，根据第七章可知本征方程解为
+    $$\hat{H}_0\ket{n}=E_n^{(0)}\ket{n},\quad E_n^{(0)}=\bigg(n+\frac{1}{2}\bigg)\hbar\omega,\quad n\in\mathbb{N}$$
+
+    回顾第七章中简谐振子的Dirac解法，相同定义$\hat{a},\hat{a}^\dagger$与$\hat{N}$，由于
+    $$\hat{H}'=-q\mathcal{E}\sqrt{\frac{\hbar}{2\mu\omega}}(\hat{a}+\hat{a}^\dagger)$$
+
+    利用$\hat{a}^\dagger,\hat{a}$的升降性计算可知$H;_{mn}=-q\mathcal{E}\sqrt{\frac{\hbar}{2\mu\omega}}(\sqrt{n}\delta_{m,n-1}+\sqrt{n+1}\delta_{m,n+1})$
+
+    由此计算得精确到二级围绕下能量近似值为
+    $$E_n\approx\bigg(n+\frac{1}{2}\bigg)\hbar\omega-\frac{q^2\mathcal{E}^2}{2\mu\omega^2}$$
+    
+    因此所有能级下移常量，但能谱形状无影响。一级近似下态矢量变为
+    $$\ket{\psi_n}\approx\ket{n}-\sum_{m\ne n}\frac{H'_{mn}}{E_m^{(0)}-E_n^{(0)}}\ket{m}=\ket{n}+\frac{q\mathcal{E}}{\omega^{3/2}\sqrt{2\pi\hbar}}\big(\sqrt{n+1}\ket{n+1}-\sqrt{n}\ket{n-1}\big)$$
+
+    *回顾$\ket{n}$的厄米多项式表达，$\ket{n\pm1}$的宇称与$\ket{n}$相反，于是和不再具有确定的宇称，\textbf{空间反演对称性被外电场破坏}。
+
+    处于能级$E_n$的离子的平均位置即[仍利用$\hat{a}^\dagger,\hat{a}$展开计算]
+    $$\langle x\rangle_{\psi_n}=\blk{\psi_n}{x}{\psi_n}=-\frac{1}{q\mathcal{E}}\blk{\psi_n}{\hat{H}'}{\psi_n}=\frac{q\mathcal{E}}{\mu\omega^2}$$
+    考虑正负离子移动方向相反，外电场诱导产生的电偶极矩为$\mathcal{P}=2\frac{q\mathcal{E}}{\mu\omega^2}q$，与$\mathcal{E}$之比即得到极化率
+    $$\chi=\frac{2q^2}{\mu\omega^2}$$
+
+    \item \textbf{氦原子}与类氦离子基态能量
+    
+    $$\hat{H}_0=\bigg(-\frac{1}{2}\nabla_1^2-\frac{Z}{r_1}\bigg)+\bigg(-\frac{1}{2}\nabla_2^2-\frac{Z}{r_2}\bigg),\quad\hat{H}'=\frac{1}{r_{12}}$$
+
+    考虑\textbf{原子单位制}，$\hat{H}_0$代表两个电子各自的哈密顿量，$\hat{H}'$刻画两电子之间的电势能，$r_{12}=|\br_1-\br_2|$为相对距离，可视为微扰。
+
+    利用之前对全同粒子的推导，$\hat{H}_0$的本征函数可写为两个类氢原子波函数的积。
+    
+    *准确来说，旋量波函数为二维列向量，事实上是作\textbf{张量积}得到四维列向量，这时各自自旋与总自旋对应的算符为上一章中四阶方阵的形式。
+
+    由此，利用原子物理知识可知，对于不考虑相互作用的基态，两个电子都处在$1s$轨道，各自的量子数均为$n=1,l=m=0$，且它们自旋相反，于是$m_s=s=0$，得到波函数为
+    $$\Psi_0(\br_1,\br_2,S_{13},S_{23})=\psi_{100}(r_1)\psi_{100}(r_2)\frac{1}{\sqrt2}(e_1\otimes e_2-e_2\otimes e_1)$$
+
+    *利用径向波函数显式表达可知[注意类氢离子与氢离子的系数差别]\ $\psi_{100}(r)=\frac{Z^{3/2}}{\sqrt\pi}\er^{-Zr}$，此时的对应能量本征值为$E_1^{(0)}=-Z^2$。
+
+    *由于$\hat{H}_0$本征值仅有基态时不简并，仅有基态能用之前方式进行计算。
+
+    其对应的一级修正应为[自旋部分利用正交归一性消去]
+    $$\hat{H}'_{00}=\langle r_{12}^{-1}\rangle_{\Psi_0}=\iint\dr^3x_1\dr^3x_2\frac{1}{|\br_1-\br_2|}|\psi_{100}(r_1)|^2|\psi_{100}(r_2)|^2$$
+
+    利用球谐函数知识可算出此积分为$\frac{5}{8}Z$，于是$E_1\approx-Z^2+\frac{5}{8}Z$。
+
+    *此处积分计算需要用到球谐函数的加法定理
+    $$\frac{1}{r_{12}}=\sum_{l=0}^\infty\frac{r_<^l}{r_>^{l+1}}\frac{4\pi}{2l+1}\sum_{m=-l}^lY_{lm}^*(\theta,\varphi)Y_{lm}(\theta',\varphi')$$
+    其中$r_>,r_<$为$r_1,r_2$中较大、较小的，$\theta,\varphi$为球坐标系下$\br_1,\br_2$的方向角。回顾第八章的球谐函数正交归一关系与前几项的显式表达，结合即可计算得结果。
+
+    *转化为国际单位制后能量须乘氢原子基态能量$-13.6\text{eV}$，进而得到近似结果。
+\end{enumerate}
+
+\
+
+\textbf{简并态微扰论}
+
+若能级零级近似给定后，对应态矢量不唯一，刚才的方法不再适用。这时设本征方程为
+$$\hat{H}_0\ket{n,\nu}=E_n^{(0)}\ket{n,\nu}$$
+$\hat{H}_0$添加其他力学量后成为力学量完全集，对应的共同本征态中其他力学量的部分用$\nu$表示[假设$E_n^{(0)}$有限简并，从而$\nu$可记为$1,2,\dots,f_n$]。
+
+考虑$\hat{H}$的本征方程$(\hat{H}_0+\lambda\hat{W})\ket{\psi}=E\ket{\psi}$，两侧同时内积$\ket{m,\mu}$，记
+$$C_{m\mu}=\bk{m,\mu}{\psi},\quad W_{m\mu,n\nu}=\blk{m,\mu}{\hat{W}}{n,\nu}$$
+则利用正交归一性展开$\ket{\psi}$有
+$$(E-E_m^{(0)})C_{m\mu}=\lambda\sum_{n,\nu}W_{m\mu,n\nu}C_{n\nu}$$
+考虑一级近似，设$E=E^{(0)}+\lambda E^{(1)},C_{m\mu}=C_{m\mu}^{(0)}+\lambda C_{m\mu}^{(1)}$，比较$\lambda$的零次、一次项，可得
+$$(E^{(0)}-E_m^{(0)})C_{m\mu}^{(0)}=0$$
+$$(E^{(0)}-E_m^{(0)})C_{m\mu}^{(1)}+E^{(1)}C_{m\mu}^{(0)}=\sum_{n,\nu}W_{m\mu,n\nu}C_{n\nu}^{(0)}$$
+
+假设要处理的简并能级为$E_k^{(0)}$，取定$E^{(0)}=E_k^{(0)}$，由零级方程得到[注意$k\ne m$时$C_{m\mu}$必为0]
+$$C_{m\mu}^{(0)}=a_\mu\delta_{mk}$$
+
+*由此，$C_{m\mu}^{(0)}$对应的波函数$\ket{\psi^{(0)}}$必然为$\hat{H}_0$对应本征值$E_k^{(0)}$的某本征函数。
+
+进一步代入一级方程，一级方程取$m=k$可得到
+$$E_k^{(1)}a_\mu=\sum_{\mu=1}^{f_k}W_{k\mu,k\nu}a_\nu$$
+将$a_\nu$看作矢量$a$，$W_{k\mu,k\nu}$看作矩阵$W_k$，此即
+$$W_ka=E_k^{(1)}a$$
+利用厄米算符定义可知$W_k$为厄米矩阵，从而其本征值都为实数，此本征方程可得到$f_k$个本征值$E_{k\alpha}^{(1)}$，对应本征矢量为$a_\nu^{(\alpha)}$，则得到$f_k$个不同的零级波函数与对应一级能量近似，为
+$$\ket{\phi_{k\alpha}}=\sum_{\mu=1}^{f_k}a_\mu^{(\alpha)}\ket{k,\mu},\quad E_k^{(\alpha)}=E_k^{(0)}+\lambda E_{k\alpha}^{(1)}$$
+
+*若$W_k$无重本征值，能级简并完全解除，否则未完全解除。
+
+*同样，可以不显式写出$\lambda\hat{W}$的形式，直接类似考虑$H'_k$，其本征值即为能量的修正。
+
+\
+
+\textbf{Stark效应}
+
+定义：原子置于外电场中，光谱线发生分裂。
+
+考虑氢原子$n=2$的能级，由第九章可知本征值$-\frac{e^2}{8a}$\ [$a$为玻尔半径，回到国际单位制]其共有四个本征态
+$$\psi_{200},\psi_{210},\psi_{211},\psi_{21,-1}$$
+而外电场引起的扰动在球坐标系下为
+$$\hat{H}'=e\mathcal{E}z=e\mathcal{E}r\cos\theta$$
+
+*由于只涉及电场，$\ba=0$，考虑自旋后$\hat{H}$形式无差别，可以忽略自旋。
+
+这里$\nu$由$l,m$共同确定，由之前列举本征态的顺序作为矩阵，直接利用球谐函数表达式计算可知
+$$H'_2=\begin{pmatrix}0&-2e\mathcal{E}a&0&0\\-2e\mathcal{E}a&0&0&0\\0&0&0&0\\0&0&0&0\end{pmatrix}$$
+事实上，由于$\hat{L}_3=-\hbar\frac{\partial}{\partial\varphi}$，可知$[\hat{H},\hat{L}_3]=0$，由此$m$不同的态对应的$(H'_k)_{ij}$必然为0，而利用$$\cos\theta Y_{lm}=a_{lm}Y_{l+1,m}+b_{lm}Y_{l-1,m}$$
+这里$a,b$为系数，计算可知任何$H'_k$，其矩阵元要非零必须对应的两侧$l,m$满足$\Delta m=0,\Delta l=\pm1$，这称为外电场引起扰动的\textbf{选择定则}。
+
+回到$k=2$的情况，直接求解可知
+\begin{enumerate}
+    \item 对$H'_2$本征值$3e\mathcal{E}a$，可得新零级态矢量为
+    $$\ket{\phi_1}=\frac{1}{\sqrt2}(\psi_{200}-\psi_{210})$$
+    对应能量$-\frac{e^2}{8a}+2e\mathcal{E}a$。
+
+    \item 对$H'_2$本征值$-3e\mathcal{E}a$，可得新零级态矢量为
+    $$\ket{\phi_2}=\frac{1}{\sqrt2}(\psi_{200}+\psi_{210})$$
+    对应能量$-\frac{e^2}{8a}+2e\mathcal{E}a$。
+
+    \item 对$H'_2$本征值0，其本征子空间为$\psi_{211}$与$\psi_{21,-1}$的任意线性组合，对应能量$-\frac{e^2}{8a}$。
+\end{enumerate}
+由此，加入外电场后，第一激发态分裂为三个能级。
+
+\subsection{变分方法}
+考虑哈密顿算符满足本征方程
+$$\hat{H}\ket{n}=E_n\ket{n}$$
+
+定理：哈密顿算符任何归一化的量子态下系综平均不会小于基态能量。
+
+证明：直接将$\ket{\psi}$展开为哈密顿算符的本征态的叠加可知系综平均为$\sum_nE_n|\bk{n}{\psi}|^2$，由归一化，后一部分总和为1，因此至少为$E_0$。
+
+*若能量本征态存在简并，$\bk{n}{\psi}$中的$\ket{n}$事实上是使得$\bk{n}{\psi}$模长最大的$\ket{n}$，也即$\ket{\psi}$在本征子空间的投影，利用数学知识可证明总和仍为1，从而得证。
+
+\
+
+\textbf{变分原理}
+
+定理：当$\bk{\psi}{\psi}=1$的某$\ket{\psi}$满足$\langle \hat{H}\rangle_\psi$取极值时，$\ket{\psi}$必然为某个本征态。
+
+证明：利用拉格朗日乘子法可写为
+$$\delta\big(\blk{\psi}{\hat{H}}{\psi}-\lambda(\bk{\psi}{\psi}-1)\big)=0$$
+其即化为
+$$\blk{\delta\psi}{\hat{H}-\lambda}{\psi}+\blk{\psi}{\hat{H}-\lambda}{\delta\psi}+\delta\lambda(\bk{\psi}{\psi}-1)=0$$
+扰动$\delta\lambda$可任取蕴含了归一化条件，而对$\delta\psi$，由$\lambda$为实数，利用$\hat{H}-\lambda$的厄米性可知$\blk{\delta\psi}{\hat{H}-\lambda}{\psi}$实部为0对任何$\ket{\delta\psi}$成立。由此，若$(\hat{H}-\lambda)\psi\ne0$，取$\delta\psi$为$(\hat{H}-\lambda)\psi$某倍数即有矛盾，从而得到
+$$\hat{H}\ket{\psi}=\lambda\ket{\psi}$$
+
+\textbf{Ritz变分法}：假设猜测基态波函数$\psi$可写为$\psi_{c_1,c_2,\dots,c_n}(q)$的形式，$c_i$为待定参数，向量$q$为波函数的参数，则通过上述定理可知，对基态应满足
+$$\frac{\partial}{\partial c_i}\blk{\psi}{\hat{H}}{\psi}=0,\quad\forall i$$
+
+*此方法本质是\textbf{有限元方法}，利用由参数表示的函数空间逼近波函数，理论来说，空间越大，逼近效果越好，但使用时须选取能正常归一化[这保证了束缚态]、数学表达式简单[这保证了积分容易计算]的试探波函数$\psi_c(q)$。
+
+\
+\textbf{计算例}
+
+\begin{enumerate}
+    \item 再探\textbf{氦原子}与类氦离子基态能量
+
+    回顾原子单位制下其哈密顿算符
+    $$\hat{H}=\bigg(-\frac{1}{2}\nabla_1^2-\frac{Z}{r_1}\bigg)+\bigg(-\frac{1}{2}\nabla_2^2-\frac{Z}{r_2}\bigg)+\frac{1}{r_{12}}$$
+
+    两类氢例子基态波函数乘积为$\frac{Z^3}{\pi}\er^{-Z(r_1+r_2)}$，而由于$\frac{1}{r_{12}}$提供了库伦斥力，部分抵消引力，可考虑将波函数写成
+    $$\psi_\sigma(r_1,r_2)=\frac{\sigma^2}{\pi}\er^{-\sigma(r_1+r_2)}$$
+    直接计算可知
+    $$\blk{\psi_\sigma}{\hat{H}}{\psi_\sigma}=-\sigma^2-2(Z-\sigma)\sigma+\frac{5}{8}\sigma$$
+    因此求导可知最佳值$\sigma=Z-\frac{5}{16}$，对应基态能量近似值
+    $$E_0\approx-Z^2+\frac{5}{8}Z-\frac{25}{256}$$
+
+    *比一级微扰时的计算更接近实验结果。
+
+    \item \textbf{一维无限深势阱}中基态能量
+
+    考虑哈密顿算符
+    $$\hat{H}=-\frac{\hbar^2}{2\mu}\frac{\dr^2}{\dr x^2}+V(x),\quad V(x)=\frac{\mu^2\omega^2}{2\hbar}x^4$$
+
+    由束缚态，无穷远处应趋于0，根据经验可知基态波函数具有偶宇称，考虑两种取法[回顾$\theta(x)$为$x>0$时为1，否则为0的阶梯函数，这里假设0处为$\frac{1}{2}$]
+
+    $$\psi_\alpha(x)=\bigg(\frac{2\alpha^2}{\pi}\bigg)^{1/4}\exp(-\alpha^2x^2)$$
+    $$\phi_\beta(x)=\sqrt{\beta}\big(\theta(x)\exp(-\beta x)+\theta(-x)\exp(\beta x)\big)$$
+
+    计算可知
+    $$\blk{\psi_\alpha}{\hat{H}}{\psi_\alpha}=\frac{\hbar^2\alpha^2}{2\mu}+\frac{3\mu^2\omega^3}{32\hbar\alpha^4}\Longrightarrow\alpha=\sqrt[6]{3}\sqrt{\frac{\mu\omega}{2\hbar}}\Longrightarrow E_0\approx\frac{3\sqrt[3]{3}}{8}\hbar\omega$$
+    $$\blk{\phi_\beta}{\hat{H}}{\phi_\beta}=\frac{\hbar^2\beta^2}{2\mu}+\frac{3\mu^2\omega^3}{4\hbar\beta^4}\Longrightarrow\beta=\sqrt[6]{3}\sqrt{\frac{\mu\omega}{\hbar}}\Longrightarrow E_0\approx\frac{3\sqrt[3]{3}}{4}\hbar\omega$$
+
+    由于前者对应的$E_0$估计更小，前者更加精确。
+
+    *若将试探波函数取为$\psi_\alpha+\phi_\beta$，应有更精确的估计，但这时即会难以计算。
+\end{enumerate}
+
+\subsection{半经典近似}
+半经典近似，又称为\textbf{WKB近似}[Wentzel-Kramers-Brillouin近似]，是另一种非微扰近似方法。
+
+*其特别适合计算缓慢变化的势场[在量子尺度下几乎保持不变的势场]等情况，因此经典体系必然满足，从而称为半经典近似。
+
+考虑位置表象哈密顿量为
+$$\hat{H}=-\frac{\hbar^2}{2m}\nabla^2+V(\br)$$
+记$p(\br)=\sqrt{2m(E-V(\br))}$，定态哈密顿方程可写为
+$$\nabla^2\psi_E(\br)+\frac{p^2(\br)}{\hbar^2}\psi_E(\br)=0$$
+
+*对量子力学情况，根号下未必为正，若根号内为负数时，我们取$p(x)$为虚部为正的纯虚数。
+
+由于常数势场时解为$A\exp(\pm\ir\bp\cdot\br)/\hbar$，猜测解为
+$$\psi_E(\br)=A(\br)\exp\frac{\ir S(\br)}{\hbar}$$
+将其代入薛定谔方程，对比实部虚部可得
+$$\frac{\hbar^2}{A}\nabla^2A-(\nabla S)^2+p^2(\br)=0,\quad 2(\nabla A)\cdot(\nabla S)+A\nabla^2S=0$$
+
+*事实上实部为第一式的$A$倍，虚部为第二式的$\hbar$倍。
+
+对半经典近似，假设$\hbar$为小量，从而忽略$\hbar^2$项，得到
+$$(\nabla S)^2=p^2(\br),\quad2(\nabla A)\cdot(\nabla S)+A\nabla^2S=0$$
+
+\
+
+\textbf{一维情况}
+
+一维时由于梯度即为求导，可直接积分得到$S$，再利用$\frac{\dr A}{A}=\dr\ln A$得到$A$，从而可知[$C_\pm$为归一化常数]
+$$S_\pm(x)=\pm\int p(\xi)\dr\xi,\quad A_\pm(x)=\frac{C_\pm}{\sqrt{|p(x)|}}$$
+
+*此波幅正比于$\frac{1}{\sqrt{|p(x)|}}$，符合牛顿力学中动量越大停留时间越短的规律。
+
+*对$V$为常势场的情况，WKB近似可得到严格解。
+
+根据上方推导，经典允许区间$E>V(x),p(x)>0$，可得
+$$\psi(x)=\frac{C_+}{\sqrt{p(x)}}\exp\bigg(\frac{\ir}{\hbar}\int p(\xi)\dr\xi\bigg)+\frac{C_-}{\sqrt{p(x)}}\exp\bigg(-\frac{\ir}{\hbar}\int p(\xi)\dr\xi\bigg)$$
+
+而经典禁止区间$E<V(x)$，根据约定$p(x)=\ir|p(x)|$，可得
+$$\psi(x)=\frac{D_+}{\sqrt{|p(x)}|}\exp\bigg(-\frac{1}{\hbar}\int|p(\xi)|\dr\xi\bigg)+\frac{D_-}{\sqrt{|p(x)|}}\exp\bigg(\frac{1}{\hbar}\int|p(\xi)|\dr\xi\bigg)$$
+
+但是，对过渡区，$p(x)=0$时，此波函数并不成立，这样的点称为\textbf{经典拐点}。回到代入波函数形式得到的原方程，作近似要求与$\hbar$无关的项远大于含$\hbar$的项，考虑实部第二项与虚部第二项可知
+$$|A(\nabla S)^2|\gg\hbar|A\nabla^2 S|$$
+于是可知$|\hbar\nabla^2 S|\ll|\nabla S|^2$，一维情形下即可写成
+$$\bigg|\frac{\dr}{\dr x}\frac{\hbar}{S'}\bigg|\ll1$$
+而WKB近似后$S'(x)=\pm p(x)$，在$p(x)$接近0时计算导数会发现不满足可以近似的条件，因此\textbf{只能严格求解方程}。
+
+*注意到经典允许范围内，$\frac{\hbar}{p}$事实上是德布罗意波长。
+
+\
+
+\textbf{一维无刚性墙势阱}下的束缚态求解
+
+考虑$V(x)$满足任何点有限，$\pm\infty$处趋于$+\infty$，在负无穷到0单调减，$V(0)=0$，在0到正无穷单调增。
+
+对某$E>0$，$E-V(x)=0$必在$x_1,x_2$两点成立，下面进行波函数求解。对$(-\infty,x_1)$，结合束缚态边界条件，波函数可写为
+$$\psi_1(x)=\frac{c_1}{\sqrt{|p(x)|}}\exp\bigg(-\frac{1}{\hbar}\int_x^{x_1}|p(\xi)|\dr\xi\bigg)$$
+对$(x_2,\infty)$，类似有
+$$\psi_3(x)=\frac{c_3}{\sqrt{|p(x)|}}\exp\bigg(-\frac{1}{\hbar}\int_{x_2}^x|p(\xi)|\dr\xi\bigg)$$
+
+对经典允许区$(x_1,x_2)$，可合并为相因子的表达式，考虑积分区域可写出两种表达方式
+$$\psi_2(x)=\frac{c_2}{\sqrt{p(x)}}\sin\bigg(\frac{1}{\hbar}\int_x^{x_2}p(x)\dr x+\alpha\bigg)=\frac{c_2'}{\sqrt{p(x)}}\sin\bigg(\frac{1}{\hbar}\int_{x_1}^xp(x)\dr x+\alpha'\bigg)$$
+
+*这里参数$\alpha$未必为实数，正弦取复函数定义。
+
+为研究边界条件，需要考虑波函数的连接。在$x$接近$x_2$时，设$F_0=V'(x_2)$，势能可近似为$E+(x-x_2)F_0$，代入薛定谔方程后，记
+$$y=\sqrt[3]{\frac{2mF_0}{\hbar^2}}(x-x_2)$$
+得到方程
+$$\frac{\dr^2\psi(y)}{\dr y^2}-y\psi(y)=0$$
+这称为Airy方程，考虑到束缚态边界条件，两边傅里叶变换可得到解为
+$$\psi(y)=\frac{a}{\pi}\int_0^\infty\cos(y\xi+\xi^3/3)\dr\xi$$
+
+*事实上原方程解为两Airy函数Ai与Bi的线性组合，傅里叶后只能得到Ai的倍数作为解，本质是因为Bi不满足束缚态边界条件，因此无法变换。
+
+利用数学估计可以证明渐进趋势
+$$\psi(y)=\begin{cases}\frac{a}{\sqrt{\pi}|y|^{1/4}}\sin\big(\frac{2}{3}(-y)^{3/2}+\frac{\pi}{4}\big)&y\ll0\\\frac{a}{2\sqrt{\pi}y^{1/4}}\exp\big(-\frac{2}{3}y^{3/2}\big)&y\gg0\end{cases}$$
+
+根据势能形式可知$F_0>0$，从而$y$随$x$单调增，$y\ll0$时等价于$\psi_2(x)$，$y\gg0$时等价于$\psi_3(x)$，再代入邻域内
+$$p^2(x)=-2m(x-x_2)F_0=-(2m\hbar F_0)^{2/3}y$$
+计算得上方的渐进趋势即可用$p(x)$表示为
+$$\psi(x)=\begin{cases}\frac{A}{\sqrt{p(x)}}\sin\big(\frac{1}{\hbar}\int_x^{x_2}p(\xi)\dr\xi+\frac{\pi}{4}\big)&x\ll x_2\\\frac{A}{2\sqrt{|p(x)|}}\exp\big(-\frac{1}{\hbar}\int_{x_2}^xp(\xi)\dr\xi\big)&x\gg x_2\end{cases}$$
+
+这里$A=(2m\hbar F_0)^{1/6}\pi^{-1/2}a$，由此对比可知
+$$c_2=A,\quad c_3=\frac{A}{2},\quad\alpha=\frac{\pi}{4}$$
+完全类似可知，记$G_0=-V'(x_1),G_0>0$，令$B=(2m\hbar G_0)^{1/6}\pi^{-1/2}b$，则有
+$$c_2'=B,\quad c_1=\frac{B}{2},\quad\alpha'=\frac{\pi}{4}$$
+
+为使$\psi_2$定义合理，两种表达方式应相等，注意到两种表达方式$\sin$中的部分和恒为
+$$\beta=\frac{1}{\hbar}\int_{x_1}^{x_2}p(x)\dr x+\frac{\pi}{2}$$
+
+若记第一种表达中为$\theta(x)$，要求即为
+$$A\sin(\theta(x))=B\sin(\beta-\theta(x))$$
+此在$x$变化时成立只能$\beta=(n+1)\pi,B=(-1)^nA$，注意到$\beta>0$，只能取$n\in\mathbb{N}$，对应结果即为
+$$\int_{x_1}^{x_2}p(x)\dr x=\bigg(n+\frac{1}{2}\bigg)\pi\hbar,\quad n\in\mathbb{N}$$
+
+这就称为\textbf{WKB量子化条件}。由于左侧$V(x)$固定，积分只与$E$有关，对应右侧每个值，左侧即有一个能级$E_n$。
+
+*经典力学意义下，$p$绕环路的积分可看作左侧积分两倍，再取$n\gg1$，就成为了氢原子能级时的玻尔索末菲量子化公式
+$$\oint p(x,E_n)\dr x=nh$$
+
+\
+
+\textbf{应用举例}
+\begin{enumerate}
+    \item 中心力场中\textbf{三维束缚态}
+    
+    回顾第九章，径向薛定谔方程满足
+    $$\chi_l''(r)+\bigg(\frac{2\mu}{\hbar^2}(E-V(r))-\frac{l(l+1)}{r^2}\bigg)\chi_l(r)=0$$
+
+    由此定义等效势能与等效哈密顿量
+    $$V_e(r)=V(r)+\frac{\hbar l(l+1)}{2m r^2},\quad\hat{H}_e=-\frac{\hbar^2}{2m}\frac{\dr^2}{\dr r^2}+V_e(r)$$
+
+    此方程即可看作$\hat{H}_e$的薛定谔方程，具有一维形式。若经典允许区为$r_1\le r\le r_2$，即可得到束缚态能级为
+    $$\int_{r_1}^{r_2}\sqrt{2m\bigg(E_n-V(r)-\frac{\hbar^2l(l+1)}{2mr^2}\bigg)}\dr r=\bigg(n+\frac{1}{2}\bigg)\pi\hbar,\quad n\in\mathbb{N}$$
+
+    \item \textbf{一维简谐振子}能量估算
+    
+    由于$V(x)=\frac{1}{2}m\omega^2x^2$，当$E>0$时，对应经典拐点即为$\pm\sqrt{2E/m\omega^2}$，记为$\pm a$，计算即得
+    $$\int_{-a}^ap(x)\dr x=2m\omega\int_{-a}^a\sqrt{a^2-x^2}\dr x=\frac{\pi E}{\omega}$$
+    由此得到
+    $$E_n=\bigg(n+\frac{1}{2}\bigg)\hbar\omega,\quad n\in\mathbb{N}$$
+    与严格解完全一致。
+
+    \item 一维\textbf{有刚性墙势阱}
+    
+    作为类似但不完全相同的例子，记之前无刚性墙势阱的势能为$U(x)$，对某$x_0<0$，定义新的势能
+    $$V(x)=\begin{cases}+\infty&x<x_0\\U(x)&x>x_0\end{cases}$$
+    考虑例子能量$E>U(x_0)$，则经典允许区为$x_0\le x\le x_2$，经典拐点为$x_0$与$x_2$。
+
+    对$x_2$附近考虑，完全类似可以得到$(x_0,x_2)$中的方程为
+    $$\psi_2(x)=\frac{A}{\sqrt{p(x)}}\sin\bigg(\frac{1}{\hbar}\int_x^{x_2}p(x)\dr x+\frac{\pi}{4}\bigg)$$
+
+    而这时由于$V(x)$为无穷，$\psi$在$x\le x_0$时须为0，代入$\psi_2(x_0)=0$，仍利用$p$为正即可得到此时的量子化条件
+    $$\int_{x_0}^{x_2}p(x)\dr x=\bigg(n+\frac{3}{4}\bigg)\pi\hbar,\quad n\in\mathbb{N}$$
+
+
+\end{enumerate}
+
+\section{含时问题}
+*本章的含时指$\hat{H}$显含时间的情况，此时能量不再守恒，于是不存在定态或能级修正。
+
+\subsection{含时微扰论}
+\textbf{相互作用绘景}
+
+之前的讨论均在薛定谔绘景中进行[以下不加下标默认薛定谔绘景]，我们假设$\hat{H}$表达为
+$$\hat{H}(t)=\hat{H}_0+\lambda\hat{V}(t)$$
+即含时部分视为微扰。
+
+由此可定义相互作用绘景[下标$I$表示，又称\textbf{Dirac绘景}]，其满足
+$$\ket{\psi(t)}_I=\exp(\ir t\hat{H}_0/\hbar)\ket{\psi(t)},\quad\hat{A}_I(t)=\exp(\ir t\hat{H}_0)\hat{A}(t)\exp(-\ir t\hat{H}_0)$$
+
+*此定义下可发现与$\hat{H}_0$可交换的算符(包含其自身)不随时间演化，因此守恒性仍能体现。此外，其\textbf{本征态}只相差相因子，于是不随时间演化。
+
+由此计算可知$\hat{H}_I(t)=\hat{H}_0+\lambda\hat{V}_I(t)$，代入随时间演化的薛定谔方程$\ir\hbar\partial_t\psi=\hat{H}\psi$可得到
+$$\ir\hbar\frac{\dr\ket{\psi(t)}_I}{\dr t}=\lambda\hat{V}_I(r)\ket{\psi(t)}_I$$
+
+*这里运用了对$\ket{\psi(t)}_I$求导仍可采用乘积求导公式，而$\exp$含矩阵时求导结果扔类似数时，这从算符线性性与矩阵指数定义可以证明。
+
+此外，类似得到算符的时间演化也满足
+$$\ir\hbar\frac{\dr\hat{A}_I(t)}{\dr t}=[\hat{A}_I(t),\hat{H}_0]$$
+相互作用绘景中态矢量自然演化满足
+$$\ket{\psi(t)}_I=\hat{U}_I(t,t_0)\ket{\psi(t_0)}_I$$
+$\hat{U}_I(t,t_0)$称为此绘景中的\textbf{时间演化算符}，与薛定谔绘景讨论完全类似可知
+$$\hat{U}_I(t,t)=\hat{I},\quad\hat{U}_I^\dagger(t,t_0)\hat{U}_I(t,t_0)=\hat{I},\quad\hat{U}_I(t,t_1)\hat{U}_I(t_1,t_0)=\hat{U}_I(t,t_0),\quad t_0\le t_1\le t$$
+
+此外，对薛定谔方程代入$\ket{\psi(t)}_I=\hat{U}_I(t,t_0)\ket{\psi(t_0)}_I$计算可得到将$\ket{\psi(t)}_I$换为$\hat{U}_I(t,t_0)$方程仍成立[$\ket{\psi(t_0)}_I$为常量]，从而两端从$t_0$到$t$积分得到
+$$\hat{U}_I(t,t_0)=\hat{I}-\frac{\ir\lambda}{\hbar}\int_{t_0}^t\hat{V}_I(\tau)\hat{U}_I(\tau,t_0)\dr\tau$$
+
+由于$\hat{U}_I$为此积分方程的不动点，从$\hat{U}_I^{(0)}=\hat{I}$出发，构造
+$$\hat{U}_I^{(n)}(t,t_0)=\hat{I}-\frac{\ir\lambda}{\hbar}\int_{t_0}^t\hat{V}_I(\tau)\hat{U}_I^{(n-1)}(\tau,t_0)\dr\tau$$
+利用此迭代可得到精确的级数解[第$n$次迭代新增的部分恰好为$\lambda^n$项]
+$$\begin{aligned}\hat{U}_I(t,t_0)&=\hat{I}-\frac{\ir\lambda}{\hbar}\int_{t_0}^t\hat{V}_I(t_1)\dr t_1+\bigg(-\frac{\ir\lambda}{\hbar}\bigg)^2\int_{t_0}^{t}\hat{V}_I(t_1)\dr t_1\int_{t_0}^{t_1}\hat{V}_I(t_2)\dr t_2\\ &+\bigg(-\frac{\ir\lambda}{\hbar}\bigg)^3\int_{t_0}^{t}\hat{V}_I(t_1)\dr t_1\int_{t_0}^{t_1}\hat{V}_I(t_2)\dr t_2\int_{t_0}^{t_2}\hat{V}_I(t_3)\dr t_3+\dots\end{aligned}$$
+这称为\textbf{戴森级数}。考虑$\lambda\ll1$，取一级近似得
+$$\hat{U}_I(t,t_0)\approx\hat{I}-\frac{\ir\lambda}{\hbar}\int_{t_0}^t\hat{V}_I(t_1)\dr t_1$$
+
+考虑0时刻体系处在$\hat{H}_0$本征态$\ket{i}$上，$t>0$后加入微扰，则$t$时刻的态函数近似为
+$$\ket{\Psi(t)}_I=\ket{i}-\frac{\ir\lambda}{\hbar}\int_0^t\dr\tau\hat{V}_I(\tau)\ket{i}$$
+
+其与$\ket{f},f\ne i$内积可以得到跃迁到$\ket{f}$的概率幅[最后一个等号代入了相互作用绘景下算符定义]
+$$a_f^{(1)}(t)=\bk{f}{\Psi(t)}_I=-\frac{\ir\lambda}{\hbar}\int_0^t\blk{f}{\hat{V}_I(\tau)}{i}=-\frac{\ir\lambda}{\hbar}\int_0^t\dr\tau\blk{f}{\hat{V}(\tau)}{i}\exp(\ir\omega_{fi}\tau)\dr\tau$$
+这里$\omega_{fi}=(E_f-E_i)/\hbar$，而概率即为此概率幅模长平方。
+
+*类似地，将$\lambda$与$\hat{V}$合并可不显式写出微扰项。
+
+\
+
+\textbf{简谐微扰}
+
+若$\hat{V}$简谐依赖时间，考虑厄米性知其可写为
+$$\hat{V}(t)=\hat{F}\er^{-\ir\omega t}+\hat{F}^\dagger\er^{\ir\omega t},\quad t>0$$
+这里$\hat{F}$不显含时间。
+
+考虑一个具体例子，\textbf{电偶极相互作用}。回顾第九章带电非相对论粒子在电磁场中的哈密顿算符，假设还有势$V(\br)$，若粒子取为忽略自旋的电子，则有
+$$H=\frac{1}{2\mu}\bigg(\hat{\bp}^2+\frac{e}{c}\ba\bigg)^2-e\phi+V(\br)=\hat{H}_0+\hat{V}(t)$$
+$$\hat{H}_0=\frac{1}{2\mu}\hat{\bp}^2+V(\br),\quad\hat{V}(t)=\frac{e}{2\mu c}(\hat{\bp}\cdot\ba+\ba\cdot\hat{\bp})+\frac{e^2}{2\mu c^2}\ba^2-e\phi$$
+为简化$\hat{V}(t)$表达式，假设原子尺度上电场可看作匀强$\mathbf{E}(t)$，库伦规范下可取$\ba=0$，而
+$$\phi=-\br\cdot\mathbf{E}(t)$$
+
+*这实质上是\textbf{电偶极近似}，能取$\ba=0$的原因详见下节解释。
+
+取电磁场为单频交变电磁场[如平面电磁波]，有$\mathbf{E}(t)=\mathcal{E}\cos(\omega t)$，于是
+$$\hat{V}(t)=-e\phi=e\br\cdot\mathcal{E}\cos(\omega t)$$
+
+*对应简谐扰动中$\hat{F}=\hat{F}^\dagger=\frac{1}{2}e(\br\cdot\mathcal{E})$。
+
+回到\textbf{一般简谐扰动}的情况，直接代入计算积分可知
+$$a_f^{(1)}=\frac{1-\exp(\ir(\omega_{fi}-\omega)t)}{\hbar(\omega_{fi}-\omega)}\blk{f}{\hat{F}}{i}+\frac{1-\exp(\ir(\omega_{fi}+\omega)t)}{\hbar(\omega_{fi}+\omega)}\blk{f}{\hat{F}^\dagger}{i}$$
+
+*注意此为态之间跃迁的概率幅，当且仅当末态$\ket{f}$能级非简并时可以看作能级跃迁的概率幅。
+
+根据上式可发现此概率幅有两个极点，$\omega=\pm\omega_{fi}$，这称为\textbf{共振条件}。
+
+不妨设$\omega>0$，考虑$E_f>E_i$，$\omega=\omega_{fi}$的情况，称为\textbf{共振吸收}[另一种称为共振发射]，取近似条件
+$$\hbar\omega\approx E_f-E_i$$
+由于这时一项对应值远大于另一项，概率幅近似为
+$$a_f^{(1)}(t)\approx\frac{1-\exp(\ir(\omega_{fi}-\omega)t)}{\hbar(\omega_{fi}-\omega)}\blk{f}{\hat{F}}{i}$$
+
+利用三角函数变换可写出跃迁概率
+$$P_{fi}(t)=|a_f^{(1)}(t)|^2=\frac{|\blk{f}{\hat{F}}{i}|^2}{\hbar^2}\bigg(\frac{\sin((\omega_{fi}-\omega)t/2)}{(\omega_{fi}-\omega)/2}\bigg)^2$$
+
+记$\omega_{fi}-\omega=\alpha$，上式右侧的括号内$\frac{\sin^2(at)/2}{(\alpha/2)^2}$为含时因子，可发现$\alpha=0$处，即发生共振吸收时上式括号内最大，为$t^2$，而\textbf{第一级主极大宽度}[即从最大值到最小值0处的距离]为$\Delta a=2\pi/t$。
+
+*实际上，此项很小时另一项不可忽略，因此此宽度仅为估计。
+
+设扰动作用于体系的时间间隔$\Delta t$，则体系能量改变量估计为$\Delta E=\hbar\Delta a\sim 2\pi\hbar/\Delta t$，由此可得到
+$$\Delta E\Delta t\sim h$$
+这即为\textbf{能量-时间不确定关系}。
+
+*对能量改变量的估计来自于$\Delta t$内0附近$\Delta\alpha$的范围内跃迁较可能发生，这也意味着终态能量在$E_f$附近$\hbar\Delta\alpha$。
+
+考虑$t\to\infty$时，这时利用数学知识可计算得[可对$\alpha$积分取极限证明]
+$$\lim_{t\to\infty}P_{fi}(t)=\frac{2\pi}{\hbar}|\blk{f}{\hat{F}}{i}|^2\delta(E_f-E_i-\hbar\omega)t$$
+
+由此对$P_{fi}$求导得到单位时间的跃迁概率，即\textbf{跃迁速率}为
+
+$$w_{fi}=\lim_{t\to\infty}\frac{\dr}{\dr t}P_{fi}(t)=\frac{2\pi}{\hbar}|\blk{f}{\hat{F}}{i}|^2\delta(E_f-E_i-\hbar\omega)$$
+
+也即时间趋于无穷时跃迁必须满足$E_f=E_i+\hbar\omega$，可看作吸收光子。
+
+*若考虑$E_i$为脱出功$\phi$，$E_f$为自由粒子对应能量，此即成为\textbf{光电效应}方程
+$$\frac{1}{2}m\mathbf{v}^2=\phi+\hbar\omega$$
+因此光电效应也可以看作电子波动性引起。
+
+对终态能级连续分布的情形，虽然最终亦为跃迁到$E_f=E_i+\hbar\omega$，但此时的对应跃迁概率不再为无穷，而是可以写为
+$$P_{fi}(t)=\int|a_{f_0}^{(1)}(t)|^2\dr {f_0}$$
+
+*此式的来源为，只要发生了跃迁，最终即会跃迁为$\ket{f}$，因此可对右侧所有跃迁积分，最终得到跃迁概率。
+
+这里$\dr f$表示$E_f$到$E_f+\dr E_f$中的终态数目，$\rho(E_f)=\frac{\dr f}{\dr E_f}$称为能级的\textbf{态密度}。
+
+由此，利用$|a_f^{(1)}(t)|^2$在$t$趋于无穷时的表达式[即为之前推导中的$P_{if}(t)$表达式]，直接代入并换元为$E_{f_0}$即可知
+$$P_{fi}(t)=\frac{2\pi t}{\hbar}|\blk{f}{\hat{F}}{i}|^2\rho(E_i+\hbar\omega)$$
+这里$\ket{f}$为$E_f=E_i+\hbar\omega$对应的量子态。
+
+*此式除以$t$即得到$w_{fi}$的形式，称为\textbf{费米黄金规则}。
+
+\
+
+\textbf{氢原子电离}
+
+假设$t=0$时氢原子处于基态，波函数为
+$$\psi_i=\psi_{100}(r,\theta,\phi)=\frac{1}{\sqrt{\pi a^3}}\er^{-r/a}$$
+
+在$t>0$时受到大小$\mathcal{E}\cos\omega t$，沿$z$轴方向的交变电场作用，根据上一部分可知球坐标系下
+$$\hat{F}=\hat{F}^\dagger=\frac{1}{2}e\mathcal{E}r\cos\theta$$
+
+假设终态为氢原子电离后的自由电子态，设动量为$\bp$，有
+$$\psi_f=\psi_\bp(\br)=\frac{1}{\sqrt\Omega}\er^{\ir\bp\cdot\br/\hbar}$$
+这里$\Omega$为箱归一化系数，代表氢原子运动范围的\textbf{空间体积}。
+
+通过复杂的积分计算可得到，设$\bp$在球坐标系下为$(p,\theta',\phi')$，可得
+$$\blk{f}{r\cos\theta}{i}=\frac{1}{\sqrt{\pi a^3\Omega}}\int\er^{-\ir\bp\cdot\br/\hbar}r\cos\theta\er^{-r/a}\dr^3x=-\ir\frac{32\pi}{\sqrt{\pi a^3\Omega}}\cos\theta'\frac{a^5p/\hbar}{((ap/\hbar)^2+1)^3}$$
+
+由此可得到$a_f^{(1)}(t)$的表达式，进而计算其模长平方在无穷处的极限。然而，由于$E_f$只由$p$确定，$\theta'$与$\phi'$可任取，从此形式仍然无法得到跃迁概率，还需计算$\rho(E)$。
+
+将相空间划分为体积为$h^3$的\textbf{相格}，利用不确定性关系，每个量子态在相空间中近似占据一个相格，由此位置空间体积$\Omega$、动量空间体积$\dr^3p$的子空间对应的量子态数目[近似为相格数目]
+$$\dr f=\frac{\Omega\dr^3p}{h^3}=\frac{\Omega}{(2\pi\hbar)^3}p^3\dr p\dr\Omega'$$
+第二个等号将$p$化为球坐标，$\dr\Omega'$为其立体角微元。
+由此，将$p$与$\dr p$利用$p=\sqrt{2\mu E}$后换元即得到
+$$\rho(E)=\frac{\Omega}{(2\pi\hbar)^3}\mu\sqrt{2\mu E}\dr\Omega'$$
+
+于是，类似费米黄金规则的推导最终计算得
+$$\begin{aligned}\omega_{fi}&=\frac{\pi e^2\mathcal{E}^2}{2\hbar}\int|\blk{f_0}{r\cos\theta}{i}|^2\delta(E_{f_0}-E_i-\hbar\omega)\rho(E_{f_0})\dr E_{f_0}\\ &=\frac{\pi e^2\mathcal{E}^2}{2\hbar}\int|\blk{f}{r\cos\theta}{i}|^2\frac{\Omega}{(2\pi\hbar)^3}\mu\sqrt{2\mu E_f}\dr\Omega'\\ &=\frac{2^8\mu e^2\mathcal{E}^2a^4}{3\hbar^2}\frac{(2\mu E_fa^2/\hbar^2)^{3/2}}{((2\mu E_fa^2/\hbar^2)+1)^6}\end{aligned}$$
+其中$E_i=-\frac{e^2}{2a}$为基态能量，$E_f=E_i+\hbar\omega$，$\ket{f}$表示$E_f$对应的某量子态[第二步事实上为对$E_f$对应的全部量子态累计，已代入了$p=\sqrt{2\mu E_f}$]。
+
+\subsection{跃迁矩阵元}
+为对原子发光进行讨论，需要先研究\textbf{平面电磁波}对原子中电子的相互作用。
+
+与上节类似，采取电偶极近似[实验表明可取，近似的物理背景见后]后有
+$$\hat{V}(r)=e\br\cdot\mathcal{E}\cos(\omega t)$$
+此时，跃迁概率幅[这里重复指标$k$指求和，后方的$i$同理]
+$$a_f^{(1)}(t)\sim\blk{f}{\br\cdot\mathcal{E}}{i}=\blk{f}{x_k}{i}{\mathcal{E}}_k$$
+
+由此，$\blk{f}{x_k}{i}$称为原子发光问题的\textbf{跃迁矩阵元}。
+
+\
+
+为说明其重要性，考虑原子在平面电磁波作用中常见的三种物理过程：
+\begin{enumerate}
+    \item \textbf{吸收}
+    
+    初始能态为低能态$E_a$，受电磁波照射后跃迁到高能态$E_b$，由$\hat{F}=\frac{1}{2}er_i\mathcal{E}_i$，从之前讨论代入可知此时的跃迁速率
+
+    $$w_{ba}=\frac{\pi e^2}{2\hbar}|\blk{b}{x_i}{a}\mathcal{E}_i|^2\delta(E_b-E_a-\hbar\omega)$$
+
+    \item \textbf{受激发射}
+    
+    初始能态为低能态$E_b$，受电磁波照射后跃迁到低能态$E_a$，相当于对上方$\omega+\omega_{fi}=0$的情况进行类似讨论，可发现跃迁速率有完全相似的形式
+
+    $$w_{ab}=\frac{\pi e^2}{2\hbar}|\blk{a}{x_i}{b}\mathcal{E}_i|^2\delta(E_a-E_b+\hbar\omega)$$
+
+    将模长展开为其与其共轭的乘积，利用$x_i$厄米性可发现事实上与吸收对应的跃迁概率$w_{ba}$相等。
+
+    *其为纯粹量子力学过程，激光即以其为原理[大量高能级原子受激发射]，但考虑统计力学会发现让大量原子处在高能级是困难的。
+
+    *爱因斯坦首先提出，自发发射也为爱因斯坦提出。
+
+    \item \textbf{自发发射}
+
+    高能态$E_b$上的原子向低能态$E_a$\textbf{自动}跃迁并发射光子。其事实上是量子化电磁场的真空能催生，利用爱因斯坦的原子发光旧量子论可以推出跃迁速率
+    $$\mathcal{A}_{ab}\sim\frac{4\omega_{ba}^2}{3\hbar c^3}\bigg|\sum_i\blk{a}{x_i}{b}\bigg|^2,\quad\omega_{ba}=\frac{1}{\hbar}(E_b-E_a)$$
+\end{enumerate}
+
+\
+
+下面，考虑初态为$\psi_{nlm}$，末态为$\psi_{n'l'm'}$，为使跃迁可能发生，需对应的跃迁矩阵元$\blk{n'l'm'}{x_i}{nlm}$至少对一个$i$非零，由此得到选择定则。
+
+\textbf{磁量子数选择定则}
+
+利用$[\hat{L}_i,\hat{x}_j]=\ir\hbar\epsilon_{ijk}\hat{x}_k$，两边作用$\ket{nlm}$再与$\ket{n'l'm'}$内积可算出
+$$(m'-m)\blk{n'l'm'}{x_3}{nlm}=0,\quad(m'-m+1)(m'-m-1)\blk{n'l'm'}{x_j}{nlm}=0,\quad j=1,2$$
+由此知矩阵元非零必须$\Delta m=m'-m$为0或$\pm 1$。
+
+*这事实上来源于总角动量第三分量守恒，原子中电子失去或获得的角动量由光子提供。
+
+\textbf{角量子数选择定则}
+
+计算可验证
+$$[\hat{L}^2,[\hat{L}^2,\hat{x}_i]]=2\hbar\{\hat{x}_i,\hat{L}^2\}$$
+两边作用$\ket{nlm}$再与$\ket{n'l'm'}$内积可算出
+$$(l'-l-1)(l'-l+1)(l'+l)(l'+l+2)\blk{n'l'm'}{x_i}{nlm}=0,\quad i=1,2,3$$
+
+考虑到$l,l'$为非负整数，可得$\Delta l=l'-l=\pm 1$或$l'=l=0$，但后一种情况直接计算验证可知矩阵元$\blk{n'00}{\br}{n00}=0$，因此只能$\Delta l=\pm 1$。
+
+
+\subsection{原子发光}
+\textbf{原子与辐射电磁场}
+
+回到之前得到的
+$$H=\frac{1}{2\mu}\bigg(\hat{\bp}^2+\frac{e}{c}\ba\bigg)^2-e\phi+V(\br)=\hat{H}_0+\hat{V}(t)$$
+$$\hat{H}_0=\frac{1}{2\mu}\hat{\bp}^2+V(\br),\quad\hat{V}(t)=\frac{e}{2\mu c}(\hat{\bp}\cdot\ba+\ba\cdot\hat{\bp})+\frac{e^2}{2\mu c^2}\ba^2-e\phi$$
+采取\textbf{库伦规范}$\nabla\cdot\ba=0$可化简括号中的和为$2\ba\cdot\hat{\bp}$，并忽略与电磁相互作用无关的$\ba^2$项[其表示电磁场本身的性质]，得到
+$$\hat{V}(t)=\frac{e}{\mu c}\ba(\br,t)\cdot\hat{\bp}$$
+
+这里$\ba$看作经典矢量场与力学量算符可得到不同处理方式。
+
+\
+
+\textbf{经典电动力学处理}
+
+库伦规范下，假设辐射电磁场存在于远离电流电荷分布的区域，可得麦克斯韦方程组为
+
+$$\nabla^2\ba-\frac{1}{c^2}\frac{\partial^2\ba}{\partial t^2}=0,\quad\nabla^2\phi=0$$
+
+将辐射电磁场看作极化矢量$\varepsilon$，波矢$\mathbf{k}=k\mathbf{n}$的平面电磁波，可知
+
+$$\ba(\br,t)=A_0\varepsilon\big(\er^{\ir(\mathbf{k}\cdot\br-\omega t)}+\er^{-\ir(\mathbf{k}\cdot\br-\omega t)}\big)$$
+
+这里$A_0$为矢势波幅，代入库伦规范可知$\mathbf{n}\cdot\varepsilon=0$。
+
+将其表达式代入库伦规范下电磁场表达式可知
+$$\mathbf{E}=-\frac{1}{c}\frac{\partial\ba}{\partial t}=\frac{\ir\omega}{c}A_0\varepsilon\big(\er^{\ir(\mathbf{k}\cdot\br-\omega t)}-\er^{-\ir(\mathbf{k}\cdot\br-\omega t)}\big)$$
+$$\mathbf{B}=\nabla\times\ba=\ir(\mathbf{k}\times\varepsilon)A_0\big(\er^{\ir(\mathbf{k}\cdot\br-\omega t)}-\er^{-\ir(\mathbf{k}\cdot\br-\omega t)}\big)$$
+
+由此利用库伦规范条件计算可发现$\mathbf{B}=\mathbf{n}\times\mathbf{E}$，且两者在$\mathbf{n}$上的分量都为0\ [电动力学中称为横电磁波，或\textbf{TEM}波]，于是模长相等。
+
+能量体密度瞬时值与周期平均为
+$$u=\frac{\mathbf{E}^2+\mathbf{B}^2}{8\pi}=\frac{\omega^2}{\pi c^2}|A_0|^2\sin^2(\mathbf{k}\cdot\br-\omega t),\quad\langle u\rangle=\frac{\omega}{2\pi c^2}|A_0|^2$$
+
+将其看作量子物理意义下的一个光子，能量为$\hbar\omega$，占据空间体积为$\Omega$，于是$\langle u\rangle=\hbar\omega/\Omega$，对比得到
+
+$$|A_0|=\sqrt{\frac{2\pi\hbar c^2}{\omega\Omega}}$$
+
+由此可代入得到$\ba$，进而得到$\hat{V}(t)$。由于原子尺度上，对波长在可见光或紫外线范围的电磁仓，$\bk\cdot\br$是无量纲小量，可假设其近似为0，得到
+
+$$\ba(\br,t)\approx\ba(t)=\sqrt{\frac{2\pi\hbar c^2}{\omega\Omega}}\varepsilon(\er^{-\ir\omega t}+\er^{\ir\omega t})$$
+
+从而简谐扰动对应的
+$$\hat{F}=\hat{F}^\dagger=\frac{e}{\mu c}\sqrt{\frac{2\pi\hbar c^2}{\omega\Omega}}\varepsilon\cdot\hat{\bp}$$
+
+*此近似后，取$\chi(\br,t)=-\br\cdot\ba(t)$，规范变换后可发现$\ba'=\ba+\nabla\chi=0$，而$\phi'$为$-\br\cdot\mathbf{E}(t)$，其对应的能量形式为$e\mathbf{r}\cdot\mathbf{E}(t)$，$e\mathbf{r}$可看作电偶极子，因此这称为\textbf{电偶极近似}。
+
+为计算$\omega_{ba}$，需计算
+$$\blk{f}{\hat{F}}{i}=\frac{e}{\mu c}\sqrt{\frac{2\pi\hbar c^2}{\omega\Omega}}\varepsilon\cdot\blk{i}{\hat{\bp}}{f}$$
+
+由于计算得$\hat{\bp}=-\ir\mu[\hat{\br},\hat{H}_0]/\hbar$，再代入$\hat{H}_0$本征方程可知
+$$\blk{f}{\hat{\bp}}{i}=\ir\mu\omega_{fi}\blk{f}{\hat{\br}}{f}$$
+这里就回到了跃迁矩阵元的表达，由此可得吸收/受激发射过程的跃迁速率为
+$$w_{ba}=w_{ab}=\frac{4\pi^2e^2\omega_{ba}^2}{\omega\Omega}|\varepsilon_i\blk{a}{x_i}{b}|^2\delta(E_b-E_a-\hbar\omega)$$
+
+\
+
+\textbf{电磁场量子化}
+
+先将电磁场表示为一系列电磁振子的集合。利用库伦规范下$\ba$的方程，由于其存在平面波解，又由库伦规范下散度为0，仅有两方向独立，得到可以一般性表达为
+$$\ba(\br,t)=\frac{1}{\sqrt{\Omega}}\sum_\mathbf{k}\sum_{\lambda=1}^2\varepsilon_\lambda(\mathbf{k})\big(a_\lambda(\mathbf{k})\er^{\ir(\mathbf{k}-\br-\omega_kt)}+a_\lambda^*(\mathbf{k})\er^{-\ir(\mathbf{k}\cdot\br-\omega_kt)}\big)$$
+代入方程可得到约束
+$$\omega_k=ck,\quad\varepsilon_\lambda(\mathbf{k})\cdot\varepsilon_\sigma(\mathbf{k})=\delta_{\lambda\sigma},\quad\varepsilon_\lambda(\mathbf{k})\cdot\mathbf{k}=0$$
+
+与之前类似，可从$\mathbf{A}$中得到$\mathbf{E},\mathbf{B}$的表达式，从而区域内电磁场总能量为[这里平均代表对每个独立分量按$\omega_k$取周期平均]
+$$H_{em}=\left<\frac{1}{8\pi}\int\dr^3x(\mathbf{E}^2+\mathbf{B}^2)\right>=\frac{\Omega\hbar^2}{8\pi c^4}\sum_\mathbf{k}\sum_{\lambda=1}^2\omega_k^2a_\lambda^*(\mathbf{k})a_\lambda(\mathbf{k})$$
+为将其量子化，定义
+$$Q_\lambda(\mathbf{k})=\frac{\hbar}{4c^2}\sqrt{\frac{\Omega}{\pi}}(a_\lambda(\mathbf{k})+a_\lambda^*(\mathbf{k})),\quad P_\lambda(\mathbf{k})=-\frac{\ir\hbar}{4c^2}\sqrt{\frac{\Omega}{\pi}}\omega_k(a_\lambda(\mathbf{k})-a_\lambda^*(\mathbf{k}))$$
+代入计算可知
+$$H_{em}=\sum_\mathbf{k}\sum_{\lambda=1}^2\bigg(\frac{1}{2}P_\lambda^2(\mathbf{k})+\frac{1}{2}\omega_k^2Q_\lambda^2(\mathbf{k})\bigg)$$
+由此可视为一系列独立电磁振子能量和，我们用$\hat{Q}$与$\hat{P}$代替$Q$与$P$，即得到算符表达
+$$\hat{H}_{em}=\sum_\mathbf{k}\sum_{\lambda=1}^2\bigg(\frac{1}{2}\hat{P}_\lambda^2(\mathbf{k})+\frac{1}{2}\omega_k^2\hat{Q}_\lambda^2(\mathbf{k})\bigg)$$
+
+粒子性要求其满足对易关系
+$$[\hat{Q}_\lambda(\mathbf{k}),\hat{P}_\sigma(\mathbf{q})]=\ir\hbar\delta_{\mathbf{k}\mathbf{q}}\delta_{\lambda\sigma}$$
+
+再设
+$$\hat{a}_\lambda(\mathbf{k})=\sqrt{\frac{\omega_k}{2\hbar}}\hat{Q}_\lambda(\mathbf{k})+\ir\frac{\hat{P}_\lambda(k)}{\sqrt{2\hbar\omega_k}}$$
+可发现$\hat{a}$与$\hat{a}^\dagger$替换之前的$a$与$a^*$得到的关系式仍满足。记$\hat{N}_\lambda(\mathbf{k})=\hat{a}_\lambda^\dagger(\mathbf{k})\hat{a}_\lambda(\mathbf{k})$，可得
+$$\hat{H}_{em}=\sum_{\mathbf{k}}\sum_{\lambda=1}^2\bigg(\hat{N}_\lambda(\mathbf{k})+\frac{1}{2}\bigg)\hbar\omega_k$$
+
+*计算可得到对易关系
+$$[\hat{a}_\lambda(\mathbf{k}),\hat{a}_\sigma^\dagger(\mathbf{q})]=\delta_{\mathbf{k}\mathbf{q}}\delta_{\lambda\sigma},\quad[\hat{a}_\lambda(\mathbf{k}),\hat{a}_\sigma(\mathbf{q})]=[\hat{a}_\lambda^\dagger(\mathbf{k}),\hat{a}_\sigma^\dagger(\mathbf{q})]=0$$
+
+与简谐振子时的讨论完全类似可知$\hat{N}_\lambda(\mathbf{k})$本征值为非负整数，记对应$n_\lambda(\mathbf{k})$的本征矢量$\ket{n_\lambda(\mathbf{k})}$，有
+$$\hat{a}_\lambda(\mathbf{k})\ket{n_\lambda(\mathbf{k})}=\sqrt{n_\lambda(\mathbf{k})}\ket{n_\lambda(\mathbf{k})-1},\quad\hat{a}_\lambda^\dagger(\mathbf{k})\ket{n_\lambda(\mathbf{k})}=\sqrt{n_\lambda(\mathbf{k})+1}\ket{n_\lambda(\mathbf{k})+1}$$
+
+因此，$\hat{N}_\lambda(\mathbf{k})$对应波矢$\mathbf{k}$，极化$\epsilon_\lambda(\mathbf{k})$的光子的粒子数算符，本征态$\ket{n_\lambda(\mathbf{k})}$在本征值为0时为真空态，否则称为$n_\lambda(\mathbf{k})$光子态。
+
+对某共同本征态，电磁场总能量为
+$$E_{em}=\sum_{\mathbf{k}}\sum_{\lambda=1}^2\bigg(n_\lambda(\mathbf{k})+\frac{1}{2}\bigg)\hbar\omega_k$$
+代表不同波矢、不同极化的光子能量之和，而总真空能项在$\mathbf{k}$无穷多时为无穷大。
+
+*这时$\hat{A}$的表达式中将$a_\lambda$替换为$\hat{a}_\lambda$，并将共轭替换为厄米共轭，不影响扰动的简谐性。
+
+取电偶极近似，$\exp(\pm\ir\mathbf{k}\cdot\br)\approx1$，则可得
+
+$$\hat{V}(t)\approx\sum_\mathbf{k}\sum_{\lambda=1}^2\big(\hat{v}_\lambda(\mathbf{k})\er^{-\ir\omega_kt}+\hat{v}_\lambda^\dagger(\mathbf{k})\er^{\ir\omega_kt}\big),\quad\hat{v}_\lambda(\mathbf{k})=\frac{e}{\mu}\sqrt{\frac{2\pi\hbar}{\Omega\omega_k}}\hat{a}_\lambda(\mathbf{k})\varepsilon_\lambda(\mathbf{k})\cdot\hat{\bp}$$
+
+\
+
+\textbf{自发发射}
+
+事实上，上方$\hat{v}_\lambda(\mathbf{k})$描述的是原子吸收一个光子的过程：此时体系初末态为[$\psi_{i,f}$代表对应算符$\varepsilon_\lambda(\mathbf{k})\cdot\hat{\bp}$本征态部分的状态]
+$$\ket{\Psi_i}=\ket{\psi_i}\ket{n_\lambda(\mathbf{k})},\quad\ket{\Psi_f}=\ket{\psi_f}\ket{n_\lambda(\mathbf{k})-1}$$
+计算得[第一个等号来源于其他不对应$\hat{a}_\lambda(\mathbf{k})$的独立部分可计算发现为0]
+$$\blk{\Psi_f}{\hat{V}(t)}{\Psi_i}=\frac{e}{\mu}\sqrt{\frac{2\pi\hbar}{\Omega\omega_k}}\blk{n_\lambda(\mathbf{k})-1}{\hat{a}_\lambda(\mathbf{k})}{n_\lambda(\mathbf{k})}\blk{\psi_f}{\varepsilon_\lambda(\mathbf{k})\cdot\hat{\bp}}{\psi_i}=\frac{e}{\mu}\sqrt{\frac{2\pi\hbar}{\Omega\omega_k}}\sqrt{n_\lambda(\mathbf{k})}\blk{\psi_f}{\varepsilon_\lambda(\mathbf{k})\cdot\hat{\bp}}{\psi_i}$$
+
+若初态无光子[外电磁场]，$n_\lambda(\mathbf{k})=0$，原子吸收不会自发发生。然而，完全类似考虑发射光子的过程
+$$\ket{\Psi_i}=\ket{\psi_i}\ket{n_\lambda(\mathbf{k})},\quad\ket{\Psi_f}=\ket{\psi_f}\ket{n_\lambda(\mathbf{k})+1}$$
+可得
+$$\blk{\Psi_f}{\hat{V}(t)}{\Psi_i}=\frac{e}{\mu}\sqrt{\frac{2\pi\hbar}{\Omega\omega_k}}\blk{n_\lambda(\mathbf{k})+1}{\hat{a}_\lambda^\dagger(\mathbf{k})}{n_\lambda(\mathbf{k})}\blk{\psi_f}{\varepsilon_\lambda(\mathbf{k})\cdot\hat{\bp}}{\psi_i}=\frac{e}{\mu}\sqrt{\frac{2\pi\hbar}{\Omega\omega_k}}\sqrt{n_\lambda(\mathbf{k})+1}\blk{\psi_f}{\varepsilon_\lambda(\mathbf{k})\cdot\hat{\bp}}{\psi_i}$$
+
+初态无光子时对应$n_\lambda(\mathbf{k})=0$，此矩阵元非零，可以自发发生，这就是\textbf{自发发射}。
+
+\section{弹性散射}
+*本章的很多内容与电动力学中有相似形式与处理，可相互参考。
+
+\subsection{基本描述}
+散射又称为\textbf{量子碰撞}，具有确定动量的粒子沿确定方向射向靶粒子，受到作用后发生偏转。
+
+*散射在小区域发生，入射粒子与出射粒子均处于自由粒子态，事实上散射作用可看作某种\textbf{跃迁}。
+
+散射过程中未发生相对运动能量变化，称为\textbf{弹性散射}，本章只考虑弹性散射。
+
+取入射粒子方向为$z$轴正方向，能量$E$，由其为自由粒子，初态波函数即为[注意这里下标$i$表示入射，而非分量]
+$$\psi_i=\er^{\ir kz},\quad k=\frac{\sqrt{2\mu E}}{\hbar}$$
+
+回顾概率流密度矢量$\bj$的定义，设$z$轴单位矢量$\hat{z}$，由定义计算可知
+$$\bj_i=J_i\hat{z},\quad J_i=\frac{\hbar k}{\mu}$$
+而散射后考虑单位时间内沿$\theta,\phi$方向单位立体角$\dr\Omega$出射的概率$\dr P$即可定义\textbf{微分散射截面}
+$$\sigma(\theta,\phi)=\frac{\dr P}{J_i\dr\Omega}$$
+
+*其具有面积量纲，因此如此称呼，且在实验中可观测。
+
+在入射粒子进入靶粒子有效力程后，\textbf{出射波}满足的定态薛定谔方程为
+$$-\frac{\hbar^2}{2\mu}\nabla^2\psi+V(\br)\psi=E\psi$$
+由于其为弹性散射，$E$不变，仅波函数发生变化。假定势能$V(\br)=V(r)$是球对称的，且无穷远处为0\ [利用靶粒子为短程作用可如此假设]，则设解的形式为$\psi_{lm}=R_l(r)Y_{lm}(\theta,\phi)$，回顾第九章有心力场中的径向薛定谔方程，由于观测是在$r\to\infty$时进行的，记$\chi_l(r)=rR_l(r)$，在无穷远处其方程化为[忽略相比$\chi_l(r)$为小量的$\chi_l(r)V(r),\chi_l(r)/r^2$项]
+$$\chi_l''(r)+\frac{2\mu E}{\hbar^2}\chi_l(r)=0$$
+利用之前$k$的定义，此方程解为
+$$\chi_l(r)=A\er^{\ir kr}+B\er^{-\ir kr}$$
+根据物理意义，若对应\textbf{束缚态}，其解应为向\textbf{外}扩散的球面波，于是$B=0$。可知
+$$\lim_{r\to\infty}R_l(r)\propto\frac{1}{r}\er^{\ir kr}$$
+
+根据取$\hat{H},\hat{L}^2,\hat{L}_3$后成为力学量完全集，所有的$l,m$应可构成$E$给定时方程的解的一组基，从而有[$a_{lm}$为系数]
+$$\psi(r,\theta,\phi)=\sum_{l,m}a_{lm}\psi_{lm}(r,\theta,\phi)$$
+
+*此思路即为下节\textbf{分波法}的思路。
+
+由于每个基都满足无穷远处条件，若解为\textbf{束缚态}，其也必然满足
+$$\lim_{r\to\infty}\psi_s(r,\theta,\phi)\propto f(\theta,\phi)\frac{\er^{\ir kr}}{r}$$
+
+根据物理图像，实际的波分为入射波与散射波，散射波应满足束缚态边界条件[于是写成上一行形式，下标为$s$]，而无穷远处$V(r)$近似为0时入射波也满足原方程的解，因此真正的解无穷远处可写为
+$$\lim_{r\to\infty}\psi(r,\theta,\phi)\propto\er^{\ir kz}+f(\theta,\phi)\frac{\er^{\ir kr}}{r}$$
+
+这里$f(\theta,\phi)$即对应散射波的振幅，称为\textbf{散射振幅}。
+
+*真实的波函数为入射与散射叠加，符合物理要求。
+
+*事实上，直接将无穷远处条件$V(r)=0$代入定态薛定谔方程，傅里叶求解也可得到对束缚态的结论，这是一个更为严谨的推导方式。
+
+*对散射振幅的严谨求解即需要考虑$V(r)$的具体形式，称为\textbf{正散射问题}。
+
+另一方面，利用散射波满足的关系，直接计算可知散射波无穷远处沿$r$方向的概率流密度为
+$$J_{s,r}=\frac{\ir\hbar}{2\mu}\big(\psi_s\partial_r\psi_s^*-\psi_s^*\partial_r\psi_s\big)=\frac{\hbar k}{\mu}\frac{|f(\theta,\phi)|^2}{r^2}$$
+由定义有[注意面积元为$r^2\dr\Omega$]
+$$\dr P=J_{s,r}r^2\dr\Omega$$
+对比微分散射截面定义，代入$J_i$表达式即知
+$$\sigma(\theta,\phi)=|f(\theta,\phi)|^2$$
+
+*可进一步对$\theta,\phi$积分计算\textbf{总散射截面}$\sigma_T$，真实实验涉及往往要求对$\phi$对称，于是$f(\theta,\phi)$为$f(\theta)$，总散射截面
+$$\sigma_T=2\pi\int_0^\pi|f(\theta)|^2\sin\theta\dr\theta$$
+
+\subsection{分波法}
+回顾刚才得到的表达式(将$r$替换为$kr$，为方便后续推导，不影响其作为一组基)
+$$\psi(r,\theta,\phi)=\sum_{l,m}a_{lm}R_l(kr)Y_{lm}(\theta,\phi)$$
+
+为分析其性质，我们需要先考虑$\er^{\ir kz}$的展开。回顾第八章对于球谐函数$Y_{lm}$、勒让德多项式$P_l$的介绍。由于$z=r\cos\theta$，数学推导可知
+$$\er^{\ir kz}=\sum_{l=0}^\infty(2l+1)\ir^lj_l(kr)P_l(\cos\theta)$$
+这里$j_l$为\textbf{球贝塞尔函数}，满足定义
+$$j_l(x)=(-x)^l\bigg(\frac{1}{x}\frac{\dr}{\dr x}\bigg)^l\frac{\sin x}{x}$$
+其在0与无穷处近似为[由此无穷处的确符合之前推导的渐进性质]
+$$j_l(x)\big|_{x\to0}\approx\frac{x^l}{(2l+1)!!},\quad j_l(x)\big|_{x\to\infty}\approx\frac{1}{x}\sin\bigg(x-\frac{l}{2}\pi\bigg)$$
+
+由于$\er^{\ir kz}$与$\phi$无关，利用球谐函数表达式可发现其必然只包含$m=0$的球谐函数$Y_{l0}$，若我们进一步假设对$\phi$的对称性，$f(\theta,\phi)=f(\theta)$，即知解可以作展开
+$$\psi(r,\theta,\phi)=\sum_{l=0}^\infty\tilde{R}_l(kr)Y_{l0}(\theta,\phi)=\sum_{l=0}^\infty\sqrt{\frac{2l+1}{4\pi}}\tilde{R}_l(kr)P_l(\cos\theta)$$
+
+这里$\tilde{R}_l$吸收了系数$a_{l0}$。利用此展开求解即称为\textbf{分波法}，核心在于求解$\tilde{R}_l(kr)$对应的径向薛定谔方程。
+
+\
+
+\textbf{分波相移}
+
+利用之前的计算与$j_l$的渐进性质，可知$\er^{\ir kz}$无穷远处展开为
+$$\er^{\ir kz}\big|_{r\to\infty}\approx\frac{1}{2\ir kr}\sum_{l=0}^\infty A_l\big(\er^{\ir(kr-l\pi/2)}-\er^{-\ir(kr-l\pi/2)}\big)Y_{10}(\theta,\phi),\quad A_l=\sqrt{4\pi(2l+1)}\ir^l$$
+
+而对$f(\theta)$，由于已知$\psi_s$展开后$R_l(kr)$无穷远处近似为$A\frac{\er^{\ir kr}}{r}$，可写出其展开为
+$$f(\theta)=\frac{1}{2\ir k}\sum_{l=0}^\infty c_lA_l\er^{-\ir l\pi/2}Y_{10}(\theta,\phi)$$
+
+*这里$c_l$为某常系数，后面的$A_l\er^{-\ir l\pi/2}$部分是为了配凑。
+
+利用
+$$\psi(r,\theta,\phi)\big|_{r\to\infty}=\er^{\ir kz}\big|_{r\to\infty}+f(\theta)\frac{\er^{\ir kr}}{r}$$
+即得
+$$\psi(r,\theta,\phi)\big|_{r\to\infty}\approx\frac{1}{2\ir kr}\sum_{l=0}^\infty A_l\big((1+c_l)\er^{\ir(kr-l\pi/2)}-\er^{-\ir(kr-l\pi/2)}\big)Y_{10}(\theta,\phi)$$
+
+由于角动量守恒成立，粒子处在$\hat{L}^2,\hat{L}_3$的某一共同本征态$Y_{l0}(\theta,\phi)$的概率应在散射前[即为$\er^{\ir kz}$]后不变。将$r$方向看作向内、向外的球面波叠加，可知两个球面波的强度，即系数模长必须对应相同，也即[向外球面波强度不存在差别]
+$$|1+c_l|=1$$
+
+由此可知$c_l=\er^{2\ir\delta_l}-1$，$\delta_l$为实参数，代入可知
+$$\psi(r,\theta,\phi)\big|_{r\to\infty}\approx\frac{1}{kr}\sum_{l=0}^\infty A_l\er^{\ir\delta_l}\sin(kr-l\pi/2+\delta_l)Y_{l0}(\theta,\phi)$$
+
+由此对比入射波
+$$\er^{\ir kz}\big|_{r\to\infty}\approx\frac{1}{kr}\sum_{l=0}^\infty A_l\sin(kr-l\pi/2)Y_{l0}(\theta,\phi)$$
+
+可发现实质上是每个径向波函数发生了相移$\delta_l$，因此其称为分波相移。
+
+*根据$f(\theta)$的展开式，分波相移可完全确定$f(\theta)$，利用球谐函数的正交归一性，代入$\sigma(\theta)=f^*(\theta)f(\theta)$\ [上标星号为共轭]，可直接计算得到
+$$\sigma_T=\frac{4\pi}{k^2}\sum_{l=0}^\infty(2l+1)\sin^2\delta_l$$
+
+\
+
+\textbf{分波相移计算}
+
+为计算分波相移，须考虑径向薛定谔方程的形式，类似第九章得到
+$$\frac{1}{r^2}\frac{\dr}{\dr r}\bigg(r^2\frac{\dr R_l}{\dr r}\bigg)+\bigg(k^2-\frac{l(l+1)}{r^2}-U(r)\bigg)R_l=0,\quad U(r)=\frac{2\mu V(r)}{\hbar^2}$$
+根据$\psi$边界条件的形式，我们需要找到其满足边界条件
+$$R_l(kr)\big|_{r\to\infty}\approx\frac{1}{kr}\sin(kr-l\pi/2+\delta_l)$$
+的解，以此确定$\delta_l$。
+
+*这里由于方程线性性，可指定其边界条件为$\sin(kr-l\pi/2+\delta_l)/r$的任何倍数，而对上述要求的展开式为
+$$\psi(r,\theta,\phi)=\sum_{l=0}^\infty A_l\er^{\ir\delta_l}R_l(kr)Y_{l0}(\theta,\phi)$$
+
+*此边界条件与之前的束缚态要求不再相同，这是由于已经考虑了$\psi_i+\psi_s$的结果。
+
+下面从解$R_l(kr)$的形式中直接得到$\delta_l$的计算公式。
+
+仍记$\chi_l(r)=rR_l(kr)$，计算得其满足的方程为
+$$\chi_l''(r)+\bigg(k^2-\frac{l(l+1)}{r^2}-U(r)\bigg)\chi_l(r)=0$$
+另一方面，记$f_l(r)=rj_l(kr)$，根据球贝塞尔函数的性质可知
+$$f_l''(r)+\bigg(k^2-\frac{l(l+1)}{r^2}\bigg)f_l(r)=0$$
+两方程结合可算出[省略参数$r$]
+$$(\chi_lf_l'-f_l\chi_l')'=-U\chi_lf_l$$
+对$r$从0到无穷积分，左侧利用牛顿莱布尼茨公式转化，0处由于$\chi_l(0)=0$\ [由波函数概率诠释得到，与之前类似]与$j_l(0)=0$可知为0，无穷处利用$R_l,j_l$的渐进性质计算可知为$\frac{1}{k}\sin\delta_l$，由此代入回$U,f,\chi$的原表达式得
+$$\sin\delta_l=-\frac{2\mu k}{\hbar^2}\int_0^\infty V(r)R_l(kr)j_l(kr)r^2\dr r$$
+
+由于精确解$R_l$一般难以求得，我们也需要近似计算的方式。假设$U(r)$很小，近似为0，利用上方球贝塞尔函数性质可知解直接近似为$j_l(kr)$，即零级近似下分波相移
+$$\sin\delta_l\approx-\frac{2\mu k}{\hbar^2}\int_0^\infty V(r)j_l^2(kr)r^2\dr r$$
+从此公式可看出$V(r)>0$时一般有$\delta<0$，对应斥力，反之$\delta_l>0$，对应引力。
+
+再假设$V(r)$的尺度很小，仅在$[0,a]$中非零[例如对电中性粒子散射]，且入射粒子能量不太高，$ka\ll1$，则利用$j_l$在0附近的近似可知
+$$\sin\delta_l\approx-\frac{2\mu k^{2l+1}}{((2l+1)!!)^2\hbar^2}\int_0^aV(r)r^{2l+2}\dr r\sim \mu k^{2l+1}a^{2l+3}/\hbar^2$$
+
+*随$l$增加，$\delta_l$快速下降，因此一般只需考虑$l$较小的分波。
+
+\subsection{李普曼-许温格方程}
+考虑入射波函数为$\er^{\ir\mathbf{k}\cdot\br}$的情况，完全类似得到散射需要求解定态薛定谔方程
+$$(\nabla^2+k^2)\psi(\br)=\frac{2\mu}{\hbar^2}V(\br)\psi(\br)$$
+满足边界条件
+$$\psi(\br)\big|_{r\to\infty}\approx\er^{\ir\mathbf{k}\cdot\br}+f(\theta,\phi)\frac{\er^{\ir kr}}{r}$$
+的能量本征函数$\psi$。
+
+下面运用\textbf{格林函数}方法进行求解。定义弹性散射问题的格林函数在全空间满足[这是由于问题定义在全空间]
+$$(\nabla^2+k^2)G(\br-\br')=\delta(\br-\br')$$
+两边作Fourier变换展开，利用三维$\delta$函数的展开式，对比系数即得
+$$G(\br-\br')=-\frac{1}{(2\pi)^3}\int\dr^3q\frac{\er^{\ir\mathbf{q}\cdot(\br-\br')}}{q^2-k^2}$$
+
+记$\mathbf{s}=\br-\br'$，其模长为$s$，将$\mathbf{q}$在球坐标下展开计算可发现
+$$G(\mathbf{s})=\frac{\ir}{4\pi^2s}\int_{-\infty}^\infty\frac{q\er^{\ir qs}}{q^2-k^2}\dr q$$
+这里积分包含两个极点$q=\pm k$，需要延拓到复平面上，利用柯西积分定理转化为围道积分。考虑到符合物理的情况，积分路径在经过$-k$时应向上，经过$k$时应向下，由此[在上半平面计算]只包含极点$k$，利用留数定理得到
+$$G(\br-\br')=-\frac{\exp(\ir k|\br-\br'|)}{4\pi|\br-\br'|}$$
+
+*围道的选取方式与电动力学中\textbf{推迟格林函数}的构造来源完全相同。
+
+根据格林函数理论，原方程任意解可写为
+$$\psi(\br)=\psi^{(0)}(\br)-\frac{\mu}{2\pi\hbar^2}\dr^3x'\frac{\exp(\ir k|\br-\br'|)}{4\pi|\br-\br'|}V(\br')\psi(\br')$$
+
+这里$\psi^{(0)}(\br)$为取$V(\br)=0$时对应的齐次方程的某个解，为符合边界条件应取为$\er^{\ir\mathbf{k}\cdot\br}$，由此可得
+
+$$\psi(\br)=\er^{\ir\mathbf{k}\cdot\br}-\frac{\mu}{2\pi\hbar^2}\int\dr^3x'\frac{\exp(\ir k|\br-\br'|)}{4\pi|\br-\br'|}V(\br')\psi(\br')$$
+
+此积分方程即称为李普曼-许温格方程。
+
+\
+
+\textbf{玻恩近似解}
+
+与上一章相互作用绘景下时间演化算符$\hat{U}_I(t,t_0)$的迭代求解完全一致，可从$\er^{\ir\mathbf{k}\cdot\br}$出发迭代计算解，但一般收敛性未知。假设$V(\br)$可看作微扰，类似可得到一级近似解
+$$\psi(\br)\approx\er^{\ir\mathbf{k}\cdot\br}-\frac{\mu}{2\pi\hbar^2}\int\dr^3x'\frac{\exp(\ir k|\br-\br'|)}{4\pi|\br-\br'|}V(\br')\er^{\ir\mathbf{k}\cdot\br'}$$
+这即称为玻恩近似解。
+
+为通过其计算散射振幅$f(\theta,\phi)$，需要先分析渐进行为。假设$V(\br')$尺度有限，可知$r\to\infty$时近似
+$$\frac{1}{|\br-\br'|}\approx\frac{1}{r},\quad\er^{\ir k|\br-\br'|}\approx\er^{\ir kr}\er^{-\ir\mathbf{k}_f\cdot\br'}$$
+这里$\mathbf{k}_f=k\br/r$为散射粒子的波矢。由此，无穷远处可进一步近似得
+$$\psi(\br)\big|_{r\to\infty}\approx\er^{\ir\mathbf{k}\cdot\br}-\frac{\mu}{2\pi\hbar^2}\frac{\er^{\ir kr}}{r}\int\dr^3x'V(\br')\er^{-\ir(\mathbf{k}_f-\mathbf{k})\cdot\br'}$$
+
+记$\mathbf{q}=\mathbf{k}_f-\mathbf{k}$，由定义可发现$\mathbf{k}_f$与$\mathbf{k}$模长相等，夹角恰为散射角$\theta$，因此计算有$q=2k\sin(\theta/2)$。
+
+由此
+$$f(\theta,\phi)=-\frac{\mu}{2\pi\hbar^2}\int\dr^3x'V(\br')\er^{-\ir\mathbf{q}\cdot\br}$$
+
+*这里$f(\theta,\phi)$的表达式恰好对傅里叶变换的形式，因此有
+$$V(\br)=-\frac{\hbar^2}{4\pi^2\mu}\int\dr^3q\ f(\theta,\phi)\er^{\ir\mathbf{q}\cdot\br}$$
+
+在中心力场下，$V(\br)=V(r)$，考虑球坐标计算可得
+$$f(\theta,\phi)=-\frac{2\mu}{\hbar^2q}\int_0^\infty V(\rho)\sin(q\rho)\rho\dr\rho$$
+由此其只与$q$相关，从而只与$\theta$相关，实质上是$f(\theta)$。
+
+*再取模平方即得微分散射截面。
+
+\
+
+\textbf{库伦散射}
+
+考虑$V(r)=\frac{\alpha}{r}$的情况，$\alpha$符号对应引力与斥力。
+
+在玻恩一级近似下，直接计算$f(\theta,\phi)$积分不收敛，因此需要修正为
+$$V(r)=\frac{\alpha}{r}\er^{-\beta qr}$$
+对修正的库伦势，利用含参积分技巧可得
+$$f(\theta)=-\frac{2\mu\alpha}{\hbar^2q^2}\frac{1}{\beta^2+1}$$
+再令$\beta\to0^+$即得$f(\theta)$，对应微分散射截面为
+$$\sigma(\theta)=\frac{\alpha^2}{4\mu^2v^4\sin^4(\theta/2)},\quad v=\frac{\hbar k}{\mu}$$
+这里$v$代表入射速度，上述公式即为\textbf{卢瑟福散射公式}。
+
+\section{相对论性量子力学简介}
+形式上，经典力学过渡到量子力学可通过\textbf{正则量子化}过程，也即：
+\begin{enumerate}
+    \item 将经典力学体系用哈密顿正则形式表述，得到$H(\bp,\br)$，这里$\bp$为正则动量；
+    \item 由$E=H$，两边作算符替代
+    $$-\ir\hbar\frac{\partial}{\partial t}=\hat{H}(-\hbar\nabla,\br)$$
+    \item 两边作用到$\psi$上，得到位置表象下薛定谔方程。
+\end{enumerate}
+薛定谔方程是波函数的\textbf{线性方程}，且波函数可诠释为\textbf{概率幅}，此外，非相对论情形下薛定谔方程在\textbf{伽利略变化下不变}。
+
+由于相对论性自由粒子哈密顿量满足
+$$H=\sqrt{\bp^2c^2+\mu^2c^4}$$
+直接正则量子化将无法得到线性方程，与\textbf{态矢量构成线性空间}矛盾。若将其作一定的展开近似，也无法保证理应满足的\textbf{洛伦兹变换不变性}。
+
+\
+
+\textbf{Klein-Gordon方程}
+
+将$E=H$转化为$E^2=H^2$后执行正则量子化步骤，得到自由粒子波函数满足
+$$\bigg(\square-\frac{\mu^2c^2}{\hbar}\bigg)\psi=0,\quad\square=-\frac{1}{c^2}\frac{\partial^2}{\partial t^2}+\nabla^2$$
+
+这即为KG方程，满足线性方程条件，且由于$\square$是洛伦兹标量算符，只要波函数构成洛伦兹四矢量，其即具有洛伦兹变换下不变性。
+
+*关于洛伦兹标量与洛伦兹四矢量的细节详见电动力学中。
+
+然而，其并非合格的量子力学方程：
+\begin{enumerate}
+    \item \textbf{负能困难}
+
+    记
+    $$\omega=\frac{1}{\hbar}\sqrt{\bp^2c^2+\mu^2c^4}$$
+    可验证KG方程存在平面波解
+    $$\psi(\br,t)=\er^{\ir\bp\cdot\br/\hbar-\ir E_\pm t/\hbar},\quad E_\pm=\pm\hbar\omega$$
+
+    负能量解$E=E_-$存在意味着KG粒子无稳定量子态。
+
+    \item \textbf{负概率困难}
+    
+    KG方程两侧左乘$\psi^*$，并整体取共轭，两式作差得到
+
+    $$\nabla\cdot(\psi^*\nabla\psi-\psi\nabla\psi^*)=\frac{1}{c^2}\frac{\partial}{\partial t}\bigg(\psi^*\frac{\partial\psi}{\partial t}-\psi\frac{\partial\psi^*}{\partial t}\bigg)$$
+
+    此代表了某种守恒性，但若将其看作概率守恒，右侧对应的$\rho$未必为正[上述负能量平面波解即对应负概率]，因此其\textbf{无法进行概率诠释}。
+\end{enumerate}
+
+\
+
+\textbf{Dirac方程}
+
+Dirac认为相对论下薛定谔方程仍应满足
+$$\ir\hbar\frac{\partial\psi}{\partial t}=\hat{\mathcal{H}}\psi$$
+
+这里$\psi$仍可作概率诠释，$\hat{\mathcal{H}}$仍为力学量算符，根据时空平等的特点与量纲分析，其可以表为
+$$\hat{\mathcal{H}}=c\alpha\cdot\hat{\bp}+\beta\mu c^2$$
+
+再令$\hat{\mathcal{H}}^2=c^2\hat{\bp}^2+\mu^2c^4$，会发现对一般的复数无解，但是看作矩阵[右侧常数视为单位阵]即有解，可取$4\times4$厄米矩阵[$\sigma_i$为泡利矩阵]
+$$\alpha_i=\begin{pmatrix}O&\sigma_i\\\sigma_i&O\end{pmatrix},\quad\beta=\begin{pmatrix}I_2&O\\O&-I_2\end{pmatrix}$$
+
+这时，Dirac波函数称为\textbf{双旋量}，为四维列向量。记
+$$x^\nu=(ct,\br),\quad x_\nu=(ct,-\br),\quad\partial_\nu=\frac{\partial}{\partial x_\nu},\quad\gamma^\nu=(\beta,\beta\alpha_1,\beta\alpha_2,\beta\alpha_3)$$
+Dirac方程可在2位置表象中写为
+$$\bigg(\ir\gamma^\nu\partial_\nu-\frac{\mu c}{\hbar}\bigg)\psi(\br,t)=0$$
+
+\
+
+\textbf{Dirac粒子性质}
+
+记$\rho=\psi^\dagger\psi,\mathbf{j}=c(\psi^\dagger\alpha_1\psi,\psi^\dagger\alpha_2\psi,\psi^\dagger\alpha_3\psi)$，可发现Dirac粒子满足概率守恒
+$$\frac{\partial\rho}{\partial t}+\nabla\cdot\mathbf{j}=0$$
+因此不存在负概率困难。
+
+在海森堡绘景下[薛定谔绘景对应为研究系综平均值]，计算可发现
+$$\frac{\dr\hat{\mathbf{L}}}{\dr t}=c(\alpha_1,\alpha_2,\alpha_3)\times\hat{\bp}$$
+由此轨道角动量不守恒。
+
+而若自旋角动量$\hat{\mathbf{S}}=\frac{\hbar}{2}\Sigma$，计算可得
+$$\frac{\dr\hat{\mathbf{S}}}{\dr t}=\frac{c}{2\ir}\mathbf{e}_i\hat{p}_j[\hat{\Sigma}_i,\alpha_j]$$
+
+为使总角动量$\hat{\bj}$守恒，对比系数得必有
+$$[\hat{\Sigma}_i,\alpha_j]=2\ir\epsilon_{ijk}\alpha_k$$
+可解得
+$$\Sigma_i=\begin{pmatrix}\sigma_i&O\\O&\sigma_i\end{pmatrix}$$
+
+*由于$\Sigma^2=3I_4$，考虑到其为四维矩阵可得Dirac粒子自旋角动量量子数仍为$\frac{1}{2}$。
+
+然而，考虑平面波解
+$$\psi(\br,t)=Nu(\bp)\exp(\ir(\bp\cdot\br-Er)/hbar)$$
+
+这里$u$为四维列向量，对应自旋态波函数，设其第一个分量为$\varphi$，之后三维为$\chi$，代入Dirac方程求解可知
+$$(E^2-\mu^2c^4-c^2\bp^2)\varphi(\bp)=0$$
+从而能量本征值依然有之前的$E_\pm$两种取值，仍然允许负能量解存在。
+
+为解决负能困难，Dirac假设几乎所有负能态被电子填满，称为\textbf{费米子海}，正能态上的电子由泡利不相容无法向已被占据的负能态跃迁。若负能电子受激跃迁到了正能级，则费米子海中会出现一个空穴，即表现为\textbf{正电子}，这正是Dirac对正电子存在的预言。
+
+\
+
+虽然Dirac理论取得了极大的成功，建立单粒子为研究对象的相对论性量子力学的努力并没有成功。人们逐渐认识到实现狭义相对论与量子物理相结合的最好的平台是\textbf{量子场论}[QFT]，研究对象为量子化的场。
+
+量子场论中，场自身具有\textbf{波粒二象性}，粒子性表现为其可观测量可看作其量子的可观测量之和，而波动性表现为单粒子态的叠加态。粒子之间的相互作用事实上表现为量子场的耦合。
+
+\end{document}

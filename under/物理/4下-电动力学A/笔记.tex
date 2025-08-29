@@ -1,0 +1,2099 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\pagestyle{headings}
+\title{\textbf{电动力学\ 笔记}}
+\author{原生生物}
+\date{}
+\setcounter{tocdepth}{2}
+\setlength{\parindent}{0pt}
+\usepackage{amsmath,amssymb,amsthm,enumerate,geometry}
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\ctexset{section={number=\zhnum{section}}}
+\ctexset{subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\newcommand*{\er}{\mathrm{e}}
+\newcommand*{\ir}{\mathrm{i}}
+\newcommand*{\va}{\vec{A}}
+\newcommand*{\vb}{\vec{B}}
+\newcommand*{\vd}{\vec{D}}
+\newcommand*{\ve}{\vec{E}}
+\newcommand*{\vf}{\vec{F}}
+\newcommand*{\vh}{\vec{H}}
+\newcommand*{\vj}{\vec{J}}
+\newcommand*{\vk}{\vec{K}}
+\newcommand*{\vl}{\vec{L}}
+\newcommand*{\vm}{\vec{M}}
+\newcommand*{\vn}{\vec{N}}
+\newcommand*{\vp}{\vec{P}}
+\newcommand*{\vs}{\vec{S}}
+\newcommand*{\vg}{\vec{g}}
+\newcommand*{\ves}{\vec{e}}
+\newcommand*{\vks}{\vec{k}}
+\newcommand*{\vls}{\vec{l}}
+\newcommand*{\vms}{\vec{m}}
+\newcommand*{\vns}{\vec{n}}
+\newcommand*{\vps}{\vec{p}}
+\newcommand*{\vrs}{\vec{r}}
+\newcommand*{\vus}{\vec{u}}
+\newcommand*{\vvs}{\vec{v}}
+\newcommand*{\vx}{\vec{x}}
+\newcommand*{\vchi}{\vec{\chi}}
+\newcommand*{\vbeta}{\vec{\beta}}
+\newcommand*{\vomega}{\vec{\omega}}
+\newcommand*{\dt}[2][t]{\frac{\dr #2}{\dr #1}}
+\newcommand*{\pt}[2][t]{\frac{\partial #2}{\partial #1}}
+\newcommand*{\ppt}[2][t^2]{\frac{\partial^2 #2}{\partial #1}}
+
+\begin{document}
+\maketitle
+
+*刘川老师《电动力学》笔记
+
+*如无特殊说明，采用爱因斯坦求和约定与张量记号，即\textbf{重复指标代表求和}；$\delta_{ij}$为克罗内克记号，当且仅当$i=j$时为1，否则为0；$\epsilon_{ijk}$为只有$1i,2j,3k$位置为1，其余为0的矩阵的行列式值；$\partial_j$代表$\frac{\partial}{\partial x_j}$，更多下标时类似。
+
+*积分上下限不写时默认对全空间$\mathbb{R}^n$积分。
+
+\tableofcontents
+
+\newpage
+\section{电磁场与麦克斯韦方程组}
+\subsection{真空中的麦克斯韦方程组}
+$$\begin{cases}
+    \nabla\cdot\ve=\frac{\rho}{\epsilon_0}\\
+    \nabla\times\vb-\epsilon_0\mu_0\pt{\ve}=\mu_0\vj\\
+    \nabla\times\ve+\pt{\vb}=0\\
+    \nabla\cdot\vb=0
+\end{cases}$$
+*符号含义：$\ve$电场强度[电场]、$\vb$磁场强度[磁场]、$\rho$电荷密度、$\vj$电流密度、$\epsilon_0$真空介电常数、$\mu_0$真空磁导率常数
+
+*真空介电常数与真空磁导率常数满足$c^2=\frac{1}{\epsilon_0\mu_0}$
+
+*四个方程分别反映电场高斯定律、安培环路定律与麦克斯韦位移电流、法拉第电磁感应定律、磁场高斯定律
+
+\textbf{洛伦兹力}：电磁场中电荷密度、电流密度$\rho,\vj$，则单位\textbf{体积}受力[力密度]$\vec{f}=\rho\ve+\vj\times\vb$。
+
+\subsection{麦克斯韦方程组的对称性}
+\begin{enumerate}
+    \item 线性性
+    
+    方程组对$\rho,\vj,\ve,\vb$线性，即$\rho_1,\vj_1$生成$\ve_1,\vb_1$，$\rho_2,\vj_2$生成$\ve_2,\vb_2$，则$a\rho_1+b\rho_2,a\vj_1+b\vj_2$生成$a\ve_1+b\ve_2,a\vb_1+b\vb_2$。
+
+    \item 洛伦兹协变性
+    
+    方程组在洛伦兹变换的意义下不变，即满足狭义相对论性，将在后续章节讨论。
+
+    \item 规范对称性
+    
+    通过电磁势体现，下节讨论。
+
+    \item 分立对称性
+    
+    \textbf{宇称变换}：$\vx\to-\vx$，此时$\rho$不变，$\vj\to-\vj$，$\nabla$变号，于是$\ve\to-\ve,\vb\to\vb$。
+        
+    *将空间反射不变的矢量称为\textbf{轴矢量}，变号的矢量称为\textbf{极矢量}。
+
+    \textbf{时间反演变换}：$t\to-t$，此时$\rho,$不变，$\vj\to-\vj$，$\pt{}$变号，于是$\ve\to\ve,\vb\to-\vb$。
+\end{enumerate}
+
+\subsection{电磁势与规范对称性}
+由于$\nabla\cdot\vb=0$，根据数学知识可知存在\textbf{矢势}$\va$使得$\vb=\nabla\times\va$，此时计算得第三个方程可写为
+$$\nabla\times\bigg(\ve+\pt{\va}\bigg)=0$$
+于是根据数学知识可知存在\textbf{标势}$\Phi$使得$\ve+\pt{\va}=-\nabla\Phi$。
+
+此时剩下两个方程化为
+$$\begin{cases}
+    \nabla^2\Phi+\pt{}(\nabla\cdot\va)=-\frac{\rho}{\epsilon_0}\\
+    \nabla^2\vec{A}-\frac{1}{c^2}\ppt{\va}-\nabla\big(\nabla\cdot\va+\frac{1}{c^2}\pt{\Phi}\big)=-\mu_0\vj
+\end{cases}$$
+
+*这里$\nabla^2\va$指对每个分量用Laplace算子作用再拼成矢量。
+
+*只有静电学中，即$\pt{\va}=0$时，标势才代表电势。
+
+对某标量场$\Lambda$，作变换
+$$\va'=\va+\nabla\Lambda,\quad\Phi'=\Phi-\pt{\Lambda}$$
+可计算验证$\ve,\vb$不变，这种对称性称为\textbf{规范对称性}，此变换称为\textbf{规范变换}。
+
+由于规范不变性，可要求$\va,\Phi$满足某些特殊的条件[规范]，例如\textbf{库伦规范}$\nabla\cdot\va=0$，或\textbf{洛伦茨规范}
+$$\nabla\cdot\vec{A}+\frac{1}{c^2}\pt{\Phi}=0$$
+
+*洛伦茨规范下麦克斯韦方程组进一步化为
+$$\begin{cases}
+    \nabla^2\Phi-\frac{1}{c^2}\ppt{\Phi}=-\frac{\rho}{\epsilon_0}\\
+    \nabla^2\vec{A}-\frac{1}{c^2}\ppt{\va}=-\mu_0\vj
+\end{cases}$$
+标势和矢势满足\textbf{独立}的波动方程，代表电磁场存在波动形式的解，称为\textbf{电磁波}。
+
+*由方程形式电磁波波速与光速相同，成为光也是电磁波的证据。
+
+\subsection{介质中的麦克斯韦方程组}
+\textbf{线性各向同性均匀介质}
+
+\begin{itemize}
+    \item 介质单位体积的平均电偶极矩为\textbf{电极化强度}$\vp$\ [电偶极子的电偶极距定义为带电量$q$与$-q$指向$+q$的矢量乘积]，则由于其不均匀会产生\textbf{束缚电荷}，考虑封闭曲面积分可得介质内部\textbf{束缚电荷密度}$\rho_b=-\nabla\cdot\vp$、边界$\sigma_b=\vns\cdot\vp$。
+    \item 束缚电荷分布随时间改变会产生束缚电流分布，由于束缚电荷守恒
+    $$\pt{\rho_b}+\nabla\cdot\vj_b=0$$
+    可得\textbf{束缚电流密度}$\vj_b=\pt{\vp}$。
+    \item 由于分子内部的带电微观粒子运动，会产生\textbf{分子电流}，当介质被外加磁场磁化时，记单位体积平均磁偶极矩为\textbf{磁化强度}$\vm$，考虑闭合回路积分可得介质内部\textbf{分子电流密度}$\vj_m=\nabla\times\vm$、边界$\vec{K}_m=-\vns\times\vm$。
+\end{itemize}
+
+将$\rho_b$加入$\rho$，$\vj_b,\vj_m$加入$\vj$，记\textbf{电位移矢量}$\vd=\epsilon_0\ve+\vp$，\textbf{磁场强度}$\vh=\frac{1}{\mu_0}\vb-\vm$，得到介质中的麦克斯韦方程组[这里$\rho,\vj$指自由电荷、自由电流的密度]
+$$\begin{cases}
+    \nabla\cdot\vd=\rho\\
+    \nabla\times\vh-\pt{\vd}=\vj\\
+    \nabla\times\ve+\pt{\vb}=0\\
+    \nabla\times\vb=0
+\end{cases}$$
+
+*利用数学上Gauss定理与Stolkes定理可对方程一、四作体积分，对方程二、三作环路积分，从而改写为积分形式。
+
+*对一般介质，$\vd,\vh$与$\ve,\vb$关系可能非常复杂，称为电磁介质中的\textbf{本构关系}。而上述简化情况事实上可看作某种平均场近似。如无特殊说明，均假设上述关系式满足。
+
+\
+
+\textbf{电磁介质简介}
+\begin{enumerate}
+    \item \textbf{一般线性介质}
+
+    $\vp,\vm$与电磁场的依赖关系可写为[对时间非局域的，但假设对空间局域，此局域性一般成立]
+    $$P_i(t)=\epsilon_0\int\dr t'\chi_{ij}^{(e)}(t')E_j(t-t')$$
+    $$M_i(t)=\int\dr t'\chi_{ij}^{(m)}(t')H_j(t-t')$$
+
+    考虑傅里叶变换[无歧义时可将$\tilde{f}(\omega)$也记为$f(\omega)$]
+    $$\tilde{f}(\omega)=\int\dr tf(t)\er^{-\ir\omega t}, f(t)=\frac{1}{2\pi}\int\dr\omega\tilde{f}(\omega)\er^{\ir\omega t}$$
+
+    即可得到
+    $$P_i(\omega)=\epsilon_0\chi_{ij}^{(e)}(\omega)E_j(\omega),\quad M_i(\omega)=\chi_{ij}^{( m)}(\omega)H_j(\omega)$$
+
+    这里$\chi_{ij}^{(e)}(\omega),\chi_{ij}^{(m)}(\omega)$称为\textbf{电极化率张量}与\textbf{磁化率张量}，于是记\textbf{介电张量}$\epsilon_{ij}(\omega)=\epsilon_0(\delta_{ij}+\chi_{ij}^{(e)}(\omega))$、\textbf{磁导率张量}$\mu_{ij}(\omega)=\mu_0(\delta_{ij}+\chi_{ij}^{(m)}(\omega))$，则根据$\vd,\vh$的定义与傅里叶变换的线性性有
+    $$D_i(\omega)=\epsilon_{ij}(\omega)E_j(\omega),\quad B_i(\omega)=\mu_{ij}(\omega)H_j(\omega)$$
+
+    \item \textbf{各向同性线性介质}
+    
+    各向同性满足时[事实上只需立方对称即可]，$\epsilon_{ij}(\omega)$与$\mu_{ij}(\omega)$必然与$\delta_{ij}$正比，从而可由对角元值确定，记作$\epsilon(\omega),\mu(\omega)$，类似定义$\chi^{(m)}(\omega),\chi^{(e)}(\omega)$可得
+    $$\vd(\omega)=\epsilon(\omega)\ve(\omega),\quad\epsilon(\omega)=\epsilon_0(1+\chi^{(e)}(\omega))$$
+    $$\vh(\omega)=\frac{1}{\mu(\omega)}\vb(\omega),\quad\mu(\omega)=\mu_0(1+\chi^{(m)}(\omega))$$
+
+    这里$\epsilon(\omega)$记为介电常数或电容率，$\mu(\omega)$称为磁导率；$\epsilon(\omega)/\epsilon_0$称为相对介电常数，$\mu(\omega)/\mu_0$称为相对磁导率。
+
+    *液体、气体、立方对称的晶体与大量多晶体是各向同性的，其电极化率必然为正，磁化率可能正[顺磁]或负[逆磁抗磁]。
+
+    *介电常数与磁导率一般与外场圆频率$\omega$、温度等相关，介电常数对频率依赖更明显。
+
+    \item \textbf{导体}
+
+    类似对于线性介质讨论，我们假设电流密度于电场有频域上的线性关系，即
+    $$J_i(\omega)=\sigma_{ij}(\omega)E_j(\omega)$$
+    $\sigma_{ij}(\omega)$称为\textbf{电导率张量}。类似地，若各向同性满足，即有$\vj(\omega)=\sigma(\omega)\ve(\omega)$，也即微观\textbf{欧姆定律}。
+
+    *理想导体：电导率趋于无穷，实际例子如内部$\ve,\vb$均为0的超导体。
+
+    \item \textbf{铁电体}、\textbf{铁磁体}
+    
+    铁电体、铁磁体不属于线性电磁介质，哪怕外加电磁场为0，也存在自发的电极化或磁化。其只在少数元素中出现，呈现高度的非线性。
+
+    *硬铁磁体：$\vb$不太大时$\vm$恒定的铁磁体。
+\end{enumerate}
+
+\
+
+\textbf{交界处边界条件}
+
+考虑底面与交界面法向垂直，高度趋于0的柱体，运用电场高斯定律即得到
+$$\vns\cdot(\vd_2-\vd_1)=\sigma$$
+这里$\vns$为介质1指向介质2的单位矢量，$\sigma$指交界面自由面电荷密度。对磁场类似得$\vns\cdot(\vb_2-\vb_1)=0$。
+
+考虑无穷小矩形回路，一对边与交界面切向垂直，运用磁场环路定律即得到
+$$\vns\times(\vh_2-\vh_1)=\vk$$
+这里$\vk$指交界面处自由面电流密度。对电场类似得[由$\pt{\vb}$有限，其面积分趋于0]\ $\vns\times(\ve_2-\ve_1)=0$。
+
+\subsection{电磁规律中的守恒律}
+\textbf{电荷守恒}
+
+连续性方程
+$$\pt{\rho}+\nabla\cdot\vj=0$$
+可从麦克斯韦方程组前两方程直接计算得到。
+
+\
+
+\textbf{能量守恒}
+
+利用洛伦兹力表达式，空间存在电流分布$\vj$时，体积$V$内电场对电流密度做功功率为
+$$W=\iiint_V\dr^3x\vj\cdot\ve$$
+代入麦克斯韦方程组$\vj$的表达式，再利用$\nabla\times\ve=-\pt{\vb}$即可计算得
+$$W=-\iiint_V\dr^3x\bigg(\pt{u}+\nabla\cdot\vs\bigg),\quad u=\frac{1}{2}(\ve\cdot\vd+\vb\cdot\vh),\quad\vs=\ve\times\vh$$
+
+其含义即体积$V$内带电粒子能量下降一部分转化为\textbf{电磁场能量}$u$的上升，一部分以\textbf{能流密度}$\vs$从边界流出。
+
+*这里$\vs$也称为\textbf{坡印亭矢量}。
+
+\
+
+\textbf{动量守恒}
+
+利用洛伦兹力表达式，考虑$V$中全部粒子[源]的总动量$\vps^s$，则有
+$$\dt{\vps^s}=\int_V\dr^3x(\rho\ve+\vj\times\vb)$$
+将$\vj,\rho$代入表达式，化简后可最终将动量守恒写为
+$$\dt{(p^s_i+p^f_i)}=\iiint_V\dr^3x\partial_jT_{ij}$$
+这里\textbf{电磁场总动量}为
+$$\vps^f=\iiint_V\dr^3x\epsilon_0\mu_0\vs$$
+\textbf{麦克斯韦应力张量}为
+$$T_{ij}=\epsilon_0\bigg(E_iE_j+c^2B_iB_j-\frac{1}{2}(\ve\cdot\ve+c^2\vb\cdot\vb)\delta_{ij}\bigg)$$
+
+*电磁场\textbf{动量密度}$\vec{g}$定义为$\epsilon_0(\ve\times\vb)$，计算得其即为$\epsilon_0\mu_0\vs=\frac{\vs}{c^2}$。
+
+\
+
+\textbf{角动量守恒}
+
+类似可得到对原点的角动量密度$\mathcal{M}=\vx\times\vg$，电磁场中角动量密度与物质的角动量结合才能得到守恒性。
+
+\section{静电学}
+\subsection{泊松方程与静电边值问题}
+考虑均匀、各向同性的线性电介质[介电常数$\epsilon$]中的静电场，这时只涉及两方程$\nabla\cdot\vd=\rho,\nabla\times\ve=0$，之前的标势$\Phi$此时即为静电势，满足$\ve=-\nabla\Phi$。
+
+由$\vd=\epsilon\ve$可得
+$$\nabla^2\Phi(\vx)=-\frac{\rho(\vx)}{\epsilon}$$
+
+*此方程形式称为Poisson方程，区域自由电荷密度$\rho=0$时即为Laplace方程$\nabla^2\Phi=0$。
+
+*由PDE知识，给定$\rho$与边界条件后$\Phi$可以唯一确定，即称为\textbf{静电边值问题}。
+
+无边界的无穷大空间中Poisson方程解为
+$$\Phi(\vx)=\frac{1}{4\pi\epsilon}\int\dr^3x'\frac{\rho(\vx')}{|\vx-\vx'|}$$
+即可看作库伦定律的线性叠加，数学上可利用[这里$\delta^3$即三维空间的$\delta$函数]
+$$\nabla_{\vx}^2\frac{1}{|\vx-\vx'|}=-4\pi\delta^3(\vx-\vx')$$
+直接计算证明。
+
+*此式可两边对$\vx$在包含$\vx'$的小球内计算积分，左侧利用高斯公式即可得到$\delta$函数前的系数。
+
+一般情况下，考虑$V$被闭合曲面$S$包围，若已知$S$上的$\Phi$则称为\textbf{Dirichlet边界条件}，若已知$S$上$\Phi$的法向偏导则称为\textbf{Neumann边界条件}，由PDE理论可证明两者均能得到唯一解。
+
+\
+
+\textbf{格林函数}
+
+不妨考虑真空情况，$\epsilon=\epsilon_0$。设函数$G(\vx,\vx')$在$V$中满足
+$$\nabla_{\vx'}^2G(\vx,\vx')=-4\pi\delta^3(\vx-\vx')$$
+则利用格林公式
+$$\int_V\dr^3x(\phi\nabla^2\psi-\psi\nabla^2\phi)=\oint_S\dr S\bigg(\phi\pt[n]{\psi}-\psi\pt[n]{\phi}\bigg)$$
+可计算得到
+$$\Phi(\vx)=\frac{1}{4\pi\epsilon_0}\int_V\dr^3x'G(\vx,\vx')\rho(\vx')+\frac{1}{4\pi}\oint_S\dr S'\bigg(G(\vx,\vx')\pt[n']{\Psi(\vx')}-\Phi(\vx')\pt[n']{G(\vx,\vx')}\bigg)$$
+
+*由上方计算$\frac{1}{|\vx-\vx'|}$亦满足条件，但不保证边界条件，导致上式右端无法确定。不过，直接计算可知$F(\vx,\vx')=G(\vx,\vx')-\frac{1}{|\vx-\vx'|}$必满足$\nabla_{\vx'}^2F(\vx,\vx')=0$，即其\textbf{调和}。
+
+对Dirichlet边值问题，额外要求$G_D(\vx,\vx')=0,\vx'\in S$，即得解为
+$$\Phi(\vx)=\frac{1}{4\pi\epsilon_0}\int_V\dr^3x'G_D(\vx,\vx')\rho(\vx')-\frac{1}{4\pi}\oint_S\dr S'\Phi(\vx')\pt[n']{G_D(\vx,\vx')}$$
+
+对Neumman边值问题，额外要求$\pt[n']{G_N(\vx,\vx')}=-\frac{4\pi}{A_S},\vx'\in S$，这里$A_S$为$S$面积，即得解为
+$$\Phi(\vx)=\left<\Phi\right>_S+\frac{1}{4\pi\epsilon_0}\int_V\dr^3x'G_N(\vx,\vx')\rho(\vx')+\frac{1}{4\pi}\oint_S\dr S'G_N(\vx,\vx')\pt[n']{\Phi(\vx')}$$
+这里$\left<\Phi\right>_S$为$\Phi$在$S$上的平均值。
+
+*一般情况下对格林函数的求解是困难的。
+
+\subsection{导体的边界条件与导体组的能量}
+*同样假设导电介质具有线性性与各向同性。
+
+理论分析可得导体\textbf{内部电场恒零}，\textbf{表面等势}，\textbf{自由电荷只可能出现在表面}，根据高斯定律即可得到[$\epsilon$指导体外部介电常数，$\sigma$指自由面电荷密度，取$n$对应为外法向]
+$$\epsilon\pt[n]{\Phi}=-\sigma$$
+
+\
+
+\textbf{导体组静电能}
+
+考虑$N$个导体，导体间介电常数$\epsilon$，每个导体表面$\Phi_i$，总电荷$Q_i$，且假定空间中除了导体表面外不存在自由电荷。由此可计算总能量(由于导体中无电场，只需对导体外部分积分)：
+$$U=\int\dr^3x\frac{1}{2}\ve\cdot\vd=\frac{\epsilon}{2}\int\dr^3x(\nabla\Phi)^2=\frac{\epsilon}{2}\int\dr^3x\nabla\cdot(\Phi\nabla\Phi)=\frac{1}{2}\sum_{i=1}^N\Phi_iQ_i$$
+
+(后三个等号分别为代入$\Phi$定义、计算后由空间无自由电荷消去$\nabla^2\Phi$、利用高斯定理与上方$\pt[n]{\Phi}$等式)
+
+由线性叠加原理，第$i$个导体表面的电荷可以写为
+$$Q_i=\sum_{j=1}^NC_{ij}\Phi_j$$
+这里$C_{ij}$为只与导体几何有关的参数。其中$C_{ii}$称为导体的\textbf{电容系数}[单个导体即为电容]，非对角元称为\textbf{感应系数}，总静电能即为
+$$U=\frac{1}{2}\sum_{i,j=1}^NC_{ij}\Phi_i\Phi_j$$
+
+\subsection{唯一性定理与静电镜像法}
+\textbf{静电唯一性定理}：对Dirichlet边值问题或Neumman边值问题，静电场的解唯一。
+
+证明：若有$\Phi_1(\vx),\Phi_2(\vx)$两解满足要求，记$\Psi(\vx)=\Phi_1(\vx)-\Phi_2(\vx)$，利用高斯定理可知
+$$\int_V\dr^3x(\nabla\Psi)^2=\oint_S\Psi(\nabla\Psi)\cdot\dr\vns-\int_V\dr^3x\Psi\nabla^2\Psi$$
+由于$\nabla^2\Psi=0$，且无论何种边值条件都有右侧第一项积分为0，可知$\nabla\Psi$必须恒为0，于是$\Psi$为常数，$\nabla\Phi_1(\vx)=\nabla\Phi_2(\vx)$，电场唯一。
+
+\
+
+\textbf{电像法}
+
+考虑半径$a$接地导体球外，距球心$R$处放置点电荷$Q$，求解空间电势。
+
+由于已知导体球面上电势为0，可假设导体内镜像电荷替代感应电荷，计算可发现球心与点电荷连线上距球心$\frac{a^2}{R}$处放置$-Q\frac{a}{R}$电荷可保证球面电势0，由唯一性定理可知空间$\Phi(\vx)$即相当于点电荷与镜像电荷叠加产生。
+
+*可利用$\pt[n]{\Phi}$得到球面面电荷密度，总量即为像电荷电量$-Q\frac{a}{R}$。
+
+*几何上为空间\textbf{反演}变换，当$a\to\infty$时成为无穷大导体板，像电荷即为对称位置、电量相反。
+
+*为满足特殊几何条件时的简单方法，但实际应用可能复杂(如像电荷不能在计算区域内、两球时需考虑无穷多像电荷等)。
+
+\subsection{泊松方程的分离变量解法}
+本节介绍$\nabla^2\Phi(\vx)=-\frac{\rho(\vx)}{\epsilon}$的一般分离变量求解方案。由于全空间的解$\frac{1}{4\pi\epsilon}\int\dr^3x'\frac{\rho(\vx')}{|\vx-\vx'|}$一定满足内部要求，只是未必满足边界条件，真实解一定可以写为其加上$\nabla^2\Phi(\vx)=0$的某个解。因此，先考虑这个Laplace方程的分离变量方式。
+
+\
+
+\textbf{直角坐标系}
+
+分离变量为$\Phi(\vx)=X(x)Y(y)Z(z)$，可考虑基本形式的解
+$$X(x)\propto\er^{k_1x},\quad Y(y)\propto\er^{k_2y},\quad Z(z)\propto\er^{k_3z}$$
+代入Laplace方程可知$k_1^2+k_2^2+k_3^2=0$。
+
+*由边界条件确定$k_i$，有限区间$k_i$一般取分立纯虚数，本征函数是三角函数，无穷区间则可能连续。
+
+\
+
+\textbf{柱坐标系}
+
+分离变量为$\Phi(\vx)=Z(z)\Phi(\phi)R(r)$，这里$(\phi,r)$即为$xy$平面极坐标，可考虑基本形式的解
+$$Z(z)\propto\er^{\pm kz},\quad\Phi(\phi)\propto\er^{\pm\ir m\phi},\quad R(r)\propto J_m(kr),N_m(kr)$$
+这里$J_m$与$N_m$指贝塞尔函数。
+
+由静电势单值性，$m$为整数，而$k$有不同选取：$k$实数时，$R(r)$为标准贝塞尔函数，$J_m$在0处有限，而$N_m$发散，需要额外边界条件确定；$k$纯虚数时，利用$z$方向边界条件可得到$k$可能取值，对应$R(r)$为虚宗量贝塞尔函数$I_m(|k|r),K_m(|k|r)$，同样，$I_m$在0处有限，而$K_m$发散。
+
+*贝塞尔函数也具有正交、归一、完备等特性，如$[0,a]$上，记$x_{mn}$为$J_m(x)$在正实轴的第$n$个零点，则基本的解形式为$R(r)=J_m\big(\frac{x_{mn}r}{a}\big)$，有正交归一与完备条件
+$$\int_0^arJ_m\bigg(\frac{x_{mn}r}{a}\bigg)J_m\bigg(\frac{x_{mn'}r}{a}\bigg)\dr r=\frac{a^2}{2}J_{m+1}^2(x_{mn})\delta_{nn'}$$
+$$\sum_{n=1}^\infty\frac{2}{a^2J_{m+1}^2(x_{mn})}J_m\bigg(\frac{x_{mn}r}{a}\bigg)J_m\bigg(\frac{x_{mn}r'}{a}\bigg)=\frac{1}{r}\delta(r-r')$$
+因此任何函数可通过基本形式进行展开。
+
+*无穷区间上正交归一条件为
+$$\int_0^\infty rJ_m(kr)J_m(k'r)\dr r=\frac{1}{k}\delta(k-k')$$
+称为Hankel变换，将$r,k$对调即为完备关系，类似直角坐标系中的Fourier变换。
+
+\
+
+\textbf{球坐标系}
+
+球坐标系下Laplace算符为
+$$\nabla^2=\frac{1}{r^2}\pt[r]{}\bigg(r^2\pt[r]{}\bigg)-\frac{\hat{L}^2}{r^2},\quad\hat{L}^2=-\frac{1}{\sin\theta}\pt[\theta]{}\bigg(\sin\theta\pt[\theta]{}\bigg)-\frac{1}{\sin^2\theta}\ppt[\phi]{}$$
+
+球谐函数$Y_{lm}$定义为角动量平方算符的本征函数，即
+$$\hat{L}^2Y_{lm}(\theta,\phi)=l(l+1)Y_{lm}(\theta,\phi),\quad l\in\mathbb{N},\quad m\in\mathbb{Z}\cap[-l,l]$$
+其也可以显式写成
+$$Y_{lm}(\theta,\phi)=\sqrt{\frac{2l+1}{4\pi}\frac{(l-m)!}{(l+m)!}}P_l^m(\cos\theta)\er^{\ir m\phi}$$
+这里$P_l^m$为连带勒让德函数。
+
+*其满足性质$Y_{l,-m}=(-1)^mY_{lm}^*$
+
+将$\theta,\phi$视为与$\vns=(\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta)$等同，即可记为$Y_{lm}(\vns)$，再记$\dr\vns=\sin\theta\dr\theta\dr\phi$，则其正交归一与完备条件为
+$$\int\dr\vns Y_{lm}^*(\vns)Y_{l'm'}(\vns)=\delta_{ll'}\delta_{mm'}$$
+$$\sum_{l=0}^\infty\sum_{m=-l}^lY_{lm}^*(\vns')Y_{lm}(\vns)=\delta(\cos\theta'-\cos\theta)\delta(\phi'-\phi)$$
+
+由此，任意$\theta,\phi$的函数可展开为球谐函数，一般解可以写为
+$$\Phi(r,\vns)=\sum_{l=0}^\infty\sum_{m=-l}^l\bigg(A_{lm}r^l+\frac{B_{lm}}{r^{l+1}}\bigg)Y_{lm}(\vns)$$
+系数$A_{lm},B_{lm}$完全由边界条件确定。
+
+*若问题有$\phi$方向对称性，只涉及$m=0$的球谐函数，这时连带勒让德多项式即为勒让德多项式。
+
+*球谐函数\textbf{加法定理}：
+$$\frac{1}{|\vx-\vx'|}=\sum_{l=0}^\infty\sum_{m=-l}^l\frac{4\pi}{2l+1}\frac{\min\{|\vx|,|\vx'|\}^l}{\max\{|\vx|,|\vx'|\}^{l+1}}Y_{lm}^*(\vns')Y_{lm}(\vns)$$
+
+证明：将左侧乘$\frac{1}{4\pi}$视为格林函数$G(\vx,\vx')$，即有
+$$\nabla^2G(\vx,\vx')=-\delta^3(\vx-\vx')=-\frac{1}{r^2}\delta(r-r')\delta(\cos\theta-\cos\theta')\delta(\phi-\phi')$$
+利用完备性关系展开右侧，知可设格林函数为$G(\vx,\vx')=\sum_{l,m}g_l(r,r')Y_{lm}^*(\vns')Y_{lm}(\vns)$，再由$g_l$在$r\to0,\infty$时有限、关于$r,r'$对称，求解可得到结果。
+
+\
+
+\textbf{一个例子}
+
+无穷空间中介电常数$\epsilon_2$，存在均匀强度$E_0$的$z$轴方向电场，放入一个介电常数$\epsilon_1$，半径$a$的电介质球，球心为原点，求放入后电场分布。
+
+由于不存在自由电荷，对应Laplace方程，由$z$轴对称性知内外都只涉及$m=0$的球谐函数，又因内部$r=0$处不可能发散，电势一定可以写成
+$$\Phi_{in}(\vx)=\sum_lA_lr^lP_l(\cos\theta),\quad\Phi_{out}(\vx)=\sum_l\bigg(B_lr^l+\frac{C_l}{r^{l+1}}\bigg)P_l(\cos\theta)$$
+
+由于无穷远处$\Phi_{out}(\vx)=-E_0z=-E_0r\cos\theta$，必然只有$l=1$项，且$B_1=-E_0$。此外，其产生介质极化也必然只有$l=1$项，从而只需求解$A_1,C_1$。通过球面$\theta$处场强切向连续、电位移矢量法向连续可知
+$$A_1=-E_0+\frac{C_1}{a^3},\quad\epsilon_1A_1=-\epsilon_2\bigg(E_0+\frac{2C_1}{a^3}\bigg)$$
+解得
+$$\Phi_{in}(\vx)=-\bigg(\frac{3\epsilon_2}{\epsilon_1+2\epsilon_2}\bigg)E_0r\cos\theta,\quad\Phi_{out}(\vx)=-E_0r\cos\theta+\bigg(\frac{\epsilon_1-\epsilon_2}{\epsilon_1+2\epsilon_2}\bigg)E_0\frac{a^3}{r^3}\cos\theta$$
+
+*更复杂的情况一般都需要通过求解格林函数进行间接求解。
+
+\subsection{静电边值问题的数值解法}
+*本节主要讨论对Laplace方程的求解。
+
+\
+
+\textbf{简单网格法}
+
+将三维空间划分为网格边长$a$的网格，则有
+$$\nabla^2\Phi(\vx)\approx\sum_{i=1}^3\frac{1}{a^2}(\Phi(\vx+\tilde{i})+\Phi(\vx-\tilde{i})-2\Phi(\vx))$$
+这里$\tilde{i}$为$i$方向长度$a$的矢量。从而通过格点值可得到Laplace算子的近似，再结合边界条件求解。
+
+*可行的求解思路是从扩散方程$\pt{\Phi(\vx,t)}=\nabla^2\Phi(\vx,t)$出发，得到迭代
+$$\frac{\Phi(\vx,t+\Delta t)-\Phi(\vx,t)}{\Delta t}=\sum_{i=1}^3\frac{1}{a^2}(\Phi(\vx+\tilde{i})+\Phi(\vx-\tilde{i})-2\Phi(\vx))$$
+由于Laplace方程为扩散方程的稳定状态，充分迭代至$t\to\infty$时即可得到解，此方法称为\textbf{Jacobi方法}。通过计算数学知识可知，时空步长需满足$6\Delta t\le a^2$才能保证迭代稳定进行。
+
+*例：考虑点电荷在空间中存在某接地导体时的电场，其电势减去点电荷电势得到的函数$\Psi(\vx)$应满足Laplace方程，且边界条件为$\Psi(\vx)$在导体边界的值为点电荷电势的相反数[从而保证和为0]，由此即可求解。
+
+\
+
+\textbf{有限元方法}
+
+*思路：利用\textbf{单形}进行剖分，如二维时考虑三角网格。
+
+以二维为例，若已知三角形$(x_i,y_i),i=1,2,3$顶点电势$\Phi_i$，设内部电势为$a+bx+cy$，求解可得
+$$\Phi(x,y)=\frac{1}{D}\sum_{i=1}^3(p_i+q_ix+r_iy)\Phi_i,\quad D=\begin{vmatrix}1&x_1&y_1\\1&x_2&y_2\\1&x_3&y_3\end{vmatrix},\quad p_1=x_2y_3-x_3y_2,q_1=y_2-y_3,r_1=x_3-x_2$$
+其余$p_i,q_i,y_i$循环交换系数即得。
+
+*由此，三角形内部的电场$-\nabla\Phi(x,y)$恒定，$E_x=-\frac{1}{D}\sum_iq_i\Phi_i,E_y=-\frac{1}{D}\sum_ir_i\Phi_i$。
+
+节点处近似值计算：根据数学知识可知Laplace方程应使静电能泛函
+$$\mathcal{E}[\Phi]=\frac{\epsilon}{2}\int\dr^2x|\nabla\Phi(\vx)|^2$$
+取最小值，而设三角形共有$N_f$个，每个的面积$\Delta S_f$，电场为$\ve_f$，则上述泛函在有限元下近似为
+$$\mathcal{E}[\{\Phi_i\}]=\frac{\epsilon}{2}\sum_{f=1}^{N_f}\ve_f^2\Delta S_f$$
+此为关于所有$\Phi_i$的正定二次型，可通过数值方法求解最小值。
+
+*考虑迪利克雷边界条件，这时边界节点给定，只需求解全部内部节点，确定系数矩阵后可得到方程组，从而利用共轭梯度等方法求解。
+
+\subsection{静电多极展开}
+考虑真空中某有界的电荷分布$\rho(\vx)$\ [即其只在有界区域$V$内非零]，要求计算远离这团电荷处一点的静电势。
+
+利用球谐函数加法定理，两侧乘$\frac{1}{4\pi\epsilon_0}\rho(\vx')$后在$V$内直接积分计算得到(由要求$r\gg r'$)
+$$\Phi(\vx)=\frac{1}{\epsilon_0}\sum_{l,m}\frac{1}{2l+1}\frac{Y_{lm}(\vns)}{r^{l+1}}q_{lm},\quad q_{lm}=\int Y^*_{lm}(\vns')(r')^l\rho(\vx')\dr^3x'$$
+
+系数$q_{lm}$为与$\vx$无关的常数，称为电荷分布对应的\textbf{多极矩}。
+
+*定义$Q=\int\dr^3x'\rho(\vx')$为总电荷，$\vps=\int\dr^3x'\rho(\vx')\vx$为该电荷分布的电偶极矩，电四极矩张量$\mathbf{D}$满足
+$$D_{ij}=\int\dr^3x'(3x_i'x_j'-(r')^2\delta_{ij})\rho(\vx')$$
+
+*这里$l=0$称为单极矩(总电荷)，随后随$l$增大分别称电偶极矩、电四极矩、电八极矩等，对应带电体系的多极矩张量。一般来说带电体系的多极矩依赖原点选取，但\textbf{非零最低阶}的电多极矩与原点选取无关。
+
+\
+
+\textbf{电偶极子}
+
+考虑原点的一个点电偶极矩$\vps$，计算可发现电势与非原点处场强为(这里$\vns$指$\vx$方向单位矢量)
+$$\Phi(\vx)=\frac{1}{4\pi\epsilon}\frac{\vps\cdot\vx}{r^3},\quad\ve(\vx)=\frac{1}{4\pi\epsilon_0}\frac{3\vns(\vns\cdot\vps)-\vps}{r^3}$$
+
+但此场强事实上还差一个正比于$\delta$函数的项，考虑静电场在球心原点、半径$R$的球体积分，由高斯公式可得
+$$\int_{r<R}\dr^3x\ve(\vx)=-\int_{r=R}R^2\dr\Omega_n\Phi(\vx)\vns=-\frac{R^2}{4\pi\epsilon_0}\int\dr^3x'\rho(\vx')\int_{r=R}\dr\Omega_n\frac{\vns}{|\vx-\vx'|}$$
+
+*这里$\vns$指球面外法向量，第二个等号是将电势拆分为积分。
+
+利用球谐函数保留$l=1$计算可得右侧积分为$\frac{4\pi}{3}\frac{r_<}{r_>}\vns'$，这里$r_<,r_>$指$r'$与$R$中较小、较大的，于是原积分即为
+$$-\frac{R^2}{3\epsilon_0}\int\dr^3x'\frac{r_<}{r_>^2}\vns'\rho(\vx')$$
+
+若电荷分布全在球内，$r_<$恒为$r'$，可直接计算得到积分为$-\frac{\vps}{3\epsilon_0}$；若全在球外，即为$\frac{4\pi R^2}{3}\ve(0)$。由此，为使球内的积分成立，电场实际上是
+$$\ve(\vx)=\frac{1}{4\pi\epsilon_0}=\frac{1}{4\pi\epsilon_0}\bigg(\frac{3\vns(\vns\cdot\vps)-\vps}{r^3}-\frac{4\pi}{3}\vp\delta^3(\vx)\bigg)$$
+
+\
+
+\textbf{静电能}
+
+静电能为$\int\dr^3x\rho(\vx)\Phi(\vx)$，若$\rho(\vx)$只在原点腹肌南非零，事实上可以对$\Phi(\vx)$在原点附近展开，再利用分布的电偶极矩、电四极矩定义可以得到静电能[事实上这比起直接展开增添了$-\frac{1}{6}r^2\nabla\cdot\ve(0)$，由于其为0无影响]
+$$U\approx Q\Phi(0)-\vps\cdot\ve(0)-\frac{1}{6}\sum_{i,j}D_{ij}\frac{\partial E_j(0)}{\partial x_i}$$
+
+*直接计算可知$\vx_1,\vx_2$处电偶极矩$\vps_1,\vps_2$，则相互作用静电能为
+$$\frac{1}{4\pi\epsilon_0}\bigg(\frac{\vps_1\cdot\vps_2-3(\vns\cdot\vps_1)(\vns\cdot\vps_2)}{|\vx_1-\vx_2|^2}+\frac{4\pi}{3}(\vps_1\cdot\vps_2)\delta^3(\vx_1-\vx_2)\bigg)$$
+这里$\vns$为$\vx_2-\vx_1$方向的单位矢量。
+
+\section{静磁学}
+\subsection{环形电流的磁场与磁矩}
+回顾磁矢势$\va$满足$\vb=\nabla\times\va$，利用库伦规范[静磁学中与洛伦茨规范]可取$\nabla\cdot\va=0$，假定空间中充满磁化率$\mu=\mu_0\mu_r$的线性各向同性均匀磁介质，计算即得到泊松方程$\nabla^2\va=-\mu\vj$，于是类似电场时，无边界空间中解即可写为
+$$\va(\vx)=\frac{\mu}{4\pi}\int\dr^3x'\frac{\vj(\vx')}{|\vx-\vx'|}$$
+
+*电荷守恒连续性方程要求$\nabla\cdot\vj=0$，且$\vj$可以包含广义函数[如一维$\delta$函数代表面电流密度，二维$\delta$函数代表线电流密度]，可以对应将$\vj(\vx)\dr^3x$替换为$\vk\dr S$或$I\dr\vls$，这里$\vk$为面电流密度，$I$为线电流强度。
+
+*若存在不同磁介质，回顾第一章得到的边界条件，即可唯一确定静磁问题解。
+
+\
+
+\textbf{环形电流计算}
+
+考虑真空中电流强度为$I$、半径为$a$的电流环，环心位于坐标原点，法向指向$z$方向，求空间磁矢势与磁场。
+
+球坐标系下电流密度只有$\phi$分量，为
+$$J_\phi(r',\theta',\phi')=\frac{I}{a}\sin\theta'\delta(\cos\theta')\delta(r'-a)$$
+
+直角坐标系下，设$\hat{x},\hat{y}$为两方向单位向量，则$\vj(\vx')=-J_\phi\sin\phi'\hat{x}+J_\phi\cos\phi'\hat{y}$，由于关于$\phi$对称，可直接设考虑$\phi=0$的点的磁矢势，由对称性，这些点只有$A_\phi$非零，直接积分即得到[注意$\phi=0$时$A_\phi=A_y$]
+$$A_\phi(r,\theta)=\frac{\mu_0Ia}{4\pi}\int_0^{2\pi}\frac{\cos\phi'\dr\phi'}{(a^2+r^2-2ar\sin\theta\cos\phi')^{1/2}}$$
+
+*此积分为椭圆积分，无解析解，$r\gg a$时刻通过分母泰勒展开至前两项[第一项$\frac{1}{r}$积分为0]得到近似
+$$A_\phi(r,\theta)\approx\frac{\mu_0I\pi a^2}{4\pi}\frac{\sin\theta}{r^2}$$
+从而磁场有近似
+$$B_\theta=\frac{\mu_0}{4\pi}\frac{2m\cos\theta}{r^3},\quad B_\theta=\frac{\mu_0}{4\pi}\frac{m\sin\theta}{r^3},\quad m=I\pi a^2$$
+这里$m$称为\textbf{磁偶极矩}，与电偶极子周围的电场类似。
+
+\subsection{磁场的能量}
+考虑$N$个闭合稳恒电流回路$C_i$，电流强度分别为$I_i$，空间充满磁导率$\mu$均匀介质。计算可得到
+$$(\nabla\times\va)^2=\partial_j(A_k\partial_jA_k)-A_k(\partial_j\partial_jA_k)-\partial_j(A_k\partial_kA_j)+A_k(\partial_j\partial_kA_j)$$
+而全微分在全空间积分可化为无穷远边界上，为0，且由库伦规范最后一项为0，只剩下第二项，再利用泊松方程得能量为
+$$U=\frac{1}{2}\int\dr^3x\vh\cdot\vb=\frac{1}{2\mu}\int\dr^3x(\nabla\times\va)^2=\frac{1}{2}\int\dr^3x\va\cdot\vj$$
+
+利用替换规则可写出此时磁矢势的表达式
+$$\va(\vx)=\frac{\mu}{4\pi}\sum_{i=1}^N\oint_{C_i}\frac{I_i\dr\vls_i(\vx_i')}{|\vx-\vx_i'|}$$
+这里$\vx_i'$沿$C_i$绕转，$\dr\vls_i(\vx_i')$即为该点处$C_i$的切向量。代入原式即得
+$$U=\frac{1}{2}\sum_{i,j=1}^NL_{ij}I_iI_j,\quad L_{ij}=\frac{\mu}{4\pi}\oint_{C_i}\oint_{C_j}\frac{\dr\vls_i(\vx_i)\cdot\dr\vls_j(\vx_j)}{|\vx_i-\vx_j|}$$
+这里对角元$L_{ii}$称为线圈的\textbf{电感}或\textbf{自感系数}，非对角元$L_{ij},i\ne j$称为\textbf{互感系数}。
+
+*无穷细导线的电感事实上发散，需要假设存在界面，可认为均匀分布估计电感。
+
+\
+
+\textbf{电流圈作用力}
+
+考虑两电流圈$C_1,C_2$间作用力，为方便，用$\vls_1,\vls_2$简写$\vls_1(\vx_1),\vls_2(\vx_2)$。
+
+根据功能原理，$\vf_{2\to1}$可以写为两电流圈相互作用能对第一个电流圈坐标的\textbf{正}梯度[由于保持电流不变而非磁矢势不变，这里的受力为正梯度而非负梯度]，也即
+$$\vf_{2\to1}=\nabla_{\vx_1}U=-\frac{\mu I_1I_2}{4\pi}\oint_{C_1}\oint_{C_2}\frac{(\vx_1-\vx_2)(\dr\vls_1\cdot\dr\vls_2)}{|\vx_1-\vx_2|^3}$$
+凑积分为0的全微分后分母可改写为$-\dr\vls_1\times(\dr\vls_2\times(\vx_1-\vx_2))$，从而有
+$$\vf_{2\to1}=\oint_{C_1}I_1\dr\vls_1\times\vb_{2\to1},\quad\vb_{2\to1}=\frac{\mu}{4\pi}\oint_{C_2}\frac{I_2\dr\vls_2\times(\vx_1-\vx_2)}{|\vx_1-\vx_2|^3}$$
+左侧公式为洛伦兹力宏观形式[安培力]，右侧即为毕奥-萨伐尔定律。
+
+\subsection{磁多极展开}
+考虑原点附近的电流分布与远处一点$\vx$，仍假定充满磁导率$\mu$均匀介质，利用泰勒展开前两项
+$$\frac{1}{|\vx-\vx'|}\approx\frac{1}{|\vx|}+\frac{\vx\cdot\vx'}{|\vx|^3}$$
+即有
+$$A_i(x)\approx\frac{\mu}{4\pi|\vx|}\int\dr^3x'J_i(\vx')+\frac{\mu x_j}{4\pi|\vx|^3}\int\dr^3x'J_i(\vx')x_j'$$
+
+*利用高斯公式化到无穷远处可知$\int\dr^3x'\partial_j'(J_j(\vx')x_i')=0$，展开偏导并利用$\nabla'\cdot\vj(\vx')=0$即可得到上方第一项积分事实上为0。
+
+*类似可知$\int\dr^3x'\partial_k'(J_k(\vx')x_i'x_j')=0$，展开化简可得到
+$$x_j\int\dr^3x'\vj(\vx')x_j'=-\vx\times\vms,\quad\vms=\frac{1}{2}\int\dr^3x'(\vx'\times\vj(\vx'))$$
+
+上方$\vms$称为磁偶极矩[简称\textbf{磁矩}]，由此可计算得
+$$\va(\vx)=\frac{\mu}{4\pi}\frac{\vms\times\vx}{|\vx|^3},\quad\vb(\vx)=\frac{\mu}{4\pi}\bigg(\frac{3\vns(\vns\cdot\vms)-\vms}{|\vx|^3}\bigg)$$
+此处$\vns$代表$\vx$方向单位矢量。
+
+*完全类似电偶极场，考虑积分后会对磁场增添一个$\delta$函数修正，成为
+$$\vb(\vx)=\frac{\mu}{4\pi}\bigg(\frac{3\vns(\vns\cdot\vms)-\vms}{|\vx|^3}+\frac{8\pi}{3}\vms\delta^3(\vx)\bigg)$$
+
+\
+
+\textbf{磁矩}
+
+对平面电流圈，设其面积$S$，电流强度$I$，右手定则确定单位法向量$\vns_0$，即有$\vm=SI\vns_0$，符合之前环形电流的结果。
+
+若电流密度$\vj(\vx)$由一系列带电$q_i$，速度$\vvs_i$的粒子提供，即$\vj(\vx)=\sum_iq_i\vvs_i\delta^3(\vx-\vx_i)$，计算可知
+$$\vms=\frac{1}{2}\sum_iq_i(\vx_i\times\vvs_i)=\sum_i\frac{q_i}{2M_i}\vl_i$$
+这里$\vl_i$表示粒子角动量。若所有粒子$q_i,M_i$同为$q,M$，即有$\vms=\frac{q}{2M}\vl$，$\vl$为总角动量$\sum_i\vl_i$。
+
+*量子力学中除了经典角动量外还有纯量子的\textbf{自旋角动量}$\vs$，原子磁矩与核子磁矩分别为
+$$\vms=-\frac{e\hbar}{2m_e}(g_l\vl+g_s\vs)/\hbar,\quad\vms_N=\frac{e\hbar}{2m_p}(g_s\vs)/\hbar$$
+这里右侧$(g_l\vl+g_s\vs)/\hbar$代表无量纲总角动量，左侧系数即为量子力学中的$\mu$。轨道角动量的贡献与经典情形一致，$g_l=1$，而自旋角动量系数$g_s$依赖于粒子性质。
+
+\
+
+\textbf{力与力矩}
+
+根据受力公式$\vf=\int\dr^3x'\vj(\vx')\times\vb(\vx')$，对$\vb$作泰勒展开，保留两项即得到
+$$F_i\approx\epsilon_{ijk}\bigg(B_k(0)\int\dr^3x'J_j(\vx')+\int\dr^3x'J_j(\vx')(\vx'\cdot\nabla)B_k(0)\bigg)$$
+类似之前讨论可知首项为0，第二项利用$\nabla\cdot\vb=0$可化为
+$$\vf=(\vms\times\nabla)\times\vb=\nabla(\vms\times\vb)$$
+
+对力矩$\vn=\int\dr^3x'(\vx'\times(\vj(\vx')\times\vb(\vx')))$，完全类似可得到$\vn=\vms\times\vb$，与静电学中的$\vps\times\ve$类似。
+
+\
+
+\textbf{能量}
+
+由于力可看作势能的负梯度，势能可表达为
+$$U=-\vms\times\vb$$
+
+*原子物理中电子磁矩与外加磁场相互作用能可写为此形式，因此称为\textbf{塞曼能}，由于磁矩与角动量正比，角动量是量子化的，原子在外磁场中时因转动不变性而简并的能级将分裂，称为\textbf{塞曼效应}。
+
+*原子核磁矩$\vms_N$与电子磁矩的偶极-偶极相互作用产生\textbf{超精细结构}，设电子自旋磁矩$\vms_e$，轨道运动磁矩$\frac{e}{2m_e}\vl$，相互作用能为[$\vns$指连线方向的单位矢量]
+$$\mathcal{H}=\frac{\mu_0}{4\pi}\bigg(\frac{\vms_N\cdot\vms_e-3(\vns\cdot\vms_N)(\vns\cdot\vms_e)}{r^3}-\frac{e}{m}\frac{\vms_N\cdot\vl}{r^3}-\frac{8\pi}{3}(\vms_N\cdot\vms_e)\delta^3(\vx)\bigg)$$
+量子力学中此能量视为某种微扰，需要在波函数中取平均。
+
+\subsection{磁标势与等效磁荷}
+若空间\textbf{无自由电流分布}，根据麦克斯韦方程组有$\nabla\times\vh=0$，于是存在\textbf{磁标势}$\Phi_M(x)$满足$\vh(\vx)=-\nabla\Phi_M(\vx)$。
+
+由于$\nabla\cdot\vb=0$，利用$\vb=\mu_0(\vh+\vm)$可得
+$$\nabla^2\Phi_M(\vx)=-(-\nabla\cdot\vm)$$
+也即$\vm(\vx)$提供了类似静电学中电荷的磁荷密度$\rho_M(\vx)=-\nabla\cdot\vm(\vx)$，或在边界上的面磁荷密度$\sigma_M(\vx)=\vns\cdot\vm(\vx)$。
+
+多数情况下$\vm$会与$\Phi_M(x)$有关，因此此方程并不能简单视为泊松方程求解。此处只考虑两种简单情况：
+\begin{enumerate}
+    \item \textbf{线性各向同性均匀介质}$\vb=\mu\vh$，从而满足Laplace方程$\nabla^2\Phi_M(\vx)=0$。
+    
+    例：考虑真空中均匀静磁场$H_0$，方向为$z$方向，将内外半径$a,b$的空心球壳放入，球壳介质为线性各向同性均匀介质，相对磁导率为$\mu_r$，球心为坐标原点，求空间磁场。
+
+    考虑球坐标系，此问题关于$\phi$对称，类似泊松方程分离变量解法中的例子，利用球谐函数可得到$r>b$与$a<r<b$处磁标势可以视为均匀场与偶极场叠加，$r<a$处磁标势则对应均匀场，结合无穷远处条件可设
+    $$\Phi_M^{r>b}=-H_0r\cos\theta+\frac{A_1\cos\theta}{r^2},\quad\Phi_M^{a<r<b}=-H_1r\cos\theta+\frac{C_1\cos\theta}{r^2},\quad\Phi_M^{r<a}=-H_2r\cos\theta$$
+
+    结合$r=b,r=a$处的连续性条件[可直接利用$r\cos\theta=z$将$\Phi_M$写在直角坐标系中计算$\vh$，进而根据线性介质得到$\vb$，从而可得到连续性方程]
+    $$-H_0+\frac{A_1}{b^3}=-H_1+\frac{C_1}{b^3},\quad H_0+\frac{2A_1}{b^3}=\mu_r\bigg(H_1+\frac{2C_1}{b^3}\bigg),\quad-H_1+\frac{C_1}{a^3}=-H_2,\quad\mu_r\bigg(H_1+\frac{2C_1}{b^3}\bigg)=H_2$$
+
+    即可解出$A_1,H_1,C_1,H_2$。
+
+    *当$\mu_r\gg1$时可发现球内部磁场约为$\frac{9H_0}{2\mu_r(1-a^3/b^3)}$，反比于$\mu_r$，这称为\textbf{磁屏蔽}，类似静电屏蔽。
+
+    \item \textbf{硬铁磁体}，这时$\vm$几乎不依赖$\vh$，可将$\vm$视为已知矢量场，类似静电问题求解。
+    
+    例：磁化强度均匀为$\vm$的硬铁磁体球，半径为$a$，球心为坐标原点，磁化强度指向$z$方向，求空间磁场。
+
+    由于磁化强度为常矢量，体磁荷密度为0，面磁荷密度即为$\vn\cdot\vm=M_0\cos\theta'$，这里$\theta'$指原点指向球面某点的矢量与$z$轴夹角。于是，直接积分可得到
+    $$\Phi_M(\vx)=\frac{M_0a^2}{4\pi}\int\dr\Omega'\frac{\cos\theta'}{|\vx-\vx'|}$$
+    利用球谐函数加法定理，由于$\cos\theta'\propto Y_{10}(\theta',\phi')$，根据正交性可知只需保留
+    $$\frac{4\pi}{3}\frac{\min(a,r)}{\max(a,r)^2}Y_{10}^*(\theta',\phi')Y_{10}(\theta,\phi)$$
+    一项乘$\cos\theta'$的积分，从而利用$\frac{\cos\theta'}{Y_{10}(\theta',\phi')}=\frac{\cos\theta}{Y_{10}(\theta,\phi)}$与正交归一性计算可得
+    $$\Phi_M(\vx)=\frac{1}{3}M_0a^2\frac{\min(a,r)}{\max(a,r)^2}\int\dr\Omega'Y_{10}^*(\theta',\phi')Y_{10}(\theta',\phi')\cos\theta=\frac{1}{3}M_0a^2\frac{\min(a,r)}{\max(a,r)^2}\cos\theta$$
+
+    *由此可得到球内为均匀磁场，$\vh=-\frac{1}{3}\vm$，球外为磁偶极子形式，磁偶极矩为$\frac{4\pi a^3}{3}\vm$，即磁化强度乘球体积。
+\end{enumerate}
+
+\subsection{静磁问题的数值解法}
+*实际铁磁体往往是多晶的，会产生不同磁畴，同一个磁畴内$\vm$基本沿固定方向，从而使得铁磁体的磁畴体出现固定磁矩。
+
+考虑简化模型，假定晶粒内部磁化强度$\vm_1(\vx)=M_s\hat{z}$，晶粒间$\vm_2(\vx)=M_s'\hat{z}$，这里$\hat{z}$为$z$方向单位矢量，$M_s> M_s'$。根据面磁荷密度的公式，$\vm_1,\vm_2$交界处会出现等效的磁荷，它们产生的磁场称为\textbf{退磁场}。
+
+*由于等效磁荷成对出现，退磁场全空间积分必然为0，但方均根非0，随$\frac{M_s'}{M_s}$远离1而成线性关系增大，当$M_s'=0$时其强度在饱和磁感应强度20\%左右。
+
+*对于实际任意分布的情况，一般需要通过数值解法处理，具体做法与静电学中类似。
+
+\section{电磁波的传播}
+\subsection{均匀平面电磁波的基本性质}
+没有电荷与电流分布时，假设空间存在介电常数$\epsilon$、磁导率$\mu$的均匀线性介质，可以得到
+$$\nabla^2\ve-\epsilon\mu\ppt{\ve}=0,\quad\nabla^2\vb-\epsilon\mu\ppt{\vb}=0$$
+其基本解为均匀平面电磁波，即
+$$\ve=\ve_0\er^{\ir\vks\cdot\vx-\ir\omega t},\quad\vb=\vb_0\er^{\ir\vks\cdot\vx-\ir\omega t}$$
+
+*这里波动部分用复指数表示，电磁场振幅$\ve_0,\vb_0$也可取复矢量。约定真实测量的物理量均为对应复值的\textbf{实部}。
+
+\
+
+\textbf{基本性质}
+
+代入麦克斯韦方程组可得到
+$$\vks\cdot\ve_0=0,\quad\vks\cdot\vb_0=0,\cdot\vb_0=\sqrt{\mu\epsilon}\vns\times\ve_0,\quad k^2=\mu\epsilon\omega^2$$
+这里$\vns$为$\vk$方向单位矢量，由前三式可知$\vks,\vb_0,\ve_0$相互垂直，可构成三维空间的标架，第四个式子可得到[利用$c^{-2}=\mu_0\epsilon_0$，这里$k$指$|\vks|$]
+$$v=\frac{\omega}{k}=\frac{c}{n},\quad n=\sqrt{\frac{\mu\epsilon}{\mu_0\epsilon_0}}$$
+这里$v$即为\textbf{相速度}，$n$称为介质\textbf{折射率}。
+
+*真实介质均为色散介质，也即折射率与$\omega$有关，但很窄的频率范围内可假设几乎无关，从而可将均匀平面电磁波叠加得到一般解。
+
+\
+
+\textbf{偏振性质}
+
+记$\ves_3=\vn$如上方定义，考虑垂直$\vn$的平面内的两单位矢量$\ves_1,\ves_2$满足$\ves_1\times\ves_2=\vn$，它们就构成了三维空间的标准正交基。
+
+由此电场强度可以展开
+$$\ve(\vx,t)=(E_1\ves_1+E_2\ves_2)\er^{\ir\vks\cdot\vx-\ir\omega t}$$
+
+复系数$E_1,E_2$的关系不同即称为其属于不同\textbf{偏振状态}：若$\frac{E_2}{E_1}$为实数，称\textbf{线偏振}；若$\frac{E_2}{E_1}=\pm\ir$，称为左旋/右旋\textbf{圆偏振}；一般情况下$\ve(\vx,t)$面对传播反向看将画出椭圆，因此称为\textbf{椭圆偏振}。
+
+*对圆偏振，令$\ves_\pm=\frac{1}{\sqrt{2}}(\ves_1\pm\ves_2)$，它们也与$\ves_3$构成三维复内积空间的一组标准正交基。
+
+\textbf{Stokes参数}：记$\ves_1\cdot\ve=a_1\er^{\ir\delta_1},\ves_2\cdot\ve=a_2\er^{\ir\delta_2}$，其中$a_1,a_2$为模长，$\delta_1,\delta_2$为辐角，定义
+$$s_0=a_1^2+a_2^2,\quad s_1=a_1^2-a_2^2,\quad s_2=2a_1a_2\cos(\delta_2-\delta_1),\quad s_3=2a_1a_2\sin(\delta_2-\delta_1)$$
+为Stokes参数，它们可以直接测量，从而描述偏振性质。
+
+*实际上Stokes参数有三个独立参数，满足$s_0^2=s_1^2+s_2^2+s_3^2$。
+
+\
+
+\textbf{能流}
+
+由电磁波定义与基本性质可算出坡印亭矢量的\textbf{周期平均值}[第一个等号可通过积分平均计算得到]
+$$\bar{\vs}=\frac{1}{2}\ve\times\vh^*=\frac{1}{2}\sqrt{\frac{\epsilon}{\mu}}|\ve_0|^2\vns$$
+类似得能量密度\textbf{周期平均值}为
+$$\bar{u}=\frac{1}{4}\bigg(\epsilon\ve\cdot\ve^*+\frac{1}{\mu}\vb\cdot\vb^*\bigg)=\frac{\epsilon}{2}|\ve_0|^2$$
+于是能流密度$\bar{\vs}=\bar{u}v\vns$，这里$v$即为相速度。
+
+*此结论仅对单色均匀平面电磁波正确，一般电磁波能量流动速度未必为相速度。
+
+\subsection{电磁波在介质表面的折射与反射}
+假设两种折射率分别为$n,n'$的介质[对应介电常数、磁导率为$\mu,\epsilon$与$\mu',\epsilon'$]，一均匀平面电磁波从折射率为$n$的介质入射到交界面上。
+
+为方便，设交界面法线的单位矢量$\vns$沿$z$轴正方向，入射电磁波波矢$\vks$在$xz$平面内。入射波矢与法向量张成的平面称为\textbf{入射面}，夹角$i$称\textbf{入射角}。设反射波的波矢为$\vks''$，它与负法向$-\vns$的夹角$r''$称\textbf{反射角}；折射波的波矢$\vk'$，其与$\vns$的夹角$r$称为\textbf{折射角}。以下用$\hat{x}$表示向量$\vx$方向的单位矢量，则入射波、折射波、反射波电磁场分别为
+$$\ve=\ve_0\er^{\ir\vks\cdot\vs-\ir\omega t},\quad\vb=\sqrt{\mu\epsilon}\hat{k}\times\ve$$
+$$\ve'=\ve_0'\er^{\ir\vks'\cdot\vs-\ir\omega t},\quad\vb'=\sqrt{\mu'\epsilon'}\hat{k}'\times\ve'$$
+$$\ve''=\ve_0''\er^{\ir\vks''\cdot\vs-\ir\omega t},\quad\vb''=\sqrt{\mu\epsilon}\hat{k}''\times\ve''$$
+由于电磁波频率不变，类似之前推导知波矢应满足[用$x$表示$\vx$的模长]
+$$k=k''=n\frac{\omega}{c},\quad k'=n'\frac{\omega}{c}$$
+
+考虑电磁场的边界条件，$z=0$平面上应有$\vks\cdot\vns=\vks'\cdot\vns=\vks''\cdot\vns$，也即三个波矢都处于\textbf{同一平面}[$xz$平面]。将其除以模长即可得到角度关系
+$$i=r'',\quad\frac{\sin i}{\sin r}=\frac{k'}{k}=\frac{n'}{n}$$
+
+更具体来说，代入四个边界条件得到
+$$(\epsilon(\ve_0+\ve_0'')-\epsilon'\ve_0')\cdot\vns=0$$
+$$(\vks\times\ve_0+\vks''\times\ve_0''-\vks'\times\ve_0')\cdot\vns=0$$
+$$(\ve_0+\ve_0''-\ve_0')\times\vns=0$$
+$$\bigg(\frac{1}{\mu}(\vks\times\ve_0+\vks''\times\ve_0'')-\frac{1}{\mu'}\vks'\times\ve_0'\bigg)\times\vns=0$$
+由于电场强度与波矢垂直，可将电场强度分解为垂直入射面(即$y$方向)的分量与平行入射面(且与对应波矢垂直)的分量计算大小。这样分解后可直接解出[2、4式求解垂直分量，1、3式求解平行分量]
+$$\frac{(\ve_0')_\bot}{(\ve_0)_\bot}=\frac{2n\cos i}{n\cos i+(\mu/\mu')n'\cos r},\quad\frac{(\ve_0'')_\bot}{(\ve_0)_\bot}=\frac{n\cos i-(\mu/\mu')n'\cos r}{n\cos i+(\mu/\mu')n'\cos r}$$
+$$\frac{(\ve_0')_\parallel}{(\ve_0)_\parallel}=\frac{2n\cos i}{(\mu/\mu')n'\cos i+n\cos r},\quad\frac{(\ve_0'')_\parallel}{(\ve_0)_\parallel}=\frac{(\mu/\mu')n'\cos i-n\cos r}{(\mu/\mu')n'\cos i+n\cos r}$$
+
+*这些公式统称为\textbf{菲涅尔公式}，公式除折射率外还涉及$\mu/\mu'$，但可见光频段可近似认为$\mu/\mu'=1$，从而公式只涉及折射率。
+
+*当$i=0$时菲涅尔公式可以合并为
+$$\ve_0'=\frac{2}{\sqrt{\mu\epsilon'/(\mu'\epsilon)}+1}\ve_0,\quad\ve_0''=\frac{\sqrt{\mu\epsilon'/(\mu'\epsilon)}-1}{\sqrt{\mu\epsilon'/(\mu'\epsilon)}+1}\ve_0$$
+
+*当$\mu/\mu'=1$时，若入射角等于\textbf{布儒斯特角}$i_B=\tan^{-1}\frac{n'}{n}$，则反射波电场平行分量$(\ve_0'')_\parallel$为0，也即反射波的偏振方向垂直于入射面。
+
+*若$n>n'$，使得$r=\frac{\pi}{2}$的角度称为全反射角，即满足$i_0=\sin^{-1}\frac{n'}{n}$。入射角等于$i_0$时折射波延交界面传播，而比全反射角还大时，$\cos r$成为纯虚数
+$$\cos r=\ir\sqrt{\frac{\sin^2i}{\sin^2i_0}-1}$$
+于是折射波相因子会出现$z$方向的指数衰减$\er^{-k'|\cos r|z}$\ [称为\textbf{隐失波}]，无法进入$n'$介质，而将沿交界面传播。这时反射波与入射波模长一致，但相位可以有差别。
+
+\subsection{电磁波在导电介质中的传播}
+假设导电介质均匀、各向同性，满足欧姆定律$\vj=\sigma\ve$。
+
+*与之前的区别在于导电介质会产生自由电流，从而出现耗散。
+
+\
+
+若所有场都简谐依赖于时间，即有相因子$\er^{-\ir\omega t}$，则根据麦克斯韦方程组可得
+$$\frac{1}{\mu}\nabla\times\vb=-\ir\omega\bigg(\epsilon_b+\ir\frac{\sigma}{\omega}\bigg)\ve$$
+这里$\mu,\epsilon_b$为导电介质中的束缚电子贡献的介电常数与磁导率，均可能为$\omega$的函数。将括号内定义为
+$$\epsilon(\omega)=\epsilon_b(\omega)+\ir\frac{\sigma(\omega)}{\omega}$$
+若场具有平面波$\er^{\ir\vks\cdot\vx-\ir\omega t}$形式，则代入得$k^2=\mu\epsilon\omega^2$，也即若介质$\mu\epsilon_b$为实数，电导率$\sigma$非零，$\vks$与$\omega$\textbf{不可能同为实数}：
+\begin{enumerate}
+    \item 若$t=0$时导体中已经存在某电磁场分布，其可以按三维空间分解为实波矢$\vks$的叠加，则频率$\omega$必须为复数，$\er^{-\ir\omega t}$的实部代表电磁场随时间\textbf{指数衰减}，这是耗散的结果。
+    \item 若外界有电磁波入射导体，导体内称为受迫振动，不随时间衰减，即$\omega$为实数，这时$\vks$必须为复数，设$\vns$为垂直导体表面并指向内部的法向单位矢量，其应能写为$k\vns$。记$k=k_1+\ir\frac{1}{2}A$，$k_1$与$A$为实数，$A$称为\textbf{吸收系数}。
+    
+    对不良导体，$\sigma/(\omega\epsilon_b)\ll1$，近似得到
+    $$k\approx\sqrt{\mu\epsilon_b}\omega+\ir\frac{1}{2}\sqrt{\frac{\mu}{\epsilon_b}}\sigma$$
+    吸收系数$\sigma\sqrt{\mu/\epsilon_b}$几乎不依赖频率。
+
+    对良导体，$\sigma/(\omega\epsilon_b)\gg1$，近似得到
+    $$k\approx\frac{1+\ir}{\delta},\quad\delta=\sqrt{\frac{2}{\omega\mu\sigma}}$$
+    这里$\delta$称为\textbf{趋肤深度}，代表电磁波进入导体的特征长度。直接代入平面电磁波可得
+    $$\ve=\ve_0\er^{-\vns\cdot\vx/\delta}\er^{\ir\vns\cdot\vx/\delta-\ir\omega t},\quad\vh=\vh_0\er^{-\vns\cdot\vx/\delta}\er^{\ir\vns\cdot\vx/\delta-\ir\omega t},\quad\vh_0=\frac{1}{\mu\omega}k\vns\times\ve_0$$
+
+    *由$k$为复数，$\vh,\ve$存在相位差，而根据良导体$k$的辐角约为$\frac{\pi}{4}$即知相位差约为$\frac{\pi}{4}$。
+\end{enumerate}
+
+*利用等效复介电常数$\epsilon$，也可研究涉及导电介质表面的反射与透射，会有与之前几乎相同的结论，但偏振变化十分复杂。
+
+\
+
+\textbf{准静态近似}
+
+当导体中传导电流远大于位移电流贡献时，位移电流可以忽略，称为准静态近似，对应良导体的情形。
+
+假设导体内$\sigma,\mu$不依赖位置，忽略位移电流$\pt{\vd}$，对麦克斯韦方程组第二个方程两边取旋度，利用介质中$\nabla\cdot\vb=0$即得到
+$$\mu\sigma\pt{\vh}=\nabla^2\vh$$
+边界条件仍为$\vb$法向连续，$\vh$切向连续。
+
+*此为\textbf{扩散方程}形式，$\ve,\vb,\va,\vj$事实上都满足此形式，由于其空间特征尺度平方与时间特征尺度成比例，可以给出对趋肤深度的估计。
+
+准静态近似下，谐振电磁场会诱导导体内部\textbf{涡流}并耗散为热。根据电路知识，耗散功率为
+$$W_J=\int\dr^3x\langle\vj\cdot\ve\rangle$$
+这里尖括号表示周期内的平均，$\vj,\ve$均指实部对应的真实值。而外部流入导体的能流功率平均即为坡印亭矢量面积分：
+$$W=-\oint\langle\ve\times\vh\rangle\cdot\dr\va$$
+利用高斯公式与周期函数的时间导数周期内平均值为0\ [由牛顿莱布尼茨公式可知]即可计算出$W=W_J$，符合能量守恒。
+
+*此推导事实上与第一章能量守恒的推导基本相同，只是忽略了位移电流对应的电场能量贡献。
+
+*已知良导体外部的谐变磁场后，利用扩散方程与边界条件即可解出导体内部的磁场，从而估算耗散功率。
+
+\subsection{介质色散的经典模型}
+考虑\textbf{经典振子模型}，也即将介质的束缚电子看作经典谐振子，有各自的本征频率与阻尼系数。
+
+在谐振电场[如单色平面电磁波]下，电子会产生平均电偶极矩
+$$\vps=\frac{e^2}{m}\frac{\ve_0}{\omega_0^2-\omega^2-\ir\omega\gamma}$$
+这里$\omega$为外电场频率，$\omega_0$、$\gamma$为本征圆频率与阻尼系数。若原子总电子为$Z$个，本征频率$\omega_i$，阻尼系数$\gamma_i$的有$f_i$个[这称为\textbf{振子强度}]，则有介电常数为[此式来源为真空增添电子的电偶极矩]
+$$\frac{\epsilon(\omega)}{\epsilon_0}=1+\frac{Ne^2}{\epsilon_0m}\sum_i\frac{f_i}{\omega_i^2-\omega^2-\ir\omega\gamma_i}$$
+
+*此公式事实上对量子情形也有不错的描述。
+
+*对导体而言，存在自由电子，即本征频率为0的电子，将其他电子归为$\epsilon_b$后得到
+$$\epsilon(\omega)=\epsilon_b(\omega)+\ir\frac{Ne^2f_0}{m\omega(\gamma_0-i\omega)}$$
+对比上节可发现$\sigma(\omega)=\frac{Ne^2f_0}{m(\gamma_0-i\omega)}$，称为\textbf{德鲁德公式}。频率较低时可忽略虚部，电导率为实，而固体物理中称$\frac{1}{\gamma_0}$为自由电子的\textbf{弛豫时间}。
+
+\
+
+若$\omega\gg\omega_i$，介电常数即满足
+$$\frac{\epsilon(\omega)}{\epsilon_0}\approx1-\frac{\omega_p^2}{\omega^2},\quad\omega_p^2=\frac{NZe^2}{\epsilon_0m}$$
+$\omega_p$称为\textbf{等离子体频率}。此式对所有介质都成立，最极端的情况下[如纯等离子体忽略电子阻尼]，电磁波频率小于等离子体频率时，介电常数为负，电磁波波矢进入此区域的分量变为纯虚数，也即成为隐失波，指数衰减[\textbf{紫外透明}]。
+
+一般频率而言，$\gamma_i$较小，介电常数基本为实数，于是对电磁波的吸收很小，即该介质对电磁波\textbf{透明}。但当$\omega\approx\omega_i$时，对该频率的吸收即非常明显，称为\textbf{共振吸收区}。
+
+*介电常数明显称为复数时，电磁波波数也是复数，回顾之前的$k=k_1+\ir\frac{1}{2}A$，$A$代表能流的衰减，因此称为吸收系数。
+
+\subsection{电磁信号在色散介质中的传播}
+实际电磁信号往往并不是单色均匀波，而是以\textbf{波包}[即不同频率单色波叠加]的形式传播，以下以一维情况标量波[忽略偏振]为例。
+
+\
+
+\textbf{波包的色散}
+
+考虑一维波包
+$$u(x,t)=\frac{1}{\sqrt{2\pi}}\int A(k)\er^{\ir kx-\ir\omega(k)t}\dr k$$
+这里$\omega(k)$与介质色散性质有关，$A(k)$代表不同频率成分的强度，根据Fourier变换公式可知
+$$A(k)=\frac{1}{\sqrt{2\pi}}\int u(x,0)\er^{-\ir kx}\dr x$$
+
+*也可由其他时刻计算出，对单色波$u(x,0)=\er^{\ir k_0x}$，对应振幅$A(k)$为$\sqrt{2\pi}\delta(k-k_0)$，此后仍为单色波。
+
+*利用傅里叶变换性质可得位置空间与频率空间的延展[并非此处重点，省略严禁定义]满足$\Delta k\Delta x\ge\frac{1}{2}$，事实上是量子力学中的不确定关系。由此，位置空间波包越窄，所需频率就越宽。
+
+由于相速度$v_p=\frac{\omega}{k}$对不同频率不同，不同成分的相位差会随时间演化而变化，也即代表波包形状随时间推移发生变形，这就是\textbf{色散}。
+
+对平面单色波，能量流动速度与相速度相同，但对波包可能非常复杂。考虑$A(k)$只在$k=k_0$附近某个小范围非零的情况，泰勒展开可得
+$$\omega(k)\approx\omega_0+v_g(k-k_0),\quad\omega_0=\omega(k_0),v_g=\dt[k]{\omega}(k_0)$$
+代入可发现波包随时间的演化近似为
+$$u(x,t)\approx u(x-v_gt,0)\er^{\ir(k_0v_g-\omega_0)t}$$
+这里$v_g$即为\textbf{群速度}。此时波包形状几乎没有改变，只是按群速度移动，$v_g$比相速度$v_p$更好刻画了波包的传播与能量流动。
+
+*由于$\omega(k)=\frac{ck}{n(k)}$，计算有[此处均省略$k=k_0$]
+$$v_g=\frac{v_p}{1+\frac{\omega}{n}\dt[\omega]{n}}$$
+当存在色散，导数项非0时，群速度与相速度即不同。
+
+*当$\dt[\omega]{n}>0$时称为\textbf{正常色散}，而小于0则称为\textbf{反常色散}，反常色散时$v_g$甚至可以超过光速，但这时近似无法成立，群速度已经失去了物理意义，并不代表信号传播速度。
+
+\
+
+\textbf{因果性}
+
+考虑一般的情况，回顾第一章，各向同性的线性介质中，电位移矢量与电场强度关系[本部分讨论时均为实]可写为
+$$\vd(\vx,t)=\epsilon_0\bigg(\ve(\vx,t)+\int\chi(\tau)\ve(\vx,t-\tau)\dr\tau\bigg)$$
+因果性要求$\tau<0$时$\chi(\tau)=0$，也即$t$时刻电位移矢量只能依赖$t$之前的电场强度，由此可将积分改为0到$\infty$。
+
+原积分两边傅里叶变换即得到介电常数的表达式(与第一章$\epsilon(\omega)=\epsilon_0(1+\chi^{(e)}(\omega))$相同)，再利用因果性可得
+$$\frac{\epsilon(\omega)}{\epsilon_0}=1+\int_0^\infty\chi(\tau)\er^{\ir\omega\tau}\dr\tau$$
+
+利用此表达式与$\vd,\ve$为实可得：
+\begin{enumerate}
+    \item 若$\chi(\tau)$对所有$\tau$有界，$\epsilon(\omega)$在复平面上半平面[$\mathrm{Im}(\omega)>0$]解析；
+    \item 若$\chi(\tau)$在$\tau\to\infty$时[记作$\chi(\infty)$]为0，利用数学可证明$\epsilon(\omega)$可以延拓到实轴，但实际上利用导体等效介电常数定义可知导体$\chi(\infty)=\frac{\sigma}{\epsilon_0}$，因此在$\omega=0$处有极点，可证明在实轴其他点仍可延拓；
+    \item 假定$\chi$的连续性，有$\chi(0)=0$，从而分部积分可得$\omega$很大时
+        $$\frac{\epsilon(\omega)}{\epsilon_0}\approx 1-\frac{\chi'(0)}{\omega^2}$$
+    \item 由于$\chi(\tau)$为实数，介电常数满足共轭关系$\epsilon(-\omega)=\epsilon^*(\omega^*)$。
+\end{enumerate}
+
+利用复变函数知识，对上半平面任何一点$z$，有[这里事实上可以包含0处为极点的情况]
+$$\frac{\epsilon(z)}{\epsilon_0}=1+\frac{1}{2\pi\ir}\oint_C\frac{\epsilon(\omega')/\epsilon_0-1}{\omega'-z}\dr\omega'$$
+这里$C$为以实轴$[-R,R]$为直径的，上半平面中的充分大半圆。将此半圆趋于无穷，由于大$\omega$处其以$\omega^2$衰减，半圆上的积分趋于0，可将积分改为实轴上积分，再令$z=\omega+\ir\delta$，并取$\delta\to0^+$，计算即得到
+$$\frac{\epsilon(\omega)}{\epsilon_0}=1+\frac{1}{\pi\ir}\mathcal{P}\int_\mathbb{R}\frac{\epsilon(\omega')/\epsilon_0-1}{\omega'-\omega}\dr\omega'$$
+
+*此处$\mathcal{P}$表示主值积分(一种特殊的反常积分定义)。
+
+*将此结果实部、虚部写出就称为\textbf{克拉默斯-克勒尼希关系}，或称为色散关系，对介质普遍成立。
+
+\
+
+\textbf{最大信号传播速度}
+
+假设一个空间$x>0$为折射率$n(\omega)$介质，$x<0$为真空，频谱$A(\omega)$的电磁波包从真空正入射到介质，也即真空中电磁波
+$$u_I(x,t)=\int A(\omega)\er^{\ir k(\omega)x-\ir\omega t}\dr\omega$$
+
+利用菲涅尔公式可得介质中电磁波
+$$u(x,t)=\int\frac{2}{1+n(\omega)}A(\omega)\er^{\ir k(\omega)x-\ir\omega t}\dr\omega$$
+
+假设波前在$t<0$时尚未到达$x=0$，也即$t<0$时$u_I(x=0^-,t)=0$，类似上一部分对因果性的讨论，这时频谱
+$$A(\omega)=\frac{1}{2\pi}\int_0^\infty u_I(x=0^-,t)\er^{\ir\omega t}\dr t$$
+可以成为上半平面的解析函数[事实上是从实轴解析延拓到上半平面]。
+
+进一步假定$A(\omega)$在$\omega$很大处有界，由$\epsilon(\omega)$行为可知$n(\omega)$在$|\omega|\to\infty$时趋于1，因此$\ir k(\omega)x-\ir\omega t$趋于
+$$\frac{\ir\omega(x-ct)}{c}$$
+与上一部分完全类似，对$\frac{2}{1+n(\omega)}A(\omega)\er^{\ir k(\omega)x-\ir\omega t}$在半圆利用柯西积分定理，由于$A(\omega),n(\omega)$在整个上半平面解析可知半圆上积分为0，而$x>ct$时，$\exp(\ir\omega(x-ct)/c)$在无穷处趋于0，因此半圆积分的极限等于实轴上积分，从而得到$u(x,t)=0$，也即说明无论折射率形式如何，波包传播速度不可能大于光速。
+
+\subsection{波导与谐振腔}
+介质波导即为不导电的光介质构成的光纤，而谐振腔为金属或铁氧体围成的封闭空间。本节讨论电磁波在其中的传播。
+
+\
+
+\textbf{麦克斯韦方程组的横纵分离}
+
+不考虑边界条件时，波导管内部电磁场方程应与无限介质相同，若所有场以$\er^{-\ir\omega t}$随时间振荡，应有
+$$(\nabla^2+\mu\epsilon\omega^2)\begin{pmatrix}\ve\\\vb\end{pmatrix}=0$$
+
+将电场纵向分量分解$\ve=E_z\ves_3+\ve_\bot$，磁场作相同分解，记$\nabla_\bot$为$\big(\pt[x]{},\pt[y]{},0\big)$，麦克斯韦方程组可表达为
+$$\pt[z]{\ve_\bot}+\ir\omega\ves_3\times\vb_\bot=\nabla_\bot E_z,\quad\ves_3\cdot(\nabla_\bot\times\ve_\bot)=\ir\omega B_z$$
+$$\pt[z]{\vb_\bot}-\ir\mu\epsilon\omega\ves_3\times\ve_\bot=\nabla_\bot B_z,\quad\ves_3\cdot(\nabla_\bot\times\vb_\bot)=-\ir\mu\epsilon\omega E_z$$
+$$\nabla_\bot\cdot\ve_\bot=-\pt[z]{E_z},\quad\nabla_\bot\times\vb_\bot=-\pt[z]{B_z}$$
+
+考虑沿$z$轴向上的波导管，其中的电磁波利用对称性有[此时$k$事实上是波矢的纵向分量]
+$$\ve=\ve(x,y)\er^{\pm\ir kz-\ir\omega t},\quad\vb=\vb(x,y)\er^{\pm\ir kz-\ir\omega t}$$
+由此代入上方方程组得到$k_\bot$非零时[此处$\pm$与上方对应]
+$$\ve_\bot=\frac{\ir}{k_\bot^2}(\pm k\nabla_\bot E_z-\omega\ves_3\times\nabla_\bot B_z)$$
+$$\vb_\bot=\frac{\ir}{k_\bot^2}(\pm k\nabla_\bot B_z+\mu\epsilon\omega\ves_3\times\nabla_\bot E_z)$$
+这里$k_\bot$满足$\mu\epsilon\omega^2=k^2+k_\bot^2$。
+
+*于是横向场\textbf{由纵向分量确定}。
+
+*若$E_z,B_z$均为0，且$\ve_\bot,\vb_\bot$存在非零解，代入上方方程组即可知$k$与$\omega$必须满足$k^2=\mu\epsilon\omega^2$，从而$k_\bot=0$。
+
+注意到$\nabla_\bot\cdot\ve(x,y)=\nabla\cdot\ve(x,y)$，代入本部分开始的方程计算可知
+$$(\nabla_\bot^2+k_\bot^2)\begin{pmatrix}\ve(x,y)\\\vb(x,y)\end{pmatrix}=0$$
+
+本节中，此后如无特殊说明，$\ve,\vb$均表示\textbf{去除纵向与随时间波动项}的$\ve(x,y),\vb(x,y)$，在不涉及对$z$与对时间导数时，它们满足的线性方程与$\vb,\ve$满足的完全相同。
+
+*求解波导中传播问题即为根据边界条件利用此方程解出纵向分量，再进一步得到横向分量。
+
+*定义$E_z=0$的波为\textbf{横电波}或\textbf{TE波}，$B_z=0$的波为\textbf{横磁波}或\textbf{TM波}，均为0的波为\textbf{横电磁波}或\textbf{TEM波}，也可将波称为\textbf{模式}。根据上方讨论，TEM波中必须满足$k_\bot=0$，否则只有无意义的平凡解。
+
+\
+
+\textbf{金属波导}
+
+考虑理想导体，电导率无穷大，则根据之前讨论可知完全屏蔽电磁波，内部电磁场为0，从而利用麦克斯韦方程组边界条件知$\vns\times\ve=0,\vns\cdot\vb=0$，代入横纵分离的方程得到边界上
+$$E_z=0,\pt[n]{B_z}=0$$
+这里$\vn$为边界面$S$的法向单位矢量。
+
+用$\psi(x,y)$表示$E_z$或$B_z$，由上一部分知其满足$(\nabla_\bot^2+k_\bot^2)\psi=0$，结合电场的边界条件$E_z|_S=0$或磁场的边界条件$\pt[n]{\psi}\big|_S=0$即可求解方程。
+
+*由此也即看出电场、磁场的求解是独立的。
+
+对$B_z=0$的TM波或$E_z=0$的TE波，验证可知都有形式
+$$\vh_\bot=\pm\frac{1}{Z}\ves_3\times\ve_H$$
+其中$Z$称为波导中的\textbf{波阻抗}，TM波中为$\frac{k}{\epsilon\omega}=\frac{k}{k_0}\sqrt{\frac{\mu}{\epsilon}}$，TE波中为$\frac{\mu\omega}{k}=\frac{k_0}{k}\sqrt{\frac{\mu}{\epsilon}}$，这里$k_0$为本征频率$\sqrt{\mu\epsilon}\omega$。
+
+由偏微分方程理论知对两种边值问题，$\psi(x,y)$的解均唯一，且相应$k_\bot^2$一般为正的、分立的实数。将这些$k_\bot^2$取值记为$\gamma_\lambda^2,\lambda\in\mathbb{N}^*$，给定$\omega$后波导中可传播的波数
+$$k_\lambda^2=\mu\epsilon\omega^2-\gamma_\lambda^2$$
+亦有限。对给定$\gamma_\lambda^2$，存在截止频率$\omega_\lambda=\gamma_\lambda/\sqrt{\mu\epsilon}$，频率$\omega$必须大于截止频率才可保证$k_\lambda$为实，可传播。
+
+由$\gamma_\lambda^2$存在最小可能值，也存在\textbf{最小截止频率}，低于其的电磁波无法传播。
+
+\textbf{例}：考虑理想导体构成的两边长$a>b$的矩形波导管，以截面一个顶点为原点，$a,b$两边在$x,y$轴正方向。
+\begin{enumerate}
+    \item 对TE波，利用磁场的边界条件，分离变量可设磁场写为
+    $$H_z=H_0\cos\frac{m\pi x}{a}\cos\frac{n\pi y}{b}$$
+    其对应的
+    $$\gamma_{mn}^2=\pi^2\bigg(\frac{m^2}{a^2}+\frac{b^2}{n^2}\bigg)$$
+    为使电磁波存在，由$E_z$已经为0，$H_z$不能恒定，因此$m,n$不全为0，最小的$\gamma_{mn}$为$\gamma_{10}$，由此得到截止频率$\omega_{10}=\gamma_{10}/\sqrt{\mu\epsilon}$。
+
+    \item 对TM波，利用电场的边界条件，分离变量可设电场写为
+    $$E_z=E_0\sin\frac{m\pi x}{a}\sin\frac{n\pi y}{b}$$
+    对应的$\gamma_{mn}$表达式完全相同，但此时不恒定要求$m,n$均不为零，因此最小$\gamma_{mn}=\gamma_{11}$，截止频率为$\omega_{11}$。
+\end{enumerate}
+
+*对TEM波，由上一部分知$k=k_0=\sqrt{\mu\epsilon}\omega$。但若在单连通区域中，考虑$k_\bot=0$时的拉普拉斯方程即发现仍会导致$\ve_x,\ve_y,\vb_x,\vb_y$只有常数解，于是TEM波\textbf{不能存在于单连通截面}的金属波导管中，须利用同轴电缆等结构。
+
+\
+
+\textbf{能量流动}
+
+考虑平均能流密度[本节中仍记为$\vs$而非$\bar{\vs}$]\ $\vs=\frac{1}{2}\ve\times\vh^*$，计算可得对TM波或TE波有
+$$\vs=\begin{cases}\frac{\omega k\epsilon}{2k_\bot^4}\big(\ves_3|\nabla_\bot\psi|^2+\ir\frac{k_\bot^2}{k}\psi\nabla_\bot\psi^*\big)&\text{TM}\\\frac{\omega k\mu}{2k_\bot^4}\big(\ves_3|\nabla_\bot\psi|^2+\ir\frac{k_\bot^2}{k}\psi^*\nabla_\bot\psi\big)&\text{TE}\end{cases}$$
+这里在TM波中$\psi$表示$E_z$，TE波中表示$H_z$。
+
+事实上$\vs$的实部为实际能流密度，理想导体时$\psi$为实，因此第二项无意义。将能流密度对波导管截面积分即可得到能量传输功率
+$$P=\int_A\vs\cdot\ves_3\dr x\dr y$$
+代入$\vs$表达式，利用格林公式，无论对TE或TM波，对\textbf{理想导体}均有$\psi\pt[n]{\psi^*}=0$，设$\gamma_\lambda=k_\bot$，记$\omega_\lambda=\gamma_\lambda/\sqrt{\mu\epsilon}$即有[利用$k^2=\mu\epsilon(\omega^2-\omega_\lambda^2)$]
+$$\begin{pmatrix}P_{TM}\\P_{TE}\end{pmatrix}=\frac{1}{2\mu\epsilon}\frac{\omega k}{\omega_\lambda^2}\int_A|\psi|^2\dr x\dr y\begin{pmatrix}\epsilon\\\mu\end{pmatrix}$$
+利用能量密度周期平均值$\bar{u}=\frac{1}{4}\big(\epsilon\ve\cdot\ve^*+\frac{1}{\mu}\vb\cdot\vb^*\big)$，类似积分得到单位长度平均电磁场能量
+$$U=\int_A\bar{u}\dr x\dr y,\quad\begin{pmatrix}U_{TM}\\U_{TE}\end{pmatrix}=\frac{1}{2}\frac{\omega^2}{\omega_\lambda^2}\int_A|\psi|^2\dr x\dr y\begin{pmatrix}\epsilon\\\mu\end{pmatrix}$$
+
+*由此$\frac{P}{U}=\frac{k}{\omega\mu\epsilon}$，固定$\gamma_\lambda$时，由于$\omega=\frac{1}{\sqrt\mu\epsilon}\sqrt{k^2+\gamma_\lambda^2}$，计算发现恰有$\frac{P}{U}=v_g=\omega'(k)$，也即功率与单位长度能量之比恰为\textbf{群速度}。
+
+对\textbf{非理想导体}，一般存在欧姆损耗。简单讨论方法为假定
+$$\gamma_\lambda=k_\bot^{(0)}+a_\lambda+\ir b_\lambda$$
+这里$k_\bot^{(0)}$为理想导体时的$k_\bot$，考虑损耗后实际的$\gamma_\lambda$为复，由此计算可得$P=P_0\er^{-2b_\lambda z}$，于是
+$$b_\lambda=-\frac{1}{2P}\dt[z]{P(z)}$$
+
+*可通过计算$\vs$的实部的扰动后积分得到。
+
+根据良导体中电磁波与趋肤深度$\delta$关系的表达式，可计算截面边界$C$的线积分得到单位长度损耗
+$$-\dt[z]{P}=\frac{1}{2\sigma\delta}\oint_C|\vns\times\vh|^2\dr l$$
+
+\textbf{谐振腔}：波导管两端也用导体封闭即得到谐振腔，这时$z$方向传递的波成为驻波，波数必然为$k=\frac{p\pi}{d},p\in\mathbb{Z}$，$d$为纵向长度。由此即得
+$$\mu\epsilon\omega_{p,\lambda}^2=\gamma_\lambda^2+\frac{p^2\pi^2}{d^2}$$
+这些频率称为谐振腔的\textbf{本征频率}。
+
+*事实上任何导体围成的空间都可成为谐振腔，$d\to 0$时最低固有频率与腔的尺寸反比。
+
+\
+
+\textbf{平面介质波导}
+
+*\textbf{光纤}即为介质波导重要例子，由于传输电磁波频率很高，可以忽略波动性进行\textbf{几何光学近似}[事实上就是量子力学中的半经典近似，或称WKB近似]，从而基本机制为光信号在内部到外部的边界上发生全反射，因此需要内层折射率$n_1$大于包层折射率$n_2$。
+
+空间中$|x|\le a$部分充满折射率$n_1$介质，外部折射率$n_2$，且$n_1>n_2$。假设其中电磁波沿$+z$传播，其即构成无穷大平面介质波导。设电磁波圆频率$\omega$，定义参数
+$$k_0=\frac{\omega}{c},\quad\Delta=\frac{n_1^2-n_2^2}{2n_1^2},\quad V=k_0a\sqrt{n_1^2-n_2^2}=n_1k_0a\sqrt{2\Delta}$$
+
+*由于$\Delta$标志内外层折射率差异，称为\textbf{轮廓高度参数}，对通常光纤较小，将其看作小量的近似称为\textbf{弱波导近似}。$V$称为\textbf{光纤参数}。
+
+对介质波导，假设$\ve=\ve(x,y)\er^{\ir kz-\ir\omega t},\vb=\vb(x,y)\er^{\ir kz-\ir\omega t}$，记$k_0=\sqrt{\mu\epsilon}\omega$，方程
+$$(\nabla_\bot^2+k_\bot^2)\begin{pmatrix}\ve(x,y)\\\vb(x,y)\end{pmatrix}=0$$
+仍然成立，且由对称性可假设$E_z,H_z$与$y$无关，从而$z$方向方程化为
+$$\bigg(\dt[x^2]{ ^2}+\gamma^2\bigg)\psi(x)=0,\quad|x|<a$$
+$$\bigg(\dt[x^2]{ ^2}-\beta^2\bigg)\psi(x)=0,\quad|x|>a$$
+这里$\psi$为$E_z$或$H_z$，$\gamma^2=n_1^2k_0^2-k^2,\beta^2=k^2-n_2^2k_0^2$。
+
+由一般的$\psi''+\alpha\psi=0$的解的形式，为保持电磁波的正常传播，$|x|<a$时应关于$x$简谐，从而$\alpha>0$；$|x|>a$时应关于$x$衰减，从而$\alpha<0$且应取解形式为$C\er^{-\sqrt{-\alpha}|x|}$，由此可知必须$\gamma^2>0,\beta^2>0$，即得
+$$n_2^2k_0^2\le k^2<n_1^2k_0^2$$
+
+由于边界的对称性，可考虑奇函数解与偶函数解作为基本解，可验证偶函数解为
+$$\psi(x)=\begin{cases}A\cos\gamma x&|x|\le a\\B\er^{-\beta|x|}&|x|>a\end{cases}$$
+奇函数解为
+$$\psi(x)=\begin{cases}A\sin\gamma x&|x|\le a\\B\frac{x}{|x|}\er^{-\beta|x|}&|x|>a\end{cases}$$
+
+*用横向场对$x$的奇偶性定义波的奇偶性，而由于横向场是$\psi$的微分，奇偶性相反，也即\textbf{偶函数解对应奇TE波或TM波}，\textbf{奇函数解对应偶TE波或TM波}。
+
+利用$\psi$算出场后，代入麦克斯韦方程组在$|x|=a$处的边界条件可得
+$$\begin{aligned}&A\sin\gamma a=B\er^{-\beta a},\quad\frac{A}{\gamma a}\cos(\gamma a)=\frac{B}{\beta a}\er^{-\beta a}&&\text{偶TE波}\\ &A\cos\gamma a=B\er^{-\beta a},\quad\frac{A}{\gamma a}\sin(\gamma a)=-\frac{B}{\beta a}\er^{-\beta a}&&\text{奇TE波}\\ &A\sin\gamma a=B\er^{-\beta a},\quad\frac{An_1^2}{\gamma a}\cos(\gamma a)=\frac{Bn_2^2}{\beta a}\er^{-\beta a}&&\text{偶TM波}\\ &A\cos\gamma a=B\er^{-\beta a},\quad\frac{An_1^2}{\gamma a}\sin(\gamma a)=-\frac{Bn_2^2}{\beta a}\er^{-\beta a}&&\text{奇TM波}\end{aligned}$$
+
+用前后两个方程相除可以得到传播波数$\beta,\gamma$的本征方程。记$U=\gamma a,W=\beta a$，有
+$$\begin{aligned}&W=U\tan U&&\text{偶TE波}\\ &W=-U\cot U&&\text{奇TE波}\\ &n_1^2W=n_2^2U\tan U&&\text{偶TM波}\\ &n_1^2W=-n_2^2U\cot U&&\text{奇TM波}\end{aligned}$$
+
+计算发现光纤参数$V^2=U^2+W^2$，因此给定光纤参数后结合上方方程可求解出$U,W$。几何上，求解过程可看作函数曲线与圆的交点，由此可得到极限性质。
+
+由于本征方程对应的函数定义域间断的，将最靠近原点的一支[或对称的两支]称为对应波的第一个模式，其次称为第二个模式，以此类推。圆$V^2=U^2+W^2$能与第$k$个模式相交的最小$V$称为第$k$个模式的截止频率。由此作图可发现偶TE波或TM波第一个模式截止频率0，第二个模式截止频率$\pi$；奇TE波或TM波第一个模式截止频率$\frac{\pi}{2}$。
+
+若将偶TE或TM波的第$k$个模式记作$\text{TE}_{2k-2}$或$\text{TM}_{2k-2}$，奇TE或TM波的第$k$个模式记作$\text{TE}_{2k-1}$或$\text{TM}_{2k-1}$，则可统一为$\text{TM}_j$或$\text{TE}_j$截止频率$\frac{j\pi}{2},j\in\mathbb{N}$。
+
+*对TE或TM波，求解出的本征值$U(V)$满足$U\le V$，且截止频率时恰好等号成立，从而每个模式的$U_i(V)$在$U-V$平面上从直线$U=V$延伸出，实际对一个$V$可存在多个$U_i$对应。
+
+*可发现平面介质波导方程与量子力学一维势阱类似，因为事实上此方程即对应光子的薛定谔方程，$\psi$与波函数对应。
+
+\
+
+\textbf{圆形介质波导}
+
+空间中$\sqrt{x^2+y^2}\le a$部分充满折射率$n_1$介质，外部折射率$n_2$，且$n_1>n_2$。仍假设其中电磁波沿$+z$传播，其即构成圆形介质波导，更符合实际模型。参数定义与之前相同，取柱坐标系$(\rho,\phi,z)$，则可得$\psi(\rho,\phi)$的方程：
+$$(\nabla_\bot^2+\gamma^2)\psi=0,\quad\rho<a$$
+$$(\nabla_\bot^2-\beta^2)\psi=0,\quad\rho>a$$
+分离变量为$R(\rho)\Phi(\phi)$，类似第二章计算得到可取$\Phi(\phi)=\er^{\ir m\phi}$，再代入可得$R(\rho)$可取
+$$R(\rho)=\begin{cases}R_eJ_m(\gamma\rho)&\rho<a\\R_hK_m(\beta\rho)&\rho>a\end{cases}$$
+
+*这里$J_m$为贝塞尔函数，$K_m$为虚宗量贝塞尔函数，此选取确保内部的解有界，在外部衰减。
+
+由于$\ve_z,\vh_z$应对$\phi$有相同频率，它们的$m$相同，下面假设对$E_z$的$R_e,R_h$为$A_e,A_h$，对$H_z$的$R_e,R_h$为$B_e,B_h$。此时利用麦克斯韦方程组的边界条件会发现$E_z,H_z$产生耦合，也即\textbf{不能分别求解}。具体来说，边界条件为[$U,W$定义与上一部分相同]
+$$\begin{pmatrix}J_m(U)&0&-K_m(W)&0\\0&J_m(U)&0&-K_m(W)\\\frac{\ir mk}{\gamma^2a}J_m(U)&-\frac{\omega\mu_0}{\gamma}J_m'(U)&\frac{\ir mk}{\beta^2a}K_m(W)&-\frac{\omega\mu_0}{\beta}K_m'(W)\\\frac{\omega\epsilon_0n_1^2}{\gamma}J_m'(U)&\frac{\ir mk}{\gamma^2a}J_m(U)&\frac{\omega\epsilon_0n_2^2}{\beta}K_m'(W)&\frac{\ir mk}{\beta^2a}K_m(W)\end{pmatrix}\begin{pmatrix}A_e\\A_h\\B_e\\B_h\end{pmatrix}=0$$
+于是，非零解要求行列式为0，这即为其\textbf{本征方程}，计算得可写成
+$$\bigg(\frac{J_m'(U)}{UJ_m(U)}+\frac{n_2^2}{n_1^2}\frac{K_m'(W)}{WK_m(W)}\bigg)\bigg(\frac{J_m'(U)}{UJ_m(U)}+\frac{K_m'(W)}{WK_m(W)}\bigg)=\bigg(\frac{mk}{n_1k_0}\bigg)^2\bigg(\frac{V}{UW}\bigg)^4$$
+
+*其在一般情况下无法解析求解。
+
+当$m=0$时，可发现边界条件$A_e,B_e$与$A_h,B_h$不再耦合，于是分别存在非零的$E_z=A_e=B_e=0$的TE波[对应本征方程左侧第一个括号为0]与$H_z=A_h=B_h=0$的TM波[对应本征方程左侧第二个括号为0]。
+
+此时利用$J_0'=-J_1,K_0'=-K_1$可进一步化简条件，截止频率对应$U=V$，于是由本征方程可知$V$必须为$J_0$的非负零点，最小的为$x_1^{(0)}\approx 2.405$，对应波记为$\text{TE}_{01},\text{TM}_{01}$。$V$比此频率还小时，光纤中不再能传播横电或横磁波。
+
+当$m=1$时，仍考虑截止频率发现$J_1(V)=0$，于是$V$必须为$J_1$的非负零点，最小为0，此时的结果称为$\text{HE}_{11}$波，可以以任何频率传播。
+
+*考察此后的截止频率可发现，$0<V<x_1^{(0)}$时只有$\text{HE}_{11}$波可以传播，由此只要$V$充分小即可实现\textbf{单模传播}。
+
+\section{电磁波的辐射和散射}
+*本章无特殊说明时均考虑真空中。
+
+\subsection{电磁势波动方程的推迟解}
+考察第一章中洛伦茨规范下的麦克斯韦方程组
+$$\nabla^2\Psi-\frac{1}{c^2}\ppt{\Psi}=-4\pi f(\vx,t)$$
+这里$\Psi$为$\Phi$或$\va_i$，而$f$为对应的右端电荷分布或电流分布。为了从分布得到标势、矢势，我们必须求解此方程。
+
+考虑Fourier变换
+$$\mathcal{F}[\varphi](\vx,\omega)=\frac{1}{2\pi}\int\varphi(\vx,t)\er^{\ir\omega t}\dr t,\quad\mathcal{F}^{-1}[\varphi](\vx,t)=\int\varphi(\vx,\omega)\er^{-\ir\omega t}\dr\omega$$
+记$\tilde{\Psi}=\mathcal{F}[\Psi],\tilde{f}=\mathcal{F}[f]$可算得
+$$(\nabla^2+k^2)\tilde{\Psi}(\vx,\omega)=-4\pi\tilde{f}(\vx,\omega)$$
+这里$k=\frac{\omega^2}{c^2}$，只需对固定$\omega$求解此方程即可。
+
+先求解格林函数
+$$(\nabla^2+k^2)G_k(\vx,\vx')=-4\pi\delta^3(\vx-\vx')$$
+记$R=|\vx-\vx'|$，利用对称性将$G_k$化为球坐标，即可解得
+$$G_k^\pm(R)=\frac{\er^{\pm\ir kR}}{R}$$
+
+*上标$+$称为\textbf{推迟格林函数}，而上标$-$称为\textbf{超前格林函数}。
+
+由于原方程含时格林函数须满足
+$$\bigg(\nabla^2-\frac{1}{c^2}\ppt{}\bigg)G(\vx,t;\vx',t')=-4\pi\delta^3(\vx-\vx')\delta(t-t')$$
+记$\tau=t-t'$考虑两边同作Fourier变换，再将解作逆变换即得[利用$\delta$函数Fourier变换为常数]
+$$G^\pm(R,\tau)=\frac{1}{2\pi}\int\frac{\er^{\pm\ir kR}}{R}\er^{-\ir\omega\tau}\dr\omega$$
+由于$k=\omega/c$，此积分即得到$\delta$函数
+$$G^{\pm}(R,\tau)=\frac{\delta(\tau\mp R/c)}{R}=\frac{1}{R}\delta(t-(t'\pm R/c))$$
+于是推迟代表$t>t'$，超前代表$t<t'$，由于观测时间$t$必然大于源时间$t'$，只有推迟格林函数符合因果律，由此可解得原方程
+$$\psi(\vx,t)=\int\dr^3x'\dr t'G^+(R,\tau)f(\vx',t')=\int\dr^3x'\frac{f(\vx',t-|\vx-\vx'|/c)}{|\vx-\vx'|}$$
+
+*对磁矢势即为将$f$替换为$\frac{\mu_0}{4\pi}\vj$，此关系是讨论振荡电流电磁波的基本出发点。
+
+\subsection{谐振电荷和电流分布的电磁辐射}
+电磁与电流分布谐振，即假设
+$$\rho(\vx,t)=\rho(\vx)\er^{-\ir\omega t},\quad\vj(\vx,t)=\vj(\vx)\er^{-\ir\omega t}$$
+利用连续性方程知有条件$\ir\omega\rho(\vx)=\nabla\cdot\vj(\vx)$。
+
+*以下如无特殊说明，对任何电磁场相关的函数$f$，$f(\vx)$即代表$f(\vx,t)=f(\vx)\er^{-\ir\omega t}$，\textbf{省略谐振项}。
+
+\
+
+由于已经取定了洛伦茨规范，只需求解$\va$即可得到$\pt{\phi}$，而根据谐振即可知$\pt{\phi(\vx,t)}=-\ir\omega\phi(\vx,t)$，从而得到$\phi$。对$\va$，由上节可知
+
+$$\va(\vx)=\frac{\mu_0}{4\pi}\int\dr^3x'\vj(\vx')\frac{\er^{\ir k|\vx-\vx'|}}{|\vx-\vx'|}$$
+
+假设辐射源集中在原点附近，其尺度$d$对应$|\vx'|$的尺度，接收电磁波的点$r=|\vx|\gg d$，电磁波波长$\lambda=\frac{2\pi}{k}$，分为三个区域考虑：
+\begin{enumerate}
+    \item 近场区[静态区]，满足$d\ll r\ll\lambda$；
+    \item 中间区[感应区]，满足$d\ll r\sim\lambda$；
+    \item 远场区[辐射区]，满足$d\ll\lambda\ll r$。
+\end{enumerate}
+
+对中间区或远场区，可将分母的$|\vx-\vx'|$近似为$r$，而指数上利用对$\vx'$泰勒展开到一阶$|\vx-\vx'|\approx r-\vns\cdot\vx'$，这里$\vns$为$\vx$方向单位矢量，即得到近似
+$$\va(\vx)=\frac{\mu_0\er^{\ir kr}}{4\pi r}\int\dr^3x'\vj(\vx')\er^{-\ir k\vns\cdot\vx'}$$
+由于积分只与方向有关，此近似下即为\textbf{球面波}[但一般具有各向异性]。此时根据定义与麦克斯韦方程组第二个方程可得[由于假定$d\ll r$，可得远处$\vj=0$]
+$$\vh=\frac{1}{\mu_0}\nabla\times\va,\quad\ve=-\frac{\ir Z_0}{k}\nabla\times\vh,\quad Z_0=\sqrt{\frac{\mu_0}{\epsilon_0}}$$
+
+更一般地，只要$\gamma\gg d,r\gg d$，可作展开
+$$\frac{\er^{\ir k|\vx-\vx'|}}{|\vx-\vx'|}=\frac{\er^{\ir kr}}{r}\bigg(1+\frac{\vns\cdot\vx'}{r}+\cdots\bigg)(1-\ir k\vns\cdot\vx'+\cdots)$$
+这里第一个括号来自分母的泰勒展开，第二个括号来自分子的泰勒展开，称为\textbf{长波近似}。将展开式不同项代入$\va(\vx)$的表达式，即得到不同的辐射类型，将在下节讨论。
+
+\subsection{电偶极辐射、磁偶极辐射和电四极辐射}
+\textbf{电偶极辐射}
+
+只保留长波近似的首项得到
+$$\va(\vx)=\frac{\mu_0\er^{\ir kr}}{4\pi r}\int\dr^3x'\vj(\vx')$$
+与第三章磁多极展开的讨论完全类似可得
+$$\int\dr^3x'\vj(\vx')=-\int\dr^3x'\vx(\nabla'\cdot\vj)=-\ir\omega\int\dr^3x'\vx'\rho(\vx')$$
+记积分中为\textbf{电偶极矩}$\vps(\vx)$，代入可得
+$$\va(\vx)=-\frac{\ir\mu_0\omega}{4\pi}\frac{\er^{\ir kr}}{r}\vps(\vx)$$
+在球坐标下计算$\nabla$算子可知
+$$\vh=\frac{ck^2}{4\pi}\frac{\er^{\ir kr}}{r}\bigg(1-\frac{1}{\ir kr}\bigg)\vns\times\vps$$
+而利用$\va$与洛伦茨规范解出$\phi$后计算得
+$$\ve=\frac{1}{4\pi\epsilon_0}\bigg(k^2\frac{\er^{\ir kr}}{r}(\vns\times\vps)\times\vns+\bigg(\frac{1}{r^3}-\frac{\ir k}{r^2}\bigg)\er^{\ir kr}(3(\vns\cdot\vps)\vns-\vps)\bigg)$$
+
+*近场区由$r\ll\lambda$可知$kr\ll1$，这时只保留$r$的高次项，且$\er^{\ir kr}\to1$，即为电偶极子场的形式：
+$$\ve=\frac{1}{4\pi\epsilon_0}\frac{1}{r^3}(3(\vns\cdot\vps)\vns-\vps)$$
+
+*远场区$kr\gg1$，只保留低次项，即有
+$$\vh=\frac{ck^2}{4\pi}\frac{\er^{\ir kr}}{r}\vns\times\vps,\quad\ve=Z_0\vh\times\vns$$
+
+\textbf{辐射功率的角度分布}：在方向$\vns$处立体角的辐射功率通过坡印亭矢量周期平均[且应取实部]定义
+$$\frac{\dr P}{\dr\Omega_{\vns}}=\lim_{r\to\infty}\frac{1}{2}\mathrm{Re}\big(r^2\vns\cdot(\ve\times\vh^*)\big)$$
+
+对电偶极辐射计算可得[这里$\theta$为$\vns,\vps$夹角，可不妨将$\vps$取为$z$轴，即有$\dr\Omega=\sin\theta\dr\theta\dr\phi$]
+$$\dt[\Omega_{\vns}]{P}=\frac{c^2Z_0k^4}{32\pi^2}|\vps|^2\sin^2\theta,\quad P=\int\dt[\Omega_{\vns}]{P}\dr\Omega=\frac{c^2Z_0k^4}{12\pi}|\vps|^2$$
+
+\
+
+\textbf{磁偶极辐射}
+
+长波近似里电场、磁场分别的次级项对矢势的贡献为[即除首项和交叉项后代入$\va$表达式]
+$$\frac{\mu_0\er^{\ir kr}}{4\pi r}\bigg(\frac{1}{r}-\ir k\bigg)\int\dr^3x'(\vns\cdot\vx')\vj(\vx')$$
+
+计算可得
+$$(\vns\cdot\vx')\vj=\frac{1}{2}\vx'\times\vj+\frac{1}{2}(\vns\cdot\vx')\vj+(\vns\cdot\vj)\vx'$$
+
+回顾第三章中磁矩定义为$\vms=\frac{1}{2}\int(\vx'\times\vj)\dr^3x'$，于是只保留上式左侧的贡献时得到
+$$\va(\vx)=\frac{\ir k\mu_0}{4\pi}\frac{\er^{\ir kr}}{r}\bigg(1-\frac{1}{\ir kr}\bigg)\vns\times\vms$$
+
+此时的$\va$形式类似电偶极辐射的$\vh$，因此由对称性可知$\vh$将类似电偶极辐射的$\ve$，计算可得
+$$\ve=-\frac{Z_0k^2}{4\pi}\frac{\er^{\ir kr}}{r}\bigg(1-\frac{1}{\ir kr}\bigg)\vns\times\vms$$
+$$\vh=\frac{1}{4\pi}\bigg(k^2\frac{\er^{\ir kr}}{r}(\vns\times\vms)\times\vns+\bigg(\frac{1}{r^3}-\frac{\ir k}{r^2}\bigg)\er^{\ir kr}(3(\vns\cdot\vms)\vns-\vms)\bigg)$$
+
+*与电偶极辐射类似，近场区磁场趋于偶极场，无穷远处振幅为球面波，类似计算可知
+$$\dt[\Omega_{\vns}]{P}=\frac{Z_0k^4}{32\pi^2}|\vms|^2\sin^2\theta,\quad P=\frac{Z_0k^4}{12\pi}|\vms|^2$$
+
+\
+
+\textbf{电四极辐射}
+
+考虑右侧$\frac{1}{2}(\vns\cdot\vx')\vj+(\vns\cdot\vj)\vx'$的贡献，仍类似第三章可知
+$$\frac{1}{2}\int\dr^3x'\big((\vns\cdot\vx')\vj+(\vns\cdot\vj)\vx'\big)=-\frac{\ir\omega}{2}\int(\vns\cdot\vx')\rho(\vx')\vx'\dr^3x'$$
+于是贡献为
+$$\va(\vx)=-\frac{\mu_0ck^2}{8\pi}\frac{\er^{\ir kr}}{r}\bigg(1-\frac{1}{\ir kr}\bigg)\int(\vns\cdot\vx')\rho(\vx')\vx'\dr^3x'$$
+
+具体电磁场解的形式较复杂，远场区近似满足
+$$\vb=\ir k\vns\times\va,\quad\ve=\frac{\ir kZ_0}{\mu_0}(\vns\times\va)\times\vns$$
+这样的辐射场即称为电四极辐射场，回顾第二章对电四极矩张量$\mathbf{D}$的定义，计算得磁场可表达成
+$$\vh=-\frac{\ir ck^3}{24\pi}\frac{\er^{\ir kr}}{r}\vns\times(\mathbf{D}\vns)$$
+
+于是类似计算可知[这里上标$\dagger$为矩阵的共轭转置]
+$$\dt[\Omega_{\vns}]{P}=\frac{c^2Z_0k^6}{1152\pi^2}\big|(\vns\times(\mathbf{D}\vns))\times\vns\big|^2,\quad P=\frac{c^2Z_0k^6}{1440\pi}\mathrm{tr}(\mathbf{D}^\dagger\mathbf{D})$$
+
+*电偶极、磁偶极辐射功率均与$k^4$正比，电四极辐射与$k^6$正比。
+
+*对宏观体系而言，远场区电偶极辐射贡献最大，磁偶极辐射与电四极辐射强度大致相当。
+
+\subsection{辐射场的多极展开}
+\textbf{球谐函数展开}
+
+*上一节中，我们利用长波近似对$\frac{\er^{\ir k|\vx-\vx'|}}{|\vx-\vx'|}$进行了泰勒展开并进行了一定讨论，但事实上其对高阶修正并不精准。仿照静电学中的加法定理，也应对利用球谐函数展开。
+
+类似第二章加法定理的证明，由于
+$$(\nabla^2+k^2)\frac{\er^{\ir k|\vx-\vx'|}}{|\vx-\vx'|}=-4\pi\delta^3(\vx-\vx')$$
+两侧球谐函数展开，对比系数可得到
+$$\frac{\er^{\ir k|\vx-\vx'|}}{4\pi|\vx-\vx'|}=\ir k\sum_{l,m}j_l(kr_<)h_l^{(1)}(kr_>)Y_{lm}^*(\vns')Y_{lm}(\vns)$$
+这里$j_l,h_l^{(1)}$为球贝塞尔函数，$Y_{lm}(\vns)$为球谐函数，$r_>,r_<$表示$|\vx|,|\vx'|$中较大/较小的一个。此公式称为\textbf{球面波的加法定理}。
+
+定义\textbf{轨道角动量}算符$\hat{L}=-\ir\vx\times\nabla$\ [事实上与量子力学形式一致，相差$\hbar$]，回顾第二章提到的角动量平方算符$\hat{L}^2$，即为$\hat{L}\cdot\hat{L}$，拉普拉斯算符可写为
+$$\nabla^2=\frac{1}{r}\ppt[r]{}r-\frac{\hat{L}^2}{r^2}$$
+
+\
+
+\textbf{多极场}
+
+若电磁场对时间均以$\er^{-\ir\omega t}$谐振，空间中无电荷、电流，代入麦克斯韦方程组可知
+$$(\nabla^2+k^2)\vh=0,\quad\nabla\cdot\vh=0,\quad(\nabla^2+k^2)\ve=0,\quad\nabla\cdot\ve=0$$
+$$\ve=\frac{\ir Z_0}{k}\nabla\times\vh,\quad\vh=-\frac{\ir}{Z_0k}\nabla\times\ve$$
+同时可进一步计算验证
+$$(\nabla^2+k^2)(\vx\cdot\ve)=0,\quad(\nabla^2+k^2)(\vx\cdot\vh)=0$$
+计算得$\nabla\cdot\ve=0,\nabla\cdot\vh=0$可以转化为上式，从而形成相同形式的方程。
+
+根据数学知识，球坐标系中可取完备集$h_l^{(1)}(kr)Y_{lm}(\vns),h_l^{(2)}(kr)Y_{lm}(\vns)$展开任何函数，这里$h_l^{(1)},h_l^{(2)}$为\textbf{球汉克尔函数}，上一部分的$j_l=(h_l^{(1)}+h_l^{(2)})/2$。由此有[此处$\Psi$为电磁场的任何一个分量]
+$$\Psi(\vx)=\sum_{l,m}\big(A_{lm}h_l^{(1)}(kr)+B_{lm}h_l^{(2)}(kr)\big)Y_{lm}(\vns)$$
+
+现在我们试着对此式作分解。从$\vx\cdot\vh$出发，定义$(l,m)$阶\textbf{磁多极场}
+$$\vx\cdot\vh_{lm}^{(M)}(\vx)=\frac{l(l+1)}{k}g_{lm}(kr)Y_{lm}(\vns),\quad\vx\cdot\ve_{lm}^{(M)}(\vx)=0$$
+这里$g_{lm}$为球汉克尔函数$h_l^{(1)},h_l^{(2)}$的某线性组合，利用电场只有横向分量即可解得
+$$\ve_{lm}^{(M)}(\vx)=Z_0g_{lm}(kr)\hat{L}Y_{lm}(\vns),\quad\vh_{lm}^{M}(\vx)=-\frac{\ir}{Z_0k}\nabla\times\ve_{lm}^{(M)}$$
+
+完全类似得到\textbf{电多极场}，下方$f_l$亦为球汉克尔函数的某线性组合：
+$$\vh_{lm}^{(E)}(\vx)=f_{lm}(kr)\hat{L}Y_{lm}(\vns),\quad\ve_{lm}^{E}(\vx)=\frac{\ir Z_0}{k}\nabla\times\vh_{lm}^{(E)}$$
+
+由于线性组合的表示，任何辐射场可用电多极场与磁多极场展开，称为\textbf{多极场展开}。
+
+记$\vchi_{lm}(\vns)=\frac{1}{\sqrt{l(l+1)}}\hat{L}Y_{lm}(\vns)$，展开式可以写成
+$$\vh=\sum_{l,m}\bigg(a_E(l,m)f_{lm}(kr)\vchi_{lm}(\vns)-\frac{\ir}{k}a_M(l,m)\nabla\times g_{lm}(kr)\vchi_{lm}(\vns)\bigg)$$
+$$\ve=Z_0\sum_{l,m}\bigg(\frac{\ir}{k}a_E(l,m)\nabla\times f_{lm}(kr)\vchi_{lm}(\vns)+a_M(l,m)g_{lm}(kr)\vchi_{lm}(\vns)\bigg)$$
+
+系数$a_E,a_M$称为电/磁多极场系数，表示成分多少，利用$\vchi_{lm}$满足的正交归一关系
+$$\int\vchi_{l'm'}(\vns)\cdot\vchi_{lm}(\vns)\dr\Omega_{\vns}=\delta_{ll'}\delta_{mm'},\quad\int\vchi_{l'm'}^*(\vns)\cdot(\vx\times\vchi_{lm}(\vns))\dr\Omega_{\vns}=0$$
+可得到计算方式
+$$a_M(l,m)g_{lm}(kr)=\frac{k}{\sqrt{l(l+1)}}\int Y_{lm}^*(\vx\cdot\vh)\dr\Omega,\quad Z_0a_E(l,m)f_{lm}(kr)=-\frac{k}{\sqrt{l(l+1)}}\int Y_{lm}^*(\vx\cdot\ve)\dr\Omega$$
+
+\
+
+\textbf{多极辐射功率}
+
+考虑远场区$kr\gg1$时的近似，由于系数$a_M(l,m)g_{lm}(kr)$乘积一定，可假设$g_{lm},f_{lm}$都是归一化的，远场时即可近似为$\frac{\er^{\ir kr}}{kr}$，于是上方的多极场展开化为
+$$\vh=\frac{\er^{\ir kr}}{kr}\sum_{l,m}(-1)^{l+1}\big(a_E(l,m)\vchi_{lm}(\vns)+a_M(l,m)\vns\times\vchi_{lm}(\vns)\big)$$
+$$\ve=Z_0\vh\times\vn$$
+从而计算可得辐射功率角分布
+$$\dt[\Omega_{\vns}]{P}=\frac{Z_0}{2k^2}\bigg|\sum_{l,m}(-1)^{l+1}\big(a_E(l,m)\vchi_{lm}(\vns)\times\vns+a_M(l,m)\vchi_{lm}(\vns)\big)\bigg|^2$$
+
+*只有某个电或磁的多极场时，求和即为$|a(l,m)|^2|\vchi_{lm}(\vns)|^2$，事实上利用定义可算出[省略参数$\vns$]
+$$|\vchi_{lm}|^2=\frac{1}{l(l+1)}\bigg(\frac{(l-m)(l+m+1)}{2}|Y_{l,m+1}|^2+\frac{(l+m)(l-m+1)}{2}|Y_{l,m-1}|^2+m^2|Y_{lm}|^2\bigg)$$
+
+利用$\vchi$的正交归一性可知总辐射功率恰为
+$$P=\frac{Z_0}{2k^2}\sum_{l,m}\big(|a_E(l,m)|^2+|a_M(l,m)|^2\big)$$
+
+\subsection{电磁波的散射}
+
+电磁波传播区域的微小粒子称为\textbf{散射体}，若尺度远大于波长，可采用几何光学近似处理，但尺度与波长相当或更小时就会体现波动性。
+
+\
+
+\textbf{一般描述}
+
+考虑尺度远小于波长的情况，电磁波可堪称原电磁波与散射部分的叠加，仍省略$\er^{-\ir\omega t}$项，假设入射电磁波为平面波[将电场偏振单位矢量$\ves_0$与大小$E_0$分开，实际传播方向为$\vns_0$]
+$$\ve_c=E_0\ves_0\er^{\ir k\vns_0\cdot\vx},\quad\vh_c=\frac{1}{Z_0}\vns_0\times\ve_{inc}$$
+这里$k=\omega/c$为入射波数。
+
+再假设散射波对应$\ve_s,\vh_s$，真实电磁场即为二者求和。
+
+*对原点附近散射体，远离散射体的空间应有球面波形式。
+
+\textbf{微分散射截面}定义为
+$$\dt[\Omega]{\sigma}(\vns,\ves;\vns_0,\ves_0)=\lim_{r\to\infty}\frac{r^2|\ves^*\cdot\ve_s(r\vns)|^2}{|\ves_0^*\cdot\ve_c(r\vns)|^2}$$
+这里上标星号为共轭，$\vns,\ves$为指定方向的立体角与指定的偏振态方向，将其对立体角$\vns$积分即可得到总散射截面。
+
+*将分子分母同除以$2Z_0$，分母即成为入射波的能流密度$\vs_c$模长，而分子即为散射波在给定方向与立体角后的功率。
+
+\
+
+\textbf{偶极散射}
+
+考虑真空中空间半径为$a$，介电常数$\epsilon$，磁导率$\mu$\ [相对介电常数、相对磁导率记为$\epsilon_r,\mu_r$]的介质小球，并假设$ka\ll1$，即波长远大于小球半径。根据二三两章中求解的结果，可知电偶极矩、磁偶极矩分别为
+$$\vps=4\pi a^3\frac{\epsilon-\epsilon_0}{\epsilon+2\epsilon_0}\ve_c,\quad\vms=4\pi a^3\frac{\mu-\mu_0}{\mu+2\mu_0}\vh_c$$
+由近似条件，更高阶辐射可以忽略，因此远离散射体处，散射波电磁场能看成电偶极场与磁偶极场叠加，即
+$$\ve_s=\frac{1}{4\pi\epsilon_0}k^2\frac{\er^{\ir kr}}{r}\bigg((\vns\times\vps)\times\vns-\frac{1}{c}\vns\times\vms\bigg),\quad\vh_s=\frac{1}{Z_0}\vns\times\ve_s$$
+由此计算可知
+$$\dt[\Omega]{\sigma}(\vns,\ves;\vns_0,\ves_0)=\frac{k^4}{(4\pi\epsilon_0E_0)^2}\bigg|\ves^*\cdot\vps+\frac{1}{c}(\vns\times\ves^*)\cdot\vms\bigg|^2=k^4a^6\bigg|\frac{\epsilon_r-1}{\epsilon_r+2}\ves^*\cdot\ves_0+\frac{\mu_r-1}{\mu_r+2}(\vns\times\ves^*)\cdot(\vns_0\times\ves_0)\bigg|$$
+
+*其具有长波散射、偶极散射特性，即正比于频率四次方。
+
+假设$\vns_0$与$\vns$夹角$\theta\ne0$，其张成的平面称为\textbf{散射平面}，由于散射波$\ve_s$必然垂直于$\vns$，可将其分解为散射平面上与垂直于散射平面的方向。假设两方向单位矢量为$\ves_\parallel,\ves_\bot$，则定义[由偏振方向要求，这里积分是对与$\vns_0$垂直平面上的单位矢量]
+$$\dt[\Omega]{\sigma_\parallel}=\frac{1}{2\pi}\int\dr\theta_{\ves_0}\dt[\Omega]\sigma(\vns,\ves_\parallel;\vns_0,\ves_0),\quad\dt[\Omega]{\sigma_\bot}=\frac{1}{2\pi}\int\dr\theta_{\ves_0}\dt[\Omega]\sigma(\vns,\ves_\bot;\vns_0,\ves_0)$$
+也即代表两种极化情况的散射波对入射波偏振平均后的散射截面，利用各向同性可知其只与$\theta$有关，进一步定义散射波\textbf{偏振度}
+$$\Pi(\theta)=\frac{\dt[\Omega]{\sigma_\bot}-\dt[\Omega]{\sigma_\parallel}}{\dt[\Omega]{\sigma_\bot}+\dt[\Omega]{\sigma_\parallel}}$$
+由此即可刻画散射波的极化程度[其为1代表完全极化，只有垂直方向，其为0则代表完全非极化，只有平行方向]。
+
+*长波散射又称为\textbf{瑞利散射}，由正比频率四次方可知高频电磁波更容易被散射，因此相对高频的蓝色成为天空的颜色[而低频直接穿透到达地面]。
+
+\
+
+\textbf{多极场展开}
+
+类似球面波加法定理的讨论，利用球贝塞尔函数$j_l$可作展开
+$$\er^{\ir\vks\cdot\vx}=4\pi\sum_{l,m}\ir^lj_l(kr)Y_{lm}^*(\hat{n})Y_{lm}(\hat{k})$$
+$\hat{n},\hat{k}$表示$\vx,\vks$方向的单位矢量。
+
+若入射波为标量波，此展开即可表示，但存在偏振时会更加复杂，考虑波矢为$z$轴方向的左右旋圆偏振平面波
+$$\ve_c(\vx)=(\ves_1\pm\ves_2)\er^{\ir kz},\quad c\vb_c(\vx)=\ves_3\times\ve=\mp\ir\ve$$
+利用复杂的数学计算可以得到类似辐射场多极展开的关系，这里$\vchi$定义与辐射场时相同，省略参数$\vns$：
+$$\ve_c(\vx)=\sum_{l=0}^\infty\ir^l\sqrt{4\pi(2l+1)}\bigg(j_l(kr)\vchi_{l,\pm1}\pm\frac{1}{k}\nabla\times j_l(kr)\vchi_{l,\pm1}\bigg)$$
+$$c\vb_c(\vx)=\sum_{l=0}^\infty\ir^l\sqrt{4\pi(2l+1)}\bigg(\frac{1}{\ir k}\nabla\times j_l(kr)\vchi_{l,\pm1}\mp\ir j_l(kr)\vchi_{l,\pm1}\bigg)$$
+由此，对散射波可以作类似展开，但把$j_l$换为$h_l^{(1)}$，并添加系数$\alpha_\pm(l),\beta_\pm(l)$：
+$$\ve_s(\vx)=\sum_{l=0}^\infty\ir^l\sqrt{4\pi(2l+1)}\bigg(\alpha_\pm(l)h_l^{(1)}(kr)\vchi_{l,\pm1}\pm\frac{\beta_\pm(l)}{k}\nabla\times h_l^{(1)}(kr)\vchi_{l,\pm1}\bigg)$$
+$$c\vb_s(\vx)=\sum_{l=0}^\infty\ir^l\sqrt{4\pi(2l+1)}\bigg(\frac{\alpha_\pm(l)}{\ir k}\nabla\times h_l^{(1)}(kr)\vchi_{l,\pm1}\mp\beta_\pm(l)\ir h_l^{(1)}(kr)\vchi_{l,\pm1}\bigg)$$
+
+假定散射体为半径$a$的小球，可以计算总散射功率与总吸收功率[注意$\ve,\vb$为入射与散射之和，代表所有向内的波所贡献的功率]
+$$P_s=-\frac{a^2}{2\mu_0}\int\ve_s\cdot(\vns\times\vb_s^*)\dr\Omega_{\vns},\quad P_a=\frac{a^2}{2\mu_0}\int\ve\cdot(\vns\times\vb^*)\dr\Omega_{\vns}$$
+也可得到微分散射截面
+$$\dt[\Omega]{\sigma_s}=\frac{\pi}{2k^2}\bigg|\sum_l\sqrt{2l+1}\big(\alpha_\pm(l)\vchi_{l,\pm1}\pm\ir\beta_\pm(l)\vns\times\vchi_{l,\pm1}\big)\bigg|^2$$
+利用归一化性质可计算积分得[省略下标$\pm$]
+$$\sigma_s=\frac{\pi}{2k^2}\sum_l(2l+1)\big(|\alpha(l)|^2+|\beta(l)|^2\big)$$
+而对吸收的截面，利用$j_l$与$h_l^{(1)}$的关系类似可得
+$$\sigma_a=\frac{\pi}{2k^2}\sum_l(2l+1)\big(2-|\alpha(l)+1|^2-|\beta(l)+1|^2\big)$$
+
+*此公式与量子力学中散射问题的\textbf{分波法}完全一致。
+
+\
+
+\textbf{小球散射}
+
+仍考虑之前的小球散射问题，但不进行长波近似。由于需要确定系数，边界条件必须给定，我们假定$r=a$处满足
+$$\ve_t=\frac{Z_s}{\mu_0}\vns\times\vb$$
+这里$\ve_t$表示电场切向分量，$\vns$即为球面法向量，参数$Z_s$称为\textbf{表面阻抗}，由此代入多极场展开可以解得[省略所有参数$ka$]
+$$a_\pm(l)=-1-\frac{h_l^{(2)}-\ir\frac{Z_s}{Z_0}\frac{1}{x}\dt[x]{(xh_k^{(2)})}}{h_l^{(1)}-\ir\frac{Z_s}{Z_0}\frac{1}{x}\dt[x]{(xh_l^{(1)})}},\quad b_\pm(l)=-1-\frac{h_l^{(2)}-\ir\frac{Z_0}{Z_s}\frac{1}{x}\dt[x]{(xh_k^{(2)})}}{h_l^{(1)}-\ir\frac{Z_0}{Z_s}\frac{1}{x}\dt[x]{(xh_l^{(1)})}}$$
+
+当$Z_s$为0或无穷时，根据球贝塞尔函数的性质可知必能写成
+$$\alpha_\pm(l)=\er^{2\ir\delta_l}-1,\quad\beta_\pm(l)=\er^{2\ir\delta_l'}-1$$
+角度$\delta_l$称为\textbf{散射相移}，对理想导体球$Z_s=0$时，可显式写出[仍省略$ka$，$j_l,n_l$为球贝塞尔函数]
+$$\tan\delta_l=\frac{j_l}{n_l},\quad\tan\delta_l'=\frac{\dt[x]{(xj_l)}}{\dt[x]{(xn_l)}}$$
+
+计算可知，长波极限$ka\ll1$下，对散射截面最重要的为$l=1$项，$l$每增加1，相应的项会增加因子$(ka)^2$。
+
+\section{狭义相对论}
+\subsection{狭义相对论的基本假设及其验证}
+基本假设：不同惯性系中物理规律相同[\textbf{相对性原理}]、所有惯性系中信号可能的最大传播速度为光速[\textbf{光速不变原理}]。
+
+*由于位移电流，麦克斯韦方程组在伽利略变换下会改变，两者不相容。
+
+早期实验验证：迈克尔逊-莫雷实验，但早期光速测量存在\textbf{光学灭绝}问题，即电磁波进入介质时介质极化产生的电磁场抵消原电磁波，并产生新的电磁波，使得测量到的介质中真实传播速度为介质中光速。
+
+由于灭绝需要距离，在灭绝距离到达前进行测量即可规避此问题，后续实验进一步验证了狭义相对论。
+
+\subsection{洛伦兹变换}
+考虑惯性系$K$中两个时空点$(t_1,\vx_1),(t_2,\vx_2)$，定义其\textbf{不变间隔}$\Delta s^2$为
+$$\Delta s^2=c^2(t_2-t_1)^2-|\vx_2-\vx_1|^2$$
+若第一个时空点发射光信号，第二个时空点收到[这称为\textbf{光信号联系}的事件]，根据光速不变原理可知不变间隔为0。
+
+对另一惯性系$K'$，若相对$K$的运动速度为$\vvs'$，其中的时空点$(t_1',\vx_1'),(t_2',\vx_2')$，则必有$\Delta s'^2=0$。
+
+若对任何两时空点，不变间隔平方的变换关系为[可如此假设是由于时空均匀性，变换系数只能与$\vvs$大小有关]
+$$\Delta s^2=A(|\vvs'|){\Delta s'}^2$$
+另一方面，对惯性系$K'$来说，惯性系$K$以速度$-\vvs'$相对惯性系$K$运动，于是又有
+$${\Delta s'}^2=A(|-\vvs'|)\Delta s^2$$
+由于$-\vvs$模长与$\vvs$相同，可得$A(|\vvs'|)$平方必然为1，于是可能为$\pm1$，又由$\vvs=0$时必然为1，结合连续性可知只能恒为1，即
+$${\Delta s'}^2=\Delta s^2$$
+
+*不变间隔在惯性系变换下不变，满足此性质的时空称为\textbf{闵可夫斯基时空}[闵氏空间]。
+
+*注意到$\Delta s^2$未必为正，为正时称两个时空点\textbf{类时}，为负时称\textbf{类空}，为0时称\textbf{类光}。
+
+*粒子的演化轨迹在四维时空中称为\textbf{世界线}，对光子，世界线为类光点构成的\textbf{光锥}面，对速度小于光速的粒子，世界线必然落在类时区域内。
+
+不同惯性系间不变间隔得到保持的线性坐标变换称为\textbf{洛伦兹变换}，考虑惯性系$K$与以匀速$\vvs$相对$K$沿$x$轴正方向运动的惯性系$K'$，$t=0$时刻的时空原点重合，且由于对称性必然有$y'=y,z'=z$。这时，考虑与时空原点[其在线性变换下必然保持不变]的时空间隔可知须保持$c^2t^2-x^2=c^2{t'}^2-{x'}^2$，这样的线性变换必然能写成
+$$x'=x\cosh\psi+ct\sinh\psi,\quad ct'=x\sinh\psi+ct\cosh\psi$$
+但是，在$K$系中考察$K'$系坐标原点的运动，根据定义可知$0=vt\cosh\psi+ct\sinh\psi$，于是进一步解得
+$$x'=\gamma(x-\beta ct),y'=y,z'=z,ct'=\gamma(ct-\beta x),\quad \beta=\frac{v}{c},\gamma=\cosh\psi=\frac{1}{\sqrt{1-v^2/c^2}}$$
+
+*对一般的运动速度$\vvs$，记$\vbeta=\vvs/c$，$\gamma$表达式不变，考虑分量分解可知洛伦兹变换应能写成
+$$ct'=\gamma(ct-\vbeta\cdot\vx),\quad\vx'=\vx+\frac{\gamma-1}{\vbeta^2}(\vbeta\cdot\vx)\vbeta-\gamma\vbeta  ct$$
+
+*利用数学知识，一般的洛伦兹变换可分解为$xy,yz,xz,xt,yt,zt$六个部分，前三个部分由保持$x^2+y^2+z^2$不变即为旋转与反射，对应参考系坐标轴方向的选取，后三个部分称为\textbf{推促}，只涉及推促时的表达式如上。
+
+*从洛伦兹变换中时空耦合可以看出，\textbf{同时具有相对性}。
+
+*\textbf{因果性}：两个事件的不变间隔必须类时才能得到因果关系。
+
+\subsection{洛伦兹标量与四矢量}
+*洛伦兹变换下不变的量称为\textbf{洛伦兹标量}，例如不变间隔即为洛伦兹标量。
+
+*回顾爱因斯坦求和约定下相同指标代表求和。
+
+记坐标$x^\mu=(x^0,x^1,x^2,x^3)=(ct,x,y,z)$，其事实上用张量语言表达为一个\textbf{逆变四矢量}，对应的\textbf{协变四矢量}定义为$x_\mu=(x^0,-\vx)$，则它们可以通过\textbf{闵可夫斯基度规张量}互相转化，即有
+$$x_\mu=\eta_{\mu\nu}x^\nu,\quad x^\mu=\eta^{\mu\nu}x_\nu$$
+
+这里$\eta^{\nu\mu}$为$\eta_{\mu\nu}$的逆，而根据逆变四矢量、谐变四矢量的定义，可直接得到
+$$\eta^{\nu\mu}=\eta_{\nu\mu}=\delta_{\nu\mu}(2\delta_{\nu0}-1)$$
+
+*也即看作矩阵为$\mathrm{diag(1,-1,-1,-1)}$，其逆仍为自身。
+
+一般的洛伦兹变换可以写成
+$${x'}^\mu=\Lambda_\nu^\mu x^\nu$$
+这里$\Lambda_\mu^\nu$事实上亦为矩阵，具体分量可由上一部分得到。
+
+*可验证其行列式为1，因此\textbf{四维体积元}$\dr^4x$也是洛伦兹标量，即$\dr^4x=\dr^4x'$。
+
+*对不变间隔，其考虑无限接近的点可写为微分形式$\dr s^2=\eta_{\mu\nu}\dr x^\mu\dr x^\nu$，亦可验证为洛伦兹标量。
+
+\
+
+若时空变换下，物理量$A^\mu$与$x^\mu$有相同的变换形式，则称为逆变四矢量，也即
+$${A'}^\mu=\Lambda_\nu^\mu A^\nu$$
+可定义对应的协变四矢量为
+$$A_\mu=\eta_{\mu\nu}A^\nu$$
+某两四矢量$A,B$可以定义内积[由于协变、逆变一一对应，可视为整体进行考虑]，记为
+$$A\cdot B=A^\mu B_\mu=A_\mu B^\mu$$
+
+*此定义下可验证四矢量内积均为洛伦兹标量。特别地，不变间隔可看作$\dr x\cdot\dr x$。
+
+\
+
+电动力学中，考虑平面波，由$c^2k^2=\omega^2$计算可发现相位$\phi=\omega t-\vks\cdot\vx$在不同参考系不变，其也为洛伦兹标量，或定义\textbf{四波矢}$k=(\omega/c,\vks)$后写成$\phi=k\cdot x$的形式。
+
+可验证四波矢构成逆变四矢量，于是计算洛伦兹变换可得
+$$\omega'=\gamma\omega(1-\beta\cos\theta)$$
+这里$\theta$为$\vbeta$与$\vks$的夹角，由此即得到\textbf{相对论多普勒效应}。
+
+*纵向、横向分别对应$\theta=0$与$\frac{\pi}{2}$的情况，横向多普勒效应只有考虑相对论时才会出现。。
+
+\
+
+对时空坐标四矢量的函数$f(x)$，定义梯度算符$\partial_\mu$为求导后再拼接为四矢量，利用链式法则可证明$f$为洛伦兹标量时$\partial_uf(x)$为协变四矢量。可类似定义上标的梯度算符$\partial^\nu=\eta^{\mu\nu}\partial_\mu$，则\textbf{达朗贝尔算符}即可写为
+$$\square=\nabla^2-\frac{1}{c^2}\ppt{}=-\partial^\mu\partial_\mu$$
+此算符即出现在电磁波动方程中。
+
+*由于狭义相对论对应的参考系变换为洛伦兹变换，满足其的物理理论必然在洛伦兹变换下不变，也即可以用[符合洛伦兹变换形式定义下的]张量写出。若一个方程能如此写出，即称其为协变的，而若物理理论中所有方程均协变，即称它是协变的，下一章中将讨论麦克斯韦方程组的协变性，从而经典电动力学是协变的。
+
+\subsection{洛伦兹变换的数学性质}
+\textbf{单位变换}：$\Lambda_\nu^\mu=\delta_\nu^\mu$，时空均不变。
+
+从数学上可以推出，变换为洛伦兹变换当且仅当其不改变任何四矢量内积，考虑一组基可将此条件写成
+$$\eta_{\mu\nu}\Lambda_\alpha^\mu\Lambda_\beta^\nu=\eta_\alpha\beta$$
+
+*用矩阵写出并计算可发现行列式平方为1，于是存在行列式为$\pm1$的两支。
+
+数学上，所有洛伦兹变换在复合下构成一个群，其事实上可以通过分解得到六个参数来刻画，类似六对独立平面中的转动角度。其每个元素解析地依赖于六个参数，因此此群为一个\textbf{李群}。数学上可证明，行列式为1的洛伦兹变换的矩阵形式写为[这里矩阵的$\exp$由幂级数定义]
+$$\Lambda=\exp\bigg(\sum_{i=1}^3(\ir\theta_iS_i-\omega_iK_i)\bigg)$$
+其中$\theta_i,\omega_i$为$xy,yz,zx,xt,yt,zt$六个平面内的转动角度，对应的$S_i,K_i$为相应的生成元，记$E_{ij}$为第$i$行第$j$列为1，其他为0的矩阵，则有
+$$\ir S_1=E_{43}-E_{34},\ir S_2=E_{24}-E_{42},\ir S_3=E_{32}-E_{23},\quad K_1=E_{12}+E_{21},K_2=E_{13}+E_{31},K_3=E_{14}+E_{41}$$
+它们满足对易关系[这里$[A,B]=AB-BA$，类似量子力学中定义]
+$$[S_i,S_j]=\ir\epsilon_{ijk}S_k,\quad[S_i,K_j]=\ir\epsilon_{ijk}K_k,\quad[K_i,K_j]=\ir\epsilon_{ijk}S_k$$
+这些对易关系完全刻画了行列式为1的洛伦兹变换构成的群[这也是一个李群]的性质，称为它的\textbf{李代数}。
+
+从之前分量分解的洛伦兹变换形式可得到，仅涉及推促的洛伦兹变换矩阵为[$\beta_i$为$\vbeta$的分量]
+$$\Lambda(\vbeta)=\begin{pmatrix}\gamma&-\gamma\beta_1&-\gamma\beta_2&-\gamma\beta_3\\-\gamma\beta_1&1+(\gamma-1)\frac{\beta_1^2}{\beta^2}&(\gamma-1)\frac{\beta_1\beta_2}{\beta^2}&(\gamma-1)\frac{\beta_1\beta_3}{\beta^2}\\-\gamma\beta_2&(\gamma-1)\frac{\beta_1\beta_2}{\beta^2}&1+(\gamma-1)\frac{\beta_2^2}{\beta^2}&(\gamma-1)\frac{\beta_2\beta_3}{\beta^2}\\-\gamma\beta_3&(\gamma-1)\frac{\beta_1\beta_3}{\beta^2}&(\gamma-1)\frac{\beta_2\beta_3}{\beta^2}&1+(\gamma-1)\frac{\beta_3^2}{\beta^2}\end{pmatrix}$$
+
+\section{相对论性电动力学}
+\subsection{自由粒子的拉氏量与运动方程}
+采用拉格朗日力学的观点，对闵氏空间中的自由粒子，作用量仍然应为洛伦兹标量[这样才能保证最小作用量原理是协变的]，而闵氏空间中可以写出的洛伦兹标量$S$为
+$$S=\int L\dr t=-mc\int\dr s$$
+这里$L\dr t$为某参考系中的表达，积分实质上是沿着世界线进行，$\dr s$为不变间隔，某种意义上是世界线的弧长微元。
+
+*注意$\dr s^2=\eta_{\mu\nu}\dr x^\mu\dr x^\nu$，而传统意义的弧长微元平方为$\delta_{\mu\nu}\dr x^\mu\dr x^\nu$，于是$\eta_{\mu\nu}$刻画了闵氏空间中长度[对类空点，其距离(不变间隔)甚至可能是虚数]与通常四维空间的差别，因此其称为\textbf{度规}。
+
+假设粒子的\textbf{固有时}为$\tau$，也即对于粒子静止的参照系中时间间隔为$\tau$，则粒子时间线$x^\mu$可以看作$\tau$为参数的曲线，即$x^\mu(\tau)$，于是有[第二个等号可直接由逆变、协变四矢量定义计算得到]
+$$S=-mc\int\sqrt{\eta_{\mu\nu}\dr x^\mu\dr x^\nu}=-mc\int\sqrt{\dr x^\mu\dr x_\mu}=-mc\int\sqrt{\dt[\tau]{x^\mu}\dt[\tau]{x_\mu}}\dr\tau$$
+
+*计算可发现，以另一个参数$\tilde{\tau}$对世界线作参数化，作参数变换$\tilde{\tau}=\tilde{\tau}(\tau)$后，作用量仍然满足此形式，因此作用量具有\textbf{重参数化不变性}。由于$\dr s$与参数无关，这是自然的。
+
+某参考系中，若自由粒子速度$\vvs$，其蕴含$\dt{\vx}=\vvs$，因此可得此参考系下[$v=|\vvs|$]
+$$\dr s=c\sqrt{1-\frac{v}{c^2}}\dr t,\quad L=-mc^2\sqrt{1-\frac{v}{c^2}}$$
+
+*注意到此时与粒子一起运动的参考系即相对原参考系速度$\vvs$，因此利用洛伦兹变换可知此参考系中时间$\dr\tau$即为$\frac{\dr s}{c}$，因此固有时事实上满足$\dr s=c\dr\tau$，这也蕴含着以固有时作为参数时，作用量对应公式的根号下事实上是$c^2$。
+
+由此，利用拉格朗日力学的公式，可知正则动量$\vps$与能量[即哈密顿量]\ $E$为
+$$\vps=\nabla_{\vvs}L=\frac{m\vvs}{\sqrt{1-v^2/c^2}},\quad E=\vps\cdot\vvs-L=\frac{mc^2}{\sqrt{1-v^2/c^2}}$$
+
+*能量动量关系还可写为$E^2=c^2\vps^2+m^2c^4$。
+
+*上述推导要求$m$为一个洛伦兹标量，称为粒子的\textbf{静止质量}，可以证明与牛顿力学中定义类似。
+
+\
+
+\textbf{运动方程}
+
+考虑作用量的变分[第二个等号可将根号中写为$\dr x_0^2-\dr x_1^2-\dr x_2^2-\dr x_3^2$再由全变分计算，注意对变分，微分$\dr x$可看作普通变量]
+$$\delta S=-mc\int\delta\sqrt{\dr x^\mu\dr x_\mu}=-mc\int\dr[s]{x_\mu\delta\dr x^\mu}$$
+
+记协变四矢量$u_\mu=\dt[s]{x_\mu}$，称为\textbf{四速度}[这里定义方式为无量纲，也可乘$c$作为对$\tau$的求导，即有量纲]，利用变分微分可交换并分部积分得到
+$$\delta S=-mc\int u_\mu\dr(\delta x^\mu)=-mcu_\mu\delta x^\mu\bigg|^{\tau_{\max}}_{\tau_{\min}}+mc\int\dt[s]{u_\mu}\delta x^\mu\dr s$$
+考虑端点固定的世界线，$\delta x^\mu$在两端为0，于是$\delta S=0$即得到自由粒子运动方程
+$$\frac{\dr u_\mu}{\dr s}=0$$
+与$x^\mu$共轭的粒子\textbf{四动量}定义为
+$$p^\mu=mc u^\mu=\bigg(\frac{E}{c},\vps\bigg)$$
+
+*当粒子速度为$\vvs$时，利用$\dr s$定义可直接计算出四速度对应的逆变四矢量为$u^\mu=(\gamma,\gamma\vbeta)$，$\gamma,\vbeta$定义同前一章。
+
+*四动量、四速度[须写为逆变形式]变换规则与时空坐标相同，因此是四矢量。
+
+*根据之前推导，速度0的粒子也具有静止能量$E=mc^2$，称为\textbf{爱因斯坦质能关系}，若$v\ll c$，即可近似得到粒子能量为静止能量加经典动能。
+
+*由于四速度守恒即可知\textbf{自由粒子四动量守恒}。
+
+\
+
+\textbf{零质量粒子}
+
+对零质量粒子，之前的作用量定义不再适用，需要引入辅助的世界线上的函数$e(\tau)$，称为\textbf{单元基}，满足$e(\tau)>0$，考虑更一般的作用量
+$$S=-\frac{1}{2}\int\dr\tau\bigg(\frac{1}{e(\tau)}\dt[\tau]{x_\mu}\dt[\tau]{x^\mu}+e(\tau)m^2c^2\bigg)$$
+
+将作用量对$e(\tau)$取变分可得到
+$$\dt[\tau]{x_\mu}\dt[\tau]{x^\mu}-\er(\tau)^2m^2c^2=0$$
+若$m\ne 0$，此即能解出$e(\tau)$，代入发现作用量形式与之前完全等价，于是对$x^\mu$变分可得到相同的运动方程。
+
+*通过对$\tau$重参数化，可取到合适的$e(\tau)$形式，其可作为某种规范，如可选取$e(\tau)=1$。
+
+对零质量粒子，约束方程即为
+$$\dt[\tau]{x_\mu}\dt[\tau]{x^\mu}=0$$
+对应的$e(\tau)$可以任取。
+
+*将此作用量量子化得到的理论对应Klein-Gordan理论，但其并不自洽，实际上不可取，需要考虑其他形式。
+
+\subsection{电磁场中粒子的拉氏量}
+\textbf{高斯单位制}
+
+设下标$g$代表高斯单位制中的值，考虑真空中的麦克斯韦方程组，高斯单位制的变换为[下方分别为电场强度、磁感应强度、电荷密度、电流密度]
+$$\ve=\frac{\ve_g}{\sqrt{4\pi\epsilon_0}},\quad\vb=\sqrt{\frac{\mu_0}{4\pi}}\vb_g,\quad\rho=\sqrt{4\pi\epsilon_0}\rho_g,\quad\vj=\sqrt{4\pi\epsilon}\vj_g$$
+而对规范势，高斯单位制的变换为
+$$\va=\sqrt{\frac{\mu_0}{4\pi}}\va_g,\quad\Phi=\frac{\Phi_g}{\sqrt{4\pi\epsilon_0}}$$
+考虑介质时，磁化强度、极化强度满足
+$$\vm=\sqrt{\frac{4\pi}{\mu_0}}\vm_g,\quad\vp=\vp_g\sqrt{4\pi\epsilon_0}$$
+
+力学相关物理量，如$\vx,\vps,t$等单位无变化，其他物理量则可从上方基本物理量确定。下面的讨论\textbf{采用高斯单位制}，省略下标$g$。
+
+\
+
+考虑带电的微观粒子，带电量$e$也应为洛伦兹标量，根据量子理论可知其必然为电子电量整数倍[排除夸克]。若其在某外电磁场中，电动力学假定其具有某四矢量势$A_\mu(x)$，作用量可写成
+$$S=-mc\int\dr s-\frac{e}{c}\int A_\mu(x)\dr x^\mu$$
+高斯单位制下，$\Phi(x),\va(x)$具有相同量纲，四矢量可写为$A^\mu(x)=(\Phi(x),\va(x))$，将作用量写为对某参考系下$\dr t$的积分后即可知
+$$L=-mc^2\sqrt{1-\frac{v^2}{c^2}}+\frac{e}{c}\vvs\cdot\va-e\Phi$$
+由此，同前定义$\vps=m\vvs/\sqrt{1-v^2/c^2}$，则有正则动量与哈密顿量为
+$$\vp=\vps+\frac{e}{c}\va,\quad H=\vvs\cdot\vp-L=\sqrt{m^2c^2+c^2\bigg(\vp-\frac{e}{c}\va\bigg)^2}+e\Phi$$
+
+\subsection{运动方程与规范不变性}
+高斯单位制下电场强度、磁感应强度满足
+$$\ve=-\nabla\Phi-\frac{1}{c}\pt{\va},\quad\vb=\nabla\times\va$$
+由此列出拉格朗日方程组，可化为
+$$\dt{\vps}=e\ve+\frac{e}{c}\vvs\times\vb$$
+再结合相对论能量、动量关系即得
+$$\dt{E}=e\vvs\cdot\ve$$
+
+*为算出下式，对能量、动量关系两边求导可得[第二个等号是代入了包含$\vvs$的形式]
+$$\dt{E}=\frac{c^2\vps}{E}\cdot\dt{\vps}=\vvs\cdot\dt{\vps}$$
+再代入即可。
+
+*注意到拉格朗日方程组不显含矢势与标势，电磁势作规范变换\textbf{不改变运动方程}，于是运动方程具有规范对称性。
+
+*事实上运动方程形式与洛伦兹力直接得到的形式完全相同，也即考虑相对论不改变其形式。
+
+\
+
+与之前类似，可直接对$S$变分进行推导，仍然固定世界线的起点终点，类似利用分部积分得到
+$$\delta S=mc\int\dt[s]{u_\mu}\delta x^\mu\dr s-\frac{e}{c}\int(\partial_\nu A_\mu\delta x^\nu\dr x^\mu-\partial_\nu A_\mu\dr x^\nu\delta x^\mu)$$
+因此，记$F_{\mu\nu}=\partial_\mu A_\nu-\partial_\nu A_\mu$，其成为电磁场的\textbf{场强张量}，运动方程即为
+$$mc\dt[s]{u_\mu}=\frac{e}{c}F_{\mu\nu}u^\nu$$
+
+根据场强张量的定义，其可以写为矩阵
+$$F_{\mu\nu}=\begin{pmatrix}0&E_1&E_2&E_3\\-E_1&0&-B_3&B_2\\-E_2&B_3&0&-B_1\\-E_3&-B_2&B_1&0\end{pmatrix}$$
+
+*由此，场强张量也满足规范不变性，于是方程仍然在规范变换下不变。(事实上，考虑量子力学时此结论并不成立。)
+
+*根据$\eta^{\mu\nu}$的定义与二阶协变、逆变张量的要求，记[任何二阶张量上下标改变都满足此关系式]
+$$F^{\alpha\beta}=\eta^{\alpha\mu}F_{\mu\nu}\eta^{\nu\beta}$$
+其矩阵表示即为电场部分取负号，磁场部分不变。
+
+*利用电磁场场强张量，可看出狭义相对论下事实上电磁场是统一的。
+
+\subsection{电磁场的作用量与电动力学的协变性}
+*注意介质影响麦克斯韦方程组本质是影响了$\rho$与$\vj$，因此只要验证真空中麦克斯韦方程组成立即可。
+
+由逆变四矢量要求，对应二阶逆变张量可得洛伦兹变换下[也可利用电场四矢量直接计算]
+$${F'}^{\mu\nu}=\Lambda_\alpha^\mu\Lambda_\beta^\nu F^{\alpha\beta}$$
+若洛伦兹变换仅含有推促，利用矩阵乘法直接计算出
+$$\ve'=\gamma(\ve+\vbeta\times\vb)-\frac{\gamma^2}{1+\gamma}(\vbeta\cdot\ve)\vbeta$$
+$$\ve'=\gamma(\vb-\vbeta\times\ve)-\frac{\gamma^2}{1+\gamma}(\vbeta\cdot\vb)\vbeta$$
+
+*这代表不同参考系下$\ve,\vb$会相互转化。
+
+由$F_{\mu\nu}$的定义，可知
+$$\partial_\mu F_{\nu\alpha}+\partial_\nu F_{\alpha\mu}+\partial_\alpha F_{\mu\nu}=0$$
+用矩阵表达式写出发现，此即为麦克斯韦方程组不涉及$\rho,\vj$的后两个方程，它们通过场强张量的反对称性自然得出，称为\textbf{比安基恒等式}。
+
+*另一构造方法为定义对偶张量$\tilde{F}_{\mu\nu}=\frac{1}{2}\epsilon_{\mu\nu\alpha\beta}F^{\alpha\beta}$，这里$\epsilon$即为完全反对称张量，类似之前的$\epsilon_{ijk}$，计算可发现$\tilde{F}_{\mu\nu}$即为将$F^{\mu\nu}$电磁场位置互换，用它写出比安基恒等式即为$\partial_\mu\tilde{F}^{\mu\nu}=0$。
+
+\
+
+为了得到麦克斯韦方程组剩下两个方程，我们需要电磁场自身的作用量，这样才能推导出其运动方程。
+
+由于作用量需要洛伦兹不变，从场强张量出发事实上可得到两个作用量，分别是正比于$\ve^2-\vb^2$的$F^{\mu\nu}F_{\mu\nu}$与正比于$\ve\cdot\vb$的$\epsilon_{\mu\nu\rho\sigma}F^{\mu\nu}F^{\rho\sigma}$，但由于后者在空间反射[宇称变换]下符号改变，不符合实际，因此作用量最终写成
+$$S_{em}=-\frac{1}{16\pi c}\int\dr^4xF_{\mu\nu}F^{\mu\nu}$$
+
+*系数事实上与单位制有关，这里对应高斯单位制的情况。
+
+考虑到空间存在电荷，作用量还需要增加一项，对应带电粒子与磁场的相互作用，回顾带电粒子作用量，在某参考系下，作用量写为带电粒子作用量第二部分对$\rho$的积分，计算可得
+$$S_{int}=-\iiint\dr x\dr y\dr z\frac{\rho}{c}\int A_\mu\dr x^\mu=-\frac{1}{c^2}\int A_\mu\rho\frac{\dr x^\mu}{\dr t}\dr^4x$$
+
+记$J^\mu=\rho\frac{\dr x^\mu}{\dr t}$，可发现其恰为$(c\rho,\vj)$，而电荷守恒方程即可写为$\partial_\mu J^\mu=0$。记作用量为$S=S_{em}+S_{int}$，根据最小作用量原理计算可知运动方程
+$$\partial_\mu F^{\mu\nu}=\frac{4\pi}{c}J^\nu$$
+这恰为麦克斯韦方程组的前两个方程。
+
+由此，我们验证了电动力学的协变性，即对不同惯性系一致。
+
+\subsection{运动物体中的电磁场}
+*由于宏观物体的运动速度远低于光速，一般考虑相对论效应引起的一阶修正即可。
+
+\
+
+\textbf{运动电介质}
+
+利用$\vd$与$\vh$的定义，将$\vd$与$\vh$替换真空情况的$\ve$与$\vb$，可得到二阶反称张量$H_{\mu\nu}$，若电介质中无自由电流与电荷，对应的麦克斯韦方程组后两个方程即为
+$$\partial_\mu F^{\mu\nu}=0$$
+
+考虑以速度$\vvs$运动的电介质，对应有$\vbeta$与$\gamma$，由于对介质静止的参考系中本构关系为$\vd=\epsilon\ve,\vh=\vb/\mu$，利用四速度的定义，洛伦兹变换后本构关系化为
+$$H^{\mu\nu}u_\nu=\epsilon F^{\mu\nu}u_\nu,\quad F_{(\mu\nu}u_{\lambda)}=\mu H_{(\mu\nu}u_{\lambda)}$$
+这里三个指标上的小括号表示轮换求和，类似$F_{\mu\nu}$表示的比安基恒等式的形式，写成三维矢量的形式即
+$$\vd+\vbeta\times\vh=\epsilon(\ve+\vbeta\times\vb),\quad\vb-\vbeta\times\ve=\mu(\vh-\vbeta\times\vd)$$
+作一次近似，将第二式$\vb$代入第一式，忽略$\vbeta$的高阶项即得
+$$\vd\approx\epsilon\ve+(\epsilon\mu-1)\vbeta\times\vh$$
+类似得
+$$\vb\approx\mu\vh-(\epsilon\mu-1)\vbeta\times\ve$$
+
+对边界条件，由于介质中无自有电荷，因此对法向[$\vns$指垂直界面的单位矢量]仍有
+$$\vns\cdot(\vd_2-\vd_1)=0,\quad\vns\cdot(\vb_2-\vb_1)=0$$
+对切向，仍利用静止情况作洛伦兹变换发现一阶近似下
+$$\vns\times(\ve_2-\ve_1)=\beta_n(\mu_2-\mu_1)\vh_t,\quad\vns\times(\vh_2-\vh_1)=-\beta_n(\epsilon_2-\epsilon_1)\ve_t$$
+这里$\beta_n=\vbeta\cdot\vn$为法向速度，$\vh_t=\vns\times\vh,\ve_t=\vns\times\ve$表示切向的电磁场。
+
+*这里切向的电磁场无需考虑是哪个介质中，因为边界面切向电磁场相差为一阶小量，其差别代入右侧成为二阶小量。
+
+例：考虑真空匀强磁场$\vb$内半径$a$，角速度$\vomega$的匀速\textbf{旋转介质球}，介电常数$\epsilon$、磁导率$\mu$，考虑其生成的电场。
+
+由于此为相对论效应，磁场分布的修正为小量，可假设其与静止时一致，由第三章对球壳的计算，取内半径为0，外半径为$a$，可知高斯单位制下内部$\vh_{in}=\frac{3}{\mu+2}\vb$。
+
+但对电场，由于静止时并无电场，因此首项即为一阶小量，需要考虑。引入静电势$\Phi$，电场$\ve=-\nabla\Phi$，球外方程即$\nabla^2\Phi_{r>a}(\vx)=0$，球内由$\nabla\cdot\vd=0$，代入一阶修正的$\vd$，再代入$\vbeta=\frac{1}{c}\vomega\times\vx$即得
+$$\nabla^2\Phi_{r<a}(\vx)=\frac{2(\epsilon\mu-1)}{c\epsilon}\vomega\cdot\vh_{in}$$
+
+由此，球内等效有一个常电荷密度，而球外电荷密度为0，考虑近似到电四极矩张量$D_{ij}$\ [回顾第二章静电多极展开]，利用边界条件可解出
+$$\Phi_{r>a}(\vx)=\frac{1}{6}D_{ij}\pt[x_i]{}\pt[x_j]{}\frac{1}{r}$$
+$$\Phi_{r<a}(\vx)=\frac{r^2}{2a^5}D_{ij}n_in_j+\frac{\mu\epsilon-1}{3c\epsilon}(r^2-a^2)\vomega\cdot\vh_{in}$$
+$$D_{ij}=-\frac{3a^5(\epsilon\mu-1)}{(3+2\epsilon)(2+\mu)\big(B_i\omega_j+B_j\omega_i-\frac{2}{3}\delta_{ij}\vomega\cdot\vb\big)}$$
+
+\
+
+\textbf{运动导体}
+
+考虑以速度$\vvs$运动的电介质，对应有$\vbeta$与$\gamma$，根据上节$\ve,\vb$相对论变换的表达，一阶近似下导体感受到的电场为
+$$\ve_e=\ve+\vbeta\times\vb$$
+于是利用欧姆定律得电流密度为
+$$\vj=\sigma(\ve+\vbeta\times\vb)$$
+
+假设磁场为准静态，即忽略位移电流，此时$\mu$为常数，$\vb=\mu\vh$，于是利用麦克斯韦方程组可得磁场满足
+$$\pt{\vh}-\nabla\times(\vvs\times\vh)=\frac{c^2}{4\pi\sigma\mu}\nabla^2\vh$$
+
+例：考虑真空匀强磁场$B\ves_3$内半径$a$，角速度$\omega\ves_3$的匀速\textbf{旋转导体球}，电导率$\sigma$、磁导率1，考虑其生成的电磁场。
+
+稳态时\textbf{导体参考系}下导体中电场必然为0，不然会产生耗散，利用上方公式也即$\ve+\vbeta\times\vb=0$。
+
+与上个例子类似，磁场$\vb$可不用考虑相对论效应，全空间为$B\ves_3$，从而球坐标系下计算可知
+$$\ve_{r<a}=-\frac{\omega Br}{c}\sin\theta(\ves_r\sin\theta+\ves_\theta\cos\theta)$$
+根据高斯单位制下麦克斯韦方程组，事实上体电荷密度为常值
+$$\rho=\frac{1}{4\pi}\nabla\cdot\ve=-\frac{\omega B_0}{2\pi c}$$
+
+*可计算得到总体电荷，为使导体球保持电中性，球上必然还有面电荷分布，它们与体电荷共同产生全空间电场。面电荷分布也是导体内电场并不球对称的原因。
+
+为计算球外的电场，引入静电势$\Phi$，由$\phi$方向对称性与无穷远处边界条件可知静电势能球外展开成
+$$\Phi_{r>a}(r,\theta)=\sum_{l=0}\frac{A_l}{r^{l+1}}P_l(\cos\theta)$$
+
+*即为球谐函数展开，利用了$m=0$时退化为勒让德函数。
+
+由于球内$\ve$已经写出，可知[常数$\phi_0$待定]
+$$\Phi_{r<a}(r,\theta)=\phi_0+\frac{\omega B_0r^2}{3c}(1-P_2(\cos\theta))$$
+由于介质极化，内外包含的$l$应相同，于是外部也仅包含$l=0,2$，结合边界条件即得
+$$\Phi_{r>a}(r,\theta)=\bigg(\phi_0+\frac{\omega B_0a^2}{3c}\bigg)\frac{a}{r}-\frac{\omega B_0a^5}{3cr^3}P_2(\cos\theta)$$
+考虑此电势计算出的$\ve$，法向$\ve_n$存在跃变，于是面电荷密度为
+$$\Sigma(\theta)=\frac{1}{4\pi}\big(E_r(a^+)-E_r(a_-)\big)=\frac{\phi_0}{4\pi a^2}+\frac{\omega B_0a}{12\pi c}(3-5P_2(\cos\theta))$$
+将其对表面积分得到总面电荷$\phi_0a+\omega B_0a^3/c$，其与总体电荷和为0即解出
+$$\phi_0=-\frac{\omega B_0a^2}{3c}$$
+
+*事实上由于外部$l=0$的项对应内部总电荷，不应存在，由此可以直接得到$\phi_0$的表达式，于是最终有
+$$\Phi_{r<a}(r,\theta)=-\frac{\omega B_0a^2}{3c}+\frac{\omega B_0r^2}{3c}(1-P_2(\cos\theta)),\quad\Phi_{r>a}(r,\theta)=-\frac{\omega B_0a^5}{3cr^3}P_2(\cos\theta)$$
+
+\subsection{均匀静电磁场中带电粒子的运动}
+考虑静止质量为$m$，所带电荷为$e$的粒子，运用三维形式运动方程计算。
+
+\
+
+\textbf{均匀静电场}
+
+设场强$\ve_0$，此时代入运动方程可知
+$$\dt{\vps}=e\ve_0,\quad\dt{E}=e\vvs\cdot\ve_0$$
+于是$\vps$匀速增加，足够长时间后[可忽略$\vps(0)$时]$\vps$与时间正比，也即能量增加速度大致随时间正比。
+
+*为考虑到相对论效应时加速器基本原理。
+
+\
+
+\textbf{均匀静磁场}
+
+设场强$\vb_0$，这时能量不随时间变化，从而速度大小不随时间变化，因此$\gamma$不随时间变化，速度与动量比例恒定，可将动量方程写为
+$$\dt{\vvs}=\vvs\times\vomega_{\vb},\quad\vomega_{\vb}=\frac{e\vb}{\gamma mc}=\frac{ec\vb}{E}$$
+这里$\vomega_{\vb}$称为\textbf{回旋频率}。
+
+设$\vb=B\ves_3$，回旋频率大小$\omega_B$，给定初始速度，可发现平行磁场方向分量与垂直磁场方向分量的大小均恒定不变，记作$v_\parallel$与$v_\bot$，并记对应的$p_\bot=\gamma mv_\bot$，可直接写出解
+$$\vvs(t)=v_\parallel\ves_3+\omega_Ba(\ves_1-\ir\ves_2)\er^{-\ir(\omega_Bt-\phi)},\quad a=\frac{cp_\bot}{eB}$$
+这里$\phi$为相位参数，由初始速度确定，$a$称为\textbf{回旋半径}，再对$t$积分即可得到轨迹为螺线，与经典结果完全相同。
+
+*与之前相同，此处复物理量取实部表示真实值。
+
+\
+
+\textbf{均匀正交电磁场}
+
+对$\ve\cdot\vb=0$的情况，回顾之前$\ve\cdot\vb$与$\ve^2-\vb^2$为洛伦兹不变量，因此可期望将其洛伦兹变换为静电场或静磁场。
+
+假设原本在$K$系中。$|\vb|>|\ve|$时取参考系$K'$的速度
+$$\vus=c\frac{\ve\times\vb}{|\vb|^2}$$
+计算即得磁场$\vb'=\vb/\gamma$，静电场为0；$|\vb|<|\ve|$时取参考系$K'$的速度
+$$\vus=c\frac{\ve\times\vb}{|\ve|^2}$$
+计算即得磁场$\ve'=\ve/\gamma$，静磁场为0。
+
+这样就化为了之前讨论过的情况。
+
+\
+
+\textbf{一般均匀经典磁场}
+
+这时更简单的形式可利用四速度形式的运动方程。回顾其为
+$$mc\dt[s]{u_\mu}=\frac{e}{c}F_{\mu\nu}u^\nu$$
+记$F^\alpha_\nu=\eta^{\alpha\mu}F_{\mu\nu}$，对应矩阵为$\mathbf{F}$，四速度$u^\mu$看作四维矢量$u$，上式两边左侧同乘$\eta^{\alpha\mu}$后对$\mu$求和即可得
+$$\dt[\tau]u=\frac{e}{mc}\mathbf{F}u$$
+由于此为线性方程组，可直接得
+$$u(\tau)=\exp\bigg(\frac{e\tau}{mc}\mathbf{F}\bigg)u(0)$$
+矩阵的$\exp$由幂级数定义，由此即得世界线的参数方程。
+
+*严格来说，$F^\alpha_\nu$应为$F^\alpha_{\ \nu}$，与$F^{\ \alpha}_\mu=F_{\mu\nu}\eta^{\nu\alpha}$区分。
+
+\section{运动带电粒子的辐射}
+\subsection{李纳-谢维尔势}
+回到四维协变形式的麦克斯韦方程
+$$\partial_\mu F^{\mu\nu}=\frac{4\pi}{c}J^\nu$$
+采用洛伦茨规范，有$\partial_\mu A^\mu=0$，代入计算可知即为
+$$\partial_\mu\partial^\mu A^\nu=\frac{4\pi}{c}J^\nu$$
+为对其求解，直接考虑其对应的四维格林函数
+$$\partial_\mu\partial^\mu D(x,x')=\delta^4(x-x')$$
+其可利用傅里叶变换展开为
+$$D(x,x')=\int\frac{\dr^4k}{(2\pi)^4}\tilde{D}(k)\er^{-\ir k\cdot(x-x')}$$
+这里$k$为四矢量。
+
+*注意四矢量内积定义为$\eta^{ij}k_ix_j$，与通常不同。对傅里叶变换而言，这只相当于改变了$k$对应分量的符号，并不影响变换成立，因此仍可如此书写，下方计算同理，但注意左侧求导的$\partial$符号也需要对应调整，具体数学细节较复杂。
+
+利用$\delta$函数傅里叶变换可得$\tilde{D}(k)=-\frac{1}{k^2}$，这里$k^2=k\cdot k$，从而可写出积分
+$$D(x,x')=-\int\frac{\dr^4k}{(2\pi)^4}\frac{\er^{-\ir k\cdot(x-x')}}{k^2}$$
+
+记$k=(k_0,\vks)$，由于分母$k_0^2-\vks^2$可能为0，事实上最终对$k_0$的积分需要采取对复平面某围道积分的定义[假设对$\vks$分量的积分可直接进行，只通过$k_0$在复平面处理奇点]。考虑在上半平面绕过奇点$\pm|\vks|$的积分，利用柯西积分定理可以发现，这与
+$$D^+(x,x')=-\int\frac{\dr^4k}{(2\pi)^4}\frac{\er^{-\ir k\cdot(x-x')}}{(k_0+\ir\epsilon)^2-\vks^2},\quad\epsilon>0$$
+完全相等，这里$D^+$即为\textbf{推迟格林函数}。
+
+*推迟体现在当时间$x_0<x_0'$时，计算可得到$D^+(x,x')=0$。若在下半平面进行积分，会得到$\epsilon$变为$-\epsilon$的$D^-$，但其为超前格林函数，不符合物理。
+
+对推迟格林函数进一步计算可得到显式表达
+$$D^+(x,x')=\frac{\delta(x_0-x_0'-R)}{4\pi R}=\frac{\theta(x_0-x_0')}{2\pi}\delta((x-x')^2)$$
+这里$R$为$(x_1,x_2,x_3)$的模长，$\theta$表示大于0时为1，小于0时为0的函数，在后一个形式中用于舍弃$x_0=x_0'-R$的解。
+
+*对比可发现此形式与第五章的推迟格林函数完全一致。
+
+由此即可得到洛伦茨规范下电磁势的解为
+$$A^\mu(x)=\frac{4\pi}{c}\int\dr^4x'D^+(x-x')J^\mu(x')$$
+
+对运动的带电粒子，设其世界线为$r^\mu(\tau)$，设带电量$e$，则利用$J^\mu=(c\rho,\vj)$可得到
+$$J^\mu(x')=ec^2\int\dr\tau u^\mu(\tau)\delta^4(x'-r(\tau))$$
+
+在$A^\mu$中代入格林函数与$J^\mu$的表达式，由于总共进行了五次积分，其中恰有五次$\delta$函数，最终的$A^\mu$必然为某个点的值的贡献，分析可得
+$$A^\mu(x)=\frac{eu^\mu(\tau_0)}{u(\tau_0)\cdot(x-r(\tau_0))}$$
+
+这里$\tau_0$为满足$r_0(\tau_0)=x_0-R$的点。
+
+*从几何上来看，满足$r_0-\sqrt{r_1^2+r_2^2+r_3^2}=x_0-R$的点构成$x$出发的下半个光锥[这里将$x_0$看作纵轴]，而$\sqrt{r_1^2+r_2^2+r_3^2}-r_0=x_0-R$的点构成上半个光锥，两者结合即成为所有满足不变间隔$(r-x)^2=0$的$x$的类光点。由于粒子的运动轨迹$r(\tau)$一定为$t$的某个函数[假设不考虑产生湮灭，对任何$t$存在唯一$\vx$对应]，其必然会与分割$x_0$的下半光锥、上半光锥各有一个交点，与下半光锥的交点即为符合因果律的解$r(\tau_0)$，存在唯一。
+
+代入回四速度与四矢量势三维分量形式，可得到
+$$\Phi(\vx,t)=\frac{e}{(1-\vbeta\cdot\vns)R}\bigg|_{ret},\quad\va(\vx,t)=\frac{e\vbeta}{(1-\vbeta\cdot\vns)}\bigg|_{ret}$$
+下标$ret$表示在$r(\tau_0)=(ct_0,\vrs)$的时空点计算，而$\vns$即为$\vx-\vrs$的方向单位矢量。这就称为\textbf{李纳-维谢尔势}。
+
+\
+
+\textbf{电磁场计算}
+
+由于推迟效应，很难对$\Phi,\va$直接微分计算电磁场，因此需要考虑其他方式。由前得到显式积分形式的四矢量势[这里将$\theta$函数改写为积分限]
+$$A^\mu(x)=2ec\int_{x^0>r^0(\tau)}u^\mu(\tau)\delta((x-r(\tau))^2)\dr\tau$$
+其对$x^\mu$的梯度$\partial^\mu$计算涉及$\delta$函数的导数，我们先利用复合函数求导公式作替换
+$$\partial^\mu\delta((x-r(\tau))^2)=-\frac{(x-r)^\mu}{u\cdot(x-r)}\frac{\dr}{\dr\tau}\delta((x-r(\tau))^2)$$
+再利用分部积分即可计算得值，进一步计算有
+$$F^{\mu\nu}(x)=\frac{ec}{u\cdot(x-r)}\frac{\dr}{\dr\tau}\bigg(\frac{(x-r)^\mu u^\nu-(x-r)^\nu u^\mu}{u\cdot(x-r)}\bigg)\bigg|_{ret}$$
+写为三维形式可得
+$$\ve=\bigg(\frac{e(\vns-\vbeta)}{\gamma^2(1-\vbeta\cdot\vns)^3R^2}+\frac{e}{c}\frac{\vns\times((\vns-\vbeta)\times\dot{\vbeta})}{(1-\vbeta\cdot\vns)^3R}\bigg)\bigg|_{ret},\quad\vb=\big(\vns\times\ve\big)\big|_{ret}$$
+
+*关于$\delta$函数与其导数的严谨定义需要泛函分析，可证明这里利用分部积分能够正确计算。
+
+*这里$\dot{\vbeta}$为其对时间导数，也即为$\frac{1}{c}\dot{\vvs}$，对应粒子加速度。
+
+\
+
+\textbf{洛伦兹变换思路}
+
+考虑匀速运动的的电荷$q$，假设观测点坐标为$(0,b,0)$，观测到其运动方程为$(x,y,z)=(vt,0,0)$。
+
+设与带电粒子一同运动的参考系为$K'$，取时间$t'$与$t$零点相同，则由于$K'$系中观测点以速度$v'$反向运动，可知
+$$\ve'=\bigg(-\frac{qvt'}{{r'}^3},\frac{qb}{{r'}^3},0\bigg),\quad\vb'=(0,0,0)$$
+这里$r'=\sqrt{b^2+(vt')^2}$，此方程即静止电荷产生的电场(高斯单位制下)。
+
+利用两个系中观测时空点坐标的关系知只需代换$t'$为$\gamma t$\ [这是由于观测点坐标的$x=0$]，再洛伦兹变换$K'$到$K$，即得到$K$系中
+$$E_1=-\frac{q\gamma vt}{(b^2+\gamma^2v^2t^2)^{3/2}},\quad E_2=\frac{q\gamma b}{(b^2+\gamma^2v^2t^2)^{3/2}},\quad B_3=\beta E_2,\quad E_3=B_1=B_2=0$$
+
+*此计算方法用于推导李纳-谢维尔势是错误的，因为无法处理\textbf{加速度}项。
+
+*若用之前得到的公式，需要处理推迟点的具体位置，这里粒子固有时即为$t'$，由此直接利用洛伦兹变换公式可解出$t'_0$，最终得到的形式与上方相同。
+
+\subsection{拉莫尔公式与汤姆孙散射}
+\textbf{拉莫尔公式}
+
+考虑非相对论情形，之前的电磁场表达式中$\vbeta$近似为0，$\gamma$近似为1，去除$\frac{e\vns}{R^2}$这项点电荷产生的电场，辐射电场即为
+$$\ve=\bigg(\frac{e}{c}\frac{\vns\times(\vns\times\dot{\vbeta})}{R}\bigg)\bigg|_{ret}$$
+由于$\vb=(\vns\times\ve)\big|_{ret}$仍满足，由定义，点电荷在$\vns$方向辐射的功率为[由于考虑的是某时刻辐射出的功率，取$R\to0$可知无需下标$ret$，注意为高斯单位制]
+$$\dt[\Omega_{\vns}]{P}=\frac{cR^2}{4\pi}\vns\cdot(\ve\times\vh)=\frac{e^2}{4\pi c^3}|\dot{\vvs}|^2\sin^2\theta$$
+这里$\theta$为$\dot{\vvs}$与$\vns$夹角，积分可得到总功率为
+$$P=\frac{2}{3}\frac{e^2}{c^3}|\dot{\vvs}|^2$$
+这就称为拉莫尔公式。
+
+为进行相对论推广，注意到$\dot{\vvs}=\frac{1}{m}\dt{\vps}$，其对应洛伦兹不变的推广应为
+$$P=-\frac{2}{3}\frac{e^2}{m^2c^3}\dt[\tau]{p^\mu}\dt[\tau]{p_\mu}=\frac{2}{3}\frac{e^2}{c}\gamma^6\big((\dot{\vbeta})^2-(\vbeta\times\dot{\vbeta})^2\big)$$
+
+第二个等号利用洛伦兹变换得到的$\dr t=\gamma\dr\tau$与$\vbeta,\gamma$的定义直接计算即得[注意上标的点表示对观测所在参考系中的$t$求导]，此公式称为\textbf{李纳公式}。
+
+\
+
+\textbf{汤姆孙散射}
+
+考虑频率$\omega$的电磁波入射到自由电子，入射波电场为
+$$\ve=\ves_0E_0\er^{\ir\vks_0\cdot\vx-\ir\omega t}$$
+于是自由电子获得的加速度即为$\frac{e}{m}\ve$，利用第五章微分散射截面的公式计算可得到
+$$\frac{\dr\sigma}{\dr\Omega}(\vns,\ves;\vns_0,\ves_0)=\frac{e^4}{m^2c^4}|\ves^*\cdot\ves_0|^2$$
+
+进一步地，考虑$\dt[\Omega]{\sigma_\parallel}$与$\dt[\Omega]{\sigma_\bot}$，两者之和称为\textbf{非极化}的微分散射截面，计算得为[这里$\theta$仍表示$\vns_0$与$\vns$夹角]
+$$\frac{\dr\sigma}{\dr\Omega}(\theta)=\frac{e^4}{m^2c^4}\frac{1+\cos\theta}{2}$$
+于是积分可得电子对电磁波的总非极化散射截面
+$$\sigma=\frac{8\pi}{3}\frac{e^4}{m^2c^4}$$
+
+*此公式仅对低频电磁波成立，高频时必须考虑量子效应，例如著名的\textbf{康普顿散射}实验。
+
+\subsection{相对论性加速电荷的辐射}
+考虑相对论效应，与之前类似，$\ve$表达式第二项看作辐射，可知
+$$\big(\vs\cdot\vns\big)\big|_{ret}=\frac{c}{4\pi}(\ve\times\vh)\cdot\vns\bigg|_{ret}=\frac{e^2}{4\pi cR^2}\bigg|\frac{\vns\times((\vns-\vbeta)\times\dot{\vbeta})}{(1-\vbeta\cdot\vns)^3}\bigg|^2\bigg|_{ret}$$
+由此，考虑粒子在$T_1$到$T_2$时间辐射的总能量，代入$ret$表达式$t=t'+R(t')/c$可知
+$$E=\int_{T_1+R(T_1)/c}^{T_2+R(T_2)/c}(\vs\cdot\vns)\big|_{ret}\dr t=\int_{T_1}^{T_2}(\vs\cdot\vns)\frac{\dr t}{\dr t'}\dr t'$$
+
+考虑到粒子运动轨迹可知$\dt[t']{R(t')}=\vns\cdot\vvs$，于是对$t=t'+R(t')/c$两边微分可知$\dr t=\dr t'(1-\vbeta\cdot\vns)$，于是代入即可知单位立体角内辐射功率为
+$$\dt[\Omega]{P(t')}=R^2(\vs\cdot\vns)\frac{\dr t}{\dr t'}=\frac{e^2}{4\pi c}\frac{\big|\vns\times((\vns-\vbeta)\times\dot{\vbeta})\big|^2}{(1-\vbeta\cdot\vns)^5}$$
+
+\
+
+\textbf{应用例}
+\begin{enumerate}
+    \item \textbf{直线加速}
+    
+    这时$\vbeta\times\dot{\vbeta}=0$，不妨设在$z$轴运动，假设观测点与其夹角$\theta$，计算可知
+    $$\dt[\Omega]{P(t')}=\frac{e^2\dot{v}^2}{4\pi c^3}\frac{\sin^2\theta}{(1-\beta\cos\theta)^5}$$
+
+    $\beta\approx0$时情况即回到拉莫尔公式，但相对论时计算发现功率达到即极大的$\theta_{\max}$满足
+    $$\cos\theta_{\max}=\frac{\sqrt{1+15\beta^2}-1}{3\beta}$$
+    也即$v$越大，辐射越集中于向前的方向。
+
+    *对角度积分可得李纳公式。
+
+    \item \textbf{圆周运动}
+
+    这时$\vbeta\cdot\dot{\vbeta}=0$，设$\vbeta$沿$z$，$\dot{\vbeta}$沿$x$，考虑球坐标系下则有
+
+    $$\dt[\Omega]{P(t')}=\frac{e^2\dot{v}^2}{4\pi c^3}\frac{1}{(1-\beta\cos\theta)^3}\bigg(1-\frac{\sin^2\theta\cos^2\phi}{\gamma^2(1-\beta\cos\theta)^2}\bigg)$$
+
+    *高速时仍有向前辐射的特性。
+\end{enumerate}
+
+利用李纳公式，类似上方讨论，对粒子加速器，直线加速时粒子辐射功率为
+$$P=\frac{2}{3}\frac{e^2}{m^2c^3}\bigg(\dt{\vps}\bigg)^2$$
+而圆周运动时功率为
+$$P=\frac{2}{3}\frac{e^2}{m^2c^3}\gamma^2\bigg(\dt{\vps}\bigg)^2$$
+都与受力平方正比，但圆周辐射会有额外因子$\gamma^2$，意味着加到相同速度会需要更多外场能量。
+
+\subsection{粒子辐射的频谱}
+利用上节讨论，在$t$时刻观测到的粒子辐射功率角分布为
+$$\dt[\Omega]{P(t)}=\frac{e^2}{4\pi c}\bigg|\frac{\vns\times((\vns-\vbeta)\times\dot{\vbeta})}{(1-\vbeta\cdot\vns)^3}\bigg|^2\bigg|_{ret}$$
+记右侧为$|\va(t)|^2$，注意这里使用探测者的时间，因为频谱按探测者时间度量。单位立体角中总能量应为
+$$\dt[\Omega]{W}=\int|\va(t)|^2\dr t$$
+记对应傅里叶变换与逆变换为
+$$\va(\omega)=\frac{1}{\sqrt{2\pi}}\int\va(t)\er^{\ir\omega t}\dr t,\quad\va(t)=\frac{1}{\sqrt{2\pi}}\int\va(\omega)\er^{-\ir\omega t}\dr\omega$$
+
+利用\textbf{帕塞瓦尔等式}，$\int|\va(t)|^2\dr t=\int|\va(\omega)|^2\dr\omega$，又因$\va(t)$为实数由定义可知$\va(-\omega)=\va(\omega)^*$，其模长相等，因此有
+$$\dt[\Omega]{W}=\int_0^\infty\frac{\dr^2I}{\dr\omega\dr\Omega}\dr\omega,\quad\frac{\dr^2I}{\dr\omega\dr\Omega}=2|\va(\omega)|^2$$
+
+*此处$\frac{\dr^2I}{\dr\omega\dr\Omega}$即为\textbf{频谱角分布}。
+
+将$\va(t)$的表达式代入，并利用$t$与$t'$的关系，即知
+$$\va(\omega)=\sqrt{\frac{e^2}{8\pi^2c}}\int\er^{\ir\omega(t'+R(t')/c)}\frac{\vns\times((\vns-\vbeta)\times\dot{\vbeta})}{(1-\vbeta\cdot\vns)^2}\dr t'$$
+
+下面假设辐射粒子的运动在坐标原点附近，而观测点非常遥远，这时$\vns$近似为常矢量，回顾之前近似$R(t')\approx|\vx|-\vns\cdot\vrs(t‘)$，其中$\vrs$代表粒子的轨迹，由此，由只和模长有关忽略常数相因子$\er^{\ir\omega|\vx|/c}$，可得到[将积分变量$t'$重新记为$t$]
+$$\va(\omega)=\sqrt{\frac{e^2}{8\pi^2c}}\int\er^{\ir\omega(t-\vns\cdot\vrs(t)/c)}\frac{\vns\times((\vns-\vbeta(t))\times\dot{\vbeta}(t))}{(1-\vbeta(t)\cdot\vns)^2}\dr t$$
+
+*由此，只要轨迹方程已知即可通过$\va(\omega)$计算出频谱角分布。
+
+利用
+$$\frac{\vns\times((\vns-\vbeta(t))\times\dot{\vbeta}(t))}{(1-\vbeta(t)\cdot\vns)^2}=\dt{}\frac{\vns\times(\vns\times\vbeta(t))}{1-\vbeta(t)\cdot\vns}$$
+并分部积分可得到化简的表达式
+$$\frac{\dr^2I}{\dr\omega\dr\Omega}=\frac{e^2\omega^2}{4\pi^2c}\bigg|\int(\vns\times(\vns\times\vbeta(t)))\er^{\ir\omega(t-\vns\cdot\vrs(t)/c)}\dr t\bigg|^2$$
+
+\
+
+\textbf{周期情况}
+
+若粒子运动完全周期，设其角频率[\textbf{基频}]为$\omega_0$，则辐射电磁波频率应为基频整数倍。此时由傅里叶级数作展开
+$$\va(t)=\sum_{n=-\infty}^\infty\va_n\er^{-\ir n\omega_0t},\quad\va_n=\frac{1}{T}\int_{-T/2}^{T/2}\va(t)\er^{\ir n\omega_0t}\dr t$$
+
+这里$T$即为周期$2\pi/\omega_0$，这时平均功率可写为
+$$\dt[\Omega]{P}=\frac{1}{T}\int_{-T/2}^{T/2}|\va(t)|^2\dr t=|\va_0^2|+2\sum_{n=1}^\infty|\va_n|^2$$
+
+利用傅里叶级数的帕塞瓦尔等式，且仍由定义$\va_{-n}=\va_n^*$，可知第二个等号成立。
+
+与之前完全类似算出记第$n$个倍频的平均功率角分布
+$$\dt[\Omega]{P_n}=2|\va_n|^2=\frac{e^2n^2\omega_0^2}{2\pi cT^2}\bigg|\int_{-T/2}^{T/2}(\vns\times(\vns\times\vbeta(t)))\er^{\ir n\omega_0(t-\vns\cdot\vrs(t)/c)}\bigg|^2$$
+
+*考虑半径$a$速度$v$，\textbf{匀速圆周运动}，可从频谱角分布的公式取$\omega=n\omega_0$，积分限定在一个周期，并乘相邻频率间隔$\omega_0=v/a$与周期的倒数$v/(2\pi a)$，即可得到立体角功率
+$$\dt[\Omega]{P_n}=\frac{v^2}{2\pi a^2}\frac{\dr^2I}{\dr\omega\dr\Omega}\bigg|_{\omega=n\omega_0}$$
+这与之前的结果一致。
+
+\subsection{同步辐射的频谱}
+相对论性带电粒子作周期性圆周运动[设半径为$a$]的辐射称为\textbf{同步辐射}。
+
+\
+
+\textbf{定性分析}
+
+回到公式
+$$\dt[\Omega]{P(t')}=\frac{e^2\dot{v}^2}{4\pi c^3}\frac{1}{(1-\beta\cos\theta)^3}\bigg(1-\frac{\sin^2\theta\cos^2\phi}{\gamma^2(1-\beta\cos\theta)^2}\bigg)$$
+
+定性分析可知$\beta\to1$时粒子在$\theta\approx0$周围很小的角度，估计可得集中区域$\Delta\theta\sim\gamma^{-1}$。由于辐射方向性，能够被探测辐射的时间内，粒子只在圆周上行进了很短距离$d=a\Delta\theta$，时间间隔$\Delta t=d/v$，这段时间波前的行进距离为$D=c\Delta t$，因此波前泊位在空间的间隔
+$$L=D-d\sim\frac{a}{\gamma}\bigg(\frac{1}{\beta}-1\bigg)\sim a\gamma^{-3}$$
+对观测者而言，其观测到的电磁脉冲持续时间约为$L/c\sim(a/c)\gamma^{-3}$，也即电磁脉冲时间为周期的$\gamma^{-3}$倍量级。利用傅里叶变换的性质，周期性脉冲频谱的展宽除以基本频率为此因子的倒数，也即
+$$\omega_c\sim\omega_0\gamma^3$$
+这里$\omega_c$为临界频率，$\omega_0$为粒子回旋频率。
+
+\
+
+\textbf{定量分析}
+
+利用
+$$\dt[\Omega]{P_n}=2|\va_n|^2=\frac{e^2n^2\omega_0^2}{2\pi cT^2}\bigg|\int_{-T/2}^{T/2}(\vns\times(\vns\times\vbeta(t)))\er^{\ir n\omega_0(t-\vns\cdot\vrs(t)/c)}\bigg|^2$$
+
+考虑轨迹为$\vrs(t)=a(\cos\omega_0t,\sin\omega_0t,0)$，这时可知归一化速率$\beta=v/c=\omega_0a/c$，由对称性可不妨设观测点在$xz$平面内，$\vns=(\sin\theta,0,\cos\theta)$，记$\phi=\omega_0t$，这时可利用贝塞尔函数的性质
+$$\frac{1}{2\pi}\int_{-\pi}^\pi\er^{\ir n(\phi-z\cos\phi)}\sin\phi\dr\phi=-\frac{1}{z}J_n(nz),\quad\frac{1}{2\pi}\int_{-\pi}^\pi\er^{\ir n(\phi-z\cos\phi)}\cos\phi\dr\phi=\ir J_n'(nz)$$
+算出
+$$\dt[\Omega]{P_n}(\theta)=\frac{e^2n^2\omega_0^2}{2\pi c}\big(\cot^2\theta J_n^2(n\beta\sin\theta)+\beta^2{J_n'}^2(n\beta\sin\theta)\big)$$
+
+*由此可计算得到$\Delta\theta\sim\gamma^{-1}$的结论。
+
+这称为\textbf{Schott公式}。对其积分，经过较复杂的数学计算可知
+$$P_n=\frac{2e^2\omega_0^2}{v}\bigg(n\beta^2J_{2n}'(2n\beta)-\frac{n^2}{\gamma^2}\int_0^\beta J_{2n}(xn\xi)\dr\xi\bigg)$$
+
+对$\beta\to1$的极端相对论情况，这时$n\gg1$的项起主要作用，利用贝塞尔函数在$n\gg1$时的展开式
+$$J_{2n}(2n\xi)\approx\frac{1}{\sqrt{\pi}n^{1/3}}\Phi(n^{1/3}(1-\xi^2)),\quad\Phi(t)=\frac{1}{\sqrt\pi}\int_0^\infty\dr\xi\cos(\xi^3/3-\xi t)$$
+可将辐射功率写为
+$$P_n=-\frac{2e^2\omega_0^2n^{1/3}}{\sqrt{\pi}c}\bigg(\Phi'(u)+\frac{u}{2}\int_u^\infty\Phi(u)\dr u\bigg)$$
+这里$u=n^{2/3}\gamma^{-2}$，$\Phi$称为\textbf{Airy函数}。
+
+对$1\ll n\ll\gamma$，令$u\to0$得到
+$$P_n\approx0.52\frac{e^2\omega_0^2}{c}n^{1/3}$$
+对$n\gg\gamma$，令$u\to\infty$，利用Airy函数的渐近展开得到
+$$P_n\approx\frac{e^2\omega_0^2}{2\sqrt{\pi}c}\sqrt{\frac{n}{\gamma}}\exp\bigg(-\frac{2}{3}n\gamma^{-3}\bigg)$$
+
+*频谱随$n^{1/3}$增大，在$n\sim\gamma^3$左右达到极大，再随$n$指数减小。对极端相对论粒子$\gamma$很大，因此频谱非常宽，与定性结果一致。
+
+\subsection{切连科夫辐射}
+
+之前的讨论都在真空中，考虑介质中运动[假设$\mu=\mu_0$]，标势矢势满足的波动方程(高斯单位制)为
+$$\nabla^2\Phi-\frac{\epsilon}{c^2}\ppt{\Phi}=-\frac{4\pi}{\epsilon}\rho,\quad\nabla^2\va-\frac{\epsilon}{c^2}\ppt{\va}=-\frac{4\pi}{c}\vj$$
+
+考虑看作四矢量的傅里叶变换[这里内积为四矢量内积，对其他量类似]
+$$\Phi(\vx,t)=\int\frac{\dr^3k\dr\omega}{(2\pi)^4}\Phi(\vks,\omega)\er^{-\ir k\cdot x}$$
+
+对介质匀速运动的粒子，电荷密度、电流密度为
+$$\rho(\vx,t)=e\delta^3(\vx-\vvs t),\quad\vj(\vx,t)=\vvs\rho(\vx,t)$$
+利用$\delta$函数的傅里叶变换可知
+$$\vj(\vks,\omega)=2\pi e\vvs\delta(\omega-\vks\cdot\vvs)$$
+由此得到[这里$\epsilon(\omega)$为原本$\epsilon(t)$的傅里叶变换结果，类似第一章]
+$$\va(\vks,\omega)=\frac{8e\pi\vbeta}{\vks^2-\omega^2\epsilon(\omega)/c^2}\delta(\omega-\vks\cdot\vvs)$$
+由此作傅里叶逆变换，写回三维形式，假设$\vvs=v\ves_3$，$\vx_\bot=(x_1,x_2,0)$，$\vks_\bot=(k_1,k_2,0)$，得到
+$$\va(\vx,t)=4\pi e\vbeta\int\frac{\dr^3k}{(2\pi)^3}\frac{\er^{\ir k_3(x_3-vt)}\er^{\ir\vks_\bot\cdot\vx_\bot}}{k_3^2(1-\beta^2\epsilon(k_3v))+\vks_\bot^2}$$
+
+*若$\beta^2\varepsilon>1$，积分存在奇点，与本章开头讨论完全类似，此积分存在奇点，需要在满足推迟条件的围道上积分，再趋于实轴。
+
+以$z$轴为轴构造锥体，顶点为粒子位置$(0,0,vt)$，假定\textbf{粒子运动速度高于介质中光速}$c/\sqrt\epsilon$，电磁波波前的运动方向与粒子运动方向间的夹角即为
+$$\theta_C=\cos^{-1}\frac{c}{v\sqrt\epsilon}$$
+以此角作为顶角，就得到切连科夫辐射对应的\textbf{切连科夫锥}。
+
+*对切连科夫锥外部的所有点，电磁势为0，事实上对应力学中的\textbf{马赫锥}，即类似超声速时产生的激波。
+
+对内部的点，假设$\epsilon$为常数，考虑合适围道后积分可得到
+$$\va(\vx,t)=\frac{2e\vbeta}{\sqrt{(x_3-vt)^2-(\beta^2\epsilon-1)\vx_\bot^2}}$$
+
+*此公式只是近似公式，算出的磁场在锥面发散，这是由于未考虑$\epsilon$的频率依赖。
+
+*利用此锥的形式可制造探测器，通过角度进行速度选择。
+
+\subsection{辐射阻尼}
+辐射阻尼即带电粒子辐射对自身运动的影响，事实上不考虑量子时无法完美解决此问题。
+
+\
+
+\textbf{亚伯拉罕-洛伦兹方程}
+
+考虑非相对论粒子，对应辐射功率为拉莫尔公式，在某时间尺度$\tau$，由其加速运动，这个时间尺度内获得动能[假设速度为小量]\ $\Delta E_k\sim m(a\tau)^2$，这里$a$为加速度。若获得动能与辐射能量相当，就需要考虑辐射阻尼，这时利用拉莫尔公式得到
+$$m(a\tau)^2=\frac{2e^2a^2}{3c^3}\tau$$
+于是可知特征时间尺度为
+$$\tau=\frac{2}{3}\frac{e^2}{mc^3}$$
+若考虑的时间尺度$T\gg t$，可忽略辐射阻尼的效应，否则必须考虑。
+
+*此特征时间约为$10^{-24}\text{s}$量级。
+
+将辐射阻尼等效为力$\vf_{rad}$，则其应满足一段时间内做功等于能量耗散，即
+$$\int_{t_1}^{t_2}\vf_{rad}\cdot\vvs\dr t=-\int_{t_1}^{t_2}\frac{2}{3}\frac{e^2}{c^3}\dot{\vvs}\cdot\dot{\vvs}\dr t$$
+利用对右侧分部积分[这里假设产生的$t_1$、$t_2$差值项为0]可知可以取
+$$\vf_{rad}=\frac{2}{3}\frac{e^2}{c^3}\ddot{\vvs}=m\tau\ddot{\vvs}$$
+由此运动方程为
+$$m(\dot{\vvs}-\tau\ddot{\vvs})=\vf_{ext}$$
+这里右侧为电磁场作用力，此方程即为亚伯拉罕-洛伦兹方程，其即使对无外力的情形也存在发散解[随时间指数增加]，这里假设辐射阻尼充分小，且不考虑非物理的发散解。
+
+\
+
+\textbf{辐射阻尼下受迫振动}
+
+考虑质量$m$、电荷$e$，固有频率$\omega_0$的带电振子，在频率$\omega$的电磁波中，且具有阻尼系数$\Gamma'$，并需要考虑辐射阻尼，这时方程可写为
+$$\ddot{\vx}+\Gamma'\dot{\vx}-\tau\dddot{\vx}+\omega_0^2\vx=\frac{e}{m}\ves_0E_0\er^{-\ir\omega t}$$
+
+*由于右侧对$t$导数为$\ir\omega$倍，可将左侧再进行一次处理得到四次常系数线性微分方程，从而通过本征值算得通解，再结合不允许发散与原方程得到此方程的全部解，此处简化考虑，取出一个特解
+$$\vx=\frac{e}{m}\frac{E_0\er^{\ir\omega t}}{\omega^2-\omega^2-\ir\omega\Gamma_t(\omega)}\ves_0,\quad\Gamma_t(\omega)=\Gamma'+\frac{\omega^2}{\omega_0^2}\Gamma,\quad\Gamma=\omega^2\tau$$
+
+与汤姆孙散射完全类似可以得到
+$$\frac{\dr\sigma}{\dr\Omega}=\frac{e^4}{m^2c^4}|\ves^*\cdot\ves_0|^2\frac{\omega^4}{(\omega_0^2-\omega^2)^2+\omega^2\Gamma_t^2}$$
+
+*最后一项前即为汤姆孙散射表达式，而最后一项在$\omega$相比$\omega_0$很小时正比于$\omega^4$，接近偶极散射的行为。
+
+*若总振子宽度$\Gamma_t(\omega)$很小，$\omega$接近$\omega_0$时会出现强烈的共振，趋于0时频谱几乎都在$\omega_0$处。
+
+\
+
+\textbf{电子自能}
+
+亚伯拉罕与洛伦兹假设带电粒子的动量本质是电磁的，也即其动量实际上为其产生电磁场的动量。考虑带电粒子在外电磁场运动，称为\textbf{亚伯拉罕-洛伦兹模型}。
+
+由于总动量守恒[即洛伦兹力密度体积分为0]
+$$\int\dr^3x\bigg(\rho\ve+\frac{1}{c}\vj\times\vb\bigg)=0$$
+这里$\ve=\ve_e+\ve_s,\vb=\vb_e+\vb_s$，下标$e$表示外加，下标$s$表示粒子产生的电磁场，要求带电粒子的运动方程符合牛顿力学$\dt{\vps}=\vf_e$的形式，再由洛伦兹力公式可得
+$$\dt{\vps}=-\int\dr^3x\bigg(\rho\ve_s+\frac{1}{c}\vj\times\vb_s\bigg)$$
+
+假定电荷分布存在尺度$a$内，且球对称；其具有刚性，于是$\vj=\rho\vvs$。选择某带电粒子在其中瞬间静止，$\vj=0$的参考系，考虑粒子产生电场$\ve_s,\vb_s$对应的电磁势$A^\mu=(\Phi,\va)$可得
+$$\dt{\vps}=\int\dr^3x\rho(\vx,t)\bigg(\nabla\phi(\vx,t)+\frac{1}{c}\pt{\va(\vx,t)}\bigg)$$
+
+回顾本章开头$A^\mu$用$D^+$表示的解，利用推迟的写法可得
+$$A^\mu(\vx,t)=\frac{1}{c}\int\dr^3x'\frac{J^\mu(\vx',t')\big|_{ret}}{R}$$
+
+*注意这里$J^\mu$对不同$\vx'$的推迟时间$t'$不同。
+
+但是，由于假设电荷分布尺度$a$较小，推迟时间很小，且$R=|\vx-\vx'|$可视为常数，在$t$将其泰勒展开[利用$t'=t-R/c$]
+$$J^\mu(\vx,t')\big|_{ret}=\sum_{n=0}^\infty\frac{(-1)^n}{n!}\frac{R^n}{c^n}\pt[t^n]{^n}J^\mu(\vx,t)$$
+
+将此表达式代入$A^\mu$，再代入$\dt{\vps}$表达式，通过刚性条件、球对称性、电荷守恒、分部积分等复杂的计算可以得到
+$$\dt{\vps}=\sum_{n=0}^\infty\frac{(-1)^n}{c^{n+2}}\frac{2}{3n!}\pt[t^{n+1}]{^{n+2}\vvs}\int\dr^3x\dr^3x'\ \rho(\vx,t)\rho(\vx',t)R^{n-1}$$
+
+注意到$n=0$的项为[上标$em$表示电磁场]
+$$\frac{4U_s^{em}}{3c^2}\dot{\vvs},\quad U_s^{em}=\frac{1}{2}\int\dr^3x\dr^3x'\frac{\rho(\vx,t)\rho(\vx',t)}{R}$$
+此即为自身静电能的贡献，由刚性可知$U_s$与时间无关，由此可以定义带电粒子的\textbf{电磁质量}$m^{em}=U_s^{em}/c^2$。
+
+对$n=1$的项，计算可发现其恰为辐射阻尼的表达式
+$$-\frac{2e^2}{3c^3}\ddot{\vvs}$$
+
+高阶项在$a\to0$时为小量，因此仅考虑前两项贡献即得
+$$\frac{4}{3}m^{em}\dot{\vvs}-\frac{2e^2}{3c^3}\ddot{v}=\vf_e$$
+
+这与之前的亚伯拉罕-洛伦兹方程形式一致，但质量被替换成了电磁质量。
+
+*这里的讨论均为非相对论，利用相对论性可精确确定系数$\frac{4}{3}$应为1。
+
+*虽然$a\to0$为小量的近似是自然的，但这时$U^{em}_s\sim e^2/a$会发散，经典电动力学无法解决，这事实上需要在量子电动力学中利用\textbf{重整化}解决。
+
+\end{document}

@@ -1,0 +1,351 @@
+\documentclass[a4paper,UTF8,fontset=windows,10pt]{ctexart}
+\title{\heiti 复分析\ 习题解答}
+\author{郑滕飞2401110060}
+\date{}
+
+\usepackage{amsmath,amssymb,enumerate,geometry,mathrsfs}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\setlength{\parindent}{0pt}
+
+\newcommand*{\er}{\mathrm{e}}
+\newcommand*{\ir}{\mathrm{i}}
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\newcommand*{\im}{\mathrm{Im}\,}
+\newcommand*{\re}{\mathrm{Re}\,}
+
+\begin{document}
+\maketitle
+
+*李忠《复分析导引》习题解答
+
+\tableofcontents
+
+\newpage
+
+\section{Riemman映射定理}
+\begin{enumerate}
+    \item 直接验证可知这样形式的为共形映射，下证只能为如下形式。
+    
+    利用柯西积分定理可以证明，若$f$在区域$D$全纯，$\overline{B_r(z)}\subset D$，则$f$可以在$B_r(z)$上唯一展开为级数，由此整函数$f$可在$\mathbb{C}$上展开为级数
+    $$f(z)=\sum_{n=0}^\infty a_nz^n$$
+
+    若无穷远点为$f$的可去奇点，则可发现$n>0$的$a_n$均为0，否则极限不可能存在，由此知$f$为常数，矛盾。(类似可直接得到有界整函数为常数。)
+
+    若无穷远点为$f$的本性奇点，任取$A\in\mathbb{C}$，存在$z_n\to\infty$使得$f(z_n)\to A$，但由其为共形映射可知$f^{-1}(f(z_n))\to f^{-1}(A)\ne\infty$，矛盾。
+
+    由此无穷远点为极点，于是$f$为多项式。利用代数基本定理即知$f$为一次多项式时才为共形映射。
+
+    \item 直接验证可知这样形式的为共形映射，下证只能为如下形式。
+    
+    若某共形映射满足$f(0)=a$，复合$\varphi:z\to\frac{z-a}{1-\bar{a}z}$可将其变为$g(0)=0$的共形映射$g$，
+
+    另一方面，设$g^{-1}=h$，由于$g'(0)h'(0)=1$，根据Schwarz引理，$|g'(0)|\le1,|h'(0)|\le1$，于是必然等号均成立，可知$g$为旋转。而$f=\varphi^{-1}\circ g$，从而得证。
+
+    \item 直接验证可知这样形式的为共形映射，下证只能为如下形式。
+    
+    若$f(\infty)=\infty$，则利用习题1.1可知为线性函数，满足要求，否则$f(\infty)=z_0$，复合$z\to\frac{1}{z-z_0}$即可得到$g(\infty)=\infty$的共形映射$g$，类似习题1.2即得证。
+
+    对同构，直接将$\frac{az+b}{cz+d}$\ (由于对应行列式$ad-bc\ne0$，可不妨同倍数使之为1)映射至矩阵$\begin{pmatrix}a&b\\c&d\end{pmatrix}$即可。
+
+    \item 任取某$z_0\in\mathbb{H}$，考虑$\mathbb{H}$到$\Delta$的映射$\varphi(z)=\frac{z-z_0}{z-\bar{z}_0}$，可验证其为共形映射，从而$\mathbb{H}$的共形映射$f$一定满足$\varphi\circ f\circ\varphi^{-1}$是$\Delta$的共形映射，从而可得到全部这样的映射形式为
+    $$z\to\frac{az+b}{cz+d},\quad a,b,c,d\in\mathbb{R},\quad ad-bc=0$$
+    与习题1.3相同构造映射即可。
+
+    \item
+    由于1的邻域存在实数$p>1$，而$p^n\to\infty$\ (于是对任何$M$，$f_n(z)<M$处处成立的$n$至多有限)，因此任何子列都不可能在此点收敛，从而不可能一致收敛，得证。
+
+    \item 对$a\in\mathbb{C}\backslash\{0,1\}$，若其在上半平面中，考虑上半平面作为其邻域，原像为一系列白色开曲边三角形，两两不交且每个上为共形映射，得证；若其在下半平面中，同理考虑黑色开曲边三角形。
+    
+    若其在实轴上，在$a\in(0,1)$时，取一个小圆$U=B_\varepsilon(a)$作为邻域使得$0,1\notin U$，考虑每个白色的开曲边三角形与其对应的$L_1$连接的黑色开曲边三角形，将两者与它们连接处的边(不包含顶点)的并记为$W_i$。由于每个白色曲边三角形与每个黑色曲边三角形都只会有一条边编号为$L_1$，所有$W_i$两两不交。此外，计算知$\mu$为$W_i\to\mathbb{C}\backslash(-\infty,0]\cap[1,\infty)$的共形映射，于是每个$W_i$的像集都包含$U$，再记$W_i$上$U$的原像为$V_i$，即满足1.5节对覆盖映射的定义。同理，在$a\in(-\infty,0)$与$a\in(1,\infty)$时，考虑$L_3$与$L_2$即得成立。
+
+    综合以上讨论即得到$\mu$是一个覆盖映射。
+
+    \item 由于球极投影的逆为
+    $$z\to\bigg(\frac{z+\bar{z}}{|z|^2+1},\frac{z-\bar{z}}{\ir(|z|^2+1)},\frac{|z|^2-1}{|z|^2+1}\bigg)$$
+    记三个坐标为$x_1,x_2,x_3$，则
+    $$\dr s=\sqrt{(\dr x_1)^2+(\dr x_2)^2+(\dr x_3)^2}$$
+    而
+    $$|\dr z|=\sqrt{(\dr x)^2+(\dr y)^2}$$
+    直接将$\dr x_1,\dr x_2,\dr x_3$对$x,y$求偏导后展开为$\dr x$与$\dr y$即得结论。
+
+    \item *王跃飞、常建明，正规族理论及其新研究
+    
+    *此结论称为\textbf{Marty定则}
+    
+    定义$z_1,z_2\in\bar{C}$的球面距离(即球极投影原像在三维欧氏空间中的距离)
+    $$|z_1,z_2|=\frac{|z_1-z_2|}{\sqrt{1+|z_1^2|}\sqrt{1+|z_2|^2}}$$
+    并记球面导数
+    $$f^\#(z)=\frac{|f'(z)|}{1+|f(z)|^2}$$
+    可验证其即为
+    $$\lim_{\Delta z\to0}\frac{|f(z+\Delta z),f(z)|}{|\Delta z|}$$
+
+    仿照一致收敛/等度连续的概念，我们可以定义按球面距离一致收敛/等度连续。可以发现，这时正规族的定义即为将一致收敛改为按球面距离一致收敛。
+
+    \
+
+    \textbf{引理}：设$\overline{z_1z_2}$表示连接两者的线段，则有
+    $$|f(z_1),f(z_2)|\le\int_{\overline{z_1z_2}}f^\#(z)|\dr z|$$
+
+    \textbf{引理证明}：利用习题1.7，右侧即为连接$f(z_1)$、$f(z_2)$两点在球面上的测地线长度，而左侧为线段长度，由弦长小于弧长得证。
+
+    \
+
+    \textbf{定理证明}：我们证明加强的结论，即$\mathcal{F}$是$D$上的正规族当且仅当$f_\alpha^\#(z)$内闭一致有界。
+    \begin{itemize}
+        \item 仅当：利用非负性，若$f_\alpha^\#(z)$并不内闭一直有界，存在$D$某紧子集$E$，使得$E$中有一列$f_n$与对应$z_n$满足$f_n^\#(z_n)\to+\infty$。
+        
+        利用紧性可知$z_n$有收敛子列，不妨仍记为$z_n$，并设极限为$z_0$，取定其包含在$D$中的某闭圆$\bar{B}_r(z_0)$；又由正规性，可取出$f_n$在$\bar{B}_r(z_0)$按球面距离一致收敛到$f$或无穷的子列，仍记为$f_n$。
+
+        分类讨论，若$f_n\to f$且$f(z_0)\ne\infty$，可证明其在$z_0$某邻域内按欧氏距离一致收敛到$f$，于是全纯性满足，但这可以得到$f_n^\#$一致收敛到$f^\#$，与$f_n^\#(z_n)\to\infty$矛盾。
+
+        反之，若$f_n\to f$且$z_0$为极点，或$f_n\to\infty$，则考虑$1/f$可类似证明$1/f_n$按欧氏距离一致收敛到$1/f$或0，但计算可知$(1/f)^\#=f^\#$，从而$f_n^\#(z_n)$仍然有界，矛盾。
+
+        \item 当：只需证明其在任何一点附近的闭邻域正规，考虑$\bar{B}_r(z_0)$，由于$f_\alpha^\#$在其中有一致上界$M$，利用引理即可知
+        $$\forall z_1,z_2\in\bar{B}_r(z_0),\quad f_\alpha\in\mathcal{F},\quad |f_\alpha(z_1),f_\alpha(z_2)|\le M|z_1-z_2|$$
+        这事实上即为按球面距离等度连续，下证明其正规。
+
+        记$\Omega=\bar{B}_r(z_0)$，对$\mathcal{F}$中任一函数列$f_n$，由于球面紧性可知任何一点处能取出$f_n$在这点按球面距离收敛的子列。考虑$A$为$\Omega$中所有有理点的集合，由于其可数，利用对角线方法即可构造$f_n$在$A$上按球面距离收敛的子列，仍记为$f_n$。
+
+        与Arzela-Asgoli引理的证明完全类似，即可证明这样的$f_n$按球面距离内闭一致收敛，从而已经符合广义正规族的定义。
+    \end{itemize}
+
+    \item 由于$\Delta$的任何一个紧子集均存在$q<1$使得$|z|\le q$，利用偏差定理可得其中
+    $$|f(z)|\le\frac{|z|}{1-|z|^2}\le\frac{q}{1-q^2}$$
+    由Montel定理得结论。
+
+    \item 与Montel定理证明类似，对任何紧集$K\in D$，取$r$使得每点$z\in K$满足$B_r(z)\subset D$，则由平均值原理
+    $$f(z)=\frac{1}{\pi r^2}\iint_{B_r(z)}f(w)\dr w$$
+    从而$|f(z)|\le\frac{M}{\pi r^2}$，由Montel定理得结论。
+
+    \item 由于$|f(z)|\le\sum_{n=1}^\infty n|z|^n$，而$\Delta$的任何一个紧子集均存在$q<1$使得$|z|\le q$，由于$nq^n$级数收敛即可知一致有界，由Montel定理得结论。
+    
+    \item 由偏差定理，对任何$\varepsilon>0$，可取$\delta>0$使得$|z|> 1-\delta$时$|f(z)|>\frac{1}{4}-\varepsilon$。由于$f(0)=0$，利用边界对应可知$f(\Delta)$包含$B_{1/4-\varepsilon}(0)$，令$\varepsilon\to0$得结论。
+\end{enumerate}
+
+\section{广义Schwarz引理及其应用}
+\begin{enumerate}
+    \item 只需说明任何非零次多项式存在根$z_0$即可通过除以$z-z_0$并归纳得到结果。
+    
+    若结论不成立，对任何$r>0$，存在$R$使得$f:B_r(0)\to B_R(0)\backslash\{0\}$。
+
+    直接计算可得对应两个区域的
+    $$\sigma_1(z)=\frac{2r}{r^2-|z|^2},\quad\sigma_2(z)=\frac{1}{|z|\ln(R/|z|)}$$
+    于是利用广义Schwarz引理有对任何$z\in B_r(0)$
+    $$\frac{|f'(z)|}{|f(z)|\ln(R/|f(z)|)}\le\frac{2r}{r^2-|z|^2}$$
+    由$f$为多项式，存在$C,n$使得能取$R=Cr^n$，整理得
+    $$r^2|f'(z)|\le|z|^2|f'(z)|+2r|f(z)|(\ln C+n\ln r-\ln|f(z)|)$$
+    只要$f'(z)\ne0$，固定$z$，取$r$充分大即矛盾，由此若无根必须处处$f'(z)=0$，这即说明了是零次多项式。
+    
+    \item 可构造共形映射$\varphi:\mathbb{H}\to\Delta$
+    $$\varphi(z)=\frac{z-\ir}{\mathrm{i}z-1}$$
+    由此可得上半平面Poincar\'e度量为
+    $$\dr s=\frac{2|\varphi'|}{1-|\varphi|^2}|\dr z|=\frac{2|\dr z|}{\ir(\bar{z}-z)}=\frac{|\dr z|}{\im z}$$
+
+    \item 由于单位圆上共形映射不影响Poincar\'e度量，旋转可发现$B(0,r)$为通常圆周，再由分式线性变换保圆周即知成立。
+    
+    \item 利用习题2.2，由于
+    $$\dr s^2=\frac{1}{y^2}(\dr x^2+\dr y^2)$$
+    可知面积为
+    $$\int_1^\infty\int_0^1\frac{1}{y^2}\dr x\dr y=1$$
+    而长度即
+    $$\int_\gamma\frac{|\dr z|}{\im z}=\int_0^1\frac{1}{y}\dr t=\frac{1}{y}$$
+    从而得证。
+
+    \item 考虑$\mathbb{H}\to B_R$的覆叠映射
+    $$f(z)=\exp\bigg(-\frac{\ir\ln R}{\pi}\ln z\bigg)$$
+    其逆的单值分支可取
+    $$\varphi(z)=\exp\bigg(\frac{\ir\pi}{\ln R}\ln z\bigg)$$
+    由此可知
+    $$\dr s=\frac{|\varphi'|}{\im\varphi}|\dr z|$$
+    代入可得结论。
+    
+    \item 平移、放缩可不妨设$f$不取$0,1$，则对$f(rz)$应用Schottky定理可知对任何$z\in \Delta$有
+    $$\ln|f(rz)|\le(C+\ln^+f(0))\frac{1+|z|}{1-|z|}-C$$
+    从而记$w=rz$可知对任何$w\in B_r(0)$有
+    $$\ln|f(w)|\le(C+\ln^+f(0))\frac{r+|w|}{r-|w|}-C$$
+    固定$w$，令$r\to\infty$可知
+    $$\ln|f(w)|\le \ln^+f(0)$$
+    于是其必然有界，从而为常数。
+
+    \item 由Picard大定理，根据$f$不能取两值可知$\infty$不为本性奇点，从而类似习题1.1知$f$只能为多项式，再由代数学基本定理可知为常数。
+    
+    \item 计算可发现$|z|<|z-1|$实质上是$\re z<\frac{1}{2}$，由此$\Omega_1$边界为
+    $$\re z=\frac{1}{2},\quad \im z\in[-\sqrt3/2,\sqrt3/2]$$
+    $$|z|=1,\quad\re z\le\frac{1}{2}$$
+    两段拼合而成。
+
+    由支撑度量定义，只需验证第一段中$\sigma(z)$对外法向的导数小于0，对第一段此导数即为$\frac{\partial}{\partial x}$，直接计算有
+    $$\frac{\partial\ln\sigma}{\partial x}=-\frac{1}{4|z|^2}+\frac{\re\sqrt{z}}{|z|^2}(4-\ln|\zeta|)^{-1}$$
+    由$|\zeta|<1$与$\re\sqrt{z}<1$可知为负。
+
+    \item 直接利用提示可得到结果。
+\end{enumerate}
+
+\section{共形模与极值长度}
+\section{拟共形映射}
+\section{Reimann曲面的基本概念}
+\begin{enumerate}
+    \item 考虑映射
+    $$\varphi(z)=\er^{\im z+\ir\re(2\pi z)}$$
+    可发现$\varphi(z_1)=\varphi(z_2)$当且仅当$z_2=z_1+m,m\in\mathbb{Z}$，由此可验证其可看作$\mathbb{C}/\Gamma\to\mathbb{C}\backslash\{0\}$的双射，由此定义坐标卡即可验证为Riemman曲面的同构。
+
+    \item 由半纯函数的定义，只需证明$\mathbb{C}$中区域上的半纯函数是到$\bar{\mathbb{C}}$的全纯映射即可。利用连续性，若$f(z)$在某点上是无穷，必然有邻域上均不为0，由此这点附近$\frac{1}{f(z)}$全纯，利用$\bar{\mathbb{C}}$作为黎曼曲面的定义即知$f$为全纯映射。
+    
+    \item *需要假设其不恒为无穷。
+    
+    利用紧性可知，$f(z)=\infty$的$z$一定个数有限，否则存在一列$z_n$趋于$z$(可能为$\infty$)使得$f(z_n)=f(z)=\infty$，于是$\frac{1}{z}$有一列零点，由其可展开为Laurant级数可知必然全为0，矛盾。
+
+    由于$f(z)=\infty$的$z$为极点，不妨设有$z_1,\dots,z_n$，分别为$k_1,\dots,k_n$阶极点，则考虑
+    $$g(z)=f(z)\prod_{i=1}^n(z-z_i)^n$$
+    可发现其必然为整函数，于是类似习题1.1过程可知$g(z)$为多项式，从而得证。
+
+    \item 利用覆盖层数定义，只需考虑零点个数，当$\deg P\ge\deg Q$时，$f(\infty)=\infty$，于是零点只有$\mathbb{C}$上的零点，即为$P$的次数；当$\deg P<\deg Q$时考虑为极点个数同理得到结论。
+    
+    \item 利用定义，由于$\bar{C}$两个坐标卡的坐标转换映射$f_{\alpha\beta}(z)=\frac{1}{z}$，利用定义得$\infty$附近为
+    $$\dr z_\beta=-\frac{1}{z^2}\dr z$$
+    而$\infty$在此坐标为0，由此为二阶极点。
+
+    \item 考虑$S_2$到$S_1$上一阶微分形式间的拉回映射$f^*$，由定义
+    $$f^*(\omega)(v(\varphi))=\omega(v(\varphi\circ f))$$
+
+    根据定义可知其为线性，因此只要说明同构。由于$f$看作坐标卡之间的映射是全纯的，设$S_2$某坐标卡下为$u\dr z$，$f$在$S_1$某坐标卡映射到此坐标卡时表示为全纯函数$f$，则
+    $$f^*(u\dr z)\bigg(a\frac{\partial}{\partial z}+b\frac{\partial}{\partial\bar{z}}\bigg)=u\dr z\bigg(a f'\frac{\partial}{\partial z}\bigg)=af'u=f'u\dr z\bigg(a\frac{\partial}{\partial z}+b\frac{\partial}{\partial\bar{z}}\bigg)$$
+    由$f$全纯，$u$半纯可知$f'u$半纯，从而其将半纯微分映射到半纯微分，其逆亦然。由于其对所有半纯微分有定义，$f^*$的逆为半纯微分到半纯微分的满射，同理可知$f^*$为半纯微分到半纯微分的满射，于是其为双射，结合线性性知同构。
+
+    \item 其在每个局部坐标下由定义可知半纯，只需证明坐标变换下不变，而根据一阶形式的坐标变换公式，$f'_{\alpha\beta}$被消去，由此可知不变，从而构成半纯函数。
+
+    \item 考虑局部表示知$\omega_1/\omega_2$的零点个数为$\omega_1$零点个数减去$\omega_2$极点个数，$\omega_1/\omega_2$的极点个数为$\omega_1$极点个数减去$\omega_2$零点个数，又由习题5.7知其为半纯函数，根据5.3节知两者相同，移项即得$\omega_1$与$\omega_2$零点个数减去极点个数相同。
+    
+    当$S=\bar{\mathbb{C}}$，由习题5.5可知零点个数减去极点个数为$-2$。
+
+    \item 由习题5.8，其必然存在极点，从而不可能有非平凡的全纯微分。
+    
+    \item 若否，假设有一列零点趋于某点$p$，考虑这点附近的局部坐标表示，可发现一个全纯函数有非孤立零点，考察级数展开可知必然恒为0。
+    
+    考虑所有与$p$连通的零点集合，由于总有坐标卡下使其局部全纯可知其为闭集，而利用级数展开可知其为开集，从而只能为全曲面，即得其平凡。
+
+    \item 考虑每个坐标表示下，即有全纯函数等于其共轭，于是其虚部为0，根据CR方程可知只能为0，得证。
+    
+    \item 若$\omega=\alpha_1+\beta_1+h_1=\alpha_2+\beta_2+h_2$，有
+    $$\alpha_1+\beta_1-\alpha_2-\beta_2=h_2-h_1$$
+    但左右侧所在空间相互正交，从而只能均为0，这就得到了$h_1=h_2$，更进一步地，
+    $$\alpha_1-\alpha_2=\beta_2-\beta_1$$
+    但左右侧所在空间相互正交，于是$\alpha_1=\alpha_2,\beta_1=\beta_2$。
+    
+    \item 分实部虚部可知$f\in C_0^\infty(S)$时必然$\bar{f}\in C_0^\infty(S)$，从而设分解为
+    $$\omega=\alpha+\beta+h$$
+    下面先证明
+    $$\bar\omega=\bar\alpha+\bar\beta+\bar{h}$$
+    为$\bar\omega$的对应分解。
+    
+    根据$\bar{f}\in C_0^\infty(S)$可知$\bar\alpha\in E$，$\bar\beta\in E^*$，而由$h$与$E\oplus E^*$正交，利用$(\gamma,\bar h)=\overline{(h,\bar\gamma)}$，若$\gamma\in E\oplus E^*$则有$\bar\gamma\in E\oplus E^*$，于是$(h,\bar\gamma)=0$，由此可发现$\bar h$亦在正交补中。
+
+    利用线性空间封闭性$\omega$可分解为
+    $$\omega=(\omega+\bar\omega)/2=(\alpha+\bar\alpha)/2+(\beta+\bar\beta)/2+(h+\bar{h})/2$$
+    这时右侧的微分形式均为实的，再利用分解唯一性即得证。
+
+    \item 利用内积为连续函数，只要在$E$的一个稠密子集上满足内积为0，即可得到与$E$中任何元素内积为0，而由定义$\{\dr f\mid f\in C_0^\infty(S)\}$在其中稠密，从而得证。
+
+    \item 充分性：由于对任何$F\in C_0^\infty(D)$有$\frac{\partial F}{\partial z}\in C_0^\infty(D)$，对任何$F$均有
+    $$\iint_D\varphi\triangle F=0$$
+    因此利用Weyl引理可知其为调和函数，通过分部积分即得
+    $$\iint_D\frac{\partial\varphi}{\partial\bar{z}}\eta\dr z\wedge\dr\bar{z}=-\iint_D\varphi\frac{\partial\eta}{\partial\bar{z}}\dr z\wedge\dr\bar{z}=0$$
+    从而根据光滑性$\varphi$对$\bar{z}$求偏导恒为0，这就是C-R方程，于是全纯。
+
+    必要性：直接利用上方的分部积分，由于左侧为0可知中间必然为0，得证。
+    
+
+    \item 利用留数定义，$\omega$乘$C$倍后各点留数均变为$C$倍。由此，利用第11节定理2可构造在
+    $S\backslash\{p_1,p_2\}$上全纯且$p_1$为一阶极点，留数$C_1$、$p_2$为一阶极点，留数$C_2$的半纯微分$\omega_1$。
+
+    进一步地，构造$\omega_k,k>1$在$S\backslash\{p_k,p_{k+1}\}$上全纯且$p_k$为一阶极点，留数$C_1+\cdots+C_k$、$p_{k+1}$为一阶极点，留数$-(C_1+\cdots+C_k)$。考虑$\omega=\sum_{k=1}^{m-1}\omega_k$可发现符合要求。
+    
+    \item 设其为$f$，由调和函数连续性可知其能取到最大值，且取最大值集合必然为闭集。
+    
+    另一方面，设$f(z_0)$为其某个最大值最大值，其在局部坐标映射$\psi$下应有$f\circ\psi^{-1}$调和，因此根据平均值原理得周围必然有某小圆$B_r(\psi(z_0))$上$f\circ\psi^{-1}(z)$均为最大值，而由于$\psi$为同胚可知$f$在$z_0$某邻域上取最大值，因此取最大值集合为开集。
+    
+    利用连通性即得$f$只能为常数。
+
+    \item 由于$h_0$调和，可知其在$E^\bot\cap E^{*\bot}$中，于是$(\omega,h_0)=(h,h_0)$，这里$h$为$\omega$分解出的调和微分项。而由于$h$为边界上是0的调和微分，$h_0=\dr f$，与第8节命题1的证明完全类似可验证$(h,\dr f)=0$，从而得证。
+\end{enumerate}
+
+\section{Riemman-Roch定理}
+\begin{enumerate}
+    \item 设$\omega_0$为一个$D$对应的微分，则$\omega_0^m$为一个$m$次非零半纯微分，与4.5节完全相同可证$\varphi\to\varphi/\omega_0^m$构成$\mathscr{H}^m(S)\to L(D^{-m})$的同构。
+    
+    \item 利用Riemann-Roch定理有
+    $$\dim\mathscr{H}^m(S)=\deg D^m-g+1+i(D^m)$$
+    由于$\deg D^m=m(2g-2)$，有$i(D^m)=0$，从而结果即为$(2m-1)(g-1)$。
+
+    \item 与习题5.8完全相同可知$\deg(\Omega)$对任何$\Omega\in\mathscr{H}^m(S)$相同，从而由$\deg(\omega_0^m)=m\deg(\omega_0)=2m(g-1)$得证。
+    
+    \item (TBD)
+
+    \item 只需极点个数(即$\infty$的原像个数)不超过$g$即可得到覆盖层数不超过$g$。
+    
+    考虑任何全纯微分$\omega$，由于$g>1$时$\deg(\omega)=2g-2>g$，且由全纯性$(\omega)$为整除子，存在一个$g$阶的整除子$D$满足$D\le(\omega)$。
+
+    由于$\deg D<2g-2$，$i(D)\ne\{0\}$，由Riemann-Roch定理
+    $$\deg L(D^{-1})=\deg D-g+1+i(D)=1+i(D)\ge2$$
+    由此其中存在非常值的半纯映射，且极点至多$g$个，从而根据利用5.3节知覆盖层数不超过$g$。
+
+    \item 
+    设$D=p_1^{-\alpha_1}\dots p_k^{-\alpha_k}$。由于全纯微分的维数为$g$，可假设$\omega$为规范化半纯微分(最终得到的维数加$g$即可)，且在每个$p_i$处局部表示为
+    $$\big(\dots+a_1^{(i)}z^{-1}+a_2^{(i)}z^{-2}+\dots+a_{\alpha_i}^{(i)}z^{-\alpha_i}\big)\dr z$$
+    利用全纯微分的双线性关系，只要两个$\Omega(D)$中的规范化半纯微分所有$a_j^{(i)}$的值都相同，它们作差即为所有$a$周期为0的全纯微分，于是只能为0，由此，规范化半纯微分由这些值决定。
+
+    另一方面，根据留数定理有
+    $$\sum_{i=1}^ka_1^{(i)}=0$$
+    根据5.11节半纯微分的存在性定理2，对任何符合上述条件的$a_1^{(i)}$，都可以构造出对应的半纯微分，且其余的$a_j^{(i)}=0$；此外，对所有$j>1$的$a_j^{(i)}$，都可以根据5.11节半纯微分的存在性定理1构造出$a_j^{(i)}\ne0$、$a_{j+1}^{(i)}=\dots=a_{\alpha_i}^{(i)}=0$，且$k\ne i$时$a_j^{(k)}=0$的半纯微分。综合上述结论，只要留数定理满足，任取$a_j^{(i)}$一定可以构造出半纯微分，因此所有规范化半纯微分的维数为
+    $$\sum_i\alpha_i-1=-\deg D-1$$
+    这就得到了证明。
+
+    \item
+    \begin{enumerate}[(i)]
+        \item 根据半纯微分零点、极点个数差为$2g-2$，此时$\dim\Omega(D)=0$，从而得证。
+        \item 根据紧Riemman曲面上无非平凡全纯函数，此时$\dim L(D^{-1})=0$，从而得证。
+    \end{enumerate}
+
+    \item
+    根据非平凡半纯函数的乘积极点阶数变为求和，非空隙数的和仍为非空隙数。
+
+    若$\alpha_j+\alpha_{g-j}<2g$，$\alpha_1+\alpha_{g-j},\dots,\alpha_j+\alpha_{g-j}$都是$\alpha_{g-j}$与$\alpha_g=2g$间的非空隙数，与其中非空隙数有$j-1$个矛盾，从而得证。
+
+    \item
+    这代表$i(p^k)-i(p^{k+1})\ge1$，于是根据Riemman-Roch定理
+    $$r(p^{-k-1})-r(p^{-k})=1-(i(p^k)-i(p^{k+1}))\le0$$
+    从而$k+1$为空隙数。
+
+    \item
+    由于常数$\in L(D^{-1})$，$r(D^{-1})\ge2$也即等价于其中存在非平凡半纯函数。
+
+    若$g=0$，由5.11定理其同构于$\bar{\mathbb{C}}$，直接构造$z\to z^2$，其只以无穷为二阶极点，由此其除子的逆即满足要求，于是它为超椭圆型。另一方面，上述映射即为覆盖层数为2的映射，因此不破坏命题。
+    
+    下面证明$g\ge1$时的等价性。考虑$r(D^{-1})$中的非平凡半纯函数，由于$g\ge1$，其不可能只以一个点为一阶极点，因此$D=p_1^{-1}p_2^{-1}$则其以$p_1,p_2$为一阶极点，$D=p^{-2}$则其以$p$为二阶极点，均满足覆盖层数为2。反之，对覆盖层数为2的半纯函数，考虑其除子的逆即满足要求。
+
+    \item
+    $g=0$的情况已经在习题6.10中证明。$g=1$时由Riemman-Roch定理有
+    $$r(D^{-1})=2+i(D)\ge2$$
+    $g=2$时，利用Weierstrass点的存在性，必然存在一点$p$使得$n_2>2$，从而2不为空隙数，考虑以$p$为2阶极点且在其他点全纯的半纯函数，其除子的逆符合要求。
+
+    \item
+    \begin{enumerate}[(i)]
+        \item 利用Riemann-Hurwitz定理可得
+        $$B=2(g-1-2(0-1))=2g+2$$
+        \item 由于覆盖层数为2，对$f$的每一个分歧点$p$，考虑半纯函数
+        $$\varphi(s)=\frac{1}{f(s)-f(p)}$$
+        由于$p$为分歧点，$p$应为$f(s)-f(p)$的至少二阶零点，但根据覆盖层数为2可知零点总阶数为2，于是$p$为$f(s)-f(p)$的唯一二阶零点，也即$p$为$\varphi$的唯一二阶极点，得证2是$p$的非空隙数，根据Weierstrass点定义得成立(否则$1,2,\dots,g$应均为空隙数)。
+        \item 由于非空隙数的和仍为非空隙数(见习题6.8证明)，2为非空隙数时所有偶数均为非空隙数，于是空隙数只能为$1,3,\dots,2g-1$。
+        
+        根据(ii)，每个分歧点作为Weierstrass点的权重均为
+        $$\sum_{j=1}^g(2j-1)-j=\frac{1}{2}g(g-1)$$
+        此外，在(ii)中说明了每个分歧点分歧数只能为1，因此必然存在$2g+2$个分歧点，这就说明了这些点的总权重为
+        $$(2g+2)\cdot\frac{1}{2}g(g-1)=(g-1)g(g+1)$$
+        根据6.7节定理2，权重和为$(g-1)g(g+1)$，于是只有这些点是Weierstrass点。
+
+        \item 由(iii)证明过程即得分歧点个数为$2g+2$，从而有结论。
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

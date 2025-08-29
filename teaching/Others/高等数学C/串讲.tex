@@ -1,0 +1,450 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\pagestyle{headings}
+\title{\textbf{高等数学C上册\ 下半串讲}}
+\author{原生生物}
+\date{}
+\setcounter{tocdepth}{3}
+\setlength{\parindent}{0pt}
+\usepackage{amsmath,amssymb,amsthm,enumerate,geometry,ulem}
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\ctexset{section={number=\zhnum{section}}}
+\ctexset{subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\newcommand*{\er}{\mathrm{e}}
+\newcommand*{\ir}{\mathrm{i}}
+
+\begin{document}
+\maketitle
+高数拥有两条基本的路径：\textbf{求导-原函数}与\textbf{面积-定积分}，最终统一为\textbf{中值定理-泰勒展开}，串讲也按这三部分进行组织——考虑到实际范围，第一部分几乎只会涉及原函数的部分，第三部分也不会讲到中值定理的基本练习，希望大家能自行看书进行相应练习。
+
+*事实上这三部分都以极限基本定义为基础，不过这并不在这次串讲的范围内。出于时间考虑，默认大家掌握了这部分的知识(包含基本概念与极限的保序性等简单性质)，有问题可以单独联系。
+
+求导的动机是``速度''的计算，定积分的动机是``面积''的计算，而中值定理是为了得到核心工具：
+$$\frac{\dr}{\dr x}\int_a^xf(t)\dr t=f(x)$$
+$$\int_a^bg'(t)\dr t=g(b)-g(a)$$
+*本质：求导与积分\textbf{互逆}，从而可以进行联系。从物理上，这种互逆性是相对自然的。
+
+*基本要求：\textbf{光滑性}。事实上互逆性质只对一类特殊的函数成立，不过现实中基本都假设遇到的函数较好，因此可以如此考虑。
+
+泰勒展开[递归证明]：
+$$f(x+h)=f(x)+hf'(x)+\frac{h^2}{2}f''(x)+\dots$$
+
+其直接形式为微分，但事实上可以关联到积分，与积分估算技巧结合。
+
+*注意不同\textbf{余项}的含义与应用。
+
+接下来的内容将全部以习题的形式进行组织，包含一些重点的结论与思路。虽然下方的习题以计算性的内容为主，但其中包含的思路事实上有不少与证明性质的技巧总结相关，最好不要只作为计算题进行研究。
+
+\section{微分与原函数}
+\textbf{脉络}：计算变化率(求导)、希望进行更一般的计算(初等函数导数与基本求导公式)、求导反问题(原函数概念)、初等解的存在性与找法(一般的不定积分)
+
+*注意形式上的微分记号$\dr f(x)=f'(x)\dr x$，将其作为$\frac{\dr f(x)}{\dr x}=f'(x)$的某种形式拆分即可。
+
+\begin{enumerate}
+    \item 求不定积分
+    $$\int\frac{1}{x}\dr x$$
+    
+    \
+
+    由$\frac{1}{x}$的自然定义域在$(-\infty,0)\cup(0,+\infty)$上，直接计算可知$x>0$时$\ln x$是一个原函数，$x<0$时$\ln(-x)$是一个原函数。但是，值得注意的是，虽然每个区间内都应有其任何原函数减$\ln x$后为常数，两个分立的区间上未必一致，因此其全部原函数可写为
+    $$f(x)=\begin{cases}\ln x+C_1&x>0\\\ln(-x)+C_2&x<0\end{cases}$$
+
+    *这个例子告诉我们，$\ln|x|+C$写法本质上需要考虑每个区间上加不同的常数。一般情况下，我们计算的原函数仅是某个原函数后添上形式上的$+C$，不考虑不同区间上的情况，但在计算定积分时，这种简单的处理可能引起问题。
+    
+    \item 求不定积分
+    $$\int\frac{x^5}{(x^3+1)^4}\dr x$$
+
+    \
+    
+    *所谓第一类换元法往往是某种``瞪眼''之后的配凑。而第二类换元法则是希望先进行``部分处理''，将不好处理的部分通过换元进行整体处理。本题我们用两种换元法计算：
+    \begin{itemize}
+        \item 利用第一类换元，直接配凑并拆分得到
+        $$\int\frac{x^5}{(x^3+1)^4}\dr x=\frac{1}{3}\int\frac{x^3}{(x^3+1)^4}\dr x^3=\frac{1}{3}\bigg(\int\frac{1}{(x^3+1)^3}\dr x^3-\int\frac{1}{(x^3+1)^4}\dr x^3\bigg)$$
+        进一步配凑为(常用配凑：加减常数可直接放在$\dr$中)
+        $$\frac{1}{3}\bigg(\int\frac{1}{(x^3+1)^3}\dr (x^3+1)-\int\frac{1}{(x^3+1)^4}\dr(x^3+1)\bigg)$$
+        由此可直接看出积分结果
+        $$-\frac{1}{6}\frac{1}{(x^3+1)^2}+\frac{1}{9}\frac{1}{(x^3+1)^3}+C$$
+
+        \item 利用第二类换元，将不好处理的$x^3+1$看作整体$t$，则有$\dr t=3x^2\dr x$，且$x^3=t-1$，于是得到
+        
+        $$\int\frac{x^5}{(x^3+1)^4}\dr x=\frac{1}{3}\int\frac{t-1}{t^4}\dr t=-\frac{1}{6t^2}+\frac{1}{9t^3}+C$$
+        代入也可得到结论。
+    \end{itemize}
+
+    *对于较复杂的题目，往往不能一眼看出配凑方法，因此用第二类换元\textbf{将难处理的部分换为整体}是常用的思路。对含无理的情况更是如此，例如将上方分母的4次方改为某分数。从公式记忆的角度，只要记忆第二类换元如何进行即可解决全部问题。
+
+    \item 已知$a,b,c$不全为0，求不定积分
+    $$\int\frac{1}{\sqrt{ax^2+bx+c}}\dr x$$
+    
+    \
+
+    *本题是为了介绍对根号下二次函数的一般处理，我们分类讨论，下方设
+    $$h=-\frac{b}{2a},\quad k=\frac{4ac-b^2}{4a}$$
+    \begin{itemize}
+        \item 在$a=0$，$b=0$时，直接为常数，由此结果为
+        $$\frac{1}{\sqrt c}x+C$$
+        \item 在$a=0$，$b\ne0$时，作整体换元$t=\sqrt{bx+c}$，可得$t^2=bx+c$，于是$\dr x=\frac{2}{b}t\dr t$，直接代入得到最终结果为
+        $$\frac{2}{b}t+C=\frac{2}{b}\sqrt{bx+c}+C$$
+        \item 在$a>0$时，将原积分中改写为
+        $$\frac{1}{\sqrt{ax^2+bx+c}}=\frac{1}{\sqrt a}\frac{1}{\sqrt{(x-h)^2+k}}$$
+        继续讨论：
+        \begin{itemize}
+            \item 若$k=0$，此即为
+            $$\frac{1}{\sqrt a}\frac{1}{|x-h|}$$
+            由此在$x>h$时不定积分为
+            $$\frac{1}{\sqrt a}\ln(x-h)+C$$
+            $x<h$时为
+            $$-\frac{1}{\sqrt a}\ln(h-x)+C$$
+            \item 若$k<0$，此可看作
+            $$\frac{1}{\sqrt a}\frac{1}{\sqrt{(x-h)^2-(\sqrt{-k})^2}}$$
+            由此由教材4.3节公式可知积分结果为
+            $$\frac{1}{\sqrt a}\ln(x-h+\sqrt{(x-h)^2+k})+C$$
+            \item 若$k>0$，此可看作
+            $$\frac{1}{\sqrt a}\frac{1}{\sqrt{(x-h)^2+(\sqrt{k})^2}}$$
+            由此由教材4.3节公式可知积分结果为
+            $$\frac{1}{\sqrt a}\ln(x-h+\sqrt{(x-h)^2+k})+C$$
+        \end{itemize}
+        \item 在$a<0$时，将原积分中改写为
+        $$\frac{1}{\sqrt{ax^2+bx+c}}=\frac{1}{\sqrt{-a}}\frac{1}{\sqrt{-(x-h)^2-k}}$$
+        继续讨论：
+        \begin{itemize}
+            \item 若$k\ge0$，只有至多一点处分母有意义，不定积分无意义。
+            \item 若$k<0$，此可看作
+            $$\frac{1}{\sqrt{-a}}\frac{1}{\sqrt{(\sqrt{-k})^2-(x-h)^2}}$$
+            由此由教材4.3节公式可知积分结果为
+            $$\frac{1}{\sqrt a}\arcsin\frac{x-h}{\sqrt{-k}}+C$$
+        \end{itemize}
+    \end{itemize}
+
+    \item 求不定积分
+    $$\int\er^{ax}\sin(bx)\cos(cx)\dr x$$
+
+    \
+
+    记$M=b+c$、$m=b-c$，提供两种思路：
+    \begin{itemize}
+        \item 三角变换思路
+        
+        通过积化和差公式有
+        $$\sin(bx)\cos(cx)=\frac{1}{2}(\sin((b+c)x)-\sin((b-c)x))$$
+        再由教材4.4节例5即得结果为
+        $$\frac{1}{2}\frac{\er^{ax}}{a^2+M^2}(a\sin Mx-M\cos Mx)-\frac{1}{2}\frac{\er^{ax}}{a^2+m^2}(a\sin mx-m\cos mx)+C$$
+
+        \item 指数思路
+        
+        利用$\er^{\ir\theta}=\cos\theta+\ir\sin\theta$，可以将积分内改写为
+        $$\er^{ax}\frac{\er^{\ir bx}-\er^{-\ir bx}}{2\ir}\frac{\er^{\ir cx}+\er^{-\ir cx}}{2}$$
+        整理得
+        $$\frac{1}{4\ir}\big(\er^{(a+\ir(b+c))x}+\er^{(a+\ir(b-c))x}-\er^{(a-\ir(b-c))x}-\er^{(a-\ir(b+c))x}\big)$$
+        直接利用形式结果$\er^{ax}$积分为$a^{-1}\er^{ax}+C$可写出积分
+        $$\frac{1}{4\ir}\bigg(\frac{1}{a+\ir M}\er^{(a+\ir M)x}+\frac{1}{a+\ir m}\er^{(a+\ir m)x}-\frac{1}{a-\ir m}\er^{(a-\ir m)x}-\frac{1}{a-\ir M}\er^{(a-\ir M)x}\bigg)+C$$
+        再展开化简也可得到结果。
+    \end{itemize}
+
+    *三角函数相关的题目除了利用一些熟知的变换公式外，熟悉三角函数写成指数函数的方式可以加快很多三角和$\er$同时存在的题目的计算速度。这也是为什么$\sin$、$\cos$与$\er$指数都容易放入分部中。
+
+    \item 求不定积分$\int f(x)g(\ln x)\dr x$，这里$f,g$为多项式。
+    
+    \
+    
+    利用积分可以展开成每一项的积分求和，只需计算
+    $$\int x^m\ln^nx\dr x$$
+    这里$m,n$为非负整数。
+
+    为将其化为熟悉的形式，设$x=\er^t$，即可得到其为
+    $$\int\er^{mt}t^n\dr\er^t=\int\er^{(m+1)t}t^n\dr t$$
+    再次换元$s=(m+1)t$，得到
+    $$\frac{1}{(m+1)^{n+1}}\int s^n\er^s\dr s$$
+    设右侧积分中的不定积分结果为$I_n(s)$，利用分部积分计算有
+    $$I_n(s)=\int s^n\er^s\dr s=\int s^n\dr\er^s=s^n\er^s-n\int s^{n-1}\er^s\dr s=s^n\er^s-nI_{n-1}(s)$$
+
+    由此可由$I_0(s)=\er^s+C$出发归纳得到结果，再换回$s=(m+1)\ln x$即可。更进一步的通项化简超出了这门课的范围，此处略去。
+
+    \item 求不定积分
+    $$\int\frac{\sin x\cos x}{\sin^4x+\cos^4x}\dr x$$
+
+    \
+
+    考虑换元$t=\sin x$、$s=t^2$得到其为
+    $$\int\frac{t}{t^4+(1-t^2)^2}\dr t=\frac{1}{2}\int\frac{\dr t^2}{t^4+(1-t^2)^2}=\frac{1}{2}\int\frac{1}{s^2+(1-s)^2}\dr s$$
+    将分母展开配方为
+    $$\int\frac{1}{(2s-1)^2+1}\dr s=\frac{1}{2}\int\frac{1}{(2s-1)^2+1}\dr(2s-1)=\frac{1}{2}\arctan(2\sin^2x-1)+C$$
+    利用$\cos2x=1-2\sin^2x$可将结果化简成
+    $$-\frac{1}{2}\arctan\cos2x$$
+
+    *虽然三角函数的有理式有通用换元方法，但这并不意味着只能通过通法硬凑。一些基本换元可能大大加快速度。事实上对有理函数也是如此。
+
+    \item 求不定积分
+    $$\int\frac{1}{x^2(1+x^2)^n}\dr x$$
+    这里$n$为正整数。
+    
+    \
+    
+    *同样，有理函数有通用方法，但分解也并不是必须通过待定系数解决。
+    
+    利用
+    $$\frac{1}{x^2(x^2+1)}=\frac{1}{x^2}-\frac{1}{x^2+1}$$
+    有
+    $$\frac{1}{x^2(x^2+1)^n}=\frac{1}{x^2(x^2+1)^{n-1}}-\frac{1}{(x^2+1)^n}$$
+    由此可不断展开得到
+    $$\frac{1}{x^2(1+x^2)^n}=\frac{1}{x^2}-\frac{1}{x^2+1}-\dots-\frac{1}{(x^2+1)^n}$$
+    此式已经可以利用教材4.5节的知识算出积分。同样，无需掌握对一般$n$的通项化简，只要对具体的$n$能由此算出结果即可。
+\end{enumerate}
+
+*采用基本方法进行\textbf{更长时间的计算}与进行\textbf{更长时间的思考}后采用较好方法的\textbf{权衡}。
+
+\section{积分的操作}
+\textbf{脉络}：计算面积(积分)、严谨的定义(极限定义与基本性质)、一般计算方法(微积分基本定理)、推广到更一般的情况(广义积分)
+
+*此处我们先默认微积分基本定理成立，不关心其证明。
+
+\begin{enumerate}
+    \item 若$f(x)$连续非负，且在$[a,b]$上不恒为0，证明$\int_a^bf(x)\dr x>0$。
+    
+    \
+
+    由非负与不恒为0可设$f(t)>0$，$t\in[a,b]$。由连续性，对任何$\varepsilon$，存在$\delta$使得$|x-t|<\delta$且$x\in[a,b]$时$|f(x)-f(t)|<\varepsilon$。
+
+    取定$\varepsilon=\frac{f(t)}{2}$，得到对应的$\delta$后记区间
+    $$A=[a,b]\cap[t-\delta,t+\delta]$$
+    则由定义对任何$x\in A$有
+    $$f(x)>f(t)-\varepsilon=\frac{f(t)}{2}$$
+    构造函数$g(x)$在$A$上为$\frac{f(t)}{2}$，其他为0，则利用$f$非负性可知$f(x)\ge g(x)$处处成立，于是
+    $$\int_a^bf(x)\dr x\ge\int_a^bg(x)\dr x$$
+    但根据积分的定义可知$g(x)$下方为长方形，面积即$A$的长度乘$\frac{f(t)}{2}$。由于$A$的长度非零(无论$t=a$、$t=b$或$t\in(a,b)$，其都至少对应某一段区间)，$g(x)$的积分结果为正，从而矛盾。
+
+    *注意最基本的\textbf{比较}性质，即$f(x)\ge g(x)$时，其在任何区间上的积分也有不等号。利用此结论可以说明一些不等号成立。
+
+    *虽然证明不是重点，但一些基本概念的\textbf{严谨定义}还是需要知道的，例如此处的连续性定义。
+
+    \item 计算极限
+    $$\lim_{n\to\infty}\sum_{k=1}^n\frac{1}{\sqrt{n^2+k^2}}$$
+
+    \
+    
+    *\textbf{利用积分定义进行极限计算}并不常用，但需要用到时往往很难有其他方法。几个基本特征：求和的极限、求和数量与$n$相关、乘$n$后能配出$k/n$的形式。
+
+    将其写成
+    $$\lim_{n\to\infty}\frac{1}{n}\sum_{k=1}^n\frac{1}{\sqrt{1+(k/n)^2}}$$
+    进一步改写为
+    $$\lim_{n\to\infty}\frac{1}{n}\sum_{k=1}^nf\bigg(\frac{k}{n}\bigg),\quad f(x)=\frac{1}{\sqrt{1+x^2}}$$
+    注意左侧求和即为积分定义中将$[0,1]$按$\frac{1}{n}$步长划分后每个区间取右端点的结果，因此极限为
+    $$\int_0^1f(x)\dr x=\int_0^1\frac{1}{\sqrt{1+x^2}}\dr x$$
+    利用$f(x)$的一个原函数为$\ln(x+\sqrt{1+x^2})$，直接计算可得积分为$\ln(1+\sqrt2)$，这就是结论。
+
+
+    \item 计算积分
+    $$\int_{-2}^{-1}\frac{\sqrt{x^2-1}}{x}\dr x$$
+
+    \
+
+    *这题放在此处是为了让大家注意换元后的符号变化，不过其实有一个简便方法\textbf{检查结果}：观察发现积分中的函数恒负，由此可提前确定\textbf{积分结果一定是负数}，换元过程中可以先忽略符号，最后加负号即可。
+    
+    设$\sqrt{x^2-1}=t$，则$x=-\sqrt{t^2+1}$，于是计算可得
+    $$\int_{-2}^{-1}\frac{\sqrt{x^2-1}}{x}\dr x=\int_{\sqrt3}^0\frac{t}{-\sqrt{t^2+1}}\bigg(-\frac{t}{\sqrt{t^2+1}}\dr t\bigg)=-\int_0^{\sqrt3}\frac{t^2}{t^2+1}\dr t$$
+    进一步计算即得其为
+    $$-\int_0^{\sqrt3}\bigg(1-\frac{1}{t^2+1}\bigg)\dr t=-\sqrt{3}+\arctan t\big|^{\sqrt3}_0=\frac{\pi}{3}-\sqrt3$$
+
+    \item 计算积分$\int_0^1x^m(1-x)^n\dr x$，这里$m,n$为非负整数。
+    
+    \
+
+    *当然，可以利用二项式定理完全展开成以后计算积分并合并，不过我们此处介绍一个更漂亮的做法。
+
+    若$n=0$，积分结果即为$\frac{1}{m+1}$。下面考虑$n>0$的情况。换元可得
+    $$\int_0^1x^m(1-x)^n\dr x=\frac{1}{m+1}\int_0^1(1-x)^n\dr x^{m+1}$$
+    由于$x$从0到1时$x^{m+1}$也从0到1，且端点处$(1-x)^n$与$x^{m+1}$均为0，利用分部积分可知
+    $$\frac{1}{m+1}\int_0^1(1-x)^n\dr x^{m+1}=-\frac{1}{m+1}\int_0^1x^{m+1}\dr(1-x)^n=\frac{n}{m+1}\int_0^1x^{m+1}(1-x)^{n-1}\dr x$$
+    由此，不断重复上述过程可将$n$变成0，最后一次为$x^{m+n}$积分，于是结果为
+    $$\frac{n}{m+1}\frac{n-1}{m+2}\dots\frac{1}{m+n}\frac{1}{m+n+1}=\frac{n!m!}{(m+n-1)!}$$
+    
+    \item 求$r^2=\cos2\theta$绕极轴旋转形成的旋转体侧面积。
+    
+    \
+
+    这里介绍对一种极坐标(尽量不用画图)的基本处理方式：
+    \begin{itemize}
+        \item 角度范围控制
+        
+        在$\theta\in[0,2\pi]$时，只有$\cos2\theta\ge0$的部分此式才有意义，利用三角函数知识可知
+        $$\theta\in\big[0,\frac{\pi}{4}\big]\cup\big[\frac{3}{4}\pi,\frac{5}{4}\pi]\cup\big[\frac{7}{4}\pi,2\pi]$$
+        利用$\cos\theta=\cos(-\theta)=\cos(2\pi+\theta)$，可发现其实质上是4段相同的曲线拼合而成的。
+
+        不过，绕极轴旋转时，$\theta\in[0,\pi]$的部分会转到$\theta\in[\pi,2\pi]$的部分，因此上述四段中\textbf{两两形成的旋转面是一致}的。若已知一段形成的旋转体表面积为$S$，总表面积应为$2S$，而非$4S$。
+
+        *一定不要忘记判断重合的部分，否则可能导致结果相差倍数。一般来说极坐标形式的方程取$\theta\in[0,\pi]$的部分计算积分是正确的。
+
+        \item 参数方程构建
+        
+        注意到极轴即为$x$轴，我们下面来计算$S$。考虑$\theta\in[0,\pi/4]$的部分。此时可直接写出
+        $$x(\theta)=r\cos\theta=\sqrt{\cos2\theta}\cos\theta$$
+        $$y(\theta)=r\sin\theta=\sqrt{\cos2\theta}\sin\theta$$
+        由此代入教材5.5节公式得到
+        $$S=2\pi\int_0^{\pi/4}\sqrt{\cos2\theta}\sin\theta\sqrt{(\sqrt{\cos2\theta}\cos\theta)^{'2}+(\sqrt{\cos2\theta}\sin\theta)^{'2}}\dr\theta$$
+
+        \item 积分计算
+        
+        注意范围内所有涉及的$\sin$、$\cos$均正，直接计算导数得到结果为
+        $$S=2\pi\int_0^{\pi/4}\sin\theta\dr\theta$$
+        由此结果
+        $$F=2S=(4-2\sqrt{2})\pi$$
+    \end{itemize}
+
+    *对几何的建议：为了降低记忆量，建议把\textbf{参数方程形式}的公式背好，其他化为对应的参数方程，例如$y=f(x)$即$x=t$、$y=f(t)$，还有本题的极坐标情况。
+    
+    \item 判断$\int_a^b\frac{1}{x^2(x^2-1)}\dr x$在$a$与$b$取何值时收敛(这里假设$b>a$，且$a$可取$-\infty$，$b$可取$\infty$)。
+
+    \
+
+    *瑕积分的一个简单判别方式是，如果收敛，微积分基本定理往往仍能成立，由此\textbf{直接假设收敛进行计算}即可知是否发散。如果无法简单判别，往往需要进行\textbf{比较}。
+
+    由于此函数在$0,-1,1$外的点都有定义，我们只需要关注这三点附近与无穷的情况：
+    \begin{itemize}
+        \item 负无穷处
+        
+        若$a=-\infty$、$b<-1$，在整个区间上有
+        $$0<\frac{1}{x^2(x^2-1)}\le\frac{1}{(b^2-1)x^2}$$
+        而教材5.7节例3类似知$\frac{1}{x^2}$在$(-\infty,b)$积分收敛，于是比较可知原积分收敛。
+
+        \item $-1$处
+        
+        当$-1\in[a,b]$时，考虑其子区间$A=[a,b]\cap[-2,-1/2]$，若积分收敛，在子区间上的积分也应收敛。由有理函数的展开可计算得
+        $$\frac{1}{x^2(x^2-1)}=\frac{1}{2(x-1)}-\frac{1}{2(x+1)}-\frac{1}{x^2}$$
+        第一项、第三项在$A$中均为普通的黎曼积分，从而收敛，而第二项以$-1$为瑕点，由于其的一个原函数为$-\frac{1}{2}\ln|x+1|$，在瑕点附近左、右极限均不存在，因此不可能收敛，矛盾。
+
+        \item 0处
+        
+        当$0\in[a,b]$时，考虑其子区间$A=[a,b]\cap[-1/2,1/2]$，若积分收敛，在子区间上的积分也应收敛。由有理函数的展开可计算得
+        $$\frac{1}{x^2(x^2-1)}=\frac{1}{2(x-1)}-\frac{1}{2(x+1)}-\frac{1}{x^2}$$
+        第一项、第二项在$A$中均为普通的黎曼积分，从而收敛，而第三项以0为瑕点，由于其的一个原函数为$\frac{1}{x}$，在瑕点附近左、右极限均不存在，因此不可能收敛，矛盾。
+        
+        \item 1处
+        
+        当$1\in[a,b]$时，考虑其子区间$A=[a,b]\cap[1/2,2]$，若积分收敛，在子区间上的积分也应收敛。由有理函数的展开可计算得
+        $$\frac{1}{x^2(x^2-1)}=\frac{1}{2(x-1)}-\frac{1}{2(x+1)}-\frac{1}{x^2}$$
+        第二项、第三项在$A$中均为普通的黎曼积分，从而收敛，而第二项以1为瑕点，由于其的一个原函数为$\frac{1}{2}\ln|x-1|$，在瑕点附近左、右极限均不存在，因此不可能收敛，矛盾。
+
+        \item 正无穷处
+        
+        若$b=\infty$、$a>1$，在整个区间上有
+        $$0<\frac{1}{x^2(x^2-1)}\le\frac{1}{(a^2-1)x^2}$$
+        而教材5.7节例3类似知$\frac{1}{x^2}$在$(a,\infty)$积分收敛，于是比较可知原积分收敛。
+    \end{itemize}
+
+    综合以上，当且仅当$0,-1,1$均不属于$[a,b]$时原积分收敛。
+
+    \item 计算$\int_{-\infty}^\infty x^n\er^{-x^2}\dr x$，这里$n$为非负整数。
+    
+    \
+
+    若$n$为奇数，此函数为奇函数，利用对称性可知积分为0。否则，设$n=2k$，利用对称性可得
+    $$\int_{-\infty}^\infty x^n\er^{-x^2}\dr x=2\int_0^\infty x^{2k}\er^{-x^2}\dr x$$
+    作换元$t=x^2$有
+    $$2\int_0^\infty x^{2k}\er^{-x^2}\dr x=\int_0^\infty t^{k-1/2}\er^{-t}\dr t=\Gamma(k+1/2)$$
+
+    由Gamma函数的知识可知最终结果为
+    $$\bigg(k-\frac{1}{2}\bigg)\bigg(k-\frac{3}{2}\bigg)\dots\frac{1}{2}\Gamma\bigg(\frac{1}{2}\bigg)=\frac{(2k-1)!!}{2^k}\sqrt\pi$$
+
+    *此题后半部分事实上直接在教材中就有，这里主要是提醒不能直接对原式进行换元，因为不满足\textbf{单调性}，必须分区间考虑。
+    
+    \item 计算$\int_{-1}^1\ln|x|\dr x$。
+    
+    \
+    
+    *由于$\ln|x|$在0处无定义，积分必须\textbf{分为两段}研究，而不能试图通过一个全局原函数解决问题，这是在第一部分第一题中提醒过的。
+
+    由于$\ln|x|$为偶函数，利用对称性可知积分为
+    $$2\int_0^1\ln x\dr x$$
+    进行分部积分得到(这里利用了$x\ln x$在0处右极限为0，可写为$\ln x/(1/x)$由洛必达法则计算得到)
+    $$2\int_0^1\ln x\dr x=2x\ln x\big|^1_0-2\int_0^1x\dr\ln x=-2$$
+
+    
+\end{enumerate}
+
+\section{泰勒展开}
+\textbf{脉络}：导数关联根存在(微分中值定理)、导数关联极限(洛必达)、积分关联根存在(积分中值定理)、导数关联积分(变限积分)、多项式逼近(泰勒展开)、一元微积分统一(积分余项)
+
+\begin{enumerate}
+    \item 确定正数$a$使得极限
+    $$\lim_{x\to0+0}\frac{\sqrt[3]{1-\sqrt{\cos x}}}{x^a}$$
+    不为0或无穷。
+
+    \
+
+    将极限中写成
+    $$\sqrt[3]{\frac{{1-\sqrt{\cos x}}}{x^{3a}}}$$
+    由三次根号为连续函数，只需要确定$a$使得
+    $$\lim_{x\to0+0}\frac{{1-\sqrt{\cos x}}}{x^{3a}}$$
+    不为0或无穷。
+
+    由条件可知分子分母均为0，从而可使用洛必达法则将极限化为(等号是由于$\sqrt{\cos x}$极限为1可以提出)
+    $$\lim_{x\to0+0}\frac{\sin x}{6a x^{3a-1}\sqrt{\cos x}}=\lim_{x\to0+0}\frac{\sin x}{6a x^{3a-1}}$$
+    由此，当$3a-1=1$，即$a=\frac{2}{3}$时，上述极限是$\frac{1}{4}$，不为0或无穷，于是有
+    $$\lim_{x\to0+0}\frac{\sqrt[3]{1-\sqrt{\cos x}}}{x^{2/3}}=2^{-2/3}$$
+    而利用
+    $$\lim_{x\to0+0}\frac{\sqrt[3]{1-\sqrt{\cos x}}}{x^a}=\lim_{x\to0+0}\frac{\sqrt[3]{1-\sqrt{\cos x}}}{x^{2/3}}x^{2/3-a}$$
+    当$a>2/3$时极限为无穷，当$a>2/3$时极限为0。
+
+    *本题的结果有一件事值得注意：阶数$O(x^k)$\textbf{未必为整数}，而只有其为整数的情况下，洛必达法则才方便使用(能够递降到0)。因此，整体存在根号时需要先拿出根号。
+
+    \item 证明$n$次多项式在任何点处的$n$阶泰勒公式为自身(即余项恒为0)。
+    
+    \
+
+    设原$n$次多项式为$p(x)$，其在$x_0$点的泰勒公式为$q(x)$，利用Peano余项的定义有
+    $$\lim_{x\to x_0}\frac{p(x)-q(x)}{(x-x_0)^n}=0$$
+    但是，由于$p(x)$与$q(x)$都是$n$次多项式，其差亦为$n$次多项式。设$h(x)=p(x+x_0)-q(x+x_0)$，则$h(x-x_0)=p(x)-q(x)$。若其非零，假设其次数最低的非零项为$k$次，利用$k$次洛必达法则得到
+    $$\lim_{x\to x_0}\frac{h(x-x_0)}{(x-x_0)^n}=\lim_{x\to 0}\frac{h(x)}{x^n}=\frac{1}{n(n-1)\dots(n-k+1)}\lim_{x\to 0}\frac{h^{(k)}(x)}{x^{n-k}}$$
+    这里上标$(k)$表示求$k$阶导。但是，$h^{(k)}(x)$的常数项应非零，于是此极限在$k=n$时为非零数，$k<n$时为无穷，矛盾，从而$h(x)=0$，即$p(x)=q(x)$。
+    
+    \item 求$\sin\sin x$在原点带Peano余项的5阶泰勒公式，并计算
+    $$\lim_{x\to0}\frac{x-\sin\sin x}{x^3}$$
+
+    \
+
+    记$t=\sin x$，其在$x\to0$时为无穷小，且与$x$等价。在0处将$\sin t$展开到9阶Peano余项得到
+    $$\sin t=t-\frac{t^3}{6}+\frac{t^5}{120}+o(t^5)=t-\frac{t^3}{6}+\frac{t^5}{120}+o(x^5)$$
+    再代入
+    $$t=x-\frac{x^3}{6}+\frac{x^5}{120}+o(x^5)$$
+    可得
+    $$\sin\sin x=x-\frac{x^3}{6}+\frac{x^5}{120}-\frac{1}{6}\bigg(x-\frac{x^3}{6}+\frac{x^5}{120}\bigg)^3+\frac{1}{120}\bigg(x-\frac{x^3}{6}+\frac{x^5}{120}\bigg)^5+o(x^5)$$
+
+    *由于每个$t$中$o(x^5)$的项与其他项乘积后仍为$o(x^5)$，不会影响无阶以下的情况。
+
+    将上方的次方展开。由于第二项中除了$x\cdot x\cdot x$与$x\cdot x\cdot x^3$外的项都比五次高，第三项中除了$x\cdot x\cdot x\cdot x\cdot x$外的项都比五次高，事实上只需保留这些项，也即
+    $$\sin\sin x=x-\frac{x^3}{6}+\frac{x^5}{120}-\frac{1}{6}x^3-\frac{1}{6}3x\cdot x\cdot\bigg(-\frac{x^3}{6}\bigg)+\frac{1}{120}x^5+o(x^5)$$
+    最终整理得到
+    $$\sin\sin x=x-\frac{1}{3}x^3+\frac{1}{10}x^5+o(x^5)$$
+
+    *若题目要求\textbf{Lagrange余项}(务必记得定义)，就不得不采取最基本的方法一阶阶算导数了。
+
+    \item 计算$\int_0^{\sqrt{x}}\sin\sin t\dr t$在0处对$x$的右导数(即导数定义中的极限改为右极限)。
+    
+    \
+
+    *直接由复合函数求导与变限积分计算可得
+    $$\frac{\dr}{\dr x}\int_{0}^{\sqrt{x}}\sin\sin t\dr t=\frac{1}{2\sqrt x}\sin\sin\sqrt x$$
+    *利用上一题作换元$t=\sqrt x$后由洛必达法则可得其在0处右极限为$\frac{1}{2}$。但是，这只是导数在0处的右极限，无法说明右导数的结果。
+    
+    希望将上限换元为$x$，因此考虑换元$s=t^2$，有$t=\sqrt s$，从而(这里实质上进行了瑕积分，但不影响后续计算)\ $x>0$时
+    $$\int_0^{\sqrt{x}}\sin\sin t\dr t=\int_0^x\frac{\sin\sin\sqrt s}{2\sqrt s}\dr s$$
+    将积分中记为$g(s)$，直接由洛必达法则计算可发现
+    $$\lim_{s\to0}g(s)=\lim_{s\to 0}\frac{\sin\sin\sqrt s}{2\sqrt s}=\lim_{u\to 0}\frac{\sin\sin u}{2 u}=\frac{1}{2}$$
+    补充定义$g(0)=\frac{1}{2}$，积分中是一个连续函数，且不影响积分结果，从而可知变限积分的导数为
+    $$\frac{\dr}{\dr x}\int_0^xg(s)\dr s=g(x)$$
+    由此原函数在0处的右导数为$g(0)=\frac{1}{2}$。
+
+    \item 证明若$f$二阶导数连续，求证带\textbf{二阶积分余项}的泰勒公式
+    $$f(x+t)=f(x)+tf'(x)+\int_x^{x+t}(x+t-s)f''(s)\dr s$$
+
+    \
+
+    由于在积分中观察到了导数项，进行分部积分可得(这里跳过了求导过程并丢掉了为0的项)
+    $$\int_x^{x+t}(x+t-s)f''(s)\dr s=\int_x^{x+t}(x+t-s)\dr f'(s)=-tf'(x)+\int_x^{x+t}f'(s)\dr s$$
+    再由微积分基本定理计算第二项即得结论。
+
+    *用此方法，归纳可得高阶积分余项的泰勒公式
+    $$f(x+t)=\sum_{k=0}^n\frac{t^k}{k!}f^{(k)}(x)+\frac{1}{k!}\int_x^{x+t}(x+t-s)^kf^{(k+1)}(s)\dr s$$
+\end{enumerate}
+\end{document}

@@ -1,0 +1,697 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\title{\heiti 调和分析\ 习题解答}
+\author{郑滕飞2401110060}
+\date{}
+
+\usepackage{amsmath,amssymb,enumerate,geometry}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\setlength{\parindent}{0pt}
+
+\newcommand*{\er}{\mathrm{e}}
+\newcommand*{\ir}{\mathrm{i}}
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\DeclareMathOperator{\sgn}{sgn}
+
+\begin{document}
+\maketitle
+*韦东奕《调和分析》讲义习题解答
+
+\tableofcontents
+\newpage
+
+\section{Fourier级数与Fourier变换}
+\begin{enumerate}
+    \item 由条件，存在单调增函数$g_1,g_2$使得$f=g_1-g_2$，只需证明对单调增函数$g$成立$\hat{g}(k)=O(|k|^{-1})$即可，由于加减常数不影响$|k|>0$的项可不妨设设$g(0+)=0$，由此根据积分第二中值定理，存在$\xi\in(0,1)$使得
+    $$\hat{g}(k)=\int_0^1g(x)\er^{-2\pi\ir kx}\dr x=g(1-)\int_{\xi}^1\er^{-2\pi\ir kx}\dr x$$
+    而$\er^{-2\pi\ir kx}$积分模长不超过$\frac{1}{2\pi|k|}$，由此可知$|\hat{g}(k)|\le\frac{|g(1-)|}{2\pi}|k|^{-1}$，原命题得证。
+
+    \item 
+    \textbf{绝对连续函数}：
+    
+    条件即
+    $$\lim_{k\to\infty}\int_0^1kf(x)\er^{-2\pi\ir kx}\dr x=0$$
+    分部积分公式成立，从而有(考虑分解为两单调函数差可知各点左右极限存在)
+    $$\int_0^1kf(x)\er^{-2\pi\ir kx}\dr x=-\frac{1}{2\pi\ir}(f(1-)-f(0+))+\frac{1}{2\pi\ir}\int_0^1f'(x)\er^{-2\pi\ir kx}\dr x$$
+
+    由其导函数$L^1$，利用Riemman-Lebesgue引理可知积分趋于0，由此必然有$f(1-)=f(0+)$，由$f(x)$循环，对其他点同理。
+
+    \
+
+    \textbf{有界变差函数}(一般情况)：
+
+    由其分解为单调函数差可知每点左右极限存在，记$\tilde{f}(x)=f(x-)$，控制收敛可知不影响Fourier系数，且只要证明了$\tilde{f}$连续，由定义可知$f$不可能有间断点，由此可不妨设$f$左连续。
+
+    定义测度$\mu([0,x))=f(x)-f(0)$\ (事实上可说明此测度相当于$f$的弱导数，即$\dr\mu=Df\dr x$)，对此测度分部积分公式成立，而由$f(1)=f(0)$可知
+    $$2\pi\ir\int_0^1kf(x)\er^{-2\pi\ir kx}\dr x=\int_0^1\er^{-2\pi\ir kx}\dr\mu\to 0$$
+
+    记右侧积分为$\hat{\mu}(k)$，则由其趋于0可知
+    $$\lim_{N\to\infty}\frac{1}{N}\sum_{k=0}^{N-1}|\hat{\mu}(k)|^2=0$$
+    从而只需要证明任何一点处的振幅可由此式控制即可。而上式可以改写为
+    $$\lim_{N\to\infty}\iint_{[0,1]^2}\frac{1}{N}\sum_{k=0}^{N-1}\er^{2\pi\ir(y-x)}\dr\mu_x\dr\mu_y=0$$
+    积分中的求和极限为$\chi_{x=y}$，利用控制收敛定理可交换次序，而$\chi_{x=y}$对$\mu_x$、$\mu_y$积分的结果即为所有间断处振幅的平方和(只需考虑$Df$的无穷部分，可写为若干$\delta$函数之和计算)，由其等于0可知结论成立。
+
+    \item 将$x_0$记为$x$。与定理1.8证明过程相同得
+    $$|\sigma_Nf(x)-f(x)|=\bigg|\int_{-1/2}^{1/2}(f(x-t)-f(x))F_N(t)\dr t\bigg|\le\int_{-1/2}^{1/2}|f(x-t)-f(x)||F_N(t)|\dr t$$
+    将积分拆分为$|t|<N^{-1}$、$|t|\in(N^{-1},N^{-1/4}),|t|>N^{-1/4}$三段，分别记为$a_N,b_N,c_N$。
+
+    由于$f\in L^1(\mathbb{T})$，$|f(x-t)-f(x)|\le|f(x-t)|+|f(x)|$，积分不超过$M=\|f\|_1+|f(x)|$，根据1.5节开头性质，这段中$|F_N(t)|$不超过$\big((N+1)\sin^2\big(\pi(N+1)^{-1/2}\big)\big)^{-1}$，由此有
+    $$c_N\le\frac{M}{(N+1)\sin^2\big(\pi(N+1)^{-1/2}\big)}=O(N^{-1/2})$$
+
+    由Lebesgue点定义有
+    $$\lim_{r\to 0}\frac{1}{r}\int_{-r}^r|f(x-t)-f(x)|\dr t=0$$
+    而利用$F_N(t)\le N+1$可知
+    $$a_N=(N+1)o(N^{-1})=o(1)$$
+
+    为了估算$b_N$，利用1.5节开头性质知$t$充分小时$F_N(t)$可被$\frac{1}{Nt^2}$的倍数控制，由此只需证明(另一边由对称得到)
+    $$\frac{1}{N}\int_{N^{-1}}^{N^{-1/4}}|f(x-t)-f(x)|t^{-2}\dr t\to0$$
+
+    利用分部积分，记$F(\delta)=\int_0^\delta|f(x-t)-f(x)|\dr t$，则有上式为
+    $$\frac{1}{N}\big(N^{1/2}F(N^{-1/4})-N^2F(N^{-1})\big)+\frac{2}{N}\int_{N^{-1}}^{N^{-1/4}}F(t)t^{-3}\dr t$$
+
+    利用$F(t)=o(t)$，第一项的两个分量极限均为0，第二项利用积分中值定理知存在$N^{-1}\le\xi\le N^{-1/4}$使得
+    $$\frac{F(\xi)}{\xi}\frac{2}{N}\int_{N^{-1}}^{N^{-1/4}}t^{-2}\dr t<\frac{2F(\xi)}{\xi}$$
+
+    再次利用$F(\xi)=o(\xi)$可得结论，由此综合可知结论成立。
+
+    \item 利用$F_N(x)*f(x)=\sigma_Nf(x)$可知
+    $$F_N(x)*\er^{2\pi\ir kx}=\begin{cases}\frac{N+1-|k|}{N+1}\er^{2\pi\ir kx}&|k|\le N\\0&|k|>N\end{cases}$$
+    于是对一般的$N$次三角多项式$P(x)$，设其$k>0$的部分为$P_+$，$k<0$的部分为$P_-$，对比系数有
+    $$F_{N-1}(x)*(P(x)\er^{2\pi\ir Nx})=-\frac{1}{2\pi\ir N}P_-'(x)\er^{2\pi\ir Nx}$$
+    同理
+    $$F_{N-1}(x)*(P(x)\er^{-2\pi\ir Nx})=\frac{1}{2\pi\ir N}P_+'(x)\er^{2\pi\ir Nx}$$
+    而$k=0$求导为0，由此可以得到
+    $$P'(x)=2\pi\ir N\big(\er^{2\pi\ir Nx}\big(F_{N-1}(x)*(P(x)\er^{-2\pi\ir Nx})\big)-\er^{-2\pi\ir Nx}\big(F_{N-1}(x)*(P(x)\er^{2\pi\ir Nx})\big)\big)$$
+    由$F_{N-1}(x)$为正且积分为1，由积分中值定理可知
+    $$|F_{N-1}(x)*(P(x)\er^{-2\pi\ir Nx})|\le\|P\|_\infty$$
+    $$|F_{N-1}(x)*(P(x)\er^{2\pi\ir Nx})|\le\|P\|_\infty$$
+    从而即有$P'(x)\le2\pi N(\|P\|_\infty+\|P\|_\infty)$，即得证。
+
+    \
+
+    \textbf{一个更好的界}：
+
+    利用综合练习题3可得
+    $$\|P'\|_\infty\le\sum_{k\in\mathbb{Z}}\frac{8N}{(2k+1)^2\pi}\|P\|_\infty=2\pi N\|P\|_\infty$$
+    
+
+    \item 利用综合练习题4，由性质ii与积分中值定理放缩直接得结论。
+
+
+    \item 由条件可知$\xi\hat{f}(\xi)\in L^2(\mathbb{R})$，从而由于
+    $$2|\hat{f}(\xi)|\le\frac{1}{\xi^2}+\xi^2|\hat{f}(\xi)|^2$$
+    $$2|\hat{f}(\xi)|\le1+|\hat{f}(\xi)|^2$$
+    可得
+    $$2\int_{\mathbb{R}}|\hat{f}(\xi)|\dr\xi\le\int_{|\xi|\le1}(1+|\hat{f}(\xi)|^2)+\int_{|\xi|>1}\bigg(\frac{1}{\xi^2}+\xi^2|\hat{f}(\xi)|^2\bigg)\dr x=4+\|f\|_2^2+\|f'\|_2^2$$
+    从而收敛。
+
+    \item 由条件可知$\|\hat{f}(\xi)\|=M_1<\infty$且$\|\xi\hat{f}(\xi)\|_\infty=M_2<\infty$，于是
+    $$|\hat{f}(\xi)|\le\min(M_1,M_2/\xi)$$
+    有
+    $$\|f\|_2^2=\|\hat{f}\|_2^2\le\int_{|\xi|\le 1}M_1^2\dr\xi+\int_{|\xi|>1}\frac{M_2^2}{\xi^2}\dr x=2M_1^2+2M_2^2$$
+    从而收敛。
+
+    \item 由非负性，考虑Poisson核只需证明
+    $$\lim_{\epsilon\to0}(P_\epsilon*f)(0)=f(0)$$
+    由此利用Fatou引理与控制收敛定理即可知左侧为$\|\hat{f}\|_1$，得证。由于可构造$g\in\mathcal{S}$使得$g(0)=f(0)$，且$g$满足上述极限，相减可不妨设$f(0)=0$。
+
+    记$P(x)=P_1(x)$，可发现$P_\epsilon(x)=\epsilon^{-n}P_1(x/\epsilon)$，且换元得$P_\epsilon$全局积分均相同，为1。
+
+    由于连续点一定为Lebesgue点，可知对任何$\delta$，存在$\eta$使得$r\le\eta$时有
+    $$r^{-n}\int_{\|t\|<r}|f(t)|\dr t<\delta$$
+    另一方面直接估计可知
+    $$|(P_\epsilon*f)(0)|=\bigg|\int_{\mathbb{R}^n}f(-t)P_\epsilon(t)\dr t\bigg|$$
+    将$|t|<\eta$时的积分记为$I_1$、$|t|>\eta$时记为$I_2$，下面对两者进行估算。由于$P$径向对称，记$p(|x|)=P(x)$。
+
+    记$g(r)$为$n-1$维单位球面上$|f(-rt)|\dr t$的积分，则直接积分变换可知
+    $$I_1=\int_0^\eta r^{n-1}g(r)\epsilon^{-n}p(r/\epsilon)\dr r$$
+    由于这时Lebesgue点条件即为
+    $$G(r)=\int_0^rs^{n-1}g(s)\dr s\le\delta r^n$$
+    将$r^{n-1}g(r)$看作$G'(r)$后进行分部积分，并将$G(r)$放为$\delta r^n$可得(注意$p'(s)\le0$，于是后一项中$G(r)$放大总体仍放大)
+    $$I_1\le\delta\eta^n\epsilon^{-n}p(\eta/\epsilon)-\int_0^{\eta/\epsilon}\delta s^np'(s)\dr s$$
+    估算可发现$r^np(r)$有界，且$s^np'(s)$在0到无穷积分收敛，由此存在常数$C$使得$I_1\le C\delta$。
+
+    另一方面，$P_\epsilon(t)$在$t\ge\delta$时一致趋于0，而由$f\in L^1$可知$I_2$不超过$\|f\|_1$乘$P_\epsilon(t)$模长最大值，由此趋于0。
+
+    由此，任给$\varepsilon$，取$\delta$使得$C\delta<\varepsilon/2$，再取$\epsilon_0$使得$\epsilon<\epsilon_0$时$I_2<\varepsilon/2$，即得此时$|(P_\epsilon*f)(0)|<\varepsilon$，从而极限为0，得证。
+
+    \item (TBD)
+    
+    \item 记$g(x)=\sum_{k\in\mathbb{Z}}f(x+k)$，由于其为$\mathbb{T}$中函数，考虑$[0,1]$上，则$k\ge 2$时
+    $$|f(x\pm k)|\le\frac{C}{k^{-1-\delta}}$$
+    从而可知函数项级数绝对一致收敛，于是$g(x)$连续。考虑其在$[0,1]$上的傅里叶级数，可知
+    $$\hat{g}(k)=\int_0^1g(x)\er^{-2\pi\ir kx}\dr x$$
+    利用控制收敛即可知$\hat{g}(k)=\hat{f}(k)$，于是原命题即变为要证$S_Ng(x)\to g(x)$。根据条件可知$S_Ng(x)$亦一致收敛，于是$S_Ng(x)$极限与$\sigma_Ng(x)$相同，而由1.5节知后者在$g$为连续函数时一致收敛于$g$，得证。
+
+    \item (TBD)
+
+    \item (TBD)
+    
+    \item (TBD)
+
+    \item 由1.8节Hausdorff-Young不等式可知$q=p',p\in[1,2]$时存在，并设对应常数为$C_p$，下面说明其他情况不存在。
+    
+    由$\mathcal{S}$中$\mathcal{F}^{-1}=\sigma\mathcal{F}$可知若
+    $$\|\mathcal{F}f\|_q\le C\|f\|_p$$
+    则
+    $$\|f\|_q\le C\|\mathcal{F}f\|_p$$
+
+    分类讨论(下取出的函数若不在$\mathcal{S}(\mathbb{R}^n)$中，则可以从中取出一列逼近，从而仍有结论)：
+    \begin{itemize}
+        \item $q=p'$，且$p>2$，一维时考虑
+        $$f_0(x)=\begin{cases}|x|^{-1/2}&|x|>1\\0&|x|<1\end{cases}$$
+        直接换元可知$\xi\to\infty$时$\hat{f}(\xi)\sim\xi^{-1/2}$，从而其积分收敛必须在$q>2$的$L_q$中，与$q=p'$矛盾。对高维，可构造$f(x)=\prod_if_0(x_i)$，相同得出矛盾。
+        \item $q\ne p'$，且$p>2$，此时有
+        $$\|f\|_q\le C\|\mathcal{F}f\|_p\le C_{p'}C\|f\|_{p'}$$
+        但$p'>q$时考虑趋于无穷的$x^{-\alpha}$，$p'<q$时考虑0附近的$x^{-\beta}$可知$\mathbb{R}$上不同的$p$范数无强弱关系，矛盾。
+        \item $q\ne p'$，且$p\le 2$。
+        
+        类似第一种情况，只需在一维时构造矛盾即可。考虑$f(x)=x^{-\alpha}$，直接换元可知$\hat{f}(\xi)\sim\xi^{\alpha-1}$。
+
+        当$q>p'$时，令$\alpha\to\frac{1}{p}^-$，考虑$f$在零附近为$x^{-\alpha}$，可发现$q(1/p-1)<-1$，于是能取合适的$\alpha$使得$f(x)\in L^p(\mathbb{R})$但$\hat{f}(\xi)\notin L^q(\mathbb{R})$。
+
+        当$q<p'$时，令$\alpha\to\frac{1}{p}^+$，考虑$f$在充分大时为$x^{-\alpha}$，可发现$q(1/p-1)>-1$，于是能取合适的$\alpha$使得$f(x)\in L^p(\mathbb{R})$但$\hat{f}(\xi)\notin L^q(\mathbb{R})$。
+
+        综上得矛盾。
+    \end{itemize}
+
+    \
+
+    \textbf{伸缩不变性}思路：利用
+    $$\|f(ax)\|_p=a^{-n/p}\|f\|_p$$
+    $$\mathcal{F}(f(ax))=a^{-n}\hat{f}(a^{-1}x)$$
+    $$\|\hat{f}(a^{-1}x)\|_q=a^{n/q}\|\hat{f}\|_q$$
+    于是若有
+    $$\|\hat{f}\|_q\le C\|f\|_p$$
+    即有
+    $$\|\mathcal{F}(f(ax))\|_q\le C\|f(ax)\|_p$$
+    也即
+    $$\|\hat{f}\|_q\le Ca^{n(1-1/p-1/q)}\|f\|_p$$
+    只要$1-1/p-1/q\ne0$，考虑最优的$C$后取合适的$a$可发现有更优的$C$存在，矛盾。
+\end{enumerate}
+
+\section{Hardy-Littlewood极大函数}
+\begin{enumerate}
+    \item 记
+    $$\psi_{x_0}(x)=\sup_{|y-x_0|\ge|x|}|\varphi(y)|$$
+    则
+    $$\psi_{x_0}(x)\le\psi(\max\{|x|-|x_0|,0\})$$
+    又由于其随$|x|$单调减，可从$\psi(x)$绝对可积得到$\psi_{x_0}(x)$绝对可积，由此作平移不妨设$x=0$。另一方面，由于$\psi>|\varphi|$且满足$\varphi$的条件、$|f|\in L^1_{loc}$，将$\varphi$替换为$\psi$、$f$替换为$|f|$后，左侧不会变小，右侧不变，因此可不妨进行这样的替换。
+    
+    由此，设$g=|f|$，问题变为要证
+    $$\sup_{t>0}\sup_{|y|<t}t^{-n}\int_{\mathbb{R}^n}\psi(s/t)g(y-s)\dr s\le CMf(x)$$
+    换元可知
+    $$t^{-n}\int_{\mathbb{R}^n}\psi(s/t)g(y-s)\dr s=\int_{\mathbb{R}^n}\psi(s+y/t)g(-st)\dr s$$
+    由此利用$\psi$单调性，$|y|<t$时其绝对值不超过(上标加号表示小于0时取0)
+    $$\int_{\mathbb{R}^n}\psi((|s|-1)^+)g(-st)\dr s=\eta_t*g(0)$$
+    
+    这里$\eta(s)=\psi((|s|-1)^+)$，可知其非负、球对称、对$|s|$单调减，且由$\psi$单调性可知其绝对可积，利用结论2.8即得证。
+
+    \item 利用条件设$\|f\|_{p,\infty}=A,\|f\|_{q,\infty}=B$，则有
+    $$a_f(\lambda)\le\min\bigg(\frac{A}{\lambda^p},\frac{B}{\lambda^q}\bigg)$$
+    利用结论2.4有
+    $$\int_X|f(x)|^r\dr\mu=\int_0^\infty r\lambda^{r-1}a_f(\lambda)\dr\lambda\le\int_0^1 r\lambda^{r-1-p}A\dr\lambda+\int_1^\infty r\lambda^{r-1-q}B\dr\lambda=\frac{rA}{r-p}+\frac{rB}{q-r}$$
+    即得证。
+
+    \item 
+    \textbf{引理}：设$g_k:X\to\mathbb{R}$，对任何$\lambda>0$有(绝对值符号表满足条件的$x$所在集合的测度)
+    $$\lambda\bigg|\sum_kg_k(x)\ge\lambda\bigg|\le\sum_k\int_0^\lambda|g_k(x)\ge t|\dr t$$
+
+    \textbf{引理证明}：利用Fubini定理可得右侧即
+    $$\int_X\sum_k\int_0^\lambda\chi\{g_k(x)\ge t\}\dr t\dr\mu=\int_X\sum_k\min(\max(g_k(x),0),\lambda)\dr\mu$$
+    当$\sum_kg_k(x)\ge\lambda$成立时，分类讨论其中有无$\ge\lambda$的$g_k(x)$即可得到$\sum_k\min(\max(g_k(x),0),\lambda)\ge\lambda$，由此将左侧看作$\sum_kg_k(x)\ge\lambda$时对$\lambda$的积分，利用右侧处处非负即可知不等式成立。
+
+    \
+
+    \textbf{定理证明}：用$|f_k|$代替$f_k$时右侧不变，左侧不减小，由此只需证明$f_k$均非负时成立。
+    
+    对任何$\lambda>0$，利用
+    $$\|f_k\|_{1,\infty}\ln(1+a_k^{-1})=\int_{\lambda a_k}^{\lambda(a_k+1)}\frac{\|f_k\|_{1,\infty}}{t}\dr t\ge\int_{\lambda a_k}^{\lambda(a_k+1)}|f_k(x)\ge t|\dr t=\int_0^\lambda|f_k(x)-\lambda a_k\ge t|\dr t$$
+
+    设$g_k=f_k-\lambda a_k$，利用引理即得
+    $$\sum_k\|f_k\|_{1,\infty}\ln(1+a_k^{-1})\ge\lambda\bigg|\sum_kf_k(x)\ge\bigg(1+\sum_ka_k\bigg)\lambda\bigg|$$
+    由于$a_k>0$，记$\lambda^*=\big(1+\sum_ka_k\big)\lambda$即可由弱型空间定义得到结论。
+
+    \item 当$p=2$时，可发现左即为$\|\hat{f}\|_{L^2}=\|f\|_{L^2}$，从而得证。
+    
+    其他情况下，考虑$Tf=|x|^n\hat{f}(x)$为$\mathbb{R}^n$可测函数到$(\mathbb{R}^n,|x|^{-2n}\dr x)$的映射，则其为线性算子，且左侧即为
+    $$\|Tf\|_{L^{p,\infty}(\mathbb{R}^n,|x|^{-2n})}$$
+    
+    由此为验证其他情况成立，利用Marcinkiewicz插值定理，只需证明存在$A,B$使得
+    $$\|\hat{f}|x|^n\|_{L^{1,\infty}(\mathbb{R}^n,|x|^{-2n}\dr x)}\le A\|f\|_{L^1(\mathbb{R}^n)}$$
+    $$\|\hat{f}|x|^n\|_{L^{2,\infty}(\mathbb{R}^n,|x|^{-2n}\dr x)}\le B\|f\|_{L^2(\mathbb{R}^n)}$$
+
+    分别进行分析：
+    \begin{itemize}
+        \item $p=1$时情况
+        
+        记$\|f\|_{L^1(\mathbb{R}^n)}=m$，则$|\hat{f}|\le m$，只需证明存在$A$对任何$\lambda$满足
+        $$\int_{|\hat{f}||x|^n>\lambda}\lambda|x|^{-2n}\dr x\le Am$$
+        而左侧不超过
+        $$\int_{|x|^n>\lambda/m}\lambda|x|^{-2n}\dr x=\int_{|x|>\sqrt[n]{\lambda/m}}\lambda|x|^{-2n}\dr x$$
+        利用球坐标可知，其可写为
+        $$C\int_{\sqrt[n]{\lambda/m}}^\infty\lambda r^{-n+1}\dr r=\frac{Cm}{n}$$
+        从而得证。
+
+        \item $p=2$时情况
+
+        由定义可知
+        $$\|\hat{f}|x|^n\|_{L^{2,\infty}(\mathbb{R}^n,|x|^{-2n}\dr x)}\le\|\hat{f}|x|^n\|_{L^2(\mathbb{R}^n,|x|^{-2n}\dr x)}=\|\hat{f}\|_{L^2}=\|f\|_{L^2}$$
+        从而取$B=1$直接得成立。
+
+    \end{itemize}
+
+    \item 
+    记
+    $$M_rf(x)=\frac{1}{|B_r|}\int_{B_r}|f(x-s)|\dr s$$
+    
+    对任何两个点$x$、$y$，可发现$r$充分大时
+    $$\int_{B_{r-|x-y|}}|f(y-s)|\dr s\le\int_{B_r}|f(x-s)|\dr s\le\int_{B_{r+|x-y|}}|f(y-s)|\dr s$$
+    由此
+    $$\bigg(\frac{r-|x-y|}{r}\bigg)^nM_{r-|x-y|}f(y)\le M_rf(x)\le\bigg(\frac{r+|x-y|}{r}\bigg)^nM_{r+|x-y|}f(y)$$
+
+    于是可得
+    $$\limsup_{r\to\infty}M_rf(x)\le\limsup_{r\to\infty}M_rf(y)$$
+    $$\limsup_{r\to\infty}M_rf(y)\le\limsup_{r\to\infty}M_rf(x)$$
+    从而
+    $$\limsup_{r\to\infty}M_rf(x)=\limsup_{r\to\infty}M_rf(y)$$
+
+    由局部$L^1$可知对任何$r>0$与$x$，$M_rf(x)$有限，于是若$Mf(x)$为无穷，只能$\limsup_{r\to 0}M_rf(x)=\infty$或$\limsup_{r\to\infty}M_rf(x)=\infty$。
+
+    若所有点$M_rf(x)$在无穷处均为无穷，则已得证，下不妨设均存在有限极限，则只需证明
+    $$\mu\bigg\{x\ \bigg|\ \limsup_{r\to 0}M_rf(x)=\infty\bigg\}=0$$
+
+    利用实分析知识[Stein, P104]可以证明，在任何紧集$\Omega$上，$f$的Lebesgue点几乎处处存在(由此$\mathbb{R}^n$中几乎处处存在)，而Lebesgue点处由
+    $$\lim_{r\to\infty}\frac{1}{r^n}\int_{|y|\le r}|f(x-y)-f(x)|\dr y=0$$
+    乘常数将分子$r^n$变为$|B_r|$即可知
+    $$\lim_{r\to\infty}M_rf(x)=|f(x)|$$
+    从而成立，原命题得证。
+
+    \item (TBD)
+    \item (TBD)
+    \item (TBD)
+    
+    \item 对任何$R$考虑$\{x\mid Mf(x)>\lambda\}\cap B_R(0)$，将这个集合记为$A_R$，利用定义有(注意$|A_R|$随$R$单调增)
+    $$\|Mf\|_{p,\infty}=\sup_{R>0,\lambda>0}\lambda|A_R|^{1/p}$$
+
+    根据定义，对任何$\varepsilon>0$，任何$x\in A_R$存在$r_x$使得$|f|$在$B_{r_x}(x)$上积分平均$\ge\lambda-\varepsilon$。
+    
+    利用引理2.6，可以在这些开球中选出一些不交的，使得它们半径扩大三倍后能覆盖住全部，由此可知存在一个测度至少为$3^{-n}|A_R|$的集合$E_R$，$|f|$在其上的积分平均$\ge\lambda-\varepsilon$。
+
+    若$\|f\|_{p,\infty}=t$，有
+    $$\mu^pa_f(\mu)\le t^p$$
+    于是对任何$s>0$\ (由于$E_R$上$|f|\ge \mu$的测度不可能超过$|E_R|$)
+    $$\int_{E_R}|f|\dr x\le\int_0^\infty\min(|E_R|,a_f(\lambda))\dr\lambda\le\int_0^s|E_R|\dr\lambda+\int_s^\infty\frac{t^p}{\lambda^p}\dr\lambda=s|E_R|+(p-1)t^ps^{1-p}$$
+    $$\lambda-\varepsilon\le\frac{1}{|E_R|}\int_{E_R}|f|\dr x\le s+\frac{(p-1)t^ps^{1-p}}{|E_R|}\le s+3^n\frac{t^ps^{1-p}}{(p-1)|A_R|}$$
+    由$\varepsilon$可任取，并取定$s=t|A_R|^{-1/p}$知
+    $$\lambda\le t|A_R|^{-1/p}+3^n(p-1)^{-1}t|A_R|^{-1/p}=\frac{3^np}{p-1}|A_R|^{-1/p}$$
+    于是取$C=\frac{3^np}{p-1}$得结论。
+
+
+\end{enumerate}
+
+\section{Hilbert变换}
+\begin{enumerate}
+    \item 由于
+    $$H\chi_{[a,b]}(x)=\frac{1}{\pi}p.v.\int_{x-b}^{x-a}\frac{1}{y}\dr y$$
+    分其是否经过0讨论可知
+    $$H\chi_{[a,b]}(x)=\begin{cases}\frac{1}{\pi}\ln\frac{x-a}{x-b}&x<a\\\frac{1}{\pi}\ln\frac{a-x}{x-b}&a<x<b\\\frac{1}{\pi}\ln\frac{x-a}{x-b}&x>b\end{cases}$$
+
+    \item (TBD)
+    
+    \item 利用留数定理可直接计算得
+    $$\hat{f}(\xi)=\pi\er^{-2\pi|\xi|}$$
+    于是
+    $$H(x)=\mathcal{F}^{-1}\big[-\ir\sgn(\xi)\pi\er^{-2\pi|\xi|}\big](x)$$
+    直接分正负计算得到
+    $$H(x)=\frac{x}{1+x^2}$$
+
+    \item (TBD)
+    
+    \item 根据3.2节，设$g(\xi)=\hat{f}(\xi)$，则要证(提出常数)
+    $$-(\sgn g*\sgn g)(\xi)=(g*g)(\xi)-2\sgn(\xi)(g*\sgn g)(\xi)$$
+    也即
+    $$-\int_{\mathbb{R}}\sgn(\xi-x)g(\xi-x)\sgn(x)g(x)\dr x=\int_{\mathbb{R}}g(\xi-x)g(x)\dr x-2\sgn(\xi)\int_{\mathbb{R}}g(\xi-x)\sgn(x)g(x)\dr x$$
+    先考虑$\xi>0$的情况，有左侧为
+    $$\int_{-\infty}^0g(\xi-x)g(x)\dr x-\int_0^\xi g(\xi-x)g(x)\dr x+\int_\xi^\infty g(\xi-x)g(x)\dr x$$
+    右侧为
+    $$\int_{-\infty}^\infty g(\xi-x)g(x)\dr x+2\int_{-\infty}^0g(\xi-x)g(x)\dr x-2\int_0^\infty g(\xi-x)g(x)\dr x$$
+    于是右减左为
+    $$2\int_{-\infty}^0g(\xi-x)g(x)\dr x-2\int_\xi^\infty g(\xi-x)g(x)\dr x$$
+    直接在第二项中将$x$换元为$\xi-x$即可得到此为0，得证，对$\xi\le0$时类似。
+
+    \item 将要证的式子改写为
+    $$\lim_{N\to+\infty}\lim_{t\to 0^+}\langle Q_t(x),\er^{-2\pi\ir Nx}\varphi(x)\rangle=\ir\varphi(0)$$
+    利用Fourier变换的性质与Parseval恒等式，左侧内积内即为
+    $$\langle\hat{Q}_t(\xi),\hat{\varphi}(\xi+N)\rangle=\int_\mathbb{R}-\ir\sgn(\xi)\er^{-2\pi t|\xi|}\hat{\varphi}(\xi+N)\dr\xi=\int_\mathbb{R}-\ir\sgn(\xi-N)\er^{-2\pi t|\xi-N|}\hat{\varphi}(\xi)\dr\xi$$
+    当$t\to 0^+$时利用$\hat{\varphi}$可积由控制收敛定理可知极限为
+    $$\int_\mathbb{R}-\ir\sgn(\xi-N)\hat{\varphi}(\xi)\dr\xi$$
+    再次利用控制收敛定理与Fourier逆变换可知其在$N\to+\infty$时为
+    $$\int_\mathbb{R}\ir\hat{\varphi}(\xi)\dr\xi=\ir\varphi(0)$$
+
+    \item 由于$f\in\mathcal{S}(\mathbb{R})$，必然有$\hat{f}$连续，而由于
+    $$\mathcal{F}(Hf)(\xi)=-\ir\sgn(\xi)\hat{f}(\xi)$$
+    当且仅当$\hat{f}(0)=0$时$\mathcal{F}(Hf)(\xi)$在0处极限存在，也即$Hf$的Lebesgue积分存在(仅当利用反证与控制收敛定理即可)。根据Lebesgue可积与绝对可积的等价性即可知当且仅当$\hat{f}(0)=0$时$Hf\in L^1(\mathbb{R})$，展开$\hat{f}(0)$得结论。
+
+    \item 即为讲义上与平移可交换的算子的性质iii、v。
+    \item 即为讲义上与平移可交换的算子的命题(24)。
+    \item 利用
+    $$\forall\alpha,\beta\in\mathbb{N}^n,\quad\sup_x|x^\alpha D^\beta f|<\infty$$
+    取$\alpha$各分量充分大即可发现$f(x)\chi_{B_R(0)}(x)$在$R\to\infty$时一致趋于$f$，从而$L_0^\infty\cap\mathcal{S}$在$\mathcal{S}$中依无穷范数稠密，由与平移可交换的算子的性质i、ii即可得证。
+
+    *讲义上的证明用到了结论，$1\le p<\infty$时
+    $$\forall f\in L^p(\mathbb{R}^n),\quad\lim_{|h|\to\infty}\|\tau_hf+f\|_p=2^{1/p}\|f\|_p$$
+    证明思路为，当$f$紧支时可找到充分大的$h$使得$\tau_hf$与$f$支集不交，此时等号成立，而利用控制收敛定理，$L^p$中任何$f$可由紧支的$f$逼近，从而得证。(对$L_0^\infty(\mathbb{R}^n)$完全类似。)
+\end{enumerate}
+
+\section{奇异积分算子I}
+\begin{enumerate}
+    \item 利用定义可发现
+    $$T(f(ax))=p.v.\int_{\mathbb{R}^n}\frac{\Omega(y')}{|y|^n}f(a(x-y))\dr y=p.v.\int_{\mathbb{R}^n}\frac{\Omega((ay)')}{|ay|^n}f(ax-ay)\dr(ay)=(Tf)(ax)$$
+    再利用
+    $$\|f(ax)\|_p=a^{-p/n}\|f\|_p$$
+    即得若$\|Tf\|_q\le C\|f\|_p$，有
+    $$\|Tf(ax)\|_q\le C\|f(ax)\|_p$$
+    也即
+    $$\|Tf\|_q\le Ca^{n(q-p)}\|f\|_p$$
+    只要$p\ne q$，考虑最优的$C$后取合适的$a$可发现有更优的$C$存在，矛盾。
+
+    \item (TBD)
+    
+    \item 这即为讲义上的推论4.6。利用定理4.4拆分出$\Omega_o$与$\Omega_e$可直接计算得到$\mathcal{F}\big(p.v.\frac{\Omega_o(x')}{|x|^n}\big)=0$。取只在部分立体角有值且球对称的$\hat{\phi}$即可验证$\Omega_o=0$，从而得证。
+    
+    \item 直接估算可知
+    $$\int_{\mathbb{R}^n}\frac{f(y)}{|x-y|^{n-\alpha}}\dr y=\int_{|y-x|<r}\frac{f(y)}{|x-y|^{n-\alpha}}\dr y+\int_{|y-x|>r}\frac{f(y)}{|x-y|^{n-\alpha}}\dr y$$
+    第一项可以看成$\phi$定义为在$|x|<r$时为$|x|^{-(n-\alpha)}$，$|x|\ge r$时为0，利用讲义结论2.8可知
+    $$\int_{|y-x|<r}\frac{f(y)}{|x-y|^{n-\alpha}}\dr y\le Mf(x)\int_{|y|<r}\frac{1}{|y|^{n-\alpha}}\dr y=Cr^\alpha Mf(x)$$
+    第二项利用H\"older不等式，记$q=(1-1/p)^{-1}$可放缩为(利用所给界可估算得右侧积分收敛)
+    $$\|f\|_p\bigg(\int_{|y-x|>r}\frac{\dr y}{|x-y|^{(n-\alpha)q}}\bigg)^{1/q}=C'r^{n/q-n+\alpha}\|f\|_p=C'r^{\alpha-n/p}\|f\|_p$$
+    令
+    $$r=\|f\|_p^{p/n}Mf(x)^{-p/n}$$
+    代入即得结论。
+
+    \item 利用习题4.4得
+    $$|I_\alpha f(x)|\le C\|f\|_p^{\alpha p/n}Mf(x)^{1-\alpha p/n}$$
+
+    由讲义定理2.15(i)可知$p>1$时
+    $$\|I_\alpha f\|_q\le C\|f\|_p^{\alpha p/n}\|Mf^{1-\alpha p/n}\|_q\le C'\|f\|_p^{\alpha p/n}\|f^{1-\alpha p/n}\|_q$$
+    代入$q=np/(n-\alpha p)$即可发现右侧成为$C'\|f\|_p$，从而得证。
+
+    当$p=1$时，可发现
+    $$|I_\alpha f(x)|^{n/(n-\alpha)}\le C'\|f\|_1^{\alpha/(n-\alpha)}Mf(x)$$
+    注意到$a_g(\lambda)=a_{g^k}(\lambda^k)$，由定义可知
+    $$\|I_af\|_{n/(n-\alpha),\infty}=\||I_af|^{n/(n-\alpha)}\|_{1,\infty}^{(n-\alpha)/n}$$
+
+    从而利用讲义定理2.15(ii)即得到结论。
+    \item (TBD)
+    \item (TBD)
+    \item (TBD)
+    
+    \item 
+    *参考Grafakos的《经典傅里叶分析》。
+    
+    直接计算$\Delta f$的Fourier变换可知(忽略常数系数)
+    $$0=\mathcal{F}(\Delta f)=|x|^2\hat{f}$$
+    而根据定义可知
+    $$(|x|^2\hat{f})(\varphi)=\hat{f}(|x|^2\varphi)$$
+    于是，若$\varphi$支集在$\{x\mid|x|>r\}$中，$|x|^{-2}\varphi\in\mathcal{S}$，即有
+    $$\hat{f}(\varphi)=|x|^2\hat{f}(|x|^{-2}\varphi)=0$$
+    于是可知$\hat{f}$的支集为原点，下面证明，$u\in\mathcal{S}'$的支集为原点可以推出
+    $$u=\sum_{|\alpha|\le k}a_\alpha\partial^\alpha\delta$$
+    这里$\alpha$为指标，$a_\alpha$为常数系数，$k$为自然数，$\delta$代表$\delta$函数。以此再进行Fourier变换即得到了结论。
+
+    利用$\mathcal{S}$的拓扑性质(即$\{f\in\mathcal{S}\mid p_{\alpha,\beta}(f)<c\}$对一切$\alpha,\beta$与$c>0$构成拓扑基)，由$u$的连续性，$(-\infty,-1)\cup(1,\infty)$的原像可写为一些拓扑基的并，于是反证可知
+    $$\exists C>0,m\in\mathbb{N},k\in\mathbb{N},\quad|u(f)|\le C\sum_{|\alpha|\le m,|\beta|\le k}p_{\alpha,\beta}(f)$$
+    这里$p_{\alpha,\beta}$如讲义1.7节定义。
+
+    先证明$D^\alpha\varphi(0)=0$对一切$|\alpha|<k$成立时$u(\varphi)=0$。考虑$\zeta\in C^\infty$使得$|x|\ge2$时其为1，$|x|\le1$时其为0，记$\zeta^\varepsilon(x)=\zeta(x/\varepsilon)$可发现$p_{\alpha,\beta}(\zeta^\varepsilon\varphi-\varphi)\to0$，又由支集为0可知$u(\zeta^\varepsilon\varphi)=0$，于是将$u(\varphi)$拆成两项并令$\varepsilon\to0$即可得证。
+
+    对任何$f$，取函数$\eta\in C_0^\infty$在0的某邻域为1，泰勒展开可发现
+    $$f(x)=\eta(x)\bigg(\sum_{|\alpha|\le k}\frac{D^\alpha f(0)}{\alpha!}x^\alpha+O(x^{k+1})\bigg)+(1-\eta(x))f(x)$$
+    由之前证明可知$u$作用在$O(x^{k+1})$项上为0，且由支集作用在$(1-\eta(x))f(x)$上为0，定义
+    $$a_\alpha=(-1)^{|\alpha|}\frac{u(x^\alpha\eta(x))}{\alpha!}$$
+    即可验证结论成立。
+
+    
+    \item 利用习题4.9，只需给出一个特解，通解即为其加上任意调和多项式。
+    
+    $n=1$时情况平凡，为
+    $$\Gamma[u]=\int_{-\infty}^0\int_{-\infty}^tu(t)\dr t\dr x+\int_{-\infty}^\infty(ax+b)u(x)\dr x$$
+    计算验证即得其满足，且第二项包含了一切$n=1$的调和多项式。
+    
+    当$n\ge2$时。根据偏微分方程理论即可知基本解构成这样的特解，即$n=2$时
+    $$\Gamma(x)=-\frac{1}{2\pi}\ln|x|$$
+    $n\ge3$时(这里$\alpha(n)$指$n$维单位球体积)
+    $$\Gamma(x)=\frac{1}{n(n-2)\alpha(n)}\frac{1}{|x^{n-2}|}$$
+    利用球坐标换元可发现其在0附近积分收敛，从而分$|x|<1$与$|x|\ge1$估算积分($n=2$时须利用$\ln|x|<|x|$)可验证其确实属于$\mathcal{S}'(\mathbb{R}^n)$，得证。
+    
+    \item (TBD)
+    \item 
+    \begin{enumerate}[(1)]
+        \item 利用4.5节开头的Fourier变换结论与$\er^{-\pi|x|^2}$的变换为$\er^{-\pi|\xi|^2}$可知只需证明
+        $$P_k(D)\er^{-\pi|x|^2}=P_k(-2\pi x)\er^{-\pi|x|^2}$$
+        而归纳可以证明(由线性性只需考虑单项式情况，先对$Q=x_i^n$说明，再利用不同微分算子产生的项独立)对多项式$Q$有
+        $$Q(D)\er^{-\pi|x|^2}=\bigg(Q(-2\pi x)+\sum_{n=1}^\infty\alpha_n\Delta^n Q(-2\pi x)\bigg)\er^{-\pi|x|^2}$$
+        从而即得证。
+
+        \item 利用调和函数的平均值性质即知其为$P_k(0)=0$。
+        
+        \item 
+        利用(1)可知
+        $$\begin{aligned}\mathcal{F}(P_k(x)\er^{-\pi t|x|^2})&=t^{-k/2}\mathcal{F}(P_k(t^{1/2}x)\er^{-\pi|t^{1/2}x|^2})\\ &=t^{-(n+k)/2}\ir^{-k}P_k(t^{-1/2}\xi)\er^{-\pi|\xi|^2/t}=t^{-n/2-k}\ir^{-k}P_k(\xi)\er^{-\pi|\xi|^2/t}\end{aligned}$$
+        
+        仿照讲义4.2节(积分均代表主值)
+        $$\begin{aligned}\langle \mathcal{F}(P_k(x)|x|^{-n-k}),\phi\rangle &=\int_{\mathbb{R}^n}P_k(x)|x|^{-n-k}\hat{\phi}(x)\dr x\\ &=\frac{\pi^{(n+k)/2}}{\Gamma((n+k)/2)}\int_0^\infty \int_{\mathbb{R}^n}t^{(n+k)/2-1}P_k(x)\er^{-\pi t|x|^2}\hat{\phi}(x)\dr x\dr t\\ &=\frac{\pi^{(n+k)/2}}{\Gamma((n+k)/2)}\int_0^\infty t^{(n+k)/2-1}\int_{\mathbb{R}^n}\mathcal{F}(P_k(x)\er^{-\pi t|x|^2})\phi(x)\dr x\dr t\\ &=\frac{\pi^{(n+k)/2}\ir^{-k}}{\Gamma((n+k)/2)}\int_0^\infty t^{-k/2-1}\int_{\mathbb{R}^n}P_k(x)\er^{-\pi|x|^2/t}\phi(x)\dr x\dr t\\ &=\frac{\pi^{(n+k)/2}\ir^{-k}}{\Gamma((n+k)/2)}\int_{\mathbb{R}^n}\int_0^\infty s^{k/2-1}\er^{-\pi s|x|^2}\dr s P_k(x)\phi(x)\dr x\\ &=\frac{\pi^{(n+k)/2}\Gamma(k/2)\ir^{-k}}{\Gamma((n+k)/2)\pi^{k/2}}\int_{\mathbb{R}^n}P_k(x)|x|^{-k}\phi(x)\dr x\end{aligned}$$
+        整理即得证。
+    \end{enumerate}
+\end{enumerate}
+
+\section{奇异积分算子II}
+\begin{enumerate}
+    \item 设$Tf=K*f$，由有界与可积可知$Tf\in L^2\cap L^1$，从而可进行Fourier变换，得到
+    $$\mathcal{F}(Tf)=\hat{K}\hat{f}$$
+    而条件化为$\hat{f}(0)=0$，于是$\hat{K}\hat{f}(0)=0$，即得证(或直接通过Fubini定理交换积分次序)。
+
+    \item
+    仅当：设$\|\hat{K}\|_\infty=M$，利用$\mathcal{F}(\varphi^R)=R^n\hat{\varphi}(R\lambda)$有
+    $$|K(\varphi^R)|=\bigg|\int_{\mathbb{R}^n}\hat{K}(\lambda)R^n\hat{\varphi}(R\lambda)\dr\lambda\bigg|=\bigg|\int_{\mathbb{R}^n}\hat{K}(\lambda/ R)\hat{\varphi}(\lambda)\dr\lambda\bigg|\le M\|\hat{\varphi}\|_{L^1}$$
+    利用Sobolev嵌入定理可得右侧可被控制，从而得证。
+    
+    当：由$K(x)$条件可得
+    $$\sup_{a>0}\int_{a<|x|<2a}|K(x)|\dr x\le\sup_{a>0}\int_{a<|x|<2a}\frac{A_1}{|x|^n}\dr x<\infty$$
+    $$\sup_{y\in\mathbb{R}^n}\int_{|x|>2|y|}|K(x-y)-K(x)|\dr x\le\sup_{y\in\mathbb{R}^n}\int_{|x|>2|y|}\frac{A|y|}{|x|^{n+1}}\dr x<\infty$$
+    另一方面，取$\varphi\in C_c^\infty(\mathbb{R}^n)$使其径向对称且$|x|\le\frac{1}{2}$时$\varphi(x)=1$、$|x|>1$时$\varphi(x)=0$，并记$\psi(x)=\varphi^{2b}(x)-\varphi^a(x)$，有对任何$0<a<b$
+    $$\int_{a<|x|<b}K(x)\dr x=\int_{\mathbb{R}^n}K(x)\psi(x)\dr x-\int_{a/2<|x|<a}K(x)\psi(x)\dr x-\int_{b<|x|<2b}K(x)\psi(x)\dr x$$
+    第一项为$\langle K,\varphi^{2b}\rangle-\langle K,\varphi^a\rangle$有界，后两项由第一式有界，从而整体有界。
+
+    综合以上三式，由定理5.3可得
+    $$\sup_{0<\varepsilon<R}\|\hat{K}_{\varepsilon,R}\|_\infty<\infty$$
+    由有界性可知存在$a_k\to0^+$使得
+    $$\lim_{k\to\infty}\int_{a_k<|x|<1}K(x)\dr x=L$$
+    由此可构造$\tilde{K}\in\mathcal{S}'(\mathbb{R}^n)$使得$\tilde{K}^\wedge\in L^\infty(\mathbb{R}^n)$，且
+    $$\forall\phi\in\mathcal{S}(\mathbb{R}^n),\quad\langle\tilde{K},\phi\rangle=\lim_{k\to\infty}\int_{|x|>a_k}K(x)\phi(x)\dr x$$
+    下面证明$K-\tilde{K}=a\delta$，两侧同时Fourier即得结论。设$T=K-\tilde{K}$。由定义可发现$T$支集在原点，从而由习题4.9过程可知
+    $$T=\sum_{|\alpha|\le k}c_\alpha\partial^\alpha\delta$$
+    但由仅当一侧可知$|\langle\tilde{K},\varphi^R\rangle|$有界，从而$\langle T,\varphi^R\rangle$有界，直接Fourier计算可得只能$T=c_0\delta$，即得证。
+
+    \item (TBD)
+    \item (TBD)
+    \item 设对$K(x,y)$对应的参数为$\delta$与$C$，下考察对$K_\varepsilon(x,y)$对应的参数：
+    \begin{enumerate}
+        \item 由光滑性与无穷处为1可知$\varphi$有界，于是
+        $$|K_\varepsilon(x,y)|=|K(x,y)||\varphi((x-y)/\varepsilon)|\le\frac{C\|\varphi\|_\infty}{|x-y|^n}$$
+        \item 设$\varphi(x)=\eta(|x|)$。直接计算可知
+        $$|K_\varepsilon(x,y)-K_\varepsilon(x,z)|=|K(x,y)\eta(|x-y|/\varepsilon)-K(x,z)\eta(|x-z|/\varepsilon)|$$
+        由于
+        $$|K(x,y)-K(x,z)||\eta(|x-z|/\varepsilon)|\le\frac{C\|\varphi\|_\infty|y-z|^\delta}{|x-y|^{n+\delta}}$$
+        利用三角不等式只需证明
+        $$|K(x,y)||\eta(|x-y|/\varepsilon)-\eta(|x-z|/\varepsilon)|\le\frac{C'|y-z|^{\delta_0}}{|x-y|^{n+\delta_0}}$$
+        利用条件(a)只需证
+        $$|\eta(|x-y|/\varepsilon)-\eta(|x-z|/\varepsilon)|\le \frac{C''|y-z|^{\delta_0}}{|x-y|^{\delta_0}}$$
+        也即当$s>2t>0$时，存在$\delta_0$与$C_0$满足对任何$r\in[s-t,s+t]$有(将$x,y,z$同乘$\varepsilon$不影响结果)
+        $$|\eta(s)-\eta(r)|\le\frac{C_0t^{\delta_0}}{s^{\delta_0}}$$
+        由于在$s<1/3$时左侧恒为0，否则右侧至少为$3^{\delta_0} C_0t^{\delta_0}$，且根据光滑性可知$\eta$有Lipschitz连续性，从而取$\delta_0=1$可验证成立。
+
+        \item 由$\varphi((x-y)/\varepsilon)$的对称性与上一种情况完全相同得证。
+    \end{enumerate}
+    于是，最终的$C$取为$\max(C_0,C\|\varphi\|_\infty)$，$\delta$取为$\min(\delta,1)$即可。
+
+    \item 设$T=T_1-T_2$，则其满足对$f\in L_c^\infty$，在$f$支集外，$Tf$几乎处处为0，且其为$L^2(\mathbb{R})$上的有界线性算子。
+    
+    由线性性，对任何一点$x_0$，考虑$f_{\varepsilon;x_0}$在$B_\varepsilon(x_0)$为1，其余为0。记$\alpha(x_0)=Tf(x_0)$，若对不同的$f_{\varepsilon;x_0}$定义出的$\alpha(x_0)$不同，考虑两不同的$f$作差，其支集不包含$x_0$，但$Tf$在$x_0$非零，矛盾。
+
+    与上类似并利用线性性，通过对$f$修改$x_0$附近邻域即可发现，对任何$f$均有$Tf(x_0)=\alpha(x_0)f(x_0)$。
+
+    若$\alpha\notin L^\infty$，对任何$M$存在$\delta>0$满足，$|\{x\mid\alpha(x)>M\}|>\delta$，于是存在某$B_{R_M}$使得
+    $$A_M=\{x\in B_{R_M}\mid\alpha(x)>M\},\quad|A_M|>\delta/2$$
+    设$f$在$A_M$上为1，否则为0，可发现
+    $$\|Tf\|_{L^2}^2\ge |A_M|M^2=M^2\|f\|_{L^2}$$
+    与$T$的有界性矛盾。
+    
+    \item (TBD)
+    
+    \item (TBD)
+
+    \item 由条件已知$[K]_2$存在，由$\|\hat{K}\hat{f}\|_{L^2}\le C\|\hat{f}\|_{L^2}$可知$\hat{K}\in L^\infty$，由此类似结论5.5考虑$\hat{K}_{r,R}$拆分估算得结论。
+\end{enumerate}
+
+\section{Hardy空间与BMO空间}
+\begin{enumerate}
+    \item (TBD)
+    \item 本题中的$\lesssim$相关均指相差只与$\varphi$、$n$有关的常数。
+    
+    由线性性只需证明对任何原子$a(x)$有$\|M_\varphi^*a\|_1\lesssim1$即可，设其对应的方体为$Q$，由平移不变性可不妨设其以原点为心，$2r$为边长。设$Q^*=B(0,2\sqrt{n}r)$包含$Q$，利用习题2.1可知$|M_\varphi^*f(x)|\lesssim Mf(x)$，从而(这里利用第二章结论$M$为$L^2$有界算子，再由$a$的二范数估算得到)
+    $$\int_{Q^*}M_\varphi^*a(x)\dr x\le|Q^*|^{1/2}\|M_\varphi^*a\|_2\lesssim|Q^*|^{1/2}|Q|^{-1/2}\lesssim1$$
+
+    下面考虑$x\notin\bar{Q}^*$的情况，下证
+    $$\forall t>0,\quad\forall|x-y|<t,\quad|\varphi_t*a(y)|\lesssim\frac{r}{|x|^{n+1}}$$
+    由此$Q^*$外将$M_\varphi^*a(x)$放为$\frac{r}{|x|^{n+1}}$并积分即可得到结论。
+
+    由于$t\to 0^+$时$\varphi_t*a(y)\to\|\varphi\|_{L^1}a(x)=0$，只需考虑其充分大的情况。直接换元并利用微分中值定理有存在$\frac{y-z}{t}$与$\frac{y}{t}$间的$\xi$使得
+    $$|\varphi_t*a(y)|=\bigg|\int_Q\frac{1}{t^n}\bigg(\varphi\bigg(\frac{y-z}{t}\bigg)-\varphi\bigg(\frac{y}{t}\bigg)\bigg)a(z)\dr z\bigg|\le\int_Q\frac{|z||a(z)|}{t^{n+1}}|\nabla\varphi(\xi)|\dr z$$
+
+    当$|x|<2t$时，直接利用$|z|$、$|a(z)|$与$|\nabla\varphi|$有界性即可估计得结论，否则，由于$|y|>t$，利用$\varphi\in\mathcal{S}(\mathbb{R}^n)$可得(最后一步利用了$t$充分大，从而$|z|<r$相比$|x|$充分小)
+    $$|\nabla\varphi(\xi)|\lesssim|\xi|^{-n-1}\lesssim\frac{t^{n+1}}{||x|-|x-y|-|z||}\lesssim\frac{t^{n+1}}{|x|^{n+1}}$$
+    综合即得结果。
+
+    \item (TBD)
+    \item 本题中的$\lesssim$相关均指相差只与$\alpha,n$有关的常数。
+    
+    由线性性只需证明对任何原子$a(x)$有
+    $$\|I_\alpha a\|_{n/(n-\alpha)}\lesssim1$$
+    设其对应的方体为$Q$。由平移不变性可不妨设其以原点为心，$2r$为边长，与习题2相同定义$Q^*$，并将半径放大为两倍。将$Q^*$内$(I_\alpha a)^{n/(n-\alpha)}$的积分记为$I_1$，$Q^*$外的积分记为$I_2$，只需说明两者分别有界。
+
+    由习题4.4可得
+    $$|I_\alpha a(x)|\lesssim\|a\|_p^{\alpha p/n}Ma(x)^{1-\alpha p/n}$$
+    代入$\|a\|_p$的界可知其$\lesssim |Q|^{\alpha/n-1}$，将上界记为$S$。利用Marcinkiewicz插值定理有
+    $$I_1=\int_0^S\frac{n}{n-\alpha}\lambda^{\alpha/(n-\alpha)}\mu\{x\in Q^*\mid|I_\alpha a(x)|>\lambda\}\dr\lambda$$
+    将积分拆分为0到$r$与$r$到$S$，前者直接将第二项放为$|Q^*|$，后者在$I_\alpha$的估计中取$p=1$并由$M$的弱$(1,1)$性得到
+    $$\mu\{|I_\alpha a(x)|>\lambda\}\lesssim\bigg(\frac{\|a\|_1}{\lambda}\bigg)^{n/(n-\alpha)}$$
+    从而综合可得
+    $$I_1\lesssim|Q^*|r^{n/(n-\alpha)}+\ln\frac{|Q|^{\alpha/n-1}}{r}$$
+    取$r=|Q|^{\alpha/n-1}$即得$I_1\lesssim1$。
+
+    另一方面，利用$a$的性质直接计算有($a(y)\dr y$乘$f(x)$在$Q$上积分为0)
+    $$I_2\approx\int_{\mathbb{R}^n\backslash Q^*}\bigg|\int_Q\bigg(\frac{1}{|x-y|^{n-\alpha}}-\frac{1}{|x|^{n-\alpha}}\bigg)a(y)\dr y\bigg|^{n/(n-\alpha)}\dr x$$
+    由于$x$在$Q^*$外、$y$在$Q$内，且$Q^*$包含$2Q$，$|x|>2|y|$对任何$x,y$成立，利用H\"older不等式将指数放入积分中，并由微分中值定理即有
+    $$I_2\lesssim|Q|^{\alpha/(n-\alpha)}\int_{\mathbb{R}^n\backslash Q^*}\int_Q\bigg(\frac{|y|}{|x|^{n-\alpha+1}}|a(y)|\bigg)^{n/(n-\alpha)}\dr y\dr x$$
+    利用$|a(y)|\le\frac{1}{|Q|}$可直接算出积分，对比阶即可发现最终$r$的阶数恰好为0，从而$I_2\lesssim1$，得证。
+
+    \item 由线性性只需证明对任何原子$a(x)$有
+    $$\int_{\mathbb{R}^n}\frac{|\hat{a}(y)|}{|y^n|}\dr y\le C$$即可，设其对应的方体为$Q$，由平移不改变Fourier变换的模可不妨设其以原点为心，$2r$为边长。同理，利用伸缩$a_\lambda(x)=\lambda^{-n}a(\lambda^{-1}y)$后左侧不变可不妨设$r=1$。与习题2相同定义$Q^*$，并将积分拆分为$Q^*$中的$I_1$与$Q^*$外的$I_2$。
+
+    利用$a(x)$积分为0可知
+    $$|\hat{a}(y)|=\bigg|\int_Qa(x)(\er^{-2\pi\ir x\cdot y}-1)\dr x\bigg|\le2\pi|y|\int_Q|a(x)||x|\dr x$$
+    从而
+    $$I_1\le2\pi\int_{Q^*}\int_Q\frac{|a(x)||x|}{|y|^{n-1}}\dr x\dr y=2\pi\int_{Q^*}\frac{1}{|y|^{n-1}}\dr y\int_Q|a(x)||x|\dr x$$
+    由于$Q$与$Q^*$大小均已放缩为常数，右侧即能被常数控制。
+
+    另一方面，直接利用Cauchy不等式可得
+    $$I_2^2\le\|\hat{a}\|_2^2\int_{\mathbb{R}^n\backslash Q^*}|y|^{-2n}\dr y=\|a\|_2^2\int_{\mathbb{R}^n\backslash Q^*}|y|^{-2n}\dr y$$
+    由于$\|a\|_2$有界、第二项直接计算积分有界，即得$I_2$有界，综合两部分得最终结论。
+
+    \item 本题中的$\lesssim$相关均指相差只与$n,\varepsilon$有关的常数。
+    
+    设$Q_k$为原点为中心、边长$2^{k-1}$的方体，并记
+    $$s_k=\int_{Q_k}f(x)\dr x,\quad g_k(x)=\big(f(x)-s_k|Q_k|^{-1}\big)\chi_{Q_k}(x)$$
+    由条件可知$g_k(x)\to f(x)$，从而记$h_k(x)=g_k(x)-g_{k-1}(x)$\ (设$g_0(x)=0$)有
+    $$f(x)=\sum_{k=1}^\infty h_k(x)$$
+    此外，利用定义计算可发现$h_k$支集在$Q_k$中，且积分为0，由此只需证明
+    $$\sum_{k=1}^\infty|Q_k|\|h_k\|_\infty<+\infty$$
+    即可通过对每个$h_k$除以常数得到构造。
+
+    直接计算可得
+    $$h_k(x)=\begin{cases}s_{k-1}|Q_{k-1}|^{-1}-s_k|Q_k|^{-1}&x\in Q_{k-1}\\f(x)-s_k|Q_k|^{-1}&x\in Q_k\backslash Q_{k-1}\\0&x\notin Q_k\end{cases}$$
+    而利用条件直接放缩并积分可知$|s_k|\lesssim 2^{-k\varepsilon}$，从而再由$|Q_k||Q_{k-1}|^{-1}=2^n$可得
+    $$|Q_k|\|h_k\|_\infty\lesssim\max(2^{-k\varepsilon},|Q_k|\|f\|_{L^\infty(Q_k\backslash Q_{k-1})})$$
+    再次利用条件可知
+    $$\|f\|_{L^\infty(Q_k\backslash Q_{k-1})}\lesssim\frac{1}{1+(2^{k-1})^{n+\varepsilon}}\lesssim 2^{-k(n+\varepsilon)}\lesssim|Q_k|^{-1}2^{-k\varepsilon}$$
+    综合即得
+    $$|Q_k|\|h_k\|_\infty\lesssim2^{-k\varepsilon}$$
+    从而求和收敛，得证。
+
+    \item 本题中的$\lesssim$相关均指相差只与$n,\varepsilon$有关的常数。
+    
+    设$Q_k$为原点为中心、边长$2^{k-1}$的方体，分步进行估算。
+    
+    由于$(1+|x|^{n+\varepsilon})^{-1}$在$\mathbb{R}^n$的积分收敛，利用$|f(x)|\le|f(x)-f_{Q_0}|+|f_{Q_0}|$，只需证明
+    $$\int_{\mathbb{R}^n}\frac{|f(x)-f_{Q_0}|}{1+|x|^{n+\varepsilon}}\dr x<+\infty$$
+    进一步地，由于
+    $$\int_{Q_0}\frac{|f(x)-f_{Q_0}|}{1+|x|^{n+\varepsilon}}\dr x\le\int_{Q_0}|f(x)-f_{Q_0}|\dr x\lesssim\|f\|_*<+\infty$$
+    只需证明
+    $$\sum_{k=1}^\infty\int_{Q_k\backslash Q_{k-1}}\frac{|f(x)-f_{Q_0}|}{1+|x|^{n+\varepsilon}}\dr x<+\infty$$
+    而进一步分解得到
+    $$\int_{Q_k\backslash Q_{k-1}}\frac{|f(x)-f_{Q_0}|}{1+|x|^{n+\varepsilon}}\dr x\le\int_{Q_k\backslash Q_{k-1}}\frac{|f(x)-f_{Q_k}|}{1+|x|^{n+\varepsilon}}\dr x+\sum_{j=1}^k\int_{Q_k\backslash Q_{k-1}}\frac{|f_{Q_j}-f_{Q_{j-1}}|}{1+|x|^{n+\varepsilon}}\dr x$$
+    将第一项的分母放为$C_02^{k(n+\varepsilon)}$，并将积分区域放大至$Q_k$，即得第一项$\lesssim 2^{-k\varepsilon}\|f\|_*$。对第二项，相同放缩分母，并对分子估算
+    $$|f_{Q_j}-f_{Q_{j-1}}|=\frac{1}{|Q_{j-1}|}\bigg|\int_{Q_{j-1}}(f(x)-f_{Q_j})\dr x\bigg|\lesssim\frac{1}{|Q_j|}\bigg|\int_{Q_j}(f(x)-f_{Q_j})\dr x\bigg|\le\|f\|_*$$
+    从而直接计算积分并综合可得
+    $$\int_{Q_k\backslash Q_{k-1}}\frac{|f(x)-f_{Q_0}|}{1+|x|^{n+\varepsilon}}\dr x\lesssim k2^{-k\varepsilon}\|f\|_*$$
+    求和即得证有界。
+
+    \item (TBD)
+    \item 根据定义可发现$\left<I_\alpha f,g\right>=\left<f,I_\alpha g\right>$，从而其对偶算子即为自身。由于$L^{n/(n-\alpha)}$与$L^{n/\alpha}$对偶，原子Hardy空间与BMO对偶，从习题4考虑对偶算子即得结论。
+\end{enumerate}
+
+\section{Littewood-Paley理论与乘子}
+\begin{enumerate}
+    \item 
+    \item 
+    \item 
+    \item 
+    \item 
+    \item 
+\end{enumerate}
+
+\section{综合练习}
+\begin{enumerate}
+    \item (TBD)
+    \item (TBD)
+    \item 记$g(x)=|x|,\quad x\in[-1/2,1/2]$，直接计算Fourier级数，利用Jordan判别法可知收敛，从而得到
+
+    $$|x|=\frac{1}{4}-\sum_{k\in\mathbb{Z}}\frac{1}{\pi^2(2k+1)^2}\er^{2\pi\ir(2k+1)x}$$
+
+    取$x=\frac{N+l}{4N}$，且$|l|\le N$，代入可知
+
+    $$\frac{\ir l\pi^2}{4N}=\sum_{k\in\mathbb{Z}}\frac{(-1)^k}{(2k+1)^2}\er^{2\pi\ir l(2k+1)/(4N)}$$
+
+    对任何不超过$N$次的$P(x)$，利用上式左侧展开$\er^{2\pi\ir lx}$求导中的$l$，再重新合并，可得到
+    $$P'(x)=\sum_{k\in\mathbb{Z}}\frac{(-1)^k8N}{(2k+1)^2\pi}P\bigg(x+\frac{2k+1}{4N}\bigg)$$
+    
+    \item 记(注意$j=N$时左侧系数为0，于是$g$符合要求)
+    $$g(x)=\frac{1}{2N}\sum_{j=1}^N\cot\frac{j\pi}{2N}\sin(2\pi jx)$$
+
+    \begin{itemize}
+        \item 函数值符合要求
+        
+        直接配对计算可知$g(1/(2N))=\frac{N-1}{2N}$，且$g(1/2)=0$。
+
+        另一方面，直接计算可知
+        $$2g\bigg(\frac{k}{2N}\bigg)-g\bigg(\frac{k-1}{2N}\bigg)-g\bigg(\frac{k+1}{2N}\bigg)=\frac{1}{N}\sum_{j=1}^N\cot\frac{j\pi}{2N}\sin(2\pi j k/(2N))(1-\cos2\pi j/(2N))$$
+        利用三角函数变换可将右侧求和中改写为
+        $$\frac{1}{2N}\sum_{j=1}^N\bigg(\cos\frac{2\pi j(k-1)}{2N}-\cos\frac{2\pi j(k+1)}{2N}\bigg)=0$$
+        于是可知其等差，得到结论。
+
+        \item $g(t)+t-1/2$正负性
+        
+        考虑$g'+1$，将其看作$\cos2\pi x$的多项式，注意$j=N$的项为0，于是其$N-1$次，至多$N-1$个根；而$\cos 2\pi x$一个周期中至多两次取某个值，由此其至多$2N-2$个根，从而$g(t)+t-1/2$的全部根即为上述的点，且不存在重根，每次符号均变化。
+        
+        第一段$(0,1/(2N))$中直接估算可得其为负，从而即知结论成立。
+
+        \item $\|g\|_1$计算
+        
+        由正负性可知积分即
+        $$\sum_{j=1}^{2N}(-1)^j\int_{(j-1)/2N}^{j/(2N)}g(t)\dr t+\sum_{j=1}^{2N}(-1)^j\int_{(j-1)/2N}^{j/(2N)}(t-1/2)\dr t$$
+        第一项可以进一步写成若干三角级数的求和，并利用
+        $$\sum_{j=1}^{2N}(-1)^j\cos\frac{2\pi ij}{2N}$$
+        可互相抵消说明其为0，而第二项积分结果即为$\frac{1}{4N}$，这就说明了$\|g\|_1=1/(4N)$。
+
+        \item $f$的展开式
+        
+        由周期性只需说明$x=0$时，直接分部积分计算可得(注意$f(0)=f(1)$)
+        $$\int_0^1f'(t)(t-1/2)\dr t=f(0)-\int_0^1f(t)\dr t$$
+
+        由$|k|<N$时$\hat{f}(k)=0$可知$f(t)$积分为0，且$f'(t)$不足$N$阶的Fourier系数为0，利用正交性可知$f'(t)g(t)$积分为0，最终得到
+        $$f(0)=\int_0^1f'(t)(t-1/2)\dr t$$
+    \end{itemize}
+\end{enumerate}
+\end{document}

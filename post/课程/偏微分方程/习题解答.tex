@@ -1,0 +1,1352 @@
+\documentclass[a4paper,UTF8,fontset=windows,10pt]{ctexart}
+\title{\heiti 偏微分方程\ 习题解答}
+\author{原生生物}
+\date{}
+
+\usepackage{amsmath,amssymb,enumerate,geometry}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\setlength{\parindent}{0pt}
+
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\newcommand*{\er}{\mathrm{e}}
+\newcommand*{\ir}{\mathrm{i}}
+\DeclareMathOperator*{\di}{div}
+\DeclareMathOperator*{\cu}{curl}
+
+\begin{document}
+\maketitle
+
+*对应教材周蜀林《偏微分方程》。
+
+\tableofcontents
+
+\newpage
+
+\section{第一次作业}
+\begin{enumerate}
+    \item 1.4
+    \begin{enumerate}[(1)]
+        \item 在Guass-Green公式中取$\vec{F}$其余分量为0，第$i$个分量为$uv$可得
+        $$\int_\Omega(uv)_{x_i}\dr x=\int_{\partial\Omega}uvn_i\dr S(x)$$
+        将左侧求导写为$u_{x_i}v+uv_{x_i}$并移项即得结论。
+    
+        \item 在Guass-Green公式中取$\vec{F}=Du$，得到
+        $$\int_\Omega\di(Du)\dr x=\int_{\partial\Omega}\vec{n}\cdot(Du)\dr S(x)$$
+        由$\triangle=\di D$与$\frac{\partial}{\partial\vec{n}}=\vec{n}\cdot D$可知结论成立。
+        
+        \item 由于$u_{x_i}v_{x_i}+uv_{x_ix_i}=(uv_{x_i})x_i$，可知$\di(uDv)=Du\cdot Dv+u\triangle v$，而
+        $$\vec{n}\cdot(uDv)=u\vec{n}\cdot(Dv)=u\frac{\partial v}{\partial\vec{n}}$$
+        从而
+        $$\int_\Omega(Du\cdot Dv+u\triangle v)\dr x=\int_\Omega\di(uDv)\dr x=\int_{\partial\Omega}\vec{n}\cdot(uDv)\dr x=\int_{\partial\Omega}u\frac{\partial v}{\partial\vec{n}}\dr x$$
+        移项得到结论。
+    
+        \item 利用(3)，代入$u,v$与$v,u$后两式相减移项得到结论。
+    \end{enumerate}
+    
+    \item 1.6
+    \begin{enumerate}[(1)]
+        \item 由于其为$(D_x+D_y)^2u+D_y^2u=0$，为椭圆型方程，由$D_v=D_x+D_y$与$D_w=D_y$可知$x=v,y=v+w$，于是$v=x,w=y-x$，即有$D_{v,w}u=0$。
+        \item 由于其为$(D_x+D_y)^2u+D_y^2u=0$，可与(1)完全相同换元，得到$u_{vv}=0$。
+        \item 由于其为$(D_x+2D_y)^2u-3D_y^2u$，为双曲型方程，由$D_v=D_x+2D_y$与$D_w=\sqrt3D_y$可知$x=v,y=2v+\sqrt3w$，于是$v=x,w=\frac{\sqrt3}{3}(y-2x)$，即有$u_{vv}-u_{ww}=0$。
+    \end{enumerate}
+    
+    \item 1.7
+    \begin{enumerate}[(1)]
+        \item 由于其系数矩阵$A$对角线为1，其余为$\frac{1}{2}$，记$N$为所有元素为1的矩阵，有$A=\frac{1}{2}(N+I)$，由于$N$的特征值利用特征方程可计算得为$n-1$重0与一重$n$，可知$A$特征值全部大于0，因此为椭圆型方程，标准型即$\triangle u=0$。
+        \item 由于其系数矩阵$A$对角线为0，其余为$\frac{1}{2}$，同上有$A=\frac{1}{2}(N-I)$，可知$A$特征值除了一个$\frac{n-1}{2}$外全部小于0，因此为双曲型方程，标准型即$u_{vv}-\sum_{i=1}^{n-1}u_{w_iw_i}=0$。
+    \end{enumerate}
+    
+    \item 4.5
+    利用偏导可交换可得
+    $$\vec{E}_{tt}=(c\cu B)_t=c\cu B_t=-c^2\cu\cu\vec{E}$$
+    由此只需证明$\cu\cu\vec{E}=-\triangle\vec{E}$，这里对向量作用表示对各分量作用，而直接对比分量计算可知
+    $$\cu\cu\vec{F}=D\di\vec{F}-\triangle\vec{F}$$
+    又由$\di\vec{E}=0$得结论，对$\vec{B}$同理。
+\end{enumerate}
+
+\section{第二次作业}
+\begin{enumerate}
+    \item 2.1
+    
+    考虑
+    $$J(v)=\iint_\Omega\sqrt{1+(Dv)^2}\dr x\dr y$$
+    记$f(\varepsilon)=J(u+\varepsilon\varphi)$，若$u$为最优点，求导可得
+    $$f'(0)=\frac{\dr}{\dr\varepsilon}\bigg|_{\varepsilon=0}\iint_\Omega\sqrt{1+(D(u+\varepsilon\varphi))^2}\dr x\dr y$$
+    由有界区域与光滑性交换求导、积分，进一步计算可得右侧为
+    $$\iint_\Omega\frac{Du\cdot D\varphi}{\sqrt{1+(Du)^2}}\dr x\dr y$$
+    由其为0，利用Green公式得到
+    $$\di\frac{Du}{\sqrt{1+(Du)^2}}=0$$
+    这即为区域内部极小曲面所满足的方程。
+    
+    \item 2.2
+    
+    设其为$Q(x)=\frac{1}{2}x^TAx+d^Tx+c$，则有$\triangle Q(x)=\mathrm{tr}A$，于是线性空间即对应$\mathrm{tr}A=0$的$(A,d,c)$，又由$A$对称可知维数为$\frac{1}{2}n(n+3)$。
+    
+    \item 2.4
+    
+    记右侧替换$g(x)=u(x)$、$f(x)=-\triangle u(x)$后为$\phi(r)$。设$v(x)=|x|^{2-n}-r^{2-n}$，计算可发现$x\ne0$时
+    $$Dv=\frac{(2-n)}{|x|^n}x,\quad\triangle v=0$$
+    且$v$在$|x|=r$时为0，从而任取$\varepsilon<r$，利用习题1.4(4)有
+    $$-\int_{B(0,r)-B(0,\varepsilon)}v\triangle u\dr x=\int_{\partial B(0,r)}(Dv\cdot\vec{n})u\dr S(x)-\int_{\partial B(0,\varepsilon)}(Dv\cdot\vec{n})u\dr S(x)-\int_{\partial B(0,\varepsilon)}(Du\cdot\vec{n})v\dr S(x)$$
+    而$B(0,r)$的边界上$\vec{n}=\frac{x}{r}$，$|x|=r$，记后两项之和为$F(\varepsilon)$，可得
+    $$\frac{(2-n)}{r^{n-1}}\int_{\partial B(0,r)}u(x)\dr S(x)-F(\varepsilon)$$
+    而第一项乘常数$\frac{1}{n(n-2)\alpha(n)}$即为
+    $$-\frac{1}{n\alpha(n)r^{n-1}}\int_{\partial B(0,r)}u(x)\dr S(x)$$
+    也即我们证明了
+    $$\phi(r)=-\frac{1}{n(n-2)\alpha(n)}F(\varepsilon)$$
+    这与$r$无关，由此$\phi'(r)=0$，只需计算$\lim_{r\to0}\phi(r)$，这时第一项由$u$在0处连续性成为$u(0)$，第二项作换元$x=rz$可发现其为
+    $$\frac{1}{n(n-2)\alpha(n)}\int_{B(0,1)}r^2\bigg(\frac{1}{|z|^{n-2}}-1\bigg)f(rz)\dr z$$
+    利用球坐标换元可知右侧积分收敛，故利用控制收敛定理可知$r\to0$时其收敛到0，与第一项极限相加可知$\phi(r)=u(0)$，得证。
+    
+    \item 2.6
+    \begin{enumerate}[(1)]
+        \item 仿照平均值公式的证明记
+        $$\phi(r)=\frac{1}{n\alpha(n)r^{n-1}}\int_{\partial B(x,r)}v(y)\dr S(y)$$
+        则相同计算得
+        $$\phi'(r)=\frac{1}{n^2\alpha(n)r^{n-2}}\int_{B(x,r)}\triangle v(y)\dr y\ge0$$
+        再由$\lim_{r\to 0^+}\phi(r)=v(x)$可知$\phi(r)\ge v(x)$，从而
+        $$\int_{B(x,r)}v(y)\dr y=\int_0^rn\alpha(n)t^{n-1}\phi(t)\dr t\ge\int_0^rn\alpha(n)t^{n-1}v(x)\dr t=\alpha(n)r^nv(x)$$
+        即得证。
+    
+        \item 与强极值原理(1)的证明完全相同，只需说明应用下调和函数的平均值公式能从$v(x_l)=M$得到$B(x_l,r_l)$中对任何$x$有$v(x)=M$即可。
+        
+        若结论不成立，利用$v$连续性，存在$x$邻域$U$使得$U$上$v(y)\le M_0<M$。于是$B(x_l,r_l)$中积分平均值不超过$M-(M-M_0)\delta$，$\delta$为$U$与$B(x_l,r_l)$体积之比，与其大于$M=v(x_l)$矛盾。
+    
+        \item 直接计算可知
+        $$\Delta v=\di D\phi(u)=\di\phi'(u)Du=\phi''(u)|Du|^2+\phi'(u)\triangle u=\phi''(u)|Du|^2$$
+        由光滑凸函数可知$\phi''\ge0$，从而得证。
+    
+        \item 直接计算可知(下标表示求导)
+        $$\Delta v=\sum_iD_i^2|Du|^2=\sum_iD_i^2\sum_ju_j^2=\sum_iD_i\sum_j2u_ju_{ij}=2\sum_{i,j}(u_{ij}^2+u_ju_{iij})$$
+        由于$\sum_iu_ju_{iij}=u_j(\triangle u)_j=0$，可知$\Delta v=2\sum_{i,j}u_{ij}^2$，得证。
+    \end{enumerate}
+\end{enumerate}
+
+\section{第三次作业}
+\begin{enumerate}
+    \item 2.7
+    
+    由条件可知
+    $$\forall\varepsilon>0,\quad\exists N\in\mathbb{N}^*,\quad\forall m,n>N,\quad\forall x\in\partial\Omega,\quad|u_m(x)-u_n(x)|<\varepsilon$$
+    而由于$u_m-u_n$调和，由极值原理可知
+    $$\forall x\in\bar{\Omega},\quad-\varepsilon\le u_m(x)-u_n(x)\le\varepsilon$$
+    这即是一致收敛的柯西列版本。
+    
+    另一方面，对任意$B(r,x)\subset\Omega$，有
+    $$u_n(x)=\frac{1}{n\alpha(n)r^{n-1}}\int_{\partial B(x,r)}u_n(y)\dr S(y)$$
+    两边令$n\to\infty$，利用收敛的一致性，右侧为有界区域，积分必然收敛，从而即有
+    $$u(x)=\frac{1}{n\alpha(n)r^{n-1}}\int_{\partial B(x,r)}u(y)\dr S(y)$$
+    于是利用定理2.3得成立。
+    
+    \item 2.11
+    
+    由定理2.7，对任何$x$，取$r=1-|x|$有
+    $$|Du(x)|\le\sqrt{n}\max_{|\alpha|=1}|D^\alpha u(x)|\le\frac{\sqrt{n}(n+1)}{\alpha(n)}\frac{1}{r^{n+1}}\int_{B(x,r)}|u(y)|\dr y$$
+    将右侧乘积第一项记为$C_n'$，并设$|u|$上界为$M$，由此可知
+    $$r|Du(x)|\le C_n'\frac{1}{r^n}(\alpha(n)r^nM)=C_n'\alpha(n)M$$
+    从而有界。
+    
+    \item 2.12
+    \begin{enumerate}[(1)]
+        \item 由于加减常数仍调和，且不影响结果，可不妨设$\inf_{B(0,R)}u=0$，由此其成为非负调和函数，取$r=R/2$，对$B(0,r)$利用Harnack不等式得
+        $$\sup_{B_r}u\le 3^n\inf_{B_r}u$$
+        而$\sup_{B_R}u\ge\sup_{B_r}u$，于是可知
+        $$\omega(R/2)\le\sup_{B_r}u-\frac{1}{3^n}\sup_{B_r}u\le(1-3^{-n})\sup B_Ru=(1-3^{-n})\omega(R)$$
+        从而得证。
+    
+        \item 由(1)可知
+        $$\omega(R_0/2^k)\le\eta^k\omega(R_0)\le2\eta^kM_0$$
+        设$R\in R_0(2^{-k},2^{-(k+1)})$
+        则
+        $$\omega(R)\le2\eta^kM_0$$
+        由$\eta>1/2$，可取$\alpha$使得$2^{-\alpha}=\eta$，则$\alpha\in(0,1)$，于是
+        $$\omega(R)\le2^{-\alpha k+1}M_0$$
+        再记$C=2^{\alpha+1}$，即有
+        $$\omega(R)\le C2^{-(k+1)\alpha}M_0\le C(R/R_0)^\alpha M_0$$
+        于是得证。
+    \end{enumerate}
+    
+    \item 2.13
+    
+    利用定理2.7可知任取$B(x,r)$，利用$B(x,r)$中模长最大为$|x|+r$有
+    $$|D^\alpha u(x)|\le\frac{C_k}{r^{n+k}}\int_{B(x,r)}|u(y)|\dr y\le\frac{C_k}{r^{n+k}}\alpha(n)r^n(C_0(|x|+r)^m+C_1)$$
+    
+    当$|\alpha|>m$时，分母为$r$的$n+k$次多项式，分子为$n+m$次，令$r\to\infty$可知右端积分为0，从而$|D^\alpha u(x)|=0$，由此即得证。
+    
+    \item 2.14
+    
+    换元可知
+    $$u_r(x)=\frac{1}{N\omega_nr^{n-1}}\int_{\partial B_r(0)}u(y+x)\dr S(y)$$
+    于是利用有界区域积分求导可交换与链式法则$D_x^\alpha(u(y+x))=(D^\alpha u)(y+x)$可得
+    $$\triangle u_r(x)=\frac{1}{N\omega_nr^{n-1}}\int_{\partial B_r(0)}\triangle u(y+x)\dr S(y)=\frac{1}{N\omega_nr^{n-1}}\int_{\partial B_r(x)}\triangle u(y)\dr S(y)=(\triangle u)_r(x)$$
+    从而得证。
+\end{enumerate}
+
+\section{第四次作业}
+\begin{enumerate}
+    \item 2.9
+    
+    注意到
+    $$K[K[u]](x)=|x|^{2-n}|x^*|^{2-n}u(x^{**})$$
+    而计算可发现$x^{**}=x$，且$|x^*|=|x|^{-1}$，于是$K[K[u]](x)=u(x)$。
+    
+    只需证明$u$为调和函数时$K[u]$为调和函数，即可知$K[u]$为调和函数时$u$为调和函数。记$|x|=r$，可发现$D_ix=e_i$、$D_ir=x_i/r$，这里$e_i$为单位向量，$x_i$为$x$的分量。由此
+    
+    $$\sum_iD_{ii}K[u](x)=\sum_i(D_{ii}r^{2-n})u(x^*)+2\sum_i(D_ir^{2-n})D_i(u(x^*))+\sum_ir^{2-n}D_{ii}(u(x^*))$$
+    
+    直接计算可发现
+    $$D_ir^{2-n}=(2-n)x_ir^{-n}$$
+    $$D_{ii}r^{2-n}=(2-n)r^{-n}-n(2-n)x_i^2r^{-n-2}$$
+    于是
+    $$\sum_i(D_{ii}r^{2-n})=0$$
+    第一项为0。
+    
+    计算可知
+    $$D_ix^*=D_i(x/r^2)=\frac{1}{r^2}e_i-2\frac{x_i}{r^4}x$$
+    从而整理得第二项的求和为(考察每个$D_ju$前的系数)
+    $$2\sum_i(2-n)x_ir^{-n}\sum_j(D_ju)(x^*)\bigg(\frac{1}{r^2}\delta_{ij}-\frac{2x_ix_j}{r^4}\bigg)=2(n-2)r^{-n-2}\sum_j(D_ju)(x^*)x_j$$
+    进一步计算
+    $$D_i\bigg(\frac{1}{r^2}\delta_{ij}-\frac{2x_ix_j}{r^4}\bigg)=-\frac{2x_i}{r^4}\delta_{ij}-\frac{2x_j}{r^4}-\frac{2x_i}{r^4}\delta_{ij}+\frac{8x_i^2x_j}{r^6}=-\frac{4x_i}{r^4}\delta_{ij}-\frac{2x_j}{r^4}+\frac{8x_i^2x_j}{r^6}$$
+    于是最后一项为
+    $$\sum_ir^{2-n}D_i\bigg(\sum_j(D_ju)(x^*)\bigg(\frac{1}{r^2}\delta_{ij}-\frac{2x_ix_j}{r^4}\bigg)\bigg)$$
+    展开得(省略$u$相关的自变量$x^*$)
+    $$\sum_ir^{2-n}\sum_j\bigg(\sum_k(D_{kj}u)\bigg(\frac{1}{r^2}\delta_{ij}-\frac{2x_ix_j}{r^4}\bigg)\bigg(\frac{1}{r^2}\delta_{ik}-\frac{2x_ix_k}{r^4}\bigg)+(D_ju)\bigg(-\frac{4x_i}{r^4}\delta_{ij}-\frac{2x_j}{r^4}+\frac{8x_i^2x_j}{r^6}\bigg)\bigg)$$
+    $D_{kj}u$前的系数为
+    $$r^{2-n}\sum_i\bigg(\frac{\delta_{ij}\delta_{ik}}{r^4}-\frac{2x_i(x_j\delta_{ik}+x_k\delta_{ij})}{r^6}+\frac{4x_i^2x_jx_k}{r^8}\bigg)=r^{-n-2}\delta_{jk}-r^{-n-4}4x_jx_k+r^{-n-4}4x_jx_k=r^{-n-2}\delta_{jk}$$
+    而$D_ju$前的系数为
+    $$r^{2-n}\sum_i\bigg(-\frac{4x_i}{r^4}\delta_{ij}-\frac{2x_j}{r^4}+\frac{8x_i^2x_j}{r^6}\bigg)=r^{2-n}\bigg(-\frac{4x_j}{r^4}-\frac{2nx_j}{r^4}+\frac{8x_j}{r^4}\bigg)=(4-2n)r^{-n-2}x_j$$
+    与第二项的求和对比，可发现所有$D_ju$被消去，而所有$D_{kj}u$当且仅当$k=j$时非零，且其前系数同为$r^{-n-2}$，由此即计算得到
+    $$\triangle K[u](x)=r^{-n-2}\triangle u(x^*)$$
+    $u$调和时右端为0，即有左端为0，$K[u]$调和。
+    
+    \item 2.17
+    
+    作换元$z=(y_1-x_1,y_2-x_2,\dots,y_{n-1}-x_{n-1},0)$可发现
+    $$\int_{\mathbb{R}^{n-1}}K(x,y)\dr y=\frac{2}{n\alpha(n)}\int_{\mathbb{R}^{n-1}}\frac{x_n}{|y-x|^n}\dr y=\frac{2}{n\alpha(n)}\int_{\mathbb{R}^{n-1}}\frac{x_n}{|z-x_ne_n|^n}\dr z$$
+    对$z$进行极坐标换元，设$\dr z=r^{n-2}\dr r\dr\Omega$，可发现$|z-x_ne_n|=\sqrt{r^2+x_n^2}$，于是化为
+    $$\frac{2}{n\alpha(n)}\int_0^\infty\frac{r^{n-2}x_n}{(r^2+x_n^2)^{n/2}}\dr r\int_D\dr\Omega$$
+    这里$D$为$\mathbb{R}^{n-1}$中单位球面，由此其积分结果为表面积$(n-1)\alpha(n-1)$，整理可知原积分前的系数为
+    $$\frac{2(n-1)\alpha(n-1)}{n\alpha(n)}=\pi^{-1/2}\Gamma(n/2)\Gamma((n-1)/2)^{-1}=\frac{\Gamma(n/2)}{\Gamma(1/2)\Gamma((n-1)/2)}=\frac{1}{B(1/2,(n-1)/2)}$$
+    由于$x_n>0$，换元$s=r/x_n$可发现
+    $$\int_0^\infty\frac{r^{n-2}x_n}{(r^2+x_n^2)^{n/2}}\dr r=\int_0^\infty\frac{s^{n-2}}{(s^2+1)^{n/2}}\dr s$$
+    再令$s=\tan t$可得积分化为
+    $$\int_0^{\pi/2}\frac{(\tan t)^{n-2}}{(\cos t)^{-n}}\frac{1}{\cos^2t}\dr t=\int_0^{\pi/2}(\sin t)^{n-2}\dr t=B(1/2,(n-1)/2)$$
+    从而得证。
+\end{enumerate}
+
+\section{第五次作业}
+\begin{enumerate}
+    \item 2.8
+    
+    根据$v$的定义，可发现在$x_n>0$与$x_n<0$上均有$\triangle v=0$，且$v$连续。将$x_n<0$的单位球部分记作$B^-$。
+    
+    记
+    $$\phi(r)=\frac{1}{n\alpha(n)r^{n-1}}\int_{\partial B(x,r)}v(y)\dr S(y)$$
+    则根据测度为0的集合不影响积分可知
+    $$\phi(r)=\frac{1}{n\alpha(n)r^{n-1}}\bigg(\int_{\partial B(x,r)\cap B^+}v(y)\dr S(y)+\int_{\partial B(x,r)\cap B^-}v(y)\dr S(y)\bigg)$$
+    与定理2.2完全相同过程可推知(这里的积分将$x_n=0$对应的零测集忽略)
+    $$\phi'(r)=\frac{1}{n\alpha(n)r^{n-1}}\int_{\partial B(x,r)}\frac{\partial v(y)}{\partial\vec{n}}\dr S(y)$$
+    在边界$x_n=0$附近，$B^+$、$B^-$的外法向量方向相反，而利用奇函数导数为偶函数可知$v$对$x_n$的偏导相同，由此两者可互相抵消，从而可得
+    $$\phi'(r)=\frac{1}{n\alpha(n)r^{n-1}}\bigg(\int_{\partial B(x,r)\cap B^+}\frac{\partial v(y)}{\partial\vec{n}}\dr S(y)+\int_{\partial B(x,r)\cap B^-}\frac{\partial v(y)}{\partial\vec{n}}\dr S(y)\bigg)$$
+    
+    对上式运用Gauss公式即得到
+    $$\phi'(r)=\frac{1}{n\alpha(n)r^{n-1}}\bigg(\int_{B(x,r)\cap B^+}\triangle v\dr S(y)+\int_{B(x,r)\cap B^-}\triangle v\dr S(y)\bigg)$$
+    而由于$B^+$与$B^-$上$\triangle v$恒为0，即可知$\phi'(r)$为常数，再由$v$连续即得$v(x)$满足平均值公式，利用定理2.3$'$可知其为调和函数。
+    
+    \item 2.15
+    \begin{enumerate}[(1)]
+        \item 利用Poisson公式有
+        $$u(x)=\frac{R^2-|x|^2}{n\alpha(n)R}\int_{\partial B(0,R)}\frac{u(y)}{|x-y|^n}\dr S(y)$$
+        
+        根据定义可知$R-|x|\le |x-y|\le R+|x|$，由于$u$非负，即得
+        $$u(x)\ge\frac{R^2-|x|^2}{n\alpha(n)R}\int_{\partial B(0,R)}\frac{u(y)}{(R+|x|)^n}\dr S(y)$$
+        再利用平均值公式可知
+        $$u(x)\ge\frac{R^2-|x|^2}{n\alpha(n)R}\frac{n\alpha(n)R^{n-1}}{(R+|x|)^n}u(0)=R^{n-2}\frac{R-|x|}{(R+|x|)^{n-1}}u(0)$$
+        同理
+        $$u(x)\le\frac{R^2-|x|^2}{n\alpha(n)R}\frac{n\alpha(n)R^{n-1}}{(R-|x|)^n}u(0)=R^{n-2}\frac{R+|x|}{(R-|x|)^{n-1}}u(0)$$
+    
+        \item 利用强极值原理，$\sup_{B_r}u$与$\inf_{B_r}u$均在$\partial B_r$达到，分别记为$M$与$m$，而根据(1)有
+        $$R^{n-2}\frac{R-r}{(R+r)^{n-1}}u(0)\le m\le M\le R^{n-2}\frac{R+r}{(R-r)^{n-1}}u(0)$$
+        若$u(0)>0$，这已经说明了
+        $$\frac{M}{m}\le\bigg(\frac{R+r}{R-r}\bigg)^n$$
+        从而得证。若$u(0)=0$，由其非负可知$u(0)$取到了最小值，从而$u$恒为0，Harnack不等式仍然成立。
+    \end{enumerate}
+    
+    \item 2.18(2)
+    
+    对$x=(a,b)$，考虑对$x$轴、$y$轴两次反射，可记
+    $$G(x,y)=\Gamma(y-(a,b))-\Gamma(y-(a,-b))-\Gamma(y-(-a,b))+\Gamma(y+(a,b))$$
+    此时对应的$\phi^x(y)=\Gamma(y-(a,-b))+\Gamma(y-(-a,b))-\Gamma(y+(a,b))$。
+    
+    由于其为若干基本解叠加，且第一象限中$(a,b)\ne(0,0)$，可知$\triangle\phi^x(y)=0$，而边界上分$a=0$或$b=0$讨论可发现其等于$\Gamma(y-(a,b))$，从而得证。
+    
+    \item 2.19
+    
+    由书上已证，记$x^*=x/|x|^2$，则单位球上的Green函数为
+    $$G(x,y)=\Gamma(y-x)-\Gamma(|x|(y-x^*))$$
+    
+    
+    对一般的球，记$x^*=\frac{R^2x}{|x|^2}$，考虑类似上方的反射$\tilde{x}=(x_1,\dots,x_{n-1},-x_n)$，我们下面证明(注意到$x_n$添加负号不改变$|x|$，$x$的反射的对偶点即为$x$的对偶点的反射)
+    $$G(x,y)=\Gamma(y-x)-\Gamma(|x/R|(y-x^*))-\Gamma(y-\tilde{x})+\Gamma(|x/R|(y-\tilde{x}^*))$$
+    此时对应的$\phi^x(y)=\Gamma(|x/R|(y-x^*))+\Gamma(y-\tilde{x})-\Gamma(|x/R|(y-\tilde{x}^*))$。
+    与球上/半空间上完全同理可知$\triangle\phi^x(y)=0$。对于边界，若其为$|x|=R$的边界，此时$\tilde{x}^*=\tilde{x}$、$x^*=x$，因此后两项抵消，第一项成为$\Gamma(y-x)$；若其为$x_n=0$的边界，此时$\tilde{x}=x$，一三两项抵消，第二项成为$\Gamma(y-x)$，从而得证。
+    
+    \item 2.21
+    \begin{enumerate}[(1)]
+        \item 若$u$的最大/最小值在边界达到，则满足要求。
+        
+        否则，若$u$在$x_0$达到最大值，有$-\triangle u(x_0)+c(x_0)u(x_0)=f(x_0)$，而根据Hessian阵半负定性，其迹非正，从而$c(x_0)u(x_0)\le f(x_0)$，即有$u(x_0)\le\frac{1}{c_0}f(x_0)\le\frac{1}{c_0}\sup_\Omega|f|$，同理最小值处$u(x_0)\ge\frac{1}{c_0}f(x_0)\ge-\frac{1}{c_0}\sup_\Omega|f|$。
+        
+        综合上述两种情况可得无论在边界还是内部，均有最大/小值处的$|u(x_0)|\le\frac{1}{c_0}\sup_\Omega|f|$，由此即得证。
+    
+        \item 不妨设$0\in\Omega$，记$w(x)=d^2-|x|^2+1$，并由其在区域内恒正可设$u(x)=v(x)w(x)$，计算得到
+        $$\triangle u=w\triangle v+v\triangle w+2Dv\cdot Dw=w\triangle v-4x\cdot Dv-2nv$$
+        从而
+        $$-w\triangle v+4x\cdot Dv+(2n+cw)v=f$$
+        且$\partial\Omega$上$v=0$。
+    
+        由于内部最大/最小值点处$Dv=0$，而$w$恒正，完全类似之前可证明最大值处
+        $$v(x_0)\le\frac{1}{2n+c(x_0)w(x_0)}f(x_0)\le\frac{1}{2n}\sup_\Omega|f|$$
+        最小值处
+        $$v(x_0)\ge\frac{1}{2n+c(x_0)w(x_0)}f(x_0)\ge-\frac{1}{2n}\sup_\Omega|f|$$
+        从而
+        $$\max_{\bar\Omega}|v|\le\frac{1}{2n}\sup_\Omega|f|$$
+        而
+        $$\max_{\bar\Omega}|u|\le\max_{\bar\Omega}|v|\max_{\bar\Omega}|w|\le\frac{d^2+1}{2n}\sup_\Omega|f|$$
+    
+        \item 考虑单位圆上，$f(x)=0$，$u(x)=1-|x|^2$，则$c(x)=-\frac{2n}{1-|x|^2}$恒负且可使方程满足，但$u$并非恒0。
+    \end{enumerate}
+    
+    \item 2.24
+    
+    与定理2.23的证明完全类似，由于$w(x_0)=0$已经满足，只需验证$Lw\le0$与$\frac{\partial w}{\partial\nu}\big|_{x=x_0}<0$即可。
+    
+    对于前者，直接计算可知$\triangle w=(4a^2|x|^2-2na)\er^{-a|x|^2}$，于是利用$R\ge|x|$可知
+    $$Lw=-(4a^2|x|^2-2na-c(x))\er^{-a|x|^2}+c(x)\er^{-aR^2}\le-(4a^2|x|^2-2na-2c(x))\er^{-a|x|^2}$$
+    由于$c(x)$有上界，$|x|>\frac{R}{2}$，利用二次函数知识可知一定存在$A$使得$a>A$时$Lw\le0$恒成立。
+    
+    对于后者，与证明过程类似只需验证
+    $$\frac{\partial w}{\partial\vec{n}}\bigg|_{x=x_0}<0$$
+    即可，而球壳上$\vec{n}$即为$r$方向的向量，由此直接计算可知球壳上有
+    $$\frac{\partial w}{\partial\vec{n}}\bigg|_{x=x_0}=-2aR\er^{-aR^2}<0$$
+    从而得证。
+    
+    
+    \item 2.27
+    
+    若$u$的最大/最小值在边界达到，则满足要求。
+    
+    否则，若$u$在$x_0$达到最大值，根据Hessian阵半负定性，其迹非正，从而$\triangle u(x_0)\le 0$，而$\triangle u(x_0)=u(x_0)|u(x_0)|-f(x_0)$，于是可知$u(x_0)|u(x_0)|\le f(x_0)$，分正负讨论可知
+    $$u(x_0)\le|f(x_0)|^{1/2}\le\sup_\Omega|f|^{1/2}$$
+    同理，最小值处有
+    $$u(x_0)\ge-|f(x_0)|^{1/2}\ge-\sup_\Omega|f|^{1/2}$$
+    综合上述两种情况可得无论在边界还是内部，均有最大/小值处的
+    $$|u(x_0)|\le\max\bigg(\max_{\partial\Omega}|g|,\sup_\Omega|f|^{1/2}\bigg)$$
+    由此即得证。
+    
+    \item 2.30
+    
+    不妨设$0\in\Omega$，且要求$\varepsilon>0$。
+    
+    直接计算可知($e_1$指单位向量)
+    $$\triangle w=\triangle u-\varepsilon M^2\er^{Mx_1}$$
+    $$Dw=Du-\varepsilon M\er^{Mx_1}e_1$$
+    于是
+    $$-\triangle w+\mathbf{A}\cdot Dw=\varepsilon M^2\er^{Mx_1}-\varepsilon M\er^{Mx_1}\mathbf{A}\cdot e_1+f(x)$$
+    由于$M\ge\sup_\Omega|\mathbf{A}|+1$，可知$M\ge\sup_\Omega A\cdot e_1+1$，再利用$f(x)\ge0$可知
+    $$-\triangle w+\mathbf{A}\cdot Dw\ge\varepsilon M\er^{Mx_1}$$
+    进一步通过$\Omega$直径不超过$d$可知$x_1\ge -d$，于是
+    $$-\triangle w+\mathbf{A}\cdot Dw\ge\varepsilon M\er^{-Md}>0$$
+    若$w$在内部有最小值点，则根据Hessian阵半正定性，其迹非负，且$Dw=0$，但这说明左侧$\le0$，矛盾，于是最小值点只能在边界取到。
+    
+    而边界上利用$\Omega$直径不超过$d$可知$x_1\le d$，于是
+    $$w(x)=g(x)+\varepsilon(\er^{Md}-\er^{Mx_1})\ge0$$
+    从而可知$w(x)\ge0$对任何$\varepsilon$成立，令$\varepsilon\to 0^+$即得$u(x)\ge0$。
+\end{enumerate}
+
+\section{第六次作业}
+\begin{enumerate}
+    \item 2.40
+    
+    若$u_1,u_2$满足此方程，其差$v$在边界上为0且
+    $$-\triangle v(x)+\vec{A}(x)\cdot Dv(x)+c(x)v(x)=0$$
+    乘$v$后在区域上积分，利用Gauss-Green公式计算可得
+    $$\int_\Omega(|Dv|^2+v\vec{A}\cdot Dv+cv^2)\dr x=0$$
+    而通过柯西不等式可知(注意由条件必然有$c>0$恒成立)对任何$x$有
+    $$|Dv|^2+cv^2+v\vec{A}\cdot Dv\ge|Dv|^2+cv^2-|v||\vec{A}||Dv|=c\bigg(v-\frac{|\vec{A}|}{2c}|Dv|\bigg)^2+\bigg(1-\frac{|\vec{A}|^2}{4c}\bigg)|Dv|^2$$
+    利用条件可知$|Dv|^2$前的系数恒正，从而积分中恒大于等于0，再从积分为0即可知$|Dv|=0$，因此$v$为常数，再由边界0知恒0，得证。
+    
+    *光滑性要求：上述证明在$v\in C^2(\Omega)\cap C(\bar\Omega)$时可成立。
+    
+    \item 2.41
+    
+    若$u_1,u_2$满足此方程，其差$v$满足
+    $$-\triangle v(x)+c(x)v(x)=0,\quad x\in\Omega$$
+    $$\frac{\partial v}{\partial\vec{n}}=0,\quad x\in\partial\Omega$$
+    且仍在$C^2(\Omega)\cap C^1(\bar\Omega)$中。
+    
+    第一式乘$v$后在区域上积分，利用Gauss-Green公式计算可得
+    $$\int_\Omega(|Dv|^2+cv^2)\dr x-\int_{\partial\Omega}v\frac{\partial v}{\partial\vec{n}}\dr S(x)=0$$
+    但由第二式可知只能$|Dv|^2+cv^2$积分为0，由$c\ge0$可知其处处为0，分类讨论：
+    \begin{itemize}
+        \item 若任何$x$处$c(x)=0$，只能推出$|Dv|=0$，也即$v$为常数，从而解在相差常数意义下唯一；
+        \item 若某个$x_0$处$c(x_0)>0$，由连续知$v(x)=0$，但此时仍有$|Dv|=0$，于是$v$恒为0，解唯一。
+    \end{itemize}
+    
+    \item 3.1
+    \begin{enumerate}
+        \item[(1)] 利用定义可知
+        $$\hat{f}(\lambda)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty f(x)\er^{-\ir\lambda x}\dr x=\frac{1}{\sqrt{2\pi}}\bigg(\int_0^ax\er^{-\ir\lambda x}\dr x-\int_{-a}^0x\er^{-\ir\lambda x}\dr x\bigg)$$
+        直接利用分部积分可知
+        $$\int x\er^{-\ir\lambda x}\dr x=\frac{\ir}{\lambda}x\er^{-\ir\lambda x}+\frac{1}{\lambda^2}\er^{-\ir\lambda x}+C$$
+        从而可算得结果为
+        $$\sqrt{\frac{2}{\pi}}\bigg(\frac{a\sin(a\lambda)}{\lambda}+\frac{\cos(a\lambda)-1}{\lambda^2}\bigg)$$
+        \item[(3)] 利用定义与$\sin$为奇函数可知
+        $$\hat{f}(\lambda)=\frac{1}{\sqrt{2\pi}}\int_{-a}^a\sin(\lambda_0x)(\cos\lambda x-\ir\sin\lambda x)\dr x=\frac{-\ir}{\sqrt{2\pi}}\int_{-a}^a\sin(\lambda_0x)\sin(\lambda x)\dr x$$
+        再由
+        $$2\sin(\lambda_0x)\sin(\lambda x)=\cos((\lambda-\lambda_0)x)-\cos((\lambda+\lambda_0)x)$$
+        即可算出积分为
+        $$\frac{\ir}{\sqrt{2\pi}}\bigg(\frac{\sin((\lambda+\lambda_0)a)}{\lambda+\lambda_0}-\frac{\sin((\lambda-\lambda_0)a)}{\lambda-\lambda_0}\bigg)$$
+        \item[(5)] 利用定义与其为偶函数可知
+        $$\hat{f}(\lambda)=\frac{1}{\sqrt{2\pi}}\int_0^\infty 2\er^{-ax}\cos(\lambda x)\cos x\dr x$$
+        利用
+        $$2\cos(\lambda x)\cos x=\cos((\lambda-1)x)+\cos((\lambda+1)x)=\mathrm{Re}\big(\er^{\ir(\lambda-1)x}+\er^{\ir(\lambda+1)x}\big)$$
+        即可得到积分为
+        $$\frac{1}{\sqrt{2\pi}}\mathrm{Re}\bigg(\frac{1}{a-\ir(\lambda-1)}+\frac{1}{a-\ir(\lambda+1)}\bigg)=\frac{a}{\sqrt{2\pi}}\bigg(\frac{1}{a^2+(\lambda-1)^2}+\frac{1}{a^2+(\lambda+1)^2}\bigg)$$
+    \end{enumerate}
+\end{enumerate}
+
+\section{第七次作业}
+\begin{enumerate}
+    \item 3.2
+    \begin{enumerate}
+        \item[(1)] 利用3.1节例1与性质3.3即得结果为
+        $$-\hat{f}_1''(\lambda)=\sqrt{\frac{2}{\pi}}\bigg(\frac{a^2(\sin a\lambda)}{\lambda}+\frac{2a\cos(a\lambda)}{\lambda^2}-\frac{2\sin(a\lambda)}{\lambda^3}\bigg)$$
+        \item[(3)] 利用Fourier反变换的定义作变量代换可得对常数$\mu$有
+        $$(\hat{f}(\lambda+\ir\mu))^\vee=\er^{\mu x}f(x)$$
+        也即利用3.1节例1可知结果为
+        $$\hat{f}_1(\lambda+\ir\mu)=\sqrt{\frac{2}{\pi}}\frac{\sin(a(\lambda+\ir\mu))}{\lambda+\ir\mu}$$
+        这里$\sin z=\frac{\er^{\ir z}-\er^{-\ir z}}{2\ir}$。
+    
+        *这里严格意义上的说明需要利用复变函数的积分。
+    
+        \item[(5)] 与(3)完全类似可知结果为
+        $$\hat{f}_1(\lambda-\lambda_0)=\sqrt{\frac{2}{\pi}}\frac{\sin(a(\lambda-\lambda_0))}{\lambda-\lambda_0}$$
+        
+        \item[(7)] 利用3.1节例3与性质3.6可知
+        $$\bigg(\sqrt{\frac{2}{\pi}}\frac{1}{1+x^2}\bigg)^\wedge=\er^{-|\lambda|}$$
+        再利用性质3.5与$a>0$即得
+        $$\bigg(\sqrt{\frac{2}{\pi}}\frac{1}{1+x^2/a^2}\bigg)^\wedge=a\er^{-a|\lambda|}$$
+        最后由性质3.1得结果为
+        $$\sqrt{\frac{\pi}{2}}\frac{\er^{-a|\lambda|}}{a}$$
+    
+        \item[(9)]  记(7)中的函数为$g(x)$，由性质3.2可知
+        $$(g'(x))^\wedge=\ir\lambda\sqrt{\frac{\pi}{2}}\frac{\er^{-a|\lambda|}}{a}$$
+        利用性质3.1也即
+        $$\bigg(\frac{x}{(x^2+a^2)^2}\bigg)^\wedge=-\ir\lambda\sqrt{\frac{\pi}{8}}\frac{\er^{-a|\lambda|}}{a}$$
+        设目标函数为$\hat{f}(\lambda)$，则利用性质3.3并消去$\ir$有
+        $$\frac{\dr}{\dr\lambda}\hat{f}(\lambda)=-\lambda\sqrt{\frac{\pi}{8}}\frac{\er^{-a|\lambda|}}{a}$$
+        分段，利用分部积分直接计算右侧积分可发现
+        $$\hat{f}(\lambda)=\sqrt{\frac{\pi}{8}}\frac{1+a|\lambda|}{a^3}\er^{-a|\lambda|}+C$$
+        最后，当$\lambda=0$时利用定义有
+        $$\sqrt{2\pi}\hat{f}(0)=\int_{-\infty}^\infty\frac{\dr x}{(a^2+x^2)^2}=\int_{-\infty}^\infty\frac{\dr at}{(a^2+a^2t^2)^2}=\frac{1}{a^3}\int_{-\infty}^\infty\frac{\dr t}{(t^2+1)^2}$$
+        对最右侧的积分利用有理函数拆分积分方式可算出结果为$\frac{\pi}{2}$，由此即得$C=0$，最终得到
+        $$\hat{f}(\lambda)=\sqrt{\frac{\pi}{8}}\frac{1+a|\lambda|}{a^3}\er^{-a|\lambda|}$$
+    \end{enumerate}
+    
+    \item 3.3
+    \begin{enumerate}[(1)]
+        \item 利用3.1节例5，取$A=\frac{1}{4a^2t}$，再利用性质3.1即得结果为
+        $$\sqrt{2A}\er^{-Ax^2}=\frac{1}{a\sqrt{2t}}\er^{-x^2/(4a^2t)}$$
+        \item 设(1)的结果为$g(x)$，利用性质3.1、性质3.4可得结果为
+        $$\er^{ct}g(x+bt)=\frac{1}{a\sqrt{2t}}\er^{-(x+bt)^2/(4a^2t)+ct}$$
+        \item 利用3.1节例3与性质3.5，由$y>0$可知
+        $$(\er^{-|x|y})^\wedge=\sqrt{\frac{2}{\pi}}\frac{y}{\lambda^2+y^2}$$
+        再通过性质3.6即得
+        $$(\er^{-|\lambda|y})^\vee=\sqrt{\frac{2}{\pi}}\frac{y}{x^2+y^2}$$
+    \end{enumerate}
+    
+    \item 3.4
+    \begin{enumerate}[(1)]
+        \item 方程两边对$x$进行Fourier变换得到
+        $$\hat{u}_t+a^2\lambda^2\hat{u}+\ir\lambda b\hat{u}+c\hat{u}=\hat{f}(\lambda,t)$$
+        $$\hat{u}(\lambda,0)=\hat{\varphi}(\lambda)$$
+        直接求解得到
+        $$\hat{u}(\lambda,t)=\hat{\varphi}(\lambda)\er^{-(a^2\lambda^2+\ir b\lambda+c)t}+\er^{-(a^2\lambda^2+\ir b\lambda+c)t}\int_0^t\hat{f}(\lambda,s)\er^{(a^2\lambda^2+\ir b\lambda+c)s}\dr s$$
+        利用习题3.3(2)的结论可知
+        $$\big(\er^{-(a^2\lambda^2+\ir b\lambda+c)t}\big)^\vee=\frac{1}{a\sqrt{2t}}\er^{-(x-bt)^2/(4a^2t)-ct}$$
+        记上式右侧的函数为$\sqrt{2\pi}K(x,t)$，通过乘积Fourier变换为卷积可发现(这里卷积均指对第一个分量)
+        $$u(x,t)=(\varphi*K(\cdot,t))(x)+\int_0^t(f(\cdot,s)*K(\cdot,t-s))(x)\dr s$$
+    
+        \item 方程两边对$x$进行Fourier变换得到
+        $$\hat{u}_{yy}-\lambda^2\hat{u}=0$$
+        $$\hat{u}(\lambda,0)=\hat{\varphi}(\lambda)$$
+        利用常微分方程知识可知第一个方程的解为
+        $$\hat{u}(\lambda,y)=C_1(\lambda)\er^{\lambda y}+C_2(\lambda)\er^{-\lambda y}$$
+        为了使Fourier逆变换存在得到有界解，由$y>0$，可知必然能写成
+        $$\hat{u}(\lambda,y)=C(\lambda)\er^{-|\lambda|y}$$
+        结合初值即为
+        $$\hat{u}(\lambda,y)=\hat{\varphi}(\lambda)\er^{-|\lambda|y}$$
+        由此，利用习题3.3(3)，设
+        $$K(x,y)=\frac{1}{\pi}\frac{y}{x^2+y^2}$$
+        即有
+        $$u(x,y)=(\varphi*K(\cdot,y))(x)$$
+    \end{enumerate}
+    
+    \item 3.5
+    \begin{enumerate}[(1)]
+        \item 直接利用定义计算
+        $$(F(\lambda))^\vee=\int_{-\infty}^\infty\Phi(\lambda)\cos(a\lambda t)\er^{\ir\lambda x}\dr\lambda=\frac{1}{2}\int_{-\infty}^\infty\Phi(\lambda)(\er^{\ir a\lambda t}+\er^{-\ir a\lambda t})\er^{\ir\lambda x}\dr\lambda$$
+        也即其为
+        $$\frac{1}{2}\bigg(\int_{-\infty}^\infty\Phi(\lambda)\er^{\ir\lambda(x+at)}\dr\lambda+\Phi(\lambda)\er^{\ir\lambda(x-at)}\dr\lambda\bigg)=\frac{1}{2}(\varphi(x+at)+\varphi(x-at))$$
+        
+        \item 与(1)完全类似可知
+        $$(a\lambda F(\lambda))^\vee=\frac{1}{2\ir}(\varphi(x+at)-\varphi(x-at))$$
+        从而利用性质3.1与性质3.3可知
+        $$\frac{\dr}{\dr x}(F(\lambda))^\vee=\frac{1}{2a}(\varphi(x+at)-\varphi(x-at))$$
+        于是
+        $$(F(\lambda))^\vee=\frac{1}{2a}\int_{x-at}^{x+at}\varphi(y)\dr y+C$$
+        利用定义直接计算其Fourier变换，由于$C$不含$x$，利用反变换得到的函数可以Fourier得到只能$C=0$，从而
+        $$(F(\lambda))^\vee=\frac{1}{2a}\int_{x-at}^{x+at}\varphi(y)\dr y$$
+    \end{enumerate}
+    
+    \item 3.6
+    
+    方程两边对$x$进行Fourier变换得到
+    $$\hat{u}_{tt}+\lambda^2a^2\hat{u}=0$$
+    $$\hat{u}(\lambda,0)=\hat{\varphi}(\lambda)$$
+    $$\hat{u}_t(\lambda,0)=\hat{\psi}(\lambda)$$
+    利用常微分方程知识可知第一个方程的解为
+    $$\hat{u}(\lambda,y)=C_1(\lambda)\sin(\lambda at)+C_2(\lambda)\cos(\lambda at)$$
+    代入初值条件得到
+    $$\hat{u}(\lambda,t)=\hat{\varphi}(\lambda)\cos(\lambda at)+\frac{1}{a\lambda}\hat{\psi}(\lambda)\sin(\lambda at)$$
+    利用习题3.5即得
+    $$u(x,t)=\frac{1}{2}(\varphi(x+at)+\varphi(x-at))+\frac{1}{2a}\int_{x-at}^{x+at}\psi(y)\dr y$$
+    
+    \item 3.17
+    
+    设$v(x,t)=u(x,t)-g(t)$，并利用$v(0,t)=0$，可在$x<0$处定义$v(x,t)=-v(-x,t)$，可验证其具有全局可微性，且满足方程
+    $$v_t-v_{xx}=-\mathrm{sgn}(x)g'(t)$$
+    $$v(x,0)=0$$
+    其中$t>0,x\in\mathbb{R}$。
+    
+    直接利用Poisson公式可得
+    $$v(x,t)=-\int_0^t\dr\tau\int_{-\infty}^\infty K(x-\xi,t-\tau)\mathrm{sgn}(\xi)g'(\tau)\dr\xi$$
+    这里
+    $$K(x,t)=\frac{1}{2\sqrt{\pi t}}\er^{-x^2/(4t)}$$
+    
+    也即
+    $$\int_0^t\dr\tau\int_{-\infty}^0 K(x-\xi,t-\tau)g'(\tau)\dr\xi-\int_0^t\dr\tau\int_0^\infty K(x-\xi,t-\tau)g'(\tau)\dr\xi$$
+    对第一项利用分部积分，估算可知积分、求导可交换，从而
+    $$\int_0^t\dr\tau\int_{-\infty}^0 K(x-\xi,t-\tau)g'(\tau)\dr\xi=\bigg(g(\tau)\int_{-\infty}^0K(x-\xi,t-\tau)\dr\xi\bigg)\bigg|^t_0-\int_0^tg(\tau)\dr\tau\int_{-\infty}^0K_t(x-\xi,t-\tau)\dr\xi$$
+    $g(t)$与$K(x,t)$在$t=0$时均为0，从而得到
+    $$\int_0^t\dr\tau\int_{-\infty}^0 K(x-\xi,t-\tau)g'(\tau)\dr\xi=-\int_0^tg(\tau)\dr\tau\int_{-\infty}^0K_t(x-\xi,t-\tau)\dr\xi$$
+    同理即得
+    $$v(x,t)=\int_0^tg(\tau)\dr\tau\bigg(\int_0^\infty K_t(x-\xi,t-\tau)\dr\xi-\int_{-\infty}^0 K_t(x-\xi,t-\tau)\dr\xi\bigg)$$
+    
+    利用分部积分可知
+    $$\int K_t(x,t)\dr x=-\frac{1}{4\sqrt\pi}t^{-3/2}x\er^{-x^2/(4t)}+C$$
+    其在$x$趋于$\pm\infty$时均为0，从而即有
+    $$v(x,t)=\int_0^t\frac{1}{\sqrt{4\pi}}(t-\tau)^{-3/2}x\er^{-x^2/(4t-4\tau)}g(\tau)\dr\tau$$
+    最终得到
+    $$u(x,t)=g(t)+\int_0^t\frac{1}{\sqrt{4\pi}}(t-\tau)^{-3/2}x\er^{-x^2/(4t-4\tau)}g(\tau)\dr\tau$$
+    这即是显式解。
+    
+    \item 3.10
+    
+    直接计算可得
+    $$u_t=\sum_{j=1}^n(u_j)_t\prod_{k\ne j}u_k$$
+    而
+    $$u_{x_jx_j}=(u_j)_{ss}\prod_{k\ne j}u_k$$
+    由此
+    $$u_t-a^2\triangle u=\sum_{j=1}^n(u_j)_t\prod_{k\ne j}u_k-a^2\sum_{j=1}^n(u_j)_{ss}\prod_{k\ne j}u_k=\sum_{j=1}^n((u_j)_t-a^2(u_j)_{ss})\prod_{k\ne j}u_k=0$$
+    
+    \item 3.11
+    \begin{enumerate}[(1)]
+        \item 直接计算可得$(u_\lambda)_t=\lambda^2u_t$，而$(u_\lambda)_{xx}=\lambda^2u_{xx}$，由此即得证。$(u_\lambda)_t=a^2(u_\lambda)_{xx}$。
+        \item 直接计算可得
+        $$v_t=xu_{xt}+2u_t+2tu_{tt}$$
+        $$v_x=u_x+xu_{xx}+2tu_{xt}$$
+        $$v_{xx}=u_{xx}+u_{xx}+xu_{xxx}+2tu_{xxt}$$
+        利用$u_t=a^2u_{xx}$与偏导可交换可知
+        $$v_t=a^2xu_{xxx}+2a^2u_{xx}+2ta^4u_{xxxx}$$
+        $$v_{xx}=2u_{xx}+xu_{xxx}+2ta^2u_{xxxx}$$
+        对比系数可发现$v_t=a^2v_{xx}$。
+    \end{enumerate}
+    
+    \item 3.12
+    
+    设$K(x,t)$在$t>0$时为$(4\pi a^2t)^{-n/2}\er^{-|x^2|/(4a^2t)}$，否则为0。
+    
+    若$b=0$，原方程直接化为多维热方程的形式，直接得解为
+    $$u(x,t)=(K(\cdot,t)*\varphi)(x)$$
+    
+    否则，设$w=\er^{-bu/a^2}$，以下标$i$表示对$x_i$求导，计算有
+    $$w_t=-\frac{b}{a^2}u_tw$$
+    $$w_i=-\frac{b}{a^2}u_iw$$
+    $$w_{ii}=-\frac{b}{a^2}u_{ii}w+\frac{b^2}{a^4}u_i^2w$$
+    从而
+    $$\triangle w=-\frac{b}{a^2}(\triangle u)w+\frac{b^2}{a^4}|Du|^2w$$
+    于是原方程可推出
+    $$-\frac{a^2}{b}w_t+\frac{a^4}{b}\triangle w=0$$
+    也即
+    $$w_t-a^2\triangle w=0$$
+    初始条件变为
+    $$w(x,0)=\er^{-b\varphi(x)/a^2}$$
+    由此可得解为
+    $$w(x,t)=\big(K(\cdot,t)*\er^{-b\varphi/a^2}\big)(x)$$
+    于是
+    $$u(x,t)=-\frac{a^2}{b}\ln\big(K(\cdot,t)*\er^{-b\varphi/a^2}\big)(x)$$
+    
+    \item 3.14
+    
+    设$K(x,t)$在$t>0$时为$(4\pi t)^{-n/2}\er^{-|x^2|/(4t)}$，否则为0。
+    
+    设$v=U(u)$，以下标$i$表示对$x_i$求导，计算有
+    $$v_t=U'(u)u_t$$
+    $$v_i=U'(u)u_i$$
+    $$v_{ii}=U''(u)(u_i)^2+U'(u)u_{ii}$$
+    从而
+    $$\triangle v=U'(u)\triangle u+U''(u)|Du|^2$$
+    于是原方程可推出
+    $$\frac{1}{U'(u)}v_t-\frac{1}{U'(u)}\triangle v=0$$
+    也即
+    $$v_t-\triangle v=0$$
+    初始条件变为
+    $$v(x,0)=U(\varphi(x))$$
+    由此可得解为
+    $$v(x,t)=(K(\cdot,t)*U(\varphi))(x)$$
+    由于$U'>0$且其光滑，其必然为单射，从而其像集上的逆存在。利用积分中值定理，由于$K$在对$x$的全空间积分为1且恒正，$(K(\cdot,t)*U(\varphi))(x)$一定等于某$U(\varphi(\xi))\in U(\mathbb{R})$，由此可谈论其逆，得到结果为
+    $$u(x,t)=U^{-1}\big((K(\cdot,t)*U(\varphi))(x)\big)$$
+\end{enumerate}
+
+\section{第八次作业}
+\begin{enumerate}
+    \item 3.18
+    \begin{enumerate}[(1)]
+        \item 设$u(x,t)=X(x)T(t)$，有
+        $$T'(t)X(x)-X''(x)T(t)=X(x)T(t)$$
+        也即
+        $$\frac{X''(x)}{X(x)}=\frac{T'(t)-T(t)}{T(t)}$$
+        与教材中例子完全相同可知对应特征值问题特征值为$n^2$，对应特征函数
+        $$X_n(x)=\sin nx$$
+        直接求解可知对应的
+        $$T_n(t)=T_n(0)\er^{(1-n^2)t}$$
+        而验证得
+        $$T_n(0)=\frac{2}{\pi}\int_0^\pi\sin x\sin(nx)\dr x$$
+        由正交性可知当且仅当$n=1$时结果为1，否则为0，从而最终得到
+        $$u(x,t)=T_1(t)X_1(x)=\sin x$$
+    
+        \item 设$u(x,t)=X(x)T(t)$，有
+        $$\frac{X''(x)}{X(x)}=\frac{T'(t)}{a^2T(t)}$$
+        由$T(t)$不恒为0可知此时对应的特征值问题为
+        $$X''+\lambda X=0,\quad X'(0)=X'(\pi)=0$$
+        利用定理3.6(3)第二种情况可知此时特征值为$n^2$，对应的
+        $$X_n(x)=\cos nx$$
+        即直接有
+        $$T_n(t)=T_n(0)\er^{-n^2a^2t}$$
+        与之前完全类似得
+        $$T_n(0)=\frac{2-\delta_n^0}{\pi}\int_0^\pi\cos x\cos(nx)\dr x$$
+        再利用正交性可知当且仅当$n=1$时其为1，否则为0，从而最终得到
+        $$u(x,t)=T_1(t)X_1(x)=\er^{-a^2t}\cos x$$
+    \end{enumerate}
+    
+    \item 3.19
+    \begin{enumerate}
+        \item[(2)]
+        此时与习题3.18(2)相同可得特征值为$(n\pi/l)^2$，计算得归一化的特征函数系为
+        $$X_n(x)=\sqrt{\frac{2-\delta_n^0}{l}}\cos\bigg(\frac{n\pi}{l}x\bigg)$$
+        对应的$T_n(t)$即为
+        $$T_n(t)=\er^{-(n\pi a/l)^2t}$$
+        从而Green函数为
+        $$\sum_{n=1}^\infty X_n(\xi)X_n(x)T_n(t-\tau)H(t-\tau)$$
+        也即
+        $$\frac{1}{l}\sum_{n=0}^\infty(2-\delta_n^0)\cos\bigg(\frac{n\pi}{l}\xi\bigg)\cos\bigg(\frac{n\pi}{l}x\bigg)\er^{-(n\pi a/l)^2(t-\tau)}H(t-\tau)$$
+    
+        \item[(3)]
+        利用定理3.6(3)第二种情况可知特征值方程即
+        $$\tan\mu l=-\mu$$
+        有无穷多个$\mu_n$满足方程，对应特征值$\lambda_n=\mu_n^2$，归一化的特征函数
+        $$X_n(x)=\psi_n\big(\sin\mu_nx+\mu_n\cos\mu_n x\big),\quad\psi_n=\bigg(\int_0^l(\sin\mu_nx+\mu_n\cos\mu_n x)^2\dr x\bigg)^{-1/2}$$
+        对应的$T_n(t)$即为
+        $$T_n(x)=\er^{-\mu_n^2a^2t}$$
+        也即最终Green函数为
+        $$\sum_{n=0}^\infty\psi_n^2\big(\sin\mu_n\xi+\mu_n\cos\mu_n\xi\big)\big(\sin\mu_nx+\mu_n\cos\mu_n x\big)\er^{-\mu_n^2a^2(t-\tau)}H(t-\tau)$$
+    \end{enumerate}
+    
+    \item 3.20
+    \begin{enumerate}
+        \item[(2)]
+        
+        记
+        $$v(x,t)=u(x,t)-\frac{x^2}{2l}g_2(t)+\frac{(l-x)^2}{2l}g_1(t)$$
+        则有
+        $$v_t-a^2v_{xx}=f(x,t)-\frac{x^2}{2l}g_2'(t)+\frac{(l-x)^2}{2l}g_1'(t)-\frac{1}{l}g_2(t)+\frac{1}{l}g_1(t)$$
+        $$v(x,0)=\varphi(x)-\frac{x^2}{2l}g_2(0)+\frac{(l-x)^2}{2l}g_1(0)$$
+        $$v_x(0,t)=g_1(t)+\frac{0-l}{l}g_1(t)=0$$
+        $$v_x(l,t)=g_2(t)-\frac{l}{l}g_2(t)=0$$
+        设
+        $$F(x,t)=f(x,t)-\frac{x^2}{2l}g_2'(t)+\frac{(l-x)^2}{2l}g_1'(t)-\frac{1}{l}g_2(t)+\frac{1}{l}g_1(t)$$
+        $$\Phi(x)=\varphi(x)-\frac{x^2}{2l}g_2(0)+\frac{(l-x)^2}{2l}g_1(0)$$
+        则有
+        $$v(x,t)=\int_0^lG(x,t;\xi,0)\Phi(\xi)\dr\xi+\int_0^t\dr\tau\int_0^lG(x,t;\xi,\tau)F(\xi,\tau)\dr\xi$$
+        这里$G$的定义见习题3.19(2)。
+    
+        最终得到
+        $$u(x,t)=\int_0^lG(x,t;\xi,0)\Phi(\xi)\dr\xi+\int_0^t\dr\tau\int_0^lG(x,t;\xi,\tau)F(\xi,\tau)\dr\xi+\frac{x^2}{2l}g_2(t)-\frac{(l-x)^2}{2l}g_1(t)$$
+    
+        \item[(3)] 记
+        $$v(x,t)=u(x,t)-\frac{x+1}{l+1}g_2(t)-\frac{l-x}{l+1}g_1(t)$$
+        则有
+        $$v_t-a^2v_{xx}=f(x,t)-\frac{x+1}{l+1}g_2'(t)-\frac{l-x}{l+1}g_1'(t)$$
+        $$v(x,0)=\varphi(x)-\frac{x+1}{l+1}g_2(0)-\frac{l-x}{l+1}g_1(0)$$
+        $$v(0,t)-v_x(0,t)=g_1(t)-\frac{g_2(t)}{l+1}-\frac{lg_1(t)}{l+1}+\frac{g_2(t)}{l+1}-\frac{g_1(t)}{l+1}=0$$
+        $$v(l,t)=g_2(t)-\frac{l+1}{l+1}g_2(t)=0$$
+        设
+        $$F(x,t)=f(x,t)-\frac{x+1}{l+1}g_2'(t)-\frac{l-x}{l+1}g_1'(t)$$
+        $$\Phi(x)=\varphi(x)-\frac{x+1}{l+1}g_2(0)-\frac{l-x}{l+1}g_1(0)$$
+        则有
+        $$v(x,t)=\int_0^lG(x,t;\xi,0)\Phi(\xi)\dr\xi+\int_0^t\dr\tau\int_0^lG(x,t;\xi,\tau)F(\xi,\tau)\dr\xi$$
+        这里$G$的定义见习题3.19(3)。
+    
+        最终得到
+        $$u(x,t)=\int_0^lG(x,t;\xi,0)\Phi(\xi)\dr\xi+\int_0^t\dr\tau\int_0^lG(x,t;\xi,\tau)F(\xi,\tau)\dr\xi+\frac{x+1}{l+1}g_2(t)+\frac{l-x}{l+1}g_1(t)$$
+    \end{enumerate}
+    
+    \item 3.21
+    \begin{enumerate}[(1)]
+        \item 方程即为
+        $$\begin{cases}u_t-a^2u_{xx}=0\\u(x,0)=\varphi(x)\\u_x(0,t)=u_x(l,t)=0\end{cases}$$
+        与习题3.18(2)完全相同可知解为
+        $$u(x,t)=\sum_{n=0}^\infty\varphi_n\er^{-(n\pi a/l)^2t}\cos\bigg(\frac{n\pi}{l}x\bigg),\quad\varphi_n=\frac{2-\delta_n^0}{l}\int_0^l\varphi(x)\cos\bigg(\frac{n\pi}{l}x\bigg)\dr x$$
+        当$t\to\infty$时，由于$\varphi_n$一致有界，化级数为积分可知所有$n>0$的项求和可被$\er^{-(\pi a/l)^2x^2t}$从0到无穷的积分控制，由Gauss积分直接算出结果正比于$t^{-1/2}$，由此可知极限分布
+        $$\lim_{t\to\infty}u(x,t)=\varphi_0=\frac{1}{l}\int_0^l\varphi(x)\dr x$$
+    
+        \item 方程即为
+        $$\begin{cases}u_t-a^2u_{xx}=k(u_0-u)\\u(x,0)=\varphi(x)\\u_x(0,t)=u_x(l,t)=0\end{cases}$$
+        设$v=u-u_0$得到
+        $$\begin{cases}v_t-a^2v_{xx}+kv=0\\v(x,0)=\varphi(x)-u_0\\v_x(0,t)=v_x(l,t)=0\end{cases}$$
+    
+        设$v(x,y)=X(x)T(t)$，可发现
+        $$X(x)T'(t)-a^2X''(x)T(t)+kX(x)T(t)=0$$
+        $$\frac{X''(x)}{X(x)}=\frac{T'(t)}{a^2T(t)}+k$$
+        关于$X$的特征值问题可直接求解出特征值$(n\pi/l)^2$，对应特征函数
+        $$X_n(x)=\cos\frac{n\pi x}{l}$$
+        即有对应的
+        $$T_n(t)=T_n(0)\er^{-(k+n^2\pi^2/l^2)a^2t}$$
+        而记$\varphi_n=T_n(0)$，有
+        $$\varphi_n=\frac{2-\delta_n^0}{l}\int_0^l(\varphi(x)-u_0)\cos\frac{n\pi x}{l}\dr x$$
+        利用正交性可发现第二项只在$n=0$时有影响，也即
+        $$\varphi_n=\frac{2}{l}\int_0^l\varphi(x)\dr x,\quad n\ge1$$
+        $$\varphi_0=\frac{1}{l}\int_0^l\varphi(x)\dr x-u_0$$
+        由此可知
+        $$v(x,t)=\bigg(\frac{1}{l}\int_0^l\varphi(x)\dr x-u_0\bigg)\er^{-kt}+\sum_{n=1}^\infty\varphi_n\cos\frac{n\pi x}{l}\er^{-(k+n^2\pi^2/l^2)a^2t}$$
+        于是
+        $$u(x,t)=(1-\er^{-kt})u_0+\er^{-kt}\frac{1}{l}\int_0^l\varphi(x)\dr x+\sum_{n=1}^\infty\varphi_n\cos\frac{n\pi x}{l}\er^{-(k+n^2\pi^2/l^2)a^2t}$$
+        与(1)同理得到
+        $$\lim_{t\to\infty}u(x,t)=u_0$$
+    \end{enumerate}
+\end{enumerate}
+
+\section{第九次作业}
+\begin{enumerate}
+    \item 3.25
+    \begin{enumerate}[(1)]
+        \item 在$v$的最大值点$(x_0,t_0)$处，若其在内部，由于Hessian阵半负定，即可知
+        $$\triangle u(x_0,t_0)\le 0$$
+        以此替换定理3.8证明中的$u_{xx}(x_0,t_0)\le0$，其他过程完全相同。
+    
+        \item 直接计算可知
+        $$v_t-a^2\triangle v=\phi'(u)u_t-a^2\phi''(u)|Du|^2-a^2\phi'(u)\triangle u=-a^2\phi''(u)|Du|^2$$
+        由凸函数二阶导非负即可得到右侧小于等于0，从而得证。
+    
+        \item 以$u_i$表示$u_{x_i}$，直接计算可知
+        $$v_t-a^2\triangle v=2a^2\sum_iu_iu_{it}+2u_tu_{tt}-2a^4\sum_j\sum_i(u_iu_{ij})_j-2a^2\sum_j(u_tu_{tj})_j$$
+        于是
+        $$\frac{1}{2}(v_t-a^2\triangle v)=a^2\sum_iu_iu_{it}+u_tu_{tt}-a^4\sum_{i,j}(u_{ij}^2+u_iu_{ijj})-a^2\sum_j(u_{tj}^2+u_tu_{tjj})$$
+        由条件可知$a^2\sum_ju_{jj}=u_t$，同对$x_i$、$t$求导可得上式化为
+        $$\frac{1}{2}(v_t-a^2\triangle v)=a^2\sum_iu_iu_{it}+u_tu_{tt}-a^4\sum_{i,j}u_{ij}^2-a^2\sum_iu_iu_{it}-a^2\sum_ju_{tj}^2-u_tu_{tt}$$
+        于是
+        $$v_t-a^2\triangle v=-a^4\sum_{i,j}u_{ij}^2-a^2\sum_ju_{t,j}^2\le0$$
+        得证。
+    \end{enumerate}
+    
+    \item 3.27
+    
+    由条件可知需要证明若$u-v$在$\Gamma$上$\le0$，且
+    $$(u-v)_t-(u-v)_{xx}+|u_x|-|v_x|\le0$$
+    则$u-v\le0$在$Q_T$恒成立。
+    
+    由于
+    $$|u_x|-|v_x|\ge-|u_x-v_x|$$
+    可知只需证明$w$在$\Gamma$上$\le0$且$w_t-w_{xx}-|w_x|\le0$时有$w\le0$恒成立。
+    
+    与定理3.8的证明过程完全相同。先考虑$w_t-w_{xx}-|w_x|<0$的情况，此时不在$\Gamma$上的极值点满足$w_t\ge0$、$w_{xx}\le0$、$w_x=0$，从而矛盾；对一般情况构造辅助函数$v=w-\varepsilon t$，并取$\varepsilon\to0^+$得到结论。
+    
+    \item 3.30
+    \begin{enumerate}[(1)]
+        \item 设
+        $$M=\max_{x\in[0,l]}\varphi'(x)\le\|\varphi\|_{C^1[0,l]}$$
+        我们先证明$u(x,t)\le Mx$。
+    
+        考虑定解问题
+        $$v_t-v_{xx}=0,\quad v(x,0)=Mx,\quad v(0,t)=0,\quad v(l,t)=Ml$$
+        可发现其以$v(x,t)=Mx$为解。利用$\varphi(0)=0$由微分中值定理可知$\varphi(x)\le Mx$，且$0\le Ml$成立，于是利用比较定理即得结论。
+    
+        若$u_x(0,t_0)>M$，由于$u(0,t_0)=0$，考虑Taylor公式利用极限保序性可发现存在$x$使得$u(x,t_0)>Mx$，矛盾，于是$\max_{(0,T)}u_x(0,T)\le M$。
+    
+        将上方的$M$替换为$-M$，同理由比较定理$u(x,t)\ge -Mx$，进一步得到$\min_{(0,T)}u_x(0,T)\ge-M$。
+    
+        考虑定解问题
+        $$v_t-v_{xx}=0,\quad v(x,0)=M(l-x),\quad v(0,t)=Ml,\quad v(l,t)=0$$
+        对$\varphi(x)$与$\varphi(l)$利用微分中值定理可知$\varphi(x)\le M(l-x)$，从而得到$u(x,t)\le M(l-x)$，进一步由$l$处Taylor公式有
+        $$u_x(l,t)\ge-M$$
+        同理可得$u_x(l,t)\le M$，最终综合得到
+        $$\max_{(0,T)}|u_x(0,T)|\le M\le\|\varphi\|_{C^1[0,l]},\quad\max_{(0,T)}|u_x(l,T)|\le M\le\|\varphi\|_{C^1[0,l]}$$
+    
+        \item 记$v=u_x$，利用偏导可交换可发现
+        $$v_t-v_{xx}=0$$
+        此外，由于(1)中已证，在$x=0$或$l$的边界上$|v(x,t)|\le\|\varphi\|_{C^1[0,l]}$，而$t=0$时
+        $$|v(x,0)|=|\varphi'(x)|\le\|\varphi\|_{C^1[0,l]}$$
+        利用极值原理即得$|v(x,t)|\le\|\varphi\|_{C^1[0,l]}$在区域中恒成立。
+    \end{enumerate}
+    
+    \item 3.33
+    \begin{enumerate}[(1)]
+        \item 由于$x=0$时$-u_x+hu=hu_0>0$，利用引理3.15可知$u(x,t)\ge0$。设$v=u_0-u$，有
+        $$v_t-v_{xx}=0,\quad v(x,0)=u_0,\quad (-v_x+hv)\big|_{x=0}=0,\quad v\big|_{x=l}=u_0$$
+        再次利用引理3.15可知$v(x,t)\ge0$，从而得证。
+    
+        \item 若$h_1>h_2$，设$v=u_{h_1}-u_{h_2}$，$a=h_1-h_2$，有
+        $$v_t-v_{xx}=0,\quad v(x,0)=0,\quad v\big|_{x=l}=0$$
+        且$x=0$时
+        $$v_x+a(u_0-u_{h_2})+h_1(u_0-v)=0$$
+        上式可以变形成
+        $$-v_x+h_1v=h_1u_0+a(u_0-u_{h_2})$$
+        由于$u_{h_2}\le u_0$、$a>0$、$h_1u_0>0$，即可利用引理3.15得到$v(x,t)\ge0$。
+    \end{enumerate}
+    
+    \item 3.35
+    
+    作差可发现只需证明$f(x,t)=\varphi(x)=0$时只有零解。设
+    $$\mathcal{L}v=v_t-av_{xx}+bv_x+cv$$
+    
+    记$Q_T^L=(-L,L)\times(0,T]$对应的抛物边界$\partial_pQ_T^L$，先证明若$Q_T^L$上$\mathcal{L}v\le0$、$\partial_pQ_T^L$上$v\le0$，则$Q_L^T$上$v\le0$：
+    \begin{itemize}
+        \item 先说明$\mathcal{L}v<0$时成立。若$v$最大值在抛物边界上，则已经得证，否则若$v$最大值为正，有此处
+        $$v_t\ge0,\quad v_{xx}\le0,\quad v_x=0,\quad v>0$$
+        从而此处
+        $$Lv=v_t-av_{xx}+cv\ge0$$
+        于是矛盾。
+        \item 在$\mathcal{L}v\le0$时，构造辅助函数$w=v-\varepsilon t$，可发现其符合条件，从而$Q_T^L$上$v-\varepsilon t\le 0$对任何$\varepsilon$成立，令$\varepsilon\to0$即可得到$v\le0$。
+    \end{itemize}
+    
+    若$u$为原方程有界解，设
+    $$A=\sup_{\mathbb{R}_+^2}|a(x,t)|,\quad B=\sup_{\mathbb{R}_+^2}|b(x,t)|,\quad M=\sup_{\mathbb{R}_+^2}|u(x,t)|$$
+    设
+    $$w=\frac{M}{L^2}\er^t(x^2+2At+B^2)$$
+    计算可发现
+    $$\mathcal{L}w=\frac{M}{L^2}\er^t(2A+x^2+2At+B^2-2a+2bx+cx^2+2Act+B^2c)$$
+    整理得
+    $$\mathcal{L}w=\frac{M}{L^2}\er^t(2(A-a)+(x+b)^2+2At+(B^2-b^2)+cx^2+2Act+B^2c)$$
+    由每项均正可知内部$\mathcal{L}w\ge0$。
+    
+    在$\partial_pQ_T^L$上，$t=0$时
+    $$w=\frac{M}{L^2}(x^2+B^2)\ge0$$
+    $x=\pm L$时
+    $$w=\frac{M}{L^2}e^t(L^2+2At+B^2)\ge M\er^t\ge M$$
+    从而考虑$v=w+u$与$v=w-u$可知在$Q_T^L$上
+    $$|u(x,t)|\le w(x,t)$$
+    综合也即当$x\in[-L,L]$、$t\in[0,T]$时
+    $$|u(x,t)|\le \frac{M}{L^2}e^t(x^2+2At+B^2)$$
+    令$L\to\infty$即可得到$u(x,t)=0$。
+\end{enumerate}
+
+\section{第十次作业}
+\begin{enumerate}
+    \item 3.36
+    
+    在第一个方程两端同乘$2u_t$并在$Q_\tau$上积分得到
+    $$2\int_0^\tau\int_0^lu_t^2\dr x\dr t-2\int_0^\tau\int_0^lu_{xx}u_t\dr x\dr t=\int_0^\tau\int_0^l2u_tf\dr x\dr t$$
+    第二项对$x$分部积分并利用边界条件可得
+    $$-2\int_0^\tau\int_0^lu_{xx}u_t\dr x\dr t=2\int_0^\tau\int_0^lu_xu_{xt}\dr x\dr t=\int_0^\tau\int_0^l(u_x^2)_t\dr x\dr t=\int_0^lu_x^2(x,\tau)\dr x-\int_0^l(\varphi')^2\dr x$$
+    对第一个等式右侧利用基本不等式即得到
+    $$2\int_0^\tau\int_0^lu_t^2\dr x\dr t+\int_0^lu_x^2(x,\tau)\dr x\le\int_0^l(\varphi')^2\dr x+\int_0^\tau\int_0^lu_t^2\dr x\dr t+\int_0^\tau\int_0^lf^2\dr x\dr t$$
+    也即
+    $$\int_0^\tau\int_0^lu_t^2\dr x\dr t+\int_0^lu_x^2(x,\tau)\dr x\le\int_0^l(\varphi')^2\dr x+\int_0^\tau\int_0^lf^2\dr x\dr t$$
+    取$\tau=T$并去除左侧第二项有
+    $$\int_0^T\int_0^lu_t^2\dr x\dr t\le\int_0^l(\varphi')^2\dr x+\int_0^T\int_0^lf^2\dr x\dr t$$
+    去除左侧第一项有
+    $$\int_0^lu_x^2(x,\tau)\dr x\le\int_0^l(\varphi')^2\dr x+\int_0^\tau\int_0^lf^2\dr x\dr t\le\int_0^l(\varphi')^2\dr x+\int_0^T\int_0^lf^2\dr x\dr t$$
+    上两式相加并对$\tau$取上界得结论。
+    
+    \item 3.37
+    
+    在第一个方程两端同乘$2u$并在$Q_\tau$上积分，与定理3.17证明类似得到
+    $$\int_0^lu^2(x,\tau)\dr x-2a^2\int_0^\tau\int_0^luu_{xx}\dr x\dr t\le\int_0^l\varphi^2\dr x+\int_0^\tau\int_0^lu^2\dr x\dr t+\int_0^\tau\int_0^lf^2\dr x\dr t$$
+    分部计算，利用$x=0$时$u_x=\alpha u$，$x=l$时$u_x=-\beta u$可知
+    $$\begin{aligned}-\int_0^\tau\int_0^luu_{xx}\dr x\dr t&=\int_0^\tau\int_0^lu_x^2\dr x\dr t-\int_0^\tau u(l,t)u_x(l,t)\dr t+\int_0^\tau u(0,t)u_x(0,t)\dr t\\ &=\int_0^\tau\int_0^lu_x^2\dr x\dr t+\beta\int_0^\tau u^2(l,t)\dr t+\alpha\int_0^\tau u^2(0,t)\dr t\ge\int_0^\tau\int_0^lu_x^2\dr x\dr t\end{aligned}$$
+    代入得
+    $$\int_0^lu^2(x,\tau)\dr x+2a^2\int_0^\tau\int_0^lu_x^2\dr x\dr t\le\int_0^l\varphi^2\dr x+\int_0^\tau\int_0^lu^2\dr x\dr t+\int_0^\tau\int_0^lf^2\dr x\dr t$$
+    此式与定理3.17证明中完全相同，由此相同得到结论
+    $$\sup_{0\le t\le T}\int_0^lu^2(x,t)\dr x+2a^2\int_0^T\int_0^lu_x^2\dr x\dr t\le 2\er^T\bigg(\int_0^l\varphi^2\dr x+\int_0^T\int_0^lf^2\dr x\dr t\bigg)$$
+    由此分别考虑左侧的两项，取$M=2\er^T+a^{-2}\er^T$即可得到结论。
+    
+    \item 3.38
+    
+    在第一个方程两端同乘$2u$并在$Q_\tau$上积分，与定理3.17证明类似，并将$b,c$相关的项移到右侧得到
+    $$\int_0^lu^2(x,\tau)\dr x+2a^2\int_0^\tau\int_0^lu_x^2\dr x\dr t$$
+    $$\le\int_0^l\varphi^2\dr x+\int_0^\tau\int_0^lu^2\dr x\dr t+\int_0^\tau\int_0^lf^2\dr x\dr t-2\int_0^\tau\int_0^lbu_xu\dr x\dr t-2\int_0^\tau\int_0^lcu^2\dr x\dr t$$
+    对最后一项直接逐点放缩可知
+    $$-2\int_0^\tau\int_0^lcu^2\dr x\dr t\le 2C\int_0^\tau\int_0^lu^2\dr x\dr t$$
+    对第二项也使用逐点放缩，利用基本不等式，对任何$\varepsilon>0$有
+    $$-2\int_0^\tau\int_0^lbu_xu\dr x\dr t\le\frac{B}{\varepsilon}\int_0^\tau\int_0^lu^2\dr x\dr t+B\varepsilon\int_0^\tau\int_0^lu_x^2\dr x\dr t$$
+    取$\varepsilon=B^{-1}a^2$可得(对$B=0$的情况可单独讨论发现下式仍成立)
+    $$-2\int_0^\tau\int_0^lbu_xu\dr x\dr t\le\frac{B^2}{a^2}\int_0^\tau\int_0^lu^2\dr x\dr t+a^2\int_0^\tau\int_0^lu_x^2\dr x\dr t$$
+    代入并整理得到
+    $$\int_0^lu^2(x,\tau)\dr x+a^2\int_0^\tau\int_0^lu_x^2\dr x\dr t\le\int_0^l\varphi^2\dr x+\bigg(\frac{B^2}{a^2}+2C+1\bigg)\int_0^\tau\int_0^lu^2\dr x\dr t+\int_0^\tau\int_0^lf^2\dr x\dr t$$
+    记$M_0=\frac{B^2}{a^2}+2C+1$，可发现
+    $$\int_0^lu^2(x,\tau)\dr x\le\int_0^l\varphi^2\dr x+M_0\int_0^\tau\int_0^lu^2\dr x\dr t+\int_0^\tau\int_0^lf^2\dr x\dr t$$
+    与定理3.17证明完全类似由Gronwall不等式得到
+    $$\int_0^\tau\int_0^lu^2\dr x\dr t\le M_0^{-1}\big(\er^{M_0t}-1\big)\bigg(\int_0^l\varphi^2\dr x+\int_0^\tau\int_0^lf^2\dr x\dr t\bigg)$$
+    由此
+    $$\int_0^lu^2(x,\tau)\dr x+a^2\int_0^\tau\int_0^lu_x^2\dr x\dr t\le\er^{M_0t}\bigg(\int_0^l\varphi^2\dr x+\int_0^\tau\int_0^lf^2\dr x\dr t\bigg)$$
+    对左侧两项分别估算即有
+    $$\sup_{0\le t\le T}\int_0^lu^2(x,t)\dr x\le\er^{M_0T}\bigg(\int_0^l\varphi^2\dr x+\int_0^T\int_0^lf^2\dr x\dr t\bigg)$$
+    $$\int_0^T\int_0^lu_x^2\dr x\dr t\le a^{-2}\er^{M_0T}\bigg(\int_0^l\varphi^2\dr x+\int_0^T\int_0^lf^2\dr x\dr t\bigg)$$
+    由此取$M=(1+a^{-2})\er^{M_0t}$即得证。
+\end{enumerate}
+
+\section{第十一次作业}
+\begin{enumerate}
+    \item 4.1
+    \begin{enumerate}
+        \item[(1)] 由于$u(x(t),t)_t=u_t+x'(t)u_x$，当$x'(t)=2$，即$x-2t=c$时，$u$在其上为常数，由此可得$u=f(x-2t)$，再根据初值得到$u=(x-2t)^2$。
+        \item[(3)] 由于$u'(x(t),t)=u_t+x'(t)u_x$，考虑$x'(t)=-\frac{1}{2}$，即$t=-2x+c$。由此考虑$u(x,-2x+c)$，计算得在此线上有常微分方程(下方导数指线上对$x$)
+        $$xu-u'=0$$
+        求解得到
+        $$u(x,-2x+c)=C\er^{x^2/2}$$
+        而由于$x=\frac{c}{2}$时对应的
+        $$C\er^{c^2/8}=c\er^{c^2/8}$$
+        可得
+        $$C=c$$
+        代入得到
+        $$u(x,t)=u(x,-2x+(t+2x))=(t+2x)\er^{x^2/2}$$
+        
+        
+        若$u$在此线上为常数，仍可从$u'=0$得到方程成立，由此可设$u=f(2x+t)$，结合初值条件得到
+        $$u=(2x+t)\er^{x^2/2}$$
+        
+        \item[(5)] 与(3)同理，由于
+        $$u'(x_1(t),x_2(t),\dots,x_n(t),t)=u_t+x_1'(t)u_{x_1}+\dots+x_n'(t)u_{x_n}$$
+        考虑$x_i'(t)=A_i$，即直线$x=\vec{A}t+\vec{C}_0$。在此线上有常微分方程$u'+cu=0$，于是
+        $$u(\vec{A}t+\vec{C}_0,t)=C\er^{-ct}$$
+        代入$t=0$时$u(\vec{C}_0,0)=\varphi(\vec{C}_0)=C$，于是
+        $$u(x,t)=u(\vec{A}t+(x-\vec{A}t),t)=\varphi(x-\vec{A}t)\er^{-ct}$$
+    \end{enumerate}
+    
+    \item 4.3
+    \begin{enumerate}[(1)]
+        \item 由其凸连通，其与凸集$\{(x,y)\mid x=c\}$的交为凸集，于是为一个区间，而在此区间上$(u_x)_y=0$，从而其为常数。由此，$u_x$对每个固定的$x$为常数，记为$f(x)$，同理$u_y$只与$y$有关，记为$g(y)$。由于$u$可二阶导，$f$与$g$均为连续函数。
+        
+        设$C=u(x_0,y_0)$，由凸连通性，任何$(x,y)$可与$(x_0,y_0)$用线段连接，而此线段为
+        $$\gamma(t)=((x-x_0)t+x_0,(y-y_0)t+y_0),\quad t\in[0,1]$$
+        利用N-L公式有
+        $$u(x,y)=u(\gamma(1))=u(\gamma(0))+\int_0^1\frac{\dr u(\gamma(t))}{\dr t}\dr t=C+\int_0^1\frac{\dr u(\gamma(t))}{\dr t}\dr t$$
+        进一步计算得导数为$(x-x_0)u_x(\gamma(t))+(y-y_0)u_y(\gamma(t))$，由此原式为
+        $$\begin{aligned}
+        &C+\int_0^1(x-x_0)u_x(\gamma(t))\dr t+\int_0^1(y-y_0)u_y(\gamma(t))\dr t\\=&C+\int_0^1(x-x_0)f((x-x_0)t)\dr t+\int_0^1(y-y_0)g((y-y_0)t)\dr t\\=&C+\int_{x_0}^xf(s)\dr s+\int_{y_0}^yg(r)\dr r\end{aligned}$$
+        记
+        $$F(x)=C+\int_{x_0}^xf(s)\dr s,\quad G(y)=\int_{y_0}^yg(r)\dr r$$
+        即得到$u(x,y)=F(x)+G(y)$，且可直接验证这样形式的$u$为解，从而这就是全部解。
+    
+        \item 
+        直接计算发现$\xi=x+at$、$\eta=x-at$时$x=\frac{1}{2}(\eta+\xi)$、$t=\frac{1}{2a}(\eta-\xi)$
+        $$u_\xi=x_\xi u_x+t_\xi u_t=\frac{1}{2}u_x-\frac{1}{2a}u_t$$
+        $$u_{\xi\eta}=\frac{1}{2}(x_\eta u_{xx}+t_\eta u_{xt})-\frac{1}{2a}(x_\eta u_{tx}+t_\eta u_{tt})=\frac{1}{4}u_{xx}-\frac{1}{4a^2}u_{tt}$$
+        由此其为0与$u_{xx}=a^2u_{tt}$等价。
+    
+        \item 
+        利用(1)即得通解为
+        $$u(x,t)=F(\xi)+G(\eta)=F(x+at)+G(x-at)$$
+    \end{enumerate}
+    
+    \item 4.7
+    
+    将方程组重新分解为
+    $$u_t-au_x=v,\quad u(x,0)=\varphi(x)$$
+    $$v_t+av_x=f,\quad v(x,0)=\psi(x)-a\varphi'(x)$$
+    可以发现分解前后的方程与边界条件都等价。
+    
+    对第二个方程利用特征线法，其特征线$x=c+at$，过$(x_0,t_0)$的特征线为
+    $$x_1(t)=x_0-at_0+at$$
+    此特征线上
+    $$\frac{\dr v(x_1(t),t)}{\dr t}=f(x_1(t),t)$$
+    由此
+    $$v(x_0,t_0)=v(x_1(t_0),t_0)=v(x_0-at_0,0)+\int_0^{t_0}f(x_1(t),t)\dr t$$
+    化简得到
+    $$v(x,t)=\psi(x-at)-a\varphi'(x-at)+\int_0^tf(x-at+a\tau,\tau)\dr\tau$$
+    对第一个方程，由于特征线为$x=c-at$，完全类似求解得到
+    $$u(x,t)=\varphi(x+at)+\int_0^tv(x+at-as,s)\dr s$$
+    将积分展开得到
+    $$\varphi(x+at)+\int_0^t\psi(x+at-2as)\dr s-a\int_0^t\varphi'(x+at-2as)\dr s+\int_0^t\int_0^sf(x+at-2as+a\tau,\tau)\dr\tau\dr s$$
+    第二项与教材完全相同可积分变换为
+    $$\frac{1}{2a}\int_{x-at}^{x+at}\psi(s)\dr s$$
+    第三项同理变换可发现其为$-\frac{1}{2}(\varphi(x+at)-\varphi(x-at))$，由此一三两项合并为
+    $$\frac{1}{2}(\varphi(x+at)+\varphi(x-at))$$
+    最后，对第四项进行积分换元$\xi=x+at-2as+a\tau$、$\tau=\tau$，则有$\dr\xi\dr\tau=2a\dr\tau\dr s$，再考虑给定$\tau$后$\xi$的范围将区域对应变换即可发现结果成为
+    $$\frac{1}{2a}\int_0^t\dr\tau\int_{x-a(t-\tau)}^{x+a(t-\tau)}f(\xi,\tau)\dr\xi$$
+    综合得到结论，与通解公式一致。
+    
+    \item 4.8
+    
+    记$\xi(x,t)=x+at$、$\eta(x,t)=x-at$。
+    
+    \
+    
+    定理4.2：由变限积分可知$C^k$函数的积分是$C^{k+1}$的，由此$u\in C^2(\mathbb{R}\times\mathbb{R}_+)$。直接计算可知(注意$\tau=t$时$f$的积分为0)
+    $$u_x=\frac{1}{2}(\varphi'(\xi)+\varphi'(\eta))+\frac{1}{2a}(\psi(\xi)-\psi(\eta))+\frac{1}{2a}\int_0^t(f(\xi-a\tau,\tau)-f(\eta+a\tau,\tau))\dr\tau$$
+    $$u_t=\frac{a}{2}(\varphi'(\xi)-\varphi'(\eta))+\frac{1}{2}(\psi(\xi)+\psi(\eta))+\frac{1}{2}\int_0^t(f(\xi-a\tau,\tau)+f(\eta+a\tau,\tau))\dr\tau$$
+    进一步计算得到(计算$u_{xt}$是为了后续说明$C^2(\mathbb{R}\times\bar{\mathbb{R}}_+)$)
+    $$u_{xt}=\frac{a}{2}(\varphi''(\xi)-\varphi''(\eta))+\frac{1}{2}(\psi'(\xi)+\psi'(\eta))+\frac{1}{2}\int_0^t(f_x(\xi-a\tau,\tau)+f_x(\eta+a\tau,\tau))\dr\tau$$
+    $$u_{xx}=\frac{1}{2}(\varphi''(\xi)+\varphi''(\eta))+\frac{1}{2a}(\psi'(\xi)-\psi'(\eta))+\frac{1}{2a}\int_0^t(f_x(\xi-a\tau,\tau)-f_x(\eta+a\tau,\tau))\dr\tau$$
+    $$u_{tt}=\frac{a^2}{2}(\varphi''(\xi)+\varphi''(\eta))+\frac{a}{2}(\psi'(\xi)-\psi'(\eta))+f(x,t)+\frac{a}{2}\int_0^t(f_x(\xi-a\tau,\tau)-f_x(\eta+a\tau,\tau))\dr\tau$$
+    于是直接代入可发现$u_{tt}-a^2u_{xx}=f(x,t)$，且$u(x,0)=\varphi(x)$、$u_t(x,0)=\psi(x)$。
+    
+    此外，由于各一、二阶导均为$\varphi$至多二阶导、$\psi$至多一阶导与$f$至多一阶导积分，它们连续，且在$t\to0$时均保持连续性，由此得证光滑性要求。
+    
+    \
+    
+    推论4.3：将$u$的表达式改写为
+    $$u=\frac{1}{2}(\varphi(\xi)+\varphi(\eta))+\frac{1}{2a}\int_\eta^\xi\psi(s)\dr s+\frac{1}{2a}\int_0^t\int_{\eta+a\tau}^{\xi-a\tau}f(s,\tau)\dr s$$
+    利用$\eta(-x,t)=-\xi(x,t)$、$\xi(-x,t)=-\eta(x,t)$，代入$-x$可知
+    $$u(-x,t)=\frac{1}{2}(\varphi(-\xi)+\varphi(-\eta))+\frac{1}{2a}\int_{-\xi}^{-\eta}\psi(s)\dr s+\frac{1}{2a}\int_0^t\int_{-\xi+a\tau}^{-\eta-a\tau}f(s,\tau)\dr s$$
+    将$s$换元为$-s$得到
+    $$u(-x,t)=\frac{1}{2}(\varphi(-\xi)+\varphi(-\eta))+\frac{1}{2a}\int_{\eta}^{\xi}\psi(-s)\dr s+\frac{1}{2a}\int_0^t\int_{\eta+a\tau}^{\xi-a\tau}f(-s,\tau)\dr s$$
+    由此可得奇偶性保持。同理
+    $$u(x+T,t)=\frac{1}{2}(\varphi(\xi+T)+\varphi(\eta+T))+\frac{1}{2a}\int_{\eta+T}^{\xi+T}\psi(s)\dr s+\frac{1}{2a}\int_0^t\int_{\eta+T+a\tau}^{\xi+T-a\tau}f(s,\tau)\dr s$$
+    换元$s$为$s-T$得到
+    $$u(x+T,t)=\frac{1}{2}(\varphi(\xi+T)+\varphi(\eta+T))+\frac{1}{2a}\int_{\eta}^{\xi}\psi(s+T)\dr s+\frac{1}{2a}\int_0^t\int_{\eta+a\tau}^{\xi-a\tau}f(s+T,\tau)\dr s$$
+    由此可得周期性保持。
+    
+    \item 4.14
+    
+    利用线性叠加原理，设$u(x,y,z,t)=u_1(x,t)+u_2(y,t)+u_3(z,t)$，代入它们分别满足的一维问题可得到
+    $$u_1(x,t)=\frac{1}{2}(f(x+at)+f(x-at))$$
+    $$u_2(y,t)=\frac{1}{2}(g(y+at)+g(y-at))+\frac{1}{2a}\int_{y-at}^{y+at}\varphi(\xi)\dr\xi$$
+    $$u_3(z,t)=\frac{1}{2a}\int_{z-at}^{z+at}\psi(\xi)\dr\xi$$
+    由此
+    $$u(x,y,z,t)=\frac{1}{2}(f(x+at)+f(x-at))+\frac{1}{2}(g(y+at)+g(y-at))+\frac{1}{2a}\int_{y-at}^{y+at}\varphi(\xi)\dr\xi+\frac{1}{2a}\int_{z-at}^{z+at}\psi(\xi)\dr\xi$$
+    为解，再由唯一性得其为唯一解。
+    
+    \item 4.15
+    
+    直接计算可得
+    $$\frac{\partial\Phi(\alpha\cdot x+at)}{\partial x_i}=\alpha_i\Phi'(\alpha\cdot x+at)$$
+    $$\frac{\partial^2\Phi(\alpha\cdot x+at)}{\partial x_i^2}=\alpha_i^2\Phi''(\alpha\cdot x+at)$$
+    $$\frac{\partial\Phi(\alpha\cdot x+at)}{\partial t}=a\Phi'(\alpha\cdot x+at)$$
+    $$\frac{\partial^2\Phi(\alpha\cdot x+at)}{\partial t^2}=a^2\Phi''(\alpha\cdot x+at)$$
+    从而利用$\sum_i\alpha_i^2=1$可得
+    $$\frac{\partial^2\Phi(\alpha\cdot x+at)}{\partial t^2}=a^2\triangle_x(\Phi(\alpha\cdot x+at))$$
+    即得证。
+    
+    \item 4.17
+    \begin{enumerate}[(1)]
+        \item 
+        先考虑满足$v(x,y,0)=x^2y$、$v_t(x,y,0)=0$的问题$v_{tt}-a^2(v_{xx}+v_{yy})=0$。由于$v_{yy}=0$在$t=0$时恒成立，假设其在全空间成立可得到解
+        $$v(x,y,t)=\frac{1}{2}y((x+at)^2+(x-at)^2)$$
+        代入得此结果的确为解。
+    
+        根据线性叠加原理，$u-v$只与$x$有关，由此可直接根据一维情况得到解，综合可得
+        $$u(x,y,t)=\frac{1}{2}y((x+at)^2+(x-at)^2)+\frac{1}{2}((x+at)^3+(x-at)^3)$$
+        也即
+        $$u(x,y,t)=x^2(x+y)+a^2t^2(y+3x)$$
+    
+        \item 
+        将原方程拆分为$u=u_1+u_2+u_3$，满足
+        $$u_1\big|_{t=0}=x^2,\quad u_2\big|_{t=0}=y^2z,\quad u_3\big|_{t=0}=0$$
+        $$(u_1)_t\big|_{t=0}=0,\quad(u_2)_t\big|_{t=0}=0,\quad(u_3)_t\big|_{t=0}=1+y$$
+        $u_1$与$u_3$均为一维问题，而由(1)可知$u_2$的解，综合得到
+        $$u(x,y,z,t)=\frac{1}{2}((x+at)^2+(x-at)^2)+\frac{1}{2}z((y+at)^2+(y-at)^2)+\frac{1}{2a}\int_{y-at}^{y+at}(1+\xi)\dr\xi$$
+        也即
+        $$u(x,y,z,t)=x^2+y^2z+a^2t^2(1+z)+t(1+y)$$
+    \end{enumerate}
+    
+    \item 4.19
+    
+    设$u(x,t)=v(x,t)+g(t)x$，则有(条件范围与$u$相同)
+    $$v_{tt}-a^2v_{xx}=f(x,t)-g''(t)x,\quad v(x,0)=\varphi(x)-g(0)x,\quad v_t(x,0)=\psi(x)-g'(0)x,\quad v_x(0,t)=0$$
+    将前三个式子的右端分别记作$h(x,t)$、$\phi(x)$、$\eta(x)$。
+    
+    进行偶延拓，在半空间定义$\bar{h}(x,t)=h(|x|,t)$，在实轴定义$\bar{\phi}(x)=\phi(|x|)$、$\bar{\eta}(x)=\eta(|x|)$，对应解可以写为
+    $$\bar{v}(x,t)=\frac{1}{2}(\bar{\phi}(x+at)+\bar{\phi}(x-at))+\frac{1}{2a}\int_{x-at}^{x+at}\bar{\eta}(\xi)\dr\xi+\frac{1}{2a}\int_0^t\dr\tau\int_{x-a(t-\tau)}^{x+a(t-\tau)}\bar{h}(\xi,\tau)\dr\xi$$
+    由推论4.3可知$\bar{v}$是偶函数，从而自然满足$\bar{v}_x(0,t)=0$，$x>0$时其可写为
+    $$v(x,t)=\frac{1}{2}(\phi(x+at)+\phi(|x-at|))+\frac{1}{2a}\int_{x-at}^{x+at}\eta(|\xi|)\dr\xi+\frac{1}{2a}\int_0^t\dr\tau\int_{x-a(t-\tau)}^{x+a(t-\tau)}h(|\xi|,\tau)\dr\xi$$
+    下面考察相容性条件。首先，这样得到的解有
+    $$v(0,t)=\phi(at)+\frac{1}{a}\int_0^{at}\eta(\xi)\dr\xi+\frac{1}{a}\int_0^t\dr\tau\int_0^{a(t-\tau)}h(\xi,\tau)\dr\xi$$
+    从而$t\to0$时其为$\phi(0)$，连续性条件满足。而
+    $$v_t(0,t)=a\phi'(at)+\eta(t)+\int_0^t h(a(t-\tau),\tau)\dr\tau$$
+    于是$v_t$连续对应的相容性条件为$\phi'(0)=0$，也即$\varphi'(0)=g(0)$。验证得$v_x$连续对应的条件相同。进一步计算得
+    $$v_{tt}(0,t)=a^2\phi''(at)+\eta'(t)+h(0,t)$$
+    而$v_{xx}(x,0)=\phi''(x)$，于是0处方程满足对应的条件为$\eta'(0)=0$，也即$\psi'(0)=g'(0)$.
+    
+    综合上述讨论，二阶连续性等价于条件$f\in C$、$\varphi\in C^2$、$\psi\in C^1$、$g\in C^1$，且
+    $$\varphi'(0)=g(0),\quad\psi'(0)=g'(0)$$
+    
+    我们事实上还可以要求更高阶的连续性。假设$f\in C^1$、$\varphi\in C^3$、$\psi\in C^2$、$g\in C^2$，考虑零点处的$v_{xtt}-a^2v_{xxx}$，其一方面为$h_x(x,t)$的极限，另一方面考虑$x=0$时的逼近可得三阶连续性还额外要求$h_x(0,0)=-a^2\phi'''(0)$，也即
+    $$f_x(0,0)+a^2\varphi'''(x)-g''(0)=0$$    
+\end{enumerate}
+
+\section{第十二次作业}
+\begin{enumerate}
+    \item 4.22
+    
+    $u(x,y,t)=0$等价于其特征锥与$xy$平面的交落在$\Omega$中，考虑几何也即
+    $$|x\pm2t|\le1,\quad|y\pm2t|\le1$$
+    给定$t>0$可得$x\in[2t-1,1-2t]$、$y\in[2t-1,1-2t]$，即$(x,y,t)$落在$\Omega$为底，$(0,0,\frac{1}{2})$为顶的锥中。
+    
+    \item 4.26
+    
+    从第一个方程与之前一维情况相同可得
+    $$u(x,t)=f(x+t)+g(x-t)$$
+    由初始条件可知$f(t)+g(-t)=\varphi(t)$、$f(2t)+g(0)=\psi(t)$，不妨设$g(0)=0$\ (对应的常数加到$f$中)即得
+    $$u(x,t)=\psi\bigg(\frac{x+t}{2}\bigg)-\psi\bigg(\frac{t-x}{2}\bigg)+\varphi(t-x)$$
+    利用$\varphi(0)=\psi(0)$可验证的确为解，从而决定区域为$\frac{x+t}{2}\in[0,a]$、$\frac{t-x}{2}\in[0,a]$与$t-x\in[0,a]$之交，再由$x\in[0,t]$可知区域为
+    $$\{(x,t)\mid t>0,x\in(0,t)\}\cap\{(x,t)\mid t-a\le x\le 2a-t\}$$
+    
+    \item 4.34
+    \begin{enumerate}[(1)]
+        \item 对第二边值问题，作差可知只需证明初边值为0时只有零解，也即满足
+        $$u_{tt}-a^2u_{xx}=0,\quad u(x,0)=u_t(x,0)=0,\quad u_x(0,t)=u_x(l,t)=0$$
+        的$u$只能为0。
+    
+        第一式两边同乘$2u_t$并对$x\in[0,l]$、$t\in[0,\tau]$积分，计算可知
+        $$\int_0^\tau\int_0^l\big((u_t^2)_t+a^2(u_x^2)_t-2a^2(u_tu_x)_x\big)\dr x\dr t=0$$
+        第三项对$x$积分即得
+        $$\int_0^\tau\int_0^l\big((u_t^2)_t+a^2(u_x^2)_t\big)\dr x\dr t=0$$
+        先对$t$积分，利用$t=0$时$u_x=u_t=0$可得
+        $$\int_0^l\big(u_t^2(x,\tau)+a^2u_x^2(x,\tau)\big)\dr x=0$$
+        由于此式对任何$l,\tau$成立，即有$u_t=u_x=0$，而根据$u(x,0)=0$积分即得$u(x,t)=0$。
+    
+        \item 对第三边值问题，作差可知只需证明初边值为0时只有零解，也即满足
+        $$u_{tt}-a^2u_{xx}=0,\quad u(x,0)=u_t(x,0)=0,\quad (-u_x+\alpha u)\big|_{x=0}=(u_x+\beta u)\big|_{x=l}=0$$
+        的$u$只能为0，这里$\alpha,\beta$为正常数。
+    
+        与(1)相同有
+        $$\int_0^\tau\int_0^l\big((u_t^2)_t+a^2(u_x^2)_t-2a^2(u_tu_x)_x\big)\dr x\dr t=0$$
+        前两项对$t$积分，第三项对$x$积分得到
+        $$\int_0^l\big(u_t^2(x,\tau)+a^2u_x^2(x,\tau)\big)\dr x=2a^2\int_0^\tau\big(u_tu_x(l,t)-u_tu_x(0,t)\big)\dr t$$
+        进一步利用边界条件写为
+        $$\int_0^l\big(u_t^2(x,\tau)+a^2u_x^2(x,\tau)\big)\dr x=-2a^2\int_0^\tau\big(\beta u_tu(l,t)+\alpha u_tu(0,t)\big)\dr t=-a^2(\beta u^2(l,\tau)+\alpha u^2(0,\tau))$$
+        而右侧非正，左侧非负，由此只能全为0，与(1)相同得到证明。
+    \end{enumerate}
+    
+    \item 4.37
+    \begin{enumerate}[(1)]
+        \item 取
+        $$x_0=\frac{x_1+x_2}{2},\quad t_0=t+\frac{x_2-x_1}{2a},\quad\tau=t$$
+        代入定理4.7'的$f=0$情况计算可得
+        $$\int_{x_1}^{x_2}(u_t^2(x,t)+a^2u_x^2(x,t))\dr x\le\int_{x_1-at}^{x_2+at}|\psi^2+a^2(\varphi')^2|\dr x$$
+        这即是结论。
+    
+        \item
+        在右侧极限存在时，(1)中取$x_1\to-\infty$、$x_2\to\infty$，左侧利用单调收敛定理可知极限存在，从而得证。
+    
+        \item 考虑$\Omega_t=\{(x,t)\mid t\in[0,\tau],x\in[x_1-at,x_2+at]\}$，第一式两端同乘$2u_t$后在$\Omega_t$上积分得到
+        $$\int_{\Omega_t}\big((u_t^2+a^2u_x^2)_t-2a^2(u_tu_x)_x\big)\dr x\dr t=0$$
+        利用Gauss-Green公式将其化为(这里定向为顺时针)
+        $$\oint_{\partial\Omega_t}2a^2u_tu_x\dr t+(u_t^2+a^2u_x^2)\dr x=0$$
+        进一步写为
+        $$\int_{x_1-a\tau}^{x_2+a\tau}\big(u_t^2(x,\tau)+a^2u_x^2(x,\tau)\big)\dr x-\int_{x_1}^{x_2}\big(\psi^2+a^2(\varphi')^2\big)\dr x+I_3$$
+        其中$I_3$为侧边$\Gamma_\tau^1=\{x=x_1-at,t\in[0,\tau]\}$与$\Gamma_\tau^2=\{x=x_1+at,t\in[0,\tau]\}$上的积分。两侧边上分别有$\dr x=-a\dr t$与$\dr x=a\dr t$，于是
+        $$I_3=a\int_{\Gamma_\tau^1}(u_t-au_x)^2\dr t-a\int_{\Gamma_\tau^2}(u_t+au_x)^2\dr t$$
+        利用定向可发现$\Gamma_\tau^1$上$\dr t$为负、$\Gamma_\tau^2$上$\dr t$为正，从而$I_3\le0$，由此
+        $$\int_{x_1-a\tau}^{x_2+a\tau}\big(u_t^2(x,\tau)+a^2u_x^2(x,\tau)\big)\dr x\ge\int_{x_1}^{x_2}\big(\psi^2+a^2(\varphi')^2\big)\dr x$$
+        再令$x_1\to-\infty$、$x_2\to\infty$可得与(2)相反的不等式，综合得结论。
+    \end{enumerate}
+    
+    \item 4.38
+    \begin{enumerate}[(1)]
+        \item 由习题4.37(2)即得
+        $$k(t)+p(t)=\frac{1}{2}\int_{-\infty}^{+\infty}\big(\psi^2+a^2(\varphi')^2\big)\dr x$$
+        从而与$t$无关。
+    
+        \item 由D'Alembert公式可知
+        $$u(x,t)=\frac{1}{2}\big(\varphi(x+at)+\varphi(x-at)\big)+\frac{1}{2a}\int_{x-at}^{x+at}\psi(\xi)\dr\xi$$
+        直接计算得
+        $$u_t(x,t)=\frac{a}{2}\big(\varphi'(x+at)-\varphi'(x-at)\big)+\frac{1}{2}\big(\psi(x+at)+\psi(x-at)\big)$$
+        $$au_x(x,t)=\frac{a}{2}\big(\varphi'(x+at)+\varphi'(x-at)\big)+\frac{1}{2}\big(\psi(x+at)-\psi(x-at)\big)$$
+        $$u_t^2(x,t)-a^2u_x^2(x,t)=(a\varphi'(x+at)+\psi(x+at))(-a\varphi'(x+at)+\psi(x+at))$$
+        设$\varphi(x)$、$\psi(x)$的支集均在$[-M,M]$中，则$t>\frac{M}{a}$时，$x+at$、$x-at$距离超过$2M$，至少一个不在支集中，于是$u_t^2(x,t)-a^2u_x^2(x,t)=0$，积分即得$k(t)=p(t)$。
+    \end{enumerate}
+\end{enumerate}
+
+\section{第十三次作业}
+\begin{enumerate}
+    \item 4.40
+    \begin{enumerate}
+        \item[(3)] 设$u(x,t)=X(x)T(t)$，代入得到存在$\lambda$使得
+        $$T''(t)+a^2\lambda T(t)=0$$
+        $$X''(x)+\lambda X(x)=0$$
+        考虑非零解，边界条件成为
+        $$X'(0)=X'(l)=0$$
+        由特征值问题的解的结论可知
+        $$\lambda_n=\bigg(\frac{n\pi}{l}\bigg)^2,\quad X_n(x)=\cos\frac{n\pi}{l}x$$
+        由此对应解出$T_n(t)$可知解能写为
+        $$u(x,t)=\sum_{n=0}^\infty\bigg(A_n\cos\frac{na\pi}{l}t+B_n\sin\frac{na\pi}{l}t\bigg)\cos\frac{n\pi}{l}x$$
+        结合初值条件即得
+        $$u(x,t)=\cos\frac{a\pi t}{l}\cos\frac{\pi x}{l}$$
+    
+        \item[(5)]  作函数变换
+        $$v(x,t)=u(x,t)-\bigg(A_1x+\frac{x^2}{2\pi}(A_2-A_1)\bigg)t$$
+        则变换后有
+        $$v_{tt}-v_{xx}=u_{tt}-u_{xx}+\frac{A_2-A_1}{\pi}t=\frac{A_2-A_1}{\pi}t$$
+        $$v(x,0)=0,\quad v_t(x,0)=-\bigg(A_1x+\frac{x^2}{2\pi}(A_2-A_1)\bigg)$$
+        $$v_x(0,t)=v_x(l,t)=0$$
+        其特征函数系即为$\cos nx$，设
+        $$v(x,t)=\sum_{n=0}^\infty T_n(t)\cos nx$$
+        记
+        $$\psi_n=-\frac{2}{\pi}\int_0^\pi\bigg(A_1\xi+\frac{\xi^2}{2\pi}(A_2-A_1)\bigg)\cos n\xi\dr\xi$$
+        则
+        $$v_t(x,0)=\sum_{n=0}^\infty\psi_n\cos nx$$
+        由此可以得到$T_0(t)$满足方程
+        $$T_0''(t)=t,\quad T_0(0)=0,\quad T_0'(0)=\psi_0$$
+        也即
+        $$T_0(t)=\frac{1}{6}t^3+\psi_0t$$
+        而当$n\ge1$时$T_n(t)$满足方程
+        $$T_n''(t)+n^2T_n(t)=0,\quad T_n(0)=0,\quad T_n'(0)=\psi_n$$
+        即
+        $$T_n(t)=\frac{\psi_n}{n}\sin nt$$
+        由此最终结果可写为
+        $$u(x,t)=\bigg(A_1x+\frac{x^2}{2\pi}(A_2-A_1)\bigg)t+\frac{1}{6}t^3+\psi_0t+\sum_{n=1}^\infty\frac{\psi_n}{n}\sin nt\cos nx$$
+        进一步计算得到
+        $$\psi_0=-\frac{2A_1\pi}{3}-\frac{A_2}{3}\pi,\quad,\forall n\ge1,\quad\psi_n=\frac{2(A_1-(-1)^nA_2)}{n^2\pi}$$
+        代入即为最终结果。
+    \end{enumerate}
+    
+    \item 4.41(4)
+    
+    设$v(x,t)=u(x,t)-1-A(x-l)\sin\omega t$，则有
+    $$v_{tt}-a^2v_{xx}=\omega^2A(x-l)\sin\omega t$$
+    $$v(x,0)=0,\quad v_t(x,0)=-\omega A(x-l)$$
+    $$v_x(0,t)=v(l,t)=0$$
+    
+    其特征值问题的解为
+    $$\omega_n=\sqrt{\lambda_n}=\frac{(2n+1)\pi}{2l}\quad X_n(x)=\cos\omega_nx,\quad n\in\mathbb{N}$$
+    由此设
+    $$v(x,t)=\sum_{n=0}^\infty T_n(t)\cos\omega_nx$$
+    记
+    $$f_n(t)=\frac{2}{l}\int_0^l\omega^2A(\xi-l)\sin\omega t\cos\omega_n\xi\dr\xi=-\frac{2}{l}\frac{\omega^2}{\omega_n^2}A\sin\omega t$$
+    $$\psi_n=\frac{2}{l}\int_0^l(-\omega A(\xi-l))\cos\omega_n\xi\dr\xi=\frac{2}{l}\frac{\omega}{\omega_n^2}A$$
+    则有
+    $$T_n(t)=\frac{1}{a\omega_n}\psi_n\sin(\omega_nat)+\frac{1}{a\omega_n}\int_0^tf_n(\tau)\sin(\omega_na(t-\tau))\dr\tau$$
+    即
+    $$T_n(t)=\frac{2\omega A}{al\omega_n^3}\sin(\omega_nat)-\frac{2\omega^2A}{al\omega_n^3}\int_0^t\sin(\omega\tau)\sin(\omega_na(t-\tau))\dr\tau$$
+    当$\omega\ne a\omega_n$时，代入计算可得结果为
+    $$T_n(t)=\frac{2\omega A}{al\omega_n^3}\sin(\omega_nat)-\frac{2\omega^2A}{al\omega_n^3}\frac{\omega\sin(\omega_nat)-a\omega_n\sin(\omega t)}{\omega^2-a^2\omega_n^2}$$
+    当$\omega=a\omega_n$时可进一步化简为
+    $$T_n(t)=\frac{2a^2A}{l\omega^2}\sin(\omega t)-\frac{2a^2A}{l\omega}\frac{\sin(\omega t)-t\omega\cos(\omega t)}{2\omega}=\frac{a^2A}{l\omega^2}\sin(\omega t)+\frac{t}{l\omega}\cos(\omega t)$$
+    
+    \item 4.44
+    
+    只需要找辅助函数$v$使得
+    $$-v_x(0,t)+\alpha v(0,t)=g_1(t),\quad v_x(l,t)+\beta v(l,t)=g_2(t)$$
+    再取$\tilde{u}=u-v$即可，下面对三种不同情况给出上述的$v$。
+    \begin{enumerate}[(1)]
+        \item 设$v=A(t)x+B(t)$，则条件可化为
+        $$-A(t)+\alpha B(t)=g_1(t),\quad A(t)+\beta(A(t)l+B(t))=g_2(t)$$
+        利用系数行列式为$-\beta-\alpha(1+\beta l)<0$可知存唯一解，进一步得到
+        $$v(x,t)=\frac{1}{\alpha+\beta+l\alpha\beta}\big((g_2(t)\alpha-g_1(t)\beta)x+g_1(t)+g_2(t)+g_1(t)l\beta\big)$$
+    
+        \item 设$v=C(t)x^2+A(t)x$，则条件可化为
+        $$-A(t)=g_1(t),\quad 2C(t)l+A(t)=g_2(t)$$
+        从而
+        $$v(x,t)=\frac{1}{2l}(g_1(t)+g_2(t))x^2-g_1(t)x$$
+    
+    
+        \item 设$v=A(t)x+B(t)$，则条件可化为
+        $$-A(t)+\alpha B(t)=g_1(t),\quad A(t)=g_2(t)$$
+        从而
+        $$v(x,t)=g_2(t)x+\frac{1}{\alpha}(g_1(t)+g_2(t))$$
+    \end{enumerate}
+    
+    \item 4.45
+    
+    第一个方程两端同乘$2u_t$并在$Q_t$上积分，类似教材4.2.3计算有
+    $$\int_0^t\dr\tau\int_0^l\big((u_t^2+a^2u_x^2)_t-2a^2(u_tu_x)_x\big)\dr x=2\int_{Q_t}u_tf\dr x\dr t$$
+    调整积分次序计算左侧，并由边界条件可得左侧化为
+    $$\int_0^l\big(u_t^2(x,t)+a^2u_x^2(x,t)\big)\dr x-\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x-2a^2\int_0^t\big(u_t(l,\tau)u_x(l,\tau)-u_t(0,\tau)u_x(0,\tau)\big)\dr\tau$$
+    由条件$x$的边界上$u_x=0$，于是
+    $$\int_0^l\big(u_t^2(x,t)+a^2u_x^2(x,t)\big)\dr x=\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+2\int_{Q_t}u_tf\dr x\dr t$$
+    利用基本不等式有
+    $$2\int_{Q_t}u_tf\dr x\dr t\le\varepsilon\int_{Q_t}u_t^2\dr x\dr t+\frac{1}{\varepsilon}\int_{Q_t}f^2\dr x\dr t$$
+    从而设
+    $$G(t)=\int_{Q_t}\big(u_t^2(x,t)+a^2u_x^2(x,t)\big)\dr x\dr t$$
+    则有
+    $$G'(t)\le\varepsilon G(t)+\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+\frac{1}{\varepsilon}\int_{Q_t}f^2\dr x\dr t$$
+    进一步放大为
+    $$G'(t)\le\varepsilon G(t)+\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+\frac{1}{\varepsilon}\int_{Q_T}f^2\dr x\dr t$$
+    利用Gronwall不等式，与教材4.2.3相同得到
+    $$G'(t)\le\er^{\varepsilon T}\bigg(\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+\frac{1}{\varepsilon}\int_{Q_T}f^2\dr x\dr t\bigg)$$
+    取$\varepsilon=\frac{1}{T}$可得到一个能量模估计
+    $$\int_0^l\big(u_t^2(x,t)+a^2u_x^2(x,t)\big)\dr x\le\er\bigg(\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+T\int_{Q_T}f^2\dr x\dr t\bigg)$$
+    
+    \item 4.46
+    
+    前两个式子与习题4.45相同，而利用边界条件进一步计算左侧得到
+    $$\int_0^l\big(u_t^2(x,t)+a^2u_x^2(x,t)\big)\dr x-\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+2a^2\int_0^t\big(\beta u_t(l,\tau)u(l,\tau)+\alpha u_t(0,\tau)u(0,\tau)\big)\dr\tau$$
+    再由$2u_tu=(u^2)_t$，最终有
+    $$\int_0^l\big(u_t^2(x,t)+a^2u_x^2(x,t)\big)\dr x-\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+a^2(\alpha u^2(0,t)+\beta u^2(l,t)-\alpha u^2(0,0)-\beta u^2(l,0))$$
+    将左侧的$a^2u^2$项去除，并与习题4.45相同记$G(t)$，可得(相容性无法直接保证$\varphi$在0、$l$处为0)
+    $$G'(t)\le\varepsilon G(t)+\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+a^2(\alpha\varphi^2(0)+\beta\varphi^2(l))+\frac{1}{\varepsilon}\int_{Q_T}f^2\dr x\dr t$$
+    从而相同利用Gronwall不等式得
+    $$\int_0^l\big(u_t^2(x,t)+a^2u_x^2(x,t)\big)\dr x\le\er\bigg(\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+a^2(\alpha\varphi^2(0)+\beta\varphi^2(l))+T\int_{Q_T}f^2\dr x\dr t\bigg)$$
+    
+    \item 4.47
+    
+    前两个式子与习题4.45相同，而利用边界条件进一步计算左侧得到
+    $$\int_0^l\big(u_t^2(x,t)+a^2u_x^2(x,t)\big)\dr x-\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+2a^2\int_0^t u_t(l,\tau)u(l,\tau)\dr\tau$$
+    再由$2u_tu=(u^2)_t$，最终有
+    $$\int_0^l\big(u_t^2(x,t)+a^2u_x^2(x,t)\big)\dr x-\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+a^2(u^2(l,t)-u^2(l,0))$$
+    将左侧的$a^2u^2$项去除，并与习题4.45相同记$G(t)$，可得
+    $$G'(t)\le\varepsilon G(t)+\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+a^2\varphi^2(l)+\frac{1}{\varepsilon}\int_{Q_T}f^2\dr x\dr t$$
+    从而相同利用Gronwall不等式得
+    $$\int_0^l\big(u_t^2(x,t)+a^2u_x^2(x,t)\big)\dr x\le\er\bigg(\int_0^l\big(\psi^2(x)+a^2{\varphi'}^2(x)\big)\dr x+a^2\varphi^2(l)+T\int_{Q_T}f^2\dr x\dr t\bigg)$$    
+\end{enumerate}
+
+\section{第十四次作业}
+\begin{enumerate}
+    \item 4.50
+    
+    由相容性，均只需证明$x_0\in(0,l)$的情况。
+    \begin{enumerate}[(1)]
+        \item 给定$x_0\in(0,l)$、$r\in(0,T)$且$x_0-r>0$、$x_0+r<l$，设
+        $$b(x,t)=\max(r^2-(x-x_0)^2-t^2,0)$$
+        $$\zeta(x,t)=b^3(x,t)t$$
+        可验证其在连接处二次连续可微(二阶以下各导数均为0)，从而确实是符合要求的试验函数。
+    
+        代入计算有(下标表示求导)
+        $$\int_{(x-x_0)^2+t^2<r^2,t>0}6tb((a^2-3)r^2-(a^2-7)t^2-(5a^2-3)(x-x_0)^2)u\dr x\dr t+\int_{x_0-r}^{x_0+r}b^3(x,0)\varphi\dr x=0$$
+        第二项作积分换元$y=(x-x_0)/r$可得
+        $$r^7\int_{-1}^1(1-y^2)^3\varphi(ry+x_0)\dr y$$
+        由此，对上式两侧同乘$r^{-7}$，并令$r\to0$，则第二项最终为
+        $$\int_{-1}^1(1-y^2)^3\varphi(x_0)\dr y=\frac{32}{35}\varphi(x_0)$$
+        下面计算
+        $$\lim_{r\to0}r^{-7}\int_{(x-x_0)^2+t^2<r^2,t>0}6tb((a^2-3)r^2-(a^2-7)t^2-(5a^2-3)(x-x_0)^2)u\dr x\dr t$$
+        作换元$y=(x-x_0)/r$、$s=t/r$可得上式化为(记$b_0=1-y^2-s^2$)
+        $$\lim_{r\to0}\int_{y^2+s^2<1,s>0}6sb_0((a^2-3)-(a^2-7)s^2-(5a^2-3)y^2)u(ry+x_0,rs)\dr y\dr s$$
+        也即
+        $$u(x_0,0)\int_{y^2+s^2<1,s>0}6sb_0((a^2-3)-(a^2-7)s^2-(5a^2-3)y^2)\dr y\dr s$$
+        作极坐标换元$y=\rho\cos\theta$、$s=\rho\sin\theta$，积分区域即$\rho\in(0,1)$、$\theta\in(0,\pi)$，$b_0=1-\rho^2$，代入计算即得结果中$a^2$项的积分抵消，其余为$-\frac{32}{35}u(x_0,0)$，从而成立。
+    
+        \item 与(1)采用相同记号，取$\zeta(x,t)=b^3(x,t)$，同理计算可发现
+        $$\int_{(x-x_0)^2+t^2<r^2,t>0}(24bt^2-6b^2-a^2(24b(x-x_0)^2)-6b^2)u\dr x\dr t-\int_{x_0-r}^{x_0+r}b^3(x,0)\psi\dr x=0$$
+        两侧同乘$r^{-7}$后计算极限，第二项与(1)同理为$-\frac{32}{35}\psi(x_0)$，而第一项同理换元$s,y$得为
+        $$\lim_{r\to0}\int_{y^2+s^2<1,s>0}(24b_0s^2-6b_0^2-a^2(24b_0y^2-6b_0^2))\frac{u(x_0+ry,rs)}{r}\dr y\dr s$$
+        利用连续可微性与(1)可知
+        $$\lim_{r\to0}\frac{u(x_0+ry,rs)}{r}=y\varphi'(x_0)+su_t(x_0,0)$$
+        代入后与(1)相同换元计算积分，可发现$\varphi'(x_0)$与$a$的部分消去，最终剩余$\frac{32}{35}u_t(x_0,0)$，得证。
+    \end{enumerate}
+\end{enumerate}
+\end{document}

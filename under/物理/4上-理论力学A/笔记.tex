@@ -1,0 +1,1775 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\pagestyle{headings}
+\title{\textbf{理论力学\ 笔记}}
+\author{原生生物}
+\date{}
+\setcounter{tocdepth}{2}
+\setlength{\parindent}{0pt}
+\usepackage{amsmath,amssymb,amsthm,enumerate,geometry,graphicx}
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\ctexset{section={number=\zhnum{section}}}
+\ctexset{subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\DeclareMathOperator{\diag}{diag}
+
+\begin{document}
+\maketitle
+
+*袁业飞老师课堂笔记
+
+\tableofcontents
+
+\newpage
+
+\section{经典力学回顾}
+\textbf{牛顿时空观}
+
+*存在\textbf{绝对时空}，相对绝对时空静止或匀速运动的参考系称为\textbf{惯性系}[实际上并不存在]
+
+牛顿三定律：
+\begin{enumerate}
+    \item 惯性定律，定义惯性系；
+    \item 加速度定律，运动学方程，定义惯性质量与力；
+    \item 作用力反作用力定律。
+\end{enumerate}
+
+物理理论要素：刻画系统\textbf{状态}(经典力学中-相空间里的点)、动力学方程(描述状态如何随时间演化)
+
+\textbf{相对性}原理：力学规律在不同惯性系中\textbf{形式不变}
+
+牛顿绝对时空的对称性[\textbf{伽利略变换}]：设惯性系$\Sigma'$相对$\Sigma$在$x$方向以速度$v$运动，0时刻原点重合，则时空坐标关系为
+$$\begin{cases}t=t'\\x=x'+vt'\\y=y'\\z=z'\end{cases}$$
+而牛顿第二定律在两个惯性系中一致，即
+$$F=ma,F'=F,m'=m\quad\Rightarrow\quad F'=m'a'$$
+
+*从而可以定义\textbf{惯性质量}$m_i=\frac{F}{a}$。
+
+*现代物理学重要思想：\textbf{对称性决定物理规律}，从爱因斯坦创立狭义相对论可以体现。
+
+*万有引力定律$F=\frac{GMm}{r^2}$，地球上可定义\textbf{引力质量}$m_g=\frac{F}{g}$，此处$F$表示重力。单摆实验等实验证明了\textbf{惯性质量与引力质量相等}，从而牛顿第二定律中的属性$m$的确为我们熟知的质量。
+
+*适用范围：\textbf{宏观}[微观尺度-量子力学、宇宙尺度-广义相对论]，\textbf{低速}[高速-狭义相对论]
+
+\
+
+\textbf{狭义相对论}
+
+仍设惯性系$\Sigma'$相对$\Sigma$在$x$方向以速度$v$运动，0时刻原点重合。
+
+由于只有$x$方向有运动，变换满足$y'=y,z'=z$，且假设$x=\gamma(x'+vt'),t=ax'+bt'$。根据光速不变，考虑参考系$\Sigma'$中以$x'=ct'$运动的粒子，在$\Sigma$系观察必然有$x=ct$，从而$\gamma(ct'+vt')=c(act'+bt')$；而对$x'=-ct'$时，亦有$x=-ct$，综合即得$a=\frac{\gamma v}{c^2},b=\gamma$，于是可写成$t=\gamma\big(t'+\frac{v}{c^2}x'\big)$。根据力学相对性原理，考虑$\Sigma$相对$\Sigma'$的速度有$x'=\gamma(x-vt)$。由于
+$$\begin{pmatrix}x\\t\end{pmatrix}=\gamma\begin{pmatrix}1&v\\\frac{v}{c^2}&1\end{pmatrix}\begin{pmatrix}x'\\t'\end{pmatrix}$$
+可解得$\gamma=\big(1-\frac{v^2}{c^2}\big)^{-1/2}$，而这就是狭义相对论下的\textbf{洛伦兹变换}公式，记四维坐标$x^\mu=(x^0,x^1,x^2,x^3)=(ct,x,y,z)$可得张量写法
+
+$$x^\mu=\Lambda^\mu_{\cdot\nu}x^{\prime\nu}$$
+$$\Lambda^\mu_{\cdot\nu}=\begin{pmatrix}\gamma&\gamma\frac{v}{c}&&\\\gamma\frac{v}{c}&\gamma&&\\ &&1&\\ &&&1\end{pmatrix}$$
+
+对一个运动的粒子，其在$\Sigma$中经历的状态可以由一系列$(ct,x,y,z)$描述，也即构成了四维空间中的一条曲线$x^\mu(\tau)$。这里$\tau$是曲线的参数，对有质量粒子一般为\textbf{固有时}，即随粒子运动的时钟所经历的时间。在四维情形下，牛顿第二定律扩展成为
+$$f^\mu=m\frac{\dr^2}{\dr\tau^2}x^\mu$$
+这里$f^{1,2,3}$即对应三维的牛顿第二定律，$f^0$为时间维度上的力。注意到固有时不会随着参考系变化，在$\Sigma'$系中应有
+$$f^{'\mu}=m\frac{\dr^2}{\dr\tau^2}x^{'\mu}$$
+
+从而由洛伦兹变换线性性即可算出$f^\mu=\Lambda^\mu_{\cdot\nu}f^{\prime\nu}$。若$f^{\prime\nu}$仅在空间的$x$轴上有力$f'$，计算可得
+$$f=\bigg(\gamma\frac{v}{c}f',\gamma f',0,0\bigg)$$
+
+若$\Sigma'$即为随粒子运动的参考系，瞬时即有$\frac{\dr t}{\dr\tau}=\gamma$，由此可知时间维度的方程
+$$\gamma\frac{v}{c}f'=m\frac{\dr^2}{\dr\tau^2}(ct)$$
+能化为
+$$vf'=\frac{\dr}{\dr t}(\gamma mc^2)=\frac{\dr}{\dr t}E$$
+实质上是\textbf{能量方程}。
+
+而空间维度$x$方向方程写为
+$$\gamma f'=m\frac{\dr}{\dr t}\bigg(m\frac{\dr x}{\dr t}\bigg)$$
+事实上为\textbf{动量方程}。
+
+*三维牛顿第二定律仅为动量方程，扩展到四维后成为能量-动量方程。
+
+\
+
+\textbf{开普勒第一定律}
+
+本段中，我们用费曼对开普勒第一定律的几何证明以展示经典力学中的物理图像。
+
+引理：由于椭圆可写为到两点距离和一定的点的集合，给定圆心$O$的一个圆与圆内一点$A$，动点$B$在圆上，则$AB$中垂线与$OB$的交点(记为$P$)轨迹为椭圆。
+
+将行星轨道以太阳为中心以均匀小角度$\Delta\theta$剖分，则相邻两点间速度差
+$$\Delta\mathbf{v}=\frac{GMm\Delta t}{r^2}\hat{e}=\frac{GMm\Delta\theta}{L}\hat{e}$$
+这里$\hat{e}$为指向中心的单位矢量，第二个等号运用了等面积定律。
+
+由于此速度差大小为常数，而$\hat{e}$在个方向均匀分布(利用剖分均匀性)，可知所有的速度矢量在端点平移到一点后都分布在一个圆上[但端点并非圆心]，这就是行星绕太阳雨运动的\textbf{速度图}。只要计算出此速度场积分形成的曲线，就可以得到行星轨道。
+
+记端点为$A'$，圆心为$O$，端点绕圆心顺时针旋转$\frac{\pi}{2}$得到$A$，利用引理方法可构造椭圆。对任何一点$B$，可验证引理中所画的中垂线也是椭圆在$P$处的切线，即速度方向。由于中垂线与$AB$垂直，$A'O$与$AO$垂直，可得恰好对应$A'$出发，终点在圆周上的速度，从而得证。
+
+\section{拉格朗日方程}
+\subsection{最小作用量原理}
+最小作用量原理可表述为：
+$$\delta S[q(t)]=0$$
+它与牛顿第二定律等价，左侧的$q(t)$代表质点的位置随时间变化的映射，$q(t)=(x(t),y(t),z(t))$，左侧$\delta$为泛函的变分，$S$是一个泛函，定义为
+$$S[q(t)]=\int_{t_0}^{t_1}L(\dot{q},q,t)\dr t$$
+$\dot{q}$为$q$对$t$的导数，即速度，\textbf{拉格朗日量}$L$定义为$T(\dot{q}(t))-V(q(t))$，前一项代表动能，后一项代表势能。
+
+*单质点时，动能即为$T=\frac{1}{2}m\dot{q}^2$。
+
+变分为0的含义事实上是，对任何$q$的微小变化$q_\epsilon(t)=q(t)+\epsilon\delta q(t)$\ [这里$\delta q$为保持$\delta q(t_0)=\delta q(t_1)=0$的任一光滑函数]，引起的$\frac{\dr}{\dr\epsilon}[q_\epsilon(t)]$都在$\epsilon=0$点为0.下面以此计算出单质点的牛顿第二定律。
+
+直接求导可知[由于有限区间积分，积分与求导可交换]有
+$$\frac{\dr}{\dr\epsilon}S[q_\epsilon(t)]=\int_{t_0}^{t_1}\bigg(m\dot{q}_\epsilon\cdot\frac{\dr\dot{q}_\epsilon}{\dr\epsilon}-\nabla V(q_\epsilon)\cdot\frac{\dr q_\epsilon}{\dr\epsilon}\bigg)\dr t$$
+*此处$\nabla V$指$V(q)$对$q$的梯度。
+
+进一步利用对$t$对$\epsilon$求导可交换可知$\epsilon=0$时上式为
+$$\int_{t_0}^{t_1}\bigg(m\dot{q}\cdot\frac{\dr\delta q}{\dr t}-\nabla V(q)\cdot\delta q\bigg)\dr t$$
+对第一项分部积分，利用边界$\delta q(t_0)=\delta q(t_1)=0$可知$\big(-m\ddot{q}-\nabla V(q)\big)\cdot\delta q$的积分为0，由$\delta q$任意性可知
+$$-\nabla V(q)=m\ddot{q}$$
+这也就是\textbf{保守力场}下的牛顿第二定律。
+
+\
+
+物理意义：这里变分为0代表$S$在某个驻点，一般来说为局部极小值，因此称为最小作用量原理。由于$L=T-V$，动能代表当前发生的程度，势能表示潜在的发生程度，总体表征系统的活跃性，因此最小作用量原理的物理意义是系统倾向于\textbf{最低活跃性}的状态。这一观念在其他地方也有体现：
+
+\
+
+\textbf{静力学-最小能量原理}
+
+对杠杆，假设两臂长度$L_1,L_2$，物体质量$m_1,m_2$，证明平衡时$m_1L_1=m_2L_2$：假设$L_2$向上某小角度$\dr\theta$\ [趋于0的虚角度]，则此端降低近似为$L_2\dr\theta$，引力做功$-m_2gL_2\dr\theta$，而另一端引起引力做功为$m_1gL_1\dr\theta$，由\textbf{虚功原理}引力总做功为0，因此$m_1L_1=m_2L_2$。
+
+\
+
+\textbf{光学-费马原理}
+
+下面利用费马原理[光程取极值]推出光的反射与折射定律[由两点直线最短直接得到光在均匀介质中走直线]：
+
+对于反射，若从$A$到$C$，设反射点$B$，考虑$C$过镜子对称点$C'$，由于$AB+BC=AB+BC'$，当且仅当$ABC'$共线时光程最短，此时满足入射角反射角相等。
+
+对于折射，给定$A,B$两点，光在介质中传播总时间
+$$S[\vec{x}(t)]=\int_A^B\frac{\dr s}{v}=\frac{1}{c}\int_A^Bn\dr s$$
+直接计算可以证明介质分界面满足$n_1\sin\theta_1=n_2\sin\theta_2$时$\delta S=0$取到极小值，这就是Snell定律。
+
+\
+
+\textbf{非经典情况}
+
+双缝干涉揭示了电子与自身的干涉。设电子枪为$A$点，屏幕为$B$点，费曼认为每条路径的概率等于几率幅模长的平方，而电子同时从所有可能路径通行，到每个路径$p_i$几率相等，只是相位不同，$\phi[p_k]$的角度$\theta_k=\frac{S[p_k]}{\hbar}$，$S$对应经典力学的作用量，从而其可以写为$A\mathrm{e}^{\mathrm{i}\theta_k}$，从而总几率幅为
+$$\phi[p_k]=\sum_k\phi[p_k]=A\sum_i\exp\bigg(\frac{\mathrm{i}}{\hbar}S[p_k]\bigg)$$
+
+由于$\hbar$很小，很小的$S$变化也会引起相位因子剧烈震荡抵消，只有在$\delta S=0$附近相位因子相对变化缓慢，导致几率幅基本同相位，干涉相加。经典情况下只有$\delta S=0$的路径可行，而量子力学下所有可能路径都会通过，只是$\delta S=0$的路径几率最大。
+
+\subsection{变分}
+\textbf{泛函}：将一个函数映射到一个数值的映射$S[y(x)]$，如$S[y(x)]=\int_0^1y(x)\dr x$、$S[y(x)]=y(0)$。
+
+当函数作微小扰动$\delta y$时[一般要求$\delta y$边界处恒为0]，泛函的变化定义为变分[等时变分]：
+$$\delta J=J[y(x)+\delta y(x)]-J[y(x)]$$
+与微分完全相同可证明
+$$\delta(J_1\pm J_2)=\delta J_1\pm\delta J_2$$
+$$\delta(J_1J_2)=J_1\delta J_2+J_2\delta J_1$$
+$$\delta\frac{J_1}{J_2}=\frac{J_2\delta J_1-J_1\delta J_2}{J_2^2}$$
+
+*变分与微分可交换：$\delta(\dr y)=\dr(\delta y)$，可由$\delta(y')=(y+\delta y)'-y'=(\delta y)'$推得。
+
+*与微分时相同，泛函取极值的点必须对任何$\delta y$变分为0，否则可取合适的上升/下降方向。
+
+例：若考虑泛函$J[y(x)]=\int_{x_1}^{x_2}f(y(x),y'(x),x)\dr x$，与之前类似可算得
+$$\delta J=\int_{x_1}^{x_2}\bigg(\frac{\partial f}{\partial y}-\frac{\dr}{\dr x}\frac{\partial f}{\partial y'}\bigg)\delta y\dr x$$
+于是从其恒0得到$\frac{\partial f}{\partial y}-\frac{\dr}{\dr x}\frac{\partial f}{\partial y'}=0$，这就是此泛函的\textbf{欧拉方程}。
+
+*当$f=f(y,y')$与$x$无关时有
+$$\frac{\dr}{\dr x}\bigg(f-y'\frac{\partial f}{\partial y'}\bigg)=y'\bigg(\frac{\partial f}{\partial y}-\frac{\dr}{\dr x}\frac{\partial f}{\partial y'}\bigg)=0$$
+欧拉方程也可以写为$f-y'\frac{\partial f}{\partial y'}=C$。
+
+*当$f=f(x,y')$与$y$无关时有
+$$\frac{\dr}{\dr x}\frac{\partial f}{\partial y'}=0$$
+即$\frac{\partial f}{\partial y'}=C$。
+
+\
+
+\textbf{最速降线问题}
+
+给定上下端点，求静止自然下降到下端点速度最快的曲线。设曲线为$y(x)$，最高点$y(0)=0$，向下为正，根据能量守恒下降$y$时速度为$\sqrt{2gy}$，而曲线的$\dr s=\sqrt{1+(y')^2}\dr x$，于是
+$$t=\int_0^{x_0}\frac{\dr s}{v}=\int_0^{x_0}\sqrt{\frac{1+(y')^2}{2gy}}\dr x$$
+要取最小值，且$y(x_0)=y_0$固定。
+
+根据欧拉方程可化简得到
+$$(1+(y')^2)y=C$$
+分离出$\dr x,\dr y$，设$y=C\sin^2\theta$可得到$x=C\big(\theta-\frac{1}{2}\sin(2\theta)\big)$，这是\textbf{摆线}对应的参数方程。
+
+\
+
+\textbf{悬链线}
+
+设悬链线单位长度质量为$\rho$，函数$y(x)$，则体系势能为
+$$V=\rho g\int_{x_1}^{x_2}y\dr s=\rho g\int_{x_1}^{x_2}y\sqrt{1+\dot{y}^2}\dr x$$
+代入欧拉方程化简得到$y\ddot{y}-(1+\dot{y})^2=0$，解得$y=C_1\cosh\frac{x+C_2}{C_1}$，可根据边界条件确定参数。
+
+\
+
+\textbf{带约束问题}
+
+绳子长度固定为$L$，两端都在$x$轴上，求围成面积最大的曲线。
+
+设函数为$y(x)$，则面积$S=\int_{x_1}^{x_2}y\dr x$，长度$L=\int_{x_1}^{x_2}\sqrt{1+\dot{y}^2}\dr x$。利用乘子法，对$S+\lambda L$作变分为0可列出欧拉方程，进一步求解即得$(x-c_1)^2+(y-c_2)^2=\lambda^2$。
+
+*此处$\lambda$可具有物理意义：$\lambda=-\frac{\delta S}{\delta L}$关系到面积随长度的变化。
+
+\
+
+\textbf{拉格朗日方程}
+
+根据最小作用量原理与欧拉方程可知对任何下标$\alpha$有
+$$\frac{\dr}{\dr t}\frac{\partial L}{\partial\dot{q}_\alpha}-\frac{\partial L}{\partial q_\alpha}=0$$
+
+这就是拉格朗日方程。
+
+*拉格朗日量\textbf{可加}，相加即两个独立体系组成共同体系。
+
+*由于$S=\int_{t_1}^{t_2}L\dr t$，$L$增加某对$t$的全微商$f'(t)$后$S$增加$f(t_2)-f(t_1)$，为常数，因此不会影响变分的计算。
+
+*在未必是保守系统的一般情形下，势能$V$无意义，此时哈密顿原理仍然存在，但会有额外的项。
+
+\
+
+\textbf{莫培督原理}
+
+对于保守场自由运动的质点，考虑作用量
+$$S=\int_A^Bm\vec{v}\cdot\dr\vec{r}$$
+则真实轨迹满足$\delta S=0$。
+
+证明：由于$L=T-V$，能量$E=T+V$守恒，为常数，因此是$t$的全微商，从而哈密顿原理可改写为
+$$\delta\int_{t_1}^{t_2}(T-V+E)\dr t=0$$
+即$2\delta\int_{t_1}^{t_2}T\dr t=0$。注意到单质点的$T\dr t$可以写为$\frac{1}{2}m\vec{v}\cdot\dr{\vec{r}}$即可换元得证。
+
+*对质点组，只需积分中对$m\vec{v}\cdot\dr\vec{r}$求和。
+
+\subsection{虚功视角}
+\textbf{约束运动}：坐标与速度间存在一些不涉及任何力的限制关系，如$f(q,\dot{q},t)=0$或$f(q,\dot{q},t)\ge0$。
+
+约束的分类：
+\begin{enumerate}
+    \item \textbf{定常}约束(也称稳定约束)：不含时间的约束，如$f(q,\dot{q})=0$；不定常约束：随时间变化的约束。
+    \item \textbf{几何}约束：不含速度的约束，可代表质点在曲线或曲面上运动，如$f(q,t)=0$；\textbf{完整}约束[有时认为完整约束与几何约束等价]：几何约束或可以积分为几何约束的约束，如$q\cdot\dot{q}=0$实质上是约束在平面上，仍然是几何约束；非完整约束：不可积分为几何约束的约束。
+    \item \textbf{可解}约束：可在某一方向脱离的约束，即不等式表达且无法化为等式的约束；不可解约束：等式表达的约束。
+\end{enumerate}
+
+\textbf{自由度}：$N$个质点的自由运动可用$3N$个独立参量描述(每个质点的空间位置)，而每有一个独立的完整约束，自由参量就减少了一个，若存在$k$个，则自由度$s=3N-k$。
+
+\textbf{广义坐标}：自由度为$s$时，采用$s$个独立坐标$q_1,\dots,q_s$描述系统，它们就是广义坐标。广义坐标张成的$s$维空间称为\textbf{位形空间}。
+
+*可解约束视为成立而减少自由度，不成立时需增加一个独立坐标，重新处理。
+
+*广义坐标可以任意选取，但应遵循简洁的原则，如两连单摆构成的双摆只需选取两杆分别的角度$\theta_1,\theta_2$作为广义坐标。
+
+*称$\dot{q}_i$为\textbf{广义速度}
+
+\
+
+\textbf{虚位移}
+
+假象质点系统发生了微小的符合约束的位移$\delta r$，与实位移$\dr r$差别：
+\begin{enumerate}
+    \item 瞬时完成，不需要时间；
+    \item 满足约束时可任意选取，并未真实发生；
+    \item 无论对定常或非定常约束都沿着切线方向[如膨胀气球上爬行的小虫，虚位移不需要时间因此必为切线方向]。
+\end{enumerate}
+
+\textbf{理想约束}：约束反力所作虚功之和为0，即$\sum_i\vec{R}_i\cdot\delta\vec{r}_i=0$，例如：
+\begin{enumerate}
+    \item 物体在光滑曲面运动，约束力必然垂直曲面，于是$\vec{R}\bot\delta\vec{r}$；
+    \item 刚性约束：约束力成对出现$\vec{R}_1+\vec{R}_2=0$\ [如对刚体的约束]；
+    \item 接触约束：摩擦力等[这里事实上是将摩擦力作为约束产生的主动力处理]。
+\end{enumerate}
+
+\
+
+\textbf{虚功原理}
+
+理想约束条件下，平衡时主动力所做\textbf{总虚功}为0。
+
+\textbf{虚功}：力在虚位移下作的假想的功
+$$\delta W=\sum_i(\vec{F}_i+\vec{R}_i)\cdot\delta\vec{r}_i$$
+这里$\vec{F}$为质点所受主动力，$\vec{R}$为质点所受约束力。
+
+若所有质点处在平衡态，必然有$\vec{F}_i+\vec{R}_i=0$，于是$\delta W=0$，对理想约束即有$\sum_i\vec{F}_i\cdot\delta\vec{r}_i=0$。
+
+\textbf{广义坐标}下：
+$$\sum_{i=1}^N\sum_{\alpha=1}^s\vec{F}_i\cdot\frac{\partial\vec{r}_i}{\partial q_\alpha}\delta q_\alpha=0$$
+
+由于广义坐标互相独立，记广义力$Q_\alpha=\sum_i\vec{F}_i\cdot\frac{\partial\vec{r}_i}{\partial q_\alpha}$，则方程为$\sum_\alpha Q_\alpha\delta q_\alpha=0$，于是$Q_\alpha=0$。
+
+*\textbf{保守力}体系中设$\vec{F}_i=-\nabla_iV$\ [这里$\nabla_i$知对应$\vec{r}_i$的三个分量求导后拼成矢量]，则$Q_\alpha=-\frac{\partial V}{\partial q_\alpha}=0$，于是虚功原理可写成$\delta W=-\delta V=0$，也即平衡时\textbf{势能达到极值}。
+
+\
+
+\textbf{达朗贝尔原理}
+
+理想约束条件下，非平衡时主动力与惯性力所作总虚功为0。
+$$m\ddot{\vec{r}}_i=\vec{F}_i+\vec{R}_i\quad\Rightarrow\quad\sum_i\big(\vec{F}_i-m\ddot{\vec{r}}_i\big)\cdot\delta\vec{r}_i=0$$
+
+\
+
+\textbf{双连杆平衡}
+
+两长度为$l_1,l_2$、质量为$m_1,m_2$连杆，力$\vec{F}$水平向前作用在最底端，求平衡时两连杆的偏移角度$\theta_1,\theta_2$。
+
+记两连杆中心点$\vec{r}_1,\vec{r}_2$，$\vec{F}$作用点$\vec{r}_F$，则
+$$\delta W=m_1\vec{g}\cdot\delta\vec{r}_1+m_2\vec{g}\cdot\delta\vec{r}_2+\vec{F}\cdot\delta\vec{r}_F$$
+且[这里$\hat{e}_r(\theta)=(\cos\theta,\sin\theta)$，向下、向前为两轴正方向]
+$$\begin{cases}\vec{r}_1=&\frac{l_1}{2}\hat{e}_r(\theta_1)\\\vec{r}_2=&l_1\hat{e}_r(\theta_1)+\frac{l_2}{2}\hat{e}_r(\theta_2)\\\vec{r}_F=&l_1\hat{e}_r(\theta_1)+l_2\hat{e}_r(\theta_2)\end{cases}$$
+
+代入整理并由$\delta\theta_1,\delta\theta_2$独立即可解出
+$$\theta_1=\arctan\frac{2F}{(m_1+2m_2)g},\theta_2=\arctan\frac{2F}{m_2g}$$
+
+*由于$\vec{F}$与$m\vec{g}$均为保守力，此处也可用势能最低解出结果。
+
+\
+
+\textbf{连线穿孔两小球运动}
+
+桌面上有一质量$m_1$小球，通过一条长$l$的线连接到原点处桌下自由下落质量$m_2$小球，求运动轨迹。
+
+取广义坐标为桌上小球的$r,\theta$，则有
+$$\vec{r}_1=r\hat{e}_r,\vec{r}_2=-(l-r)\hat{e}_z$$
+于是可进一步算出$\delta\vec{r}_1,\delta\vec{r}_2$与$\ddot{\vec{r}}_1,\ddot{\vec{r}}_2$在广义坐标下的表示，从而代入达朗贝尔方程得到[由垂直忽略$m_1$的重力项]
+$$-m_1\big((\ddot{r}-r\dot{\theta}^2)\hat{e}_r+(r\ddot{\theta}+2\dot{r}\dot{\theta})\hat{e}_\theta\big)\cdot(\delta r\hat{e}_r+r\delta\theta\hat{e}_\theta)+(-m_2g-m_2\ddot{r})\hat{e}_z\cdot\delta r\hat{e}_z=0$$
+化简得到
+$$\begin{cases}(m_1+m_2)\ddot{r}-m_1r\dot{\theta}^2+m_2g=0\\r\ddot{\theta}+2\dot{r}\dot{\theta}=0\end{cases}$$
+
+*第二个方程可以得到$r^2\dot\theta$为常数，本质为角动量守恒，从而可以进一步求解轨迹。
+
+\
+
+\textbf{拉格朗日方程的推导}
+
+根据达朗贝尔原理变换为广义坐标后可得方程
+$$\sum_im_i\ddot{\vec{r}}_i\cdot\frac{\partial\vec{r}_i}{\partial q_\alpha}=Q_\alpha$$
+
+由于$\dot{\vec{r}}_i=\sum_\alpha\frac{\partial\vec{r}_i}{q_\alpha}\dot{q}_\alpha+\frac{\partial\vec{r}_i}{\partial t}$，有
+$$\frac{\partial\vec{r}_i}{\partial q_\alpha}=\frac{\partial\dot{\vec{r}}_i}{\partial\dot{q}_\alpha}$$
+于是对动能$T$有
+$$\frac{\partial T}{\partial\dot{q}_\alpha}=\sum_im_i\dot{\vec{r}}_i\cdot\frac{\partial\vec{r}_i}{\partial q_\alpha},\quad\frac{\partial T}{\partial q_\alpha}=\sum_im_i\dot{\vec{r}}_i\cdot\frac{\partial\dot{\vec{r}}_i}{\partial q_\alpha}$$
+
+代入化简即有
+$$\frac{\dr}{\dr t}\frac{\partial T}{\partial\dot{q}_\alpha}-\frac{\partial T}{\partial q_\alpha}=Q_\alpha$$
+
+这就是一般的拉格朗日方程。
+
+*对保守系统，代入$Q_\alpha=-\frac{\partial V}{\partial q_\alpha}$即得
+$$\frac{\dr}{\dr t}\frac{\partial L}{\partial\dot{q}_\alpha}-\frac{\partial L}{\partial q_\alpha}=0$$
+这里$L=T-V$。
+
+*拉格朗日方程也可以改写为$\frac{\dr}{\dr t}\frac{\partial L}{\partial\dot{q}_\alpha}-\frac{\partial L}{\partial q_\alpha}=\bar{Q}_\alpha$，$\bar{Q}_\alpha$表示非保守力的部分。
+
+\subsection{拉格朗日力学}
+优势：
+\begin{enumerate}
+    \item 其为$s$\ (自由度)个二阶动力学方程，较之牛顿力学更简洁，且引入\textbf{广义坐标}后可能简化问题；
+    \item 拉格朗日力学分析对象是能量量纲的拉格朗日量，\textbf{分析}性质更重，弱化了几何上的矢量方程；
+    \item 能量作为相互作用的普遍度量在物理学中有\textbf{普适性}；
+    \item 根据对称性，可以从新的拉格朗日量出发构造\textbf{新理论}。
+\end{enumerate}
+
+一般求解流程：
+\begin{enumerate}
+    \item 确定系统自由度；
+    \item 选择广义坐标；
+    \item 将位置矢量用广义坐标表达；
+    \item 计算速度；
+    \item 给出总动能；
+    \item 给出势能或广义力；
+    \item 得到拉格朗日方程组；
+    \item 结合初始条件求解。
+\end{enumerate}
+
+\
+
+\textbf{一维运动}
+
+$$L=\frac{1}{2}m\dot{x}^2-V(x)$$
+于是$m\dot{x}=\frac{\partial L}{\partial\dot{x}}$，从而
+$$m\ddot{x}=-V'(x)$$
+由此也可计算得到
+$$E=\frac{1}{2}\dot{x}^2+V(x)$$
+是守恒量。
+
+\
+
+\textbf{二维向心力场}
+
+以$r,\theta$作为广义坐标，则变换坐标系计算动能得到
+$$L=\frac{1}{2}(\dot{r}^2+r^2\dot{\theta}^2)-V(r)$$
+
+对$r,\theta$分别代入拉格朗日方程有
+$$m\ddot{r}=mr\dot{\theta}^2-V'(r)$$
+$$\frac{\dr}{\dr t}(mr^2\dot{\theta})=0$$
+第二个式子即为角动量守恒，记$p_\theta=mr^2\dot{\theta}$，代入第一个式子可得
+$$m\ddot{r}=\frac{p_\theta^2}{mr^3}-V'(r)$$
+从而即可求解$r$。
+
+\
+
+\textbf{阿特伍德机}
+
+无摩擦滑轮两端悬挂质量$m_1,m_2$物体，设绳竖直部分$l$长，$m_1$上方长$x$，则
+$$L=\frac{1}{2}(m_1+m_2)\dot{x}^2+m_1gx+m_2g(l-x)$$
+代入拉格朗日方程即解出
+$$\ddot{x}=\frac{m_1-m_2}{m_1+m_2}g$$
+
+\
+
+\textbf{弹簧单摆}
+
+质量$M$，原长$a$水平弹簧一端挂线长$l$单摆，小球质量$m$，以弹簧长度变化$x$与单摆角度$\theta$作广义坐标，则计算可得
+$$L=\frac{1}{2}M\dot{x}^2+\frac{1}{2}m\big((\dot{x}+l\cos\theta\dot{\theta})^2+(l\sin\theta\dot{\theta}^2)\big)-\frac{1}{2}kx^2-mgl\cos\theta$$
+
+于是代入拉格朗日方程得
+$$\begin{cases}(M+m)\ddot{x}+ml\cos\theta\ddot{\theta}-ml\sin\theta\dot{\theta}^2=-kx\\ml\cos\theta\ddot{x}+ml^2\ddot{\theta}=-mgl\sin\theta\end{cases}$$
+
+*\textbf{小振动}时$\sin\theta\simeq\theta,\cos\theta\simeq1$，于是可得到线性常微分方程组，通过特征值解得固有频率
+$$\omega_{\pm}^2=\frac{1}{2}(\omega_0^2+(1+\alpha)\omega_1^2)\pm\frac{1}{2}\sqrt{(\omega_0^2-\omega_1^2)^2+2\alpha(\omega_0^2+\omega_1^2)\omega_1^2}$$
+这里$\alpha=\frac{m}{M},\omega_0^2=\frac{k}{M},\omega_1^2=\frac{g}{l}$。
+
+\
+
+\textbf{双摆}
+
+单摆末端连接另一单摆，已知$l_1,m_1,l_2,m_2$，以$\theta_1,\theta_2$为广义坐标，则
+$$x_1=l_1\sin\theta_1,\quad x_2=l_1\sin\theta_1+l_2\sin\theta_2$$
+$$y_1=-l_1\cos\theta_1,\quad y_2=-l_1\cos\theta_1-l_2\cos\theta_2$$
+
+于是列出拉格朗日量后可解出
+$$\begin{cases}l_1\ddot{\theta}_1+\frac{m_2l_2}{m_1+m_2}\big(\cos(\theta_1-\theta_2)\ddot{\theta}_2+\sin(\theta_1-\theta_2)\dot{\theta}_2\big)+g\sin\theta_1=0\\l_1\cos(\theta_1-\theta_2)\ddot{\theta}_1+l_2\ddot{\theta}_2-l_1\sin(\theta_1-\theta_2)\dot{\theta}_1+g\sin\theta_2=0\end{cases}$$
+
+*类似代数处理得到\textbf{小振动}时可得简正频率为$$\omega_\pm=\frac{\omega_0}{1+r_\pm},\quad \omega_0^2=\frac{g}{l_1}$$
+$$r_\pm=\frac{1}{2}(\beta-1)\pm\frac{1}{2}\sqrt{(1-\beta)^2+4\alpha\beta},\quad\alpha=\frac{m_2}{m_1+m_2},\beta=\frac{l_1}{l_2}$$
+
+\section{拉格朗日量与诺特定理}
+\subsection{时空对称性}
+\textbf{运动积分}：由方程个数，系统自由度为$s$时通解会出现$2s$个积分常数$C_1,\dots,C_{2s}$，它们在运动过程中始终不变，称为运动积分，也即力学体系的守恒量。
+
+\textbf{正则动量}：定义为拉格朗日量对广义速度的导数
+$$p_\alpha=\frac{\partial L}{\partial\dot{q}_\alpha}$$
+计算可发现
+$$\dot{p}_\alpha=\frac{\dr}{\dr t}\frac{\partial L}{\partial\dot{q}_\alpha}=\frac{\partial L}{\partial q_\alpha}$$
+
+\textbf{循环坐标}：$L$中不含广义坐标$q_\alpha$，只含$\dot{q}_\alpha$时，其称为循环坐标。
+
+*由拉格朗日方程即可知循环坐标对应的正则动量守恒。
+
+\
+
+\textbf{能量守恒}
+
+若力学系统\textbf{对时间不变}，即$L$不显含时间，则
+$$\frac{\dr L}{\dr t}=\sum_\alpha\frac{\partial L}{\partial q_\alpha}\dot{q}_\alpha+\sum_\alpha\frac{\partial L}{\partial\dot{q}_\alpha}\ddot{q}_\alpha$$
+
+右侧求和每项可利用拉格朗日方程化简为$\frac{\dr}{\dr t}\big(\dot{q}_\alpha\frac{\partial L}{\partial\dot{q}_\alpha}\big)$，于是有
+
+$$H=\sum_\alpha\dot{q}_\alpha\frac{\partial L}{\partial\dot{q}_\alpha}-L$$
+
+为守恒量，此量称为\textbf{哈密顿量}。
+
+*哈密顿量\textbf{未必}为系统能量$T+V$：
+
+考虑质点组$\vec{r}_i(q_1,\dots,q_s;t)$，则
+$$\dot{\vec{r}}_i=\sum_\alpha\frac{\partial\dot{\vec{r}}_i}{\partial q_\alpha}\dot{q}_\alpha+\frac{\partial\vec{r}_i}{\partial t}$$
+于是动能$T=T_2+T_1+T_0$，三项为
+$$T_2=\sum_{\alpha,\beta}A_{\alpha\beta}\dot{q}_\alpha\dot{q}_\beta,\quad T_1=\sum_\alpha B_\alpha\dot{q}_\alpha,\quad T_0=C_0$$
+其中大写字母表示不含$\dot{q}_\alpha$的系数。
+
+由于拉格朗日量为$T_2+T_1+T_0-V$，计算可得对应哈密顿量即为
+$$H=\sum_\alpha\frac{\partial(T_1+T_1+T_0)}{\partial\dot{q}_\alpha}\dot{q}_\alpha-L=(2T_2+T_1)-L=(T_2-T_0)+V$$
+
+与能量$T+V$并不完全相同，因此$H$也称为\textbf{广义能量}。
+
+*当约束均为\textbf{定常约束}时，$\frac{\partial\vec{r}}{\partial t}=0$，于是$T_1=T_0=0$，此时$H$即为能量。
+
+\
+
+\textbf{动量守恒}
+
+在等时变分条件下有
+$$\delta L=\sum_\alpha\frac{\partial L}{\partial\dot{q}_\alpha}\delta\dot{q}_\alpha+\sum_\alpha\frac{\partial L}{\partial q_\alpha}\delta q_\alpha$$
+
+类似上方可将其化成
+$$\delta L=\sum_\alpha\frac{\dr}{\dr t}\bigg(\frac{\partial L}{\partial q_\alpha}\dot{q}_\alpha\bigg)$$
+
+而由之前已证
+$$\frac{\partial\vec{r}_i}{\partial q_\alpha}=\frac{\partial\dot{\vec{r}}_i}{\partial\dot{q}_\alpha}$$
+
+从而
+$$\frac{\partial L}{\partial\dot{q}_\alpha}=\frac{\partial T}{\partial\dot{q}_\alpha}=\sum_im_i\dot{\vec{r}}_i\cdot\frac{\partial\vec{r}_i}{\partial q_\alpha}$$
+
+由此合并得
+$$\delta L=\frac{\dr}{\dr t}\sum_i(m_i\dot{\vec{r}}_i\cdot\delta\vec{r}_i)$$
+
+若力学系统具有\textbf{空间平移不变性}，也即$\frac{\partial L}{\partial q_\alpha}=0$，当所有$\vec{r}$同时平移相同距离，即所有$\delta\vec{r}_i$一致为$\delta\vec{r}$时，应有$\delta L=0$，于是
+$$\frac{\dr}{\dr t}\sum_i(m_i\dot{\vec{r}}_i)\cdot\delta\vec{r}=0$$
+由此即有动量
+$$P=\sum_im_i\dot{r}_i$$
+为常数。
+
+\
+
+\textbf{角动量守恒}
+
+若力学系统具有\textbf{空间转动不变性}，也即系统转动角度$\delta\phi$时$\delta L=0$，由于$\delta\vec{r}_i=\delta\phi\times\vec{r}_i$，根据
+$$\delta L=\frac{\dr}{\dr t}\sum_i(m_i\dot{\vec{r}}_i\cdot\delta\vec{r}_i)$$
+代入并利用矢量运算律即可得到(注意$\frac{\dr}{\dr t}\delta\phi=0$)
+$$0=\frac{\dr}{\dr t}\sum_i(m_i\vec{r}_i\cdot(\delta\phi\times\vec{r}_i))=\delta\phi\cdot\frac{\dr}{\dr t}\sum_i(\vec{r}_i\times m_i\dot{\vec{r}}_i)$$
+于是角动量
+$$J=\sum_i(\vec{r}_i\times m_i\dot{\vec{r}}_i)$$
+为常数。
+
+\subsection{诺特定理}
+考虑映射
+$$F:\mathbb{R}\times\Gamma\to\Gamma,\quad F(\epsilon,q)=q_\epsilon,\quad q_0=q$$
+其对每个实数将位形空间中的函数$q$映射到另一个函数$q_\epsilon$，若存在函数$l(q,\dot{q})$满足
+$$\frac{\dr}{\dr\epsilon}L(q_\epsilon(t),\dot{q}_\epsilon(t))\bigg|_{\epsilon=0}=\frac{\dr}{\dr t}l(q(t),\dot{q}(t))$$
+
+则称$F$为$L$的\textbf{单参数对称变换群}，或称$L$具有对称性$F$。
+
+*此处我们记变分$\delta A=\frac{\dr}{\dr\epsilon}A\big|_{\epsilon=0}$，左侧即可以写为$\delta L$。
+
+*最基本的情况为$l=0$，即是最直观的对称性，而此处$l$代表更一般的情况。
+
+\textbf{诺特定理}：设$F$为$L$的单参数对称变换群，则对应的$\sum_\alpha p_\alpha\delta q_\alpha-l$守恒，此式称为\textbf{守恒荷}。
+
+证明：
+$$\frac{\dr}{\dr t}\bigg(\sum_\alpha p_\alpha\delta q_\alpha-l\bigg)=\sum_\alpha(\dot{p}_\alpha\delta q_\alpha+p_\alpha\delta\dot{q}_\alpha)-\delta L$$
+$$=\sum_\alpha\bigg(\frac{\partial L}{\partial q_\alpha}\delta q_\alpha+\frac{\partial L}{\partial\dot{q}_\alpha}\delta\dot{q}_\alpha\bigg)-\delta L=\delta L-\delta L=0$$
+
+*此变分定义下计算仍可验证$\delta L=\sum_\alpha\big(\frac{\partial L}{\partial q_\alpha}\delta q_\alpha+\frac{\partial L}{\partial\dot{q}_\alpha}\delta\dot{q}_\alpha\big)$，因此倒数第二步成立。
+
+\
+
+\textbf{诺特定理出发推导三大守恒}
+
+对\textbf{时间平移不变}的拉格朗日系统，有对称性$q_\epsilon(t)=q(t+\epsilon)$，这是由于$\delta L=\dot{L},\delta q_\alpha=\dot{q}_\alpha$，因此可取$l=L$，根据诺特定理得哈密顿量守恒：
+$$H=\sum_\alpha p_\alpha\dot{q}_\alpha-L$$
+
+对\textbf{空间平移不变}的拉格朗日系统，有对称性$q_\epsilon(t)=q(t)+\epsilon v$，这是由于空间平移不变要求对此的$\delta L=0$，这里$v$为任何位形空间矢量，于是计算得$\delta q=v$，取$l=0$，则有$v\cdot p$守恒[$p$为各个$p_\alpha$拼接]，由$v$任意性知$p$守恒，也即\textbf{广义动量}守恒，若广义坐标取空间坐标，这里广义动量就成为普通动量。
+
+*若对特定方向平移不变，由此即推出对特定方向动量守恒。
+
+*若条件无$\delta L=0$，令$q_\epsilon(t)=q(t)+\epsilon v$可得$\delta L=v\cdot\dot{p}$，于是可取$l=v\cdot p$，最终会得出$0=0$的恒成立式，这意味着任何系统都有某种“平移对称性”，而只有空间平移不变时才有意义。
+
+对\textbf{空间转动不变}的拉格朗日系统，我们不加证明地使用如下结论：$\mathrm{e}^X$是$n$阶实反对称阵到$n$阶特殊正交阵的满射，且对给定的$X$，$\mathrm{e}^{\epsilon X},\epsilon\in\mathbb{R}$的“旋转方向”一致[此处事实上是高维旋转方向一致的定义，在三维时即为转轴相同]。
+
+此时有对称性$q_\epsilon(t)=\mathrm{e}^{\epsilon X}q(t)$，这是由于空间转动不变要求对此的$\delta L=0$，这里$X$为某反对称阵，于是计算得$\delta q=X\dot{q}$，取$l=0$，则有$p\cdot X\dot{q}$守恒，由$X$任意性，可取$\alpha\beta$与$\beta\alpha$位置分别为$\pm1$，其他为0，得到$p_\alpha q_\beta-q_\alpha p_\beta$守恒，也即\textbf{广义角动量}守恒。
+
+*若对特定方向旋转不变，由此即推出对特定方向角动量守恒，特别地，三维空间中有三个方向的角动量，若三维空间对任何$X$守恒即可计算得到$p\times q$守恒。
+
+\
+
+更复杂的守恒：考虑柱坐标系$(\rho,\phi,z)$下某质点
+$$L=\frac{1}{2}(\dot{\rho}^2+\rho^2\dot{\phi}^2+\dot{z}^2)-V(\rho,a\phi+z)$$
+
+对称性：
+$$(\rho_\epsilon,\phi_\epsilon,z_\epsilon)=(\rho,\phi+\epsilon,z-a\epsilon)$$
+计算可得此时$\delta L=0$，于是可取$l=0$，守恒荷为$m\rho^2\dot{\phi}-ma\dot{z}$。
+
+*反之，若已知守恒量，可直接通过动力学方程验证。
+
+\
+
+\textbf{带电粒子在电磁场中的运动}
+
+带电粒子在电磁场中的拉格朗日量为
+$$L=\frac{1}{2}m\dot{r}^2-e\Phi(\vec{r},t)+\frac{e}{c}\dot{\vec{r}}\cdot\vec{A}(\vec{r},t)$$
+其中
+$$\vec{E}=-\nabla\Phi-\frac{1}{c}\frac{\partial\vec{A}}{\partial t},\quad\vec{B}=\nabla\times\vec{A}$$
+
+计算可得
+$$\frac{\partial L}{\partial\dot{\vec{r}}}=m\dot{\vec{r}}+\frac{e}{c}\vec{A}$$
+$$\frac{\dr}{\dr t}\frac{\partial L}{\partial\dot{\vec{r}}}=m\ddot{\vec{r}}+\frac{e}{c}(\dot\vec{r}\cdot\nabla)\vec{A}+\frac{e}{c}\dot{\vec{A}}$$
+$$\frac{\partial L}{\partial\vec{r}}=-e\nabla\phi+\frac{e}{c}\nabla_r(\dot{\vec{r}}\cdot\vec{A})$$
+
+利用矢量运算律$\dot{\vec{r}}\times(\nabla\times\vec{A})=\nabla_r(\dot{\vec{r}}\cdot\vec{A})+(\dot{\vec{r}}\cdot\nabla)\vec{A}$合并、整理即得
+$$m\ddot{\vec{r}}=e\vec{E}+\frac{e}{c}\dot{\vec{r}}\times\vec{B}$$
+
+我们接下来观察\textbf{非经典力学情况}的拉格朗日方程。
+
+在相对论情况下，四维坐标
+$$\{x^\mu\}=\{x^0=ct,x^1=x,x^2=y,x^3=z\}$$
+定义$\dr s,\dr\tau$：
+$$\dr s^2=-c^2\dr\tau^2=-c^2\dr t^2+(\dr x^1)^2+(\dr x^2)^2+(\dr x^3)^2$$
+考虑时空度规$\eta_{\mu\nu}=\diag(-1,1,1,1)$，则可用张量求和记号将右侧记作$\eta_{\mu\nu}\dr x^\mu\dr x^\nu$。
+
+此时，$\dot{x}$表示$\frac{\dr x}{\dr\tau}$，拉格朗日量事实上可以写作
+$$L=\frac{m}{2}\eta_{\mu\nu}\dot{x}^\mu\dot{x}^\nu+\frac{e}{c}\dot{x}^\mu A_\mu$$
+
+这里一阶张量$A_\mu$与通常的$\vec{E},\vec{B}$的关系为：记$F_{\mu\nu}=\frac{\partial A_\nu}{\partial x_\mu}-\frac{\partial A_\mu}{\partial x_\nu}$，则
+$$F_{\mu\nu}=\begin{pmatrix}0&-E^1&-E^2&-E^3\\E^1&0&B^3&-B^2\\E^2&-B^2&0&B^1\\E^3&B^2&-B^1&0\end{pmatrix}$$
+
+*事实上代入计算可得到$A_\mu=\{-\Phi,\vec{A}\}$。
+
+类似之前代入拉格朗日方程后可得到
+$$\eta_{\mu\nu}m\ddot{x}^\mu=\frac{e}{c}\dot{x}^\nu F_{\mu\nu}$$
+
+*计算可验证当$\mu=1,2,3$时即为三维中的$m\ddot{\vec{r}}=e\vec{E}+\frac{e}{c}\dot{\vec{r}}\times\vec{B}$，但$\mu=0$对应第四维的洛伦兹力。
+
+\section{向心力场中的运动}
+\subsection{轨道方程}
+\textbf{两体问题}
+
+两体问题对应的拉格朗日量为
+$$L=\frac{1}{2}m\dot{r}_1^2+\frac{1}{2}m\dot{r}_2^2-V(\vec{r}_2-\vec{r}_1)$$
+引入坐标变换：
+$$\vec{R}=\frac{m_1\vec{r}_1+m_2\vec{r}_2}{m_1+m_2},\quad\vec{r}=\vec{r}_2-\vec{r}_1,\quad \mu=\frac{m_1m_2}{m_1+m_2}$$
+
+则有
+$$L=\frac{1}{2}(m_1+m_2)\dot{R}^2+\frac{1}{2}\mu\dot{r}^2-V(\vec{r})$$
+
+由于$\vec{R}$为循环坐标，其对应正则动量守恒，计算得$\dot{\vec{R}}$守恒，因此\textbf{退化为单体问题}。
+
+\
+
+\textbf{单体问题}
+
+考虑质心系中以极坐标表示，假设$V(\vec{r})=V(r)$只与距离有关，与方向无关，则此时拉格朗日量为
+$$L=\frac{1}{2}\mu(\dot{r}^2+r^2\dot{\theta}^2)-V(r)$$
+
+此时$\theta$为循环坐标，对应的正则动量$L=\mu r^2\dot{\theta}$守恒(即角动量守恒)。
+
+记$f(r)=-V'(r)$，则$r$方向拉格朗日方程可利用角动量守恒改写为
+$$\mu\ddot{r}-\frac{L^2}{\mu r^3}=f(r)$$
+
+利用此两式可以计算出能量$E=T+V$也是运动积分，由此有
+$$\dot{r}=\sqrt{\frac{2}{\mu}\bigg(E-V-\frac{L^2}{2\mu r^2}\bigg)},\quad\dot{\theta}=\frac{L}{\mu r^2}$$
+
+由此，先利用$\frac{\dr t}{\dr r}$只与$r$有关可积分出$r,t$的关系式，再用$r$即可积分出$\theta$得到轨道。
+
+\
+
+\textbf{轨道方程}
+
+除了积分得到参数曲线外，我们还希望能得到与$t$无关的\textbf{轨道方程}，由于有
+$$\dr t=\dr r\bigg(\frac{2}{\mu}\bigg(E-V-\frac{L^2}{2\mu r^2}\bigg)\bigg)^{-1/2},\quad\dr\theta=\frac{L\dr t}{\mu r^2}$$
+可以直接得到轨道的积分关系，引入$u=\frac{1}{r}$可写为
+$$\theta=\theta_0-\int_{u_0}^u\frac{\dr u}{\sqrt{\frac{2\mu E}{L^2}-\frac{2\mu V}{L^2}-u^2}}$$
+
+另一方面，由于
+$$\frac{\dr}{\dr t}=\frac{L}{\mu r^2}\frac{\dr}{\dr\theta}$$
+
+代入$r$方向运动方程可知
+$$\mu\bigg(\frac{L}{\mu r^2}\frac{\dr}{\dr\theta}\bigg)^2-\frac{L^2}{\mu r^3}=f(r)$$
+
+可进一步利用$u$改写为
+$$\frac{\dr^2u}{\dr\theta^2}+u=-\frac{\mu}{L^2}\frac{\dr}{\dr u}V\bigg(\frac{1}{u}\bigg)$$
+
+\
+
+\textbf{开普勒问题}
+
+开普勒行星轨道问题中，$V=-\frac{k}{r}$，这里$k=Gm_1m_2$。
+
+记有效势$V_e=-\frac{k}{r}+\frac{1}{2}\frac{L^2}{\mu r^2}$，则方程可化为$m\ddot{r}=-V_e'(r)$。
+
+*圆轨道运动时必然$V_e'(r_c)=0$，得到$r_c=\frac{L^2}{\mu k}$，此时势能最低为$-\frac{\mu k^2}{2L^2}$。
+
+直接计算可知微分形式的轨道方程可化为
+$$\frac{\dr^2u}{\dr\theta^2}+u=\frac{\mu k}{L^2}$$
+
+令$y=u-\frac{\mu k}{L^2}$，方程化为$\frac{\dr^2y}{\dr\theta^2}+y=0$，解得$y=B\cos(\theta-\theta_0)$\ [$B,\theta_0$为运动积分]，于是有
+$$\frac{1}{r}=\frac{1}{p}(1+e\cos(\theta-\theta_0))\quad\Rightarrow\quad r=\frac{p}{1+e\cos(\theta-\theta_0)}$$
+这里$p=\frac{L^2}{\mu k},e=Bp$。
+
+*也可积分变换或直接利用积分公式得到轨道方程，积分公式中能量$E$作为运动积分，可计算出离心率
+$$e=\sqrt{1+\frac{2EL^2}{\mu k^2}}$$
+于是根据圆锥曲线知识得$E>0,E=0,E<0$时分别为双曲线、抛物线、椭圆，而能量最低为$-\frac{\mu k^2}{2L^2}$，此时离心率为0，为圆轨道。
+
+下面考虑\textbf{椭圆轨道}的情况，此时根据几何可知半长轴$a=\frac{p}{1-e^2}$。直接利用积分公式可积分得到，若从近日点开始运动，存在参数关系式
+$$\begin{cases}r=a(1-e\cos E_a)\\t=\frac{T}{2\pi}(E_a-e\sin E_a)\end{cases}$$
+
+这里参数$E$称为\textbf{偏近点角}，周期
+$$T=2\pi\sqrt{\frac{\mu a^3}{k}}$$
+
+\
+
+\textbf{Laplace-Runge-Lenz矢量}
+
+在天体运动中，引入$\vec{A}=\vec{P}\times\vec{L}-\mu k\hat{\vec{r}}$，这里$\hat{\vec{r}}$表示$\vec{r}$方向的单位矢量。求导计算得其满足$\frac{\dr\vec{A}}{\dr t}=0$，是运动过程中的\textbf{守恒量}。
+
+设$\vec{A}$的方位角为$\theta_0$，计算可得$\vec{A}\cdot\vec{r}=Ar\cos(\theta-\theta_0)=L^2-\mu kr$，从而
+$$r(\theta)=\frac{p}{1+\frac{A}{\mu k}\cos(\theta-\theta_0)}$$
+由此可以看出$e=\frac{A}{\mu k}$，且$\vec{A}$指向近日点。
+
+进一步计算$\vec{A}^2$可得
+$$A^2=2\mu L^2\bigg(E+\frac{\mu k^2}{2L^2}\bigg)$$
+于是离心率表达式与之前计算结果相同。
+
+\subsection{弯曲时空}
+\textbf{四维弯曲空间}
+
+回顾之前相对论下的四维时空[\textbf{闵可夫斯基空间}]，我们考虑球坐标
+$$\{x^\mu\}=\{t,r,\theta,\phi\}$$
+则[仍采用张量求和记号]
+$$\dr s^2=g_{\mu\nu}\dr x^\mu\dr x^\nu,\quad g_{\mu\nu}=\diag(-1,1,r^2,r^2\sin^2\theta)$$
+
+广义相对论空间中，时空度规$g_{\mu\nu}$是由\textbf{爱因斯坦场方程}求解的，其描述球对称天体在外部周围产生的弯曲，坐标$t,r,\theta,\phi$下，时空度规为
+$$g_{\mu\nu}=\diag\bigg(-\bigg(1-\frac{2GM}{r}\bigg),\bigg(1-\frac{2GM}{r}\bigg)^{-1},r^2,r^2\sin^2\theta\bigg)$$
+且$\dr s^2=-\dr\tau^2$。
+
+\
+
+\textbf{弯曲空间中自由质点}
+
+爱因斯坦认为在弯曲空间中检验粒子走短程线，也即
+$$S=m_0c^2\int_A^B\dr\tau=m_0c^2\int_A^B\bigg(-g_{\mu\nu}\frac{\dr x^\mu}{\dr\tau}\frac{\dr x^\nu}{\dr\tau}\bigg)^{1/2}\dr\tau$$
+
+于是根据最小作用量原理可以得到粒子运动的\textbf{测地线方程}
+$$\frac{\dr^2x^\nu}{\dr\tau^2}+\Gamma_{\mu\sigma}^\nu\frac{\dr x^\mu}{\dr\tau}\frac{\dr x^\sigma}{\dr\tau}$$
+这里\textbf{联络}
+$$\Gamma_{\mu\nu}^\sigma=\frac{1}{2}g^{\gamma\sigma}(\partial_\gamma g_{\mu\nu}+\partial_\mu g_{\lambda\nu}-\partial_\nu g_{\lambda\mu})$$
+$\partial_a$表示对第$a$个分量求导，$g^{\alpha\beta}$与$g_{\alpha\beta}$互逆。
+
+等价来说，拉格朗日量为
+$$L=m_0c^2\bigg(-g_{\mu\nu}\frac{\dr x^\mu}{\dr\tau}\frac{\dr x^\nu}{\dr\tau}\bigg)^{1/2}$$
+或采用等效的拉格朗日量(某种意义上的动能)为
+$$L_e=\frac{1}{2}g_{\mu\nu}\frac{\dr x^\mu}{\dr\tau}\frac{\dr x^\nu}{\dr\tau}$$
+代入拉格朗日方程仍可以得到正确的测地线方程。
+
+*无质量粒子$\dr\tau=0$，需要用仿参数$\lambda$代替，其需满足
+$$g_{\mu\nu}\frac{\dr x^\mu}{\dr\lambda}\frac{\dr x^\nu}{\dr\lambda}=0$$
+此后我们均使用$\lambda$作为参数，对有质量粒子即可取$\dr\lambda=\dr\tau$。
+
+\
+
+\textbf{球对称弯曲时空}
+
+考虑球对称天体周围的$g_{\mu\nu}$，代入等效拉格朗日量可得
+$$2L_e=-\bigg(1-\frac{2GM}{r}\bigg)\bigg(\frac{\dr t}{\dr\lambda}\bigg)^2+\bigg(1-\frac{2GM}{r}\bigg)^{-1}\bigg(\frac{\dr r}{\dr\lambda}\bigg)^2+r^2\bigg(\frac{\dr\theta}{\dr\lambda}\bigg)^2+r^2\sin^2\theta\bigg(\frac{\dr\phi}{\dr\lambda}\bigg)^2$$
+
+*时空弯曲不强时且粒子非相对论时[\textbf{弱场近似}]\ $\dr\lambda=\dr\tau\simeq\dr t$，$\phi\ll1$，等效拉格朗日量近似为
+$$2L_e\simeq-1+\frac{2GM}{r}+\dot{r}^2+r^2\dot{\theta}^2+r^2\sin^2\theta\dot{\phi}^2$$
+可发现此即为经典力学中的拉格朗日量$T-V$。
+
+时空弯曲强时，我们记$\dot{x}^\mu=\frac{\dr x^\mu}{\dr\lambda}$，则计算得对$\theta$的拉格朗日方程可以写为
+$$r^2\ddot{\theta}+2r\dot{r}\dot{\theta}-r^2\sin\theta\cos\theta\dot{\phi}^2=0$$
+我们可以不妨假设在赤道面内$\theta=\frac{\pi}{2},\dot{\theta}=0$，代入可得此后都满足，以此列出其他方程：
+$$\begin{cases}\big(1-\frac{2GM}{r}\big)\dot{t}=\text{const.}\\r^2\dot{\phi}=\text{const.}\\\big(1-\frac{2GM}{r}\big)^{-1}\ddot{r}-\big(1-\frac{2GM}{r}\big)^{-2}\frac{M}{r^2}\dot{r}^2+\frac{M}{r^2}\dot{t}^2-r\dot{\phi}^2=0\end{cases}$$
+其中前两式的守恒分别表示单位质量的\textbf{能量}$E$与\textbf{有效角动量}$L$。
+
+将$E,L$代入第三式，积分可得到
+$$-\bigg(1-\frac{2GM}{r}\bigg)\dot{t}^2+\bigg(1-\frac{2GM}{r}\bigg)^{-1}\dot{r}^2+r^2\dot{\phi}^2=-\epsilon$$
+这里$\epsilon=-g_{\mu\nu}\dot{x}^\mu\dot{x}^\nu$，对有质量粒子为1，无质量粒子为0。$\theta=\frac{\pi}{2}$与$E,L,\epsilon$即为此方程的运动积分。
+
+\
+
+\textbf{有效势}
+
+合并势能项后$r$的运动方程可以写为
+$$\frac{1}{2}\dot{r}^2=\frac{1}{2}E^2-V(r),\quad V(r)=\frac{1}{2}\epsilon-\frac{GM}{r}\epsilon+\frac{L^2}{2r^2}-\frac{GML^2}{r^3}$$
+
+*与之相对，牛顿力学中
+$$\frac{1}{2}\dot{r}^2=E_N-V(r),\quad V(r)=-\frac{GM}{2}+\frac{L^2}{2r^2}$$
+对有质量粒子$\epsilon=1$，代入发现相差第一项与最后一项。
+
+广义相对论下圆轨道运动要求$V'(r_c)=0$，从而可以解得
+$$\epsilon GMr_c^2-L^2r_c+3GML^2=0$$
+无质量时$r_c=3GM$，有质量粒子
+$$r_c=\frac{L^2\pm\sqrt{L^4-12G^2M^2L^2}}{2GM}$$
+其中较大解稳定[$V''(r_c)>0$]，较小不稳定，$L=\sqrt{12}GM$时稳定与不稳定圆轨道重合，此时也是\textbf{最小稳定圆轨道}，半径为$6GM$，能量$E=\frac{2\sqrt2}{3}$。
+
+*若粒子从无穷远处$E\simeq1$被黑洞吸积，最终落入稳定圆轨道，则计算可知产能$1-E$约为$5.7\%$，这比核反应产能率高出一个量级。
+
+\
+
+*广义相对论有四大检验：引力红移、光线在引力场中的弯曲、水星近日点进动、雷达回波延迟，下面以水星近日点进动与光线弯曲为例估算。
+
+\textbf{水星进动}
+
+记$u=\frac{GM}{r}$，类似经典力学时的推导，轨道方程可以写为
+$$\frac{\dr^2u}{\dr\phi^2}+u=\frac{G^2M^2}{L^2}+3u^2$$
+由于$u$很小，多出的$3u^2$可以忽略，得到近似解
+$$u_0=\frac{G^2M^2}{L^2}(1+e\cos\phi)$$
+重新代入轨道方程右侧，并假设解$u=u_0+u_1$，可重新近似得修正项
+$$u_1=3\frac{G^4M^4}{L^4}e\phi\sin\phi$$
+
+从而$u$可以近似为
+$$u\simeq\frac{G^2M^2}{L^2}\bigg(\bigg(1+e\cos\bigg(1-3\frac{G^2M^2}{L}\bigg)\phi\bigg)\bigg)$$
+
+近日点也即
+$$1+e\cos\bigg(1-3\frac{G^2M^2}{L}\bigg)\phi=2n\pi$$
+
+可近似知
+$$\phi\simeq 2n\pi\bigg(1+3\frac{G^2M^2}{L}\bigg)$$
+于是一个周期引起的进动角为$6\pi\frac{G^2M^2}{L^2}$。
+
+\textbf{光线弯曲}
+
+即为考虑光子的运动方程，同样$u=\frac{GM}{r}$可推导出轨道方程满足
+$$\frac{\dr^2u}{\dr\phi^2}+u=3u^2$$
+与上类似操作可以得到一级近似后
+$$u_0=C\cos\phi,\quad u_1=C^2\sin^2\phi,\quad u=C\cos\phi+C^2(1+\sin^2\phi)$$
+
+即使你可得$u\to\infty$[最大]时$\phi=\frac{\pi}{2}+2C$，$u\to-\infty$[最小]时$\phi=-\frac{\pi}{2}-2C$，因此光线偏转角为$4C$。
+
+*广义相对论事实上将引力\textbf{几何化}，不再视为力而是视为空间的弯曲。
+
+\subsection{弹性碰撞}
+\textbf{质心系}
+
+*弹性碰撞定义：粒子内部状态碰撞前后不变，总动量、总机械能守恒。
+
+称实验室系L系，质心系S系，用下标0表示实验室系物理量，上标$\prime$表示碰撞后的物理量，设碰撞前速度为$\vec{v}_{01},\vec{v}_{02}$，碰撞后为$\vec{v}'_{01},\vec{v}'_{02}$。
+
+质心速度$\vec{v}_{0C}=\frac{m_1\vec{v}_{01}+m_2\vec{v}_{02}}{m_1+m_2}$，于是令$\vec{v}=\vec{v}_{01}-\vec{v}_{02}$为相对速度，则质心系速度分别为
+$$\vec{v}_1=\frac{m_2\vec{v}}{m_1+m_2},\quad\vec{v}_2=-\frac{m_1\vec{v}}{m_1+m_2}$$
+在S系中利用动量、机械能守恒列出等式，由于$m_1\vec{v}_1+m_2\vec{v}_2=m_1\vec{v}'_1+m_2\vec{v}'_2=0$，结合机械能守恒即知碰撞前后粒子\textbf{速率不变}。
+
+若碰撞后粒子1相对入射前的速度方向为$\hat{e}$，则$S$系中碰撞后可写为
+$$\vec{v}'_1=\frac{m_2}{m_1+m_2}v\hat{e},\quad\vec{v}'_2=-\frac{m_1}{m_1+m_2}v\hat{e}$$
+
+回到L系中
+$$\vec{v}'_{01}=\frac{m_1\vec{v}_{01}+m_2\vec{v}_{02}}{m_1+m_2}+\frac{m_2}{m_1+m_2}v\hat{e},\quad\vec{v}'_{02}=\frac{m_1\vec{v}_{01}+m_2\vec{v}_{02}}{m_1+m_2}-\frac{m_1}{m_1+m_2}v\hat{e}$$
+
+若粒子2静止，$\vec{v}_{01}=\vec{v}$，可化简为
+$$\vec{v}'_{01}=\frac{m_1\vec{v}+m_2v\hat{e}}{m_1+m_2},\quad\vec{v}'_{02}=\frac{m_1(\vec{v}-v\hat{e})}{m_1+m_2}$$
+
+\
+
+\textbf{夹角关系}
+
+下面\textbf{假设粒子2静止}，推导两系中散射角关系[L系中散射角$\theta_0$易于测出，但S系中$\theta$能对应更本质的关系]。
+
+在S系中，$\theta$余弦为$\hat{v}\cdot\hat{e}$，$\hat{v}$表示单位化的速度，而在L系中$\theta_0$余弦为
+$$\bigg\|\frac{m_1\vec{v}+m_2v\hat{e}}{m_1+m_2}\bigg\|^{-1}\hat{v}\cdot\frac{m_1\vec{v}+m_2v\hat{e}}{m_1+m_2}=\hat{v}\cdot\frac{m_1\hat{v}+m_2\hat{e}}{\|m_1\hat{v}+m_2\hat{e}\|}=\frac{m_1+m_2\cos\theta}{m_1^2+m_2^2+2m_1m_2\cos\theta}$$
+进一步化简得
+$$\tan\theta_0=\frac{m_2\sin\theta}{m_1+m_2\cos\theta}$$
+解得
+$$\cos\theta=-\frac{m_1}{m_2}\pm\cos\theta_0\sqrt{1-\frac{m_1^2}{m_2^2}\sin^2\theta_0}$$
+当$m_1<m_2$取正，否则取负。
+
+*也可从几何角度出发通过参考系变换后画出三角形进行计算。
+
+\
+
+\textbf{单次散射}
+
+目前，我们仍然没有给出$\theta$的具体形式，这是因为其依赖相互作用的类型。反之，测量$\theta$也可以确定相互作用的形式，例如库伦排斥的单次散射，$b$为碰撞参数[表示入射直线与固定粒子的距离]，$\theta$为散射角，可推出关系$b=b(\theta)$。
+
+假设以圆盘入射，入射流强度$n$代表单位时间流过单位面积的粒子数，则参数在$b$到$b+\dr b$间的圆环面积为$\dr\sigma=2\pi b\dr b$，而它们被散射到$\theta$到$\theta+\dr\theta$之间，对应的立体角为
+$$\dr\Omega=\int_0^{2\pi}\sin\theta\dr\theta\dr\varphi=2\pi\sin\theta\dr\theta$$
+被散射的粒子数为$\dr N=n\dr\sigma$，假设探测器安放在此立体角间，探测器立体角为$\Delta\omega$，则探测到的粒子数为
+$$\Delta N_{obs}=\frac{\dr N}{\dr\Omega}\Delta\omega=n\frac{\dr\sigma}{\dr\Omega}\Delta\omega$$
+而根据之前推导，\textbf{微分散射截面}
+$$\frac{\dr\sigma}{\dr\Omega}=\frac{b}{\sin\theta}|b'(\theta)|$$
+
+\
+
+\textbf{钢球散射}
+
+对应$V(r)$为$r<R$时无穷，$r>R$时0，则由几何关系知质心系下$b=R\cos\frac{\theta}{2}$。
+
+根据之前结论计算
+$$\frac{\dr\sigma}{\dr\Omega}=\frac{R^2}{4},\quad\sigma_{tot}=\int\frac{\dr\sigma}{\dr\Omega}\dr\Omega=\pi R^2$$
+
+*总$\sigma$也可通过几何关系发现$b$最大为$R$，因此为$\pi R^2$。
+
+*在实验室系讨论微分散射截面是非常复杂的，我们考虑两个特例：$m_1=m_2$时，$\theta_0=\frac{\theta}{2}$，于是可以直接计算知$\frac{\dr\sigma}{\dr\Omega_0}=\frac{R^2}{4}\frac{\sin\theta\dr\theta}{\sin\theta_0\dr\theta_0}=R^2\cos\theta_0$；$m_1\ll m_2$时，$\theta_0\simeq\theta$，于是$\frac{\dr\sigma}{\dr\Omega_0}\simeq\frac{R^2}{4}$。
+
+\
+
+\textbf{卢瑟福散射}
+
+类似钢球模型，可发现$\theta=\pi-2\varphi_0$，这里$\varphi_0$指等效碰撞点与球心连线同入射方向的夹角。
+
+由$\vec{L}=\vec{r}\times\vec{p}$守恒可知散射发生在固定平面内，考虑极坐标下拉格朗日量
+$$\frac{1}{2}\mu(\dot{r}^2+r^2\dot{\varphi}^2)-V(r)$$
+则由$E,L$守恒可以推出$r$的关系
+$$\dot{r}^2=\frac{2(E-V(r))}{\mu}-\frac{L^2}{\mu^2r^2}$$
+
+于是再由$\dot{\varphi}=\frac{L}{\mu r^2}$可得轨道方程，积分即
+$$\varphi=\pm\int\frac{L\dr r/r^2}{\sqrt{2\mu(E-V(r))-L^2/r^2}}$$
+
+记$v_\infty=\sqrt{\frac{2E}{\mu}},b=\frac{L}{\mu v_{\infty}}$，则可改写为
+$$\varphi_0=\int_{r_m}^\infty\frac{b\dr r/r^2}{\sqrt{1-b^2/r^2-2V(r)/(\mu v_\infty^2)}}$$
+
+这里$r_m$指最小的$r$，其与对应的速度可由动能与角动量守恒联合解出，于是原则上有$r_m=r_m(b,v_\infty)$。
+
+下面考虑$\alpha$粒子与原子核的碰撞，设靶原子核原子序数为$Z$，则库伦势
+$$V(r)=\frac{2Ze^2}{4\pi\epsilon_0r}$$
+令$\alpha=\frac{2Ze^2}{4\pi\epsilon_0},\quad\beta=\frac{\alpha}{\mu bv_0^2},\quad u=\frac{b}{r}$
+
+则利用能量与角动量守恒可知$r_m=b(\beta+\sqrt{1+\beta^2})$，于是可解得
+$$\varphi_0=\arccos\frac{\beta}{\sqrt{1+\beta^2}}$$
+从而$\beta=\cot\varphi_0=\tan\frac{\theta}{2}$，因此$$b=\frac{\alpha}{\mu v_\infty^2}\cot\frac{\theta}{2},\quad\frac{\dr\sigma}{\dr\Omega}=\frac{\alpha^2}{4\mu^2v_\infty^4}\csc^4\frac{\theta}{2}$$
+
+此即为\textbf{卢瑟福散射公式}，由于$\alpha$只有平方，结果与吸引、排斥无关。
+
+*类似之前可得实验室系$m_1=m_2$时$\frac{\dr\sigma}{\dr\Omega_0}=\frac{4\alpha^2}{m_1^2v_\infty^2}\csc^4\theta_0\cos\theta_0$，$m_1\ll m_2$时$\frac{\dr\sigma}{\dr\Omega_0}\simeq\frac{\dr\sigma}{\dr\Omega}$。
+
+*计算发现$\sigma_{tot}$发散，因此库仑相互作用是\textbf{长程}的。
+
+\section{微振动}
+\subsection{简谐振动}
+\textbf{一维情况}
+
+假设势能函数$V(q)$最低点$q_0$，若力学系统在$q_0$附近作小振动，将$V(q)$泰勒展开保留二阶项可得
+$$V(q)\simeq\frac{1}{2}V''(q_0)(q-q_0)^2$$
+记$V''(q_0)=k,x=q-q_0$\ [由最小性$k>0$]，系统拉格朗日量为
+$$L=\frac{1}{2}m\dot{x}^2-\frac{1}{2}kx^2$$
+记$\omega^2=\frac{k}{m}$，其拉格朗日方程$\ddot{x}+\omega^2x=0$可解得
+$$x=a\cos(\omega t+\alpha)$$
+或用复数表示
+$$x=\mathrm{Re}\big(A\exp(\mathrm{i}\omega t)\big)$$
+$\mathrm{Re}$代表实部，$A$为复振幅$a\exp(\mathrm{i}\alpha)$，进一步计算得其能量为$\frac{1}{2}m^2\omega^2a^2$。
+
+\
+
+\textbf{高维震动}
+
+设$V(q_{10},\dots,q_{\alpha0})$为势能最低点，记$k_{\alpha\beta}=\frac{\partial^2V}{\partial q_\alpha\partial q_\beta},x_\alpha=q_\alpha-q_{\alpha 0}$，则拉格朗日量可写为
+$$L=\frac{1}{2}\sum_{\alpha,\beta}\big(m_{\alpha\beta}\dot{x}_\alpha\dot{x}_\beta-k_{\alpha\beta}x_\alpha x_\beta\big)$$
+
+*这里动能中$m_{\alpha\beta}$应为广义坐标与笛卡尔坐标转化，因此是$q_\alpha$的函数，由于认为$q_\alpha$在$q_{\alpha0}$附近，忽略小量即可认为是常数。
+
+代入拉格朗日方程后，将$m_{\alpha\beta},k_{\alpha\beta}$写为矩阵$M,K$可得
+$$M\ddot{x}+Kx=\mathbf{0}$$
+
+假设解能写为
+$$x_\beta(t)=A_\beta\exp(\mathrm{i}\omega t)$$
+其中$A_\beta$待定常数，则代入可得到
+$$\sum_\beta(-\omega^2m_{\alpha\beta}+k_{\alpha\beta})A_\beta=0$$
+其存在不全为0的解也即
+$$\det(K-\omega^2M)=0$$
+这是关于$\omega^2$的$n$次方程，一般有$n$个不同的根，由数学可知其根均为正实数。
+
+*由于$K,M$对称，根必然为实数，且由势能最小性知$K$正定，根据坐标变换规律可知$M$正定(于是可逆)，从而方程等价于$\det(M^{-1}K-\omega^2I)=0$。由$M$正定，$M^{-1}$正定，于是$M^{-1}K\simeq M^{-1/2}KM^{-1/2}$本征值均为正实数，也即一定能得到$n$个正实数解。
+
+*另证：对方程组乘$A_\alpha^*$\ [上标星号表示共轭]并求和可得
+$$\sum(-\omega^2m_{\alpha\beta}+k_{\alpha\beta})A_\alpha^*A_\beta=0$$
+于是已知$A_\alpha$时根可以写为
+$$\omega^2=\frac{\sum k_\alpha\beta A_\alpha^*A_\beta}{\sum m_\alpha\beta A_\alpha^*A_\beta}$$
+由于$K,M$正定，这样得到的$\omega^2$是正实数。
+
+*摆动在线性近似下也可看作多维振动，如之前的双摆即可化为二维振动。
+
+\
+
+\textbf{简正模式}
+
+回顾上一部分的$M\ddot{x}+Kx=0$，类似之前讨论，由于$M,K$对称正定，其任何次方有意义，记$\Lambda=M^{-1/2}KM^{-1/2}$，方程可化为$\ddot{\bar{x}}=-\Lambda\bar{x}$，这里$\bar{x}=M^{1/2}x$。
+
+由$\Lambda$正定对称，根据数学知可设每个本征值$\lambda_i$对应本征矢量$\rho_i$，且$\rho_i$构成一组\textbf{标准正交基}，则有
+$$\lambda_i=\frac{\rho_i^T\Lambda\rho_i}{\rho_i^T\rho_i}>0$$
+下记$\lambda_i=\omega_i^2$。
+
+由于$\rho_i$构成一组基，可设$\bar{x}(t)=\sum_iy_i(t)\rho_i$，即得到关于$y_j$的$n$个独立方程
+$$\ddot{y}_j=-\omega_j^2y_j$$
+这就可以解出($A_j,\phi_j$为参数)
+$$y_j=A_j\cos(\omega_jt+\phi_j)$$
+
+*根据标准正交性，设列向量$\rho_i$拼成的矩阵为$P$，原变换为$\bar{x}=Py$，因此反之有$y=P^T\bar{x}$。
+
+这样的$y_i$称为\textbf{简正坐标}，解出的$\omega_j$称为\textbf{简正频率}，简正坐标系下系统的动能可写为
+$$T=\frac{1}{2}\sum_jM_j\dot{y}_j^2$$
+$M_j$代表等效质量。
+
+*数学本质是将$M^{-1}K$相似为正定阵$M^{-1/2}KM^{-1/2}$后利用\textbf{正交相似对角化}分离出对角元。
+
+\subsection{简谐振动的推广}
+\textbf{阻尼简谐振动}
+
+我们认为能量耗散项正比于速度$f_r=\alpha\dot{x}$，即
+
+$$m\ddot{x}=-kx-\alpha\dot{x}$$
+
+记$\omega_o^2=\frac{k}{m},\lambda=\frac{\alpha}{2m}$，则方程改写为
+
+$$\ddot{x}+2\lambda\dot{x}+\omega_o^2=0$$
+
+将其化为二阶线性微分方程的形式可求解得特征值$r_{1,2}=-\lambda\pm\sqrt{\lambda^2-\omega_o^2}$，于是分类讨论：
+\begin{enumerate}
+    \item $\lambda>\omega_o$，两解均为非负实数，$x=c_1\exp(r_1t)+c_2\exp(r_2t)$；
+    \item $\lambda<\omega_o$，两解包含虚部，可得$x=a\exp(-\lambda t)\cos(\omega t+\alpha)$，这里$\omega=\sqrt{\omega_o^2-\lambda^2}$。
+    \item $\lambda=\omega_o$，这时$r=-\lambda$，解为$x=(c_1+c_2t)\exp(-\lambda t)$，亦为某种共振。
+\end{enumerate}
+
+\textbf{高维情况}下，耗散项可写为$f_{r,i}=\sum_j\alpha_{ij}\dot{x}_i$，由作用相互性$\alpha_{ik}=\alpha_{ki}$，可定义$F=\frac{1}{2}\sum\alpha_{ij}\dot{x}_i\dot{x}_j$为\textbf{耗散函数}，从而可得到动力学方程为
+$$\sum_j(m_{ij}\ddot{x}_j+k_{ij}x_j)=-\sum_j\alpha_{ij}\dot{x}_i$$
+
+设$x_k=A_k\exp(rt)$可类似之前得到矩阵方程
+$$\det(Mr^2+\mathcal{A}r+K)=0$$
+这里$\mathcal{A}$为$\alpha_{ij}$形成的矩阵，这是一个关于$r$的$2n$次方程。
+
+*耗散函数的\textbf{物理意义}：存在耗散时拉格朗日方程为
+$$\frac{\dr}{\dr t}\frac{\partial L}{\partial\dot{x}_i}=\frac{\partial L}{\partial x_i}-\frac{\partial F}{\partial\dot{x}_i}$$
+于是进一步计算得到$\frac{\dr H}{\dr t}=-\sum\dot{x}_i\frac{\partial F}{\partial\dot{x}_i}=-2F$，也即其代表系统能量的减少率。
+
+\
+
+\textbf{受迫简谐振动}
+
+假设有外力场$V_e(x,t)$，记$-\frac{\partial V_e}{\partial x}(0,t)=F(t)$，则作近似可得拉格朗日量为
+$$L=\frac{1}{2}m\dot{x}^2-\frac{1}{2}kx^2+xF(t)$$
+
+动力学方程可写为
+$$\ddot{x}+\omega^2x=\frac{F(t)}{m}$$
+
+*由于线性性，只需知道特解，通解即为特解加上非受迫时的解
+
+当外力循环$F(t)=f\cos(\gamma t+\beta)$时可猜测得到特解，从而写出通解[$\omega\ne\gamma$时]
+$$x=a\cos(\omega t+\alpha)+\frac{f}{m(\omega^2-\gamma^2)}\cos(\gamma t+\beta)$$
+
+\textbf{共振}[$\gamma\to\omega$]的情况下，方程可改写为
+$$x=\tilde{a}\cos(\omega t+\alpha)+\frac{f}{m(\omega^2-\gamma^2)}\big(\cos(\gamma t+\beta)-\cos(\omega t+\beta)\big)$$
+通过洛必达法则得到
+$$x=\tilde{a}\cos(\omega t+\alpha)+\frac{ft}{2m\omega}\sin(\gamma t+\beta)$$
+振幅会随时间\textbf{线性增长}直到微振动近似不再适用。
+
+对一般外力，记$\xi=\dot{x}+\mathrm{i}\omega x$，可得$$\dot{\xi}-\mathrm{i}\omega\xi=\frac{F(t)}{m}$$
+
+直接计算$\xi$的解为
+$$\xi=\exp(\mathrm{i}\omega t)\frac{1}{m}\int_0^tF(t)\exp(-\mathrm{i}\omega t)\dr t+\xi_0$$
+
+*计算$x$并不需要再进行常微分方程的求解，因为$x$即为$\xi$的虚部除以$\omega$
+
+*根据$\xi$可得到
+$$|\xi(t)|^2=\dot{x}^2+\omega^2x^2=2\frac{E(t)}{m}=\tilde{a}^2(t)\omega^2$$
+这里$\tilde{a}(t)$为等效振幅。
+
+\
+
+\textbf{参数共振}
+
+定义：系统在不稳定的平衡位置[$x=0$]，若稍微偏离平衡位置，位移$x$随时间指数增长。
+
+设$k$是时间的函数，仍记$\omega^2=\frac{k}{m}$，有
+$$\ddot{x}+\omega^2(t)x=0$$
+
+若$\omega$有周期性$\omega(t)=\omega(t+T)$，则对任何解$x(t)$，$x(t+T)$也是解。
+
+由线性性，若$x_1,x_2$为独立的解，任何解都为它们的线性组合，从数学上，一般可选取合适的$x_1,x_2$使得时间变换下
+$$x_1(t+T)=\mu_1x_1(t),\quad x_2(t+T)=\mu_2x_2(t)$$
+
+于是可设
+$$x_1(t)=\mu_1^{t/T}F(t),\quad x_2=\mu_2^{t/T}F(t)$$
+这里$F,G$为周期$T$的周期函数。
+
+为确定参数，我们将$x_1,x_2$代入方程，分别乘$x_2,x_1$并相减可知
+$$\ddot{x}_1x_2-\ddot{x}_2x_1=\frac{\dr}{\dr t}(\dot{x}_1x_2-\dot{x}_2x_1)=0$$
+于是$\dot{x}_1x_2-\dot{x}_2x_1$为常数，将$t$变为$t+T$可知$\mu_1\mu_2=1$。
+
+由于系数都为实数，$x$为解时$x^*$亦为解，因此或$\mu_1=\mu_2^*$\ [即$|\mu_1|=|\mu_2|=1$]，或$\mu_1,\mu_2$均实数。
+
+第二种情况下，解可以写为：
+$$x_1(t)=\mu^{t/T}F(t),\quad x_2(t)=\mu^{-t/T}G(t)$$
+在$|\mu|\ne1$时\textbf{振幅呈指数增长}。
+
+\section{哈密顿力学}
+\subsection{哈密顿正则方程}
+\textbf{勒让德变换}
+
+记$u=\frac{\partial f}{\partial x},v=\frac{\partial f}{\partial y}$，则有
+$$\dr f=u\dr x+v\dr y$$
+考虑$\tilde{f}=f-ux$即有
+$$\dr\tilde{f}=-x\dr u+v\dr y$$
+这就称为勒让德变换，变换后将$f(x,y)$变换为$\tilde{f}(u,y)$，且有
+$$x=-\frac{\partial\tilde{f}}{\partial u},v=\frac{\partial\tilde{f}}{\partial y}$$
+
+继续做勒让德变换，考虑$\tilde{\tilde{f}}=f-ux-vy$，则有
+$$\dr\tilde{\tilde{f}}=-x\dr u-y\dr v$$
+成为以$(u,v)$为自然变量的函数。
+
+*多维时$\dr f=\sum_\alpha u_\alpha\dr x_\alpha+\sum_\alpha v_\alpha\dr y_\alpha$，则勒让德变换即为$\tilde{f}=f-\sum_\alpha u_\alpha x_\alpha$。
+
+\
+
+\textbf{哈密顿方程}
+
+如之前对正则动量$p_\alpha$的定义，则$H$可以视为$L$做勒让德变换$(q_\alpha,\dot{q}_\alpha)\to(q_\alpha,p_\alpha)$：
+$$H=\sum_\alpha\dot{q}_\alpha p_\alpha-L$$
+根据勒让德变换的性质可写出
+$$\dr H=-\frac{\partial L}{q_\alpha}\dr q_\alpha+\dot{q}_\alpha\dr p_\alpha-\frac{\partial L}{\partial t}\dr t$$
+
+由于$\dot{p}_\alpha=\frac{\partial L}{q_\alpha}$，可知
+$$\frac{\partial H}{\partial p_\alpha}=\dot{q}_\alpha,\quad\frac{\partial H}{\partial q_\alpha}=-\dot{p}_\alpha$$
+这就是\textbf{哈密顿方程}。
+
+将$(p_\alpha,q_\alpha)$构成的空间称为\textbf{相空间}，哈密顿量即为其中的态函数。
+
+*哈密顿力学中，一般要先求出拉格朗日量，再对应计算出哈密顿量，得到哈密顿方程($2s$个一阶微分方程)。
+
+\
+
+\textbf{修正的哈密顿原理}
+
+给定哈密顿量$H$，作用量定义为
+$$S[q_\alpha,p_\alpha]=\int_{t_1}^{t_2}\big(p_\alpha\dot{q}_\alpha-H(q_\alpha,p_\alpha,t)\big)\dr t$$
+变分后使用分部积分，要求$\delta q_\alpha(t_1)=\delta q_\alpha(t_2)=0$\ [由于作用量不包含$\dot{p}_\alpha$，并不需要指定$p_\alpha$的边界条件]，利用$\delta q_\alpha,\delta p_\alpha$独立即得到
+$$\frac{\partial H}{\partial p_\alpha}=\dot{q}_\alpha,\quad\frac{\partial H}{\partial q_\alpha}=-\dot{p}_\alpha$$
+
+此仍然为哈密顿正则方程的形式。
+
+*此处假设$q_\alpha,p_\alpha$独立，$p_\alpha$不再定义成$L$相关，而是视为动力学方程的一部分。
+
+*另一个角度来看，将$p_\alpha,q_\alpha$视为独立变量，代入拉格朗日方程也可以推出哈密顿正则方程。
+
+*若进一步要求$\delta p_\alpha(t_1)=\delta p_\alpha(t_2)=0$，则作用量积分中的函数$f$可以相差一个$(q_\alpha,p_\alpha,t)$为变量的函数对时间的全导数，例如取$F=-\sum_\alpha q_\alpha p_\alpha$，则增加$\frac{\dr F}{\dr t}$得到
+$$\delta\int_{t_1}^{t_2}\big(-\sum_\alpha\dot{p}_\alpha q_\alpha-H(p_\alpha,q_\alpha,t)\big)=0$$
+于是仍然可以得到相同的哈密顿方程，而现在积分号内的内容已经与拉格朗日量无联系了。
+
+\
+
+\textbf{循环坐标}
+
+由于$p_\alpha\dot{q}_\alpha$中不显含$q_\alpha$，$L$中的循环坐标也为$H$的循环坐标，由此又可知$p_\alpha$为常数，因此直接记$c_\alpha=p_\alpha$后$H$事实上可以进行\textbf{降维}。
+
+若$q_1,\dots,q_m$为循环坐标，定义\textbf{劳斯函数}：
+$$R=\sum_{\alpha=1}^np_\alpha\dot{q}_\alpha-L$$
+
+将其看作$q_1,\dots,q_s;p_1,\dots,p_m;\dot{q}_{m+1},\dots,\dot{q}_s;t$的函数，对$t$求全微分可得
+$$\begin{cases}\frac{\partial R}{\partial p_\alpha}=\dot{q}_\alpha,\frac{\partial R}{\partial q_\alpha}=-\dot{p}_\alpha&\alpha=1,\dots,m\\\frac{\partial R}{\partial\dot{q}_\alpha}=-\frac{\partial L}{\partial\dot{q}_\alpha},\frac{\partial R}{\partial q_\alpha}=-\frac{\partial L}{\partial q_\alpha}&\alpha=m+1,\dots,m\end{cases}$$
+
+*此处$R$可以看作$L$与$H$的部分拼接，$R$的对应$m+1$到$s$分量可以写出拉格朗日方程
+$$\frac{\dr}{\dr t}\frac{\partial R}{\partial\dot{q}_\alpha}-\frac{\partial R}{\partial q_\alpha}=0,\quad\alpha=m+1,\dots,s$$
+而前$s$个分量的$p_\alpha$事实上是常数，$q_\alpha$不存在，$R$事实上是$R(q_{m+1},\dots,q_s;c_1,\dots,c_m;\dot{q}_{m+1},\dots,\dot{q}_s;t)$。
+
+\
+
+\textbf{哈密顿方程求解向心力场}
+
+考虑$V(r)=-\frac{k}{r}$的向心力场，用极坐标$r,\theta$，可写出
+$$L=\frac{1}{2}m(\dot{r}^2+r^2\dot{\theta}^2)+\frac{k}{r}$$
+进一步解出
+$$H=\frac{1}{2}m(\dot{r}^2+r^2\dot{\theta}^2)-\frac{k}{r}=\frac{p_r^2}{2m}+\frac{p_\theta^2}{2mr^2}-\frac{k}{r}$$
+
+于是方程为
+$$\begin{cases}\dot{r}=\frac{p_r}{m}\\\dot{p}_r=\frac{p_\theta^2}{mr^3}-\frac{k}{r^2}\\\dot{\theta}=\frac{p_\theta}{mr^2}\\\dot{p}_\theta=0\end{cases}$$
+
+由$p_\theta$恒等，这可以化为$r$与$p_r$的方程。
+
+*由于$\theta$为循环变量，可写出劳斯方程[这里$\beta=p_\theta$为常数]
+$$R=-\frac{1}{2}m\dot{r}^2+\frac{\beta^2}{2mr^2}-\frac{k}{r}$$
+从而直接有
+$$-m\ddot{r}+\frac{\beta^2}{mr^3}-\frac{k}{r^2}=0$$
+
+\
+
+\textbf{四维时空例子}
+
+考虑四维时空中[仍采用张量求和记号]
+$$L=\sum_{\mu,\nu}\frac{m}{2}\eta_{\mu\nu}\dot{x}^\mu\dot{x}^\nu-eA_\mu\dot{x}^\mu$$
+
+计算可得$p_\mu=m\dot{x}_\mu-eA_\mu$，于是
+$$H=\frac{m}{2}\eta_{\mu\nu}\dot{x}^\mu\dot{x}^\nu=\frac{1}{2}\eta_{\mu\nu}\frac{(p^\mu+eA^\mu)(p^\nu+eA^\nu)}{m}$$
+
+\subsection{正则变换}
+
+循环坐标依赖于坐标系的选择， 如有心力场时$(r,\theta)$下$\theta$是循环坐标，而$(x,y)$下无循环坐标。因此，我们希望能找到循环坐标尽可能多的坐标系，这就需要进行\textbf{坐标变换}。
+
+*若$H$所有坐标均为循环坐标，有$p_\alpha$为常数$\beta_\alpha$，记$\frac{\partial H}{\partial\beta_\alpha}=\gamma_\alpha(\beta)$，则根据哈密顿方程$\dot{q}_\alpha=\gamma_\alpha(\beta)$，即能完全解出$q_\alpha=\gamma_\alpha(\beta)t+\delta_\alpha$，也即广义坐标系中“直线运动”。
+
+\textbf{定义}：将$H(q_\alpha,p_\alpha)$变换为坐标$P_\alpha,Q_\alpha$下的等式，$P,Q$视为$p,q,t$的函数，若存在$\tilde{H}(Q_\alpha,P_\alpha,t)$使得
+
+$$\dot{Q}_\alpha=\frac{\partial\tilde{H}}{\partial P_\alpha},\quad\dot{P}_\alpha=-\frac{\partial\tilde{H}}{\partial Q_\alpha}$$
+
+则称变换是正则的。
+
+正则变换条件：由于将$S$写为$\sum_\alpha p_\alpha\dot{q}_\alpha-H$积分与$\sum_\alpha P_\alpha\dot{Q}_\alpha-\tilde{H}$是等价的，可知必然相差全微分，即存在$F$使得
+$$\bigg(\sum_\alpha p_\alpha\dot{q}_\alpha-H\bigg)-\bigg(\sum_\alpha P_\alpha\dot{Q}_\alpha-\tilde{H}\bigg)=\frac{\dr F}{\dr t}$$
+也即
+$$\sum_\alpha p_\alpha\dr q_\alpha-\sum_\alpha P_\alpha\dr Q_\alpha+(\tilde{H}-H)\dr t=\dr F$$
+这里$F=F(q_\alpha,Q_\alpha,t)$。
+
+若考虑等时变分，上式即改写为
+$$\sum_\alpha p_\alpha\delta q_\alpha-\sum_\alpha P_\alpha\delta Q_\alpha=\delta F$$
+
+\
+
+\textbf{几何意义}
+
+单自由度情况下$(q,p)\to(Q,P)$是正则变换一般\textbf{等价于}
+$$\frac{\partial(Q,P)}{\partial(q,p)}=1$$
+
+由于$p\delta q-P\delta Q$为等时变分$\delta F$，展开到$p,q$下可知
+$$\bigg(p-P\frac{\partial Q}{\partial q}\bigg)\delta q-P\frac{\partial Q}{\partial p}\delta p=\delta F$$
+单连通区域中，存在$\delta F$即等价于$\delta q$前项对$p$求导与$\delta p$前项对$q$求导相等，化简即
+$$\frac{\partial P}{\partial p}\frac{\partial Q}{\partial q}-\frac{\partial P}{\partial q}-\frac{\partial Q}{\partial p}=1$$
+左侧即$\frac{\partial(Q,P)}{\partial(q,p)}$的定义，由此正则变换是相空间中的\textbf{保面积变换}。
+
+*高维时有类似结论，但形式更加复杂。
+
+\
+
+\textbf{生成函数}
+
+由前一部分知正则变换由$F$唯一确定[称为生成函数或母函数]，有$2s$个独立变量。上方给出了$F(q_\alpha,Q_\alpha,t)$的表达，通过\textbf{勒让德变换}即可得到$F(q_\alpha,P_\alpha,t)$、$F(p_\alpha,Q_\alpha,t)$与$F(p_\alpha,P_\alpha,t)$的表达，直接给出结论：记上方$F(p_\alpha,q_\alpha,t)$为$F_1$，考虑
+$$F_2=F_1+\sum_\alpha P_\alpha Q_\alpha,\quad F_3=F_1-\sum_\alpha p_\alpha q_\alpha,\quad F_4=F_1+\sum_\alpha P_\alpha Q_\alpha-\sum_\alpha p_\alpha q_\alpha$$
+
+则有
+$$\begin{aligned}
+    &F_1=F_1(q_\alpha,Q_\alpha,t),&&p_\alpha=\frac{\partial F_1}{\partial q_\alpha},&&P_\alpha=-\frac{\partial F_1}{\partial Q_\alpha},&&\tilde{H}=H+\frac{\partial F_1}{\partial t}\\[6pt]
+    &F_2=F_2(q_\alpha,P_\alpha,t),&&p_\alpha=\frac{\partial F_2}{\partial q_\alpha},&&Q_\alpha=\frac{\partial F_2}{\partial P_\alpha},&&\tilde{H}=H+\frac{\partial F_2}{\partial t}\\[6pt]
+    &F_3=F_3(p_\alpha,Q_\alpha,t),&&q_\alpha=-\frac{\partial F_3}{\partial p_\alpha},&&P_\alpha=-\frac{\partial F_3}{\partial Q_\alpha},&&\tilde{H}=H+\frac{\partial F_3}{\partial t}\\[6pt]
+    &F_4=F_3(p_\alpha,Q_\alpha,t),&&q_\alpha=-\frac{\partial F_4}{\partial p_\alpha},&&Q_\alpha=\frac{\partial F_4}{\partial P_\alpha},&&\tilde{H}=H+\frac{\partial F_4}{\partial t}
+\end{aligned}$$
+
+常用生成函数：
+\begin{enumerate}
+    \item \textbf{恒等}变换
+    
+    $$F_2=\sum_\alpha q_\alpha P_\alpha$$
+    
+    计算可得$\tilde{H}=H$，各坐标不变。
+
+    \item 相空间\textbf{平移}变换
+    
+    $$F_2=\sum_\alpha(q_\alpha+c_\alpha)(P_\alpha-d_\alpha)$$
+
+    计算可得$p_\alpha=P_\alpha-d_\alpha,Q_\alpha=q_\alpha+c_\alpha,\tilde{H}=H$，对应平移。
+
+    \item \textbf{对偶}变换
+    
+    $$F_1=q_\alpha Q_\alpha$$
+
+    计算可得$p_\alpha=Q_\alpha,P_\alpha=-q_\alpha,\tilde{H}=H$，也即正则动量、广义坐标进行交换。
+
+    \item $q,p$分别在各自空间内\textbf{正交}变换
+    
+    $$F_2=a_{\alpha\beta}P_\alpha q_\beta,\quad A=(a_{\alpha\beta}),\quad AA^T=I$$
+
+    直接求导知$p_\beta=\sum_\alpha a_{\alpha\beta}P_\alpha,Q_\alpha=\sum_\beta a_{\alpha\beta}q_\beta$，由正交性还可算得$P_\alpha=\sum_\alpha a_{\alpha\beta}p_\beta$，于是$p,q$同时做相同的正交变换。
+\end{enumerate}
+
+\
+
+\textbf{计算例}
+
+*以下变换正则性均可直接通过行列式验证
+
+\begin{enumerate}
+    \item 竖直上抛$H=\frac{p^2}{2m}+mgq$
+
+    考虑$F_1=mg(gQ^3/6+qQ)$，计算导数并反解可知其对应变换
+    $$q=-\frac{P}{mg}-\frac{1}{2}gQ^2,\quad p=mgQ$$
+    于是代入可知$\tilde{H}=H=-P$。由此解出$P=c_1,Q=-t+t_0$，即可得到
+    $$\begin{cases}p=-mg(t-t_0)\\q=-\frac{1}{2}g(t-t_0)^2-\frac{c_1}{mg}\end{cases}$$
+
+    \item 谐振子$H=\frac{1}{2}(p^2+q^2)$
+    
+    考虑$Q=\frac{1}{2}(q^2+p^2),P=-\arctan\frac{q}{p}$，可验证正则，由分析知识，积分可构造出
+    $$F_4=\frac{p^2}{\tan P}$$
+    从而有$\tilde{H}=H=Q$，代入哈密顿正则方程可知$\dot{Q}=0,\dot{P}=-1$，设$Q=\frac{A_0^2}{2},P=-t+t_0$即反解得
+    $$\begin{cases}p=A_0\cos(t-t_0)\\ q=A_0\sin(t-t_0)\end{cases}$$
+
+    \item 谐振子另解$H=\frac{p^2}{2m}+\frac{1}{2}m\omega^2q^2$
+
+    作线性变换($\theta=\theta(t)$为待定函数)
+    $$q=Q\cos\theta+\frac{P}{m\omega}\sin\theta,\quad q=-m\omega Q\sin\theta+P\cos\theta$$
+
+    则积分可以算得可取
+    $$F_2=\frac{qP}{\cos\theta}-\frac{1}{2}m\omega\bigg(q^2+\frac{P^2}{m^2\omega^2}\bigg)\tan\theta$$
+
+    取$\theta=\omega t$，计算可得此时$\tilde{H}=0$，于是$Q=Q_0,P=P_0$，即反解得到
+
+    $$\begin{cases}q(t)=A_0\cos(\omega t+\phi_0)\\ p(t)=-m\omega A_0\sin(\omega t+\phi_0)\end{cases}$$
+    其中
+    $$A_0=\sqrt{A_0^2+\frac{P_0^2}{m^2\omega^2}},\quad\tan\phi_0=\frac{-P_0}{m\omega Q_0}$$
+\end{enumerate}
+
+\
+
+\textbf{泊松括号}
+
+$$[u,v]=\sum_\alpha\frac{\partial(u,v)}{\partial(q_\alpha,p_\alpha)}=\sum_\alpha\bigg(\frac{\partial u}{\partial q_\alpha}\frac{\partial v}{\partial p_\alpha}-\frac{\partial u}{\partial p_\alpha}\frac{\partial v}{\partial q_\alpha}\bigg)$$
+
+性质：
+\begin{enumerate}
+    \item 反对称性、对加法与乘法的分配
+    $$[u,v]=-[v,u],quad[u,u]=0,\quad[u,v+w]=[u,v]+[u,w],\quad[u,vw]=[u,v]w+[u,w]v$$
+
+    \item Jacobi等式
+        $$[u,[v,w]]+[v,[w,u]]+[w,[u,v]]=0$$
+
+    \item 相空间中函数$f(p,q,t)$根据哈密顿方程有
+        $$\frac{\dr f}{\dr t}=\frac{\partial f}{\partial t}+[f,H]$$
+
+    \item 对$q_\alpha,p_\alpha,t$中任何一个作为$x$有
+    $$\frac{\partial}{\partial x}[u,v]=[\frac{\partial u}{\partial x},v]+[u,\frac{\partial v}{\partial x}]$$
+
+    \item 根据$q_\alpha,p_\alpha$独立性，对函数$f$有
+        $$[q_\alpha,f]=\frac{\partial f}{\partial p_\alpha},\quad [p_\alpha,f]=-\frac{\partial f}{\partial q_\alpha}$$
+
+        于是
+        $$[q_\alpha,q_\beta]=0,\quad[p_\alpha,p_\beta]=0,\quad[q_\alpha,p_\beta]=\delta_{\alpha\beta}$$
+
+    \item 若$(q,p)$到$(Q,P)$为正则变换，则有
+        $$[P,Q]_{p,q}=1$$
+
+        从而对任何$[u,v]$有$[u,v]_{p,q}=[u,v]_{Q,P}$。
+\end{enumerate}
+*证明Jacobi等式只需要对各个$p_\alpha p_\beta$、$p_\alpha q_\beta$与$q_\alpha q_\beta$二阶导项分别讨论，对比系数。
+
+*对坐标变换，$[P,Q]_{p,q}=1$从几何意义可推得，再作差变换回$p,q$后展开可得证。高维时有类似的结论。
+
+\
+
+\textbf{泊松括号应用}
+\begin{enumerate}
+    \item 表示\textbf{运动方程}
+    
+    根据前述性质5，哈密顿正则方程可表示为对称的形式
+    $$\dot{q}_\alpha=[q_\alpha,H],\quad\dot{p}_\alpha=[p_\alpha,H]$$
+
+    \item 表示\textbf{运动积分}
+    
+    若$f$守恒，则
+    $$\dot{f}=\frac{\partial f}{\partial t}+[f,H]=0$$
+    
+    进一步假设不含时间，则$[f,H]=0$等价于$f$守恒。
+
+    *由于$[H,H]=0$，$H$不显含时间时即守恒。
+
+    *若$q_\gamma$为循环坐标，则$[p_\gamma,H]=-\frac{\partial H}{\partial q_\gamma}=0$，而$p_\gamma$只涉及$p_\gamma$，不含时间，因此$p_\gamma$守恒。
+    
+    *与上方同理，不显含$p_\gamma$时$q_\gamma$亦有守恒。
+
+    \item 寻找\textbf{新的运动积分}
+    
+    若$u,v$守恒，则$[u,v]$守恒。
+
+    证明：由上一部分可知$\dot{v}=[H,v],\dot{u}=[H,u]$，因此
+    $$\frac{\dr}{\dr t}[u,v]=\frac{\partial}{\partial t}[u,v]+[[u,v],H]=[[H,u],v]+[u,[H,v]]+[[u,v],H]=0$$
+    最后一个等号是通过Jacobi等式
+    $$[v,[H,u]]+[u,[v,H]]+[H,[u,v]]=0$$
+    变形得到。
+\end{enumerate}
+
+*量子力学中泊松括号有类似对应，即
+$$[q_\alpha,q_\beta]=0,\quad[p_\alpha,p_\beta]=0,\quad[q_\alpha,p_\beta]=\mathrm{i}\hbar\delta_{\alpha\beta}$$
+
+\
+
+\textbf{角动量的泊松括号}
+
+$\vec{J}=\vec{r}\times\vec{p}=(yp_z-zp_y,zp_x-xp_z,xp_y-yp_x)$
+
+计算可发现
+$$[J_x,J_y]=J_z,\quad[J_z,J_x]=J_y,\quad[J_y,J_z]=J_x$$
+
+于是有(利用对乘法、加法分配)
+$$[J_x,J^2]=[J_x,J_x^2]+[J_x,J_y^2]+[J_x,J_z^2]=2J_x[J_x,J_x]+2J_y[J_x,J_y]+2J_z[J_x,J_z]=0$$
+从而$[J_x,J]=\frac{1}{2J}[J_x,J^2]=0$。
+
+因此，$J_x$与$J$可以同时成为广义动量，但$[J_x,J_y]$当$J_z$不恒为0时不能同时成为。
+
+\subsection{哈密顿-雅可比方程}
+
+如果我们能找到一个第二类生成函数$F_2$，使得$\tilde{H}(Q,P,t)=0$，则所有$Q_\alpha,P_\alpha$即为运动积分。
+
+由于
+$$H(q_1,\dots,q_s;p_1,\dots,p_s;t)+\frac{\partial F_2}{\partial t}(q_1,\dots,q_s;P_1,\dots,P_s;t)=0$$
+
+由$P_1,\dots,P_s$事实上为常数，记$S(q,t)=F_2(q,P,t)+A$，则根据$p_\alpha=\frac{\partial F_2}{\partial q_\alpha}$有
+$$H\bigg(q_1,\dots,q_s;\frac{\partial S}{\partial q_1},\dots,\frac{\partial S}{\partial q_s};t\bigg)+\frac{\partial S}{\partial t}=0$$
+
+这称为哈密顿-雅可比方程[H-J方程]，$S$即\textbf{哈密顿主函数}。$A,P_1,\dots,P_s$为$S$的积分常数，与$S$自变量个数相同。
+
+\textbf{几何意义}：由于
+$$\frac{\dr S}{\dr t}=-H+\sum_\alpha\frac{\partial S}{\partial q_\alpha}\dot{q}_\alpha=-H+\sum_\alpha p_\alpha\dot{q}_\alpha=L$$
+可知$S=\int L\dr t$，即为作用量。
+
+若$H$不显含$t$，其为常数，因此根据H-J方程知
+$$S(q,t)=-Et+W(q)+A$$
+代入几何意义可知
+$$W(q)=\int\sum_\alpha p_\alpha\dr q_\alpha$$
+此处$W$称为\textbf{哈密顿特征函数}，代入H-J方程即得到
+$$H\bigg(q_1,\dots,q_s;\frac{\partial W}{\partial q_1},\dots,\frac{\partial W}{\partial q_s}\bigg)=E$$
+
+*由于$E$为积分常数，可不妨设$P_1=E$，即得到$W$为$q_1,\dots,q_s$，并含有参数$E,P_2,\dots,P_s$的函数。这时
+$$S=-P_1t+W(q,P)+A$$
+于是计算得
+$$Q_\alpha=\frac{\partial S}{\partial P_\alpha}=\begin{cases}-t+\frac{\partial W}{\partial E}&\alpha=1\\\frac{\partial W}{\partial P_\alpha}&\alpha>1\end{cases}$$
+
+\
+
+\textbf{计算例}
+\begin{enumerate}
+    \item $H(p,q)=p+aq^2$
+    
+    不显含$t$，可采用哈密顿特征函数，代入方程得
+    $$\frac{\partial W}{\partial q}+aq^2=E$$
+    于是$W=Eq-\frac{a}{3}q^3$，由此
+    $$S=-Et+Eq-\frac{a}{3}q^3+A$$
+    考虑其诱导的正则变换可得到[记常数$Q=q_0$]
+    $$q=t+q_0,\quad p=E-a(t+q_0)^2$$
+
+    \item 开普勒问题$H=\frac{1}{2}\big(p_r^2+\frac{p_\theta^2}{r^2}\big)+V(r)$
+    
+    类似得到方程为
+    $$\bigg(\frac{\partial W}{\partial\theta}\bigg)^2=r^2\bigg(2m(E-V(r))-\bigg(\frac{\partial W}{\partial r}\bigg)^2\bigg)$$
+
+    考虑分离变量，$W(r,\theta)=W_r(r)+W_\theta(\theta)$，记方程左右均为$J^2$\ [于是$J$亦为运动积分]，即可得到
+    $$\begin{cases}W_\theta=J\theta +A\\W_r=\int\sqrt{2m(E-V(r))-\frac{J^2}{r^2}}\dr r\end{cases}$$
+
+    再进一步对$E,J$求导计算$Q_r,Q_\theta$即可得到径向方程与轨道方程。
+
+    \item $H=\frac{\sum_\alpha f_\alpha(q_\alpha,p_\alpha)}{\sum_\alpha g_\alpha(q_\alpha,p_\alpha)}$
+
+
+    得到方程后仍类似分离变量$W=\sum_\alpha W_\alpha(q_\alpha)$，即可得到
+
+    $$\sum_\alpha\bigg(f_\alpha\bigg(q_\alpha,\frac{\partial W_\alpha}{\partial q_\alpha}\bigg)-Eg_\alpha\bigg(q_\alpha,\frac{\partial W_\alpha}{\partial q_\alpha}\bigg)\bigg)$$
+
+    由于独立性，求和中每一项均为常数，设第$\alpha$项为$C_\alpha$，且$\sum_\alpha C_\alpha=0$，从每个方程中即可解出$W_\alpha=W_\alpha(q_\alpha,E,C_\alpha,D_\alpha)$，这里$D$为一阶微分方程产生的积分常数。
+\end{enumerate}
+
+\
+
+\textbf{分离变量法}
+
+考虑一类特殊情况：
+$$H=\sum_\alpha\frac{1}{2}A_\alpha(q_\alpha)p_\alpha^2+\sum_\alpha V_\alpha(q_\alpha)$$
+
+此时$H$不显含$t$，对$W$分离变量
+$$W=\sum_\alpha W_\alpha(q_\alpha)$$
+可得到
+$$\sum_\alpha\bigg(\frac{1}{2}A_\alpha(q_\alpha)+W_\alpha'(q_\alpha)^2+V_\alpha(q_\alpha)\bigg)=E$$
+
+于是由独立性可设
+$$C_\alpha=\frac{1}{2}A_\alpha(q_\alpha)+W_\alpha'(q_\alpha)^2+V_\alpha(q_\alpha)$$
+且满足$\sum_\alpha C_\alpha=E$。
+
+取$P_1=E$，对应的$Q_1=-t_0$\ [在定义$W$时已得所有$P,Q$均为常数]，可得到
+$$t-t_0=\frac{\partial W}{\partial E}$$
+而再取$P_\alpha=C_\alpha,\alpha>1$即有
+$$Q_\alpha=\frac{\partial W}{\partial C_\alpha},\alpha>1$$
+
+*在得到$W$后，上式事实上是$s-1$个形如$f_\alpha(q_1,\dots,q_s)=0,\alpha>1$的方程，联合可解出轨道方程，而对$E$求导得到的方程则可加入$t$，进而联合得到各个轨迹方程。
+
+*根据$p_\alpha=\frac{\partial W}{\partial q_\alpha}$可解出$p_\alpha(q)$，此即相空间中轨道方程。
+
+*一般情况下，若$q_i$、$p_i$以$\varphi(q_i,p_i)$形式存在，不与其他分量耦合，则可设$S=S_i(q_i)+\tilde{S}(q_1,\dots,q_{i-1},q_{i+1},q_s)$进行分离变量，得到
+$$\varphi\bigg(q_i,\frac{\partial S_i}{\partial q_i}\bigg)=C_i$$
+从而达成降阶。
+
+*若$H$有循环坐标$q_i$，上式变为
+$$\varphi\bigg(\frac{\partial S_i}{\partial q_i}\bigg)=C_i$$
+也即可设$S_i=C_iq_i$，$C_i$即为$q_i$对应的广义动量$p_i$。
+
+*若$H$不显含$t$，事实上也可看作$E$是$t$对应的某种“广义动量”。
+
+\
+
+\textbf{向心力场中三维运动}
+
+化为球坐标形式，可得
+$$H=\frac{1}{2m}\bigg(p_r^2+\frac{p_\theta^2}{r^2}+\frac{p_\phi^2}{r^2\sin^2\theta}\bigg)+V(r)$$
+
+根据分离变量与$\phi$为循环坐标，可直接设
+$$S=-Et+p_\phi(\phi)+W_r(r)+W_\theta(\theta)$$
+代入分离变量的H-J方程中的$\theta$部分，可得
+$$W_\theta'(\theta)^2+\frac{p_\phi^2}{\sin^2\theta}$$
+为常数，设其为$J^2$，再考虑$r$有
+$$\frac{1}{2m}W_r'(r)^2+\frac{J^2}{2mr^2}+V(r)=E$$
+因此可得
+$$S=-Et+p_\phi\phi\pm\int\sqrt{J^2-\frac{p_\phi^2}{\sin^2\theta}}\dr\theta\pm\int\sqrt{2m(E-V(r))-\frac{J^2}{r^2}}\dr r$$
+
+再记$Q_1=-t_0,Q_2=\phi_0$，联合$Q_3$即可得到表达式。
+
+*若$p_\phi=0$时，$\theta$成为循环坐标，退化为二维情况。
+
+一般情况下，由$Q_1,Q_2,Q_3$可列出方程[由于第三个式子为不定积分，相差常数$Q_3$可以省略]
+
+$$t-t_0=\int\frac{m}{\sqrt{2m(E-V(r))-J^2/r^2}}\dr r$$
+$$\phi-\phi_0=\int\frac{p_\phi}{\sin^2\theta\sqrt{J^2-p_\phi^2/\sin^2\theta}}\dr\theta$$
+$$\int\frac{J}{\sqrt{J^2-p_\phi^2/\sin^2\theta}}\dr\theta=\int\frac{J}{r^2\sqrt{2m(E-V(r))-J^2/r^2}}\dr r$$
+考察第二个方程，记$p_\phi=J\cos i,i\in\big(0,\frac{\pi}{2}\big)$，再记$\sin\bar{\phi}=\cot i\cot\theta$，则积分即化为[考虑单侧，忽略符号]\ $\phi-\phi_0=\bar{\phi}-\bar{\phi}_0$，通过几何关系可得到，设$\Omega=\phi_0-\bar{\phi}_0$，则物体运动始终落在与$(\sin i\sin\Omega,-\sin i\cos\Omega,\cos i)$垂直的平面内，\textbf{事实上是平面运动}。
+
+而为处理第三个方程，我们记$\sin\bar{\theta}=\frac{\cos\theta}{\sin i}$，则化简可得其事实上为以$(r,\bar{\theta})$为极坐标进行平面运动的情况，当$V(r)=-\frac{k}{r}$时即为行星轨道问题的解。
+
+\
+
+*哈密顿力学事实上可在远比经典力学广的范围内使用，例如在广义相对论中研究转动黑洞时空下粒子运动、统计力学中构造系综理论、量子力学中建立薛定谔方程等。
+
+
+\section{刚体运动}
+\subsection{刚体运动描述}
+\textbf{自由度}：刚体不共线三个质点决定刚体运动，因此自由运动去掉3质点距离不变的约束可知共6自由度。
+
+*特殊情况下会减少自由度，如平动3，定轴转动1，平面平行运动3，绕定点转动3。
+
+\textbf{本体坐标系}：使刚体瞬时静止的惯性系。
+
+\textbf{欧拉定理}：具有固定点的刚体运动必为绕定点某一轴线转动。
+
+*证明：数学角度出发，由于刚体运动保角、保距离、保定向，必然能用特殊正交阵[行列式为1的正交阵]\ $A$刻画，而由数学知识可知$A$本征值有1\ [写出本征方程两边取模可发现正交阵本征值模长均为1，分三实数与两复数一实数讨论，由行列式为1可知有1]，求解$A\vec{R}=\vec{R}$得到的本征矢量即为转轴。
+
+\textbf{蔡斯尔定理}：刚体运动可以分解为平动与定点转动叠加。
+
+*证明：通过平动保持某点不动后利用欧拉定理。
+
+\textbf{角速度}：有限转动在复合下不可交换，无法看成矢量，但无穷小转动$A_1=I+\epsilon_1,A_2=I+\epsilon_2$在复合下可近似为$I+\epsilon_1+\epsilon_2$，因此复合可看作矢量，从而角速度可看作矢量[这里$n$为某固定平面的法向量]
+$$\vec{\omega}=\frac{\dr\vec{n}}{\dr t}$$
+
+\
+
+\textbf{任一点速度与加速度}
+
+在绕某点转动时，以此为原点，根据定义考虑与转轴垂直平面可得$\vec{v}=\vec{\omega}\times\vec{r}$，从而
+$$\vec{a}=\dot{\vec{\omega}}\times\vec{r}+\vec{\omega}\times\vec{v}=\dot{\vec{\omega}}\times\vec{r}+\vec{\omega}\times(\vec{\omega}\times\vec{r})$$
+
+一般情况下，若以刚体上$c$为参考点，则有
+$$\vec{v}_p=\vec{v}_c+\vec{\omega}\times(\vec{r}_p-\vec{r}_c)$$
+令$\vec{r}=\vec{r}_p-\vec{r}_c$有
+$$\vec{a}_p=\vec{a}_c+\dot{\vec{\omega}}\times\vec{r}+\vec{\omega}\times(\vec{\omega}\times\vec{r})$$
+
+*注意$\vec{\omega}$对所有点一致：设$c'$角度度为$\vec{\omega}'$，再以$c'$为参考点计算$\vec{p}$可发现
+$$(\vec{\omega}-\vec{\omega'})\times\vec{r}=0$$
+由于$p$点可任取，必有$\vec{\omega}-\vec{\omega}'=0$。
+
+\textbf{转动瞬轴}：由于$\vec{v}_c=\vec{v}_{c'}+\vec{\omega}\times(\vec{r}'-\vec{r})$，给定$c'$点，只要角速度非0，总能找到某点使得$\vec{v}_c=0$，其称为\textbf{转动瞬心}，计算发现直线$\vec{r}+\frac{l\vec{\omega}}{\omega}$上任一点都保持$\vec{v}=0$，此直线即为\textbf{转动瞬轴}。
+
+*这意味着只要刚体瞬时不是平动，均可看作定轴转动。
+
+\
+
+\textbf{刚体运动学方程}
+
+刚体三个惯量主轴相对实验室系的转动称为\textbf{欧拉角}，$\varphi,\theta,\psi$分别代表\textbf{进动角}、\textbf{章动角}与\textbf{自转角}。
+
+若$\vec{x}'$为实验室系坐标，转动到$\vec{x}$本体坐标系坐标，则变换阵定义为：
+$$\vec{x}=\begin{pmatrix}\cos\psi&\sin\psi&\\-\sin\psi&\cos\psi&\\ &&1\end{pmatrix}\begin{pmatrix}1&&\\ &\cos\theta&\sin\theta\\ &-\sin\theta&\cos\theta\end{pmatrix}\begin{pmatrix}\cos\varphi&\sin\varphi&\\-\sin\varphi&\cos\varphi&\\ &&1\end{pmatrix}\vec{x}'$$
+
+*此即为欧拉角的几何含义，实验室系绕$z$转动$\varphi$，绕$x$转$\theta$，再绕$z$转$\psi$后即成为本体坐标系。
+
+此处$\varphi\in[0,2\pi),\psi\in[0,2\pi),\theta\in[0,\pi)$。
+
+将刚体转动角速度投影到本体坐标系中，可以得到
+$$\begin{cases}\vec{\omega}_\varphi=(\sin\theta\sin\psi,\sin\theta\cos\psi,\cos\theta)\dot\varphi\\\vec{\omega}_\theta=(\cos\psi,-\sin\psi,0)\dot{\theta}\\\vec{\omega}_\psi=(0,0,1)\dot{\psi}\\\vec{\omega}=\vec{\omega}_{\varphi}+\vec{\omega}_\theta+\vec{\omega}_\psi\end{cases}$$
+由此即可得到$\vec{\omega}$在本体坐标系的表达式
+
+$$\vec{\omega}=(\dot{\varphi}\sin\theta\sin\psi+\dot{\theta}\cos\psi,\dot{\varphi}\sin\theta\cos\psi-\dot{\theta}\sin\psi,\dot{\varphi}\cos\theta+\dot{\psi})$$
+
+*若在实验室系中，由于本体坐标系变换回实验室系需要依次绕$z$旋转$-\psi$，绕$x$转$-\theta$，再绕$z$转$-\varphi$，将$\varphi,\theta,\psi$替换为$-\psi,-\theta,-\varphi$后再将$\vec{\omega}$替换为$-\vec{\omega}'$即可得到实验室系中表示的角速度：
+
+$$\vec{\omega}'=(\dot{\psi}\sin\theta\sin\psi+\dot{\theta}\cos\varphi,-\dot{\psi}\sin\theta\cos\varphi+\dot{\theta}\sin\varphi,\dot{\psi}\cos\theta+\dot{\varphi})$$
+
+\
+
+\textbf{转动惯量}
+
+考虑定点转动，则瞬时动能$T$由$\vec{\omega}$唯一确定，且应为二次函数，从而可假设
+$$T=\frac{1}{2}\vec{\omega}^TI\vec{\omega}$$
+
+这里$3\times 3$矩阵$I$就是转动惯量张量。考虑质点组系统，以某点$c$为参考点，实验室系速度为$\vec{v}$则
+$$T=\frac{1}{2}\sum_im_i(\vec{v}+\vec{\omega}\times\vec{r}_i)^2$$
+定点转动即$\vec{v}=0$，由此分解得到
+$$\vec{\omega}^TI\vec{\omega}=\sum_im_i(\vec{\omega}\times\vec{r}_i)^2$$
+对比系数有
+$$I_{ij}=\sum_\alpha m_\alpha(\delta_{ij}r_\alpha^2-r_{\alpha,i}r_{\alpha,j})$$
+连续时$m=\rho\dr V$，即
+$$I_{ij}=\iiint\rho(r)(\delta_{ij}r^2-r_ir_j)\dr V$$
+
+*从积分定义可看出其有\textbf{对称性}$I_{ij}=I_{ji}$，且若$A,B$绕某点的转动惯量为$I_A,I_B$，视为整体后转动惯量即$I_A+I_B$，这称为\textbf{广延性}。
+
+\textbf{平行轴定理}：若质心转动惯量$I^C$，另一点$Q$转动惯量$I^Q$，坐标轴方向不变，$\vec{a}=\vec{QC}$，刚体总质量$M$，则
+$$I_{ij}^C=I_{ij}^Q-M(\delta_{ij}a^2-a_ia_j)$$
+
+*证明：不妨假设离散情况，利用坐标变换与质心定义$\sum_\alpha m_\alpha\vec{r}_\alpha=0$可得到结论。
+
+\textbf{坐标变换}：若坐标变换$x\to x'=\Lambda x$，其中$\Lambda$为特殊正交阵，则角动量对应变换$\vec{\omega}\to\vec{\omega}'\Lambda\vec{\omega}$，而能量不变
+$$\frac{1}{2}\vec{\omega}^TI\vec{\omega}=\frac{1}{2}\vec{\omega}^{\prime T}I'\vec{\omega}'$$
+即可得到
+$$I'=\Lambda I\Lambda^T$$
+
+*例：质量$m$，半径$R$均质球，对球心转动惯量，球坐标系积分可直接算得为$\diag\big(\frac{2}{5}mR^2,\frac{2}{5}mR^2,\frac{2}{5}mR^2\big)$。
+
+\
+
+\textbf{正方体转动惯量}
+
+*设其均质，质量为$m$，边长$a$
+
+考虑过顶点，以三边为轴，可直接计算得正方体转动惯量
+$$I=\begin{pmatrix}\frac{2}{3}&-\frac{1}{4}&-\frac{1}{4}\\-\frac{1}{4}&\frac{2}{3}&-\frac{1}{4}\\-\frac{1}{4}&-\frac{1}{4}&\frac{2}{3}\end{pmatrix}ma^2$$
+
+利用平行轴定理，顶点到质心的向量$\vec{a}=\frac{a}{2}(1,1,1)$，于是可得对质心转动惯量$\diag\big(\frac{1}{6}ma^2,\frac{1}{6}ma^2,\frac{1}{6}ma^2\big)$。
+
+若以顶点为中心，取体对角线为新坐标系$z$轴，面对角线对应$x,y$轴，则考虑旋转复合可知坐标变换为
+$$\vec{x}'=\begin{pmatrix}\frac{1}{\sqrt6}&\frac{1}{\sqrt6}&-\frac{2}{\sqrt6}\\-\frac{1}{\sqrt2}&\frac{1}{\sqrt2}&0\\\frac{1}{\sqrt3}&\frac{1}{\sqrt3}&\frac{1}{\sqrt3}\end{pmatrix}\vec{x}$$
+
+于是计算可得
+$$I'=\Lambda I\Lambda^T=\diag\bigg(\frac{11}{12}ma^2,\frac{11}{12}ma^2,\frac{11}{12}ma^2\bigg)$$
+
+*类似上述过程，一般情况下，从质心转动惯量出发，结合平行轴定理与坐标变换即可得到任何点出发以任何坐标系的转动惯量。
+
+\
+
+\textbf{总角动量与转动惯量}
+
+刚体总角动量为各点角动量的求和
+$$\vec{L}=\sum_\alpha m_\alpha\vec{\omega}\times\vec{r}_\alpha$$
+
+其为不依赖坐标系选择的矢量，可以验证有
+$$\vec{L}=I\vec{\omega}$$
+这也是转动惯量的等价定义。
+
+\
+
+\textbf{惯量主轴}
+
+由于$I$为对称阵，根据数学知识，其可被正交相似对角化，即存在正交阵$T$使得$T^TIT=\diag(I_1,I_2,I_3)$，这里$I_1,I_2,I_3$为$I$的本征值，$T$的每列对应为其本征矢量[可均取为单位矢量且相互正交]。
+
+$T$的每列称为$I$的\textbf{惯量主轴}，对应本征值称为\textbf{主转动惯量}。
+
+*以任何点出发都可以得到三个惯量主轴与主转动惯量，但未必一致，例如之前对正方体转动惯量的计算。
+
+*\textbf{中心惯量主轴}：质心为坐标原点的惯量主轴。
+
+*当$I$有重复本征值时，惯量主轴不唯一，可以在特征空间中人为选定。
+
+*利用积分变换可知刚体的对称轴、旋转对称轴、对称面的法线一定为惯量主轴。
+
+主转动惯量性质：均为正[利用积分可知，于是$I$正定对称]，且任一个不大于其他两个之和。
+
+*证明：直接通过积分定义可知
+$$I_1+I_2-I_3=\iint\rho(r)2z^2\dr V\ge0$$
+推论：$xOy$平面内二维刚体有$I_3=I_1+I_2$。
+
+例：均匀\textbf{正四面体}中心主轴惯量：以质心与某顶点连线为$z$轴，此轴由对称必然为惯量主轴，而底面事实上任意两垂直轴均为惯量主轴，最终得到边长$a$质量$m$的正四面体中心主轴惯量为
+$$I_1=I_2=\frac{3}{2}ma^2,I_3=ma^2$$
+
+\
+
+\textbf{惯量椭球}
+
+若转轴的方向向量为$\vec{n}=(\alpha,\beta,\gamma)$，则利用转动惯量的能量定义，考虑角速度关系可知绕其的转动惯量为$\vec{n}^TI\vec{n}$。若坐标轴为惯量主轴，即有
+$$I'=\alpha^2I_1+\beta^2I_2+\gamma^2I_3$$
+
+假设刚体绕转轴$\vec{OQ}$的转动惯量为$I_Q$，则取此方向$Q$使得$|OQ|=\frac{1}{\sqrt{I_Q}}$。
+
+这时$Q$坐标为$\frac{1}{\sqrt{I}}(\alpha,\beta,\gamma)$，由$I=\vec{n}^TI_Q\vec{n}$即可得到方程
+
+$$I_{11}x^2+I_{22}y^2+I_{33}z^2+2I_{12}xy+2I_{23}yz+2I_{32}zx=1$$
+
+这就是一个椭球方程，中心为参考点$O$。
+
+*物理含义：转轴为$OQ$时，角动量$\vec{J}$为$\vec{Q}$点法线方向[也即$I\vec{\omega}$为法向，直接计算可证]。
+
+*这时惯量主轴即对应椭球的主轴，取主轴时有$I_{11}x^2+I_{22}y^2+I_{33}z^2=1$。
+
+\subsection{欧拉动力学方程}
+
+由$I$定义，假设已经选取了惯量主轴，则有$T=\frac{1}{2}(I_1\omega_x^2+I_2\omega_y^2+I_3\omega_z^2)$，从而
+
+$$L(\varphi,\theta,\psi,\dot{\varphi},\dot{\theta},\dot{\psi})=\frac{1}{2}(I_1\omega_x^2+I_2\omega_y^2+I_3\omega_z^2)-V(\varphi,\theta,\psi)$$
+
+考虑$\psi$对应的$z$方向，记此方向力矩为$\vec{N}_z=-\frac{\partial V}{\partial\psi}$，代入拉格朗日方程可算得
+$$I_3\dot{\omega}_z-(I_1-I_2)\omega_x\omega_y=N_z$$
+由对称性有
+$$I_1\dot{\omega}_x-(I_2-I_3)\omega_y\omega_z=N_x$$
+$$I_2\dot{\omega}_y-(I_3-I_1)\omega_z\omega_x=N_y$$
+
+此即为\textbf{刚体运动欧拉动力学方程组}。
+
+*虽然我们是从欧拉角出发进行的推导，但由于对称性，方程最后可以写为$x,y,z$方向的形式。
+
+\
+
+\textbf{自由刚体}
+
+考虑$V=0$时的刚体运动。此时$\varphi$为循环坐标，因此对应的
+
+$$p_\varphi=I_1\omega_x\sin\theta\sin\psi+I_2\omega_y\sin\theta\cos\psi+I_3\omega_z\cos\theta$$
+
+由于此时角动量$\vec{J}=(I_1\omega_x,I_2\omega_y,I_3\omega_z)$，即有$p_\varphi=J_{z'}$守恒。由对称性同理可得$J_{x'},J_{y'}$守恒，总角动量$J_0^2=I_1^2\omega_x^2+I_2^2\omega_2^2+I_3^2\omega_3^2$守恒。
+
+*能量与角动量守恒也可直接通过欧拉方程计算得到
+
+根据能量$E_0$与角动量$J_0^2$守恒，可解出$\omega_x,\omega_y$用$\omega_z$的表示，即
+
+$$\omega_x=f_1(\omega_z)=\pm\sqrt{\frac{J_0^2-2E_0I_2-I_3(I_3-I_2)\omega_z^2}{I_1(I_1-I_2)}}$$
+$$\omega_y=f_2(\omega_z)=\pm\sqrt{\frac{J_0^2-2E_0I_1-I_3(I_3-I_1)\omega_z^2}{I_2(I_2-I_1)}}$$
+
+理论上代入动力学方程后可求解得到$\omega_z(t)$，再用$\vec{\omega}$解出$\varphi,\theta,\psi$的演化，然而由于角速度关于欧拉角的\textbf{非线性}性，实际求解非常困难。
+
+*\textbf{潘索几何法}：考虑惯量椭球上方向为$\vec{\omega}$方向的点$\vec{OQ}=\frac{\vec{\omega}}{C}$，则原点到此点的距离$R=\vec{OQ}\cdot\frac{\vec{L}}{L}=\frac{2T}{CL}$守恒(这里$T$为动能，自由运动时即总能量)。因此，刚体运动可看成$\vec{OQ}$处切平面上的\textbf{纯滚动}。
+
+\textbf{稳定性分析}：
+
+假设主轴惯量\textbf{互不相同}，考虑绕$x$轴的转动$\vec{\omega}=\omega_x\vec{e}_x$，对其施加扰动后成为
+$$\vec{\omega}=\omega_x\vec{e}_x,\lambda\vec{e}_y+\mu\vec{e}_z$$
+这里$\lambda,\mu$为小量，代入欧拉方程忽略高阶小量得到
+$$\begin{cases}\dot{\omega}\simeq0\\\dot{\lambda}=\frac{I_3-I_1}{I_2}\omega_x\mu\\\dot{\mu}=-\frac{I_2-I_1}{I_3}\omega_x\lambda\end{cases}$$
+进一步代入求解可得
+$\ddot{\lambda}+\Omega_1^2\lambda=0,\quad\Omega_1^2=\omega_x^2\frac{(I_3-I_1)(I_2-I_1)}{I_2I_3}$
+由于对$\mu$的方程类似，当$\Omega_1^2>0$时转动稳定，否则不稳定。
+
+*由对称性，对$y,z$轴转动时有类似的结论
+
+\
+
+\textbf{对称欧拉陀螺}
+
+下面考虑$I_1=I_2\ne I_3$时的自由转动。此时代入欧拉方程可解出$\omega_z$为常数，记为$\omega_{z0}$，假设$I_3>I_1$，再记$\Omega=\frac{I_3-I_1}{I_1}\omega_{z0}$，方程即化为
+$$\dot{\omega}_x+\Omega\omega_y=0,\quad\dot{\omega}_y-\Omega\omega_x=0$$
+于是可解出
+$$\begin{cases}\omega_x=A\cos(\Omega t+\phi_0)\\\omega_y=A\sin(\Omega t+\phi_0)\end{cases}$$
+
+*这时角速度大小$\omega=\sqrt{\omega_x^2+\omega_y^2+\omega_z^2}=\sqrt{A^2+\omega_{z0}^2}$为常数。
+
+下面求解欧拉角。选角动量方向为$z'$轴考虑坐标变换有
+$$\vec{J}=J(\sin\theta\sin\psi,\sin\theta\sin\psi,\cos\theta)$$
+而
+$$\vec{J}=(I_1\omega_x,I_2\omega_y,I_3\omega_z)=(I_1A\cos(\Omega t+\phi_0),I_1A\sin(\Omega t+\phi_0),I_3)$$
+对比可得方程，由$\omega_{z0}$守恒可知$\theta$守恒，记为$\theta_0$，进一步求解可得
+$$\psi=\frac{\pi}{2}-(\Omega t+\phi_0)$$
+且有$J\sin\theta_0=I_1A$，最后代入$\omega_z$的表达式可知
+$$\varphi=(\omega_{z0}+\Omega)\sec\theta_0t+\varphi_0$$
+
+*物理图像：$I_3>I_1$时$\Omega>0$，$I_3<I_1$时$\Omega<0$，分别代表不同进动方向进动，而实验室系中$\Omega+\omega_{z0}=\frac{I_3}{I}>0$，总是右手绕轴进动，但由$\Omega$不同正负有绕大圆/小圆的区分。
+
+*自转周期约为$\frac{2\pi}{\omega_{z0}}$，而进动周期即$\frac{2\pi}{\Omega}$。
+
+\textbf{稳定性分析}：与之前稳定性分析相同条件，考虑绕$x$轴转动，此时可得方程
+$$\begin{cases}\dot{\omega}_x\simeq0\\\dot{\mu}=0\\\dot{\lambda}=\frac{I_3-I_1}{I_1}\omega_x\dot{\mu}\end{cases}$$
+
+从而由$I_3\ne I_1$知$\lambda(t)$为线性函数，因此绕$x$轴不稳定，同理绕$y$轴不稳定。绕$z$轴时稳定：
+$$\Omega_3^2=\omega_x^2\frac{(I_3-I_1)^2}{I_1^2}>0$$
+
+考虑\textbf{内能损耗}：将能量守恒与角动量守恒变换形式可得到
+$$\frac{2I_3E_0}{J_0^2}=\bigg(\frac{I_3}{I_1}-1\bigg)\sin^2\theta+1$$
+这里利用了$J_3=I_3\omega_z=J_0\cos\theta$。
+
+内能损耗一般导致$E_0$减小，$J_0$不变，若$I_3>I_1$则会引起$\theta$减小，陀螺稳定，否则将不稳定。
+
+\
+
+\textbf{拉格朗日陀螺}
+
+仍有$I_1=I_2\ne I_3$，但考虑重力场下定点转动。若定点到质心距离$l$，重力势能$V=mgl\cos\theta$。直接计算可得
+$$L=\frac{I_1}{2}(\dot{\theta}^2+\dot{\varphi}^2\sin^2\theta)+\frac{I_3}{2}(\dot{\psi}+\dot{\varphi}\cos\theta)^2-mgl\cos\theta$$
+
+由于$\varphi,\psi$均为循环坐标，可知
+$$P_\varphi=J_{z'},P_\psi=J_z=I_3\omega_z$$
+均守恒，再由能量守恒，三个运动积分已找到。由$P_\varphi,P_\psi$守恒
+$$\begin{cases}\dot{\varphi}=\frac{J_{z'}-J_z\cos\theta}{I_1\sin^2\theta}\\\dot{\psi}=\frac{J_z}{I_3}-\frac{J_{z'}-J_z\cos\theta}{I_1\sin^2\theta}\end{cases}$$
+
+*注意$\dot{\varphi}$正负不确定，也即进动增大、减小并不确定。
+
+引入有效势能、改写能量表达式
+$$V_e(\theta)=\frac{(J_{z'}-J_z\cos\theta)^2}{2I_1\sin^2\theta}-mgl(1-\cos\theta),\quad E'=E-\frac{J_z^2}{I_3}-mgl$$
+将前述方程代入可得到
+$$\frac{I_1}{2}\dot{\theta}^2+V_e(\theta)=E'$$
+理论来说可积分出$t(\theta)$，从而解出$\theta(t)$，再进一步解方程得到$\varphi(t),\psi(t)$。
+
+\textbf{快速陀螺}：假设$t=0$时只有自转$\psi(0)=\omega_z\ne0$，没有进动、章动$\dot{\varphi}(0)=\dot{\theta}(0)=0$，且假设陀螺转速很快。
+
+记$\theta(0)=\theta_1$，$\theta_1$是此方向运动的转折点，设另一个转折点为$\theta_2$。
+
+在0处，直接计算可得三个运动积分为
+$$\begin{cases}P_\psi=I_3\cos\theta_1\dot{\psi}(0)\\P_\varphi=I_3\dot{\psi}(0)=I_3\omega_z\end{cases}\\E=\frac{J_z^2}{2I_3}+mgl\cos\theta_1$$
+在另一个满足$\dot{\theta}=0$的点$\theta_2$\ [其余下标也对应用2表示]，由运动积分相等可得到方程[由上方$\dot{\psi}(0)=\omega_z$守恒]
+$$\begin{cases}(I_1\sin^2\theta_2+I_3\cos^2\theta_2)\dot{\varphi}_2+I_3\cos\theta_2\dot{\psi}_2=I_3\cos\theta_1\omega_z\\I_3(\dot{\psi}_2+\cos\theta_2\dot{\varphi}_2)=I_3\omega_z\\\frac{I_1}{2}(\dot{\theta}_2^2+\dot{\varphi}_2^2\sin^2\theta_2)+\frac{J_z^2}{2I_3}+gml\cos\theta_2=\frac{J_z^2}{2I_3}+mgl\cos\theta_1\end{cases}$$
+
+消去$\dot{\varphi},\dot{\psi}$得到
+$$\frac{I_3^2\omega_z^2}{2I_1mgl}(\cos\theta_1-\cos\theta_2)=\sin^2\theta_2$$
+
+记$P=\frac{I_3^2\omega_z^2}{2I_1mgl}$，由转速很大知其$\gg1$，而其与$\epsilon=\cos\theta_1-\cos\theta_2$不超过1，因此$|\epsilon|\ll1$。
+
+*由此陀螺自转角速度$\omega_z$越大，$\epsilon$越小，$\theta_2\simeq\theta_1$，几乎无章动。
+
+*另一方面，几乎无章动可知$\dot{\theta}$几乎处处为0，此时由$E$守恒可解得$\dot{\varphi}=\frac{mgl}{I_3\omega_z}$，同样在$\omega_z$越大时越小，几乎无进动。
+
+\end{document}
