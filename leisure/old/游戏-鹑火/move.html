@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>049</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("多点几次按钮");
+                    help_flag = 1;
+                }
+                else alert("最后点击否即可");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            var count = 0;
+            $("#s1").click(function(){
+                if (count <= 3) $("#secret").text("我不能答应。");
+                else if (count == 4) {
+                    $("#secret").text("这里不存在第二个选择。");
+                    $("#s1").animate({opacity:0});
+                }
+                count++;
+            });
+            $("#s2").click(function(){
+                if (count <= 3) $("#secret").text("我必须拒绝。");
+                else if (count == 4) {
+                    $("#secret").text("这里不存在第二个选择。");
+                    $("#s1").animate({opacity:0});
+                }
+                else $("#secret").text("boss");
+                count++
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><span>move</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>1月1日</h2>
+<hr>
+<p>今天是新年的第一天。</p>
+<p>我怎么也不会想到，白项说的“来找我”是带着行李来，住进了我们大楼的5楼。</p>
+<p>温家夫妇去世后，那个房子应该就被他们亲戚拿去出租了。</p>
+<p>因为是一室一厅，确实也可以一个人住。</p>
+<p>但重点是，白项怎么突然从郊区那的高档住宅住过来了？</p>
+<p>“那边出事了。新闻里看不到，不过黄大姐应该也知道。”</p>
+<p>我和白项提过这里的邻居，所以他也知道黄大姐是保安。</p>
+<p>这么一想，我昨天回来时，黄大姐看起来很担心，大概就是担心我卷入了那边的事吧。</p>
+<p>“什么事？”</p>
+<p>“你听过翼星吗？”</p>
+<p>居然又是和翼星有关——不对，不是又，而是“审讯”时候的情报是真的。</p>
+<p>“有听说过一点传闻，好像之前贫民窟那边的对峙是他们推动的？”我用了模棱两可的说法。</p>
+<p>“翼星是个了不起的组织。”白项的语气很严肃。</p>
+<p>“哦？”</p>
+<p>“翼星这个名字，是<a href="stars.html" target="_self">二十八星宿</a>中的两个，都是南方朱雀七宿里的。他们的理念，是用自己的方式追求正义。”白项如数家珍。这样的表情，只有在他评论音乐时才看到过。</p>
+<p>“所以，之前新闻里说鹰吕政府誓将连根拔除，也是对他们的行动？”</p>
+<p>“没错，这就是你不在的这几天发生的事。”他在说“你不在”三个字时，有意无意看了我一眼，显然是根本没相信作者聚会的说辞。</p>
+<p>“那和你有什么关系？”按白项的性格，就算再怎么向往，也不可能加入翼星。</p>
+<p>“波及到了我那里，所以我为几个翼星的人提供了庇护。”白项轻轻摇头。</p>
+<p>“这可真不像你。”我感慨。</p>
+<p>“那几个人里还有我们大学同学，那个姓方的贝斯手。”白项说的人我还隐约有印象，大学的时候一起表演过。</p>
+<p>“只是因为认识的人？”白项行动上可一向是求稳的性格，这话没什么说服力。</p>
+<p>“还有，我都窝囊了那么久，如果真就一辈安心做个吉他老师，也太对不起之前的志向了。”</p>
+<p>“然后呢？”白项的话让我挺意外，不过我更想知道的是，发生什么了。</p>
+<p>“那房子被当成翼星据点，回不去了。”他摆出苦笑的表情。</p>
+<p>“你这个户主没被追查？”</p>
+<p>“翼星的人和我演了一出暴力占领的戏，没露出破绽。后来调查我时，我也按那个说辞说的。”</p>
+<p>“然后你就住到这里来了？”</p>
+<p>“嗯。政府也没给我什么补偿，只是答应我事后帮忙修复。”</p>
+<p>他说到这里，我也有些感慨。白项居然也有真的做出行动的一天。不过，他把这些告诉我，也不止是因为信任吧。</p>
+<p>“为什么和我说这些？”</p>
+<p>“拉你一起，加入翼星。”</p>
+<p>不出所料。</p>
+<p>
+    <button id="s1">是</button>
+    <button id="s2">否</button>
+</p>
+<p id="secret">又到了作出选择的时候了。</p>
+</div>
+</body>
+</html>

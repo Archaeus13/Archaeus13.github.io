@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/001.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>017</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("注意展开收起动画时的线");
+                    help_flag = 1;
+                }
+                else alert("在展开状态点击网页最下方的线");
+            }
+        }
+        $(document).ready(function(){
+            $("#control").click(function(){
+                $(".quoting").slideToggle("slow");
+            });
+            $("#secret").click(function(){
+                $(this).text("warfarin");
+            });
+        });
+    </script>
+</head>
+
+<body style="background-color: rgba(0, 88, 104, .44);">
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt>CHAPTER I</dt>
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><span>volunteers</span></dd>
+            <dd>locked</dd>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>10月27日</h2>
+<hr>
+<p>今天的新闻里，出现了Askr和MOXI人工智能事故事件的详细报道。</p>
+<p>看起来，两大公司本来是想将消息瞒下来，但随着不断发酵，还涉及到残疾人的权益问题，纸终究包不住火。</p>
+<p>我仔细读着相关的报道：</p>
+<p id="control" style="font-family:KaiTi; border:1px solid; width:800px; text-align:center; margin-bottom:0; background-color: rgb(158, 160, 99);">展开/收起</p>
+<div class="quoting">
+    <p>故事的开端在一年前，MOXI公司以“体验健全人生活”的名义招募残疾人志愿者，并且带他们进行虚拟世界体验。</p>
+    <p>起初，计划进行得很顺利，Askr公司提供的虚拟世界技术已经有了很高的拟真度，而MOXI公司的模拟感官系统也趋于完善。通过<a href="link.html" target="_self">神经连接</a>，残疾人可以与常人无异地在虚拟世界中畅游。</p>
+    <p>但是，谁也没有想到，两家科技巨头合力隐瞒了一件事；虚拟世界的情况事实上是由人工智能随机生成的，为的是通过分析人类意识应对事件的不同表现来进行自我进化。</p>
+    <p>直到十几天前，本应结束实验回到家中的这批志愿者并没有按时回归，才让家属们发现了问题。</p>
+    <p>10月18日，两公司作出联合声明，称实验出现未知故障导致志愿者意识滞留在虚拟世界。</p>
+    <p>同天，有技术人员透露，长期滞留可能带来生命危险。</p>
+    <p>10月23日，由于问题仍然无法解决，公司迫于压力，公布了人工智能的情况，其中反复强调，志愿者与公司签署的协议中包含“若实验存在危险，志愿者将全权承担后果，公司概不负责”。</p>
+    <p>10月24日，有律师分析协议，结论是，协议虽然包含“采集虚拟世界数据”，但并没有对可能遇到的风险作出合适的提醒。因此，如果志愿者真的出事，公司要负几乎全部的法律责任。</p>
+    <p>10月25日，Askr公司承认这批志愿者所在的虚拟世界的掌管者，人工智能“镜”已经失去控制，其中的志愿者情况暂时未知。MOXI公司则没有对此表态。</p>
+    <p>10月26日，MOXI公司承认“镜”失去控制。</p>
+    <p>一时间，人们都对这场被称为“虚拟世界的矿难”的事故表示了极大的关切，纷纷猜测是否科幻小说设定成为现实，人工智能开始觉醒意识，反抗人类。</p>
+    <p>目前，两公司都在组织专家进行营救，但进展似乎并不顺利。</p>
+</div>
+<p>这啥事啊……</p>
+<p>实在想不到，这种颇具科幻色彩的事情居然能发生在我们的身边。</p>
+<p>很遗憾，两个公司都没有公布更具体的情况，也没有人知道这个所谓的“失去控制”到底是个什么概念。</p>
+<p>想到疯子说的话，我有种更不好的预感。</p>
+<div class="quoting" id="secret"></div>
+</div>
+</body>
+</html>

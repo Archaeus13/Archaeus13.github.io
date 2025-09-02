@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>028</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("在哪节提到将密码锁进了柜子？");
+                    help_flag = 1;
+                }
+                else alert("按柜子打开方式按键，密码自然出现。");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+            $("button").click(function(){
+                if ($("#s1").val() == "hm" && $("#s2").val() == "241029292629" ) {
+                    $("#hide").show("slow");
+                    $("#s1").val("029:dog");
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><span>accident</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>11月21日</h2>
+<hr>
+<div class="chatting">
+    <p>这是新的稿子。</p>
+    <p style="text-align:right">谢谢。</p>
+</div>
+<p>今天，《异类》的剧情又写完了一段。</p>
+<p>作为新人新作，这本小说的反响非常不错，不过由于现在还在最起步，目前也不会有更多合作的打算，只是我认真设计大纲和事件，罗尔里姆表现出来。</p>
+<p>说到这个，自从11月7日罗尔里姆最后一次闲聊以来，他就没有再说过交接稿件之外的话，似乎是在忙什么东西。</p>
+<p>“我跟你讲啊，最近不要去水杉亭大街那边，听说昨天拆那块的时候有贫民提着刀来打，都见血了……”黄大姐在楼下提醒我，好像昨天整顿贫民窟的时候出事了。不过，到现在也没有新闻出来。</p>
+<p>“欸？”刚说没有，我就在手机上刷到了一个详细报道，是<a href="moon.html" target="_self">月亮报</a>的稿件。</p>
+<div class="quoting">
+    <p>由于整顿贫民窟时需要拆除部分房屋，当地民众与拆迁负责人发生冲突。</p>
+    <p>11月20日下午2点，当政府工作人员来到水杉亭大街时，迎接他们的不是欢迎，而是砖头与木棍。</p>
+    <p>似乎，近日沉寂的暴动都是在为此时的反抗做准备，贫民窟的暴徒们聚集到了一起，抗议拆除工作。</p>
+    <p>……</p>
+</div>
+<p>我快速扫过对事件细节的报导，大概明白了几件事：</p>
+<p>政府的整顿贫民窟本来就包括拆除工作，应该是为了之后重建。并且，他们目前并没有说明安置的方法。</p>
+<p>之前闹事的暴徒似乎对拆除早有准备，并且聚到了一起阻止。就现在来看，反抗是有成效的，所以事情暂时僵持了下来。</p>
+<p>这里也是僵持，人工智能那里也是僵持，最近，感觉整个鹰吕都变得紧张了啊……</p>
+<div class="chatting">
+    <p>是时候了。</p>
+    <p style="text-align:right">嗯？</p>
+    <p>然后进入tec.askr.com主页，登录，账号hm，密码是我给你的那个。</p>
+    <p style="text-align:right">好。</p>
+</div>
+<p>罗尔里姆的语气很急。</p>
+<p>他已经写了几十万字的文章了，我还不至于连一个约定都守不住。</p>
+<p>我按照密码上、上、右、下、左的顺序拧动把手，柜子却没被拧开。</p>
+<p>卡住了？</p>
+<p>可恶，那时多看一眼，记住就好了。</p>
+<p>登录界面已经跳了出来。</p>
+<div style="border:1px solid; width: 400px; text-align: center;">
+<p>账号：<input type="text" id="s1"></p>
+<p>密码：<input type="password" id="s2"></p>
+<p><button>登录</button></p>
+</div>
+<div id="hide" style="display:none">
+<p>登录成功了。</p>
+<div class="chatting">
+    <p style="text-align:right">登上了，然后呢？</p>
+    <p>放在那里就好。</p>
+    <p style="text-align:right">它好像自己下线了，这还不到两分钟吧……</p>
+    <p>没事，你做得很好。</p>
+    <p>谢谢。</p>
+</div>
+<p>罗尔里姆的第一次任务，就这么莫名奇妙完成了。</p>
+<p>总觉得得小心点呢……</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,2175 @@
+\documentclass[a4paper,UTF8,fontset=windows,AutoFakeBold]{ctexart}
+\pagestyle{headings}
+\title{\textbf{二阶椭圆型方程\ 笔记}}
+\author{原生生物}
+\date{}
+\setcounter{tocdepth}{3}
+\setlength{\parindent}{0pt}
+\usepackage{amsmath,amssymb,amsthm,enumerate,geometry,paralist}
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\ctexset{section={number=\zhnum{section}}}
+\ctexset{subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+\ctexset{subsubsection={number=第\zhnum{subsubsection}部分}}
+
+\let\itemize\compactitem 
+\newcommand*{\er}{\mathrm{e}}
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\DeclareMathOperator*{\osc}{osc}
+\DeclareMathOperator*{\ess}{ess}
+\newcommand{\proo}[1]{{\kaishu $\bullet$\textbf{证明：}
+\begin{itemize}
+    \item[] #1
+\end{itemize}
+}}
+
+\begin{document}
+\maketitle
+
+*陈亚浙、吴兰成《二阶椭圆型方程与椭圆型方程组》第一部分笔记
+
+*默认使用爱因斯坦求和约定，重复指标代表求和；以$C_n$代表常数，估算中出现时省略``存在$C_n$使得''，若不提及$C_n$与何相关则代表与它相关的量和定理中的最终$C$相关的量相同；$\chi_A$代表$x\in A$时为1，否则为0的特征函数；$B_r(x)$表示$x$为中心、$r$为半径的球，$B_r$表示$B_r(0)$；$\|D^ku\|$一般表示$\sum_{|\alpha|=k}\|D^\alpha u\|$；$W_0^{k,p}(\Omega)$表示$C_0^\infty(\Omega)$在$W^{k,p}$中的闭包。
+
+*感谢杨泽萱同学为部分证明的完成提供的帮助。
+
+\tableofcontents
+
+\newpage
+\section{$L^2$理论}
+*研究\textbf{弱解}相关的$H^k$估计。
+
+多项的H\"older不等式：若$\alpha_i>1$，且$\sum_i\alpha_i^{-1}=1$，则有
+$$\bigg\|\prod_if_i\bigg\|_{L^1}\le\prod_i\|f_i\|_{L^{\alpha_i}}$$
+\proo{
+    两项时自然成立，多项时利用H\"older不等式可拆分为低阶情况。
+}
+
+\subsection{Lax-Milgram定理}
+\textbf{Lax-Milgram定理}：设$a(u,v)$为范数为$\|\cdot\|$、内积为$(\cdot,\cdot)$的Hilbert空间$V$上双线性型，若满足：
+\begin{itemize}
+    \item 有界性：存在$M$使得$|a(u,v)|\le M\|u\|\|v\|$对一切$u,v\in V$成立；
+    \item 强制性[ellipticity]：存在$\alpha>0$使得$a(v,v)\ge\alpha\|v\|^2$对一切$v\in V$成立；
+\end{itemize}
+则对某$f\in V$，存在唯一$u\in V$使得$a(u,v)=(f,v)$对任何$v\in V$成立。
+
+*利用泛函分析知识，Hilbert空间之间线性算子的\textbf{有界性与连续性等价}，类似可以证明$a(u,v)$的有界性条件等价于其对$u,v$连续。
+
+\proo{
+    固定$u$，则映射$v\to a(u,v)$可看作$V$上的线性函数。由有界性可知$|a(u,v)|\le(M\|u\|)\|v\|$，于是其有界，利用泛函分析知识可知连续，从而通过Riesz表示定理，存在$A(u)\in V$使得$a(u,v)=(A(u),v)$对任何$v\in V$成立，将$A(u)$记为$Au$。
+
+    只需证明$A$是双射，其存在$A^{-1}$，而$A^{-1}f$即为所需的唯一解。我们说明更强的结论，即$A$为连续线性双射，且其逆连续。
+    \begin{enumerate}
+        \item 线性：利用$a$的双线性性直接验证即可。
+
+        \item 连续：由定义$(Au,Au)=a(u,Au)\le M\|Au\|\|u\|$，从而$\|Au\|\le M\|u\|$，有界，因此连续。
+
+        \item 单射：若$Au=Aw$，则$A(u-w)=0$，于是$a(u-w,v)=0$对任何$v$成立，但若$u-w\ne 0$，取$v=u-w$由强制性可知矛盾。
+
+        记$A\big|_{V\to A(V)}$为限制映射，由单射可知$A\big|_{V\to A(V)}$为双射，其存在逆，记为$\hat{A}^{-1}$。继续说明其性质。
+    
+        \item $\hat{A}^{-1}$连续：由强制性可知$\|Au\|\|u\|\ge(Au,u)=a(u,u)\ge\alpha\|u\|^2$，从而$\|Au\|\ge\alpha\|u\|$，得到$\|\hat{A}^{-1}u\|\le\alpha\|u\|$，有界，从而连续。
+
+        \item $A(V)$是闭集：考虑$A(V)$中的柯西列$\{Au_n\}$，由$V$完备可知有极限$v$。利用上方证明，$\|u_n-u_m\|\le\alpha^{-1}\|Au_n-Au_m\|$，因此$\{u_n\}$亦构成柯西列，存在极限$u$，由$A$连续性可知$v=Au\in A(V)$，得证。
+
+        \item $A(V)=V$：利用正交分解定理，若$A(V)\ne V$，由其为闭子空间可知存在非零$w\in V$使得$(w,v)=0$对任意$v\in V$成立，但取$v=Aw$可知$a(w,w)=0$，由强制性$\|w\|=0$，矛盾。
+    \end{enumerate}
+
+    综合以上可知$\hat{A}^{-1}$即为$A$的逆$A^{-1}$，从而原命题得证。
+}
+
+*由于Hilbert空间中对偶的存在唯一性，当$f\in V'$，$a(u,v)=f(v)$时，存在唯一性仍成立。
+
+\subsection{椭圆型方程的弱解}
+考虑$\Omega\subset\mathbb{R}^n$为有界开区域，并假定$n\ge3$，本章考虑散度型椭圆方程($D_i$表示对第$i$个分量偏导，上标为分量，式中出现的均为函数)
+$$Lu=f+D_if^i,\quad L=-D_j(a^{ij}D_i+d^j)+b^iD_i+c$$
+
+*以下无特殊说明时\textbf{省略函数空间对应的区域}$\Omega$，且假设其上Sobolev嵌入定理成立。
+
+并假设：
+$$a_{ij}\in L^\infty(\Omega)$$
+$$\exists\lambda>0,\Lambda>0,\quad\lambda|\xi|^2\le a^{ij}(x)\xi_i\xi_j\le\Lambda|\xi|^2,\quad\forall\xi\in\mathbb{R}^n,x\in\Omega$$
+$$\exists\Lambda>0,\quad\sum_{i=1}^n\|b^i\|_{L^n}+\sum_{i=1}^n\|d^i\|_{L^n}+\|c\|_{L^{n/2}}\le\Lambda$$
+
+记Sobolev空间$W^{k,p}$为至$k$次可导且导数$p$次可积的函数空间，将$W^{k,2}$记为$H^k$，且$H_0^k$表示$C_0^\infty$在$H^k$中的闭包，$H^{-k}$表示$H_0^k$的对偶。
+
+*这里$C_0^\infty$表紧支，即存在紧集$K\subset\Omega$，$K$外函数值为0的光滑函数集合。
+
+对$u,v\in H^1$，记
+$$a(u,v)=\int_\Omega\big((a^{ij}D_iu+d^ju)D_jv+(b^iD_iu+cu)v\big)\dr x$$
+
+\
+
+\textbf{弱解}：对$T\in H_0^1$，$g\in H^1$，称$u\in H^1$为Dirichlet问题
+$$\begin{cases}Lu=T&\text{in}\ \Omega\\u=g&\text{on}\ \partial\Omega\end{cases}$$
+的弱解，若其满足
+$$\forall v\in H_0^1,\quad a(u,v)=(T,v)$$
+$$u-g\in H_0^1$$
+
+*由于$L$可等效为$H^1\to H^{-1}$的算子$\tilde{L}$，条件也可变为$T\in H^{-1}$，这时默认内积$(T,v)$表示对偶积$T(v)$。
+
+*这里$H_0^1$中的范数为
+$$\|u\|_{H_0^1}=\sqrt{\int_\Omega\sum_i|D_iu|^2}$$
+
+\
+
+\textbf{有界性}：满足之前的假定时，$a(u,v)$是$H_0^1$上的有界双线性型。
+
+*此定理证明中，书上的界需要$a^{ij}(x)$\textbf{对称}才成立，因此下方假定了$a^{ij}=a^{ji}$。若否，利用$a^{ij}(x)D_iuD_jv\le|a_{ij}(x)||D_iuD_jv|$，再利用有界性将$|a_{ij}(x)|$放大为某对称正定阵(先将非对角放大至$\max(\|a^{ij}\|_\infty,\|a^{ji}\|_\infty)$，再将对角放到充分大使得主角占优)即可类似得到结论。
+
+\proo{
+    分为四部分进行估计。
+    \begin{enumerate}
+        \item $a^{ij}(x)D_iuD_jv$：由于$a^{ij}(x)\xi_i\xi_j\ge\lambda|\xi|^2$与对称可知$a^{ij}$正定，从而将$a_{ij}(x)$看作矩阵$A(x)$，利用正定可知存在可逆阵$P$使得$A=P^TP$，进一步由Cauchy不等式得$(\xi^TA\eta)^2\le(\xi^TA\xi)(\eta^TA\eta)$，由此
+        $$a^{ij}(x)D_iu(x)D_jv(x)\le\sqrt{(a^{ij}(x)D_iu(x)D_ju(x))(a^{ij}(x)D_iv(x)D_jv(x))}$$
+        处处成立。于是再利用积分Cauchy不等式可知
+        $$\bigg|\int_\Omega a^{ij}D_iuD_jv\dr x\bigg|\le\sqrt{\int_\Omega a^{ij}(x)D_iu(x)D_ju(x)\dr x\int_\Omega a^{ij}(x)D_iv(x)D_jv(x)\dr x}$$
+        由第二个条件即得右侧不超过
+        $$\Lambda\sqrt{\sum_i\int|D_iu|^2\dr x\sum_j\int|D_jv|^2\dr x}\le\Lambda\|u\|_{H_0^1}\|v\|_{H_0^1}$$
+
+        \item $d^juD_jv$：记$m=\frac{2n}{n-2}$，利用推广的H\"older不等式可知
+        $$\bigg|\int_\Omega d^juD_jv\dr x\bigg|\le\|d^juD_jv\|_{L^1}\le\|d^j\|_{L^n}\|u\|_{L^m}\|D_jv\|_{L^2}$$
+        利用Sobolev空间的嵌入定理可得$\|u\|_{L^m}\le C_1\|u\|_{H_0^1}$，于是再由条件可知
+        $$\|d^j\|_{L^n}\|u\|_{L^m}\|D_jv\|_{L^2}\le C_1\|u\|_{H_0^1}\Lambda\sum_j\|D_jv\|_{L^2}$$
+        将$\|D_jv\|_{L^2}$的平均放大至平方平均可得其最终
+        $$\le C_2\Lambda\|u\|_{H_0^1}\|v\|_{H_0^1}$$
+
+        \item $b^ivD_iu$：与上一种情况相同得到(注意$C_2$与$u,v$具体形式无关)
+        $$\bigg|\int_\Omega b^ivD_iu\dr x\bigg|\le C_2\Lambda\|u\|_{H_0^1}\|v\|_{H_0^1}$$
+
+        \item $cuv$：利用推广的H\"older不等式可知
+        $$\bigg|\int_\Omega cuv\dr x\bigg|\le\|c\|_{L^{n/2}}\|u\|_{L^m}\|v\|_{L^m}$$
+        再由嵌入定理即得
+        $$\bigg|\int_\Omega cuv\dr x\bigg|\le C_3\Lambda\|u\|_{H_0^1}\|v\|_{H_0^1}$$
+    \end{enumerate}
+    
+    最终得到
+    $$|a(u,v)|\le C_4\Lambda\|u\|_{H_0^1}\|v\|_{H_0^1}$$
+    这里$C_4$只与$\Omega$与$n$有关，从而得证有界性。
+}
+
+\
+
+\textbf{强制性-补充条件}：满足之前的假定时，存在$\bar\mu\ge0$，使得$\mu\ge\bar\mu$时$a(u,v)+\mu(u,v)_0$在$H_0^1$上是强制的，这里下标0表示$L^2$中的内积。
+
+\proo{
+    \textbf{引理：}对任何$f\in L^p$，任意给定$\varepsilon>0$，存在$K$使得能将$f$分解为$f_1+f_2$，使得$\|f_2\|_{L^p}<\varepsilon$且$\|f_1\|_\infty <K$。
+
+    \textbf{引理证明：}考虑$f_1(x)=\chi_{\{|f(x)|\le K\}}f(x)$，则其必然满足第二个条件，而利用单调收敛定理可知$K\to\infty$时$\|f_1(x)\|_{L^p}\to\|f(x)\|_{L^p}$，从而存在充分大的$K$使得$\|f-f_1\|_{L^p}<\varepsilon$，得证。
+
+    \
+
+    \textbf{定理证明：}重复利用引理知存在$K(\varepsilon)$使得能将$b^i$、$d^i$、$c$分解为两部分，使得
+    $$\sum_{i=1}^n\|b^i_2\|_{L^n}+\sum_{i=1}^n\|d^i_2\|_{L^n}+\|c_2\|_{L^{n/2}}\le\varepsilon$$
+    $$\sum_{i=1}^n\|b^i_1\|_{L^\infty}+\sum_{i=1}^n\|d^i_1\|_{L^\infty}+\|c_1\|_{L^\infty}\le K(\varepsilon)$$
+    将$a(u,v)$中$b,c,d$改为$b_2,c_2,d_2$后记为$a_2(u,v)$，并记$a_1=a-a_2$。与有界性计算完全类似可知
+    $$a_2(u,u)-\int_\Omega a^{ij}D_iuD_ju\dr x\le C_1\varepsilon\|u\|_{H_0^1}^2$$
+    而由第二个条件即得
+    $$a^{ij}D_iuD_ju\ge\lambda\sum_i|D_iu|^2$$
+    于是积分放缩后得到
+    $$a_2(u,u)\ge(\lambda-C_1\varepsilon)\|u\|_{H_0^1}^2$$
+    取$\varepsilon=\frac{1}{4}C_1\lambda$，则有
+    $$a_2(u,u)\ge\frac{3}{4}\|u\|_{H_0^1}^2$$
+    对$a_1(u,u)$，考虑积分中值定理可知
+    $$a_1(u,u)\le\int_\Omega(|b_1^i|+|d_1^i|)|D_iu||u|\dr x+\int_\Omega|c_1||u|^2\dr x\le K(\varepsilon)\bigg(\sum_i\|uD_iu\|_{L^1}+\|u\|_{L^2}^2\bigg)$$
+    由于$K(\varepsilon)|u||D_iu|\le\frac{\lambda}{4}|D_iu|^2+\frac{K^2(\varepsilon)}{\lambda}|u|^2$，放大得到
+    $$|a_1(u,u)|\le\frac{\lambda}{4}\|u\|_{H_0^1}^2+\frac{K^2(\varepsilon)}{\lambda}\|u\|_{L^2}^2+K(\varepsilon)\|u\|_{L^2}^2$$
+    由此整理得到
+    $$a(u,u)\ge\frac{\lambda}{2}\|u\|_{H_0^1}^2-\bigg(\frac{K^2(\varepsilon)}{\lambda}+K(\varepsilon)\bigg)\|u\|_{L^2}^2$$
+    取$\bar\mu=\frac{K^2(\varepsilon)}{\lambda}+K(\varepsilon)$即为所求，这里$\varepsilon=\frac{1}{4}C_1\lambda$。
+}
+
+\
+
+\textbf{弱解存在唯一性}：满足之前的假定，且$\Omega$是Sobolev嵌入定理成立的开区域时，存在$\bar\mu\ge0$使得$\mu\ge\bar\mu$时Dirichlet问题
+$$\begin{cases}Lu+\mu u=T&\text{in}\ \Omega\\u=g&\text{on}\ \partial\Omega\end{cases}$$
+存在唯一弱解。
+
+\proo{
+    上述问题对应的双线性型$a_0(u,v)$为$a(u,v)+\mu(u,v)_0$，由于$a(u,v)$有界，类似有界性最后一种情况的估算可知$\mu(u,v)_0$有界，从而其在$H_0^1$上有界。此外，上方已证明了其在$H_0^1$上的强制性。
+
+    另一方面，记$w=u-g$，则其属于$H_0^1(\Omega)$，弱解存在性等价于
+    $$\forall v\in H_0^1(\Omega),\quad a_0(w,v)=(T,v)-a(g,v)-\mu(g,v)_0$$
+    可验证右侧为$H_0^1$上的有界线性泛函，从而由Riesz表示定理可知存在$f$使得其为$(f,v)$，再利用Lax-Milgram定理可得$w$存唯一解，于是$u$存唯一弱解。
+}
+
+\subsection{Fredholm二择一定理}
+\textbf{Banach空间上}：$V$为Banach空间，$A$是$V$上紧线性算子，$I$是恒同算子，则以下两种可能恰发生一种：
+\begin{itemize}
+    \item 存在非零$x\in V$使得$x-Ax=0$。
+    \item 对任何$y\in V$，存在唯一$x\in V$使得$x-Ax=y$；此时$(I-A)^{-1}$是有界线性算子。
+\end{itemize}
+
+此外，$A$的谱是离散的、除0以外不存在其他极限点，且每一特征值重数有限。
+
+*证明见泛函分析课程。
+
+仍考虑$L$符合之前假定时的问题
+$$\begin{cases}Lu+\mu u=T&\text{in}\ \Omega\\u=g&\text{on}\ \partial\Omega\end{cases}$$
+对一般的$\mu$，以下两种可能恰发生一种：
+\begin{enumerate}
+    \item 该问题对任何$T\in H^{-1},g\in H^1$存唯一弱解；
+    \item 存在非零$u_0\in H_0^1$使得$\forall v\in H_0^1,a(u,v)+\mu(u,v)_0=0$，于是对任意$T\in H^{-1},g\in H^1$，或无解、或存在无穷多解(考虑某个解加上$\lambda u_0$)。
+\end{enumerate}
+
+此外，满足第二种情况的$\mu$是离散的，除$\infty$外不存在其他极限点(由上节，事实上只能以$-\infty$为极限)，且每个$\mu$对应的$u_0$构成的空间维数有限。
+
+\proo{
+    类似上节，记$w=u-g$并对应更改$T$即可不妨设$g=0$，此时问题变为求$u\in H_0^1(\Omega)$使得
+    $$\forall v\in H_0^1,\quad a(u,v)+\mu(u,v)_0=(T,v)$$
+    利用嵌入定理可知$L^2$内积是$H_0^1$上的有界线性泛函，从而存在$H_0^1$算子$P$使得
+    $$(u,v)_0=(Pu,v)$$
+    从而方程可改写为
+    $$(Lu+\mu Pu-T,v)=0$$
+    也即弱解等价于$H_0^1$上的(导数看作弱导数)
+    $$Lu+\mu Pu=T$$
+    由上节，存在$\bar\mu>0$使得$\mu>\bar\mu$时$L+\mu P$可逆，取定$\mu_0$满足要求，两边同时作$G=(L+\mu_0P)^{-1}$得到
+    $$u-(\mu_0-\mu)GPu=GT$$
+    由于$P$可看成$H_0^1$嵌入$L^2$后与$L^2$上某有界线性算子的复合，且根据紧嵌入定理，该嵌入是紧的，利用紧算子复合仍紧可知$(\mu_0-\mu)GP$是紧算子，于是对其利用Fredholm二择一定理可知，此方程或对任意$GT$\ (由可逆知即为任意$T$)存唯一解，或有非零$u$为$Lu+\mu Pu=0$解，第一部分得证。
+
+    另一方面，$GP$亦为紧算子，而考虑$\mu\ne\mu_0$时的方程
+    $$GPu=\frac{1}{\mu-\mu_0}u$$
+    此即为$GP$的特征方程，由特征值离散知解离散(假设已经保证了$\mu_0$时原方程不存非零解，于是不影响)；而特征值除0以外无极限点则得到除无穷以外无极限点；每一特征值重数有界即对应解空间维数有限。
+}
+
+\subsection{弱解的极值原理}
+*采用\textbf{De Giorgi迭代}的思路证明。
+
+引理：设$\varphi(t)$是$[k_0,+\infty)$上的非负减函数，若当$h>k\ge k_0$时有
+$$\varphi(h)\le\frac{C}{(h-k)^\alpha}\varphi^\beta(k)$$
+其中$\alpha>0,\beta>1$，则有
+$$\varphi(k_0+d)=0,\quad d=C^{1/\alpha}\varphi^{(\beta-1)/\alpha}(k_0)2^{\beta/(\beta-1)}$$
+
+\proo{
+    定义$k_s=k_0+d-\frac{d}{2^s}$，利用$d$的范围可归纳得到
+    $$\varphi(k_s)\le\frac{\varphi(k_0)}{r^s},\quad r=2^{\alpha/(\beta-1)}$$
+    由此令$s\to\infty$得证。
+}
+
+考虑第二节开头的方程与对应的$a(u,v)$，若
+$$\forall\varphi\in C_0^\infty,\varphi\ge0,\quad a(u,\varphi)\le(f,\varphi)_0-(f^i,D_i\varphi)_0$$
+则称$u$为该方程的\textbf{弱下解}，将$\le$改为$\ge$则为\textbf{弱上解}，改为等号为\textbf{弱解}。
+
+\
+
+对任何$u\in H^1$，定义(与通常$\sup$区别为若边界附近不连续，可能受边界周围影响)
+$$\sup_{\partial\Omega}u=\inf\{l\mid(u-l)^+\in H_0^1(\Omega)\}$$
+$$\ess\sup_\Omega u=\inf\{l\mid(u-l)^+=0,\ a.e.\ \Omega\}$$
+若$L$的系数满足第二节假设，且
+$$\forall\varphi\in C_0^\infty,\varphi\ge0,\quad\int_\Omega(c\varphi+d^iD_i\varphi)\dr x=0$$
+则弱下解$u$满足对任何$p>n$有(记$u^+=\max(u,0)$)
+$$\ess\sup_\Omega u\le\sup_{\partial\Omega}u^++C\bigg(\|f\|_{L^{np/(n+p)}}+\sum_i\|f^i\|_{L^p}\bigg)|\Omega|^{(p-n)/(np)}$$
+这里$C$依赖$n,p,\lambda,\Lambda,\Omega$与$b^i,d^i,c$。
+
+*书上称$C$与$|\Omega|$的下界无关，但证明过程其需要由嵌入定理得到，实质应当是有关的。
+
+*这称为\textbf{弱极值原理}。
+
+\proo{
+    证明中的``基本不等式''指$2ab\le a^2+b^2$，一般使用为$2ab\le\frac{1}{\epsilon}a^2+\epsilon b^2$以控制单侧系数。
+
+    \
+
+    \textbf{截取估算}
+
+    记$l=\sup_{\partial\Omega}u^+$，若$\sup_\Omega u^+=l$，则$\|u\|_\infty$不超过$l$，已经得证，只需考虑$\sup_\Omega u^+>l$的情况。
+
+    对任何$k>l$，取$\varphi=(u-k)^+$，则有($\varphi>0$的部分$u=\varphi+k$，而$\varphi\le0$的部分$a(u,\varphi)=0$，改变$u$的值不影响)
+    $$a(u,\varphi)=\int_\Omega\big((a^{ij}D_i\varphi+d^j\varphi)D_j\varphi+(b^iD_i\varphi+c\varphi)\varphi\big)\dr x+k\int_\Omega(d^jD_j\varphi+c\varphi)\dr x$$
+
+    \
+
+    \textbf{初步估计}
+
+    仿照第二节的计算，由于根据假设，第二项非负，可知(这里$\|D\varphi\|_{L^2}=\|\varphi\|_{H_0^1}$)
+    $$a(u,\varphi)\ge\frac{\lambda}{2}\|D\varphi\|_{L^2}^2-C_1\lambda\|\varphi\|_{L^2}^2$$
+    这里$C_1$由于和拆分的$K(\varepsilon)$有关，会受$b^i,d^i,c$影响，还关乎$n,\lambda,\Lambda$与$|\Omega|$。
+
+    利用弱下解的定义即知
+    $$\frac{\lambda}{2}\|D\varphi\|_{L^2}^2-C_1\lambda\|\varphi\|_{L^2}^2\le(f,\varphi)_0-(f^i,D_i\varphi)_0$$
+    而右侧的两项内积对应的积分事实上只在$u>k$时非零，记$A(k)=\{x\in\Omega\mid u(x)>k\}$，利用推广的H\"older不等式可知
+    $$|(f,\varphi)_0|\le\|f\varphi\|_{L^1}=\|f\cdot\varphi\cdot1\|_{L^1(A(k))}\le\|f\|_{L^{np/(n+p)}}\|\varphi\|_{L^{2n/(n-2)}}\|1\|_{L^{1/(1/2-1/p)}(A(k))}$$
+    对$(f^i,D_i\varphi)_0$类似处理(采用不同范数进行推广的H\"older不等式)，最终得到
+    $$(f,\varphi)_0-(f^i,D_i\varphi)_0\le\|f^i\|_{L^p}\|D_i\varphi\|_{L^2}|A(k)|^{1/2-1/p}+\|f\|_{L^{np/(n+p)}}\|\varphi\|_{L^{2n/(n-2)}}|A(k)|^{1/2-1/p}$$
+    进一步将每个$\|D_i\varphi\|_{L^2}$放大为$\|D\varphi\|_{L^2}$，结合之前的估算可知，记$q=np/(n+p)$，$m=2n/(n-2)$，有
+    $$\frac{\lambda}{2}\|D\varphi\|_{L^2}^2-C_1\lambda\|\varphi\|_{L^2}^2\le\sum_i\|f^i\|_{L^p}\|D\varphi\|_{L^2}|A(k)|^{1/2-1/p}+\|f\|_{L^q}\|\varphi\|_{L^m}|A(k)|^{1/2-1/p}$$
+
+    \
+
+    \textbf{$\|\varphi\|_{L^m}$控制}
+
+    利用嵌入定理可将$\|\varphi\|_{L^m}$放为$C_2\|D\varphi\|_{L^2}$，这里$C_2$只与$\Omega,n$有关，由此对每项利用基本不等式放缩，再取$\|f^i\|_{L^p}$与$\|f\|_{L^q}$前的系数最大值可知右侧
+    $$\le\frac{\lambda}{4}\|D\varphi\|_{L^2}^2+C_3F_0^2|A(k)|^{1-2/p},\quad F_0=\frac{1}{\lambda}\bigg(\sum_i\|f^i\|_{L^p}+\|f\|_{L^q}\bigg)$$
+    这里$C_3$与$\Omega$、$\lambda$、$n$有关。
+    移项并同乘$2/\lambda$进一步得到
+    $$\|D\varphi\|_{L^2}^2\le 2C_1\|\varphi\|_{L^2}^2+C_4F_0^2|A(k)|^{1-2/p}$$
+    这里$C_4$与$\Omega$、$\lambda$、$n$有关。
+
+    再次应用H\"older不等式可得
+    $$\|\varphi\|_{L_2}=\|\varphi^2\cdot 1\|_{L^1(A(k))}\le\|\varphi\|_{L^m}|A(k)|^{1/n}$$
+    于是通过Sobolev嵌入定理可得
+    $$\|D\varphi\|_{L^2}^2\le C_5|A(k)|^{2/n}\|D\varphi\|_{L^2}^2+C_4F_0^2|A(k)|^{1-2/p}$$
+    这里$C_5$只与$C_1$、$\Omega$、$n$相关。
+    
+    由定义与可积性，$A(k)$在$k\to\infty$时趋于0，从而存在$k_0$使得$k\ge k_0$时$C_5|A(k)|^{2/n}\le\frac{1}{2}$，也即此时有
+    $$\|D\varphi\|_{L^2}\le\sqrt{2C_4}F_0|A(k)|^{1/2-1/p}$$
+    再次利用Sobolev嵌入定理得
+    $$\|\varphi\|_{L^m}\le C_6F_0|A(k)|^{1/2-1/p}$$
+    这里$C_6$只与$\Omega$、$\lambda$、$n$相关。
+
+    \
+
+    \textbf{引理使用}
+
+    设$h>k$，由于$\varphi$在$u>h$时至少为$h-k$，考虑$A(h)$上的积分可知
+    $$\|\varphi\|_{L^m}\ge(h-k)|A(h)|^{1/m}$$
+    结合上方的上界即知$h>k\ge k_0$时有
+    $$|A(h)|\le\frac{(C_6F_0)^m}{(h-k)^m}|A(k)|^{n(p-2)/(pn-2p)}$$
+    又由其为非负减函数，可验证符合条件，利用De Giorgi迭代引理可知
+    $$|A(k_0+d)|=0,\quad d=C_6F_0|A(k_0)|^{1/n-1/p}2^{n(p-2)/(pn-2p)}$$
+    由此将$|A(k_0)|$放大为$|\Omega|$即得
+    $$\ess\sup_\Omega u\le k_0+d\le k_0+C_7F_0|\Omega|^{1/2-1/p}$$
+    这里$C_7$只与$\Omega$、$\lambda$、$n$相关。
+
+    \
+
+    \textbf{$k_0$初步估计}
+
+    考虑$A(k)$上的积分可发现$\|u\|_{L^2}\ge k|A(k)|^{1/2}$，由此在
+    $$k_0\ge(2C_5)^{n/4}\|u\|_{L^2}$$
+    时即有
+    $$C_5|A(k_0)|^{2/n}\le\frac{1}{2}$$
+    这就满足了前述的条件。注意到基本要求为$k_0>l$\ (为保证$\varphi$能进行之前的估算)，知最终可取
+    $$k_0=(2C_5)^{n/4}\|u\|_{L^2}+l$$
+    也即
+    $$\ess\sup_\Omega u\le\sup_{\partial\Omega}u^++C_8\|u\|_{L^2}+C_7F_0|\Omega|^{1/n-1/p}$$
+    这里$C_8$只与$C_1$、$\Omega$、$n$相关。
+
+    对比结论，可发现只要能去掉$\|u\|_{L^2}$项，即可得到最终结果。
+
+    \
+
+    \textbf{重取检验函数}
+
+    *书中在重取检验函数时额外增加了$\varepsilon$以保证分母非零，但后方证明中又出现了分母上的$F_0$，$\varepsilon$并未一直生效，由此我们选择单独讨论$F_0$是否为0。对$F_0=0$情况的分析见证明最后一部分。
+
+    由于上方估计已知$\ess\sup_\Omega u$必然有限，设$M=\ess\sup_\Omega u-l$、$v=(u-l)^+$，在$F_0>0$时，我们研究以下函数的性质：
+    $$w(x)=\ln\frac{M+\tilde{F}_0}{M+\tilde{F}_0-v(x)},\quad\tilde{F}_0=F_0|\Omega|^{1/n-1/p}$$
+
+    取新的检验函数
+    $$\varphi(x)=\frac{v(x)}{M+\tilde{F}_0-v(x)}=\er^{w(x)}-1\in H_0^1(\Omega)$$
+    由前假设可知$\varphi\ge0$、$v\ge0$，与证明第一部分相同，利用$u<l$时$\varphi=0$得到等式，并舍弃$l(c+d^iD_i,\varphi)$的部分得
+    $$a(u,\varphi)\ge\int_\Omega\big((a^{ij}D_iv+d^jv)D_j\varphi+(b^iD^iv+cv)\varphi\big)\dr x$$
+    计算可知右端等于
+    $$\int_\Omega\big(a^{ij}D_ivD_j\varphi+(b^i-d^i)\varphi D_iv\big)\dr x+\int_\Omega(d^jD_j(v\varphi)+cv\varphi)\dr x$$
+    再次利用$c+d^jD_j$的非负性舍去第二项，代入$\varphi$与$w$的表达式即可进一步计算得
+    $$a(u,\varphi)\ge\int_\Omega\big((M+\tilde{F}_0)a^{ij}D_iwD_jw-(b^i-d^i)vD_iw\big)\dr x$$
+
+    对第一项利用$a^{ij}$的假设，第二项利用基本不等式并将$v$放大为$M$，可知
+    $$a(u,\varphi)\ge(M+\tilde{F}_0)\lambda\|Dw\|_{L^2}^2-\frac{M}{\lambda}\sum_i(\|b^i\|_{L^2}^2+\|d^i\|_{L^2}^2)-\frac{M\lambda}{4}\|Dw\|_{L^2}^2$$
+    于是
+    $$a(u,\varphi)\ge\frac{3}{4}(M+\tilde{F}_0)\lambda\|Dw\|_{L^2}^2-\frac{M}{\lambda}\sum_i(\|b^i\|_{L^2}^2+\|d^i\|_{L^2}^2)\ge\frac{3}{4}(M+\tilde{F}_0)\lambda\|Dw\|_{L^2}^2-C_9\frac{M\Lambda^2}{\lambda}$$
+    这里最后一步利用了H\"older不等式放大二范数为$n$范数，$C_9$只与$n$、$\Omega$相关。
+
+    另一方面，由弱下解性可知(直接代入$\varphi$后在积分中取绝对值)
+    $$a(u,\varphi)\le(f,\varphi)_0-(f^i,D_i\varphi)_0\le\int_\Omega\frac{|f|v}{M+\tilde{F}_0-v}\dr x+\int_\Omega\frac{(M+\tilde{F}_0)|f^i||D_iw|}{M+\tilde{F}_0-v}\dr x$$
+
+    第一项利用$v\le M$即可放大，第二项亦将$v$放大至$M$后利用基本不等式放大，得到
+    $$a(u,\varphi)\le\frac{M}{\tilde{F}_0}\|f\|_{L^1}+\frac{\lambda}{4}(M+\tilde{F}_0)\|Dw\|_{L^2}^2+\frac{M+\tilde{F}_0}{\lambda\tilde{F}_0^2}\sum_i\|f^i\|_{L^2}^2$$
+
+    \
+
+    \textbf{最终估算}
+
+    整理$a(u,\varphi)$的两边估算可得
+    $$\frac{3}{4}(M+\tilde{F}_0)\lambda\|Dw\|_{L^2}^2-C_9\frac{M\Lambda^2}{\lambda}\le\frac{M}{\tilde{F}_0}\|f\|_1+\frac{\lambda}{4}(M+\tilde{F}_0)\|Dw\|_{L^2}^2+\frac{M+\tilde{F}_0}{\lambda\tilde{F}_0^2}\sum_i\|f_i\|_{L^2}^2$$
+    移项、同除以$\lambda(M+\tilde{F}_0)/2$，并将$M/(M+\tilde{F}_0)$放大为1可得
+    $$\|Dw\|_{L^2}^2\le C_{10},\quad C_{10}\ge\frac{2}{\lambda\tilde{F}_0}\|f\|_{L^1}+2C_9\frac{\Lambda^2}{\lambda^2}+\frac{2}{\lambda^2\tilde{F}_0^2}\sum_i\|f^i\|_{L^2}^2$$
+
+    由于关于$f$与$f^i$的范数不超过$\tilde{F}_0$中的对应范数，利用H\"older不等式可知$C_{10}$可选取为只与$n,p,\Omega,\Lambda,\lambda$相关的常数。
+    再次利用嵌入定理可知
+    $$\|w\|_{L^m}\le C_{11}$$
+    其中$C_{11}$只与$n,p,\Omega,\Lambda,\lambda$相关。
+
+    对于$k>l$，考虑上式的积分，将$v$在$u>k$的部分缩小为$k-l$，可知
+    $$|A(k)|^{1/m}\ln\frac{M+\tilde{F}_0}{M+\tilde{F}_0-(k-l)}\le\|w\|_{L^m}\le C_{11}$$
+
+    取$k_0=(1-\eta)(M+\tilde{F}_0)+l$，其中$\eta\in(0,1)$待定，则由上方可知
+    $$|A(k_0)|^{1/m}\le C_{11}(-\ln\eta)^{-1}$$
+    于是可取合适的$\eta$使得
+    $$C_5|A(k_0)|^{2/n}\le\frac{1}{2}$$
+    成立，由此有
+    $$\ess\sup_\Omega u\le\sup_{\partial\Omega}u^++(1-\eta)(M+\tilde{F}_0)+C_7F_0|\Omega|^{1/n-1/p}$$
+    这里$\eta$与$n,p,\Omega,\Lambda,\lambda,C_1$相关。
+
+    而$M=\ess\sup_\Omega u-\sup_{\partial\Omega}u^+$、$\tilde{F}_0=F_0|\Omega|^{1/n-1/p}$，移项并同乘$1/\eta$即得
+    $$\ess\sup_\Omega u\le\sup_{\partial\Omega}u^++C_{12}F_0|\Omega|^{1/n-1/p}$$
+    这里$C_{12}$与$n,p,\Omega,\Lambda,\lambda,C_1$相关。
+
+    \
+
+    \textbf{临界情况讨论}
+
+    最后，我们处理$F_0=0$的情况。，此时意味着$f=f^i=0$，也即$a(u,\varphi)\le0$对任何$\varphi\ge0$成立。注意到，取$\varepsilon>0$，有
+    $$a(u,\varphi)\le(f,\varphi)_0,\quad f(x)=\varepsilon$$
+    对任何$\varphi\ge0$成立，利用$F_0\ne0$的情况直接计算对应$F_0$即可知
+    $$\ess\sup_\Omega u\le\sup_{\partial\Omega}u^++C_{12}\varepsilon|\Omega|^{2/n}$$
+    由于$\varepsilon$可任意减小，即得$F_0=0$时原命题仍正确。
+}
+
+*事实上，按书中增加额外增加$\varepsilon$的做法亦可以得到正确结果。在``重取检验函数''部分中将所有$\tilde{F}_0$替换为$\tilde{F}_0+\varepsilon$，则``最终估算''部分的开头可得到$\|Dw\|_{L^2}^2$与$\varepsilon$无关的界(放大分子后利用$F_0/(F_0+\varepsilon)\le1$)。
+
+\
+
+\textbf{加强命题}：若将第二节假定中的
+$$\exists\Lambda>0,\quad\sum_{i=1}^n\|b^i\|_{L^n}+\sum_{i=1}^n\|d^i\|_{L^n}+\|c\|_{L^{n/2}}\le\Lambda$$
+更换为
+$$\exists\Lambda>0,\quad\sum_{i=1}^n\|b^i\|_{L^p}+\sum_{i=1}^n\|d^i\|_{L^p}+\|c\|_{L^{p/2}}\le\Lambda$$
+则上述弱极值原理中的常数$C$可只与$n,p,\Omega,\Lambda,\lambda$相关。
+
+\proo{
+    \textbf{引理}：若$a>b>c\ge1$，则对任何$\varepsilon>0$，存在只与$a,b,c$相关的$C_\varepsilon$使得
+    $$\|u\|_{L^b}\le\varepsilon\|u\|_{L^a}+C_\varepsilon\|u\|_{L^c}$$
+    
+    \textbf{引理证明}：待定系数，设$p\lambda=a$、$p(b-\lambda)/(p-1)=c$，可解出$p=(a-c)/(b-c)$、$\lambda=a(b-c)/(a-c)$，由此利用H\"older不等式，将$u^b$拆分为$u^\lambda$与$u^{b-\lambda}$，并作$p$与$p/(p-1)$次方，可知
+    $$\|u\|_{L^b}^b\le\|u\|_{L^c}^{c(a-b)/(a-c)}\|u\|_{L^a}^{a(b-c)/(a-c)}$$
+    由此可得
+    $$\|u\|_{L^b}\le\|u\|_{L^c}^{c(a-b)/(b(a-c))}\|u\|_{L^a}^{a(b-c)/(b(a-c))}$$
+    注意两个次方均小于1且和为1，利用Young不等式知右侧
+    $$\le\varepsilon\|u\|_{L^a}+C_\varepsilon\|u\|_{L^c}$$
+    其中
+    $$C_\varepsilon=\frac{(p_0\varepsilon)^{-q_0/p_0}}{q_0},\quad p_0=\frac{ab-bc}{ab-ac},\quad q_0=\frac{ab-bc}{ac-bc}$$
+
+    \
+
+    \textbf{定理证明}：沿用上个定理证明中的记号。注意到，最终的$C_{12}$只与$n,p,\Omega,\Lambda,\lambda$与$C_1$相关，只要能改进$C_1$为只与$n,p,\Omega,\Lambda,\lambda$相关的$C'$，结论即成立。而为完成此估计，仿照之前可发现只需证明存在符合上述要求的$C'$使得
+    $$\int_\Omega\big((d^j\varphi)D_j\varphi+(b^iD_i\varphi+c\varphi)\varphi\big)\dr x\le\frac{\lambda}{2}\|D\varphi\|_{L^2}^2+\lambda C'\|\varphi\|_{L^2}^2$$
+    利用H\"older不等式可知
+    $$\|d^j\varphi D_j\varphi\|_{L^1}\le\|d^j\|_{L^p}\|\varphi\|_{L^{2p/(p-2)}}\|D_j\varphi\|_{L^2}$$
+    利用引理可知对任何$\varepsilon$存在$C_\varepsilon$使得
+    $$\|\varphi\|_{L^{2p(p-2)}}\le\varepsilon\|\varphi\|_{L^m}+C_\varepsilon\|\varphi\|_{L^2}$$
+    将$\|D_j\varphi\|_{L^2}$放为$\|D\varphi\|_{L^2}$，利用嵌入定理可知
+    $$\|d^j\varphi D_j\varphi\|_{L^1}\le\sum_j\|d^j\|_{L^p}\big(\varepsilon C_{13}\|D\varphi\|_{L^2}^2+C_\varepsilon\|D\varphi\|_{L^2}\|\varphi\|_{L^2}\big)$$
+    这里$C_{13}$只与$n,\Omega$相关。
+
+    对最后一项乘积应用基本不等式，使$\|D_j\varphi\|_{L^2}^2$前系数充分小，并取合适的$\varepsilon$可使
+    $$\|d^j\varphi D_j\varphi\|_{L^1}\le\sum_j\|d^j\|_{L^p}\bigg(\frac{\lambda}{6\Lambda}\|D\varphi\|_{L^2}^2+C_{14}\|\varphi\|_{L^2}^2\bigg)$$
+    这里$C_{14}$只与$n,p,\Omega,\Lambda,\lambda$相关。
+
+    利用条件将求和放为$\Lambda$即得
+    $$\|d^j\varphi D_j\varphi\|_{L^1}\le\Lambda\bigg(\frac{\lambda}{6\Lambda}\|D\varphi\|_{L^2}^2+C_{14}\|\varphi\|_{L^2}^2\bigg)$$
+    同理
+    $$\|b^j\varphi D_j\varphi\|_{L^1}\le\Lambda\bigg(\frac{\lambda}{6\Lambda}\|D\varphi\|_{L^2}^2+C_{14}\|\varphi\|_{L^2}^2\bigg)$$
+    
+    而
+    $$\|c\varphi^2\|_1\le\|c\|_{L^{p/2}}\|\varphi^2\|_{L^{p/(p-2)}}=\|c\|_{L^{p/2}}\|\varphi\|_{L^{2p/(p-2)}}^2$$
+    同样利用引理与嵌入不等式，可知
+    $$\|c\varphi^2\|_1\le\|c\|_{L^{p/2}}\bigg(\varepsilon^2C_{13}^2\|D\varphi\|_{L^2}^2+2\varepsilon C_\varepsilon C_{13}\|D\varphi\|_{L^2}\|\varphi\|_{L^2}+C_\varepsilon^2\|\varphi\|_{L^2}^2\bigg)$$
+    先取定$\varepsilon$使第一项充分小，再对第二项用基本不等式放缩使得其$\|D_j\varphi\|_{L^2}^2$前的系数合适，即可得到
+    $$\|c\varphi^2\|_1\le\|c\|_{L^{p/2}}\bigg(\frac{\lambda}{6\Lambda}\|D\varphi\|_{L^2}^2+C_{15}\|\varphi\|_{L^2}^2\bigg)$$
+    这里$C_{15}$只与$n,p,\Omega,\Lambda,\lambda$相关。
+    
+    将$\|c\|_{L^{p/2}}$放为$\Lambda$后求和即得到可取$C'=2\Lambda C_{14}+\Lambda C_{15}$，符合要求。
+}
+
+\
+
+\textbf{弱解存在唯一性}
+
+若弱极值原理的条件成立，则原问题弱解存在唯一，且存在$C$使得
+$$\|u\|_{H^1}\le C(\|T\|_{H^{-1}}+\|g\|_{H^1})$$
+
+\proo{
+    考虑$T=0,g=0$的情况，由于弱解为弱下解，利用$u\in H_0^1$，通过弱极值原理得到
+    $$\|u\|_{L^\infty}\le\sup_{\partial\Omega}u^+=0$$
+    于是$u$只能为0。利用Fredholm二择一定理，对任何$T$，弱解均存在唯一，于是算子$L$限制在$H_0^1\to H^{-1}$上具有有界逆，记为$\hat{L}^{-1}$，并设范数为$M$。
+    
+    由此，记$w=u-g$，可知
+    $$\|u\|_{H^1}\le\|w\|_{H^1}+\|g\|_{H^1}=\|\hat{L}^{-1}(T-Lg)\|_{H^1}+\|g\|_{H^1}\le M\|T-Lg\|_{H^{-1}}+\|g\|_{H^1}$$
+    进一步放大可知
+    $$\|u\|_{H^1}\le M\|T\|_{H^{-1}}+M\|Lg\|_{H^{-1}}+\|g\|_{H^1}$$
+    由$a(u,v)$的有界性可知$L$亦有界，设范数为$M'$即得
+    $$\|u\|_{H^1}\le M\|T\|_{H^{-1}}+(MM'+1)\|g\|_{H^1}$$
+    从而得证。
+}
+
+\subsection{弱解的正则性}
+先声明两个Sobolev空间的定理。记
+$$\Delta_{h,s}u=\frac{1}{h}\big(u(x+he_s)-u(x)\big)$$
+则有：
+\begin{itemize}
+    \item 设$u\in W^{1,p}(\Omega),1<p<\infty$，对$\Omega$中某紧集$\Omega'$，存在只与$\Omega,\Omega',n$相关的$C$使得在$|h|$充分小时
+    $$\|\Delta_{h,s}u\|_{L^p(\Omega')}\le C\|D_su\|_{L^p}$$
+    \item 设$u\in L^p(\Omega),1<p<\infty$，并假定存在常数$K$，使得对任意$\Omega$中紧集$\Omega'$、当$|h|$充分小时 
+    $$\|\Delta_{h,s}u\|_{L^p(\Omega')}\le K$$
+    则对任何$\Omega$中紧集$\Omega'$有
+    $$\|D_su\|_{L^p(\Omega')}\le K$$
+\end{itemize}
+
+\
+
+为方便起见讨论
+$$Lu=f,\quad L=-D_ja^{ij}D_i+b^iD_i+c$$
+并假定$a^{ij}\in W^{1,\infty}(\Omega),b^i,c\in L^\infty(\Omega),f\in L^2(\Omega)$，且
+$$\exists\lambda>0,\Lambda>0,\quad\lambda|\xi|^2\le a^{ij}(x)\xi_i\xi_j\le\Lambda|\xi|^2,\quad\forall\xi\in\mathbb{R}^n,x\in\Omega$$
+
+\
+
+\textbf{内部正则性}
+
+若上述方程存在弱解$u\in H^1$，则对任何$\Omega$列紧子集$\Omega'$，有$u\in H^2(\Omega')$，且存在$C$使得
+$$\|u\|_{H^2(\Omega')}\le C(\|u\|_{H^1}+\|f\|_{L^2})$$
+其中$C$依赖$n,\lambda,\|a^{ij}\|_{W^{1,\infty}},\|b^i\|_{L^\infty},\|c\|_{L^\infty}$与$\Omega'$、$\Omega$。
+
+*除了本节开始的假定以外，证明中需要控制$a$的差商，因此额外要求$a$\textbf{连续}，这可以通过$\Omega$\textbf{边界适当光滑}(从而$W^{1,\infty}$可嵌入$C(\bar\Omega)$)或直接\textbf{假定$a$连续}得到，书中缺乏此假定。
+
+\proo{
+    \textbf{对一般$v$估计}
+
+    记$q=f-b^iD_iu-cu$，则由弱解定义$a(u,\varphi)=(f,\varphi)_0$知
+    $$\forall\varphi\in H_0^1,\quad\int_\Omega a^{ij}D_iuD_j\varphi\dr x=\int_\Omega q\varphi\dr x$$
+
+    记$\Delta_h=\Delta_{h,1}$为$e_1$方向的差分算子，$\tau_hu(x)=u(x+he_1)$为平移算子。
+    
+    对任何$v\in H_0^1$，由于其支集在$\Omega$中紧，设同$\partial\Omega$距离为$r$，取$h<r/2$，检验函数$\varphi=\Delta_{-h}v$，可验证其仍在$H_0^1$中，代入计算即得
+    $$\int_\Omega\Delta_h(a^{ij}D_iu)D_jv\dr x=-\int_\Omega q\Delta_{-h}v\dr x$$
+
+    进一步计算可得$\Delta_h(a^{ij}D_iu)=\tau_ha^{ij}\Delta_hD_iu+D_iu\Delta_ha^{ij}$，由此利用$q$定义有
+    $$\int_{\Omega}\tau_ha^{ij}D_i\Delta_huD_jv\dr x=-\int_\Omega(\Delta_ha^{ij}D_iuD_jv+q\Delta_{-h}v)\dr x$$
+    假定$a$连续时，根据弱导数的定义可知牛顿莱布尼茨公式成立，即
+    $$\Delta_ha^{ij}(x)=\frac{1}{h}\int_0^hD_1a^{ij}(x+te_1)\dr t$$
+    由此将$D_1$放至上界即可知$\Delta_ha^{ij}(x)\le\|a^{ij}\|_{W^{1,\infty}}$，进一步利用H\"older不等式可控制第一项为
+    $$C_1\|Du\|_{L^2}\|Dv\|_{L^2}$$
+    且$C_1$只与$a$有关。
+
+    对第二项，利用本节开头的定理可知$|h|$充分小时有(记$v$的支集为$\Omega''$)
+    $$\|\Delta_{-h}v\|_{L^2}\le C_2\|Dv\|_{L^2}$$
+    利用H\"older不等式后，对$\|q\|_{L^2}$采用Minkowski不等式放缩，即得到第二项可控制为
+    $$C_3(\|f\|_{L^2}+\|Du\|_{L^2}+\|u\|_{L^2})\|Dv\|_{L^2}$$
+    这里$C_3$与$n,b^i,c,\Omega'',\Omega$有关。
+
+    利用$\|u\|_{H^1}$的定义，可以最终得到
+    $$\int_{\Omega}\tau_ha^{ij}D_i\Delta_huD_jv\dr x\le(C_1+C_3)(\|f\|_{L^2}+\|u\|_{H^1})\|Dv\|_{L^2}$$
+
+    \
+
+    \textbf{利用$\eta$构造$v$}
+
+    对某紧集$\Omega''$，取定其内点的列紧子集$\Omega'$，考虑$\eta\in C_0^\infty$使得$x\in\Omega'$时$\eta(x)=1$，而$x\notin\Omega''$时$\eta(x)=0$，且其恒不超过1\ (通过Uryson引理类似思路可构造)，则$v=\eta^2\Delta_hu$即满足支集为$\Omega''$，记$C_4=C_1+C_3$，代入计算并利用Minkowski不等式得$|h|$充分小时
+    $$\begin{aligned}\int_\Omega\tau_ha^{ij}D_i\Delta_huD_j\Delta_hu\dr x&\le-2\int_\Omega\eta\tau_ha^{ij}D_i\Delta_hu(D_j\eta)\Delta_hu\dr x\\ &\quad+C_4(\|u\|_{H^1}+\|f\|_{L^2})(\|\eta^2D\Delta_hu\|_{L^2}+2\|\eta\Delta_huD\eta\|_{L^2})\end{aligned}$$
+
+    利用$a^{ij}$的条件可发现左侧大于等于(计算有$\Delta_hD=D\Delta_h$)
+    $$\lambda\int_\Omega|\eta\Delta_hDu|^2=\lambda\|\eta\Delta_hDu\|_{L^2}^2$$
+
+    对右侧第一项，将$\tau_ha^{ij}$放至上界，利用Cauchy不等式得到其不超过
+    $$C_5\|\eta\Delta_hDu\|_{L^2}\|D\eta\Delta_h u\|_{L^2}$$
+    进一步利用基本不等式得到其不超过
+    $$\frac{\lambda}{4}\|\eta\Delta_hDu\|_{L^2}^2+C_6\|D\eta\Delta_h u\|_{L^2}^2$$
+    这里$C_6$与$a^{ij},\lambda$相关。
+
+    对右侧第二项，利用基本不等式进行放缩可使得其不超过
+    $$C_7\|u\|_{H^1}^2+C_8\|f\|_{L^2}^2+\frac{\lambda}{4}\|\eta^2D\Delta_hu\|_{L^2}^2+C_9\|\eta\Delta_huD\eta\|_{L^2}^2$$
+    再利用$\eta$不超过1，放缩为
+    $$C_7\|u\|_{H^1}^2+C_8\|f\|_{L^2}^2+\frac{\lambda}{4}\|\eta D\Delta_hu\|_{L^2}^2+C_9\|\Delta_huD\eta\|_{L^2}^2$$
+    最终整理得到
+    $$\lambda\|\eta\Delta_hDu\|_{L^2}^2\le \frac{\lambda}{4}\|\eta\Delta_hDu\|_{L^2}^2+C_6\|D\eta\Delta_h u\|_{L^2}^2+C_7\|u\|_{H^1}^2+C_8\|f\|_{L^2}^2+\frac{\lambda}{4}\|\eta D\Delta_hu\|_{L^2}^2+C_9\|\Delta_huD\eta\|_{L^2}^2$$
+    即得
+    $$\frac{\lambda}{2}\|\eta\Delta_hDu\|_{L^2}^2\le(C_6+C_9)\|D\eta\Delta_h u\|_{L^2}^2+(C_7+C_8)(\|u\|_{H^1}^2+\|f\|_{L^2}^2)$$
+
+    利用$\eta$光滑紧支，可知$D\eta$有上界，而上文的$\eta$只与$\Omega',\Omega''$相关，由此可将右侧第一项放为
+    $$C_{10}\|\Delta_hu\|_{L^2(\Omega'')}^2$$
+    而这即可以利用本节开头定理放缩为$C_{11}\|u\|_{L^2}^2\le C_{11}\|u\|_{H^1}^2$，由此最终得到
+    $$\|\eta\Delta_hDu\|_{L^2}^2\le C_{12}(\|u\|_{H^1}^2+\|f\|_{L^2}^2)$$
+
+    \
+
+    \textbf{消去$\eta$}
+
+    根据$\eta$在$\Omega'$为1即可知
+    $$\|\Delta_hDu\|_{L^2(\Omega')}^2\le C_{12}(\|u\|_{H^1}^2+\|f\|_{L^2}^2)$$
+    这里$C_{12}$依赖$n,\lambda,\|a^{ij}\|_{W^{1,\infty}},\|b^i\|_{L^\infty},\|c\|_{L^\infty}$与$\Omega,\Omega',\Omega''$。但由于最终结果式已经不存在$\eta$，可以对给定的$\Omega'$取出$\Omega''$，再构造某个对应的$\eta$，此时则只与$\Omega'$相关，
+
+    利用本节开头定理，上式可以说明对任何$i$有($i\ne1$时完全类似)
+    $$\|D_iDu\|_{L^2(\Omega')}^2\le C_{12}(\|u\|_{H^1}^2+\|f\|_{L^2}^2)$$
+    而这又说明了($H_0^2$表示所有二阶导数平方求和后积分的平方根)
+    $$\|u\|_{H_0^2(\Omega')}^2\le nC_{12}(\|u\|_{H^1}^2+\|f\|_{L^2}^2)$$
+    再利用$\|u\|_{H^2}^2=\|u\|_{H^1}^2+\|u\|_{H_0^2}^2$即得
+    $$\|u\|_{H^2(\Omega')}^2\le(nC_{12}+1)(\|u\|_{H^1}^2+\|f\|_{L^2}^2)$$
+    将两边开平方根后利用$\sqrt{a^2+b^2}\le|a|+|b|$就是要证的结论。
+}
+
+\
+
+当\textbf{边界适当光滑}时，可以得到\textbf{全局正则性}结论，即$u\in H^2(\Omega)$。
+
+定义一个$n$维空间中的区域$\Omega$有$C^k$边界，若对任何$x^0\in\partial\Omega$，存在其邻域$V$与$C^k$同胚(即其与其逆均$C^k$，且要求能延拓到边界)\ $\psi:V\to\mathbb{R}^n$使得
+$$B^+=\psi(V\cap\Omega),\quad \partial B^+\cap B=\psi(V\cap\partial\Omega)$$
+这里$B$为$\mathbb{R}^n$单位球，设其中向量为$y$，则$B^+$为$y^n>0$的部分，即上半球，$\partial B^+\cap B$即单位球中$y^n=0$的部分。
+
+在内部正则性假定下，若额外要求$\partial\Omega$是$C^2$的，且$g\in H^2(\Omega)$，则$Lu=f$满足$u-g\in H_0^1$的弱解$u$有估计
+$$\|u\|_{H^2}\le C(\|u\|_{L^2}+\|f\|_{L^2}+\|g\|_{H^2})$$
+其中$C$依赖$n,\lambda,\|a^{ij}\|_{W^{1,\infty}},\|b^i\|_{L^\infty},\|c\|_{L^\infty}$与$\partial\Omega$\ (实质上给定边界自然也依赖$\Omega$，这里强调与边界相关)。
+
+\proo{
+    \textbf{特殊情况-坐标变换}
+
+    先考虑$g=0$的情况。任取$x^0\in\partial\Omega$，并取出对应的$V$与$\psi$。设$y=\psi(x)$，并记$\psi^{-1}$的Jacobi行列式为$J$，对任何$\varphi\in C_0^\infty(V\cap\Omega)$，类似上个证明开头并将$x$变量替换为$y$，可得
+    $$\int_{B^+}\tilde{a}^{kl}\tilde{D}_ku\tilde{D}_l\varphi\dr y=\int_{B^+}\tilde{q}\varphi\dr y,\quad\tilde{D}_k=\frac{\partial}{\partial y_k},\quad\tilde{a}^{kl}=Ja^{ij}\frac{\partial y_k}{\partial x_i}\frac{\partial y_l}{\partial x_j},\quad\tilde{q}=Jq$$
+
+    由于$\psi$的光滑性要求，可知$J$、$D_i(y_k)$均有界。记$M\subset\mathbb{R}^n$为原点中心、半径$1/2$球中$y^n>0$的部分，其闭包在$B^+$中除第$n$个分量外不会触及边界，与上个定理类似得，对$1\le k\le n-1$有估计(这里$u$看作$u(y)=u(\psi(x))$)
+    $$\|\tilde{D}_k\tilde{D}u\|_{L^2(M)}\le C_1\big(\|u\|_{H^1}+\|f\|_{L^2}\big)$$
+    这里$C_1$依赖$n,\lambda,\|a^{ij}\|_{W^{1,\infty}},\|b^i\|_{L^\infty},\|c\|_{L^\infty}$与$x^0,V,\psi$。
+
+    由此已经控制了除了$\tilde{D}_{nn}$外所有的二阶导数。对$\tilde{D}_{nn}$，考虑以$y$为变量的$\varphi\in C_0^\infty(M)$，，利用弱导数可分部积分可得在$M$中
+    $$\tilde{D}_l(\tilde{a}^{kl}\tilde{D}_ku)=\tilde{q}$$
+    于是
+    $$\tilde{a}^{nn}\tilde{D}_{nn}u=\tilde{q}-\sum_{k+l<2n}(\tilde{D}_l\tilde{a}^{kl}\tilde{D}_ku+\tilde{a}^{kl}\tilde{D}_{kl}u)-\tilde{D}_n\tilde{a}^{nn}\tilde{D}_nu$$
+    利用$a$的性质与$J$非零可知$\tilde{a}^{nn}$有非零下界，而右侧每一项的$L^2$范数都可以被$\|u\|_{H^1}+\|f\|_{L^2}$控制，因此左侧的$L^2$范数也必然可以被$\|u\|_{H^1}+\|f\|_{L^2}$控制，也即最终得到
+    $$\|u\|_{H_0^2(M)}\le C_2(\|u\|_{H^1}+\|f\|_{L^2})$$
+    $C_2$依赖$n,\lambda,\|a^{ij}\|_{W^{1,\infty}},\|b^i\|_{L^\infty},\|c\|_{L^\infty}$与$x^0,V,\psi$。
+    
+    \
+
+    \textbf{特殊情况-拼接整体}
+
+    坐标变换回到$\Omega$中，设$V'=\psi^{-1}(M)$，仍利用映射光滑性可知变换产生的项均有界，因此
+    $$\|u\|_{H_0^2(V')}\le C_2(\|u\|_{H^1}+\|f\|_{L^2})$$
+    从而有
+    $$\|u\|_{H^2(V')}\le(C_2+1)(\|u\|_{H^1}+\|f\|_{L^2})$$
+    $C_2$依赖$n,\lambda,\|a^{ij}\|_{W^{1,\infty}},\|b^i\|_{L^\infty},\|c\|_{L^\infty}$与$x^0,V,\psi$。
+
+    对所有$x^0$，可取出有限个$V'$覆盖$\partial\Omega$，而$\Omega$去除这些$V'$的剩下部分$\Omega'$与边界距离非零，因此闭包为紧，其上利用上个定理可控制，将上个定理的$C$与有限个$C_2+1$相加成为$C_3$，可得到
+    $$\|u\|_{H^2}\le C_3(\|u\|_{H^1}+\|f\|_{L^2})$$
+    由于区域边界给定时有限覆盖的$x^0$即给定，去除所有$V'$后的$\Omega'$也给定，对于$x^0,V',\psi$的依赖均变为对区域边界的依赖，即得$C_3$依赖$n,\lambda,\|a^{ij}\|_{W^{1,\infty}},\|b^i\|_{L^\infty},\|c\|_{L^\infty}$与$\partial\Omega$，符合要求。
+
+    \
+
+    \textbf{一般情况}
+
+    对一般的$g$，考虑$u-g$满足的方程，根据已证有
+    $$\|u-g\|_{H^2}\le C_3\big(\|u-g\|_{H^1}+\|f-Lg\|_{L^2}\big)$$
+    从而利用Minkowski不等式
+    $$\|u\|_{H^2}\le\|g\|_{H^2}+C_3\|u\|_{H^1}+C_3\|g\|_{H^1}+C_3\|f\|_{L^2}+C_3\|Lg\|_{L^2}$$
+    注意到$\|g\|_{H^1}\le\|g\|_{H^2}$，且由于$L$为至多二阶的微分算子，每个微分前的分量有界，即得$\|Lg\|_{L^2}$也能被$C_4\|g\|_{H^2}$控制，这里$C_4$与$a^{ij},b^i,c$相关，综合得
+    $$\|u\|_{H^2}\le C_5(\|u\|_{H^1}+\|f\|_{L^1}+\|g\|_{H^2})$$
+
+    最后我们证明，对任何$\varepsilon>0$，存在与$n,\Omega$相关的$C_\varepsilon$使得
+    $$\|u\|_{H^1}\le\varepsilon\|u\|_{H^2}+C_\varepsilon\|u\|_{L^2}$$
+    再取$\varepsilon=1/(2C_5)$得到最终结论。
+    
+    利用泛函分析中的结论与Sobolev空间的紧嵌入关系，由$H^2$到$H^1$的嵌入紧、$H^1$到$L^2$的嵌入连续可得成立。
+
+    *上述结论需要区域边界满足一定的基本条件，如一致内锥条件。
+}
+
+\
+
+\textbf{更高阶正则性}
+
+若开头对$a^{ij}$的假设成立，且额外有$a^{ij}\in W^{k+1,\infty},b^i,c\in W^{k,\infty}$，则原方程弱解满足(可类似之前估计证明)
+$$u\in W_{loc}^{k+2,2}(\Omega)$$
+这里loc代表内部任何列紧子集中，$k$为非负整数。
+
+进一步地，若还有$\partial\Omega$为$C^{k+2}$，$g\in W^{k+2,2}$，则$Lu=f$满足$u-g\in H_0^1$的弱解$u$有$u\in W^{k+2,2}$。
+
+当$a^{ij},b^i,c$无穷次可微时，对任意$k$有$u\in W_{loc}^{k+2,2}(\Omega)$，利用嵌入定理即可知$u\in C^\infty(\Omega)$。
+
+\section{Schauder理论}
+*研究\textbf{古典解}相关的估计。
+
+\subsection{H\"older空间}
+设法定义某种意义下的\textbf{分数次微商}：设$\Omega\subset\mathbb{R}^n$，$u$定义在$\Omega$上，取$0<\alpha<1$，记
+$$H_{x_0}^\alpha[u;\Omega]=\sup_{x\in\Omega}\frac{\|u(x)-u(x_0)\|}{\|x-x_0\|^\alpha}$$
+若其小于$\infty$，称$u$在$x_0$有指数为$\alpha$的\textbf{H\"older连续性}，该值称为$u$在$x_0$关于$\Omega$的$\alpha$次H\"older系数。若$\alpha=1$，则成为Lipschitz连续，对应为Lipschitz系数。
+
+\
+
+\textbf{H\"older空间}：考虑$0<\alpha\le1$，定义
+$$[u]_{0;\Omega}=[u]_{0,0;\Omega}=\sup_{x\in\Omega}|u(x)|$$
+$$[u]_{\alpha;\Omega}=[u]_{0,\alpha;\Omega}=\sup_{x\in\Omega}H_x^\alpha[u;\Omega]$$
+$$[u]_{k,0;\Omega}=\sum_{|v|=k}[D^vu]_{0;\Omega}$$
+$$[u]_{k,\alpha;\Omega}=\sum_{|v|=k}[D^vu]_{\alpha;\Omega}$$
+这里$v$为多重指标，即$n$重自然数向量，$|v|$为一范数，$D^vu$代表对第$i$个分量求导$v_i$次。
+
+*将$\sum_{|v|=k}|D^vu|_{\alpha;\Omega}$\textbf{简记}为$[D^ku]_{\alpha;\Omega}$。
+
+记$C^{k,\alpha}(\bar\Omega)$为$C^k(\bar\Omega)$中$[u]_{k,\alpha;\Omega}<\infty$的所有函数，在$C^k(\bar\Omega)$中可定义范数
+$$|u|_{k;\Omega}=\sum_{m=0}^k[u]_{m,0;\Omega}$$
+在$C^{k,\alpha}(\bar\Omega)$中可定义范数
+$$|u|_{k,\alpha;\Omega}=|u|_{k;\Omega}+[u]_{k,\alpha;\Omega}$$
+
+也可将$|u|_{0,\alpha;\Omega}$记为$|u|_{\alpha;\Omega}$，由于$k$与$\alpha$范围不同，一般无歧义。
+
+可验证其均为Banach空间。下在无歧义时省略$\Omega$，且默认$0<\alpha\le1$。
+
+\
+
+\textbf{乘积H\"older模运算}：设$u,v\in C^{0,\alpha}$\ (或记为$C^\alpha$)，则
+$$[uv]_\alpha\le[u]_0[v]_\alpha+[u]_\alpha[v]_0\le|u|_\alpha|v|_\alpha$$
+\proo{
+    第二个不等号直接利用定义展开可得，从而只需证明第一个不等号，而利用Minkowski不等式
+    $$\|u(x)v(x)-u(y)v(y)\|\le\|u(x)\|\|v(x)-v(y)\|+\|v(y)\|\|u(x)-u(y)\|$$
+    并将$\|u(x)\|$、$\|v(y)\|$放为$[u]_0$、$[v]_0$即得证。
+}
+
+*由此利用$[uv]_0\le[u]_0[v]_0$可知$|uv|_\alpha\le|u|_\alpha|v|_\alpha$。
+
+\textbf{内插不等式}：设$\Omega$有界，$u\in C^{2,\alpha}$，对任意$\varepsilon>0$，存在依赖$n,\alpha,\Omega$的$C_\varepsilon$使得
+$$[u]_{2,0}\le\varepsilon[u]_{2,\alpha}+C_\varepsilon|u|_0$$
+$$[u]_{1,0}\le\varepsilon[u]_{2,\alpha}+C_\varepsilon|u|_0$$
+\proo{
+    只证明第一个不等式，第二个类似即得。
+
+    若结论不成立，存在某$\varepsilon$，对任何$N$都存在$u_N$满足
+    $$[u_N]_{2,0}>\varepsilon[u_N]_{2,\alpha}+N|u_N|_0$$
+    由于齐次，可不妨除以倍数使得$|u_N|_2=1$，由此左侧不超过1，从而
+    $$[u_N]_{2,\alpha}<\frac{1}{\varepsilon},\quad|u_N|_0<\frac{1}{N}$$
+    由第一条可知$u_N$在$C^{2,\alpha}$中一致有界(由区域有界，高阶导数可控制低阶导数)，利用Arzel\`a-Asgoli引理可取出$|\cdot|_{2,\alpha}$下收敛子列，其也在$|\cdot|_2$下收敛，但第二条则表明其一致收敛于0，与$|u_N|_2=1$矛盾。
+
+    *此证明事实上与泛函分析上利用紧嵌入证明本质完全相同。
+}
+
+\
+
+\textbf{有限锥}：对非空集合$V\subset\mathbb{R}^n$，若存在$x,c\in\mathbb{R}^n$、$d>c^Tx$、$\mathbb{R}^n$的一组基$b^i$，使得
+$$V=\big\{x+\mu_ib^i\mid\forall i=1,\dots,m,\quad\mu_i\ge0\big\}\cap\{y\mid c^Ty\le d\}$$
+则称其为一个有限锥。其中$x$称为锥的顶，$V\cap\{y\mid c^Ty=d\}$称为锥的底，$x$到平面$c^Ty\ge d$的距离称为锥的高，而考虑以$x$为球心1为半径的球$B_1(x)$，$\partial B_1(x)\cap V$的面积(可发现$V$球对称，以体积比例等定义均可)称为其立体角。
+
+区域$\Omega$有\textbf{锥性质}：存在有限锥$V$使得对任何$x\in\Omega$，存在全等于$V$且以$x$为顶的锥包含在$\Omega$内。
+
+\textbf{更好的内插不等式}：设$\Omega$具有锥性质，对应的$V$高为$h$，则对于任何$0<\varepsilon\le h$，存在只依赖$n,\alpha$与锥的立体角的$C$使得
+$$[u]_{2,0}\le\varepsilon^\alpha[u]_{2,\alpha}+\frac{C}{\varepsilon^2}|u|_0$$
+$$[u]_{1,0}\le\varepsilon^{1+\alpha}[u]_{2,\alpha}+\frac{C}{\varepsilon}|u|_0$$
+\proo{
+    \textbf{引理}：设$\tilde{u}(x)=u(\varepsilon x)$，并对应变换定义域，则$[\tilde{u}]_{k,\alpha}=\varepsilon^{k+\alpha}[u]_{k,\alpha}$。
+
+    \textbf{引理证明}：直接由定义计算即可。
+
+    \textbf{第一个不等式}：设某个高为1、顶为原点的锥为$V_1$，若$u\in C^{2,\alpha}(V_1)$，利用内插不等式可知存在依赖$n,\alpha,V_1$的$C$使得
+    $$[u]_{2,0;V_1}\le[u]_{2,\alpha;V_1}+C|u|_{0;V_1}$$
+    考虑$V_1$关于原点位似，位似比为$\varepsilon$的锥$V_\varepsilon$，作变量替换$y=x/\varepsilon$，且$\tilde{u}(y)=u(\varepsilon y)$，则若$u\in C^{2,\alpha}(V_\varepsilon)$，对$\tilde{u}$应用上述不等式得到
+    $$[u]_{2,0;V_\varepsilon}\le\varepsilon^\alpha[u]_{2,\alpha;V_\varepsilon}+\frac{C}{\varepsilon^2}|u|_{0;V_\varepsilon}$$
+    回到原问题，对任何$x\in\Omega$与$\varepsilon<h$可找到某个以$x$为顶的锥$V_\varepsilon$，注意平移不影响上式，因此顶是否是原点并不重要，从而
+    $$[u]_{2,0;V_\varepsilon}\le\varepsilon^\alpha[u]_{2,\alpha;V_\varepsilon}+\frac{C}{\varepsilon^2}|u|_{0;V_\varepsilon}\le\varepsilon^\alpha[u]_{2,\alpha}+\frac{C}{\varepsilon^2}|u|_0$$
+    再注意$[u]_2$是以上界定义的，而任何$x$都可取出相应的$V_\varepsilon$，从而即有
+    $$[u]_{2,0}\le\varepsilon^\alpha[u]_{2,\alpha;V_\varepsilon}+\frac{C}{\varepsilon^2}|u|_{0;V_\varepsilon}\le\varepsilon^\alpha[u]_{2,\alpha}+\frac{C}{\varepsilon^2}|u|_0$$
+    而上述过程中的$C$除了$n,\alpha$外只与对应锥$V$位似到高为1情况相关，即只与立体角相关。
+
+    \textbf{第二个不等式}：完全类似作代换，利用引理得证。
+}
+
+*从引理也可看出其能看作分数次微商的原因，也可直接将$[u]_{k,\alpha}$看作$[u]_{k+\alpha}$，计算可发现当$u\in C^1$时$[u]_{1,0}=[u]_{0,1}$。
+
+\subsection{磨光核}
+由于H\"older模本身难以估算，考虑磨光核[mollifier]以提供其\textbf{等价范数}。
+
+对非负且支集在$B_1(0)$中的$\rho\in C_0^\infty(\mathbb{R}^n)$，若其在全空间积分为1，则称为磨光核，如可取合适的$k$使得
+$$\rho(x)=\begin{cases}k\exp\big(\frac{1}{\|x\|^2-1}\big)&\|x\|<1\\0&\|x\|\ge 1\end{cases}$$
+为磨光核。
+
+\textbf{磨光函数}：对$u\in L_{loc}^1(\mathbb{R}^n)$与磨光核$\rho$，$u$的磨光函数定义为
+$$\tilde{u}(x,\tau)=\tau^{-n}\int_{\mathbb{R}^n}\rho((x-y)/\tau)u(y)\dr y$$
+
+\
+
+\textbf{连续时的估计}：若$u\in C(\mathbb{R}^n)$，则$\tau\to0^+$时$\tilde{u}(x,\tau)$内闭一致收敛于$u$，且
+$$\sup|\tilde{u}|\le\sup|u|$$
+$$\forall|v|=k,\quad|D^v\tilde{u}(x,\tau)|\le C\tau^{-k}\sup_{B_\tau(x)}u$$
+这里$C$与$n,k,\rho$相关，$D^v$可以对$x$的任何分量或$\tau$求导。
+
+\proo{
+    利用$\rho$积分为1直接计算并换元可知
+    $$\tilde{u}(x,\tau)-u(x)=\int_{B_1(0)}\rho(z)(u(x-\tau z)-u(x))\dr z$$
+    由此利用紧集一致连续性即可发现$\tau\to 0^+$时在紧集上有一致收敛。
+
+    利用归纳法可证明
+    $$D^v(x,\tau)=\tau^{-n-k}\int_{\mathbb{R}^n}P_v\bigg(\frac{x-y}{\tau}\bigg)u(y)\dr y$$
+    其中$P(v)$为某支集在$\overline{B_1(0)}$中的光滑函数，换元可得
+    $$|D^v\tilde{u}(x,\tau)|\le\tau^{-k}\bigg|\int_{\mathbb{R}^n}P_v(z)u(x-\tau z)\dr z\bigg|\le\tau^{-k}\sup_{B_\tau(x)}|u|\int_{\mathbb{R}^n}|P_v(z)|\dr z$$
+    而最后的积分可对任何$v$求上界，从而得到只与$n,k,\rho$相关的界。
+}
+
+\textbf{$C^\alpha$时的估计}：若$u\in C_{loc}^\alpha(\mathbb{R}^n)$，则
+$$|\tilde{u}(x,\tau)|\le\tau^\alpha H_x^\alpha[u;B_\tau(x)]$$
+$$\forall|v|=k,\quad|D^v\tilde{u}(x,\tau)|\le C\tau^{\alpha-k}H_x^\alpha[u;B_\tau(x)]$$
+这里$C$与$n,\alpha,k,\rho$相关。
+
+\proo{
+    仍利用
+    $$\tilde{u}(x,\tau)-u(x)=\int_{B_1(0)}\rho(z)(u(x-\tau z)-u(x))\dr z$$
+    直接由定义可估算得第一个不等式成立，下证第二个不等式。
+
+    将指标$v$分为对$\tau$求导的部分$\beta_0$与对$x$求导的$n$重指标$\beta$，于是$D^v=D_\tau^{\beta_0}D_x^\beta$，先考虑$\beta=0$时，则$\beta_0=k>0$，对上式微商，类似之前的归纳可发现
+    $$D^v\tilde{u}(x,\tau)=\tau^{-k}\int_{\mathbb{R}^n}P_v(z)(u(x-\tau z)-u(x))\dr z$$
+    这里$P_v$支集在$B_1(0)$中，由此再次利用定义可知第二个不等式成立。
+
+    最后，当$\beta\ne0$时，直接由定义计算可知
+    $$D^v\tilde{u}(x,\tau)=\tau^{-n}\int_{\mathbb{R}^n}D^v\bigg(\rho\bigg(\frac{x-y}{\tau}\bigg)\bigg)u(y)\dr y$$
+    在积分中减去$u(x)$再增加它，并将第二项中利用$\rho((x-y)/\tau)$对$x$每求一次导，相当于其对$y$求一次导并加负号，可得其为
+    $$\tau^{-n}\int_{\mathbb{R}^n}D^v\bigg(\rho\bigg(\frac{x-y}{\tau}\bigg)\bigg)(u(y)-u(x))\dr y+(-1)^{|\beta|}\tau^{-n}u(x)\int_{\mathbb{R}^n}D_\tau^{\beta_0}D_y^\beta\rho\bigg(\frac{x-y}{\tau}\bigg)\dr y$$
+    由$\rho$紧支，由$\beta\ne0$，利用Gauss公式即可知第二项一定为0，再对第一项与之前类似用归纳法计算可得其为
+    $$\tau^{-n-k}\int_{\mathbb{R}^n}P_v\bigg(\frac{x-y}{\tau}\bigg)(u(y)-u(x))\dr y=\tau^{-k}\int_{B_1(0)}P_v(z)(u(x-\tau z)-u(x))\dr z$$
+    从而由定义估算可知成立。
+}
+
+\
+
+\textbf{反向估计}：若$u\in C(\mathbb{R}^n)$且对某$0<\alpha\le1$、$R>0$有(这里$D$为对$y$与$\tau$的梯度)
+$$\sup_{y\in B_R(x),0<\tau<R}\tau^{1-\alpha}\|D\tilde{u}(y,\tau)\|<\infty$$
+则有
+$$H_x^\alpha[u;B_R(x)]\le C\sup_{y\in B_R(x),0<\tau<R}\tau^{1-\alpha}\|D\tilde{u}(y,\tau)\|$$
+这里$C$与$n,\alpha,\rho$相关。
+
+\proo{
+    对$\|x-y\|<R$，取$\tau=\|x-y\|$，有
+    $$|u(x)-u(y)|\le|\tilde{u}(x,\tau)-u(x)|+|\tilde{u}(x,\tau)-\tilde{u}(y,\tau)|+|\tilde{u}(y,\tau)-u(y)|$$
+    直接估算可知
+    $$|\tilde{u}(x,\tau)-u(x)|=\bigg|\tau\int_0^1D_\tau\tilde{u}(x,\eta\tau)\dr\eta\bigg|\le\tau^\alpha\int_0^1\frac{(\tau\eta)^{1-\alpha}|D_\tau\tilde{u}(x,\eta\tau)|}{\eta^{1-\alpha}}\dr\eta$$
+    再直接放大分子可知
+    $$|\tilde{u}(x,\tau)-u(x)|\le\sup_{0<\tau<R}\big\{\tau^{1-\alpha}|D_\tau(x,\tau)|\big\}\tau^\alpha\int_0^1\eta^{\alpha-1}\dr\eta=\frac{\tau^\alpha}{\alpha}\sup_{0<\tau<R}\big\{\tau^{1-\alpha}|D_\tau(x,\tau)|\big\}$$
+    而利用微分中值定理可知存在$x,y$连线上的$x^*$使得
+    $$|\tilde{u}(x,\tau)-\tilde{u}(y,\tau)|=\|D_x\tilde{u}(x^*,\tau)\||x-y|=\|D_x\tilde{u}(x^*,\tau)\|\tau\le\tau^\alpha\sup_{z\in B_R(x),0<\tau<R}\tau^{1-\alpha}\|D_x\tilde{u}(z,\tau)\|$$
+    由此整理即得到
+    $$\frac{|u(x)-u(y)|}{\|x-y\|^\alpha}\le\bigg(\frac{2}{\alpha}+1\bigg)\sup_{z\in B_R(x),0<\tau<R}\tau^{1-\alpha}\|D\tilde{u}(z,\tau)\|$$
+    从而得证。
+}
+
+\
+
+\textbf{最终结论}
+\begin{enumerate}
+    \item 假设$u\in C^\alpha(\mathbb{R}^n)$，则存在仅依赖$n,\alpha,\rho$的常数$C$使得
+    $$\frac{1}{C}[u]_\alpha\le\sup_{\tau>0,x}\tau^{1-\alpha}\|D\tilde{u}(x,\tau)\|\le C[u]_\alpha$$
+    \proo{
+        利用$C^\alpha$时的估计与反向估计可直接得到结论，取$C$为$C^\alpha$时的估计中$k=1$时的$C$与反向估计的$C$中较大者即可。
+    }
+
+    \item 假设$u\in C^{k+1,\alpha}(\mathbb{R}^n)$，设$\beta$为$n$重指标，且$|\beta|=k$，则对任何指标$i$，存在仅依赖$n,\alpha,\rho$的常数$C$使得(这里$D^\beta$与H\"older半模都仅针对$x$，$D$代表对所有可能分量求导，中间这项包扩$\tau$，$[Dv]_\alpha$含义见前文简记)
+    $$[DD^\beta u]_\alpha\le\sup_{\tau>0}[DD^\beta\tilde{u}(x,\tau)]_\alpha\le C[DD^\beta u]_\alpha$$
+
+    \proo{
+        记$D_iD^\beta$为$D^v$\ ($D_i$为对$x_i$求导)，第一个不等号直接利用定义可知$\lambda>0$时对任何$x,y$有
+        $$\frac{|D^v\tilde{u}(x,\lambda)-D^v\tilde{u}(y,\lambda)|}{|x-y|^\alpha}\le\sup_{\tau>0}[D^v\tilde{u}(x,\tau)]_\alpha$$
+        再令$\lambda\to0$利用收敛性即可知$[D^vu]_\alpha\le\sup_{\tau>0}[D^v\tilde{u}(x,\tau)]_\alpha$，而左侧的每一项不超过中间的对应项，中间还多出一项对$\tau$求导，可知求和不超过中间。
+
+        记$\tau_hu(x)=u(x+h)$，并记设$h=y-x$，$w=u-\tau_hu$，则利用磨光变换线性性可知对任何$D_j$，其中$j$可能为$x_i$或$\tau$有
+        $$|D_jD^\beta\tilde{u}(x,\tau)-D_jD^\beta\tilde{u}(y,\tau)|=|D_jD^\beta\tilde{w}(x,\tau)|$$
+        利用分部积分可发现，记$U=D^\beta w$，有
+        $$|D_jD^\beta\tilde{w}(x,\tau)|=|D_j\tilde{U}(x,\tau)|$$
+        在$C^\alpha$时的估计的第二个不等式中取$\alpha=k=1$，可得
+        $$|D_jD^\beta\tilde{u}(x,\tau)-D_jD^\beta\tilde{u}(y,\tau)|\le CH_x^1[U;B_\tau(x)]\le CH_x^1[U;\mathbb{R}^n]$$
+        而利用微分中值定理即可发现
+        $$H_x^1[U;\mathbb{R}^n]\le[\|DU\|]_0=[\|DD^\beta(u-\tau_hu)\|]_0$$
+        从而
+        $$|D_jD^\beta\tilde{u}(x,\tau)-D_jD^\beta\tilde{u}(y,\tau)|\le C[\|DD^\beta(u-\tau_hu)\|]_0$$
+        利用$h=x-y$，两侧同除以$\|x-y\|^\alpha$，若右侧上界在$x_0$处取到，由定义即有
+        $$\begin{aligned}\relax[D_jD^\beta\tilde{u}(x,\tau)]_\alpha &\le C\frac{[\|DD^\beta(u-\tau_hu)\|]_0}{\|x-y\|^\alpha}=C\bigg\|\frac{DD^\beta u(x_0)-DD^\beta u(x_0+h)}{\|x-y\|^\alpha}\bigg\|\\ &=C\bigg\|\frac{DD^\beta u(x_0)-DD^\beta u(x_0+h)}{\|x_0+h-x_0\|^\alpha}\bigg\|\le C\bigg(\sum_j[D_jD^\beta u]_\alpha^2\bigg)^{1/2}\end{aligned}$$
+
+        若存一列$x_n$使得右侧趋于上界，由于对每个都满足估算，利用极限可知仍然满足。由于对每个分量都有估计，再利用有限维空间范数等价性，取$C'=(n+1)^2C$即得对向量范数也有估计，从而得证。
+    }
+\end{enumerate}
+
+\subsection{位势方程解的$C^{2,\alpha}$估计}
+由上述内容可知对H\"older模的估计只需要估计其磨光函数的微商，由此需要先进行\textbf{微商估计}。本节中$\triangle$为Laplace算子。
+
+\
+
+\textbf{位势方程导数估计}：设$u\in C^\infty(\mathbb{R}^n)$且$-\triangle u=f$，则对任何$R>0$有
+$$|D_iu(x)|\le\frac{n}{R}\osc_{B_R(x)}u+R\sup_{B_R(x)}|f|$$
+其中$\osc$表示振幅，即上下确界相减。
+
+\proo{
+    可不妨设$x$为原点，记$F_0=\sup_{B_r}f$，对任何$\rho$，由$\triangle=\nabla\cdot\nabla$，利用Gauss公式并极坐标换元可知(第二部分中的$r$为边界处单位外法向量)
+    $$\int_{B_\rho(0)}\triangle(D_iu)\dr x=\int_{\partial B_\rho(0)}\frac{\partial D_iu}{\partial r}\dr S=\rho^{n-1}\int_{|\omega|=1}\frac{\partial D_iu}{\partial\rho}(\rho\omega)\dr\omega=\rho^{n-1}\frac{\partial}{\partial\rho}\bigg(\rho^{1-n}\int_{\partial B_\rho(0)}D_iu\dr S\bigg)$$
+    最后一个等号先将对$\rho$求导移到积分外，再利用$\dr S=\rho^{n-1}\dr\omega$\ (每个分量乘$\rho$)的换元。
+    另一方面利用$\triangle D_i=D_i\triangle$，考虑第$i$个分量为$\triangle u$，其他分量为0的函数，则其散度恰为$D_i\triangle u$，利用Gauss公式得
+    $$\int_{B_\rho(0)}\triangle(D_iu)\dr x=\int_{\partial B_\rho(0)}\triangle u\cos(r,x_i)\dr S=-\int_{\partial B_\rho(0)}f\cos(r,x_i)\dr S$$
+    由此将$f$放至$F_0$，$|\cos(r,x_i)|$放成1，利用$n$维球表面积为$n\omega_n\rho^{n-1}$\ ($\omega_n$为$n$维单位球体积)即可知
+    $$\bigg|\frac{\partial}{\partial\rho}\bigg(\rho^{1-n}\int_{\partial B_\rho(0)}D_iu\dr S\bigg)\bigg|\le n\omega_n F_0$$
+    将其改写为
+    $$\pm\frac{\partial}{\partial\rho}\bigg(\rho^{1-n}\int_{\partial B_\rho(0)}D_iu\dr S\bigg)\le n\omega_n F_0$$
+    左右对$\rho$从0到$r$积分(注意由连续性，0处左侧偏导中极限为$n\omega_nD_iu(0)$)，再同乘$r^{n-1}$后对$r$从0到$R$积分(这时所有对半径$r$球面的累计会变为球体积分)，得到
+    $$\pm\bigg(\int_{B_r}D_iu\dr x-\omega_nR^nD_iu(0)\bigg)\le\frac{n}{n+1}\omega_nR^{n+1}F_0\le\omega_nR^{n+1}F_0$$
+    整理得
+    $$|D_iu(0)|\le RF_0+\frac{1}{\omega_nR^n}\bigg|\int_{B_r}D_iu\dr x\bigg|$$
+    由于$u(x)-u(0)$对第$i$个分量求导与$u(x)$相同，对$u(x)-u(0)$类似之前对$D_i\triangle u$使用Gauss公式可知
+    $$\bigg|\int_{B_r}D_iu\dr x\bigg|=\bigg|\int_{\partial B_r}(u(x)-u(0))\cos(r,x_i)\dr S\bigg|\le n\omega_nR^{n-1}\osc_{B_r}u$$
+    从而可代入得证。
+}
+
+\textbf{位势方程$C^{2,\alpha}$估计}：若$u\in C_0^\infty(\mathbb{R}^n)$且$-\triangle u=f$，对$\alpha\in(0,1)$，存在只与$n,\alpha$相关的$C$使得对任何$i,j$有
+$$[D_{ij}u]_\alpha\le C[f]_\alpha$$
+
+\proo{
+    \textbf{磨光变换}
+
+    对任意球$B_R(x_0)$，记$g(x)=f(x)-f(x_0)$，则根据$[f]_\alpha$定义类似上节最后估算可知
+    $$\sup_{B_R(x_0)}|g(x)|\le R^\alpha[f]_\alpha$$
+    将$f(x)$写为$g(x)+f(x_0)$，方程两边磨光后得到(利用分部积分与$u$紧支，由于$\triangle$均为二阶导可知$\triangle u$的磨光即等于$\triangle\tilde{u}$)
+    $$-\triangle\tilde{u}(x,\tau)-f(x_0)=\tilde{g}(x,\tau)$$
+
+    *此处的磨光核已经取定，因此常数不再与$\rho$相关。
+
+    求导即得
+    $$-\triangle D_{ij}\tilde{u}(x,\tau)=D_{ij}\tilde{g}(x,\tau)$$
+    这成为了关于$D_{ij}\tilde{u}$的新的位势方程，应用导数估计(并放大第二项)可得
+    $$|D_{kij}\tilde{u}(x_0,\tau)|\le n\bigg(\frac{1}{R}\osc_{B_R(x_0)}D_{ij}\tilde{u}(x,\tau)+R\sup_{B_R(x_0)}|D_{ij}\tilde{g}|\bigg)$$
+    再次利用类似上节最后的估算可将$\osc$放大，得到存在与$n,\alpha$相关的$C_2$使得(由于这里距离上界为$2R$，$C_2$比起$n$需要多乘$2^\alpha$)
+    $$|D_{kij}\tilde{u}(x_0,\tau)|\le C_2\bigg(\frac{1}{R^{1-\alpha}}[D_{ij}\tilde{u}]_\alpha+R\sup_{B_R(x_0)}|D_{ij}\tilde{g}|\bigg)$$
+
+    \
+
+    \textbf{还原估算}
+
+    利用上节的连续时估计的到每个$x\in B_R(x_0)$可知存在只依赖$n$的$C_3$使得
+    $$\sup_{B_R(x_0)}|D_{ij}\tilde{g}|\le C_3\tau^{-2}\sup_{B_{R+\tau}(x_0)}|g|$$
+    利用上节最终结论2可知存在只与$n,\alpha$相关的$C_4$使得
+    $$[D_{ij}\tilde{u}]_\alpha\le C_4[DD_ju]_\alpha$$
+    将常数合为只与$n,\alpha$相关的$C_5$，并设$R=N\tau$，其中$N>1$，两边同乘$\tau^{1-\alpha}$可得
+    $$\tau^{1-\alpha}|D_{kij}\tilde{u}(x_0,\tau)|\le C_5\big(N^{\alpha-1}[DD_ju]_\alpha+N\tau^{-\alpha}\sup_{B_{R+r}(x_0)}|g|\big)$$
+    再利用证明开始的估计，即可知
+    $$\tau^{1-\alpha}|D_{kij}\tilde{u}(x_0,\tau)|\le C_5\big(N^{\alpha-1}[DD_ju]_\alpha+N(N+1)^\alpha[f]_\alpha\big)$$
+    由于对每个$k$都可被控制，控制向量范数可知
+    $$\tau^{1-\alpha}\|DD_{ij}\tilde{u}(x_0,\tau)\|\le C_6\big(N^{\alpha-1}[DD_ju]_\alpha+N(N+1)^\alpha[f]_\alpha\big)$$
+    而利用上节最终结论1可知存在只与$n,\alpha$相关的常数$C_7$使得(再次利用分部积分，$D_{ij}u$的磨光与$D_{ij}\tilde{u}$相同)
+    $$[D_{ij}u]_\alpha\le C_7\sup_{\tau>0,x_0}\tau^{1-\alpha}\|DD_{ij}\tilde{u}(x_0,\tau)\|\le C_6C_7\big(N^{\alpha-1}[DD_ju]_\alpha+N(N+1)^\alpha[f]_\alpha\big)$$
+    同样，控制向量可得存在只与$n,\alpha$相关的$C_8$使
+    $$[DD_ju]_\alpha\le C_8\big(N^{\alpha-1}[DD_ju]_\alpha+N(N+1)^\alpha[f]_\alpha\big)$$
+    取$N$使得$N^{\alpha-1}=C_8/2$，即可移项得到
+    $$[DD_ju]_\alpha\le C_9[f]_\alpha$$
+    而左侧向量模长大于等于任何分量模长$|D_{ij}u|_\alpha$，从而得证。
+}
+
+\
+
+\textbf{常系数椭圆型方程}：考虑方程
+$$-a^{ij}D_{ij}u=f$$
+其中常数矩阵$a^{ij}$\ (由偏导可交换不妨设其对称)满足存在$\lambda,\Lambda>0$使得
+$$\lambda\|\xi\|^2\le a^{ij}\xi_i\xi_j\le\Lambda\|\xi\|^2$$
+其解$u$若在$C_0^{2,\alpha}(\mathbb{R}^n)$中，则存在只与$n,\alpha,\Lambda/\lambda$相关的$C$使得对任何$i,j$有
+$$[D_{ij}u]_\alpha\le C\lambda^{-1}[f]_\alpha$$
+\proo{
+    由条件$A=(a^{ij})$正定，从而存在可逆矩阵$B=(b^{ij})$使得$B^TAB=I$，作变量代换$y=Bx$，并设$\bar{u}(y)=u(x)=u(B^{-1}y)$、$\bar{f}(y)=f(x)$，进行线性代数计算：由$D_i=b^{ij}D_j^{(y)}$可知
+    $$D_{ij}=b^{ik}b^{jl}D_{kl}^{(y)}$$
+    从而利用$B^TAB=1$可得
+    $$a^{ij}D_{ij}=b^{ik}a^{ij}b^{jl}D_{kl}^{(y)}=\sum_kD_{kk}^{(y)}=\triangle_y$$
+    因此原方程化为
+    $$-\triangle_y\bar{u}(y)=\bar{f}(y)$$
+    从而根据位势方程的情况有对$y$的估计
+    $$[D_{ij}\bar{u}]_\alpha\le C_1[\bar{f}]_\alpha$$
+    计算可发现
+    $$\|B\beta-B\gamma\|^2=(\beta-\gamma)^TB^TB(\beta-\gamma)$$
+    而利用$\det(\lambda I-BB^T)=\det(\lambda I-B^TB)$可知两者特征值相同，而$BB^T=A^{-1}$，其特征值在$[\Lambda^{-1},\lambda^{-1}]$，由此
+    $$\Lambda^{-1}\|\beta-\gamma\|^2\le\|B\beta-B\gamma\|^2\le\lambda^{-1}\|\beta-\gamma\|^2$$
+    于是利用定义可得(中间两项即构成上方对$y$的估计)
+    $$\begin{aligned}\lambda^{\alpha/2}\sup_{\beta,\gamma}\frac{|D_{ij}^{(y)}u(\beta)-D_{ij}^{(y)}u(\gamma)|}{\|\beta-\gamma\|^\alpha}&\le\sup_{\beta,\gamma}\frac{|D_{ij}^{(y)}u(\beta)-D_{ij}^{(y)}u(\gamma)|}{\|B\beta-B\gamma\|^\alpha}\\ &\le C_1\sup_{\alpha,\beta}\frac{|f(\beta)-f(\gamma)|}{\|B\beta-B\gamma\|^\alpha}\le C_1\Lambda^{\alpha/2}\sup_{\beta,\gamma}\frac{|f(\beta)-f(\gamma)|}{\|\beta-\gamma\|^\alpha}\end{aligned}$$
+    即存在与$n,\alpha,\Lambda/\lambda$相关的$C_2$使得
+    $$[D_{ij}^{(y)}u(x)]_\alpha\le C_2[f]_\alpha$$
+    利用之前的等式，利用半模的H\"older不等式与向量的范数等价性可知存在与$n,\alpha,\Lambda/\lambda$相关的$C_3$使得
+    $$[D_{ij}u(x)]_\alpha\le|b^{ik}b^{jl}|[D_{kl}^{(y)}u(x)]_\alpha\le C_2\sum_{k,l}|b^{ik}b^{jl}|[f]_\alpha=C_2\sum_k|b^{ik}|\sum_l|b^{jl}|[f]_\alpha\le C_3\|b^i\|\|b^j\|[f]_\alpha$$
+    这里$b^i$代表$b$的第$i$个行向量，只需说明能取出合适的$B$使得$\|b^i\|\|b^j\|\le\lambda^{-1}$即可。
+
+    由于$A$正定，考虑正交相似对角化$Q^TAQ=D$，$D$为元素均正的对角阵。取$B=Q\sqrt{D^{-1}}$，由于$A$的最小特征值至少为$\lambda$，$B$的每个位置不超过$Q$的$\lambda^{-1/2}$倍，而$Q$每行二范数为1，从而得证。
+
+}
+
+\
+
+\textbf{边界估计}
+
+记$\mathbb{R}^n_+$为$\mathbb{R}^n\cap\{x_n>0\}$，若$u\in C_0^{2,\alpha}(\overline{\mathbb{R}^n_+})$满足
+$$-\triangle u(x)=f(x),\quad x\in\mathbb{R}^n_+$$
+$$u(x)=0,\quad x\in\partial\mathbb{R}^n_+$$
+则对$\alpha\in(0,1)$，存在只与$n,\alpha$相关的$C$使得对任何$i,j$有
+$$[D_{ij}u]_\alpha\le C[f]_\alpha$$
+
+\proo{
+    \textbf{奇延拓}
+
+    对$x_0\in\mathbb{R}^n_+$，定义$g(x)=f(x)-f(x_0)$，记$x=(x',x_n)$，利用奇延拓扩充定义$\mathbb{R}^n$中的函数
+    $$v(x)=\begin{cases}u(x)&x_n\ge0\\-u(x',-x_n)&x_n<0\end{cases}$$
+    $$h(x)=\begin{cases}g(x)&x_n>0\\-g(x',-x_n)&x_n<0\end{cases}$$
+    $$f_0(x)=\begin{cases}f(x_0)&x_n>0\\-f(x_0)&x_n<0\end{cases}$$
+    由$u$在边界为0可发现$v\in W^{2,\infty}(\mathbb{R}^n)$，且其对$x'$的任何分量求导后在$C^{1,\alpha}(\mathbb{R}^n)$中。延拓后满足方程
+    $$-\triangle v(x)-f_0(x)=h(x),\quad x_n\ne0$$
+    而由于磨光变换由积分定义，可忽略$x_n=0$时未定义的部分，由此得到(与之前类似利用分部积分)
+    $$-\triangle\tilde{v}(x,\tau)-\tilde{f}_0(x,\tau)=\tilde{h}(x,\tau)$$
+
+    \
+    
+    \textbf{边界处理}
+
+    与位势方程的$C^{2,\alpha}$估计完全类似，只要$j\ne n$，利用光滑性可以得到存在只与$n,\alpha$相关的$C$使得
+    $$[DD_jv]_\alpha\le C[h+f_0]_\alpha$$
+    注意到$D_jv\in C^{1,\alpha}(\mathbb{R}^n)$，$DD_jv$将$C^\alpha$跨过边界，而根据$u$的紧支性可知$f$在边界上会趋于0，从而$h+f_0$也将$C^\alpha$跨过边界，于是延拓前后半模必然相等(若取上下半空间各一点，将其中一点对称回上半后，距离变短、相差不变)，从而即得
+    $$[DD_ju]_\alpha\le C[f]_\alpha$$
+
+    由上式可知对任何$i+j\ne 2n$有
+    $$[D_{ij}u]_\alpha\le C[f]_\alpha$$
+    而再通过$D_{nn}u=-\sum_{i<n}D_{ii}u-f$即可得到
+    $$[D_{ij}u]_\alpha\le (nC+1)[f]_\alpha$$
+    对任何$i,j$成立，原命题得证。
+}
+
+完全类似地，考虑本节中的常系数椭圆型方程，若$u\in C_0^{2,\alpha}(\overline{\mathbb{R}^n_+})$在内点上满足方程，且在边界上为0，则存在只与$n,\alpha,\Lambda/\lambda$相关的$C$使得对任何$i,j$有
+$$[D_{ij}u]_\alpha\le C\lambda^{-1}[f]_\alpha$$
+
+\subsection{Schauder内估计}
+*此处内估计指估计内闭的范数。
+
+引理：设$\varphi(t)$是$[T_0,T_1]$上的有界非负函数，且$T_1>T_0\ge0$，存在非负的$\theta,A,B,\alpha$对任何满足$T_0\le t<s\le T_1$的$s,t$有
+$$\varphi(t)\le\theta\varphi(s)+\frac{A}{(s-t)^\alpha}+B$$
+则存在只与$\alpha,\theta$相关的$\rho$使得
+$$\forall T_0\le\rho<R\le T_1,\quad\varphi(\rho)\le C\bigg(\frac{A}{(R-\rho)^\alpha}+B\bigg)$$
+
+\proo{
+    考虑迭代$t_0=\rho$、$t_{i+1}=t_i+(1-\tau)\tau^i(R-\rho)$，其中$\tau\in(0,1)$待定，直接递推可发现
+    $$\varphi(t_0)\le\theta^k\varphi(t_k)+\bigg(\frac{A}{(1-\tau)^\alpha(R-\rho)^\alpha}+B\bigg)\sum_{i=0}^{k-1}\theta^i\tau^{-i\alpha}$$
+    选接近1的$\tau$使$\theta\tau^{-\alpha}<1$，再令$k\to\infty$得结论。
+}
+
+*其作用大致为从条件中去除$\theta\varphi(s)$项。
+
+\
+
+我们再证明几个简单的估算性质(均假设充分光滑使得不等式右端可以定义)：
+\begin{enumerate}
+    \item 对$\beta\ge\alpha$，$[a]_\alpha\le [a]_\beta+\osc(a)\le[a]_\beta+2|a|_0$。
+    
+    \proo{
+        第一个不等号分$x$与$x_0$距离是否大于1讨论，大于等于1放为$\osc$，小于1放为$\beta$。第二个不等号直接利用三角不等式。
+    }
+
+    \item 对常数$c$，$[a-c]_\alpha=[a]_\alpha$。
+
+    \proo{
+        直接由定义。
+    }
+
+    \item $[a]_\alpha\le (n+2)|a|_{1,0}$。
+    
+    \proo{
+        利用与第一个性质相同的思路可发现
+        $$[a]_\alpha\le2|a|_0+\sup_{x,x_0}\frac{|a(x)-a(x_0)|}{\|x-x_0\|}$$
+        后者利用微分中值定理与方向导数不超过梯度模长可知
+        $$[a]_\alpha\le2|a|_0+|\|Da\||_0$$
+        再利用有限维空间的范数等价性即得
+        $$[a]_\alpha\le 2|a|_0+n|Da|_0\le(n+2)|a|_1$$
+    }
+\end{enumerate}
+
+\
+
+回到内估计问题，设$\Omega$为有界开区域，考虑$\Omega$内的二阶线性椭圆型方程
+$$Lu=f,\quad L=-a^{ij}D_{ij}+b^iD_i+c$$
+这时利用偏导可交换可不妨假设$a^{ij}(x)$对称，且满足存在$\lambda,\Lambda>0$使得
+$$\forall x\in\Omega,\xi\in\mathbb{R}^n,\quad\lambda|\xi|^2\le a^{ij}(x)\xi_i\xi_j\le\Lambda|\xi|^2$$
+更进一步假设对某$\alpha\in(0,1)$，存在$\Lambda_\alpha$满足
+$$a^{ij},b^i,c\in C^\alpha(\bar\Omega),\quad\frac{1}{\lambda}\bigg(\sum_{i,j}|a^{ij}|_\alpha+\sum_i|b^i|_\alpha+|c|_\alpha\bigg)\le\Lambda_\alpha$$
+
+\
+
+\textbf{球域版本}：若方程系数满足上方条件，则存在只与$n,\alpha,\Lambda/\lambda$与$\Lambda_\alpha$相关的正数$R_0\le 1$与$C$，使得对任何$R\in(0,R_0]$，若$B_R\subset\Omega$，且方程解$u\in C_0^{2,\alpha}(B_R)$，则
+$$[D^2u]_{\alpha;B_R}\le C\bigg(\frac{1}{\lambda}[f]_{a;B_R}+R^{-2-\alpha}|u|_{0;B_R}\bigg)$$
+
+\proo{
+    对系数乘比例可不妨设$\lambda=1$。由于方程可以改写为
+    $$-a^{ij}(0)D_{ij}u=\bar{f},\quad\bar{f}=f+(a^{ij}(x)-a^{ij}(0))D_{ij}u-b^iD_iu-cu$$
+    利用上节对常系数椭圆型方程的定理可知有只与$n,\alpha,\Lambda$相关的$C_1$使得(此后的半范数均为$B_R$上)
+    $$[D_{ij}u]_\alpha\le C_1[\bar{f}]_\alpha$$
+    进一步由三角不等式与乘积的H\"older模运算进行放缩可知(加$a^{ij}(0)$不影响$\alpha$半模)
+    $$[\bar{f}]_\alpha\le[f]_\alpha+[a^{ij}(x)-a^{ij}(0)]_0[D_{ij}u]_\alpha+[a^{ij}(x)]_\alpha[D_{ij}u]_0+|b^i|_\alpha|D_iu|_\alpha+|c|_\alpha|u|_\alpha$$
+    利用条件与上节位势方程$C^{2,\alpha}$估计中将$f(x)-f(x_0)$上界放缩为$R^\alpha[f]_\alpha$可将$[D_{ij}]_\alpha$前的系数改为$[a^{ij}]_\alpha R^\alpha$，此外，利用之前证明的性质可将$|D_iu|_\alpha$、$|u|_\alpha$与$|D_{ij}u|_\alpha$都放至$|u|_2$，由此存在只与$n$相关的$C_2$使得
+    $$[\bar{f}]_\alpha\le[f]_\alpha+[a^{ij}]_\alpha R^\alpha[D_{ij}u]_\alpha+C_2\Lambda_\alpha|u|_2$$
+    再对$[a^{ij}]_\alpha$进行放缩可知存在只与$n,\alpha,\Lambda_\alpha$相关的$C_3$使得
+    $$[\bar{f}]_\alpha\le C_3([f]_\alpha+R^\alpha[D^2u]_\alpha+|u|_2)$$
+    从而得到估计
+    $$[D^2u]_\alpha\le C_1C_3([f]_\alpha+R^\alpha[D^2u]_\alpha+|u|_2)$$
+    由于球域具有锥性质，且$h>R/2$，利用内插不等式(对二阶导、一阶导直接使用，$|u|_0$放到右侧，取系数前的较大者)可知对任何$\varepsilon<1$，存在常数$C$使得(注意$1<1/\varepsilon$)
+    $$|u|_2\le2\varepsilon^\alpha[D^2u]_\alpha+\frac{C}{\varepsilon^2}|u|_0$$
+    由于$R_0\le1$，可知$R\le1$，从而可取$\varepsilon=R/2$，得到存在与$n,\alpha,\Lambda,\Lambda_\alpha$相关的$C_4$使得(注意$1<R^{-2}$)
+    $$[D^2u]_\alpha\le C_4\big([f]_\alpha+R^\alpha[D^2u]_\alpha+R^{-2}|u|_0\big)$$
+    只要$R_0$充分小，可使$C_4R^\alpha<1$，由此即可得到对$[D^2u]_\alpha$的估算，得证(当$\lambda\ne1$时，还原比例即可发现)。
+}
+
+\
+
+\textbf{一般版本}：在系数满足如前条件下，若方程解$u\in C^{2,\alpha}(\Omega)$，则对任何$\Omega$的列紧子集$\Omega'$有
+$$|u|_{2,\alpha;\Omega'}\le C\bigg(\frac{1}{\lambda}|f|_\alpha+|u|_0\bigg)$$
+这里$C$依赖$n,\alpha,\Lambda/\lambda,\Lambda_\alpha$与$\Omega'$到$\partial\Omega$的距离(记为$d$)。
+
+\proo{
+    与前同理，只需证明$\lambda=1$时。
+
+    \
+
+    \textbf{构造估算}
+
+    对上题中的常数$R_0$取$\bar{R}_0=\min(R_0,d/2)$。对任何$x_0\in\Omega'$与$0<R\le\bar{R}_0$，记$B=B_R(x_0)$，$\bar{B}=B_{\bar{R}_0}(x_0)$。
+
+    对任何$\tau\in(0,1)$，存在只与$n,k$有关的$C$使得可构造函数$\zeta(x)$满足
+    $$\zeta\in C_0^\infty(B)$$
+    $$\forall x\in B_{\tau R}(x_0),\quad\zeta(x)=1$$
+    $$\forall k,\quad[D^k\zeta]_0+(1-\tau)^\alpha R^\alpha[D^k\zeta]_\alpha\le\frac{C}{(1-\tau)^kR^k}$$
+
+    *书上表示可利用磨光核构造，基本思路为给定$\tau R$后用磨光核连接$B_{\tau R}(x_0)$内外使得变化幅度可控。
+
+    设$v=\zeta u$，则$v\in C_0^{2,\alpha}(B)$，且计算得
+    $$Lv=\zeta f+(-a^{ij}D_{ij}\zeta+b^iD_i\zeta)u-2a^{ij}D_i\zeta D_ju$$
+    估计可得(球域版本的中心0可以换为任何点)存在与$n,\alpha,\Lambda,\Lambda_\alpha,d$相关的$C_1$使得
+    $$[D^2v]_{\alpha;B}\le C_1\big(|\zeta f+(-a^{ij}D_{ij}\zeta+b^iD_i\zeta)u-2a^{ij}D_i\zeta D_ju|_{\alpha;B}+|v|_{0;\Omega}\big)$$
+    与之前的估算类似，利用三角的不等式与乘积H\"older模运算可拆分出左侧$\alpha$半模的每一项。接着，把$\zeta$与$a^{ij},b^i$利用上方假设放缩，将$D\zeta$相关的界也放缩为$[D^2\zeta]$相关的界。最后，将$u$相关的先控制为$|u|_{2;B}$与$[D^2u]_{\alpha;B}$，再将$|u|_2$利用内插不等式放缩，最终得到对任何$\varepsilon$，存在与$n$相关的$C_\varepsilon$使得
+    $$[D^2v]_{\alpha;B}\le C_2\bigg(\frac{1}{(1-\tau)^\alpha R^\alpha}[f]_{0;B}+[f]_{\alpha;B}+\varepsilon[D^2u]_{\alpha;B}+\frac{C_\varepsilon}{(1-\tau)^{2+\alpha}R^{2+\alpha}}|u|_{0;B}\bigg)$$
+
+    由于子集上的H\"older半模一定不超过原集合上的，而$B_{\tau R}(x_0)$上$v=u$，即得到
+    $$[D^2u]_{\alpha;B_{\tau R}(x_0)}\le C_2\bigg(\frac{1}{(1-\tau)^\alpha R^\alpha}[f]_{0;B}+[f]_{\alpha;B}+\varepsilon[D^2u]_{\alpha;B}+\frac{C_\varepsilon}{(1-\tau)^{2+\alpha}R^{2+\alpha}}|u|_{0;B}\bigg)$$
+
+    \
+
+    \textbf{引理控制}
+
+    设$\varphi(s)=[D^2u]_{\alpha;B_s(x_0)}$，根据上式，再次利用子集H\"older半模不超过原集合即可知
+    $$\varphi(s)\le C_2\bigg(\varepsilon\varphi(t)+[f]_{\alpha;\bar{B}}+\frac{1}{(t-s)^\alpha}[f]_{0;\bar{B}}+\frac{C_\varepsilon}{(t-s)^{2+\alpha}}|u|_0\bigg)$$
+    取$\varepsilon$使得$C\varepsilon<1$，利用本节开头的引理即可知对任何$\rho\in(0,R),R\le\bar{R}_0$有
+    $$[D^2u]_{\alpha;B_\rho(x_0)}\le C_3\bigg([f]_{\alpha;\bar{B}}+\frac{1}{(R-\rho)^\alpha}[f]_{0;\bar{B}}+\frac{1}{(R-\rho)^{2+\alpha}}|u|_0\bigg)$$
+    取$\rho=\frac{\bar{R}_0}{2}$、$R=\bar{R}_0$，可得
+    $$[D^2u]_{\alpha;B_\rho(x_0)}\le C_4(|f|_\alpha+|u|_0)$$
+    通过内插不等式，将$[D^2u]_0$与$[Du]_0$放为左侧与$|u|_0$的和，最终有
+    $$|u|_{2,\alpha;B_\rho(x_0)}\le C_5(|f|_\alpha+|u|_0)$$
+
+    \
+
+    \textbf{最终合并}
+
+    由于$\rho$固定，对任何$x_0$的邻域存在相同的$C_5$，下面证明
+    $$|u|_{2,\alpha;\Omega'}\le C_6(|f|_\alpha+|u|_0)$$
+    由于$|u|_{2;\Omega'}$对应为各个导数的逐点上界，而紧集任何列有收敛子列，且其在任何一点附近都可取出区间$B_\rho(x_0)$使得被某个$C_5(|f|_\alpha+|u|_0)$控制，因此
+    $$|u|_{2;\Omega}\le C_5(|f|_\alpha+|u|_0)$$
+    对于$[D^2u]_{\alpha;\Omega}$，设$v=D_{ij}u$，考虑
+    $$\frac{|v(x_0)-v(x_1)|}{\|x_0-x_1\|^\alpha}$$
+    对任何$x_0,x_1$，若$\|x_0-x_1\|\le\rho$，则由之前假设可知其不超过$C_5(|f|_\alpha+|u|_0)$，若否，可知
+    $$\frac{|v(x_0)-v(x_1)|}{\|x_0-x_1\|^\alpha}\le2\rho^{-\alpha}|v|_0\le 2\rho^{-\alpha}C_5(|f|_\alpha+|u|_0)$$
+    由此取$C_6=(2+2\rho^{-\alpha})n^2C_5$，即可得证。
+}
+
+\
+
+事实上，若系数在满足之前条件时还要求$a^{ij},b^i,c,f\in C^{k,\alpha}(\Omega)$，则$u\in C^{2,\alpha}(\Omega)$为解时利用差商技巧可以证明
+$$u\in C^{k+2,\alpha}(\Omega)$$
+且对任何$\Omega'$为$\Omega''$列紧子集、$\Omega''$为$\Omega$列紧子集，有
+$$|u|_{k+2,\alpha;\Omega'}\le C(|f|_{k,\alpha;\Omega''}+|u|_{0;\Omega''})$$
+这里$C$只与$n,k,\Lambda/\lambda$、各系数的范数与$\Omega'$到$\partial\Omega''$的距离相关。
+
+\subsection{Schauder全局估计}
+*全局估计需要在内估计之外再得到边界估计，一般先用半球代替球证明，再由边界光滑性定义推广到边界。
+
+\
+
+\textbf{半球版本}：设$\Omega\subset\mathbb{R}^n_+$，且$\partial\Omega$有子集$S\subset\partial\mathbb{R}^n_+$，且构成$\partial\mathbb{R}^n_+$中的闭区域(开区域闭包)。仍设系数满足之前条件，则存在只依赖$n,\alpha,\Lambda/\lambda$与$\Lambda_\alpha$的正常数$R_0,C$，使得对任何$R\in(0,R_0]$，若球心$0\in S$的半球$B_R^+\subset\Omega$满足解$u\in C^{2,\alpha}(\bar{B}_R^+)$在$\partial B_R^+\cap\mathbb{R}^+$附近为0，且在$S\cap\partial B_R^+$上为0，则
+$$[D^2u]_{\alpha;B_R^+}\le C\bigg(\frac{1}{\lambda}[f]_{a;B_R^+}+R^{-2-\alpha}|u|_{0;B_R^+}\bigg)$$
+
+*条件与在半球紧支相比，在$\{x_n=0\}$的边界\textbf{附近}无需为0。与之前类似，对半球情况可考虑奇延拓，且需要单独控制$D_{nn}u$外的二阶导数，再用其他二阶导数控制$D_{nn}u$得到估计。
+
+\proo{
+    与2.3节边界估计的方式完全类似。利用2.4节球域情况可控制一切$D_{nn}$外的导数，而$D_{nn}$前的系数利用$a^{ij}$正定可知恒非零，从而可写为
+    $$D_{nn}(x)=\frac{1}{a^{nn}}\bigg(-\sum_{i+j<2n}a^{ij}D_{ij}u+b^iD_iu+cu-f\bigg)$$
+    在条件中取$\xi=e_n$可知$a_{nn}\ge\lambda$，从而右侧均可放缩，再将$[D_iu]_\alpha$利用内插不等式，并缩小$R_0$以提升$|u|_0$前的系数即可。
+}
+
+\
+
+\textbf{平边界版本}：在上个定理的条件下，若$u\in C^{2,\alpha}(\Omega\cup S)$在$\Omega$内满足方程且$S$上$u=0$，则对任何$\Omega\cup S$的列紧子集$\Omega'$，有
+$$|u|_{2,\alpha;\Omega'}\le C\bigg(\frac{1}{\lambda}|f|_\alpha+|u|_0\bigg)$$
+这里$C$只依赖$n,\alpha,\Lambda/\lambda,\Lambda_\alpha$与$\Omega'$到$\partial\Omega\backslash S$的距离(记为$d$)。
+
+\proo{
+    与前同理，只需证明$\lambda=1$时。
+
+    同样设半球版本的常数为$R_0$，$\bar{R}_0=\min\{R_0,d/2\}$，并记
+    $$\Omega''=\Omega'\cap\{x_n>\bar{R}_0/4\}$$
+    由于其为$\Omega$中紧集，由内估计可知有
+    $$|u|_{2,\alpha;\Omega''}\le C_1(|f|_\alpha+|u|_0)$$
+    另一方面，若$B_{\bar{R}_0}(x_0)$是某个球心在$\bar\Omega'\cap S$中的球，利用半球版本，完全类似一般版本内估计的证明过程可知(同样球心可从0移到任何$x_0$)
+    $$|u|_{2,\alpha;B_{\bar{R}_0/2}^+(x_0)}\le C_2(|f|_\alpha+|u|_0)$$
+    由于所有$B_{\bar{R}_0/2}^+(x_0)$与$\bar\Omega''$可覆盖$\Omega'$，与一般版本内估计的合并过程完全相同(注意到两点只要距离小于$\bar{R}_0/8$，一定同落在某个半球或$\Omega''$中)可得到最终估计
+    $$|u|_{2,\alpha;\Omega'}\le C_3(|f|_\alpha+|u|_0)$$
+}
+
+\
+
+\textbf{全局估计}：若系数满足边界条件，区域$\partial\Omega$是$C^{2,\alpha}$的(定义与1.5节中完全类似)，$u\in C^{2,\alpha}(\bar\Omega)$为解且在边界上为0，则
+$$|u|_{2,\alpha}\le C\bigg(\frac{1}{\lambda}|f|_\alpha+|u|_0\bigg)$$
+这里$C$只依赖$n,\alpha,\Lambda/\lambda,\Lambda_\alpha$与$\Omega$。
+
+\proo{
+    不妨设$\lambda=1$，与1.5节的做法类似，假设$\psi$是$x^0$处光滑边界定义中的映射，条件事实上是$\psi$与$\psi^{-1}$均$C^{2,\alpha}$。
+
+    作代换$y=\psi(x)$，设$\tilde{u}(y)=u(x)$，则有
+    $$-\tilde{a}^{rs}\tilde{D}_{rs}\tilde{u}+\tilde{b}^r\tilde{D}_r\tilde{u}+\tilde{c}\tilde{u}=\tilde{f}$$
+    这里$\tilde{D}$为对$y$求导，且
+    $$\tilde{a}^{rs}=a^{ij}\frac{\partial y_r}{\partial x_i}\frac{\partial y_s}{x_j},\quad\tilde{b}^r=b^i\frac{\partial y_r}{\partial x_i}-a^{ij}\frac{\partial^2y_r}{\partial x_i\partial y_j},\quad\tilde{c}(y)=c(x),\quad\tilde{f}(y)=f(x)$$
+    对其应用平边界情况可知(这里模均对$y$)存在$C$使得(由$\psi$充分光滑，$\tilde{a}$、$\tilde{b}$、$\tilde{c}$仍能被$\Lambda$与$\Lambda_\alpha$控制)
+    $$|\tilde{u}|_{2,\alpha;B_{1/2}^+}\le C\big(|\tilde{u}|_{0;B_1^+}+|\tilde{f}|_{\alpha;B_1^+}\big)=C\big(|u|_{0;B_1^+}+|\tilde{f}|_{\alpha;B_1^+}\big)$$
+    再由$\psi^{-1}$充分光滑，类似1.5节中可知$|\tilde{v}|_{2,\alpha}$与$|v|_{2,\alpha}$等价、$|\tilde{v}|_\alpha$与$|v|_\alpha$等价，于是有
+    $$|u|_{2,\alpha;\psi^{-1}(B_{1/2}^+)}\le C\big(|u|_0+|f|_\alpha\big)$$
+    利用有限覆盖定理，可选出有限个$x^0$使得$\psi^{-1}(B_{1/2}^+)$覆盖边界，再取出某闭包在$\Omega$中紧的开集$\Omega'$覆盖剩余部分，且存在$r$使得距离不超过$r$的两点一定落在其中某个中(将$\Omega'$取得足够接近边界)，由此可与之前完全类似得到全局估计
+    $$|u|_{2,\alpha}\le C\big(|u|_0+|f|_\alpha\big)$$
+}
+
+\
+
+若$u$在边界上为$\varphi$而非0，且$\varphi\in C^{2,\alpha}(\bar\Omega)$，则将原定理应用在$u-\varphi$上即可知($C$依赖对象与之前相同)
+$$|u|_{2,\alpha}\le C(|f|_\alpha+|\varphi|_{2,\alpha}+|u|_0)$$
+
+更进一步地，上述假定下，若$a^{ij},b^i,c,f\in C^{k,\alpha}(\bar\Omega)$，且$\partial\Omega$是$C^{k+2,\alpha}$的，$\varphi\in C^{k+2,\alpha}(\bar\Omega)$，应用差商可估计得
+$$|u|_{k+2,\alpha}\le C(|f|_{k,\alpha}+|\varphi|_{k+2,\alpha}+|u|_0)$$
+这里$C$只依赖$n,\alpha,k,\Lambda/\lambda,\Omega$与各系数的范数。
+
+\subsection{古典解的极值原理}
+\textbf{弱极值原理}：若算子$L$如2.4节定义，且$a^{ij}$满足存在$\lambda,\Lambda>0$使得
+$$\forall x\in\Omega,\xi\in\mathbb{R}^n,\quad\lambda|\xi|^2\le a^{ij}(x)\xi_i\xi_j\le\Lambda|\xi|^2$$
+$b^i$有界、$c$非负。若$u\in C^2(\Omega)\cap C(\bar\Omega)$，且在$\Omega$上满足$Lu\le f$，则
+$$\sup_\Omega u\le\sup_{\partial\Omega}u^++C|f|_0$$
+其中$C$依赖$n$、$\frac{1}{\lambda}\sum_i|b_i|_0$与$\Omega$上两点距离的上界$d$。
+
+\proo{
+    \textbf{非零下界}
+
+    先解决$c(x)\ge c_0>0$时的情况。令$v=u-\sup_{\partial\Omega}u^+$，则直接代入可发现
+    $$\forall x\in\Omega,\quad Lv(x)\le f(x)$$
+    $$\forall x\in\partial\Omega,\quad v(x)\le 0$$
+
+    若$\Omega$内某点$x_0$为$v$的最大值(由定义其必然非负)，则$D^2v(x_0)$半负定($D^2$表示Hesse阵)，$Dv(x_0)=0$，再由$a^{ij}$正定可验证
+    $$(-a^{ij}D_{ij}v+b^iD_iv)\big|_{x_0}\ge0$$
+
+    *这里事实上用了线性代数结论：两个半正定阵逐元素乘积仍然为半正定阵(设$A=P^TP,B=Q^TQ$，则记$(R_k)_{ij}=p_{kj}q_{ij}$可知逐元素乘积为$\sum_kR_k^TR_k$)，由此第$i$行第$j$列为$a^{ij}D_{ij}v$的矩阵为半负定阵，再利用半负定阵所有元素和非正(考虑全1的向量左右乘)可知结论。
+
+    于是计算$Lv$可知$c(x_0)v(x_0)\le|f|_0$，从而即得
+    $$\sup_\Omega v\le\frac{|f|_0}{c_0}$$
+    还原回$u$得证。   
+
+    \
+
+    \textbf{一般情况}
+
+    我们希望能构造辅助函数回到非零下界情况。仍如上定义$v$，设$v=zw$，其中$z$为恒正的待定函数，由$v$性质计算并按$w$整理可知
+    $$-a^{ij}D_{ij}w+\bigg(b^i-\frac{2}{z}a^{ij}D_jz\bigg)D_iw+\bigg(c+\frac{1}{z}(b^iD_iz-a^{ij}D_{ij}z)\bigg)w\le\frac{f}{z}$$
+    由于我们希望第三项前系数有非零下界，由$\Omega$有界，可通过平移、旋转使$\Omega$中$x_1\in(0,d)$，并对充分大的$\alpha$记
+    $$z=\er^{2\tau d}-\er^{\tau x_1}$$
+    可发现$z>0$且由区域有界有非零上界，且
+    $$-a^{ij}D_{ij}z+b^iD_iz=(a^{11}\tau^2-b^1\tau)\er^{\tau x_1}\ge\lambda\bigg(\tau^2-\frac{|b_1|_0}{\lambda}\tau\bigg)>0$$
+    由此符合要求，再通过$w$边界上$\le0$，对$w$用前一种情况可知
+    $$\sup_\Omega w\le C|f|_0$$
+    再由$z>0$有只与$\Omega$相关的上界得$\sup_\Omega v$也能被控制，从而得证。
+}
+
+由此，上述条件下若$u\in C^2(\Omega)\cap C(\bar\Omega)$且$Lu=f$，对$u,-u$应用定理可知
+$$\sup_\Omega|u|\le\sup_{\partial\Omega}|u|+C|f|_0$$
+
+*弱极值原理在$f=0$时只说明边界一定取到最大值，不能保证非常数时内部无法取到。
+
+\subsection{Dirichlet问题的可解性}
+本节考虑Dirichlet问题($L$如之前定义)
+$$\forall x\in\Omega,\quad Lu(x)=f(x)$$
+$$\forall x\in\partial\Omega,\quad u(x)=\varphi(x)$$
+
+*记$M=[n/2]+4$。
+
+\
+
+\textbf{光滑边界版本}：设$\partial\Omega$为$C^M$，方程系数满足2.4节条件，且$c\ge0$，$f\in C^\alpha(\bar\Omega)$，$\varphi\in C^{2,\alpha}(\bar\Omega)$，则Dirichlet问题存在唯一解$u\in C^{2,\alpha}(\bar\Omega)$。
+
+\proo{
+    对$u-\varphi$考虑可知$f+L\varphi$仍然为$C^\alpha(\bar\Omega)$，由此可不妨设$\varphi=0$。作函数列$a_N^{ij}$、$b_N^i$、$c_N$、$f_N$使它们$\in C^M(\bar\Omega)$且一致收敛到各系数，且
+    $$\frac{\lambda}{2}|\xi|^2\le a_N^{ij}\xi_i\xi_j\le2\Lambda|\xi|^2$$
+    $$c_N\ge0,\quad\|f_N\|_\alpha\le2\|f\|_\alpha$$
+    $$\frac{1}{\lambda}\bigg(\sum_{i,j}|a_N^{ij}|_\alpha+\sum_i|b_N^i|_\alpha+|c_N|_\alpha\bigg)\le 2\Lambda_\alpha$$
+
+    *上述取法中一致收敛事实上要求在$|\cdot|_\alpha$下收敛才可满足要求，因此事实上用到了$C^M$在$C^\alpha$中嵌入的相关结论，书中省略了相关细节。
+
+    考虑近似问题($L_N$为$L$的系数对应替换为$a^N,b^N,c^N$)
+    $$\forall x\in\Omega,\quad L_Nu_N(x)=f_N(x)$$
+    $$\forall x\in\partial\Omega,\quad u_N(x)=0$$
+
+    其满足1.2节开头的假定，因此符合Fredholm二择一定理，只要证明解唯一即可知存在唯一。假设存在解$u_N$，可发现其符合1.5节更高阶正则性条件，从而得其为$H^M(\Omega)\cap H_0^1(\Omega)$，于是再利用Sobolev嵌入定理可知$u_N\in C^{2,\alpha}(\bar\Omega)$。通过古典解极值原理，若有两个解满足，作差可发现只能为0，由此必然唯一，从而$u_N$存在唯一。
+    
+    利用Schauder全局估计与古典解极值原理，由$u_N$在边界上为0可知(这里常数只要与$u,N$无关即可，而通过公共界可得到成立)
+    $$|u_N|_{2,\alpha}\le C_1|f_N|_\alpha+C_2|u|_0\le C_1|f_N|_\alpha+C_4|f_N|_0\le(C_1+C_4)|f_N|_\alpha\le 2(C_1+C_4)|f|_\alpha$$
+    利用Arzel\`a-Ascoli引理，$u_N$可存在子序列在$C^2(\bar\Omega)$中收敛，再由所有$\alpha$范数可控制可知$u\in C^{2,\alpha}(\bar\Omega)$，且满足方程。    
+}
+
+\
+
+\textbf{外球性质}：若对任何$x_0\in\partial\Omega$，存在球$B_\rho(y)\subset\mathbb{R}^n\backslash\bar\Omega$使得$\overline{B_\rho(y)}\cap\bar\Omega=\{x_0\}$，则称$\Omega$有外球性质。
+
+\textbf{连续版本}：若区域有外球性质，方程系数满足2.4节条件，且$c\ge0$，$f\in C^\alpha(\bar\Omega)$，$\varphi\in C(\bar\Omega)$，则Dirichelet问题存在唯一解$u\in C^{2,\alpha}(\Omega)\cap C(\bar\Omega)$。
+
+\proo{
+    \textbf{子序列}
+
+    作区域列$\Omega_N$使得$\Omega_N\subset\Omega$，$\partial\Omega_N$为$C^M$，且$\partial\Omega_N$上任何一点到$\partial\Omega$的距离不超过$\frac{1}{N}$。
+
+    *大致可以先缩小再光滑化，但严谨说明非常困难。
+
+    取函数列$\varphi_N\in C^{2,\alpha}(\bar\Omega)$，使得$|\varphi_N-\varphi|_0\le\frac{1}{N}$，考虑近似问题
+    $$\forall x\in\Omega_N,\quad Lu_N(x)=f(x)$$
+    $$\forall x\in\partial\Omega_N,\quad u_N(x)=\varphi_N(x)$$
+
+    利用光滑边界版本的情况，存在$u_N\in C^{2,\alpha}(\bar\Omega_N)$为此问题解。对$\Omega$列紧子集$\Omega'$，由于其必然包含在某个$\Omega_N$中，利用Schauder内估计与上个定理类似可知$N$充分大时
+    $$|u_N|_{2,\alpha;\Omega'}\le C\big(|f|_\alpha+|u_N|_{0;\Omega_N}\big)\le C\bigg(|f|_\alpha+|\varphi_0|+\frac{1}{N}\bigg)$$
+    这里$C$依赖$\Omega'$与$\Omega$距离，但并不依赖$N$\ ($N$充分大时$\Omega'$与$\Omega_N$距离有下界)，第二个不等号利用古典解极值原理得到。
+
+    仍然利用Arzel\`a-Ascoli引理，$u_N$可存在子序列在$C^2(\bar\Omega_1)$中收敛(取$\Omega'=\bar\Omega_1$)，再在其中取子序列在$C^2(\bar\Omega_2)$中收敛......最后利用对角线法即可得到在任何$\Omega_N$上收敛的子序列，也即在任何列紧子集$\Omega'$上收敛于某个$u$。由于$\Omega$内部任何一点可被某列紧子集包含，知$u$在$\Omega$内满足方程，只需证明其在边界上连续且符合边界条件。
+
+    \
+
+    \textbf{闸函数}
+
+    对$x_0\in\partial\Omega$，设$B_\rho(y)$是外球性质定义中所述的外球，闸函数指满足如下三条性质的函数$\omega\in C^2(\bar\Omega)$：
+    $$L\omega>0$$
+    $$\omega(x_0)=0$$
+    $$\forall x\in\bar\Omega\backslash\{x_0\},\quad\omega(x)>0$$
+    考虑$\omega(x)=\er^{-\beta\rho^2}-\er^{-\beta\|x-y\|^2}$，$\beta$为待定正数，则后两条性质满足，而计算可知$L\omega$中$\er^{-\beta\|x-y\|^2}$前的最高$\beta$次数为二次，二次项
+    $$4a^{ij}\beta^2(x_i-y_i)(x_j-y_j)\er^{-\beta\|x-y\|^2}\ge4\lambda\beta^2\rho^2\er^{-\beta(d+\rho)^2}$$
+    这里$d$指$\Omega$上两点距离的上界。
+
+    另一方面，$c\ge0$，因此$L\er^{-\beta\rho^2}\ge0$，从而取$\beta$充分大即能得到存在正下界的$L\omega$，记正下界为$\theta$。
+
+    由连续性，对任何$\varepsilon$存在$x_0$在$\Omega$中邻域$U$使得其中$|\varphi(x)-\varphi(x_0)|<\varepsilon$，由于$\omega$在$\Omega\backslash U$有正下界，取$C_\varepsilon$充分大可使
+    $$\forall x\in\bar\Omega,\quad C_\varepsilon\omega(x)+\varphi(x_0)+\varepsilon>\varphi(x)>-C_\varepsilon\omega(x)+\varphi(x_0)-\varepsilon$$
+    利用$|\varphi_N(x)-\varphi(x)|\le|\varphi_N(x_0)-\varphi_N(x)|+|\varphi(x_0)-\varphi(x)|+|\varphi(x_0)-\varphi_N(x_0)|$，取$U$为使得其中$|\varphi(x)-\varphi(x_0)|$与$|\varphi_N(x)-\varphi_N(x_0)|$均小于$\varepsilon/3$的邻域，与上方类似考虑$\Omega\backslash U$上$\omega$的下界可知$N$充分大时
+    $$\forall x\in\bar\Omega,\quad C_\varepsilon\omega(x)+\varphi(x_0)+\varepsilon>\varphi_N(x)>-C_\varepsilon\omega(x)+\varphi(x_0)-\varepsilon$$
+    另一方面，由于$L\omega$有正下界，对某个$N$，当$C_\varepsilon$充分大时有
+    $$\forall x\in\Omega_N,\quad L(C_\varepsilon\omega(x)+\varphi(x_0)+\varepsilon)\ge Lu_N(x)\ge L(-C_\varepsilon\omega(x)+\varphi(x_0)-\varepsilon)$$
+    对$u_N-(C_\varepsilon\omega(x)+\varphi(x_0)+\varepsilon)$利用弱极值原理，由对$\varphi_N$的估算可知其在$\Omega_N$边界上为0，而对应的$f=0$，由此即得$N$充分大时
+    $$u_N(x)\le C_\varepsilon\omega(x)+\varphi(x_0)+\varepsilon$$
+    同理
+    $$u_N(x)\ge -C_\varepsilon\omega(x)+\varphi(x_0)-\varepsilon$$
+    由于$C_\varepsilon$与$N$无关，考虑$N\to\infty$知
+    $$C_\varepsilon\omega(x)+\varphi(x_0)+\varepsilon\ge u(x)\ge-C_\varepsilon\omega(x)+\varphi(x_0)-\varepsilon$$
+    利用$\omega(x_0)=0$且连续，对任何$\varepsilon$，存在$x_0$邻域$U$使得其中
+    $$\varphi(x_0)+2\varepsilon\ge u(x)\ge\varphi(x_0)-2\varepsilon$$
+    这对任何$x_0$成立，即得到$u$在边界连续，且为$\varphi$。
+}
+
+*这里的内估计运用与闸函数技巧都是重要的。
+
+\
+
+\textbf{弱光滑版本}：设$\partial\Omega$为$C^{2,\alpha}$，方程系数满足2.4节条件，且$c\ge0$，$f\in C^\alpha(\bar\Omega)$，$\varphi\in C^{2,\alpha}(\bar\Omega)$，则Dirichelet问题存在唯一解$u\in C^{2,\alpha}(\bar\Omega)$。
+
+\proo{
+    \textbf{边界转化}
+
+    与光滑边界版本相同理由可设$\varphi=0$。考虑边界$C^{2,\alpha}$的定义，设$x_0$处对应映射为$\psi$，对应邻域$V$，则$\psi(V)$满足外球性质(取与$\{x_n=0\}$交点唯一的某个球即可)，再利用二阶光滑性可在其原像中取出某个球满足要求，由此$\Omega$有外球性质，利用外球版本已经可知存在唯一解$u\in C^{2,\alpha}(\Omega)\cap C(\bar\Omega)$。
+
+    为证其在$\partial\Omega$上亦为$C^{2,\alpha}$，只需证明对边界每点邻域成立。
+
+    由于$\psi\in C^{2,\alpha}(\bar{V}),\psi^{-1}\in C^{2,\alpha}(\bar{B}_1^+)$，可将$x_0$附近的方程与边界条件看作$\bar{B}_1^+$上的方程与对应边界条件，且不改变连续性。
+
+    *具体来说，令$\tilde{u}(y)=u(\psi^{-1}(y))$，并对应重新计算系数，与之前坐标变换时完全类似可发现系数仍然符合要求。
+
+    由此，只需证明，当$u\in C^{2,\alpha}(B_1^+)\cap C(\bar{B}_1^+)$时满足方程，则$u\in C^{2,\alpha}(\bar{B}_{1/2}^+)$，即能推出$u$在边界每点有邻域为$C^{2,\alpha}$，再通过有限覆盖得到整体结论。
+
+    由于$\bar{B}_{1/2}^+$为$B_1^+$中紧集，我们适当缩小$B_1^+$使得其具有光滑边界，且保证其包含$B_{1/2}^+$，得到的区域记为$B$，只需证明在$B$上满足方程的$u\in C^{2,\alpha}(B)\cap C(\bar{B})$有$u\in C^{2,\alpha}(\bar{B}_{1/2}^+)$。
+
+    \
+
+    \textbf{序列构造}
+
+    以下均考虑$B$上，半模与模也默认为$B$上的。
+
+    作函数列$\varphi_N\in C^{2,\alpha}(\bar{B})$使得$\varphi_N$在$\partial B\cap\{x_n=0\}$上为0，且$N\to\infty$时$|\varphi_N-u|_0\to 0$，考虑近似问题
+    $$\forall x\in D,\quad Lu_N(x)=f(x)$$
+    $$\forall x\in\partial D,\quad u_N(x)=\varphi_N(x)$$
+
+    利用光滑版本的结论，解$u_N\in C^{2,\alpha}(\bar{B})$，类似光滑版本的证明，根据Schauder内估计可证明对任何$B$中紧集$\Omega'$，$u_N$存在$C^2(\bar\Omega')$上收敛于某函数$\tilde{u}$的子序列，类似连续版本的证明中构造$\Omega_N$，可利用对角线法取出$B$上任何紧集$\Omega'$中$C^2(\bar\Omega')$收敛于某$\tilde{u}$的子序列，仍记为$u_N$。
+
+    类似连续版本最后的操作，利用极值原理可证明$u_N$事实上一致收敛到$B$上某函数$\tilde{u}$，由此利用$\varphi_N$定义令$N\to\infty$有
+    $$\forall x\in D,\quad L\tilde{u}(x)=f(x)$$
+    $$\forall x\in\partial D,\quad \tilde{u}(x)=u(x)$$
+    利用弱极值原理，这即说明了$D$上$\tilde{u}=u$，即$u_N$一致收敛于$u$。进一步通过$u_N$为$C^2$，可知收敛是$C^2$的，再与光滑情况相同可知收敛是$C^{2,\alpha}$的。由于已知$u\in C(\bar{D})$，$|u|_0$存在，利用内插不等式可知只需证明$[D^2u]_{\alpha;B_{1/2}^+}$存在。
+
+    对$u_N$满足的方程利用平边界版本的全局估计与极值原理，可知存在与$N$无关的$C$、$C'$使得
+    $$[D^2u_N]_{\alpha;B_{1/2}^+}\le C(|f|_\alpha+|u_N|_\alpha)\le C'(|f|_\alpha+|\varphi_N|_0)$$
+    令$N\to\infty$，右侧通过定义收敛到$C'(|f|_\alpha+|u|_0)$，而由于$B$上的$C^{2,\alpha}$收敛性，可验证左侧收敛到$[D^2u]_{\alpha;B_{1/2}^+}$，从而得证。
+}
+
+*这事实上证明了边界为$C^{2,\alpha}$的点处有邻域中$u$为$C^{2,\alpha}$。
+
+\section{$L^p$理论}
+*研究方程\textbf{几乎处处}满足时的$L^p$估计，需要用到一些调和分析结论进行处理，最终说明$W^{2,p}$解的性质。
+
+\subsection{Marcinkiewicz内插定理}
+设$f\in L^1(\Omega)$，$t\ge0$，记集合
+$$A_t(f)=\{x\in\Omega\mid|f(x)|>t\}$$
+并设$\lambda_f(t)=|A_t(f)|$，这里对集合取模代表\textbf{测度}。
+
+Lebesgue积分的展开：若$f\in L^p(\Omega)$，其中$1\le p<\infty$，则
+$$\int_\Omega|f|^p\dr x=p\int_0^\infty t^{p-1}\lambda_f(t)\dr t$$
+\proo{
+    记$\chi_{\{|f(x)|>t\}}$为在$f(x)>t$的点为1，否则为0的特征函数，则
+    $$|f|^p=\int_0^{|f(x)|}pt^{p-1}\dr t=\int_0^\mathbb{R}pt^{p-1}\chi_{|f(x)|>t}\dr t$$
+    再由
+    $$\int_\Omega\chi_{|f(x)|>t}\dr x=\lambda_f(t)$$
+    即可交换积分次序得结论。
+}
+
+\
+
+$\Omega$上的\textbf{Marcinkiewicz空间}：定义(下标$w$代表weak)
+$$\|f\|_{L_w^p(\Omega)}=\inf\{A\mid\forall t>0,\lambda_f(t)\le t^{-p}A^p\}$$
+若$\|f\|_{L_w^p(\Omega)}<\infty$，则称其属于$L_w^p(\Omega)$。
+
+*其一般并不符合三角不等式，在$p\ne\infty$时不为范数，但将定义写为$(\lambda_f(t))^{1/p}\le A/t$可验证$L_w^\infty=L^\infty$。
+
+\textbf{嵌入关系}(无歧义时省略$\Omega$)：对有界区域$\Omega$，有
+$$\forall 1\le q<p<\infty,\quad L^p\subsetneq L_w^p\subset L^q$$
+\proo{
+    左侧利用
+    $$t^p\lambda_t(f)\le\int_{A_t(f)}|f(x)|^p\dr x\le\|f\|_{L^p}^p$$
+    即可得证，考虑$\lambda_f(t)=C/t^p$的情况(设$f(x)=g(\|x\|)$可以构造出)，利用Lebesgue积分的展开即可知$p$范数不存在。
+
+    右侧可展开得
+    $$\int_\Omega|f|^q\dr x=q\int_0^1t^{q-1}\lambda_f(t)\dr t+q\int_1^\infty t^{q-1}\lambda_f(t)$$
+    第一项中$t$不超过1，$\lambda_f(t)$不超过$|\Omega|$，由此不超过$q|\Omega|$，第二项将$\lambda_f(t)$放大为$\|f\|_{L^p_w}^pt^{-p}$计算积分即可知收敛，从而得证。
+
+}
+
+\
+
+\textbf{拟线性映射}：$T:L^p\to L^q$满足存在$Q>0$使得
+$$\forall f,g\in L^p,\quad|T(f+g)(x)|\le Q(|Tf(x)|+|Tg(x)|),\quad a.e.$$
+这里$a.e.$代表对$\Omega$中几乎处处的$x$成立。
+
+\textbf{强$(p,q)$型}：存在$C>0$使得
+$$\forall f\in L^p,\quad\|Tf\|_{L^q}\le C\|f\|_{L^p}$$
+此时可记$C$的下界为算子范数$\|T\|_{(p,q)}$。
+
+\textbf{弱$(p,q)$型}：存在$C>0$使得
+$$\forall f\in L^p,\quad\|Tf\|_{L^q_w}\le C\|f\|_{L^p}$$
+
+*利用嵌入关系，强$(p,q)$型一定为弱$(p,q)$型。
+
+\textbf{Marcinkiewicz内插定理}：设$1\le p<q\le\infty$，定义在$L^p+L^q$上的拟线性映射$T$是弱$(p,p)$型与弱$(q,q)$型的，对应界分别记为$B_p$与$B_q$，则对任何$r\in(p,q)$，$T$是强$(r,r)$型的，且存在与$p,q,r$与拟线性映射定义中的$Q$相关的$C$使得
+$$\|T\|_{(r,r)}\le CB_p^\theta B_q^{1-\theta},\quad\theta=\frac{p(q-r)}{r(q-p)}$$
+
+\proo{
+    对$f\in L^r$，给定某$s>0$，待定$\gamma>0$，并以$\gamma s$为界将$f$拆分为$f=f_1+f_2$，满足
+    $$f_1(x)=f(x)\chi_{|f(x)|>\gamma s},\quad f_2(x)=f(x)\chi_{|f(x)|\le\gamma s}$$
+    由于$f_2$只保留了小的部分，通过定义放缩可知其为$L^q$，同理$f_1$为$L^p$，由此即得$L_r\subset L_p+L_q$，$T$在$L^r$上有定义。
+
+    利用拟线性映射的定义，若$|Tf_1(x)|\le s/(2Q)$且$|Tf_2(x)|\le s/(2Q)$，必有$|Tf(x)|\le s$，由此
+    $$\lambda_{Tf}(s)\le\lambda_{Tf_1}\bigg(\frac{s}{2Q}\bigg)+\lambda_{Tf_2}\bigg(\frac{s}{2Q}\bigg)$$
+    根据$T$的弱$(p,p)$与弱$(q,q)$性质即可知
+    $$\lambda_{Tf}(s)\le\frac{(2QB_p)^p\|f_1\|_p^p}{s^p}+\frac{(2QB_q)^q\|f_2\|_q^q}{s^q}$$
+    若$q<\infty$，展开Lebesgue积分后利用上式估算可得到(第二行到第三行的等号类似Lebesgue积分展开中的交换积分次序)
+    $$\begin{aligned}\int_\Omega|Tf|^r\dr x&=\int_0^\infty rs^{r-1}\lambda_{Tf}(s)\dr s\\ &\le(2QB_p)^p\int_0^\infty rs^{r-p-1}\dr s\int_{|f|>\gamma s}|f|^p\dr x+(2QB_q)^q\int_0^\infty rs^{r-q-1}\dr s\int_{|f|\le\gamma s}|f|^q\dr x\\ &=(2QB_p)^pr\int_\Omega|f|^p\dr x\int_0^{|f|/\gamma}s^{r-p-1}\dr s+(2QB_q)^qr\int_\Omega|f|^q\dr x\int_{|f|/\gamma}^\infty s^{r-q-1}\dr s\\ &=\bigg(\frac{(2QB_p)^pr}{r-p}\gamma^{p-r}+\frac{(2QB_q)^qr}{q-r}\gamma^{q-r}\bigg)\int_\Omega|f|^r\dr x\end{aligned}$$
+    取$\gamma=(B_p^pB_q^{-q})^{1/(q-p)}$即可代入验证成立。
+
+    若$q=\infty$，可取$\gamma=\frac{1}{2QB_\infty}$，利用$L_w^\infty=L^\infty$即有$\lambda_{Tf_2}(s/(2Q))=0$，仍然代入上方计算可发现成立。
+}
+
+*由证明过程知此定理事实上无需区域有界。
+
+\subsection{分解引理}
+设$f\in L^1(\mathbb{R}^n)$非负，则对任何$\alpha>0$，存在两个集合$F$与$\Omega$使得：
+\begin{enumerate}
+    \item $F\cup\Omega=\mathbb{R}^n$，$F\cap\Omega=\varnothing$；
+    \item $f(x)\le\alpha$在$F$上几乎处处成立；
+    \item $\Omega$可以分解为一列两两不重叠且边平行于坐标轴的立方体$Q_k$之并，且满足
+    $$\forall k\in\mathbb{N}^*,\quad\alpha<\frac{1}{|Q_k|}\int_{Q_k}f(x)\dr x\le 2^n\alpha$$
+\end{enumerate}
+
+\proo{
+    \textbf{剖分构造}
+
+    由于$\int_{\mathbb{R}^n}f\dr x$有限，取$m>\sqrt[n]{\|f\|_{L^1}/\alpha}$即可将$\mathbb{R}^n$分解为边长$m$的立方体使得每个立方体$Q'$上有
+    $$\frac{1}{m^n}\int_{Q'}f\dr x\le\alpha$$
+    将每个$Q'$等分为$2^n$个立方体$Q''$，每个的边长$m/2$，若$Q''$上的积分平均(即积分除以测度)超过$\alpha$，则选取其为某个$Q_k$，此时
+    $$\alpha<\frac{2^n}{m^n}\int_{Q''}f\dr x\le\frac{2^n}{m^n}\int_{Q'}f\dr x\le 2^n\alpha$$
+    对剩下$Q''$的进一步剖分，并将所有剖分过程中得到的积分平均大于$\alpha$的立方体作为$Q_k$，由于每次剖分后均可数，至多进行可数次，可知最终所有$Q_k$可数。此时条件1、3已经满足，下证条件2。
+    
+    \
+
+    \textbf{剩余验证}
+
+    根据上述定义，对任何$x\in F$，一定存在包含$x$的立方体列$\tilde{Q}_l$使得$|\tilde{Q}_l|\to0$，且每个$\tilde{Q}_l$上积分平均不超过$\alpha$。
+
+    利用Lebesgue点定义可验证$x$为Lebesgue点时
+    $$\alpha\ge\lim_{l\to\infty}\frac{1}{|\tilde{Q}_l|}\int_{\tilde{Q}_l}f(y)\dr y=f(x)$$
+
+    再通过$L^1$可积函数几乎处处为Lebesgue点即成立。
+}
+
+*可发现
+$$|\Omega|=\sum_{k=1}^\infty|Q_k|<\sum_{k=1}^\infty\frac{1}{\alpha}\int_{Q_k}f\dr x\le\frac{1}{\alpha}\|f\|_{L^1(\mathbb{R}^n)}$$
+
+*这个分解引理对起义积分算子的研究十分重要，且已成为\textbf{测度论证}的基本方法。
+
+\subsection{位势方程的估计}
+定义Laplace方程的\textbf{基本解}为($\omega_n$仍表示$n$维单位球体积)
+$$\Gamma(x)=\begin{cases}(n(n-2)\omega_n)^{-1}\|x\|^{2-n}&n>2\\(2\pi)^{-1}\ln\|x\|&n=2\end{cases}$$
+其符合估计
+$$\sup_{\xi\ne0,1\le i,j\le n}\int_{|x|\ge2|\xi|}|D_{ij}\Gamma(x-\xi)-D_{ij}\Gamma(x)|<\infty$$
+记左侧值为$J$，根据定义其只与$n$有关。
+
+\proo{
+    利用微分中值定理可知存在$\lambda(x)\in(0,1)$使得
+    $$\int_{|x|\ge2|\xi|}|D_{ij}\Gamma(x-\xi)-D_{ij}\Gamma(x)|\le\int_{|x|\ge2|\xi|}\sum_k|(D_{ijk}\Gamma)(x-\lambda(x)\xi)||\xi_k|\dr x$$
+    再利用$\Gamma(x)$表达式可得到$D_{ijk}\Gamma(x)$可被$\|x\|^{-n-1}$的某倍数控制，进一步利用有限维空间范数等价可知存在只$n$有关的$C>0$使得
+    $$\int_{|x|\ge2|\xi|}|D_{ij}\Gamma(x-\xi)-D_{ij}\Gamma(x)|\le\int_{|x|\ge2|\xi|}\frac{C}{\|x-\lambda(x)\xi\|^{n+1}}\|\xi\|\dr x$$
+    再利用$\lambda(x)\in(0,1)$与$\|x\|\ge2\|\xi\|$可知$\|x-\lambda(x)\xi\|\ge\|x\|/2$，从而存在与$n$相关的$C'$使得
+    $$\int_{|x|\ge2|\xi|}|D_{ij}\Gamma(x-\xi)-D_{ij}\Gamma(x)|\le C'\int_{|x|\ge2|\xi|}\frac{\|\xi\|}{\|x\|^{n+1}}\dr x$$
+    利用球坐标换元可验证此积分为$n$维单位球表面积乘
+    $$\int_{2\|\xi\|}^\infty\frac{\|\xi\|}{r^2}\dr r=\frac{1}{2}$$
+    从而得证。
+}
+
+\
+
+对$f\in C_0^\infty(\mathbb{R}^n)$，定义相应的Newton位势
+$$w(x)=(\Gamma*f)(x)=\int_{\mathbb{R}^n}\Gamma(x-\xi)f(\xi)\dr\xi$$
+
+\textbf{位势方程的解}：上述$w\in C^\infty(\mathbb{R}^n)$且
+$$\forall x\in\mathbb{R}^n,\quad -\triangle w(x)=f(x)$$
+\proo{
+    光滑性利用定义与$\Gamma(\xi)$局部$L^1$可积(放到某个原点为中心的球上后球坐标换元)即可验证。
+
+    将卷积改写后，利用积分、求导可交换(积分事实上是在有界区域上进行的)与分部积分可知
+    $$\triangle w(x)=\int_{\mathbb{R}^n}\Gamma(\xi)\triangle f(x-\xi)\dr\xi=-\sum_i\int_{\mathbb{R}^n}D_i\Gamma(\xi)D_if(x-\xi)\dr\xi$$
+    将右侧看作$B_\varepsilon(0)$外的积分在0处的极限，利用分部积分公式在第$i$项中将$D_if$放入$\dr\xi_i$分部积分可进一步改写为(计算得$\triangle\Gamma$在非零处为0，由此所有$\Gamma$二阶导项可相加消去)
+    $$\triangle w(x)=\lim_{\varepsilon\to 0^+}\sum_i\int_{|\xi|=\varepsilon}D_i\Gamma(\xi)f(x-\xi)\frac{\xi_i}{\|\xi\|}\dr S$$
+    直接计算$D_i\Gamma(\xi)$的表达式，利用表面积公式可发现极限中即$f$在$B_\varepsilon(\xi)$上的积分平均，趋于$f(x)$。
+}
+
+\
+
+将上述的$w=\Gamma*f$记作$w=Nf$，$N$为$C_0^\infty(\mathbb{R}^n)\to C^\infty(\mathbb{R}^n)$的算子。固定$i,j$，进一步定义
+$$Tf=D_{ij}Nf=D_{ij}(\Gamma*f)$$
+可发现其亦为$C_0^\infty(\mathbb{R}^n)\to C^\infty(\mathbb{R}^n)$的算子。
+
+由于$C_0^\infty(\mathbb{R}^n)$在任何$L^p,1<p<\infty$中稠密，$T$可以看作$L^p$上的线性算子。进一步地，利用稠密性，下方的强/弱$(p,p)$相关命题\textbf{只需对光滑紧支情况验证}即可。
+
+\textbf{$T$为强$(2,2)$型}：$\|T\|_{(2,2)}\le1$。
+
+\proo{
+    设$f\in C_0^\infty(\mathbb{R}^n)$，对任何原点中心的球$B_R$有
+    $$\int_{B_R}f^2\dr x=\int_{B_R}(\triangle w)^2\dr x=\sum_{i,j}\int_{B_R}D_{ii}wD_{jj}w\dr x$$
+    对右端利用两次分部积分公式，在第$i,j$项中将$D_{ii}w$放入$\dr x_i$，再将$D_{jji}w$放入$\dr x_j$可得到
+    $$\int_{B_R}f^2\dr x=\int_{B_R}\sum_{i,j}(D_{ij}w)^2\dr x+\int_{\partial B_R}\sum_{i,j}D_iw\bigg(D_{jj}w\frac{x_i}{R}-D_{ij}w\frac{x_j}{R}\bigg)\dr x$$
+
+    与基本解的估计类似可知$D_i\Gamma(x)$可被$\|x\|^{-n+1}$的某倍数控制，而$D_{st}\Gamma(x)$可被$\|x\|^{-n}$的某倍数控制。设$f$的支集在$B_{R_0}$中，取$R>2R_0$，则$\|x\|=R$时$B_{R_0}$中$\|x-\xi\|\ge R/2$，从而进一步利用$f$有界可知存在与$R$无关的$C$使得
+    $$|D_iw(x)|\le\int_{B_{R_0}}|D_i\Gamma(x-\xi)||f(\xi)|\dr\xi\le\frac{C}{R^{n-1}}$$
+    $$|D_{st}w(x)|\le\int_{B_{R_0}}|D_{st}\Gamma(x-\xi)||f(\xi)|\dr\xi\le\frac{C'}{R^n}$$
+    由此(利用$n$维单位球表面积$n\omega_n$)
+    $$\lim_{R\to\infty}\bigg|\int_{\partial B_R}\sum_{i,j}D_iw\bigg(D_{jj}w\frac{x_i}{R}-D_{ij}w\frac{x_j}{R}\bigg)\dr x\bigg|\le\lim_{R\to\infty}2n^2\cdot n\omega_nR^{n-1}\frac{C}{R^{n-1}}\frac{C'}{R^n}=0$$
+    于是
+    $$\int_{\mathbb{R}^n}f^2\dr x=\int_{\mathbb{R}^n}\sum_{i,j}(D_{ij}w)^2\dr x$$
+    
+    而$\|Tf\|_{L^2}^2$为右侧一项的积分，于是$\|Tf\|_{L^2}^2\le\|f\|_{L^2}^2$，得证。
+}
+
+\textbf{$T$为弱$(1,1)$型}。
+
+\proo{
+    \textbf{空间分解}
+
+    设$f\in C_0^\infty(\mathbb{R}^n)$，对$|f(x)|$利用分解引理，取出对应$\alpha$的$F$与$\Omega=\cup_{k=1}^\infty Q_k$。定义
+
+    $$g(x)=\begin{cases}f(x)&x\in F\\\frac{1}{|Q_k|}\int_{Q_k}f(\xi)\dr\xi&x\in Q_k\end{cases}$$
+    并记$b(x)=f(x)-g(x)$，利用分解的性质可知(第二行左侧为将积分绝对值放为绝对值积分，右侧利用Minkowski不等式)
+    $$|g(x)|\le 2^n\alpha,\quad a.e.$$
+    $$\|g\|_{L^1}\le\|f\|_{L^1},\quad\|b\|_{L^1}\le 2\|f\|_{L^1}$$
+    $$\frac{1}{|Q_k|}\int_{Q_k}b(x)\dr x=0$$
+    由前两条性质可知$g\in L^1\cap L^\infty$，由此分解其大于1、小于1的部分可知其$L^2$可积。而由于$f$光滑紧支即可知$b=f-g$亦$L^2$可积。
+
+    \
+
+    \textbf{拆分放缩}
+
+    与内插定理证明类似，由于$T$线性可知$Tf=Tg+Tb$，从而由定义
+    $$\lambda_{Tf}(\alpha)\le\lambda_{Tg}\bigg(\frac{\alpha}{2}\bigg)+\lambda_{Tb}\bigg(\frac{\alpha}{2}\bigg)$$
+
+    由于$L_w^2$可被$L^2$控制，再由$\|T\|_{(2,2)}\le1$即得
+    $$\lambda_{Tg}\bigg(\frac{\alpha}{2}\bigg)\le\frac{4}{\alpha^2}\|g\|_{L^2}^2$$
+    利用H\"older不等式放缩$\|g\|_{L^2}^2$为$\|g\|_\infty\|g\|_{L^1}$，即得到
+    $$\lambda_{Tg}\bigg(\frac{\alpha}{2}\bigg)\le\frac{2^{n+2}}{\alpha}\|f\|_{L^1}$$
+
+    \
+
+    \textbf{双重序列}
+
+    为估计$\lambda_{Tb}(\alpha/2)$，将$Q_k$边长放大$2\sqrt{n}$得到的同心立方体记为$Q_k^*$，设$\Omega^*$为$Q_k^*$并集，$F^*=\mathbb{R}^n\backslash\Omega^*$，则
+    $$|\Omega^*|\le(2\sqrt{n})^n|\Omega|\le\frac{(2\sqrt{n})^n}{\alpha}\|f\|_{L^1}$$
+    记$b_k(x)=b(x)\chi_{Q_k}$。对每个$b_k$，由于其积分为0，存在一列函数$b_{k,l}\in C_0^\infty(Q_k)$使得它们在$L^2(Q_k)$下趋于$b_k$，且
+    $$\forall l,\quad\int_{Q_k}b_{k,l}(x)\dr x=0$$
+
+    根据$T$的定义，当$x\in \mathbb{R}\backslash Q_k^*$时
+    $$Tb_{k,l}(x)=D_{ij}\int_{Q_k}\Gamma(x-\xi)b_{k,l}(\xi)\dr\xi$$
+    利用$b_{k,l}$积分为0，设$x_k$为$Q_k$中心，有
+    $$Tb_{k,l}(x)=\int_{Q_k}\big(D_{ij}\Gamma(x-\xi)-D_{ij}\Gamma(x-x^k)\big)b_{k,l}(\xi)\dr\xi$$
+    在$P_k=\mathbb{R}\backslash Q_k^*$上积分，利用本节开头的基本解的估计可知
+    $$\int_{P_k}|Tb_{k,l}(x)|\dr x\le\sup_{\xi\in Q_k}\int_{P_k}\big|D_{ij}\Gamma(x-\xi)-D_{ij}\Gamma(x-x^k)\big|\dr\xi\int_{Q_k}|b_{k,l}(\xi)|\dr\xi\le J\int_{Q_k}|b_{k,l}(\xi)|\dr\xi$$
+
+    由于$T$为强$(2,2)$，$b_{k,l}$收敛时$Tb_{k,l}$也应收敛，于是利用Fatou定理可知
+    $$\int_{P_k}|Tb_k(x)|\dr x\le J\int_{Q_k}|b_k(\xi)|\dr\xi=J\int_{Q_k}|b(\xi)|\dr\xi$$
+
+    \
+
+    \textbf{整合估计}
+
+    利用$b=\sum_kb_k$，放缩可知
+
+    $$\int_{F^*}|Tb(x)|\dr x\le\sum_{k=1}^\infty\int_{P_k}|Tb_k(x)|\dr x\le J\|b\|_{L^1}\le2J\|f\|_{L^1}$$
+    由此可得到
+    $$|\{x\in F^*\mid |Tb(x)|>\alpha/2\}|\le\frac{4}{\alpha}J\|f\|_{L^1}$$
+    而$x\in\Omega^*$的部分测度有限，从而
+    $$\lambda_{Tb}\bigg(\frac{\alpha}{2}\bigg)\le(4J+(2\sqrt{n})^n)\frac{\|f\|_{L^1}}{\alpha}$$
+    
+    由此结合对$Tb$与$Tg$的估计可得
+    $$\lambda_{Tf}(\alpha)\le(2^{n+2}+4J+(2\sqrt{n})^n)\frac{\|f\|_{L^1}}{\alpha}$$
+
+    这就得到了紧支光滑函数中$T$的弱$(1,1)$型，从而得证。
+}
+
+\textbf{$T$为强$(p,p)$型}：对$1<p<\infty$，$T$为强$(p,p)$型。
+
+\proo{
+    利用Marcinkiewicz内插定理，已经得到对$1<p\le2$，$T$是强$(p,p)$型的。
+
+    若$p>2$，记其对偶$p'=\frac{p}{p-1}$，对任何$f,h\in C_0^\infty(\mathbb{R}^n)$，将求导分部积分到$h$上，并改变积分次序可得
+    $$\int_{\mathbb{R}^n}Tf(x)h(x)\dr x=\int_{\mathbb{R}^n}f(\xi)\dr\xi\int_{\mathbb{R}^n}\Gamma(x-\xi)D_{ij}h(x)\dr x$$
+    对第二项再次运用分部积分，将$D_{ij}$转移到$\Gamma(x-\xi)$上对$x$求导，而利用复合函数求导可知这与对$\xi$求$D_{ij}$结果相同，即可最终由H\"older不等式得到
+    $$\int_{\mathbb{R}^n}Tf(x)h(x)\dr x=\int_{\mathbb{R}^n}f(\xi)Th(\xi)\dr\xi\le\|f\|_{L^p}\|Th\|_{L^{p'}}$$
+    利用$p'\in(1,2)$可知存在与$f,h$无关的$C$使得
+    $$\forall f,h\in C_0^\infty(\mathbb{R}^n),\quad\int_{\mathbb{R}^n}Tf(x)h(x)\dr x\le C\|f\|_{L^p}\|h\|_{L^{p'}}$$
+    由于$Tf\in C^\infty$，可取一列$h$依范数逼近$(Tf)^{p-1}$，则左侧接近$\|Tf\|_{L^p}^p$，右侧接近
+    $$C\|f\|_{L^p}\|(Tf)^{p-1}\|_{L^{p'}}=C\|f\|_{L^p}\|Tf\|_{L^p}^{p-1}$$
+    从而得证其强$(p,p)$型。
+}
+
+\
+
+\textbf{位势方程$L^p$估计}：设$u\in W_0^{2,p}(B_R)$且满足
+$$-\triangle u=f,\quad a.e.$$
+则对$1<p<\infty$，存在只与$n,p$相关的$C$使得(这里$D^2$的范数代表所有可能二阶导的范数求和)
+$$\|D^2u\|_{L^p}\le C\|f\|_{L^p}$$
+\proo{
+    由于$B_R$边界充分光滑，嵌入定理成立，只需对$u\in C_0^\infty(B_R)$证明成立，而将其零延拓到$C_0^\infty(\mathbb{R}^n)$即由位势方程的解知
+    $$u(x)=\int_{\mathbb{R}^n}\Gamma(x-\xi)f(\xi)\dr\xi$$
+    于是$D_{ij}u=Tf$，再由$T$为强$(p,p)$型即得得证。
+}
+
+\subsection{$W^{2,p}$内估计}
+设$\Omega$为有界开区域，考虑$\Omega$内的二阶线性椭圆型方程
+$$Lu=f,\quad L=-a^{ij}D_{ij}+b^iD_i+c$$
+且满足边界上$u=0$。这时利用偏导可交换可不妨假设$a^{ij}(x)\in C(\bar\Omega)$对称，且满足存在$\lambda,\Lambda>0$使得
+$$\forall x\in\Omega,\xi\in\mathbb{R}^n,\quad\lambda|\xi|^2\le a^{ij}(x)\xi_i\xi_j$$
+$$\sum_{i,j}\|a^{ij}\|_{L^\infty}+\sum_i\|b^i\|_{L^\infty}+\|c\|_{L^\infty}\le\Lambda$$
+
+*由于考虑的并非古典解，边界上$u=0$事实上指的是$u$在某$W_0^{k,p}$中，$u=\varphi$则对应$u-\varphi$在某$W_0^{k,p}$中。本节考虑的情况为$k=2$。
+
+*估计思路与Schauder内估计非常类似。
+
+记$a^{ij}$的\textbf{连续模}为
+$$\omega(R)=\sup_{|x-y|\le R,\ 1\le i,j\le n}|a^{ij}(x)-a^{ij}(y)|$$
+由$a^{ij}$在紧集连续可知此上界必然存在。
+
+\
+
+\textbf{球域版本}：若方程系数满足上方条件，则存在只依赖$n,p,\Lambda/\lambda$与函数$\omega$的正数$R_0\le1$与只依赖$n,p,\Lambda/\lambda$的$C$使得对任何$R\in(0,R_0]$，若$B_R\subset\Omega$，且$u\in W_0^{2,p}(B_R)$几乎处处满足方程(称为\textbf{强解})，则
+$$\|D^2u\|_{L^p}\le C\bigg(\frac{1}{\lambda}\|f\|_{L^p}+R^{-2}\|u\|_{L^p}\bigg)$$
+
+\proo{
+    与第二章完全类似，只需说明$\lambda=1$时成立即可，原方程可以改写为
+    $$-a^{ij}(0)D_{ij}u=f+(a^{ij}(x)-a^{ij}(0))D_{ij}u-b^iD_iu-cu$$
+
+    类似2.3节进行换元可以从位势方程的估计得到常系数情况的估计，也即存在只与$n,p,\Lambda/\lambda$相关的$C_1$使得
+    $$\|D^2u\|_{L^p}\le C_1\|\bar{f}\|_{L^p}$$
+    利用连续模的定义与Minkowski不等式，可知存在只与$n,p,\Lambda/\lambda$相关的$C_2$使得
+    $$\|D^2u\|_{L^p}\le C_2\big(\|f\|_{L^p}+\omega(R)\|D^2u\|_{L^p}+\|u\|_{W^{1,p}}\big)$$
+    由此只需要取$R_0$使得$C_2\omega(R_0)\le\frac{1}{2}$\ (由一致连续性，$\omega(R)$在0处趋于0，因此一定可取到)，即保证$0<R\le R_0$时有只与$n,p,\Lambda/\lambda$相关的$C_3$使得
+    $$\|D^2u\|_{L^p}\le C_3\big(\|f\|_{L^p}+\|u\|_{W^{1,p}}\big)$$
+    
+    而Sobolev空间上有类似2.1节中的H\"older模的内插不等式，从而可得最终结论。
+}
+
+\
+
+\textbf{一般版本}：若方程系数满足上方条件，$u\in W^{2,p}_{loc}(\Omega)$为强解，则对$\Omega$任何列紧子集$\Omega'$，存在$C$使得
+$$\|u\|_{W^{2,p}(\Omega')}\le C\bigg(\frac{1}{\lambda}\|f\|_{L^p}+\|u\|_{L^p}\bigg)$$
+这里$C$只与$n,p,\Lambda/\lambda$，函数$\omega$，$\Omega'$到$\partial\Omega$的距离(记为$d$)与$\Omega'$相关。
+
+\proo{
+    仍只需说明$\lambda=1$时成立即可。对上题中的常数$R_0$取$\bar{R}_0=\min(R_0,d/2)$，设$\bar{R}_0/2\le\rho<R\le\bar{R}_0$，$x_0\in\Omega'$，记$B=B_R(x_0)$，仍可利用磨光核构造截断函数$\zeta\in C_0^\infty(B)$满足存在只与$n$有关的$C_1$使得
+    $$\forall x\in B_\rho(x_0),\quad\zeta(x)=1$$
+    $$\forall k\in\{0,1,2\},|\alpha|=k,\quad|D^\alpha\zeta|\le\frac{C_1}{(R-\rho)^k}$$
+    考虑$v=\zeta u$，可发现
+    $$Lv=\tilde{f},\quad\tilde{f}=\zeta f+(-a^{ij}D_{ij}\zeta+b^iD_i\zeta u)-2a^{ij}D_i\zeta D_ju$$
+    利用球域版本结论(由平移不影响结论，对任何球均成立)可知存在只与$n,p,\Lambda/\lambda$相关的$C_2$使得
+    $$\|D^2v\|_{L^p(B)}\le C_2\big(\|\tilde{f}\|_{L^p(B)}+R^{-2}\|v\|_{L^p(B)}\big)$$
+    左侧缩小区域，只保留$B_\rho(x_0)$中的部分，右侧将$\zeta$各阶导数的界代入并按$u$整理系数(由于$\bar{R}_0\le1$，只需保留分母次数最高的系数)可发现存在只与$n,p,\Lambda/\lambda$相关的$C_3$使得
+    $$\|D^2u\|_{L^p(B_\rho(x_0))}\le C_3\bigg(\|f\|_{L^p(B)}+\frac{1}{R-\rho}\|Du\|_{L^p(B)}+\frac{1}{(R-\rho)^2}\|u\|_{L^p(B)}\bigg)$$
+    利用Sobolev空间的内插不等式可知对任何$\varepsilon$存在与$n,p,\Lambda/\lambda$相关的$C_\varepsilon$使得
+    $$\|D^2u\|_{L^p(B_\rho(x_0))}\le\varepsilon\|D^2u\|_{L^p(B)}+C_\varepsilon\bigg(\|f\|_{L^p(B)}+\frac{1}{(R-\rho)^2}\|u\|_{L^p(B)}\bigg)$$
+    取$\varepsilon=1/2$，利用2.4节引理得到存在只与$n,p,\Lambda/\lambda$相关的$C_4$使得
+    $$\|D^2u\|_{L^p(B_\rho(x_0))}\le C_4\bigg(\|f\|_{L^p(B)}+\frac{1}{(R-\rho)^2}\|u\|_{L^p(B)}\bigg)$$
+    取$R=\bar{R}_0$、$\rho=\bar{R}_0/2$，可得
+    $$\|D^2u\|_{L^p(B_\rho(x_0))}\le C_5\big(\|f\|_{L^p(B)}+\|u\|_{L^p(B)}\big)\le C_5\big(\|f\|_{L^p}+\|u\|_{L^p}\big)$$
+    由于$\rho$已经固定，考虑$\Omega'$每点附近半径$\rho$的球，利用紧性可知存在有限个覆盖$\bar\Omega'$，选出个数$N$只与$\rho,\Omega'$相关，从而最后有
+    $$\|D^2u\|_{L^p(\Omega')}\le NC_5\big(\|f\|_{L^p}+\|u\|_{L^p}\big)$$
+    得证。
+}
+
+\subsection{$W^{2,p}$全局估计}
+由于估计方式与Schauder估计完全类似，只给出主要步骤与结论。
+
+\
+
+\textbf{位势方程-半球版本}：设$u\in W^{2,p}(B_R^+)\cap W_0^{1,p}(B_R^+)$，其中$B_R^+=B_R(0)\cap\{x_n>0\}$，且$u$在$x_n>0$的边界附近为零。若其为$-\triangle u=f$在$B_R^+$上的强解，则存在只与$n,p$相关的$C$使得
+$$\|D^2u\|_{L^p(B_R^+)}\le C\|f\|_{L^p(B_R^+)}$$
+
+*注意$W_0^{1,p}$代表$C_0^\infty$在$W^{1,p}$中的闭包，因此$W^{2,p}\cap W^{1,p}_0\ne W^{2,p}_0$。
+
+\proo{
+    考虑$u$对$\{x_n=0\}$作奇延拓成为$B_R$上的函数$\tilde{u}$，$f$对应奇延拓成为$\tilde{f}$，则可发现$\tilde{u}\in W_0^{2,p}(B_R)$且为$B_R$上$-\triangle\tilde{u}=\tilde{f}$的强解。(由于此处取的是弱导数，边界的控制更加简单。)
+
+    由此，通过第三节位势方程$L^p$估计可直接得到
+    $$\|D^2\tilde{u}\|_{L^p(B_R)}\le C\|\tilde{f}\|_{L^p(B_R)}$$
+    而利用奇延拓定义可发现奇延拓后$p$范数为原本的$2^{1/p}$倍，由此得证。
+
+}
+
+\
+
+\textbf{半球版本}：若方程系数满足第四节条件，$\Omega$包含部分平边界$S$，满足$\Omega\subset\mathbb{R}^n_+$，$S\subset\partial\mathbb{R}^n_+$，且$0\in S$，则存在仅依赖$n,p,\Lambda/\lambda$与函数$\omega$的正数$R_0$与$C$使得对任意$0<R\le R_0$与$S$上的半球$B_R^+\subset\Omega$，若$u\in W^{2,p}(B_R^+)\cap W^{1,p}_0(B_R^+)$，在$\partial B_R^+\cap\{x_n>0\}$附近为0且为$B_R^+$上$Lu=f$的强解，则$B_R^+$上
+$$\|D^2u\|_{L^p}\le C\bigg(\frac{1}{\lambda}\|f\|_{L^p}+R^{-2}\|u\|_{L^proo}\bigg)$$
+
+\textbf{平边界版本}：在半球版本的系数与区域条件下，若$u\in W^{2,p}(\Omega)$，在$S$上$u=0$且为$\Omega$上$Lu=f$的强解，则对于任意$\Omega\cup S$的列紧子集$\Omega'$有
+$$\|u\|_{W^{2,p}(\Omega')}\le C\bigg(\frac{1}{\lambda}\|f\|_{L^p}+\|u\|_{L^p}\bigg)$$
+这里$C$依赖$n,p,\Lambda/\lambda$，函数$\omega$，$\Omega'$到$\partial\Omega\backslash S$的距离与$\Omega'$。
+
+*若区域边界具有一定的正则性，本节与上节中均可控制有限覆盖的重叠次数，从而可与$\Omega'$无关。
+
+\textbf{全局估计}：设$\partial\Omega$为$C^{1,1}$\ ($\alpha=1$的H\"older连续)，方程系数满足第四节条件，$u\in W^{2,p}(\Omega)\cap W^{1,p}_0(\Omega)$为$\Omega$上$Lu=f$的强解，则
+$$\|u\|_{W^{2,p}}\le C\bigg(\frac{1}{\lambda}\|f\|_{L^p}+\|u\|_{L^p}\bigg)$$
+这里$C$依赖$n,p,\Lambda/\lambda$，函数$\omega$与$\Omega$。
+
+\
+
+\textbf{非齐次边值}：考虑边界条件变为$\partial\Omega$上$u=\varphi$，且$\varphi\in W^{2,p}(\Omega)$的情况。若$u\in W^{2,p}$使得$u-\varphi\in W_0^{1,p}$且$Lu=f$几乎处处成立，则称其为对应的强解。若记
+$$\|\varphi\|_{W^{2-1/p,p}(\partial\Omega)}=\inf\big\{\|\Phi\|_{W^{2,p}}\mid\Phi\in W^{2,p},\Phi-\phi\in W_0^{1,p}\big\}$$
+则有估计
+$$\|u\|_{W^{2,p}}\le C\big(\|f\|_{L^p}+\|\varphi\|_{W^{2-1/p,p}(\partial\Omega)}+\|u\|_{L^p}\big)$$
+
+\subsection{$W^{2,p}$解的存在性}
+\textbf{强解极值原理}：设方程系数满足(无需假设$a^{ij}\in C(\bar\Omega)$)
+$$\forall x\in\Omega,\xi\in\mathbb{R}^n,\quad\lambda|\xi|^2\le a^{ij}(x)\xi_i\xi_j$$
+$$\sum_{i,j}\|a^{ij}\|_{L^\infty}+\sum_i\|b^i\|_{L^\infty}+\|c\|_{L^\infty}\le\Lambda$$
+且$c\ge0$。若$u\in C(\bar{\Omega})\cap W_{loc}^{2,n}(\Omega)$为$Lu=f$的强解，则
+$$\sup_\Omega|u|\le\sup_{\partial\Omega}|u|+C\frac{1}{\lambda}\|f\|_{L^n}$$
+其中$C$依赖$n,\Lambda/\lambda$与$\Omega$中两点距离上界。
+
+*详细证明在第六章中，需要利用法映射，这里只进行叙述。
+
+\
+
+\textbf{局部存在性}：设$\partial\Omega$为$C^{2,\alpha}$，方程系数满足第四节条件且$c\ge0$。若$\partial\Omega$的某子集$S$为$\partial\Omega$中的开集，$\varphi\in C(\bar\Omega)$且在$S$上为0，对某$p\ge n$，若$f\in L^p$，则存在$u\in W^{2,p}_{loc}(\Omega)\cap C(\bar\Omega)$满足其为$$\forall x\in\Omega,\quad Lu(x)=f(x)$$
+$$\forall x\in\partial\Omega,\quad u(x)=\varphi(x)$$
+的强解，且对于任何$\Omega\cup S$的列紧子集$\Omega'$有
+$$u\in W^{2,p}(\Omega')$$
+
+\proo{
+    \textbf{$\varphi=0$情况}
+
+    此时即$S=\partial\Omega$。考虑近似序列$a_N^{ij},b_N^{ij},c_N,f_N\in C^\alpha(\bar\Omega)$使得它们仍满足条件中的估计式(或类似2.7节光滑边界版本证明进行适当放宽)，且$f_N$在$L^p(\Omega)$中收敛于$f$；$a_N^{ij}$在$C(\bar{\Omega})$中收敛于$a^{ij}$，且$a_N^{ij}$的连续模能被一致的$\omega(R)$控制；$b_N^i$、$c_N$在$L^\infty(\Omega)$中弱*收敛于$b^i$、$c$。
+
+    *这类子列的取法依赖一些嵌入与稠密性质，书上基本都跳过了说明。
+
+    考虑近似问题($L_N$为$L$的系数对应替换为$a^N,b^N,c^N$)
+    $$\forall x\in\Omega,\quad L_Nu_N(x)=f_N(x)$$
+    $$\forall x\in\partial\Omega,\quad u_N(x)=0$$
+    利用2.7节可知其必然存在解$u_N\in C^{2,\alpha}(\bar\Omega)$，因此$u_N\in W^{2,p}\cap W_0^{1,p}$，再通过$W^{2,p}$全局估计可知
+    $$\|u\|_{W^{2,p}}\le C\bigg(\frac{1}{\lambda}\|f_N\|_{L^p}+\|u\|_{L^p}\bigg)$$
+    由于区域有界，$\|u\|_{L^p}$可被$\|u\|_{L^\infty}$控制，而又通过强极值原理可知$\|u\|_{L^\infty}$可被$\|f_N\|_{L^n}$控制，再由H\"older不等式知其被$\|f_N\|_{L^p}$控制，最终即得到
+    $$\|u\|_{W^{2,p}}\le C'\frac{1}{\lambda}\|f_N\|_{L^p}\le C'\frac{2}{\lambda}\|f\|_{L^p}$$
+    这里$C'$与$N$无关。
+
+    由此，$u_N$在$W^{2,p}(\Omega)$中有界，因此可取出子序列弱收敛到$u\in W^{2,p}(\Omega)$，可验证$u$为符合要求的强解。
+
+    \
+
+    \textbf{真子集情况}
+
+    $S$为$\partial\Omega$的真子集时，构造函数列$\varphi_N\in C^2(\bar\Omega)$使得$S$上$\varphi_N=0$，且$\varphi_N$在$C^2(\bar\Omega)$中收敛于$\varphi$。
+
+    将边界条件从$u=\varphi$改为$u=\varphi_N$，利用第一种情况可知其存在解$u_N\in W^{2,p}(\Omega)$且$u_N-\varphi_N\in W_0^{1,p}(\Omega)$\ (考虑$u_N-\varphi_N$，注意$C^2(\bar\Omega)\subset W^{2,p}(\Omega)$)。利用平边界版本的全局估计，考虑边界点对应的$\psi$，可发现对$\Omega\cup S$的列紧子集$\Omega'$有
+    $$\|u_N\|_{W^{2,p}(\Omega')}\le C(\|f\|_{L^p}+\|u_N\|_{L^p})$$
+    这里$C$与$N$无关。
+
+    利用强解的极值原理，对任何$N,N'$有
+    $$\|u_N-u_{N'}\|_{L^\infty}\le\|\varphi_N-\varphi_{N'}\|_{L^\infty}$$
+
+    因此利用柯西列定义，从$\varphi_N$一致收敛可推出$u_N$一致收敛，通过$W^{2,p}$内部估计，可利用对角线法取出$W_{loc}^{2,p}$意义下弱收敛到$u$的子列，可验证其满足要求。
+
+}
+
+\
+
+\textbf{唯一性下的估计}：考虑$\mathcal{L}$为所有满足存在$\lambda,\Lambda>0$使得
+$$\forall x\in\Omega,\xi\in\mathbb{R}^n,\quad\lambda|\xi|^2\le a^{ij}(x)\xi_i\xi_j$$
+$$\sum_{i,j}\|a^{ij}\|_{L^\infty}+\sum_i\|b^i\|_{L^\infty}+\|c\|_{L^\infty}\le\Lambda$$
+且$\omega(R)$存在并在0处趋于0的椭圆算子$L$构成的集合。
+
+设$1<p<\infty$。若某$\partial\Omega$为$C^{1,1}$的区域$\Omega$中，对任何$L\in\mathcal{L}$、$f\in L^p$，满足$Lu=f$的$u\in W^{2,p}\cap W^{1,p}_0$至多唯一，则解存在时对任何$f$有估计
+$$\|u\|_{W^{2,p}}\le\frac{C}{\lambda}\|f\|_{L^p}$$
+其中$C$依赖$n,p,\Lambda/\lambda$，函数$\omega$与$\Omega$。
+
+\proo{
+    与之前类似，可不妨设$\lambda=1$，若此估计不成立，考虑归一化$u$的$L^p$模长可知存在一列$a_N^{ij}$、$b_N^i$、$c_N$、$f_N$、$u_N$使得
+    $$L_N=-a_N^{ij}D_{ij}+b_N^iD_i+c_N\in\mathcal{L}$$
+    $$u_N\in W^{2,p}\cap W_0^{1,p},\quad\|u_N\|_{L^p}=1$$
+    $$\forall x\in\Omega,\quad L_Nu_N=f_N$$
+    $$\|u_N\|_{W^{2,p}}\ge N\|f_N\|_{L^p}$$
+    利用$W^{2,p}$全局估计的结果并放缩$\|f\|_{L^p}$有
+    $$\|u_N\|_{W^{2,p}}\le\frac{C}{N}\|u_N\|_{W^{2,p}}+C$$
+    于是当$N\ge 2C$时有
+    $$\|u_N\|_{W^{2,p}}\le 2C$$
+    由此，存在$u_N$的子序列弱收敛于$u\in W^{2,p}$，进一步取出$a_N^{ij}$、$b_N^i$、$c_N$、$f_N$的子序列满足局部存在性$\varphi=0$情况证明中的收敛性，由此可验证$u\in W^{2,p}\cap W_0^{1,p}$且$Lu=0$、$\|u\|_{L^p}=1$，但由唯一性可知只能$u=0$符合要求，与$\|u\|_{L^p}=1$矛盾。
+}
+
+\
+
+\textbf{唯一性下的存在性}
+
+在上述条件下，对任何$L\in\mathcal{L}$，$f\in L^p$，存在解$u\in W^{2,p}\cap W_0^{1,p}$。
+
+\proo{
+    与局部存在性$\varphi=0$情况相同考虑对应的近似问题，可验证$\partial\Omega$为$C^{1,1}$时区域具有外球性质，利用2.7节结论可知有解
+    $$u_N\in C^{2,\alpha}\cap C(\bar\Omega)$$
+    下面证明其在$W^{2,p}$中，由此利用唯一性下的估计可知能取出弱收敛子列，即能验证收敛结果为符合要求的解。
+
+    由于其在内部为$C^2$，对内部任何紧集一定$W^{2,p}$，只需证明对每个边界点，存在邻域使得其在邻域中$W^{2,p}$，即可通过有限覆盖定理得到全局的$W^{2,p}$性。设边界$C^{1,1}$定义中边界点$x_0$处对应映射为$\psi$，对应邻域$V$。
+
+    类似2.7节中弱光滑版本的的证明，适当缩小$B_1^+$使得其具有光滑边界，且保证其包含$\overline{B_{1/2}^+}$，得到的区域记为$B$。
+
+    考虑$y=\psi(x)$，$\tilde{u}_N(y)=u_N(x)$，可得到关于$y$的方程
+    $$-\tilde{a}_N^{rs}\tilde{D}_{rs}\tilde{u}_N+\tilde{b}_N^r\tilde{D}_r\tilde{u}_N+\tilde{c}_N\tilde{u}_N=\tilde{f}_N$$
+    其中$\tilde{D}$代表对$y$求导，且
+    $$\tilde{a}_N^{rs}=a_N^{ij}\frac{\partial y_r}{\partial x_i}\frac{\partial y_s}{\partial x_j},\quad\tilde{b}_N^r=a_N^{ij}\frac{\partial^2y_r}{\partial x_i\partial x_j}+b_N^i\frac{\partial y_r}{\partial x_i},\quad\tilde{c}_N(y)=c_N(x),\quad\tilde{f}_N(y)=f_N(x)$$
+
+    取$q=\max\{n,p\}$，由$f_N$与$\psi$的光滑性条件可知$\tilde{f}_N\in L^q(B)$，从而根据局部存在性结论可知$\tilde{u}_N\in W^{2,q}(B)$，由$\psi$光滑性可知$u_N$在$x_0$附近某邻域为$W^{2,q}$，而$q\ge p$，这就得到了证明。
+}
+
+*我们已经证明了唯一性推存在性，于是只要证明至多唯一即有存在唯一。
+
+\
+
+\textbf{一般情况唯一性}：对某$\partial\Omega$为$C^{1,1}$的区域$\Omega$，任何$L\in\mathcal{L}$，取定$1<p<\infty$，若$f\in L^p$，则满足$Lu=f$的$u\in W^{2,p}\cap W_0^{1,p}$至多唯一。
+
+\proo{
+    考虑不同$u$作差可知只需证明$f=0$的情况只有零解。
+
+    若$p\ge n$，利用嵌入定理可知$u$符合本节开头的强解极值原理的条件，从而可直接得到唯一性成立，只需考虑$p<n$的情况。
+
+    \
+    
+    \textbf{正定加强}
+
+    我们先证明弱化的结论，即存在$\sigma>0$使得
+    $$Lu+\sigma u=0$$
+    在$W^{2,p}\cap W_0^{1,p}$中只有零解(这里$1<p<\infty$均可)。
+
+    考虑区域$\tilde{\Omega}=\Omega\times(-1,1)$，其上的点为$(x_1,\dots,x_n,t)$，并考虑算子$\tilde{L}=L-D_{tt}$。直接计算验证可得，若$u$满足上述方程，记$v(x,t)=\cos(\sigma^{1/2}t)u(x)$，有
+    $$\tilde{L}v=0$$
+
+    记$\tilde{\Omega}'=\Omega\in(-1/2,1/2)$，利用几何关系可发现它是$\tilde{\Omega}$与其平边界$S$并集中闭包为紧的集合，于是由平边界本版本的全局估计可知存在与$\sigma$无关的$C$使得
+    $$\|v\|_{W^{2,p}(\tilde{\Omega}')}\le C\|v\|_{L^p(\tilde{\Omega})}\le C\|u\|_{L^p}$$
+    第二个不等号直接利用$|v|\le|u|$计算可得。
+
+    只保留左侧对$t$的两阶导项，计算$D_{tt}v$可发现
+    $$\sigma\|u\|_{L^p}\bigg(\int_{-1/2}^{1/2}|\cos(\sigma^{1/2}t)|^p\dr t\bigg)^{1/p}\le C\|u\|_{L^p}$$
+    积分换元，假设$\sigma\ge1$，则积分限将缩短，将其放回$(-1/2,1/2)$即得
+    $$\sigma^{1-1/(2p)}\|u\|_{L^p}\bigg(\int_{-1/2}^{1/2}|\cos\tau|^p\dr\tau\bigg)^{1/p}\le C\|u\|_{L^p}$$
+    于是取$\sigma$充分大即可得到$\|u\|_{L^p}=0$，将此时的$\sigma$记为$\sigma_p$。
+
+    \
+
+    \textbf{迭代回溯}
+
+    首先，由于证明了解至多唯一，且根据定义$L+\sigma_p\in\mathcal{L}$，与唯一性条件下的存在性完全类似可证明$Lu+\sigma_pu=f$对任何$f\in L^p$一定存在解$u\in W^{2,p}\cap W_0^{1,p}$，也即解事实上是存在唯一的。
+
+    若$u\in W^{2,p}\cap W_0^{1,p}$为$Lu=0$的解，可发现其满足
+    $$Lu+\sigma u=f,\quad f=\sigma u$$
+    设$1/q=1/p-1/n$，利用Sobolev嵌入定理可发现$u\in L^q$，于是$f\in L^q$，根据存在唯一性可发现$u\in W^{2,q}\cap W_0^{1,q}$：若否，还有其他$W^{2,q}\cap W_0^{1,q}$中的解$u'$，而由有界区域可知$u'\in W^{2,p}\cap W_0^{1,p}$，从而$u-u'$是$W^{2,p}\cap W_0^{1,p}$中$Lu+\sigma u=0$的解，只能为0，矛盾。
+
+    由此，从$u\in W^{2,p}\cap W_0^{1,p}$可推出$u\in W^{2,q}\cap W_0^{1,q}$，且$1/q=1/p-1/n$，若$p<n$，总可通过有限次减$1/n$使得$1/p-k/n<1/n$，此时的$q>n$，即通过$q>n$的情况得到了$Lu=0$在$W^{2,p}\cap W_0^{1,p}$中只有零解，得证。
+}
+
+
+\
+
+综合以上，对一般的$p$，只要$\partial\Omega$为$C^{1,1}$，对任何$L\in\mathcal{L}$与$f\in L^p$，满足$Lu=f$的$u\in W^{2,p}\cap W_0^{1,p}$存在唯一，且有估计
+$$\|u\|_{W^{2,p}}\le\frac{C}{\lambda}\|f\|_{L^p}$$
+其中$C$依赖$n,p,\Lambda/\lambda$，函数$\omega$与$\Omega$。
+
+
+\section{De Giorgi-Nash估计}
+*希望去除$a^{ij}$连续的条件得到弱解的估计，这里弱解即与第一章中完全相同定义。
+
+\subsection{弱解的局部性质}
+考虑$n\ge3$维空间中的方程
+$$-D_j(a^{ij}(x)D_iu(x))=0$$
+其中$a^{ij}\in L^\infty$，且
+$$\exists\lambda>0,\Lambda>0,\quad\sum_{i,j}\|a^{ij}\|_{L^\infty}\le\Lambda,\quad\forall\xi\in\mathbb{R}^n,x\in\Omega,\quad\lambda|\xi|^2\le a^{ij}(x)\xi_i\xi_j\le\Lambda|\xi|^2$$
+
+*事实上之后的讨论可以推广到$-D_j(a^{ij}D_iu)+b^iD_iu+cu=0$上，只要$b^i$与$c$也为$L^\infty$。此外，$n=2$时也可以类似讨论。这里只考虑基础情况以简化计算。记
+$$a(u,v)=\int_\Omega a^{ij}D_iuD_jv\dr x$$
+对应的弱解、弱下解、弱上解定义为对任何非负函数$\varphi\in C_0^\infty$有$a(u,\varphi)=0\ /\ a(u,\varphi)\le0\ /\ a(u,\varphi)\ge0$。
+
+*与1.2节中的有界性证明中类似，我们假设$a^{ij}$对称进行后续讨论。不对称时可放大为对称阵仍得到类似结论。
+
+\
+
+\textbf{凸函数性质}：若$\Phi\in C_{loc}^{0,1}(\mathbb{R})$为凸函数：
+\begin{itemize}
+    \item $u$为此方程弱下解且$\Phi'\ge0$时，$v=\Phi(u)$为此方程弱下解；
+    \item $u$为此方程弱下解且$\Phi'\ge0$时，$v=\Phi(u)$为此方程弱上解；
+\end{itemize}
+\proo{
+    对第一条性质，先设$\Phi\in C_{loc}^2(\mathbb{R})$，直接计算可知对任何非负函数$\varphi\in C_0^\infty$有
+    $$a(v,\varphi)=\int_\Omega a^{ij}D_iuD_j(\Phi'(u)\varphi)\dr x-\int_\Omega a^{ij}D_iuD_ju\Phi''(u)\varphi\dr x$$
+    第一项由条件可知$\Phi'(u)\varphi\ge0$，从而根据弱下解可知整体非正，第二项由$a^{ij}$的性质可知$a^{ij}D_iuD_ju$处处非负，而$\Phi''(u)$由凸性非负、$\varphi$非负，从而整体处处非负，积分非负，由此即得到$a(v,\varphi)\le0$。
+
+    对一般的凸函数，考虑其2.2节中定义的磨光函数$\tilde{\Phi}(s,\tau)$，直接由定义可验证其仍凸且导数仍非负，从而$\tilde{\Phi}(u,\tau)$均为弱下解，再利用控制收敛定理令$\tau\to0$得证$\Phi(u)$为弱下解。
+
+    第二条性质的证明完全类似，利用弱上解与$\Phi'(u)<0$\ (从而考虑$-\Phi'(u)\varphi$)仍能得到第一项整体非正。
+}
+
+*由此，$u$为弱下解时$u^+=\max(u,0)$为弱下解。
+
+\
+
+\textbf{局部极值原理}：弱$v\in W^{1,2}(B_R)$是原方程的\textbf{有界弱下解}，且$a^{ij}$符合对应条件，则对$p>0$，$\theta\in(0,1)$有
+$$\ess\sup_{B_{\theta R}}v\le C\bigg(\frac{1}{|B_R|}\int_{B_R}(v^+)^p\dr x\bigg)^{1/p}$$
+其中$C$依赖$n,\Lambda/\lambda,p$与$(1-\theta)^{-1}$。
+
+*本性上确界$\ess\sup$定义见1.4节，对应可定义$\ess\inf u=-\ess\sup(-u)$。
+
+\proo{
+    \textbf{高指数情况-辅助函数}
+
+    先考虑$p\ge2$时，由上方性质已知$v^+$为弱下解，而将$v$改为$v^+$只会增大左侧本性上界，右侧不变，从而可不妨设$v\ge0$。
+
+    利用逼近性质可知对任何非负的$\varphi\in W_0^{1,2}$有$a(v,\varphi)\le0$，设$\zeta\in C_0^\infty$，取$\varphi=\zeta^2v^{p-1}$，计算导数可得
+    $$(p-1)\int_{B_R}(a^{ij}D_ivD_jv)v^{p-2}\zeta^2\dr x\le-2\int_{B_R}a^{ij}v^{p-1}\zeta D_ivD_j\zeta\dr x$$
+    将负号放大为绝对值并放入积分，与1.2节有界性证明相同，通过非负性可将右侧放大为
+    $$2\int_{B_R}v^{p-1}\zeta\sqrt{(a^{ij}D_ivD_jv)(a^{ij}D_i\zeta D_j\zeta)}\dr x$$
+    再由Cauchy不等式即可放为
+    $$2\sqrt{\int_{B_R}v^{p-2}\zeta^2(a^{ij}D_ivD_jv)\dr x\int_{B_R}v^p(a^{ij}D_i\zeta D_j\zeta)\dr x}$$
+    从而将$a^{ij}D_ivD_jv$相关的部分除到左侧，利用非负性两边同平方可发现
+    $$(p-1)^2\int_{B_R}(a^{ij}D_ivD_jv)v^{p-2}\zeta^2\dr x\le4\int_{B_R}v^p(a^{ij}D_i\zeta D_j\zeta)\dr x$$
+    于是利用$a^{ij}$的性质得到
+    $$(p-1)^2\int_{B_R}\zeta^2v^{p-2}|Dv|^2\dr x\le\frac{4\Lambda}{\lambda}\int_{B_R}v^p|D\zeta|^2\dr x$$
+    计算可发现$p^2v^{p-2}|Dv|^2/4=|Dv^{p/2}|^2$，从而利用$p\ge2$将$(p-1)^2$缩小为$p^2/4$即得
+    $$\int_{B_R}\zeta^2|Dv^{p/2}|^2\dr x\le\frac{4\Lambda}{\lambda}\int_{B_R}v^p|D\zeta|^2\dr x$$
+    再利用
+    $$\sum_iD_i(\zeta v^{p/2})^2=\sum_i(v^{p/2}D_i\zeta+\zeta D_iv^{p/2})^2\le2\sum_iv^p(D_i\zeta)^2+2\sum_i\zeta^2(D_iv^{p/2})^2$$
+    可得
+    $$\int_{B_R}|D(\zeta v^{p/2})|^2\dr x\le\bigg(\frac{8\Lambda}{\lambda}+2\bigg)\int_{B_R}|D\zeta|^2v^p\dr x$$
+    利用Sobolev嵌入定理可得存在只与$n,\Lambda/\lambda$相关的$C_1$使得
+    $$\bigg(\int_{B_R}(\zeta v^{p/2})^m\dr x\bigg)^{2/m}\le C_1\int_{B_R}|D\zeta^2|v^p\dr x$$
+    这里$m=2n/(n-2)$。
+
+    \
+
+    \textbf{高指数情况-迭代}
+
+    记$R_k=R\big(\theta+\frac{1-\theta}{2^k}\big)$，$\theta\in(0,1)$任取，设$\zeta_k\in C_0^\infty(B_{R_k})$使得
+    $$\forall x\in B_{R_k},\quad\zeta_k(x)\in[0,1]$$
+    $$\forall x\in B_{R_{k+1}},\quad\zeta_k(x)=1$$
+    $$\forall x\in B_{R_k},\quad|D\zeta_k(x)|\le\frac{2}{R_k-R_{k+1}}=\frac{2^{k+1}}{(1-\theta)R}$$
+
+    *可考虑利用磨光核拼接的构造思路。
+
+    将原估算中的$B_R$变为$B_{R_k}$，$\zeta$变为$\zeta_k$，由非负性，只保留左侧在$B_{R_{k+1}}$内的积分缩小了左侧，从而再放大右侧有
+    $$\bigg(\int_{B_{R_{k+1}}}v^{np/(n-2)}\dr x\bigg)^{(n-2)/n}\le\frac{C_14^k}{(1-\theta)^2R^2}\int_{B_{R_k}}v^p\dr x$$
+    记$p_k=p\big(\frac{n}{n-2}\big)^k$，上式中取定$p=p_k$并两边开$p_k$次方可发现
+    $$\|v\|_{L^{p_{k+1}}(B_{R_{k+1}})}\le\bigg(\frac{C4^k}{(1-\theta)^2R^2}\bigg)^{1/p_k}\|v\|_{L^{p_k}(B_{R_k})}$$
+    迭代至$k=0$得到
+    $$\|v\|_{L^{p_{k+1}}(B_{R_{k+1}})}\le\bigg(\frac{C}{(1-\theta)^2R^2}\bigg)^{\sum_jp_j^{-1}}4^{\sum_jjp_j^{-1}}\|v\|_{L^p(B_R)}$$
+
+    由$p_k$为指数量级下降，指数上的求和在$k\to\infty$时均收敛，计算可知第一个求和为$\frac{n}{2p}$，再将$B_{R_{k+1}}$缩小到$B_{\theta R}$可得
+    $$\|v\|_{L^{p_{k+1}}(B_{\theta R})}\le\frac{C_2}{((1-\theta)R)^{n/p}}\|v\|_{L^p(B_R)}$$
+    这里$C_2$与$n,\Lambda/\lambda,p$相关。再令$k\to\infty$，由非负知左侧即为$v$在$B_{\theta R}$的本性上界，而右侧由于$|B_R|=C_3R^n$，将$(1-\theta)^{-n/p}$合并到$C_2$中即得符合要证明的右侧。
+
+    \
+
+    \textbf{低指数情况}
+
+    与高指数同理设$v\ge0$，则$\ess\sup v=\|v\|_{L^\infty}$。之前的估算中取$p=2$可得
+    $$\|v\|_{L^\infty(B_{\theta R})}\le\frac{C_2}{((1-\theta)R)^{n/2}}\|v\|_{L^2(B_R)}$$
+    将右侧积分中的$v^2$拆成$v^pv^{2-p}$，再将$v^{2-p}$放至$\|v\|_{L^\infty(B_R)}^{1-p}$，即可得到
+    $$\|v\|_{L^\infty(B_{\theta R})}\le\frac{C_2}{((1-\theta)R)^{n/2}}\|v\|_{L^\infty(B_R)}^{1-p/2}\bigg(\int_{B_R}v^p\dr x\bigg)^{1/2}$$
+    利用Young不等式可知(拆分左右分别做$1/(1-p/2)$与$2/p$次方，满足倒数和为1)
+    $$\|v\|_{L^\infty(B_{\theta R})}\le\frac{1}{2}\|v\|_{L^\infty(B_R)}+\frac{C_4}{((1-\theta)R)^{n/p}}\bigg(\int_{B_R}v^p\dr x\bigg)^{1/p}$$
+    记$\varphi(s)=\|v\|_{L^\infty(B_s)}$，则由上式可发现对任何$0<s<t\le R$有
+    $$\varphi(s)\le\frac{1}{2}\varphi(t)+\frac{C_4}{(t-s)^{n/p}}\bigg(\int_{B_R}v^p\dr x\bigg)^{1/p}$$
+    利用2.4节开头引理即可知
+    $$\varphi(\theta R)\le\frac{C_4}{((1-\theta)R)^{n/p}}\bigg(\int_{B_R}v^p\dr x\bigg)^{1/p}$$
+    与高指数情况同理得最终结论。
+}
+
+*中间部分的证明思路称为\textbf{Moser迭代}。
+
+*弱解有界性的假定事实上可以去除，不过证明将变得更加复杂。
+
+\
+
+\textbf{弱Harnack不等式}：给定$\sigma>1$，若$v\in W^{1,2}(B_{\sigma R})$是原方程在$B_{\sigma R}$的\textbf{有界非负弱上解}，且对于$a$的约束在$B_{\sigma R}$上成立，则存在$p_0>0$、$C>0$使得对任何$\theta\in(0,1)$有
+$$\ess\inf_{B_{\theta R}}v\ge\frac{1}{C}\bigg(\frac{1}{|B_R|}\int_{B_R}v^{p_0}\dr x\bigg)^{1/p_0}$$
+其中$p_0$与$C$依赖$n,\Lambda/\lambda$与$(\sigma-1)^{-1},(1-\theta)^{-1}$。
+
+*结合局部极值原理即能说明下界可以控制上界，从而构成Harnack不等式的形式。
+
+*这里所谓的依赖$(\sigma-1)^{-1},(1-\theta)^{-1}$在下方证明中直接表述成依赖$\sigma,\theta$，这里写成这样的形式是为了说明依赖的指数关系。
+
+\proo{
+    \textbf{问题转化}
+
+    考虑$\tilde{v}(x)=v(x/R)$，对应$\tilde{a}_{ij}(x)=a_{ij}(x/R)$，即将区域从$B_R$伸缩至了$B_1$，且直接换元计算可发现不改变条件与结论，因此只需对$R=1$说明成立，记$B=B_1$，这时$1/|B|$为常数，可以直接去除。
+
+    进一步地，只要对$\ess\inf_Bv>0$的情况说明成立：由于$v$为弱上解时对任何$\varepsilon$有$a(v+\varepsilon,\varphi)=a(v,\varphi)$，因此$v+\varepsilon$也为弱上解，于是$\ess\sup_Bv=0$的情况先对$\varepsilon>0$估算$\ess\sup_{B_\theta}(v+\varepsilon)$，再令$\varepsilon\to0^+$即可。
+
+    此时，利用凸函数性质可知$v^{-1}$是非负有界弱下解，于是利用局部极值原理得到
+    $$\forall p>0,\quad\ess\sup_{B_\theta}v^{-1}\le C_1\bigg(\int_Bv^{-p}\dr x\bigg)^{1/p}$$
+    其中$C_1$依赖$n,\Lambda/\lambda,p$与$(1-\theta)^{-1}$。
+
+    而左侧即为$\big(\ess\inf_{B_\theta}v\big)^{-1}$，于是
+    $$\ess\inf_{B_\theta}v\ge\frac{1}{C_1}\bigg(\int_Bv^{-p}\dr x\bigg)^{-1/p}=\frac{1}{C_1}\bigg(\int_Bv^{-p}\dr x\int_Bv^p\dr x\bigg)^{-1/p}\bigg(\int_Bv^p\dr x\bigg)^{1/p}$$
+
+    于是只要存在$p_0>0$与$C_2>0$使得
+    $$\int_Bv^{-{p_0}}\dr x\int_Bv^{p_0}\dr x\le C_2$$
+    结论即能成立(注意$C_2$上的指数是负数，于是须反号)。
+
+    记$w=\ln v-\beta$，常数$\beta$待定，则只需存在$p_0>0$与$C_3>0$使得
+    $$\int_B\er^{p_0|w|}\dr x\le C_3$$
+    将指数中取为$w$与$-w$\ (由单调性，它们都不会超过指数中为$|w|$的情况)并相乘即可直接验算成立。
+
+    \
+
+    \textbf{初步估算}
+
+    考虑$v$为原方程在$B_\sigma$中的弱上解，与上个定理同理可取$W_0^{1,2}(B_\sigma)$中任何非负函数作为检验函数。取定$\varphi\in W_0^{1,2}(B_\sigma)$，则可发现$v^{-1}\varphi\in W_0^{1,2}(B_\sigma)$且非负，以后者作为检验函数直接计算$a(v,v^{-1}\varphi)$，并代入$w$表达式可得
+    $$\int_{B_\sigma}a^{ij}D_iwD_j\varphi\dr x-\int_{B_\sigma}(a^{ij}D_iwD_jw)\varphi\dr x\ge0$$
+    进一步设$\varphi=\zeta^2$，且$\zeta\in W_0^{1,2}(B_\sigma)$满足$B_{\bar\sigma}$上为1，$\bar\sigma=(\sigma+1)/2$，则有
+    $$\int_{B_\sigma}2\zeta a^{ij}D_iwD_j\zeta\dr x-\int_{B_\sigma}(a^{ij}D_iwD_jw)\zeta^2\dr x\ge0$$
+    与局部极值原理类似利用正定性与Cauchy不等式放缩可知第一项不超过
+    $$2\int_{B_\sigma}\zeta\sqrt{(a^{ij}D_iwD_jw)(a^{ij}D_i\zeta D_j\zeta)}\dr x\le2\sqrt{\int_{B_\sigma}(a^{ij}D_iwD_jw)\zeta^2\dr x\int_{B_\sigma}a^{ij}D_i\zeta D_j\zeta\dr x}$$
+    消去共同部分后同平方得到
+    $$\int_{B_\sigma}\zeta^2a^{ij}D_iwD_jw\dr x\le 4\int_{B_\sigma}a^{ij}D_i\zeta D_j\zeta\dr x$$
+    将左侧缩小到$B_{\bar\sigma}$上使得$\zeta^2$为1，并放为下界$\lambda|Dw|^2$，右侧放为上界$\Lambda|D\zeta|^2$，且可使$\zeta$有局部极值原理高指数情况迭代过程的类似梯度条件，即得存在只与$n,\Lambda/\lambda$与$(\sigma-1)^{-1}$有关的$C_4$使得
+    $$\int_{B_{\bar\sigma}}|Dw|^2\dr x\le C_4$$
+    从此梯度结果出发，令$\beta=\int_{B_{\bar\sigma}}\ln v\dr x$\ (由$v$有非零上下界积分一定收敛)通过Poincar\'e不等式可得存在只与$n,\Lambda/\lambda$与$(\sigma-1)^{-1}$有关的$C_4'$使得
+    $$\int_{B_{\bar\sigma}}w^2\dr x\le C_4'$$
+
+    \
+    
+    \textbf{Moser迭代-放缩}
+
+    类似之前的高指数情况，下面希望估算$q$为$\ge2$\textbf{整数}时的$\|w\|_{L^q(B)}$。
+
+    在初步估算开头的式子中取检验函数$\varphi=\zeta^2|w|^{2q}$\ (这里加绝对值是为了下方中间一项的形式)，且$\zeta\in C_0^\infty(B_{\bar\sigma})$，可得
+    $$\int_{B_\sigma}\zeta^2w^{2q}a^{ij}D_iwD_jw\dr x\le2q\int_{B_\sigma}\zeta^2|w|^{2q-1}a^{ij}D_iwD_j|w|\dr x+\int_{B_\sigma}2\zeta w^{2q}a^{ij}D_iwD_j\zeta\dr x$$
+
+    利用Young不等式有
+    $$2q|w|^{2q-1}\le\frac{2q-1}{2q}w^{2q}+(2q)^{2q-1}$$
+    进一步由正定性可知
+    $$a^{ij}D_iwD_j|w|=\pm a^{ij}D_iwD_jw\le a^{ij}D_iwD_jw$$
+    从而得到
+    $$\frac{1}{2q}\int_{B_\sigma}\zeta^2w^{2q}a^{ij}D_iwD_jw\dr x\le(2q)^{2q-1}\int_{B_\sigma}a^{ij}D_iwD_jw\dr x+\int_{B_\sigma}2\zeta w^{2q}a^{ij}D_iwD_j\zeta\dr x$$
+
+    利用正定阵的内积性，配方可发现
+    $$2a^{ij}\alpha_i\beta_j\le a^{ij}\alpha_i\alpha_j+a^{ij}\beta_i\beta_j$$
+    代入
+    $$\alpha_i=\frac{1}{2\sqrt{q}}|w|^q\zeta Dw_i,\quad\beta_i=2\sqrt{q}|w|^qD\zeta_i$$
+    即可知
+    $$\int_{B_\sigma}2\zeta w^{2q}a^{ij}D_iwD_j\zeta\dr x\le\frac{1}{4q}\int_{B_\sigma}\zeta^2w^{2q}a^{ij}D_iwD_jw\dr x+4q\int_{B_\sigma}w^{2q}a^{ij}D_i\zeta D_j\zeta\dr x$$
+    综合可得
+    $$\frac{1}{4q}\int_{B_\sigma}\zeta^2w^{2q}a^{ij}D_iwD_jw\dr x\le(2q)^{2q-1}\int_{B_\sigma}a^{ij}D_iwD_jw\dr x+4q\int_{B_\sigma}w^{2q}a^{ij}D_i\zeta D_j\zeta\dr x$$
+    利用条件与初步估算的梯度结果可知
+    $$\lambda\int_{B_\sigma}\zeta^2w^{2q}|Dw|^2\dr x\le 2C_4\Lambda(2q)^{2q}+16\Lambda q^2\int_{B_\sigma}|w|^{2q}|D\zeta|^2\dr x$$
+
+    \
+
+    \textbf{Moser迭代-截断函数}
+
+    对$\delta\ge1$、$\tau>0$、$\delta+\tau\le\bar\sigma$，取$\zeta\in C_0^{\infty}(B_{\delta+\tau})$使得其值域$[0,1]$，在$B_\delta$上为1，且$|D\zeta|\le2/\tau$\ (类似之前可取到)，利用向量二范数的Minkowski不等式有
+    $$|D(\zeta^2w^{2q})|\le 2q\zeta^2|w|^{2q-1}|D|w||+2\zeta|D\zeta||w|^{2q}$$
+    对第一项用Cauchy不等式放缩(注意$|D|w||=|Dw|$)，第二项代入$\zeta$条件可得
+    $$|D(\zeta^2w^{2q})|\le\zeta^2w^{2q}|Dw|^2+q^2\zeta^2w^{2q-2}+4\tau^{-1}w^{2q}$$
+    最终利用Young不等式得到
+    $$|D(\zeta^2w^{2q})|\le\zeta^2w^{2q}|Dw|^2+\zeta^2w^{2q}+\zeta^2q^{2q}+4\tau^{-1}w^{2q}$$
+
+    两端在$B_{\delta+\tau}$上积分(注意由$\zeta$的支集，含$\zeta$的项相当于在$B_{\bar\sigma}$或$B_\sigma$积分)，利用之前的放缩结果控制$\zeta^2w^{2q}|Dw|^2$项可得
+    $$\int_{B_{\bar\sigma}}|D(\zeta^2w^{2q})|\dr x\le C_5\bigg((2q)^{2q}+q^2\int_{B_{\delta+\tau}}w^{2q}|D\zeta|^2\dr x+\int_{B_{\delta+\tau}}w^{2q}\zeta^2\dr x+q^{2q}|B_{\delta+\tau}|+\frac{1}{\tau}\int_{B_{\delta+\tau}}w^{2q}\dr x\bigg)$$
+    这里$C_5$只与$n$、$\Lambda/\lambda$相关。
+
+    右侧五项中，第四项的$|B_{\sigma+\tau}|$可以放大为$|B_{\bar\sigma}|$，成为只与$n,\sigma$相关的常数，吸收进第一项。第二、三、五项利用$\zeta$的假设可被$w^{2q}$积分乘$q^2\tau^{-2}+\tau^{-1}+1$的倍数控制。由于$\tau<\sigma$、$q\ge2$，可知$\tau^{-1}<\sigma\tau^{-2}<\sigma q^2\tau^{-2}$、$1<\sigma^2q^2\tau^{-2}$，最终吸收为
+    $$\int_{B_{\bar\sigma}}|D(\zeta^2w^{2q})|\dr x\le C_6\bigg((2q)^{2q}+\tau^{-2}q^2\int_{B_{\delta+\tau}}w^{2q}\dr x\bigg)$$
+    这里$C_6$只与$n,\Lambda/\lambda,\sigma$相关。
+
+    由$\zeta$性质将左侧积分只保留$B_\delta$中部分可得
+    $$\int_{B_\delta}|D(w^{2q})|\dr x\le C_6\bigg((2q)^{2q}+\tau^{-2}q^2\int_{B_{\delta+\tau}}w^{2q}\dr x\bigg)$$
+
+    \
+
+    \textbf{Moser迭代-迭代}
+
+    记$\kappa=\frac{n}{n-1}$，利用Sobolev嵌入定理可将上式左侧进一步改写，得到
+    $$\bigg(\int_{B_\delta}|w|^{2q\kappa}\dr x\bigg)^{1/\kappa}\le C_6\bigg((2q)^{2q}+\tau^{-2}q^2\int_{B_{\delta+\tau}}w^{2q}\dr x\bigg)$$
+    取
+    $$q_i=\kappa^{i-1},\quad\delta_0=\bar\sigma,\quad\delta_i=\delta_{i-1}-\frac{\bar\sigma-1}{2^i}$$
+    代入$q=q_i$、$\delta=\delta_i$、$\delta+\tau=\delta_{i-1}$，即可得到估算
+    $$\bigg(\int_{B_{\delta_i}}|w|^{2\kappa^i}\dr x\bigg)^{1/\kappa}\le C_62^{2\kappa^{i-1}}\kappa^{2(i-1)\kappa^{i-1}}+C_6(4\kappa)^i\int_{B_{\delta_{i-1}}}|w|^{2\kappa^{i-1}}\dr x$$
+    两侧开$2\kappa^{i-1}$次方，记$I_i=\|w\|_{L^{2\kappa^i}(B_{\delta_i})}$，$C_7=\sqrt{C_6}$，利用Minkowski不等式可得到
+    $$I_i\le C_7^{1/\kappa^{i-1}}\big(2\kappa^{i-1}+(4\kappa)^{i/(2\kappa^{i-1})}I_{i-1}\big)$$
+    迭代可得
+    $$I_j\le I_0\prod_{i=1}^jC_7^{1/\kappa^{i-1}}(4\kappa)^{i/(2\kappa^{i-1})}+\sum_{t=1}^j C_7^{1/\kappa^{t-1}}2\kappa^{t-1}\prod_{i=t+1}^j(4\kappa)^{i/(2\kappa^{i-1})}$$
+    由于$\sum_i\frac{i}{2\kappa^{i-1}}$是收敛的且只与$n$有关，$I_0$后的项可被控制，而第二项将所有的乘积与$C_7$次方控制后，$\sum_{t=1}^j\kappa^{t-1}$利用等比数列求和知能被$\kappa^j$控制(注意$\kappa>1$，1也可被控制)，从而最终得到
+    $$I_j\le C_8(\kappa^j+I_0)$$
+
+    对任何整数$q\ge2$，取$j$使得$2\kappa^{j-1}\le q\le 2\kappa^j$，利用H\"older不等式可知(注意$\delta_i>1$)
+    $$\|w\|_{L^q(B)}\le C_9I_j\le C_8C_9(\kappa^j+I_0)\le\frac{C_8C_9\kappa}{2}q+C_8C_9I_0$$
+    根据初步估算的结果，$I_0$为常数，因此由$q\ge2$其可吸收到$q$中，最终得到
+    $$\|w\|_{L^q(B)}\le C_{11}q$$
+    这里$C_8$到$C_{11}$都至多与$n,\Lambda/\lambda,\sigma$相关。由此，利用$q$为整数，两侧同作$q$次方，由Stirling公式可知$q^q\le\er^qq!$，从而得到
+    $$\int_B\frac{|w|^q}{q!}\dr x\le(C_{11}\er)^{-q}$$
+    取$p_0=(2C_{11}\er)^{-1}$，即得到
+    $$\int_B\frac{(p_0|w|)^q}{q!}\dr x\le2^{-q}$$
+    求和即得
+    $$\int_B\er^{p_0|w|}\dr x\le\int_B1\dr x+p_0\int_B|w|\dr x+\frac{1}{2}$$
+    这里一三两项已经为常数，而中间项直接利用$|w|\le\frac{|w|^2+1}{2}$即可通过初步估算控制为常数，由此得到最终结论。
+}
+
+\
+
+\textbf{Harnack不等式}：设$u\in W^{1,2}(B_R)$为原方程在$B_R$上的\textbf{有界非负弱解}，则对任何$\theta\in(0,1)$，存在依赖$n,\Gamma/\gamma$与$(1-\theta)^{-1}$的$C$使得
+$$\ess\sup_{B_{\theta R}}u\le C\ess\inf_{B_{\theta R}}u$$
+\proo{
+    设$R_1=\frac{1}{2}(R+\theta R)$，则取$\sigma=\frac{2}{1+\theta}$可由弱Harnack不等式说明$\ess\inf_{B_{\theta R}}u$至少为
+    $$\bigg(\frac{1}{|B_{R_1}|}\int_{B_{R_1}}u^{p_0}\dr x\bigg)^{1/p_0}$$
+    的非零倍数，再由局部极值原理可知$\ess\sup_{B_{\theta R}}u$可被其倍数控制，从而得证。
+}
+
+*事实上，本节的证明过程中并没有用到$a^{ij}$均$L^\infty$的假定，因此Harnack不等式是一个非常一般化的结论，只要一致椭圆条件能够满足即成立。
+
+\subsection{内部H\"older连续性}
+\subsection{全局H\"older连续性}
+\section{散度型拟线性方程}
+\subsection{弱解的有界性}
+\subsection{有界弱解的H\"older模}
+\subsection{梯度估计}
+\subsection{梯度的H\"older模估计}
+\subsection{Dirichlet问题的可解性}
+
+\end{document}

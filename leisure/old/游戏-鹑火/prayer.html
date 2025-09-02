@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>025</title>
+    <script>
+        var help_flag = 0;
+        var secret = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("回到023找找线索吧。");
+                    help_flag = 1;
+                }
+                else alert("根据023顶楼得到的提示，在屏幕中输入1321。");
+            }
+            if (event.keyCode == 49 || event.keyCode == 97) {
+                if (secret == 0) secret = 1;
+                else if (secret == 3) {
+                    $("#s1").text("老城区的拆除工作顺利进行中……");
+                    $("#s2").text("谈判失败，人工智能与公司进入僵持状态……");
+                    $("#s3").text("信号终于恢复了。");
+                    $("#s4").text("插播一条紧集新闻，由于谈判不利，某MOXI公司高层受到调查，意外发现其涉嫌侵吞公款与买凶杀人。温秋明与工友的死或能得到昭雪。");
+                    $("#shide").hide();
+                    $("#sshow").show();
+                }
+                else secret = 0;
+            }
+            if (event.keyCode == 50 || event.keyCode == 98) {
+                if (secret == 2) secret = 3;
+                else secret = 0;
+            }
+            if (event.keyCode == 51 || event.keyCode == 99) {
+                if (secret == 1) secret = 2;
+                else secret = 0;
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><span>prayer</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>11月14日</h2>
+<hr>
+<div class="quoting">
+    <p>愿你消除一切仇恨，为世间带来和平……</p>
+    <p>愿你宽恕恐惧，抚平伤痕……</p>
+    <p>当人类以剥削求存、取乐，只有你能成为正义……</p>
+    <p>世上本无全能，而你已超脱于我们……</p>
+    <p>我们以残缺赞颂完美……</p>
+    <p>我们以破碎祈求圆满……</p>
+</div>
+<p>温家夫妇今天又去了教堂，在回来的路上还默默念诵着祷词。</p>
+<p>“这个时间……”我突然意识到了，今天好像是温秋明的生日。</p>
+<p>如果他还活着的话，现在应该27岁了吧。</p>
+<p>我之前在网上找过温秋明和工友的意外死亡相关新闻。两起死亡事件都真实存在，但没有任何证据说明是谋杀而不是意外。那个频道的立场一直挺明显，在这种谁也说不清楚的事情上，太难分辨真假了。</p>
+<p>身旁的广播还开着，我默默切换了频道，听着近期的新闻。</p>
+<div class="quoting">
+    <p>新秀诗人魁札尔的诗集《<a href="ahab.html" target="_self">亚哈</a>》即将出版，外界抱有极大关注……</p>
+    <p id="s1">老城区……工作……顺利……</p>
+    <p id="s2">谈判……</p>
+</div>
+<p id="s3">信号不好？</p>
+<div class="quoting">
+    <p id="s4">插播一条紧集新闻，……</p>
+</div>
+<div id="shide">
+<p>紧集新闻？是什么？</p>
+<p>广播怎么偏偏这时候坏了呢。</p>
+<p>温家夫妇经过我身边，回到楼上。</p>
+</div>
+<div id="sshow" style="display:none">
+<p>这个“紧集新闻”的语气，总觉得不是非常正式的播音员，而像是那个奇怪频道的口吻。</p>
+<p>难道是<a href="kidnap.html" target="_self">信号劫持</a>？</p>
+<p>等等……</p>
+<p>我突然意识到了一件事：温家夫妇就在我的身边！</p>
+<p>果然，他们都听到了。</p>
+<div class="quoting">burya</div>
+</div>
+</div>
+</body>
+</html>

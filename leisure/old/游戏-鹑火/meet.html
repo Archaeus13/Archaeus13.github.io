@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/005.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>093</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("");
+                    help_flag = 1;
+                }
+                else alert("");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+                $("#c5level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+                $("#c5level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+                $("#c5level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+                $("#c5level").slideUp();
+            });
+            $("#c5").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+                $("#c5level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CATASTROPHE</dt>
+            <div id="c4level" style="display:none;">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><a href="decision.html">decision</a></dd>
+            <dd><a href="close.html">close</a></dd>
+            <dd><a href="son.html">son</a></dd>
+            <dd><a href="leaving.html">leaving</a></dd>
+            <dd><a href="guard.html">guard</a></dd>
+            <dd><a href="television.html">television</a></dd>
+            <dd><a href="news.html">news</a></dd>
+            <dd><a href="farewell.html">farewell</a></dd>
+            <dd><a href="empty.html">empty</a></dd>
+            <dd><a href="report.html">report</a></dd>
+            <dd><a href="journalist.html">journalist</a></dd>
+            <dd><a href="rescue.html">rescue</a></dd>
+            <dd><a href="reconstruct.html">reconstruct</a></dd>
+            <dd><a href="enter.html">enter</a></dd>
+            <dd><a href="impulse.html">impulse</a></dd>
+            <dd><a href="attack.html">attack</a></dd>
+            <dd><a href="friend.html">friend</a></dd>
+            <dd><a href="world.html">world</a></dd>
+            </div>
+            <dt id="c5">CHAPTER V</dt>
+            <div id="c5level">
+            <dd><a href="fore.html">fore</a></dd>
+            <dd><a href="bridge.html">bridge</a></dd>
+            <dd><a href="plan.html">plan</a></dd>
+            <dd><a href="spy.html">spy</a></dd>
+            <dd><a href="gather.html">gather</a></dd>
+            <dd><a href="family.html">family</a></dd>
+            <dd><a href="disguise.html">disguise</a></dd>
+            <dd><a href="join.html">join</a></dd>
+            <dd><a href="message.html">message</a></dd>
+            <dd><a href="typhoon.html">typhoon</a></dd>
+            <dd><a href="cooperate.html">cooperate</a></dd>
+            <dd><a href="showdown.html">showdown</a></dd>
+            <dd><span>meet</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd><a href="victory.html">victory</a></dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>3月24日</h2>
+<hr>
+<p>恭喜过关！</p>
+<!-- <p>兜兜转转半个多小时后，我们到了。</p>
+<p>——翼星的主要活动地点在老城区，这块的监控严重不足，所以倒也不用担心轨迹暴露。</p>
+<p>事实上，这也是为什么胡与非不见之后，我能在不被人注意的情况下到达MEMO咖啡馆。</p>
+<p>虚拟世界的技术再先进，也没人去管贫民窟里的伤亡。</p>
+<p>与咖啡馆的气氛不同，行动地点里弥漫着紧张。</p>
+<p>政府和Askr公司对舍弃432号世界的果决，是在所有人意料外的。</p>
+<p>现在的阶段，进入虚拟舱的人也没有机会退出休整，只能靠外界监控内部的情况。</p> -->
+
+</div>
+</body>
+</html>

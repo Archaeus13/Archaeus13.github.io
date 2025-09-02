@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/004.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>074</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("疑点在哪里？");
+                    help_flag = 1;
+                }
+                else alert("胡与非就在楼下，过了几层代表她不是从自己家出发的");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+            });
+            var count = 0;
+            $("abbr").click(function(){
+                count++;
+                if (count == 5) {
+                    $(this).append("reconstruct");
+                    $("#hide").show();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CHAPTER IV</dt>
+            <div id="c4level">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><a href="decision.html">decision</a></dd>
+            <dd><a href="close.html">close</a></dd>
+            <dd><a href="son.html">son</a></dd>
+            <dd><a href="leaving.html">leaving</a></dd>
+            <dd><a href="guard.html">guard</a></dd>
+            <dd><a href="television.html">television</a></dd>
+            <dd><a href="news.html">news</a></dd>
+            <dd><a href="farewell.html">farewell</a></dd>
+            <dd><a href="empty.html">empty</a></dd>
+            <dd><a href="report.html">report</a></dd>
+            <dd><a href="journalist.html">journalist</a></dd>
+            <dd><span>rescue</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>3月14日</h2>
+<hr>
+<p>今天，伯尔娅发出了新公告：政府将与Askr公司的技术人员携手进行新的营救行动，力图从“镜”手中抢回最后八个人质，并且让人工智能重新可控。</p>
+<p>现在还在行动的准备阶段，好像还要从公司里招募几个志愿者。</p>
+<p>不出意外的话，一周左右行动就会开始。</p>
+<p>这个公告的内容，可以说和我之前的猜测八九不离十。</p>
+<p>人工智能重新可控后，估计政府就能获得不少控制权限了。</p>
+<p>细想这个行动，救人其实是附加。哪怕过程中以“失败”的名义八个人全部死亡，也只有他们的家属在意。</p>
+<p>白项的电话打来了。</p>
+<p>“你怎么看？”他的声音带着一丝怒火。</p>
+<p>我把刚才的推测如实告诉了他，包括对谈判内容猜测的部分。</p>
+<p>“我也是这么想的。但是，这样一个人工智能，最终权限到了政府手里，岂不是要上演一出<a href="nineteen.html" target="_self">1984</a>？”</p>
+<p>“我们是无法抵抗它所侵犯的隐私，不过也没有那么夸张吧。”</p>
+<p>“以它的运算能力，这里的‘隐私’可会是一切。”说实话，白项对人工智能的了解是要比我多上一些的。他的这些话也没有必要怀疑。</p>
+<p>麻烦的是，如果他是这个态度，那翼星呢？</p>
+<p>翼星会不会对此采取行动？</p>
+<p>我和白项又聊了几句，很快挂断了电话。</p>
+<p>如果有翼星的参与和阻挠，麻烦程度会显著增加。</p>
+<p>我把新闻告诉了镜，它只回了谢谢，也看不出态度。</p>
+<p>“大姐好。”在下楼的电梯里还是经常能看到黄大姐，不过现在的对话总觉得有些尴尬。</p>
+<p><abbr title="多点几次" style="text-decoration:none">又过了好几层</abbr>，胡与非也进了电梯。</p>
+<div id="hide" style="display:none">
+<p>“欸，你去四楼做什么？”虽然关系不能算好，我还是好奇问了一句。老丰这层，平时都不会有人去的。</p>
+<p>“听说这个邻居好久没回来了，随便转转。”胡与非似乎不想深提这个话题。</p>
+</div>
+</div>
+</body>
+</html>

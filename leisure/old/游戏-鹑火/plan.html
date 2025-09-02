@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/005.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>083</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("在009中找到水平线附近的长串字符，将对应位置的010:audition去掉");
+                    help_flag = 1;
+                }
+                else alert("剩下的内容放进base64解码器，可看到英文的消息");
+            }
+        }
+        document.onclick = function() {
+            if ($("input").val() == "stowaways") $("input").val("spy");
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+                $("#c5level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+                $("#c5level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+                $("#c5level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+                $("#c5level").slideUp();
+            });
+            $("#c5").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+                $("#c5level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body style="background-color:rgb(40,40,40);color:rgb(180,180,180);">
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CATASTROPHE</dt>
+            <div id="c4level" style="display:none;">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><a href="decision.html">decision</a></dd>
+            <dd><a href="close.html">close</a></dd>
+            <dd><a href="son.html">son</a></dd>
+            <dd><a href="leaving.html">leaving</a></dd>
+            <dd><a href="guard.html">guard</a></dd>
+            <dd><a href="television.html">television</a></dd>
+            <dd><a href="news.html">news</a></dd>
+            <dd><a href="farewell.html">farewell</a></dd>
+            <dd><a href="empty.html">empty</a></dd>
+            <dd><a href="report.html">report</a></dd>
+            <dd><a href="journalist.html">journalist</a></dd>
+            <dd><a href="rescue.html">rescue</a></dd>
+            <dd><a href="reconstruct.html">reconstruct</a></dd>
+            <dd><a href="enter.html">enter</a></dd>
+            <dd><a href="impulse.html">impulse</a></dd>
+            <dd><a href="attack.html">attack</a></dd>
+            <dd><a href="friend.html">friend</a></dd>
+            <dd><a href="world.html">world</a></dd>
+            </div>
+            <dt id="c5">CHAPTER V</dt>
+            <div id="c5level">
+            <dd><a href="fore.html">fore</a></dd>
+            <dd><a href="bridge.html">bridge</a></dd>
+            <dd><span>plan</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd><a href="victory.html">victory</a></dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>10月17日-真</h2>
+<hr>
+<p>11号，我摆弄广播时，终于收听到了翼星的暗码。</p>
+<p>我把它藏进了当天的“日记”里，假装成一个谜题。</p>
+<p>其实，只要把下一关的信号，010:audition去掉，剩下的看似乱码的内容就是以<a href="base.html" target="_self">base64</a>编码的消息。</p>
+<p>消息的最后一个词是<input type="text" style="width:70px">，偷渡者。伯尔娅清理偷渡者并不只是为了偷渡者，也为了趁机解决翼星的人员。</p>
+<p>这些，都是为了之后的二期工程计划作铺垫。</p>
+<hr>
+<p>14号我经历了一场面试，但这并不是重点。</p>
+<p>——总不会学了半个月前端就能通过面试吧。</p>
+<p>更重要的是，以完全合理的理由，留下时间的证据。</p>
+<p>在这个点，翼星在水杉亭大街有个秘密会议，策划冲击救济站。</p>
+<p>我去了水杉亭大街，但我没有参加会议。</p>
+<p>这是个足以洗脱嫌疑的证据。</p>
+<p>从办公室走出来后，我并没有回家，而是去了一趟咖啡馆，和安切斯简单交换了情报。</p>
+<p>现在，翼星成员的情况并不好。我们约定之后尽量减少见面，定期用记号等方式确认是否安全、正常。</p>
+<p>我知道，这次面试注定要失败，与镜的交易也注定会开始。</p>
+<hr>
+<p>今天，假意犹豫一段时间后，我像是“终于下定决心”一样，给镜发了大纲，想得到它的开头。</p>
+<p>它提到了一串数字，说让我记住，也假装其非常重要。</p>
+<p>但是，这只是掩人耳目而已。</p>
+<p>我和它都明白，真正需要帮忙逃脱时，一串纯数字的“密码”没有任何意义。</p>
+<p>“需要你记住一串数字，然后关键时刻，帮我一把。”</p>
+<p>镜的说法里，真正重要的是后半句。</p>
+</div>
+</body>
+</html>

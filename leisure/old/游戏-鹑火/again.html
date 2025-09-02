@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>035</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("空白中隐藏着信息");
+                    help_flag = 1;
+                }
+                else alert("试试看复制吧");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+            $("button").click(function(){
+                if ($("#s1").val() == "hm"
+                    && $("#s2").val() == "241029292629"
+                    && $("#s3").val() == "AyGXpT") {
+                    $("#hide").show("slow");
+                    $("#s1").val("036:deteriorate");
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><span>again</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>12月5日</h2>
+<hr>
+<div class="chatting">
+    <p>一个小时后登录上次的网址。</p>
+    <p>用户名不变，密码也不变。</p>
+    <p style="text-align:right">密码也不变？</p>
+    <p style="text-align:right">不管怎么样，有了警惕……</p>
+    <p>不要多问。</p>
+    <p style="text-align:right">好。</p>
+</div>
+<p>还真是，一波未平一波又起。</p>
+<p>温禾生还没有找到，罗尔里姆这里却来了新任务。</p>
+<p>我隐隐有了些猜测。</p>
+<p>还有一个小时，先听听新闻吧。</p>
+<div class="quoting">
+    <p>贫民窟谈判基本完成，政府许诺再就业培训与入职机会……</p>
+    <p>Askr公司组织营救行动，代号“鱼刺”……</p>
+    <p>寒潮将至，今年冬天可能会格外寒冷，听众朋友们注意保暖……</p>
+</div>
+<p>前两条新闻不在意料之外，贫民窟谈判完成的话，紧张的局势总是能稍微好点了。这段时间这么多人关注，解决措施应该也不会草率。</p>
+<p>Askr公司的行动，之前就有了风声，我们也只能等待结果。</p>
+<p>至于寒潮，现在的天气是越来越极端了啊……</p>
+<p>一小时的时间很快就到了。</p>
+<div style="border:1px solid; width: 400px; text-align: center;">
+    <p>账号：<input type="text" id="s1"></p>
+    <p>密码：<input type="password" id="s2"></p>
+    <p>验证码：<span style="border:1px solid"><span style="opacity:0">AyGXpT</span></span> <input type="text" id="s3" style="width:80px"></p>
+    <p><button>登录</button></p>
+</div>
+<p>等等……</p>
+<div class="chatting">
+    <p style="text-align:right">验证码？</p>
+    <p>只是验证码的话，应该有提示吧。</p>
+    <p>我并没有其他信息。</p>
+</div>
+<p>看来只能靠自己了。</p>
+<div id="hide" style="display:none">
+<p>登录成功。</p>
+<p>这次被踢出来的速度更快。</p>
+<p>不过这多半意味着，罗尔里姆的任务已经完成了。</p>
+<p>“真是，绑上贼船了啊……”</p>
+</div>
+</div>
+</body>
+</html>

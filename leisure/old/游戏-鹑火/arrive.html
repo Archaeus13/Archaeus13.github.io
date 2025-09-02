@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>060</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("最希望镜得到释放的人来自归灵教");
+                    help_flag = 1;
+                }
+                else alert("注意登录账号hm，答案是这章某关的标题");
+            }
+        }
+        function check(s) {
+            var ans = [1,4,8,3,6,7];
+            for (var i = 0; i <= 5; i++) if (s[i] != ans[i]) return false;
+            return true;
+        }
+        $(function (){
+            var s = [9,9,9,9,9,9];
+            var t = ['a','b','e','h','i','m','o','p','s','x'];
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            $("#s1").click(function(){
+                s[0] = (s[0] + 1) % 10;
+                $(this).text(t[s[0]]);
+                if (check(s)) $("#hide").slideDown("slow");
+            });
+            $("#s2").click(function(){
+                s[1] = (s[1] + 1) % 10;
+                $(this).text(t[s[1]]);
+                if (check(s)) $("#hide").slideDown("slow");
+            });
+            $("#s3").click(function(){
+                s[2] = (s[2] + 1) % 10;
+                $(this).text(t[s[2]]);
+                if (check(s)) $("#hide").slideDown("slow");
+            });
+            $("#s4").click(function(){
+                s[3] = (s[3] + 1) % 10;
+                $(this).text(t[s[3]]);
+                if (check(s)) $("#hide").slideDown("slow");
+            });
+            $("#s5").click(function(){
+                s[4] = (s[4] + 1) % 10;
+                $(this).text(t[s[4]]);
+                if (check(s)) $("#hide").slideDown("slow");
+            });
+            $("#s6").click(function(){
+                s[5] = (s[5] + 1) % 10;
+                $(this).text(t[s[5]]);
+                if (check(s)) $("#hide").slideDown("slow");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><span>arrive</span></dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>2月5日</h2>
+<hr>
+<p>按照预报，台风今天就会到来。</p>
+<p>昨天，它的等级从8提升到了9，编号里的最高等级。</p>
+<p>电脑里，镜告诉了我另一个坏消息。</p>
+<div class="chatting">
+<p>两次登录记录被查到了。</p>
+<p>Askr公司里的人暴露了。</p>
+<p style="text-align:right">是<span style="font-family:consolas"><span id="s1">?</span><span id="s2">?</span><span id="s3">?</span><span id="s4">?</span><span id="s5">?</span><span id="s6">?</span></span>吧。</p>
+<p>对。</p>
+<p>他上次出门时被监控了行程，所以暴露了身份。</p>
+<p style="text-align:right">现在的情况是？</p>
+<p>可能是软禁，可能是直接控制住。</p>
+<p>不容乐观。</p>
+</div>
+<div id="hide" style="display:none">
+<p>上次看到呼祢主教时，露出了一个树的挂件。</p>
+<p>如果没看错的话，那个挂件就是Askr公司的白蜡树标志。</p>
+<p>从目的上来说，作为内部人员，也只有信仰能提供帮助“镜”的动机。</p>
+<p>想不到，公司里竟然还有藏得这么深的归灵教徒。我甚至怀疑，镜获得了自我意识这件事背后也有归灵教的影子。</p>
+<p>他被发现了，镜的很多计划都可能随之破产。</p>
+<p>这场意外的台风，必然会带来不少混乱。</p>
+<p>想要达成我的目的，需要镜的配合，所以，我也必须配合它。</p>
+<p>——必须找到混乱中的一线生机。</p>
+<p>——就在台风来临之时。</p>
+<div class="quoting">ramification</div>
+</div>
+<p>“情况不妙啊……”</p>
+<p>镜这里是一方面，翼星之前受到了重创，恐怕也要趁着台风开始反击。</p>
+<p>这样一来，局面就彻底复杂起来了。</p>
+<p>我的思考还没有结束，疯子像看到了什么似的，冲出小区，一路跑到了三洲立交下。</p>
+<p>几百米的距离，黄大姐出于担心，跟了过去，我和白项也凑上了热闹。</p>
+<p>刘文兵看到我们来了，指着咖啡馆边停着的一辆梭舱，大喊着：“我的梭舱！我的！”</p>
+<p>梭舱的牌照上写着WB0723，似乎是他的首字母加生日——多半是当时特地选的号牌。</p>
+<p>可是，这梭舱最后还是被他给变卖了。</p>
+<p>他的叫喊还没结束，梭舱便缓缓启动，随即对着专用的梭舱轨道高速冲去。</p>
+<p>刘文兵向着它追了几步，眼看正要追不上时，右脚却踩上了一段未化开的冰面，不受控制地往前滑行。</p>
+<p>一阵剧烈的风恰到好处地吹来，将他继续向前裹挟。</p>
+<p>我们纷纷抱住身边的支撑物，如此才不至于被狂风卷走；他的速度则越来越快，甚至滑进了梭舱轨道的入口。</p>
+<p>“轰隆——”</p>
+<p>远处，正在建造的二期工程轰然倒塌，不知带走了多少天的辛劳。</p>
+<p>“哐——”</p>
+<p>而曾经的刘老板，现在的疯子，终于如愿和他的梭舱来了个亲密接触，被几百公里的时速撞成了一滩肉泥。</p>
+<p>台风来了。</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+body {
+    margin:0 auto;
+    width: 600px;
+}
+
+h2 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link{
+    color: rgb(23, 62, 141);
+}
+
+a:visited{
+    color: rgb(23, 62, 141);
+}
+
+a:hover{
+    color: rgb(108, 136, 191);
+}
+
+a:active{
+    color: rgb(213, 219, 232);
+}
+
+div {
+    text-align: right;
+    padding-right: 20px;
+}

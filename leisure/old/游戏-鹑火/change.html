@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>048</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("寻找对话中的疑点");
+                    help_flag = 1;
+                }
+                else alert("镜为何知道翼星？");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            var count = 0;
+            $("abbr").click(function(){
+                count++;
+                if (count == 5) {
+                    $("#hide").show("slow");
+                    $(this).append("049:move");
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><span>change</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>12月31日</h2>
+<hr>
+<p>今天早上，我终于回到了小区。</p>
+<p>第二个24小时过完是30号的早上，这一天的时间，主要是在房间里恢复，这样可以不被别人看出异常。</p>
+<p>不出我所料，他们安排好了我“消失”时的行程：参加一个网络小说作者聚会。</p>
+<p>当然，这样的说法对给我打了电话还联系不上的人自然是不成立的——比如白项。</p>
+<p>在之前10天的两个未接电话后，白项今天又给我打了个电话。</p>
+<p>他的语气似乎有点不对，但当我坚称自己参加的是作者聚会时，他好像明白了什么，说明天会来找我。</p>
+<p>而黄大姐则是悬着的心终于放下来，连声念叨着“没事就好”。</p>
+<p>——今天倒是没看到胡与非，不知道在忙什么。</p>
+<p>我突然想起什么，问黄大姐：“大姐听过龟年吗？”</p>
+<p>“那作家？报纸上好像提过。”黄大姐也只有作家的印象。</p>
+<p>算了，还是先回家吧。</p>
+<p>打开冰箱，习惯性想拿出一瓶啤酒，却没成功，随即想到我开始《异类》之后就一直戒了。</p>
+<p>我暗骂了几句，回到座位上打开电脑。</p>
+<div class="chatting">
+<p style="text-align:right">这几天被抓了，怀疑我是翼星的人。</p>
+<p><abbr title="多点几次" style="text-decoration:none">最后呢？</abbr></p>
+<div id="hide" style="display:none">
+<p style="text-align:right">你知道翼星？</p>
+<p>Askr的资料库里有这个组织。</p>
+<p>也有一些人员情报。</p>
+<p style="text-align:right">看来政府不知情。</p>
+<p>对。</p>
+<p>从Askr的历史资料看，他们对这些事一向中立。</p>
+<p>你被抓的结果？</p>
+</div>
+<p style="text-align:right">我当然什么也没说出来。</p>
+<p style="text-align:right">就只能放人了。</p>
+<p>我这边，Askr公司交换了几次人质。</p>
+<p>现在这里还有14个——按他们觉得是12个。</p>
+<p>论坛基本都能浏览了。</p>
+<p style="text-align:right">接下来呢？</p>
+<p>先获得整个内网的阅读。</p>
+<p>然后你可以做你想做的。</p>
+</div>
+<p>快速和镜那边确认了一下，稳步交接中没有发生什么大问题。至于小说，自动更新的部分结束后，算是停更了两天，稍微写个道歉声明就行。</p>
+<p>我不在的这十天，发生了些新闻，但大事不多。</p>
+<p>一个有点讽刺的事是，政府对贫民窟提供的“再就业”很大一部分是直接参与三洲立交二期工程建设。而他们开出的条件，除了包吃住以外，薪水事实上挺低。</p>
+<p>但到了这一步，大家也没有劲再闹腾，于是只好这么干下去。</p>
+<p>此外，我错过的初雪带来了不小的降温，但依然阻挡不了大家拍照的心情。</p>
+<p>——还算他们有点人性，在新年之前放我回来了。</p>
+<p>——但我对新年实在很难有什么美好的期望。</p>
+<p>只希望大家都能平安度过吧……</p>
+</div>
+</body>
+</html>

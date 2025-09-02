@@ -1,0 +1,106 @@
+@charset "utf-8";
+
+body {
+    font-family: 'Microsoft Yahei';
+    margin:0 auto;
+    border: 1px solid rgba(0,0,0,0);
+    width: 1000px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.chatting {
+    background-color: rgba(206, 189, 39, 0.03);
+    border: 2px solid;
+    width: 500px;
+    font-family: 'SimHei';
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.quoting {
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    width: 700px;
+    font-family: 'KaiTi';
+    font-weight: bold;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+#menu {
+    background-color: rgba(0,0,0,.05);
+    width: 150px;
+    margin-top: 0;
+    padding-top: 0;
+    height: 100%;
+    float: left;
+    position: fixed;
+    font-family: 'consolas';
+}
+
+#menu a:link{
+    color: rgb(23, 62, 141);
+}
+
+#menu a:visited{
+    color: rgb(23, 62, 141);
+}
+
+#menu a:hover{
+    color: rgba(23, 62, 141, 0.5);
+}
+
+#menu a:active{
+    color: rgba(23, 62, 141, 0.3);
+}
+
+#menu dt{
+    margin-left: 20px;
+    width: fit-content;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#menu dt:hover{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#menu dt:active{
+    color: rgba(0, 0, 0, 0.3);
+}
+
+#menu dd{
+    font-size: small;
+}
+
+#menu dd span{
+    color: green;
+    font-weight: bold;
+}
+
+#mainpart{
+    padding-left: 180px;
+}
+
+#mainpart a:link{
+    color: rgb(135, 138, 45);
+}
+
+#mainpart a:visited{
+    color: rgb(135, 138, 45);
+}
+
+#mainpart a:hover{
+    color: rgba(135, 138, 45, 0.5);
+}
+
+#mainpart a:active{
+    color: rgba(135, 138, 45, 0.3);
+}
+
+#mainpart button{
+    font-family: 'consolas', 'HeiTi';
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>045</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("找到与漏掉的事相关的事件并鼠标停留");
+                    help_flag = 1;
+                }
+                else alert("信号劫持事件背后的奇怪电台没有被提及");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            var count = 0;
+            $("abbr").click(function(){
+                count++;
+                if (count == 5) {
+                    $("#hide").show("slow");
+                    $(this).append("046:confinement");
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><span>waiting</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>12月26日</h2>
+<hr>
+<p>昨天是圣诞节，也是天气预报第一场雪的日子。</p>
+<p>但，我在没有窗户的房间里度过了这一天。</p>
+<p>连续两天的审讯后，我被送回了这个小小的房间里，似乎又被晾起来了。</p>
+<p>不对劲的地方很明显：不管怎么说，这个流程都太过儿戏。</p>
+<p>我了解过的审讯中的一些心理技巧，对方竟然都没有使用，任由我否认了所有东西。</p>
+<p>正因为这样，我反而搞不清楚对方的目的。</p>
+<p>让我看出这件事是否也是对方的设计？</p>
+<p>如果只是冤枉了我，为什么还不放我出去？</p>
+<p>还好，在两天的审讯结束之后，我的房间里被送进了几本小说，有《白鲸记》，甚至还有《<a href="ulysses.html" target="_self">尤利西斯</a>》，因此不至于无聊至死。</p>
+<p>——感觉这几本书是在讽刺什么呢。</p>
+<p>六天没有接触外界，我还是很担心楼里再出什么事。</p>
+<p>而且，我也没法联系到镜，无从知道镜那边的情况怎么样了。</p>
+<p>胡思乱想中，房门再次打开，晚饭送到了。</p>
+<p>我划了几口，开始整理起这两天从“审讯”中听到的情报：</p>
+<p>所有的暴乱，包括贫民窟反抗拆除与<abbr title="多点几次" style="text-decoration:none">广播电台被信号劫持</abbr>背后，都有一个推动者的存在。而这个推动者，就是名为“翼星”的组织。</p>
+<p>最近，或许是由于动作太多，这个本来存在于地下的组织被政府——似乎伯尔娅亲自参与了侦察——掌握了一些情报，于是政府开始秘密逮捕煽动暴乱的人。</p>
+<p>开小店的作者“龟年”，也是翼星组织的一员，并且已经被他们所抓获。</p>
+<p>如果这就是对方掌握的情报的话，好像漏了一件事？</p>
+<div id="hide" style="display:none">
+<p>对方虽然提到了信号劫持，但那个奇怪的广播电台却并没有被提及。</p>
+<p>而那个电台，从内容来看，大概率也是翼星所为。</p>
+<p>看来，它藏得比想象中还要深？</p>
+</div>
+</div>
+</body>
+</html>

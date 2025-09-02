@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/004.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>070</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("注意点击时目录变化");
+                    help_flag = 1;
+                }
+                else alert("彻底消失后点击原处即可见下一关");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+            });
+            var count = 1;
+            $("body").click(function(){
+                count -= 0.1;
+                $("#s").animate({opacity:count});
+                if (count <= 0) $("#s").html("<a href=\"empty.html\">farewell</a>");;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CHAPTER IV</dt>
+            <div id="c4level">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><a href="decision.html">decision</a></dd>
+            <dd><a href="close.html">close</a></dd>
+            <dd><a href="son.html">son</a></dd>
+            <dd><a href="leaving.html">leaving</a></dd>
+            <dd><a href="guard.html">guard</a></dd>
+            <dd><a href="television.html">television</a></dd>
+            <dd><a href="news.html">news</a></dd>
+            <dd><span id="s">farewell</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>3月3日</h2>
+<hr>
+<audio src="audios/revolution.mp3" controls></audio>
+<p id="secret">白项回家了。</p>
+<p>他的两个月租期正式结束，而现在那个“据点”已经不再是政府和翼星对峙的地方，自然就回到了原来的住宅。</p>
+<p>黄大姐和我出来与他告了别，胡与非则并没有下来。</p>
+<p>走之前，我们避开黄大姐，最后出门聊了一次天。</p>
+<p>“这两个月，过得怎么样？”</p>
+<p>“一开始有点不适应，后来倒是慢慢习惯了。这里确实是个方便散步的地方。”</p>
+<p>“你要继续在翼星干活？”</p>
+<p>“嗯。这两个月给我的变化，可能比以前五年还多吧……”</p>
+<p>“确实不像是你会做的决定。”</p>
+<p>“你知道吗，当我不能回家的时候，突然就有了种，一无所有的感觉。然后就后悔，为什么因为一时冲动保护了翼星的人。”</p>
+<p>“但你最后加入了。”</p>
+<p>“……这两个月，我散步看到了很多人。科技在发展，但一切，和我们大学时，又好像没那么大区别。”</p>
+<p>“是啊，总有些人生活在这个城市的阴暗中，无法反抗。”</p>
+<p>我想起，大学时最早还是白项告诉我，在仰望立交桥上的梭舱轨道时，也要看到桥洞里住着的人。</p>
+<p>白项是个很关注这些的人，只是在真的要做决定时总在瞻前顾后。</p>
+<p>所以，大概“一无所有”让他重新审视起了真正想做的事吧。</p>
+<p>“我想到了那次的乐队表演，我觉得不可能完成的任务，最后凑凑人，其实效果也挺不错。现在，我也有一些力量了，为什么不做点什么呢？”白项眼里的光，仿佛回到了当年上台的激动。</p>
+<p>他打开手机，放起他最喜欢的吉他指弹曲。</p>
+<p>“不错的答案——祝你一路顺风。”告别的话还没说完，白项拖着箱子穿过立交，消失不见。</p>
+<p>白项说的乐队表演，是我们大学的事，回忆起那时的场景，只能感慨时光匆匆。</p>
+<p>可惜，我注定不能和他一起加入翼星了。</p>
+</div>
+</body>
+</html>

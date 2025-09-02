@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/004.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>069</title>
+    <script>
+        var help_flag = 0;
+        var secret = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("信号不好如何解决？");
+                    help_flag = 1;
+                }
+                else alert("回想025");
+            }
+            if (event.keyCode == 49 || event.keyCode == 97) {
+                if (secret == 0) secret = 1;
+                else if (secret == 3) {
+                    $("#secret").html("<div class=\"quoting\"><p>龟年新小说引起反响，读者怀疑其是否真有狱中经历，其表示之前消失的时间是去狱中取材。</p><p>此外，对龟年的保护计划成功实施，部分新行动情报已被他掌握。</p>070:farewell</div><p>看来，这段时间翼星也有所收获，不过，“新行动”会是指什么呢？</p><p>或许会和政府正在进行的谈判有关？</p>");
+                }
+                else secret = 0;
+            }
+            if (event.keyCode == 50 || event.keyCode == 98) {
+                if (secret == 2) secret = 3;
+                else secret = 0;
+            }
+            if (event.keyCode == 51 || event.keyCode == 99) {
+                if (secret == 1) secret = 2;
+                else secret = 0;
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CHAPTER IV</dt>
+            <div id="c4level">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><a href="decision.html">decision</a></dd>
+            <dd><a href="close.html">close</a></dd>
+            <dd><a href="son.html">son</a></dd>
+            <dd><a href="leaving.html">leaving</a></dd>
+            <dd><a href="guard.html">guard</a></dd>
+            <dd><a href="television.html">television</a></dd>
+            <dd><span>news</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>3月1日</h2>
+<hr>
+<p>鹰吕广播电视台，要说以前，对翼星的频道可能还没有察觉。</p>
+<p>在经历了信号劫持之后，必然会去调查它的源头。</p>
+<p>关键在于，温禾生和温雅听到过那个广播吗？</p>
+<p>可能有，也可能没有，不过这已经不重要了。</p>
+<p>即使有，他们也保守了秘密。</p>
+<p>“唉……”想到这里，又是叹息。</p>
+<p>不知道他们的那只叫阿贝尔的京巴犬怎么样了。</p>
+<p>好像这么多天再也没有见到过，哪怕说它被台风卷走了，也不是不可能。</p>
+<p>这条小狗，比起某些人来说，还是显得可爱不少。</p>
+<p>安切斯今天联系到了我，告诉我月亮报会利用到我之前提供的线索去写一篇大新闻，可能要等几天发布。</p>
+<p>——我提供的主要是关于MOXI公司的负面信息，看安切斯的说法，不知道要用来做什么。</p>
+<p>镜那边，今天则给了我一个不明所以的情报：Askr公司正在与政府谈判。</p>
+<p>现在的情况，连新闻都压住，似乎是要采取遗忘策略了，到底还要谈什么？</p>
+<p>不安感再次来临。</p>
+<p>黄大姐和胡与非在那次吵架之后，似乎变得更密切了。</p>
+<p>俩人经常一起下去溜达——不过相对我和白项没事就能沿着立交桥走很远，肯定算不上是散步。</p>
+<p>相对的，黄大姐对我俩的话倒是变少了。</p>
+<p>我大概能明白原因：因为我的思路是和白项接近的，而这之间的差距注定不能和解。</p>
+<p>我打开广播。</p>
+<div id="secret">翼星的广播好像有什么消息，但信号还没完全恢复，听不真切。</div>
+</div>
+</body>
+</html>

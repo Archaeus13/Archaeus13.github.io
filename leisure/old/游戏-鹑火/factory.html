@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>031</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("回想达成交易时的解谜方式");
+                    help_flag = 1;
+                }
+                else alert("是否两个汉字可以当作按钮点击");
+            }
+        }
+        $(function (){
+            var secret = 0;
+            var yes = [1,5,8,11];
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+            $("#s1").click(function(){
+                if (yes.indexOf(secret) != -1) secret++;
+                else secret = 0;
+                if (secret == 12) $("#secret").html("riot");
+            });
+            $("#s2").click(function(){
+                if (yes.indexOf(secret) == -1) secret++;
+                else secret = 0;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><span>factory</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>11月28日</h2>
+<hr>
+<p>外面还是挺混乱，估计短时间内冲突并不会解决。</p>
+<p>而那个奇怪的频道，在今天又播起了消息。</p>
+<div class="quoting">
+    <p>上个月的22日，我们给大家简单讲述了鹰吕贫民窟的来源，今天继续为大家带来贫民窟的故事。</p>
+    <p>今天的故事，关乎贫民窟是如何壮大的。</p>
+    <p>故事回到仿生假肢工厂：</p>
+    <p>工厂被抗议关停，MOXI公司报复抗议的发起者，但是，这并不是事情的结束。</p>
+    <p>毕竟，这并不是在建造时关停，而是已经开工后关停。</p>
+    <p>作为政坛新秀，伯尔娅如果短时间内就允许它重新开放，刚刚积累的口碑必然反噬。</p>
+    <p>于是，在工厂干活的职工们，突然失去了工作，而工厂恢复遥遥无期。</p>
+    <p>但是，在鹰吕这个人口过度饱和的城市，他们并没有别的去处，只能等待。</p>
+    <p>而本就不多的一笔补助，也被MOXI公司贪掉了大半。</p>
+    <p>他们最终也聚集到了贫民窟。</p>
+    <p>近年来，鹰吕的交通枢纽地位越发重要，原本占主要经济来源的工业也因此逐渐被商业取代。另一方面，居民们抗议工业区所引起的污染，在伯尔娅作出表率后，大量工厂被关停整治。</p>
+    <p>最终的结果是，城市里的人越来越多，失业的职工也越来越多，贫民窟，就在城市的快速发展中，一点点壮大。</p>
+</div>
+<p>我坐电梯到顶楼，看着脚下的城市，与比我还高的高楼。</p>
+<p>24号，白项去的那场音乐会，是个纯粹的现代主义音乐会——用他的话说，一点也不符合传统意义的“好听”。</p>
+<p>不过，他听得津津有味，兴冲冲地打电话跟我讲了半个小时，那个指挥，好像还是我们大学时认识的学长。</p>
+<div class="chatting">
+    <p style="text-align:right">我突然有个想法，大纲可以改改。</p>
+    <p>怎么说？</p>
+    <p style="text-align:right;">变种人建立了组织，</p>
+    <p style="text-align:right;">在现有的规则无法帮助他们时，</p>
+    <p style="text-align:right;">他们决定先去报复折磨他们的研究人员。</p>
+    <p>这段本来就在大纲里。</p>
+    <p style="text-align:right">本来设计的是尽量掩人耳目，这也是雨的主意。</p>
+    <p style="text-align:right">但是，后来他们违背了这个建议。</p>
+    <p>光天化日下？</p>
+    <p style="text-align:right">其中一位研究人员是个钢琴家。</p>
+    <p style="text-align:right">于是他们在一个音乐会的会场策划了一场精心准备的“意外”。</p>
+    <p>有点意思。</p>
+</div>
+<p>想到这里，我灵机一动策划出一段剧情。音乐会上的意外，比平时的刺杀，会精彩很多——至于笔力，我可不会担心罗尔里姆写不出来。</p>
+<p>说起来，从最开始的试探到现在，和罗尔里姆的交易算是越来越稳固了。唯一不变的是，它依旧神秘，不愿意透露任何身份相关的信息。</p>
+<p id="secret">
+<span id="s1">是</span>……<span id="s2">否</span>……
+</p>
+<p>如果那天拒绝了交易，那我大概也活不到现在了吧。</p>
+</div>
+</body>
+</html>

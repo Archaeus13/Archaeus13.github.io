@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/004.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>066</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("点击每段新闻，对应的评价中藏着个字母");
+                    help_flag = 1;
+                }
+                else alert("温度、凹形、第一次、老鼠药所在的节数、老丰的楼层");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+            });
+            $("#s1").click(function(){
+                $("#secret").html("<p>白天的气温在7摄氏度左右，比起前面是好点，不过也不算特别暖和。</p><p>离冬天结束，还需要一段时间。</p><p>至少，接下来几天都是晴天。</p>");
+            });
+            $("#s2").click(function(){
+                $("#secret").html("<p>这确实是个重磅的新闻。</p><p>伯尔娅在声明里表示，台风引起凹形桥段底部坍塌是纯粹的意外事件，而具体条件未能履约是他们的责任。</p><p>但她同时也说，希望能体谅城市建设的辛苦，接受滞后的补偿。</p>");
+            });
+            $("#s3").click(function(){
+                $("#secret").html("<p>现在的所谓顺利进行也已经到了收尾的时刻了。</p><p>鹰吕市近几十来，还是第一次遇到这种程度的灾难。</p><p>至少这代表着，鹰吕应对灾难已经相当成熟了。</p>");
+            });
+            $("#s4").click(function(){
+                $("#secret").html("<p>龟年的新作品，很显然在直接针对抓捕。</p><p>想起最早听到龟年，还是挺久前去买老鼠药的时候。</p><p>那次多等一会儿，让我听说了这个人。</p>");
+            });
+            $("#s5").click(function(){
+                $("#secret").html("<p>这似乎是魁札尔真实身份暴露后的首次公开露面。说是预热，不知他是否还有别的目的。</p><p>不知为何，直觉告诉我老丰和魁札尔有关联。</p><p>那间房子已经空了几个月了，如果他真的是被抓捕了，会到现在还没有消息吗……</p>");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CHAPTER IV</dt>
+            <div id="c4level">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><a href="decision.html">decision</a></dd>
+            <dd><a href="close.html">close</a></dd>
+            <dd><a href="son.html">son</a></dd>
+            <dd><span>leaving</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>2月21日</h2>
+<hr>
+<p>天晴了。</p>
+<p>带来了久违的暖意，也让人感觉到春日将近。</p>
+<p>台风在肆虐整整16天之后，终究是离开了。</p>
+<div class="quoting">
+<p id="s1">随着台风的离开，近日气温也开始回升，不过出行还是要注意防寒……</p>
+<p id="s2">伯尔娅发表道歉声明，并表示近日将亲自参与谈判……</p>
+<p id="s3">修缮与救助工作正在顺利进行……</p>
+<p id="s4">龟年新作品《囚》发表，是关于监狱的新小说……</p>
+<p id="s5">魁札尔将以希玻身份真人出场《亚哈》的签售会，为新诗集预热……</p>
+</div>
+<div id="secret">
+<p>台风离去，新闻也渐渐多样化起来。</p>
+<p>龟年、魁札尔，都有了最新的动向。</p>
+<p>伯尔娅那里，感觉是大动作啊……</p>
+</div>
+<p>翼星的频道，今天有了点信号，不过没有消息传出来，应该再过两天能恢复。</p>
+<p>值得一提的是，随着台风的离开，接收的一些其他城市的人也慢慢回去了。</p>
+<p>对政府来说，目光又重新聚焦回了鹰吕的发展。</p>
+<p>白项则也发现，加入翼星并没有带来多大的变化，只是有些额外的事务。</p>
+<p>不过，真的做点什么的时候，也能让自己安心吧。</p>
+<p>——不知道对我的监控有没有放松，我也不好贸然去接触可能和翼星有关的东西。</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>021</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("关卡中有没有不对劲的数字？");
+                    help_flag = 1;
+                }
+                else alert("点击距联合声明天数并调整为正确数字。");
+            }
+        }
+        $(function (){
+            var s1 = 9;
+            var s2 = 9;
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+            $("#s1").click(function(){
+                s1 = (s1 + 1) % 10
+                $("#s1").text(s1);
+                if (s1 == 2 && s2 == 0) {
+                    $("#s1").text("chu");
+                    $("#s2").text("rch");
+                }
+            });
+            $("#s2").click(function(){
+                s2 = (s2 + 1) % 10
+                $("#s2").text(s2);
+                if (s1 == 2 && s2 == 0) {
+                    $("#s1").text("chu");
+                    $("#s2").text("rch");
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><span>newcomer</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>11月7日</h2>
+<hr>
+<p>距离听到温秋明的事已经将近一周，我和黄大姐十分默契地没有往外说任何东西。</p>
+<p>后来想想，黄大姐说得也有道理。那个频道的话术就是抹黑政府，要是全信了才是傻子了。</p>
+<p>不过，目前也实在没什么求证的方法。</p>
+<p>而今天，发生了一件小事：我们这栋大楼里，来了一位新住户。</p>
+<p>她姓胡，全名好像是胡与非，年纪不大的样子，听说是公司里的小职员，最近被调到鹰吕这里来工作，也连带着搬家到了鹰吕。</p>
+<p>前几天她来看房子时就已经和黄大姐打了招呼，所以现在住进来，大家倒也没觉得突然——事实上这个小区几乎每个月都有人来来走走，也并没有太多人在意。</p>
+<p>她住在12楼，正好是我的楼下。</p>
+<hr>
+<p>我看了眼天气预报，在连日的晴天之后，后天又要下雨了。不过这次看起来雨不大，也不至于发生那么多闹心的事。</p>
+<p>那些暴徒这段时间也挺沉寂，但我总觉得，他们在计划着什么更大的阴谋。</p>
+<div class="chatting">
+    <p>合作愉快。</p>
+    <p style="text-align:right">合作愉快。</p>
+    <p>现在的评价如何？</p>
+    <p style="text-align:right">大家的反响不错。</p>
+    <p style="text-align:right">不过，你为什么每次来问我，不自己看评论呢？</p>
+    <p>懒。</p>
+    <p>交易你还记着吧？</p>
+    <p style="text-align:right">放心。</p>
+    <p>这段时间应该就能用到了。</p>
+    <p>别紧张，不是什么违法犯罪。</p>
+</div>
+<p>就能用到了吗……</p>
+<p>果然还是觉得有大事要发生……</p>
+<p>闲来无事，我上网看看新闻，找找人工智能事件的最新进展。</p>
+<div class="quoting">
+    <p>网络专家已经初步控制了“镜”，并且尝试进行了沟通。</p>
+    <p>好消息是，“镜”内部的人类意识状态都十分良好，并没有遇到生命危险。</p>
+    <p>坏消息是，“镜”竟然主动提出了谈判——这意味着它的进化程度远超出大家的预估。</p>
+    <p>“镜”声称，只要两大公司将它只能在公司内网行动的限制去除，它就愿意放人。</p>
+    <p>但是，让强人工智能进入网络的危险是无法预测的，去除限制并不是一个明智的选择。</p>
+</div>
+<p>距离两公司发表联合声明已经<span id="s1">9</span><span id="s2">9</span>天了。</p>
+<p>这还真是养虎为患啊……</p>
+</div>
+</body>
+</html>

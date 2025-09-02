@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>024</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("点击使众人散去以看到剩下内容。");
+                    help_flag = 1;
+                }
+                else alert("其中一行字消失时出现了隐藏的单词。");
+            }
+        }
+        $(function (){
+            var count = 0;
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+            $("#talk").children().click(function(){
+                if ($(this).attr("id") == "s") $(this).text("“prayer”");
+                $(this).animate({opacity:0});
+                $(this).slideUp();
+                count++;
+                if(count == 5) $("#secret").fadeIn("slow");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><span>cafe</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>11月13日</h2>
+<hr>
+<p>前两天下了场大雨，但暴徒仍然沉寂着。</p>
+<p>这当然不是一个好兆头——现在越是收敛，就代表越大的图谋。</p>
+<p>今天，我去了三洲立交桥边散步。</p>
+<p>说起来，这还是在学校时养成的习惯，当时没事就和白项出来散步，最常去的也就是这个立交桥。</p>
+<p>在桥下，有一座小小的咖啡馆，好像已经开了很多年了。</p>
+<p>不过，今天咖啡馆的周围聚了一圈人，不知道在看着什么。</p>
+<p>我凑近一点，听着人群的聊天：</p>
+<div id="talk">
+<p>“听说了没，今天几家电视台要对这个咖啡馆做专访！”</p>
+<p>“什么专访？”</p>
+<p>“好像是说里面有个男人每天来吹那什么，哦对，唢呐。”</p>
+<p>“那是啥？”</p>
+<p>“嗨呀，反正就是个罕见乐器呗，还怪刺耳的。”</p>
+<p id="s">“我查到了，好像绮拉大师评价说是‘婉转凄切’，听起来挺有那味。”</p>
+<p>“那人是叫希玻吧，之前好像在月亮报的小采访里出现过。”</p>
+<p>“嚯，怎么一段时间不见都那么有名了。”</p>
+<p>“这大家围得里三层外三层的，也没法进去看啊。”</p>
+<p>“散了吧散了吧。”</p>
+<p>“倒是好久没看到这么大规模的电视采访了，有点稀奇。”</p>
+</div>
+<div id="secret" style="display:none">
+<p>人群散开一点后，我终于看到了被采访的人。</p>
+<p>一个外貌平平无奇的中年男子，拿着造型独特的喇叭状乐器——好像叫唢呐来着。</p>
+<p>真不知道有什么好采访的……</p>
+<p>如果是白项来，估计又能发表一番对音乐的见解，可惜我什么都不懂。</p>
+<p>在小区门口，我又碰到了正聊得兴高采烈的胡与非和黄大姐。</p>
+<p>她俩好像很快就熟络了起来，该说不愧是女性吗，才认识几天就能聊这么欢。</p>
+<p>巧的是，黄大姐似乎也看热闹回来，两人正在聊那个希玻的事。</p>
+<p>希玻其实在咖啡馆吹唢呐很久了，但旁人往往不太在意，最多也就是复述绮拉大师“婉转凄切”的评价。</p>
+<p>而他也很奇怪，每当听到大师的评价都会情绪激动，一副十分不满的样子。</p>
+<p>——果然只有白项能懂吧，估计又会念叨出一套“现在已经鲜有人知道用心去感受艺术了”云云。</p>
+</div>
+</div>
+</body>
+</html>

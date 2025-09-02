@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>023</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("改变电梯按钮，注意大楼每层可以对应字母。");
+                    help_flag = 1;
+                }
+                else alert("按1234的顺序将楼层对应的字母拼成单词。");
+            }
+        }
+        $(function (){
+            var s1 = 1;
+            var s2 = 3;
+            var str = "回家吧。";
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+            $("#s1").click(function(){
+                if (s1 != 2) s1++;
+                else s1 = 0;
+                $("#s1").text(s1);
+                switch (s1*10+s2) {
+                    case 1:
+                        str="[2]我不能一直在小卖部转悠，该回去了。";
+                        break;
+                    case 3:
+                        str="[1]";
+                        break;
+                    case 4:
+                        str="老板什么时候能回来呢……";
+                        break;
+                    case 5:
+                        str="[4]温家夫妇的孩子的事，可能有机会得去确认一下。";
+                        break;
+                    case 6:
+                        str="[3]";
+                        break;
+                    case 12:
+                        str="总觉得胡与非有点奇怪，不知道是不是错觉。";
+                        break;
+                    case 13:
+                        str="回家吧。";
+                        break;
+                    case 14:
+                        str="疯子。好像几天没见他了。";
+                        break;
+                    case 15:
+                        str="黄大姐的人是真的好，希望她能多在这里住一会儿。";
+                        break;
+                    case 26:
+                        str="顶楼的风景本来很好，但周围的高楼建起来后便看不见了。";
+                        break;
+                    default:
+                        str="没什么值得注意的。";
+                }
+                $("#secret").text(str);
+            });
+            $("#s2").click(function(){
+                if (s2 != 9) s2++;
+                else s2 = 0;
+                $("#s2").text(s2);
+                switch (s1*10+s2) {
+                    case 1:
+                        str="[2]我不能一直在小卖部转悠，该回去了。";
+                        break;
+                    case 3:
+                        str="[1]";
+                        break;
+                    case 4:
+                        str="老板什么时候能回来呢……";
+                        break;
+                    case 5:
+                        str="[4]温家夫妇的孩子的事，可能有机会得去确认一下。";
+                        break;
+                    case 6:
+                        str="[3]";
+                        break;
+                    case 12:
+                        str="总觉得胡与非有点奇怪，不知道是不是错觉。";
+                        break;
+                    case 13:
+                        str="回家吧。";
+                        break;
+                    case 14:
+                        str="疯子。好像几天没见他了。";
+                        break;
+                    case 15:
+                        str="黄大姐的人是真的好，希望她能多在这里住一会儿。";
+                        break;
+                    case 26:
+                        str="顶楼的风景本来很好，但周围的高楼建起来后便看不见了。这里还特地加装了一个信号增幅器，输入密码1321就能启动。——不过，现在似乎用不上它。";
+                        break;
+                    default:
+                        str="没什么值得注意的。";
+                }
+                $("#secret").text(str);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><span>renovate</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>11月10日</h2>
+<hr>
+<p>今天广播的那个奇怪频道里，出现了龟年的文字。</p>
+<p>上次听到龟年，还是买老鼠药回家的时候——用文字改变世界失败开起小店什么的，倒真是个老套的故事。</p>
+<p>频道里播放的是类似美文合集的节目，龟年的某篇讲述店老板和被鱼刺卡住的客人故事的短篇小说选入了其中。</p>
+<p>短篇小说后，是另一个文段：</p>
+<div class="quoting">
+    <p>我庄的一面是山，另一面是海，每天浪拍打岸，山生长森林；溪流贯穿其间，有清有浊，颱风翻山而来，将死去的树带到海岸。</p>
+    <p>我庄的人们爱慕树、稻米、鱼族以及甲壳类。他们引溪水至田，引海水到鱼塭。我庄的房子以令人欣羡的尊严错落其间，人们来来往往，为坔地写下十四行诗、叙事诗和輓歌；为田间的作物写下北管、牛尾调与摇篮曲。</p>
+</div>
+<p>正当我听着广播时，胡与非从电梯里走出来。</p>
+<p>“早。”我挥了挥手。</p>
+<p>“早，话说你是做什么的，怎么一大早在这听广播？”胡与非似乎一直对这个广播有点好奇。</p>
+<p>“在家写点网络小说，没什么稳定工作。”我挠挠头。</p>
+<p>她没再说什么，告别去上班了。</p>
+<p>广播里，那个频道已经没了声音，我调回新闻。</p>
+<div class="quoting">
+    <p>偷渡专项整治成果喜人，累计逮捕、遣返二百余名偷渡者。</p>
+    <p>据政府透露，新的行动即将开始，主要针对贫民窟的无业游民问题进行整顿。</p>
+    <p>科技公司代表与人工智能展开谈判，此次谈判或具有划时代意义。</p>
+</div>
+<p>黄大姐也出门工作了，这段时间她值下午到晚上的班，相对轻松。</p>
+<p>我拿出手机，看着《异类》最新的剧情。</p>
+<p>按照我的设计，在变种人杀人案发生后，直接跳到法庭上的辩论环节，用以展现针锋相对，但罗尔里姆选择多作一些铺垫，先埋下彻底翻脸的伏笔。在现在的剧情，法庭辩论接近尾声，按大纲设计，这段的末尾要得出对变种人极为不利的“第五法案”。</p>
+<p>“真是精彩啊……”我又一次感叹这个神秘的罗尔里姆的文笔。</p>
+<p>我按下电梯按键中的[<span id="s1">1</span><span id="s2">3</span>]。</p>
+<p id="secret">回家吧。</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>030</title>
+    <script>
+        var help_flag = 0;
+        var count = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("继续找找疑点吧。");
+                    help_flag = 1;
+                }
+                else alert("暴雨下，隔壁大街的声音真的能听见吗？");
+            }
+            if (event.keyCode == 83) {
+                count++;
+                if (count == 5) {
+                    $("#hide").show();
+                    $("abbr").text("factory");
+                }
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><span>poet</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>11月25日</h2>
+<hr>
+<p>暴雨。</p>
+<p>天凉下来了，街上的行人都穿上了厚厚的秋装。</p>
+<p>我昨天才意识到事情的不对：在听到温秋明事情真相的时候，胡与非都还没搬来这里，更别说听到广播。只从后来那个“买凶杀人”里是不可能得到诸如没证据一类的结论的。</p>
+<p>兴许是黄大姐告诉过她？但是黄大姐并不完全信任那个频道，真的会说出去吗？</p>
+<p>如果胡与非问起来究竟是什么事，倒也不是没有解释的可能……</p>
+<p>毕竟，如果不是这样的话，我也做不出其他的猜测，除非胡与非自己就是那个电台的发布者。</p>
+<div class="quoting">
+    <p>新闻频道发生信号劫持，真凶位置已锁定……</p>
+    <p>魁札尔诗集《亚哈》已出版，毁誉参半……</p>
+    <p>“镜”疑似掌握新筹码，谈判局势对公司不利……</p>
+</div>
+<p>14号的信号劫持居然现在才说，看起来是情况压不住了。</p>
+<p>不过，这个语气也很微妙，只字不提那天播报的消息真假——事实上，通过新闻网站上的查找，被调查、侵吞公款、买凶杀人都是实情，只是没有说明具体的案子。</p>
+<p>镜掌握了新筹码，倒是没让我太意外。作为自主学习进化的人工智能，哪怕只能在内网待着，时间一长也能有新的花样。</p>
+<p>至于魁札尔的诗集，在白项的强烈建议下，我简单看了看发布到网络上的几首。</p>
+<p>“你觉得怎么样？”白项好像挺期待我的评价。</p>
+<p>“说实话，里面的一些意象我不是很理解，感觉比起以前更加晦涩了。”</p>
+<p>“你说得是对的。这次引用了大量的小说和神话的片段，网上有人在做解析，不过也没能完全弄出来。我个人感觉，质量是比之前的作品更加高了。”这次，连白项也不确定了。</p>
+<p>“我看恶评基本是，觉得它‘故意不让人看懂’？”这评价虽然尖锐了点，不过我觉得也不是没有道理。</p>
+<p>“没有什么故意，只是想表达的信息量太大，装进诗里，就势必有所删减。就像诗集名字的亚哈船长，如果只看表面会觉得或许是骄傲而狂妄，但整个小说中都包含着一种殉道者的崇高感。这样一个复杂的形象，不借助引用，很难直接表达清楚。”</p>
+<p>白项看过《白鲸记》，也给我推荐过，不过我一直没机会看。他的这个反驳，我是认同的。文学有文学需要的晦涩，不能简单批驳为“不想让人看懂”。</p>
+<p>说到这里，我又想起，之前也听闻过魁札尔，是个挺神秘的诗人。虽然诗有了不小名气，但从没人知道他现实中的身份，也没有参与过现实活动。有人说他是隐士，住在山林里，也有人说他就在城市的某个地下室里。</p>
+<p>今天，我在楼里都<abbr title="多按几次S以继续剧情" style="text-decoration:none">能听见旁边的声音</abbr>，大概水杉亭大街那边又起了冲突。我看着《异类》的数据越来越好，心里踏实了不少——过几天再屯点东西回家，这样真出事也不会波及到我这里。只要网站的收入能保持，生活的钱还是够用的。</p>
+<div id="hide" style="display:none">
+<p>不对劲。</p>
+<p>暴雨声之下，如果冲突的声音真是来自水杉亭大街，不可能那么清楚才对。</p>
+<p>公寓里有冲突的可能性也不是很大。</p>
+<p>所以，是为什么呢……</p>
+</div>
+</div>
+</body>
+</html>

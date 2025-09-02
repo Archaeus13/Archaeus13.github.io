@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>044</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("在041中找找线索吧");
+                    help_flag = 1;
+                }
+                else alert("姓名和电话只在Askr公司暴露过");
+            }
+        }
+        function check(s) {
+            var ans = [0,8,4,7];
+            for (var i = 0; i <= 3; i++) if (s[i] != ans[i]) return false;
+            return true;
+        }
+        $(function (){
+            var s = [9,9,9,9];
+            var t = ['a','b','e','i','k','m','o','r','s','x'];
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            $("#s1").click(function(){
+                s[0] = (s[0] + 1) % 10;
+                $(this).text(t[s[0]]);
+                if (check(s)) $("#hide").slideDown("slow");
+            });
+            $("#s2").click(function(){
+                s[1] = (s[1] + 1) % 10;
+                $(this).text(t[s[1]]);
+                if (check(s)) $("#hide").slideDown("slow");
+            });
+            $("#s3").click(function(){
+                s[2] = (s[2] + 1) % 10;
+                $(this).text(t[s[2]]);
+                if (check(s)) $("#hide").slideDown("slow");
+            });
+            $("#s4").click(function(){
+                s[3] = (s[3] + 1) % 10;
+                $(this).text(t[s[3]]);
+                if (check(s)) $("#hide").slideDown("slow");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><span>crime</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>12月24日</h2>
+<hr>
+<p>昨天的审讯里，除了那个不在场证明之外，其他事我一律用不知道来回答。</p>
+<p>这种时候把自己的推测说出来，只会更被怀疑和翼星的联系。</p>
+<p>10月14号下午我在面试这件事，查大楼的监控就能查到，不存在任何疑点。只要坐实，我就不会被冤枉。</p>
+<p>三小时的审讯一无所获后，我被放回了房间。</p>
+<p>今天同一时间，审讯继续。</p>
+<p>“你的不在场证明确实有效，但这和你在翼星的地位不矛盾。”</p>
+<p>“那你们有什么理由说我是翼星的人？”</p>
+<p>“我们得到了一份通讯名单。”</p>
+<p>他从厚厚一沓资料里抽出了一张纸，上面写着一些名字和联系方式。</p>
+<p>他随即挡住了其他，只让我看到我的名字和电话。</p>
+<p>是我认识的人干的？</p>
+<p>如果这份名单真的是“翼星”的通讯名单，就意味着我有认识的人是翼星的人，并且供出了我作为成员。</p>
+<p>似乎不太可能。</p>
+<p>“我们有我们的途径确认。这个名单只有三分之一是真的，而你，也在‘真的’的那一部分。”</p>
+<p>“那，如果这个名单根本不是通讯名单呢？”</p>
+<p>我终于想到了一个可能性。</p>
+<p>“这份名单明明是<span style="font-family:consolas"><span id="s1">?</span><span id="s2">?</span><span id="s3">?</span><span id="s4">?</span></span>的名单。”</p>
+<div id="hide" style="display:none">
+<p>“我曾经参加过Askr公司的图灵测试，那也是我唯一留下联系方式的时候。”</p>
+<p>“如果真的是包含我名字与电话的名单，可以去找公司网站里的名单对应，看看是不是一个东西。”</p>
+<p>虽然还不能百分百确定，但这份名单既然包含了我，很大可能是被抓的翼星成员早有准备，从网上记住了这么一个“通讯名单”来供述。</p>
+<p>——于是，审讯很快又结束了，依然没从我嘴里得到什么东西。</p>
+<p>不是我犯下的罪行，找到我头上，自然不会有任何结果。</p>
+<p>但是，还是有些不安呢……</p>
+<p>直到审讯结束，他也没有告诉我名单的来源，只是跳过了这个话题。</p>
+<div class="quoting">waiting</div>
+</div>
+</div>
+</body>
+</html>

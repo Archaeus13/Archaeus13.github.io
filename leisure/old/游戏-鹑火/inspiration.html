@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/001.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>019</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("主角的聊天记录可以点击");
+                    help_flag = 1;
+                }
+                else alert("找到正确的点击顺序");
+            }
+        }
+        $(document).ready(function(){
+            var secret = 0, right = 0;
+            var ans = ["1","2","3","4","5","6","7"];
+            $(".secret").click(function(){
+                $(this).animate({width:'400px'},"slow");
+                    if (secret != 7) {
+                    if ($(this).attr("id") == ans[secret]) {
+                        right++;
+                        $("h2").append("&#10004;");
+                    }
+                    else $("h2").append("&#10006;");
+                    secret++;
+                }
+                if (secret == 7) {
+                    if (right == 7) $("h2").text("truth");
+                    else $("h2").text("刷新后重新试试吧");
+                }
+            });
+        });
+    </script>
+</head>
+
+<body style="background-color: rgba(0, 88, 104, .52);">
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt>CHAPTER I</dt>
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><span>inspiration</span></dd>
+            <dd>locked</dd>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>10月30日 </h2>
+<hr>
+<div class="chatting">
+    <p>新的部分已经发给你了。</p>
+    <p style="text-align:right" class="secret" id="1">谢谢。</p>
+    <p>最近挺热闹的吧。</p>
+    <p style="text-align:right" class="secret" id="2">你指什么？</p>
+    <p>各方面，不都很热闹嘛。</p>
+    <p style="text-align:right" class="secret" id="5">原来你还是会看新闻的啊。</p>
+    <p style="text-align:right" class="secret" id="3">话说，我早就好奇了。</p>
+    <p style="text-align:right" class="secret" id="6">你都是怎么写出来那些东西的呢？</p>
+    <p>自然是一个字一个字打出来的。</p>
+    <p style="text-align:right" class="secret" id="7">就不会遇到什么灵感枯竭的情况吗？</p>
+    <p>都是你的大纲，我往里填故事，怎么会灵感枯竭。</p>
+    <p style="text-align:right" class="secret" id="4">还真是值得羡慕的天赋。</p>
+</div>
+<p>聊天结束，依旧什么也没问出来。</p>
+<p>这家伙到现在，除了“罗尔里姆”这个说法以外，半点信息都没透露。</p>
+<p>不过，从它每次日均两万字的惊人写作速度来看，肯定也不是一般人。</p>
+<p>天气预报说，明天后天又有大雨，让大家做好准备。</p>
+<p>在几天前救济站的事情之后，政府很快查处了涉嫌扣下补助的官员，而现在抢险救灾的准备都已经做好，应该总算是能安稳度过了。</p>
+<p>今天的新闻说，清除贫民窟的工作也会在近日开始，在那块地方拆除后，将开始修建新的工程。</p>
+<p>“跟你讲，别对他们抱太大希望，我早就看透了，有的东西说得再好也不能信。”电话里，白项倒是秉持他一贯的悲观态度。</p>
+<p>“倒也不至于。”我觉得他有点极端了。</p>
+<p>“别的不说，就说贫民窟的事，你以为真的那么好解决，花钱就行？关键还在人去哪，但是，现在有地方给他们待吗？更别说如果遣返可能带来的更多矛盾。这么多年都没管的烂摊子，哪是宣传几下就能管好的？</p>
+<p>“而且，最近人工智能那个事，要是闹大了也很麻烦，我们都没法预料后果。现在压制消息的时候解决了还好说，要是哪天情况压不住了呢？”白项还在试图论证他的理论。</p>
+<p>不得不说，他的话还是挺有道理。这些潜在的危险，都可能成为压死骆驼的稻草。</p>
+<p>他给我的建议是，躲在家里囤点物资，这样哪怕哪天真的乱起来，也不至于活不下去——确实是个好建议。</p>
+<p>上次去超市也顺带囤了些东西了，短时间应该都够用。</p>
+</div>
+</body>
+</html>

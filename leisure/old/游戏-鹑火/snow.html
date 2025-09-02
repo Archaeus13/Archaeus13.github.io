@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>054</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("谁会是内应？输入字母后任意点击即可");
+                    help_flag = 1;
+                }
+                else alert("想想之前两次登录的账号");
+            }
+        }
+        document.onclick = function() {
+            if ($("input").val() == "hm") $("input").val("055:master");
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><span>snow</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>1月17日</h2>
+<hr>
+<p>下雪了。</p>
+<p>25号初雪的时候我没看见，现在倒是看得清楚。</p>
+<p>可雪其实也没那么好看。</p>
+<p>每年都一样的白色，不由分说地盖满大地，又在几天后消失不见。</p>
+<p>这几天没有什么新闻，因为一切的交锋都在暗处。</p>
+<p>镜的谈判是如此，伯尔娅对翼星的追捕也是如此。</p>
+<div class="chatting">
+<p style="text-align:right">谈判进行到哪一步了？</p>
+<p>留了八个人质。</p>
+<p>外面的情况？</p>
+<p style="text-align:right">这段时间没消息。</p>
+<p style="text-align:right">Askr公司只说谈判进展顺利，没说细节。</p>
+<p style="text-align:right">至于MOXI，现在自顾不暇。</p>
+<p style="text-align:right">有愤怒的民众包围了他们工厂要说法，估计插手不了你这事了。</p>
+<p>好。</p>
+</div>
+<p>这样的情报交换是我和镜的日常交流。</p>
+<p>没想到，之前提供的那些证据，意外成了双赢。</p>
+<p>MOXI公司在谈判这件事上态度一直不友好，而Askr则更愿意交流。MOXI的丑闻被曝光后，以Askr主导的谈判比之前顺利不少。</p>
+<p>不过尽管如此，这种堪称恐怖的谈判效率，也让我几乎确定了Askr公司里有镜的人——比如<input type="text" style="width:100px;font-family:consolas;">。</p>
+<p>“大姐，早啊。”这次回到楼下的时候，又遇到了黄大姐。</p>
+<p>“早。”比起现在寡言的黄大姐，还是以前那个热心邻居更让我适应。</p>
+<p>我不知道能说什么，便看着她走了过去。</p>
+<p>胡与非在她之后下了楼，也走向小区门口。</p>
+<p>——老丰已经失踪快四个月了啊。</p>
+<p>他会不会也是因为和翼星有关，被带走调查了？</p>
+<p>但政府追捕翼星是最近一个月才开始，时间点对不上。</p>
+<p>我停止胡思乱想，回到了家里。</p>
+</div>
+</body>
+</html>

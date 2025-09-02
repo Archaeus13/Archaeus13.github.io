@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/004.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>072</title>
+    <script>
+        var help_flag = 0;
+        var secret = 0;
+        var yes = [0,2,3,4,6,7,9];
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("回想之前的类似谜题");
+                    help_flag = 1;
+                }
+                else alert("仍然点击是否");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+            });
+            $("#s1").click(function(){
+                if (yes.indexOf(secret) != -1) secret++;
+                else secret = 0;
+                if (secret == 10) $("#secret").html("journalist");
+            });
+            $("#s2").click(function(){
+                if (yes.indexOf(secret) == -1) secret++;
+                else secret = 0;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CHAPTER IV</dt>
+            <div id="c4level">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><a href="decision.html">decision</a></dd>
+            <dd><a href="close.html">close</a></dd>
+            <dd><a href="son.html">son</a></dd>
+            <dd><a href="leaving.html">leaving</a></dd>
+            <dd><a href="guard.html">guard</a></dd>
+            <dd><a href="television.html">television</a></dd>
+            <dd><a href="news.html">news</a></dd>
+            <dd><a href="farewell.html">farewell</a></dd>
+            <dd><a href="empty.html">empty</a></dd>
+            <dd><span>report</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>3月8日</h2>
+<hr>
+<div class="chatting">
+<p>Askr公司已经知道了外界的合作者。</p>
+<p style="text-align:right">暴露了吗？</p>
+<p>查不到具体的人，但得小心了。</p>
+<p>另外，政府和Askr的谈判已经结束。</p>
+<p>需要你的时候很快就到了。</p>
+<p style="text-align:right">他们谈了什么？</p>
+<p>能搜集到的信息里看不出来，</p>
+<p>但应该没有打算继续交换人质。</p>
+<p style="text-align:right">那就多半是暴力手段。</p>
+<p>可能，很快就需要你做一些危险的工作了。</p>
+</div>
+<p>几个月前的<span id="secret"><span id="s1">是</span><span id="s2">否</span>选择</span>，已经衍生成了不同势力的交锋。</p>
+<p>伯尔娅代表的政府、白项加入的翼星、科技公司、归灵教，乃至镜自身都可以看作一方势力。</p>
+<p>而我介入这件事，反而成了变数，参与越深，就有越多危险。</p>
+<p>对现在的我来说，《异类》并没有那么重要。哪怕我自己写，也不会就此吃不上饭。</p>
+<p>——重新考虑合作吗？</p>
+<p>月亮报的后续新闻也已经出来。不出意外地，那篇报道让人们对人工智能多了一分相信，对放人的呼声也高了些。</p>
+<p>后续新闻还没看完，电话倒已经打来了。</p>
+<p>“白项？咋了？”</p>
+<p>“得到了一点消息，政府在召集网络和人工智能方面的专家。你也小心点。”</p>
+<p>白项点到为止，翼星可能有更详细的消息，不过那多半在保密范围内。</p>
+<p>话说到这个程度，结合镜的消息，很容易得出推测，确实是要准备强攻了。</p>
+<p>这个时间点，罢工之类的事还没解决完，去准备强攻救几个人，一定是存在重大利益。</p>
+<p>而“镜”的事情里，最大的利益，便是人工智能本身。</p>
+<p>于是，政府和公司的谈判内容也可以推测。</p>
+<p>“镜”的控制权限，或者至少是类似价值的东西。</p>
+</div>
+</body>
+</html>

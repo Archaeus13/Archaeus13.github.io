@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/001.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>014</title>
+    <script>
+        var help_flag = 0;
+        var secret = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("回到标语首次出现的地方");
+                    help_flag = 1;
+                }
+                else alert("补全正确的标语后任意点击");
+            }
+            if (event.keyCode == 37) {
+                if (secret == 4) $("#hide").show("slow");
+                else secret = 0;     
+            }
+            if (event.keyCode == 38) {
+                if (secret == 0 || secret == 1) secret++;
+                else secret = 0;
+            }
+            if (event.keyCode == 39) {
+                if (secret == 2) secret++;
+                else secret = 0;
+            }
+            if (event.keyCode == 40) {
+                if (secret == 3) secret++;
+                else secret = 0;
+            }
+        }
+    </script>
+</head>
+
+<body style="background-color: rgba(0, 88, 104, .32);">
+
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt>CHAPTER I</dt>
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><span>slum</span></dd>
+            <dd>locked</dd>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>10月22日</h2>
+<hr>
+<p>既然是作为网络小说，自然不是一下全部发表。我把三万字大致分为了十章，按照每天两章的速度保持更新。</p>
+<p>为求安心，我用了一个新账号发表，并在上面标注了账号背后是团队——虽然只有两个人。此外，我答应交易时也问过罗尔里姆收益的分配，但它坚持不要任何的经济报酬，也不想通过那个奇怪网址外的方式与我联系。</p>
+<p>我保存了这些记录，这样，哪怕它事后反悔，或是以此要挟，我都可以用法律手段证明清白。</p>
+<p>而它给的数字，由于特地强调让我不要用电子方式保存，我便用纸笔写下来，随便锁在了柜子里。</p>
+<p id="hide" style="display:none">我最后打开柜子看了一眼纸上的数字：241029292629。</p>
+<p>现在才过去了几天，虽然也有读者表示了好评，但并没有收到太多的反馈。作为伪装的“新人作家”，倒没有什么稀奇的。</p>
+<p>今天的广播似乎有点不同寻常，出现了一个以前从没听到过的频道，好像在讲什么故事：</p>
+<div class="quoting">
+    <p>……从此，这些远道而来却无法生存的人，在城市边缘搭起了帐篷，又在各类管理人员的驱赶下，最终定居在了老城区。</p>
+    <p>他们游荡在太过破旧，却未来得及拆迁的废楼处，并越聚越多。</p>
+    <p>当个别人定居时，市政府并没有太过在意，但人数增多后，再想统一规划所需要的成本已经超出了城市愿意承受的范畴。于是，贫民窟就这么形成了。</p>
+    <p>没有人真的关心过贫民窟里面的人——除了他们自己。对于城市来说，哪怕把他们打散，这帮人总还是会在别处聚集。并且，源源不断来到鹰吕的人里总有些难以生存下去的。因此，市政府选择了放任。</p>
+    <p>这里曾经挂着很多标语，要水、要电、要正常的生活空间。但是，对一帮无业游民，这样的要求注定只能是奢望。所以，后来这里的标语只剩下了一个，“NO FUCKING SUPERMAN”。</p>
+    <p>超人他妈的不存在，只能依靠自己。</p>
+    <p>当这个标语挂出后，环卫部门连夜涂掉了中间的那个脏字。</p>
+    <p>贫民窟的人们本想把它补回来，但有人提议就留在这里作个纪念。</p>
+    <p>这就是标语现在的样子。</p>
+</div>
+<p>听到这里我大概明白，这是在说鹰吕市贫民窟的来历。</p>
+<p>虽然以前我倒是确实没了解过，但这个广播的说法，总让我觉得怪怪的。</p>
+<p>“又在听广播呢？”黄大姐倒是看到了我，打了个招呼。</p>
+<p>“嗯，今天这好像有个新频道，在讲故事。”我喊大姐过来一起听听。</p>
+<p>谁知，大姐听着却是皱起了眉头。</p>
+<p>“小墨啊，虽然不知道这是什么频道，但这个播的节目没安好心，以后最好别听。”</p>
+<p>“我也听着觉得怪怪的……”我嘟囔了一声，大姐刚要解释，电话却响了起来。</p>
+<p>“最近不少暴徒去抢仓库物资，我们安保部门有得忙了。”大姐好像有点着急，匆忙地骑上摩托车走了。</p>
+</div>
+</body>
+</html>

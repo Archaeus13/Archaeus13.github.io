@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>042</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("疑点在哪里？");
+                    help_flag = 1;
+                }
+                else alert("秘密行动不可能让我看到监牢的位置");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            var count = 0;
+            $("abbr").click(function(){
+                count++;
+                if (count == 5) {
+                    $("#hide").show("slow");
+                    $(this).append("043:proof");
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><span>jail</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>12月21日</h2>
+<hr>
+<p>昨天，我开门后，就被几个警察一路押上了警车。</p>
+<p>我<abbr title="多点几次" style="text-decoration:none">看着警车一路开到了郊区的偏僻建筑</abbr>——我现在才知道，原来这里的底下有一个秘密监牢——而我则被送进了其中一个单人监狱。整个过程中，我没有看到过其他的犯人。</p>
+<div id="hide" style="display:none">
+<p>不对，如果真的是秘密监牢的话，连眼睛都不蒙就让我看了？</p>
+<p>这总给我一种，“这些东西是故意给我看的”的感觉。</p>
+<p>而且，为什么会看不到其他犯人呢……</p>
+</div>
+<p>他们出示过警官证，但没有多说什么，只是告诉我配合调查。</p>
+<p>这样的押送肯定并不符合正常的流程，所以大概率是个特殊的行动。</p>
+<p>他们没有搜查我的家，看起来只是为了我这个人。</p>
+<p>上警车前搜身拿掉了我的手机，我也没有办法联系外界。</p>
+<p>唯一让我不解的是，到底是要调查什么呢？</p>
+<p>镜的事，如果暴露，肯定也是科技公司动手，和警察不会有关系。</p>
+<p>温雅的事，我只是看到了一眼，要调查也是从上传照片的网友入手。</p>
+<p>这么一排除，我自己也想不到其他可能了。</p>
+<p>事实上，监牢的环境还不错，除了没有联系外界的方式，甚至没有窗户之外，完全就是普通房间的样子。</p>
+<p>在这里睡了一觉起来之后，他们还是不打算说发生了什么，就好像诚心把我晾在这里。</p>
+<p>到吃饭的时候，会有人从外面把盒饭送进来，等吃完再拿出去，而询问送饭的人也得不到任何结果。</p>
+<p>“心理压力吗……”</p>
+<p>正常人如果真犯了事，在这样的环境下确实很难不慌，难道是通过屋里的监控摄像头观察判断？</p>
+<p>还好，我对自己的心理素质还是挺有自信的。</p>
+<p>总还是觉得很不对劲。</p>
+<p>一天就这么过去了，我现在的最大感受竟然是，设置好了好几天的自动更新，《异类》不至于刚上架就断更。</p>
+<p>至于更多的担心，又能有什么用呢？</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,2937 @@
+\documentclass[a4paper,UTF8,fontset=windows]{ctexart}
+\pagestyle{headings}
+\title{\textbf{有限元方法\ 笔记}}
+\author{原生生物}
+\date{}
+\setcounter{tocdepth}{2}
+\setlength{\parindent}{0pt}
+\usepackage{amsmath,amssymb,amsthm,enumerate,geometry,paralist}
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\ctexset{section={number=\zhnum{section}}}
+\ctexset{subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+
+\let\itemize\compactitem
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\newcommand*{\bu}{\mathbf{u}}
+\DeclareMathOperator*{\diam}{diam}
+\renewcommand*{\bf}{\mathbf{f}}
+\newcommand*{\cd}{\mathcal{D}}
+\newcommand*{\ce}{\mathcal{E}}
+\newcommand*{\cp}{\mathcal{P}}
+\newcommand*{\ct}{\mathcal{T}}
+\renewcommand*{\div}{\hspace{0.07em}\mathrm{div}\hspace{0.07em}}
+\newcommand*{\curl}{\hspace{0.07em}\mathrm{curl}\hspace{0.07em}}
+\newcommand*{\uz}{{}^0\hspace{-0.07em}}
+\newcommand{\proo}[1]{{\kaishu $\bullet$证明：
+\begin{itemize}
+    \item[] #1
+\end{itemize}
+}}
+
+\newcommand*{\ave}[1]{\left\{\hspace{-0.2em}\left\{#1\right\}\hspace{-0.2em}\right\}}
+\newcommand{\mm}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+
+\DeclareMathOperator*{\Span}{span}
+\DeclareMathOperator*{\osc}{osc}
+
+\begin{document}
+\maketitle
+
+*吴朔男老师《有限元方法II》课程笔记
+
+*以下标表示对对应分量求偏导；$\delta_{ij}$在$i=j$时为1，否则为0；$|x|$在$\mathbb{R}^n$中表示二范数，对区域表示面积。
+
+\tableofcontents
+
+\newpage
+\section{基本概念}
+偏微分方程例子：
+\begin{enumerate}
+    \item 热方程$u_t=\nabla\cdot(a\nabla u)+f$，给定初值[Initial Value,IV]与边界条件[Boundary Condition, BC]可解；
+    \item 稳态[不随时间变化]热方程$\nabla\cdot(a\nabla u)=-f$，一般考虑两类BC：
+    \begin{itemize}
+        \item 边界处给定$u$的值，称\textbf{Dirichlet边界条件}或\textbf{本质[essential]边界条件}；
+        \item 边界处给定$u$法向导数的值，称\textbf{Neumann边界条件}或\textbf{自然边界条件}。
+    \end{itemize}
+    \item 弹性板方程$\rho u_{tt}=-D\triangle^2u+f$；
+    \item Stokes方程(稳态NS方程)：
+    $$\begin{cases}-\nabla\cdot(2\mu\varepsilon(\bu))+\nabla p&=\bf\\\nabla\cdot\bu=0\end{cases}$$
+    其中$\bu$为速度，$p$为压强，$\varepsilon(u)=(\nabla\bu+(\nabla\bu)^T)/2$。
+\end{enumerate}
+
+\subsection{弱形式}
+利用积分形式转化微分方程：
+$$-u''(x)=f(x),\quad x\in(0,1),\quad u(0)=u'(1)=0$$
+
+若$u$为解，记
+$$(f,g)=\int_0^1f(x)g(x)\dr x,\quad a(f,g)=\int_0^1f'(x)g'(x)\dr x$$
+考虑
+$$V=\{v\in L^2(0,1)\mid a(v,v)<\infty,v(0)=0\}$$
+则分部积分得解$u\in V$须满足
+$$\forall v\in V,\quad a(u,v)=(f,v)$$
+此形式称为\textbf{变分形式}或\textbf{弱形式}。
+
+*这里$V$中函数的求导需要扩充导数的定义，可以暂且理解$V$为$C^1$，之后再考虑一般情况。
+
+弱形式\textbf{定义合理性}：若$f\in C[0,1]$，且$u\in C^2[0,1]$满足弱形式，则的确为原方程解。
+
+\proo{
+    分部积分发现$\int_0^1(u''+f)v(x)\dr x=0$对任何$v$成立，由连续可知处处满足$u''+f=0$；取$v(1)=1$的$v$利用分部可算出$u'(1)=0$。
+}
+
+\
+
+一般情况有解性(\textbf{Lax-Milgram引理})：设$a(u,v)$为范数为$\|\cdot\|$、内积为$(\cdot,\cdot)$的Hilbert空间$V$上双线性型，若满足：
+\begin{itemize}
+    \item 有界性：存在$M$使得$|a(u,v)|\le M\|u\|\|v\|$对一切$u,v\in V$成立；
+    \item 强制性[ellipticity]：存在$\alpha>0$使得$a(v,v)\ge\alpha\|v\|^2$对一切$v\in V$成立；
+\end{itemize}
+则对某$f\in V$，存在唯一$u\in V$使得$a(u,v)=(f,v)$对任何$v\in V$成立。
+
+*利用泛函分析知识，Hilbert空间之间线性算子的\textbf{有界性与连续性等价}，类似可以证明$a(u,v)$的有界性条件等价于其对$u,v$连续。
+
+\proo{
+    固定$u$，则映射$v\to a(u,v)$可看作$V$上的线性函数。由有界性可知$|a(u,v)|\le(M\|u\|)\|v\|$，于是其有界，利用泛函分析知识可知连续，从而通过Riesz表示定理，存在$A(u)\in V$使得$a(u,v)=(A(u),v)$对任何$v\in V$成立，将$A(u)$记为$Au$。
+
+    只需证明$A$是双射，其存在$A^{-1}$，而$A^{-1}f$即为所需的唯一解。我们说明更强的结论，即$A$为连续线性双射，且其逆连续。
+
+    线性：利用$a$的双线性性直接验证即可。
+
+    连续：由定义$(Au,Au)=a(u,Au)\le M\|Au\|\|u\|$，从而$\|Au\|\le M\|u\|$，有界，因此连续。
+
+    单射：若$Au=Aw$，则$A(u-w)=0$，于是$a(u-w,v)=0$对任何$v$成立，但若$u-w\ne 0$，取$v=u-w$由强制性可知矛盾。
+
+    记$A\big|_{V\to A(V)}$为限制映射，由单射可知$A\big|_{V\to A(V)}$为双射，其存在逆，记为$\hat{A}^{-1}$。
+
+    $\hat{A}^{-1}$连续：由强制性可知$\|Au\|\|u\|\ge(Au,u)=a(u,u)\ge\alpha\|u\|^2$，从而$\|Au\|\ge\alpha\|u\|$，得到$\|\hat{A}^{-1}u\|\le\alpha\|u\|$，有界，从而连续。
+
+    $A(V)$是闭集：考虑$A(V)$中的柯西列$\{Au_n\}$，由$V$完备可知有极限$v$。利用上方证明，$\|u_n-u_m\|\le\alpha^{-1}\|Au_n-Au_m\|$，因此$\{u_n\}$亦构成柯西列，存在极限$u$，由$A$连续性可知$v=Au\in A(V)$，得证。
+
+    $A(V)=V$：利用正交分解定理，若$A(V)\ne V$，由其为闭子空间可知存在非零$w\in V$使得$(w,v)=0$对任意$v\in V$成立，但取$v=Aw$可知$a(w,w)=0$，由强制性$\|w\|=0$，矛盾。
+
+    综合以上可知$\hat{A}^{-1}$即为$A$的逆$A^{-1}$，从而原命题得证。
+}
+    
+\
+
+弱形式有解性：由Lax-Milgram引理，将$V$中内积定义为$(u,v)_V=(u,v)+a(u,v)$，对应范数$\|\cdot\|_V$，可验证其构成Hilbert空间。
+
+另一方面，由于$V$中的收敛包含导数的收敛，$a(u,v)$是连续的，而对强制性需要验证存在$\alpha$使得$\alpha\|u\|_V^2\le a(u,u)$，而去除共同的$a(u,u)$部分可知需证明存在$C$使得$C\|u\|_{L^2}^2\le a(u,u)$，由于$u(0)=0$，类似第三节的估计或利用庞加莱不等式即可找到$C$，于是存在唯一解。
+
+\subsection{Ritz-Galerkin估计}
+为了有限元方法可以实现，考虑$V$的一个有限维子空间$S$，则存在唯一
+$u_S\in S$使得$a(u_S,v)=(f,v)$对一切$v\in S$成立。
+
+\proo{
+    由于已验证$V$上$a(u,v)$符合Lax-Milgram引理条件，可发现任何子空间仍然满足，从而成立。
+}
+
+*实际求解时，考虑$S$的一组基，则上述$a(u_S,v)=(f,v)$可化为线性方程组。
+
+\
+
+误差估计：在$M$与$\alpha$沿用之前定义时，有
+$$\|u-u_S\|_V\le\frac{M}{\alpha}\inf_{v\in S}\|u-v\|_V$$
+
+\proo{
+    由于$a(u,v)=(f,v)$也对一切$v\in S$成立，有$a(u-u_S,v)=0$对一切$v\in S$成立，利用对任何$v\in S$，$u_S-v\in S$，可知对任何$v\in S$有
+    $$\alpha\|u-u_S\|_V^2\le a(u-u_S,u-u_S)=a(u-u_S,u-v)\le M\|u-u_S\|_V\|u-v\|_V$$
+    化简即得结论。
+}
+
+*证明中的$a(u-u_S,v)=0$称为\textbf{Galerkin正交性}。
+
+*将$V$中内积定义为$a(u,v)$\ ($v(0)=0$保证了定义合理性)，此时对应范数称为\textbf{能量范数}$\|\cdot\|_E=\|v'\|_{L^2}$，可验证仍然构成Hilbert空间，这时对应参数$M=\alpha=1$，结论有简单形式
+$$\|u-u_S\|_E\le\inf_{v\in S}\|u-v\|_E$$
+
+\
+
+\textbf{二范数误差-一般情况}
+
+\textbf{估计假设}：对$w\in V$，有$\inf_{v\in S}\|w-v\|_E\le\epsilon\|w''\|_{L^2}$。
+
+此时，利用\textbf{对偶问题}
+$$-w''(x)=u(x)-u_S(x),\quad x\in(0,1),\quad w(0)=w'(1)=0$$
+可证明
+$$\|u-u_S\|_{L^2}\le\epsilon\|u-u_S\|_E\le\epsilon^2\|u''\|_{L^2}=\epsilon^2\|f\|_{L^2}$$
+
+\proo{
+    第一个不等号利用分部积分得$\|u-u_S\|_{L^2}^2=a(u-u_S,w-v)$对任何$v\in S$成立。对右侧用柯西不等式放缩可得
+    $$\|u-u_S\|_{L^2}^2\le\|u-u_S\|_E\|w-v\|_E\le\epsilon\|u-u_S\|_E\|w''\|_{L^2}=\epsilon\|u-u_S\|_E\|u-u_S\|_{L^2}$$
+    于是得证。
+
+    第二个不等号取估计假设中$w$为$u$可得证。
+
+    等号直接利用原偏微分方程知成立。
+}
+
+\subsection{分片线性函数空间}
+将$S$取为\textbf{分片线性函数}空间：在$[0,1]$中取$0=x_0<x_1<\dots<x_n=1$，$S$中的$v$满足$v(0)=0$、连续，且在每个$[x_i,x_{i+1}]$上是线性函数。(此时几乎处处可导，导数的积分仍可良定。)
+
+取$\phi_i,i=1,\dots,n$为满足$\phi_i(x_j)=\delta_{ij}$的$S$中函数，可验证它们构成一组基，称为\textbf{结点基}。$x_i$即称为结点，对函数$v$，向量$(v(x_1),\dots,v(x_n))$称为结点值。
+
+\textbf{插值}：$v_I=\sum_{i=1}^nv(x_i)\phi_i$，可验证若$v\in S$，则$v=v_I$。
+
+\
+
+\textbf{二范数误差}：记$h=\max_{i=1,\dots,n}(x_i-x_{i-1})$，则有
+$$\|u-u_I\|_E\le\frac{\sqrt2}{2}h\|u''\|_{L^2}$$
+
+\proo{
+    两边平方后拆分区间，考虑每个小区间并换元放缩到$[0,1]$，则只需证明$e(0)=e(1)=0$时
+    $$\int e'(x)^2\dr x\le \frac{1}{2}\int_0^1e''(x)^2\dr x$$
+    
+    记$e'=g$，则只需证明$\int_0^1g(x)\dr x=0$时
+    $$\int_0^1g^2(x)\dr x\le\frac{1}{2}\int_0^1g'(x)^2\dr x$$
+    由积分中值定理$g$在$[0,1]$存零点$\xi$，由此$g(x)=\int_\xi^xg'(t)\dr t$，由柯西不等式即得
+    $$g^2(x)\le\bigg|\int_\xi^x1\dr t\int_\xi^xg'(t)^2\dr t\bigg|\le|x-\xi|\int_0^1g'(t)^2\dr t$$
+    两边对$x$积分后，右侧对$\xi$取上界即可得结论。
+}
+
+*将小区间放缩到同一区间进行证明的技术称为\textbf{同质化论证}。
+
+最终估算：存在$C$使得$\|u-u_I\|_{L^2}+h\|u-u_I\|_E\le h^2\|u''\|_{L^2}$。
+
+\proo{
+    由二范数误差定理可知$\epsilon$可取为$\frac{\sqrt2}{2}h$，从而利用上节一般情况的二范数误差得证。
+}
+
+\
+
+*基本的\textbf{自适应}技术：根据解的情况构造更好的网格可以达到更好的近似效果。
+
+*更细致的估计：采用带\textbf{权重}的范数进行估计。
+
+\section{Sobolev空间}
+*问题：上节中的$V$最多可以在怎样的空间讨论？
+
+记号：多重指标$\alpha$，$D^\alpha\phi$表示对第$i$个分量求$i$阶导，$|\alpha|$为所有分量和。
+
+对区域$\Omega$，$C_0^\infty(\Omega)$代表在$\Omega$中紧支且无穷次可微的函数空间(一般地，下标0表紧支)，可记作$\cd(\Omega)$，其对偶空间$\cd'(\Omega)$成为Schwarz分布函数空间。
+
+$L^1_{loc}(\Omega)$为在$\Omega$中每个紧集上$L^1$可积的函数空间。
+
+*以下无歧义时省略空间中的$\Omega$。
+
+\subsection{弱导数}
+若$f\in L_{loc}^1$，对任何$v\in C_0^\infty$，可定义
+$$(f,v)=\int_\Omega fv\dr x$$
+由此可将$f$看作$\cd'$中函数，$L^1_{loc}\subset\cd'$。
+
+另一方面，若$f\in\cd'$，存在$L^1_{loc}$中一列$f_n$，在$\cd'$中的弱*拓扑下有$f_n\to f$，也即$(f_n,v)\to(f,v)$。
+
+*这里不再区分$f\in\cd$或$f\in\cd'$，$f\in\cd'$时记号含义为$(f,v)=f(v)$。
+
+*由此，虽然弱导数可以在$\cd'$上自然定义，在$L^1_{loc}$中讨论也可。
+
+$g\in\cd'$称为$f\in\cd'$的弱导数，当且仅当
+$$(g,\phi)=(-1)^{|\alpha|}(f,D^\alpha\phi)$$
+记作$D_\omega^\alpha f=g$
+
+*例：$\delta$函数在$\cd'$中，但不在$\cd$中。
+
+*例：$\Omega=[-1,1]$时，$f(x)=1-|x|$，则$D_\omega^1f$为$x<0$时为$-1$、$x>0$时为1的函数(a.e.相等意义下)。
+
+*例：若$\alpha+1<n$，其中$n$为维数，则$\|x\|^{-\alpha}$可以计算弱导数。
+
+\subsection{空间定义与基本性质}
+当$k$为非负整数时，定义范数(下标$p$为$p$范数)
+$$\|f\|_{W_p^k}=\bigg(\sum_{|\alpha|\le k}\|D_w^\alpha f\|_p^p\bigg)^{1/p}$$
+$$\|f\|_{W_\infty^k}=\max_{|\alpha|\le k}\|D_w^\alpha f\|_\infty$$
+则$W_p^k(\Omega)$定义为$L_{loc}^1(\Omega)$中对应范数收敛的函数集合。记$W_2^k=H^k$。
+
+*将$|\alpha|\le k$变为$|\alpha|=k$称为半范数，记作$|f|_{W_p^k}$。
+
+*\textbf{实数阶}：
+$$H^s(\mathbb{R}^n)=\{v=L^2(\mathbb{R}^n)\mid(1+|\xi|^2)^{s/2}\hat{v}\in L^2(\mathbb{R}^n)\}$$
+
+*一般的Sobolev空间可用Fourier定义，由此不要求整数阶。
+
+\
+
+\textbf{延拓定理}：若$\Omega$有Lipschitz边界，则对任何$k\ge0,p\in[1,\infty]$，存在算子$E:W_p^k(\Omega)\to W_p^k(\mathbb{R}^n)$使得(存在$C$满足)
+$$Ev\big|_\Omega=v$$
+$$\|Ev\|_{W_p^k(\mathbb{R}^n)}\le C\|v\|_{w_p^k(\Omega)}$$
+
+\
+
+\textbf{嵌入定理}
+
+空间$B_1$可以嵌入$B_0$，也即存在单射$\varphi:B_1\to B_0$使得存在$C$满足$\|\varphi(u)\|_{B_0}\le C\|u\|_{B_1}$对任何$u$成立。
+
+若$\Omega$有Lipschitz边界，对$p\in[1,\infty]$有：
+\begin{enumerate}
+    \item 若$kp>n$，则$W_p^k(\Omega)$可以自然嵌入$C(\bar{\Omega})$；
+    \item 若$kp=n$，则$W_p^k(\Omega)$可以自然嵌入$L^q(\Omega)$，对任意$q\in[1,\infty)$；
+    \item 若$kp<n$，则$W_p^k(\Omega)$可以自然嵌入$L^q(\Omega)$，这里$q=(1/p-k/n)^{-1}$。
+\end{enumerate}
+
+*直观理解：Sobolev数$k-n/p$，其越大则越光滑；若$k\ge l$且$k-n/p>l-n/q$，则$W_p^k$可以嵌入$W_q^l$。
+
+\proo{
+    先证明引理：对有界区域$\Omega$，存在常数$C(n)$，使得对$0\le\lambda<n$有
+    $$\max_{x\in\Omega}\int_\Omega|x-y|^{-\lambda}\dr y\le C(n)(n-\lambda)^{-1}|\Omega|^{1-\lambda/n}$$
+
+    引理与第二种情况的证明见作业。
+
+    我们这里只说明第一种情况的特殊情况，即存在$c(n)$使得$p>n$时对$(W_p^1)_0$中的$v$有(这里$C(\bar{\Omega})$为对应的无穷范数)
+    $$\|v\|_{C(\bar{\Omega})}\le c(n)(p-n)^{1/p-1}|\Omega|^{1/n-1/p}|v|_{W_p^1}$$
+
+    对$v\in C_0^\infty(\Omega)$\ (由此可零延拓到$C_0^\infty(\mathbb{R}^n)$)，任何$w\in\mathbb{R}^n,|w|=1$有
+    $$v(x)=-\int_0^\infty\frac{\partial}{\partial w}v(x+rw)\dr r$$
+    由此记$\omega_{n-1}$为$n-1$维球面表面积有(这里$\dr w$为球面面元)
+    $$v(x)=-\frac{1}{\omega_{n-1}}\int_0^\infty\int_{|w|=1}\nabla v(x+rw)\cdot w\dr w\dr r$$
+
+    作变量替换$y=x+rw$，由球坐标换元可知$\dr y=r^{n-1}\dr w\dr r$，于是
+    $$v(x)=-\frac{1}{\omega_{n-1}}\int_\Omega\nabla v(y)\cdot\frac{y-x}{|y-x|^n}\dr y$$
+    于是用柯西不等式放缩可知
+    $$|v(x)|\le\frac{n}{\omega_{n-1}}\int_\Omega\frac{|\nabla v(y)|}{|x-y|^{n-1}}\dr y$$
+    由H\"older不等式可知
+    $$|v(x)|\le\frac{n}{\omega_{n-1}}\bigg(\int_{\Omega}|x-y|^{-(n-1)p/(p-1)}\bigg)^{1-1/p}|v|_{W_p^1}$$
+
+    利用引理即得证。
+
+    由此利用$|v|_{W_p^1}\le\|v\|_{W_p^1}$可知存在$c(n,\Omega)$使得
+    $$\|v\|_{C(\bar{\Omega})}\le c(n,\Omega)(p-n)^{1/p-1}\|v\|_{W_p^1}$$
+}
+
+*\ $kp=n,q=\infty$时反例：$n\ge2$时，取$\Omega=B_{1/2}(0)$，$f(x)=\log|\log|x||$，形式上求导可得$|\alpha|=1$时
+$$D^\alpha f(x)=\frac{1}{\log|x|}\frac{x^\alpha}{|x|^2}$$
+将$x^\alpha$放为$|x|$，球坐标换元可知存在$C$使
+$$\int_\Omega(D^\alpha f(x))^p\le C\int_0^1r^{n-p-1}(\log r)^{-p}\dr r$$
+由此$p\le n$时$D^\alpha f\in L^p$，于是$f\in W_n^1$，但$f(x)\notin L^\infty$。
+
+\subsection{迹定理与范数等价}
+
+\textbf{迹定理}：记$\Gamma$为$\partial\Omega$，则有自然限制$\gamma:C^1(\bar{\Omega})\to C(\Gamma)$，而$\gamma$可以连续延拓到$\gamma:H^1(\Omega)\to H^{1/2}(\Gamma)$，且满足
+$$\|u\|_{H^{1/2}(\Gamma)}\le C\|u\|_{H^1(\Omega)}$$
+
+\
+
+\textbf{对偶范数}(负范数)：
+$$\|f\|_{H^{-1}}=\sup_{v\in H_0^1}\frac{(f,v)}{\|v\|_{H^1}}$$
+由此可定义$H_0^1$对偶空间$H^{-1}$。
+
+\
+
+\textbf{范数等价定理}：考虑$W_p^{k+1}(\Omega)$中半范数$F(\cdot)$，即其为满足$F(u+v)\le F(u)+F(v)$与$F(\alpha u)\le|\alpha| F(u)$的非负函数。若其有性质：
+\begin{itemize}
+    \item 对任何不超过$k$次的多项式$p$，$F(p)=0\Leftrightarrow p=0$；
+    \item $F$下半连续[LSC]，即若$W_p^{k+1}(\Omega)$中$u_k\to u$，则
+    $$F(u)\le\liminf_{k\to\infty}F(u_k)$$
+\end{itemize}
+则存在$A,B>0$使得
+$$A\|v\|_{W_p^{k+1}(\Omega)}\le |v|_{W_p^{k+1}(\Omega)}+F(v)\le B\|v\|_{W_p^{k+1}(\Omega)}$$
+
+\proo{
+    先证明右侧成立，则只需找到常数$C$使得$F(v)\le C\|v\|_{W_p^{k+1}}(\Omega)$。
+
+    定义$V_n=\{v\in W_p^{k+1}\mid F(v)\le m\}$，由下半连续可知$V_m$为闭集，且根据定义有$\bigcup_{m=1}^\infty V_m=W_p^{k+1}$，利用Baire纲定理，存在$m_0$与$x_0,r$满足$B_r(x_0)\subset V_{m_0}$。
+
+    对任何$v\in V$，由此有$x_0+\frac{r}{2}\frac{v}{\|v\|_{W_p^{k+1}}}\in V_{m_0}$
+    $$F\bigg(x_0+\frac{r}{2}\frac{v}{\|v\|}\bigg)\le m_0$$
+    通过半范数定义可知
+    $$F(v)\le(F(x_0)+m_0)\frac{2}{r}\|v\|_{W_p^{k+1}}$$
+    从而得证(此过程即说明一切满足LSC的半范数都有此性质)。
+
+    接下来证明左侧，若否，存在一列$v_m$使得$\|v_m\|_{W_p^{k+1}}=1$，且
+    $$F(v_m)+|v_m|_{W_p^{k+1}}\to 0$$
+    (先构造一列$u_m$使得中间小于$\frac{1}{m}\|u_m\|_{W_p^{k+1}}$，再除以模长，利用半范数可说明。)
+
+    利用定义可证明$W_p^{k+1}\to W_p^k$的嵌入是紧嵌入，于是存在$v_m$的子列(仍记为$v_m)$使得$v_n$在$W_p^{k+1}$中弱收敛到$v$，利用紧嵌入进一步得到
+    $$\|v_m-v\|_{W_p^k\to0}$$
+    由此可以利用定义得到存在$C$使得
+    $$\|v_n-v_m\|_{W_p^{k+1}}\le C\big(\|v_n-v_m\|_{W_p^k}+|v_n|_{W_p^{k+1}}+|v_m|_{W_p^{k+1}}\big)$$
+    于是其在$W_p^{k+1}$中为柯西列，得到
+    $$\|v_m-v_n\|_{W_p^{k+1}}=0$$
+    由此
+    $$F(v)+|v|_{W^{k+1}_p}\le\liminf_{n\to\infty}(F(v_n)+|v_n|_{W^{k+1}_p})=0$$
+    于是左侧两项均为0，第二项为0代表其为不超过$k$次多项式，第一项为0代表只能是0，与$v_n$模长均为1矛盾。
+}
+
+*不超过$k$次的多项式构成的空间记为$P^k$。
+
+*应用，对至少二维空间中的区域$\Omega$，可定义$F(v)=\big|\int_{\partial\Omega}v\dr s\big|$，取$k=0$，即得到$\|\cdot\|_{W_1^p}$与$|\cdot|_{W_p^1}+F(\cdot)$等价，为某种迹定理的形式。
+
+\section{有限元构造}
+回顾第一章中的分片线性函数空间，设计函数空间应该解决：
+\begin{enumerate}
+    \item 每个小单元上为何类函数；
+    \item 如何决定局部的函数；
+    \item 局部函数拼成整体时有何种限制。
+\end{enumerate}
+
+在分片线性函数空间，三个问题的答案分别是：线性函数、通过端点值确定、相邻时公共顶点值相同直接拼接。
+
+\subsection{有限元网格}
+\textbf{有限元定义}
+
+以下三元组称为有限元：
+\begin{enumerate}
+    \item 某区域$K\subset\mathbb{R}^n$，称为\textbf{单元区域}；
+    \item $K$上的有限维函数空间$P$；
+    \item $P$的对偶空间$P'$的一组基$N=\{N_1,\dots,N_d\}$。
+\end{enumerate}
+
+与$N$构成对偶基的$P$的基称为\textbf{结点基}。
+
+例：$K=[0,1]$、$P=\cp_m(K)$，$N_i(v)=v(i/m),i=0,\dots,m$。这即对应$[0,1]$上多项式空间作为有限元。
+
+\
+
+\textbf{唯一可解性}[给定$N_i(v)$的值可唯一确定$v\in P$]：若$N_1,\dots,N_d$包含在$P'$中，且$\dim P=d$，则以下两者等价：
+\begin{enumerate}
+    \item $\{N_1,\dots,N_d\}$为$P'$一组基；
+    \item 若$v\in P$使得$N_i(v)=0$，则$P=0$。
+\end{enumerate}
+
+\proo{
+    考虑$P'$一组基$M$，将$N,M$写成列向量，并设$N=AM$，则其为一组基当且仅当$A$可逆，而这即等价于$\mathrm{Ker} A=\{0\}$，从而得证。
+}
+
+*上述引理可用于验证有限元。
+
+*此定义中的$P$即为开头第一个问题的答案，而$N_i$即为第二个问题的答案。
+
+\
+
+\textbf{三角剖分}[二维]：考虑$\Omega$为某闭多边形区域，若能存在一些闭三角形$K_i$使得
+\begin{enumerate}
+    \item 不同的三角形内点交为空集；
+    \item $\Omega=\bigcup_iK_i$；
+    \item 任何一个三角形的顶点不会落在另一个三角形的边上。
+\end{enumerate}
+则它们称为$\Omega$的一个三角剖分$T_K$。
+
+\
+
+\textbf{有限元空间}：考虑$\Omega$为某闭多边形区域，其三角剖分为$T_K$，剖分出的三角形记为$T_1,\dots,T_k$，给定每个网格中一个有限元$(T_i,\cp_{T_i},N_{T_i})$，若其满足：
+\begin{enumerate}
+    \item $v\big|_{T_i}\in \cp_{T_i}$；
+    \item 若$T_i\cap T_j\ne\varnothing$则有相交部分自由度对应的$s,t$使得
+    $$N_{s,T_i}(w\big|_{T_i})=N_{t,T_j}(w\big|_{T_j})$$
+    对一切$w\in C^l(\Omega)$成立。
+\end{enumerate}
+则其为一个有限元空间。
+
+\subsection{三角有限元}
+考虑二维空间，$K$为三角形，则考虑自由度可知
+$$\dim \cp_k=C_{k+2}^2$$
+
+当$k=1$时，即三个\textbf{顶点}唯一确定三角形上的线性函数，记$N_i(v)=v(a_i)$，$a_{1,2,3}$为三角形三个顶点。
+
+*直接验证即可知此时构成有限元，为构造一般$k$时的有限元，需要一些准备。
+
+\textbf{中心坐标}：$\lambda_i(x)$为$a_i$点取值1，其他两点取值0的线性函数。(利用平面几何可知$\lambda_1(x)$为$x,a_2,a_3$构成三角形的有向面积与$a_1,a_2,a_3$构成的三角形的有向面积之比，其他同理。)
+
+\textbf{引理}(直观结果)：若$p(x)$为$d\ge1$次的多项式，且在超平面$L(x)=0$上恒为0，则$P(x)=L(x)Q(x)$，$Q$为某$d-1$次多项式。
+
+当$k=2$时，通过三个\textbf{顶点}与三边\textbf{中点}确定二次函数，记$N_{1,2,3}$为三个顶点上的值，$N_{4,5,6}$为三边中点上的值，若将$a_{ij}$记为$i,j$边的中点，$N$可取为$N_i(v)=v(a_i),N_{ij}(v)=v(a_{ij})$，则其构成有限元。
+
+\proo{
+    只需证明$N_i(v)=N_{ij}(v)=0$时$v=0$，利用限制在每条边为二次函数可知其在每条边上都为0，通过引理得结论。
+}
+
+对一般的$k$，归纳定义：取三个顶点、边上的所有$k$等分点(共$3(k-1)$个)，剩余$\frac{1}{2}(k-2)(k-1)$个不同的内点，任取$K$内点中的某三角形$K'$，在此三角形内进行$k-3$时的点取法。在每点$\alpha_i$定义$N_i(v)=v(\alpha_i)$，则其构成有限元[称为$\cp_k$-\textbf{Lagrange单元}]。
+
+\proo{
+    只需证明$N_i(v)=0$时$v=0$。与二次情况类似，考虑限制在边上，由于每条边上有$k+1$个点为0，必然在每条边恒为0，由引理可以拆分出$\lambda_1,\lambda_2,\lambda_3$三个一次多项式因子，设$p=\lambda_1\lambda_2\lambda_3q$，则$q$退化至$k-3$次的情况，通过归纳法可得结论成立。
+}
+
+由于相邻的三角形上须满足两边上有$k+1$个点相同，它们构成的有限元空间必然能保证整体连续。
+
+\
+
+\subsection{其他构造}
+
+\textbf{CR单元}：$k=1$时，取三边中点而非三个顶点定义$N_i$。
+
+\proo{
+    只需证明$N_i(v)=0$时$v=0$，而利用线性可直接验证唯一可解性。
+}
+
+*此单元构成的有限元无法保证整体连续。
+
+\
+
+\textbf{Hermite单元}：$k=3$时，取三个顶点、顶点处对$x,y$的偏导与内部任何一个点定义$N_i$。
+
+\proo{
+    只需证明$N_i(v)=0$时$v=0$。利用Hermite插值可得到$N_i(v)=0$时必然每条边上为0，结合某内点为0可知唯一可解性。
+}
+
+*由于可以保证边界为0，有限元空间可保证整体连续。
+
+\
+
+\textbf{Arggris单元}：$k=5$时，取三个顶点、顶点处对$x,y$的一二阶偏导、三边中点处的法向导数定义$N_i$，
+
+\proo{
+    只需证明$N_i(v)=0$时$v=0$。仍利用Hermite插值可得到必然每条边上为0，分出$\lambda_1\lambda_2\lambda_3$后剩余二次函数。由于三边中点处的法向导数为0，利用Hermite插值进一步可得到每边上法向导数(四次多项式)恒为0。而计算可知$\lambda_1$在$a_2a_3$上法向导数非零，而$\lambda_2,\lambda_3$在$e_1$上非零，于是求导可知$Q$在$a_2a_3$上为0，同理其在$a_1a_2$与$a_1a_3$上也为0，得证恒为0。
+}
+
+*由于保证了法向导数一致，而值连续可以保证切向导数一致，因此有限元空间可保证整体$C^1$。
+
+\
+
+\textbf{Morley单元}：$k=2$时，取三个顶点、三边中点法向导数定义$N_i$。
+
+\proo{
+    只需证明$N_i(v)=0$时$v=0$。考虑$\partial_{ij}v$，利用分部积分可知其在$K$上的积分必0\ (法向导数为线性函数，中点为0则积分为0，切向导数积分为端点值可得到0)，但其各二阶导数为常数，从而$v$只能是一次函数，再由顶点为0知只能为0。
+}
+
+*此单元构成的有限元无法保证整体连续，但具有一定的导数连续性。
+
+\
+
+*多项式有限元空间有整体$H^k$性质等价于其有整体$C^{k-1}$性质(利用其分片多项式性，注意连续的分片多项式可求一阶弱导数但一般不可求二阶弱导数)。
+
+\
+
+\textbf{插值}
+
+定义某有限元$(K,P,N)$后，设$\phi_i$为$N$的对偶基，则对任何函数$v$，称其\textbf{插值}为
+$$I_kv=\sum_{i=1}^dN_i(v)\phi_i$$
+
+*定义插值需要将$N_i$\textbf{延拓}到更广的函数空间中。
+
+*也可定义$I_kv$为$P$中使得$N_i(I_kv)=N_i(v)$的函数，利用唯一可解性可知良好定义性。从而也有$v\in P$当且仅当$v=I_kv$，同理$I_k^2=I_k$。
+
+由于$P$为有限维，$P'$上等价的$N$可能会存在\textbf{不同的插值}。考虑$K$为三角形，$k=1$，考虑$a_{ij}$为每边中点，定义$N_{ij}(v)=v(a_{ij})$；也可考虑定义$\tilde{N}_i$为每条边上的积分平均值。由于$P$为线性函数，$N$与$\tilde{N}$应等价，但对应的插值不同。
+
+*意义：考虑一般的空间中，若无法嵌入$C(K)$，则其在点处的定义无意义，于是$v$在第一种定义下的插值无意义，但采用积分定义可以存在意义。
+
+\subsection{单元等价性}
+\textbf{仿射等价}：设$(K,P,N)$、$(\hat{K},\hat{P},\hat{N})$为两有限元单元，若存在仿射$F(x)=Ax+b$使得
+\begin{enumerate}
+    \item $F(K)=\hat{K}$；
+    \item $F^*\hat{P}=P$，这里$F^*\hat{P}=P\circ F$；
+    \item $F_*N=\hat{N}$，这里$(F_*N)(\hat{f})=N(F^*\hat{f})$。
+\end{enumerate}
+则称它们仿射等价。
+
+*两个$\cp_1$-Lagrange单元仿射等价。
+
+\proo{
+    考虑自由度可发现一定存在将三角形映射为另一个给定三角形的仿射，且保证$N_i$定义的顶点的对应映射到$\hat{N}_i$定义的顶点，进一步由定义验证(仿射可成为多项式空间的双射)即可发现等价。
+}
+同理，对于$\cp_k$-Lagrange单元，只要取的点能在顶点对应映射时存在对应，即仿射等价，否则仿射不等价。
+
+\proo{
+    前者与$\cp_1$时相似验证即可，后者由于无法将取的点对应映射到，$F_*N\ne\hat{N}$。
+}
+
+*由中点或\textbf{边上积分平均}定义的CR单元仿射等价。
+
+\proo{
+    同理考虑顶点对应的映射，且保持边需要相同，只需验证$F_*N=\hat{N}$，其余与Lagrange单元相同。对中点，过程与Lagrange单元完全相同，而对$F_*N$，直接利用定义可发现积分平均仍然映射到对应的积分平均，从而得证。
+}
+
+*\ Hermite单元一般仿射不等价。
+
+\proo{
+    由于仿射被三角形确定，可能导致$x,y$方向改变，新的对$x$偏导对应的原本方向不为$x$方向。
+}
+
+\
+
+\textbf{插值等价}：设$(K,P,N)$、$(K,P,\hat{N})$为两有限元单元，且对应定义了插值(即$N$与$\hat{N}$进行了延拓)，若(这里假设$f$足够光滑)
+$$\forall f,\quad I_Nf=I_{\hat{N}}f$$
+则称它们插值等价。
+
+两单元插值等价当且仅当$N$与$\hat{N}$延拓后可相互线性表出。
+
+\proo{
+    若$N_i=\sum_jc_j\hat{N}_j$，则
+    $$N_i(I_Nf)=N_if=\sum_jc_j\hat{N}_j(f)=\sum_jc_j\hat{N}_j(I_{\hat{N}}f)=N_i(I_{\hat{N}}f)$$
+
+    由此利用基的性质可知插值相同。
+
+    反之若$I_Nf=I_{\hat{N}}f$，两边同作用$N_i$并展开计算可知
+    $$N_if=\sum_j(\hat{N}_jf)(N_i\hat{\phi}_j)$$
+}
+
+*考虑CR单元以中点与边界积分平均定义的两种$N_i$，它们事实上是不同的延拓方式，不可相互表出。
+
+*对同一个三角形中，在每个$a_i$处取定$x,y$与$\hat{x},\hat{y}$两方向的Hermite单元$N,\hat{N}$，可由定义知它们插值等价。
+
+\
+
+\textbf{仿射插值等价}：设$(K,P,N)$、$(\hat{K},\hat{P},\hat{N})$为两有限元单元，且对应定义了插值，若存在仿射$F(x)=Ax+b$使得
+\begin{enumerate}
+    \item $F(K)=\tilde{K}$；
+    \item $F^*\tilde{P}=P$，这里$F^*\tilde{P}=P\circ F$；
+    \item $F_*N$与$\tilde{N}$插值等价。
+\end{enumerate}
+则称它们仿射插值等价。
+
+*由上方例子，两Hermite单元仿射插值等价。我们讨论的有限元单元一般都具有不同单元仿射插值等价的性质。
+
+性质：\textbf{插值与仿射可交换}，若$(K,P,N)$以$F$仿射插值等价于$(\tilde{K},\tilde{P},\tilde{N})$，则
+$$I\circ F^*=F^*\circ\tilde{I}$$
+\proo{
+    $I\circ F^*\tilde{f}=I_N(\tilde{f}\circ F)$
+    左侧作用$N_i$可得
+    $$N_i(\tilde{f}\circ F)=(F_*N)_i(\tilde{f})$$
+    而
+    $$F^*\circ I\tilde{f}=I_{\tilde{N}}(\tilde{f}\circ F)=(I_{F_*N}\tilde{f})\circ F$$
+    左侧作用$N_i$，利用等价定义可得其为
+    $$(F_*N)_iI_{F_*N}(\tilde{f})=(F_*N)_i\tilde{f}$$
+    从而得证。
+}
+
+\subsection{长方形有限元}
+*即$K$为长方形的情况。
+
+记$Q_1=\Span\{1,x,y,xy\}$，考虑$P=Q_1$的情况，其可被四个顶点处的值唯一确定，若对角顶点为$(a,c)$与$(b,d)$结点基为
+$$\frac{(y-d)(x-b)}{(a-d)(c-b)},\quad\frac{(y-c)(x-b)}{(d-c)(a-b)},\quad\frac{(y-d)(x-a)}{(c-d)(b-a)},\quad\frac{(y-c)(x-a)}{(d-c)(b-a)}$$
+
+定义$Q_k$为$x,y$各自次数不超过$k$的二元多项式，$k=2$时，其可被9个点唯一确定，考虑四个顶点、四边中点与中心即可；对任意$k$，考虑每条边上的$k$等分点，并水平、竖直连接，其所有$(k+1)^2$个交点可构造结点基。
+
+\proo{
+    与三角形类似，每边上$x$或$y$恒定，是关于另一个量的$k$次函数，而由于其恒为0可提出因式，并将$x,y$的最高次数下降2，重复此操作直到恰好提完后次数为0，或回到$k=1$情况即可。
+}
+
+\
+
+*\ $Q_k$比$\cp_k$大，但多于$\cp_k$的部分无实际意义，因此希望减少自由度，且仍然\textbf{保证边界连续性}(由此边界处的取点无法减少)。
+
+\textbf{奇妙族}[Serendipity Element]
+
+引理：存在$c_1,\dots,c_8$使得
+
+$$\forall\phi\subset \cp_2,\quad \phi(z_9)=\sum_{i=1}^8c_i\phi(z_i)$$
+
+这里$z_1$到$z_8$为长方形的各边中点，$z_9$为中心。
+
+\proo{
+    考虑将其按基$1,x,y,xy,x^2,y^2$展开为线性方程组，计算可知系数矩阵列满秩，从而其必然等于增广矩阵秩，有解。(更几何的方法可以考虑其中取出6个点决定二次函数，事实上即对应系数矩阵列满秩。)
+}
+
+由此$z_1$到$z_8$的值可确定一个比$Q_2$少一维且包含$\cp_2$的函数空间
+$$\bigg\{\phi\in Q_2\mid\sum_ic_i\phi(z_i)-\phi(z_9)=0\bigg\}$$
+
+更多单元：
+\begin{enumerate}
+    \item 长方形C-R单元
+    
+    考虑四边中点定义$N_i$，$P$为$\cp_1$与$x^2-y^2$生成的多项式空间。
+
+    \item 长方形Morley单元
+    
+    考虑四边顶点与中点处的法向导数定义$N_i$，$P=Q_1+\Span\{x^2,y^2,x^3,y^3\}$。
+
+    *其并不全局$C^0$，但可以解四阶问题。
+
+    \item Adini单元
+    
+    考虑四边顶点与各自对$x,y$偏导定义$N_i$，$P=Q_1+\Span\{x^2Q_1\}+\Span\{y^2Q_1\}$。
+    
+    *全局$C^1$，可解四阶问题。
+
+    \item Bogner-Fox-Sohmit[BFS]单元
+    
+    考虑四边顶点、各自对$x,y$偏导与$\partial_{xy}$定义$N_i$，$P=Q_1+\Span\{x^2Q_1\}+\Span\{x^2Q_1\}+\Span\{x^2y^2Q_1\}$。
+
+    *全局$C^1$，同样可解四阶问题。
+\end{enumerate}
+
+\
+
+\textbf{宏单元}[Exotic Element]：仍定义$K$为三角形，且在其中取一个点将三角形分割为$K_1,K_2,K_3$三个三角形，要求$P$为
+$$\{p\in C^1(K)\mid p|_{K_i}\in \cp_3(K_i)\}$$
+通过顶点处的值与对$x,y$偏导及三边的法向导数定义$N_i$。
+
+\proo{
+    考虑$\cp_3$有10个自由度，总自由度30，但考虑到中间点三者的值相同2个条件、中间点三者两方向导数相同4个条件、内部边界上中点两方向导数相同个条件、三顶点处值与两方向导数相同6个条件，剩余自由度与约束个数相等，只需证明$N_i$的值给定后能唯一确定。
+
+    由唯一可解性定理只需证明所有$N_i(v)$全为0时$v$只能为0。对$v$在每个区域内考虑，可发现能提出一次因式的平方，对剩下部分考虑梯度得证为0。
+}
+
+\section{多项式逼近}
+\subsection{Bramble-Hilbert引理}
+设$\Omega$的边界为Lipschitz，$k\ge0$，存在常数$C(\Omega,k)$使得
+$$\inf_{p\in \cp_k(\Omega)}\|v+p\|_{W_p^{k+1}}\le C(\Omega,k)|v|_{W_p^{k+1}}$$
+
+先从范数等价定理出发证明。
+
+\proo{
+    设$N=\dim \cp_k(\Omega)$，取$\cp_k$对偶空间的一组基$f_1,\dots,f_N$，由于维数有限，一定存在$C$使得
+    $$\forall v\in \cp_k,\quad f_i(v)\le C\|v\|_{W_p^{k+1}}$$
+    利用Hahn-Banach定理，$f_i$可以保范延拓到$W_p^{k+1}$的对偶空间中，仍记为$f_i$。
+
+    利用范数等价定理，可验证$F(v)=\sum_i|f_i(v)|$满足条件，由此存在$C(\Omega,k)$使得
+    $$\|v\|_{W_p^{k+1}}\le C(\Omega,k)\bigg(|v|_{W_p^{k+1}}+\sum_{i=1}^N|f_i(v)|\bigg)$$
+
+    考虑$v$投影到$\cp_k(\Omega)$上为$q$，满足$f_i(q)=f_i(v)$，则$-q\in \cp_k(\Omega)$，且$f_i(v-q)=0$，于是
+    $$\|v-q\|_{W_p^{k+1}}\le C|v-q|_{W_p}^{k+1}=C|v|_{W_p^{k+1}}$$
+}
+
+这里对最终取出的$p=-q$几乎没有给出刻画，因此需要一个更构造性的证明。
+
+\proo{
+    对任何满足$|\alpha|\le k$的指标$\alpha$，定义泛函
+    $$f_\alpha(v)=\int_\Omega D^\alpha v\dr x$$
+    则可验证$\cp_k(\Omega)$的任何元素应在此映射下对应到唯一一组值，反之亦然(利用自由度与线性性可看出只需证明对任何$\alpha$为0时多项式只能为0，从高次开始归纳即可)。
+
+    由此，可定义插值映射$\pi_r:W_p^r(\Omega)\to \cp_r(\Omega)$，满足
+    $$\forall|\alpha|\le r,\quad\int_\Omega D^\alpha(\pi_r(v))\dr x=\int D^\alpha v\dr x$$
+
+    下面先证明引理：
+    $$\forall|\beta|\le r,\quad D^\beta\pi_r(v)=\pi_{r-|\beta|}(D^\beta v)$$
+    由于两侧均为$r-|\beta|$次多项式，只需证明它们作不超过$r-|\beta|$阶导数后积分相同即可，而这可以通过$\pi_r$定义得到。
+
+    由此，通过$f_\alpha(v-\pi_k(v))=0$对任何$|\alpha|\le k$成立，通过Poincar\'e不等式可知
+    $$\|v-\pi_k(v)\|_{L^p}\le C(\Omega)\sum_{|\alpha|=1}\|D^\alpha(v-\pi_k(v))\|_{L^p}=C(\Omega)\sum_{|\alpha|=1}\|D^\alpha v-\pi_{k-1}D^\alpha v\|_{L^p}$$
+
+    对右侧的$\|D^\alpha v-\pi_{k-1}D^\alpha v\|$重复此操作(将$D^\alpha v$看作整体)，最终可以得到
+    $$\|v-\pi_k(v)\|_{L^p}\le C(\Omega,k)|v|_{W_p^{k+1}}$$
+    同理，对$v-\pi_k(v)$更高阶导数的范数，最终也可以被$|v|_{W_p^{k+1}}$的某个$C(\Omega,k)$倍控制，从而得证。
+}
+
+\subsection{共形论证}
+*或称为放缩论证。
+
+设$F$为$\hat{K}\to K$的仿射$F(\hat{x})=B\hat{x}+b$，$\hat{K}$为某标准单元(如腰长1的等腰直角三角形)，$K$为要估算的单元。
+
+设$h_{\hat{K}}=\diam\hat{K}$，$h_K$同理，并记$\rho_{\hat{K}}$为$\hat{K}$中包含的球的直径最大值，$\rho_K$同理。
+
+先说明矩阵$B$的界：
+$$\|B\|\le\frac{h_K}{\rho_{\hat{K}}},\quad\|B^{-1}\|\le\frac{h_{\hat{K}}}{\rho_K},\quad |\det B|\le C\bigg(\frac{h_k}{\rho_{\hat{K}}}\bigg)^n,\quad|\det B^{-1}|\le C\bigg(\frac{h_{\hat{K}}}{\rho_K}\bigg)^n$$
+
+\proo{
+    由矩阵二范数定义可知
+    $$\|B\|=\frac{1}{\rho_{\hat{K}}}\sup_{\|\xi\|=\rho_{\hat{K}}}\|B\xi\|$$
+    而右侧可看作$\hat{K}$上两点的像的距离，不会超过$h_K$，从而得证第一个式子，利用对称性考虑$F^{-1}$可得第二个式子。另一方面，通过二范数定义可控制特征值，从而根据行列式为特征值乘积可得后两个式子。
+}
+
+记$\hat{v}=F^*v$，若$v\in W_p^m(K)$，则根据$F$为仿射可知$\hat{v}\in W_p^m(\hat{K})$，且
+$$|\hat{v}|_{W_p^m(\hat{K})}\le C\|B\|^m|\det B|^{-1/p}|v|_{W_p^m(K)}$$
+$$|v|_{W_p^m(K)}\le C\|B^{-1}\|^m|\det B|^{1/p}|\hat{v}|_{W_p^m(\hat{K})}$$
+
+\proo{
+    同样只需证明第一个式子。由于平移不影响可不妨设$b=0$，通过链式法则直接计算导数可知成立(利用有限维空间范数等价，每求一阶导数会被$B$的Frobenius范数控制，于是会被$\|B\|$所控制，而积分变换导致$\det B$出现)。
+}
+
+\
+
+迹的共形论证：在$\partial K$的光滑部分，若$\hat{K}$的外法向量$\hat\nu$在映射下成为了$K$边界上对应点的向量$\nu$，则有边界对应点处
+$$\nu=\frac{B^{-T}\hat\nu}{\|B^{-T}\hat\nu\|}$$
+$$\dr s=|\det B|\|B^{-T}\hat\nu\|\dr\hat{s}$$
+
+\proo{
+    若$\partial \hat{K}$边界方程能写为$H(\hat{x})=0$，设$\hat{N}$为$H$对$\hat{x}$的梯度，则有
+    $$\hat\nu=\pm\frac{\hat{N}}{\|\hat{N}\|}$$
+    根据外法向要求，此处或对所有$\nu$同取1，或同取$-1$。直接计算验证可发现
+    $$\nu=\pm\frac{B^{-T}\nu}{\|B^{-T}\nu\|}$$
+    由于$F$将外部映射为外部可知外法向映射到外法向，从而取正1。
+
+    利用Gauss定理可知
+    $$\int_K\frac{\dr\varphi}{\dr x_i}\dr x=\int_{\partial K}\varphi\nu_i\cdot\dr s$$
+    换元到$\hat{K}$上对$\hat{\varphi}$的积分即可验证成立。
+}
+
+由上方计算过程可以验证若$v\in L^p(\partial K)$则$\hat{v}\in L^p(\partial\hat{K})$，且
+$$\|\hat{v}\|_{L^p(\partial\hat{K})}\le C\|B\|^{1/p}|\det B|^{-1/p}\|v\|_{L^p(\partial K)}$$
+
+\subsection{插值的误差界}
+考虑有限元$P,K,N$，且$\diam K=1$，设$P\subset W_\infty^m(K)$，$N\subset(C^l(K))'$，则插值算子是$C^l(K)\to W_p^m(K)$的有界算子，$\forall 1\le p\le\infty$。
+
+\proo{
+    设$N=\{N_1,\dots,N_k\}$，对偶基为$\phi_1,\dots,\phi_k$，则
+    $$\|Iu\|_{W_p^m}\le\sum_{i=1}^k|N_i(u)|\|\phi_i\|_{W_p^k}\le\bigg(\sum_{i=1}^k\|N_i\|_{(C^l)'}\|\phi_i\|_{W_p^m}\bigg)\|u\|_{C^l}$$
+    从而得证。
+}
+
+设$I$在上述定义下范数为$\sigma(K)$。若$(K,P,N)$与$(\hat{K},\hat{P},\hat{N})$仿射插值等价，且
+\begin{enumerate}
+    \item $K$是星形区域；
+    \item $\cp_{m-1}(K)\subset P\subset W_\infty^m(K)$；
+    \item $N\subset C^l(\bar{K})'$\ (也即定义可以延拓到有$l$阶导数的函数上)。
+\end{enumerate}
+
+若$p$满足$p>1$、$m-l-n/p>0$或$p=1$、$m-l-n\ge 0$，则对任何$0\le i\le m$，$v\in W_p^m(K)$，有
+$$|v-Iv|_{W_p^i}\le C(m,n,\hat{\gamma},\sigma(\hat{K}))\frac{h_K^{m+n/p}}{\rho_K^{i+n/p}}|v|_{W_p^m}$$
+这里$\hat{\gamma}$指$\frac{d}{\rho_{\max}}$，其中$d$表示$\diam\hat{K}$，$\rho_{\max}$表示$\hat{K}$所有中心(星形区域中满足任何点与其连线都在区域中的点)构成的点集中球的半径上限。
+
+*为方便起见，我们假设$\hat{K}$为参考区域，对应的值$h_{\hat{K}},\rho_{\hat{K}}$等为常数，在证明中直接合并$\hat{K}$相关的常数。
+
+\proo{
+    设$\hat{K}$到$K$的对应仿射为$F$，由于插值与推拉可以交换可知$F^*(Iv)=\hat{I}\hat{v}$。再利用线性性可知$F^*(v-Iv)=\hat{v}-\hat{I}\hat{v}$，由此利用前一部分结论
+    $$|v-Iv|_{W_p^i}\le C\|B^{-1}\|^i|\det B|^{1/p}|\hat{v}-\hat{I}\hat{v}|_{W_p^i(\hat{K})}\le C\bigg(\frac{h_{\hat{K}}}{\rho_K}\bigg)^i\bigg(\frac{h_K}{\rho_{\hat{K}}}\bigg)^{n/p}|\hat{v}-\hat{I}\hat{v}|_{W_p^i(\hat{K})}$$
+    考虑之前定义的$\pi_i$，利用之前的结论可知
+    $$|\hat{v}-\hat{I}\hat{v}|_{W_p^i(\hat{K})}\le\|\hat{v}-\hat{I}\hat{v}\|_{W_p^m(\hat{K})}\le\|\hat{v}-\pi_{m-1}\hat{v}\|_{W_p^m(\hat{K})}+\|\pi_{m-1}\hat{v}-\hat{I}\hat{v}\|_{W_p^m(\hat{K})}$$
+    再通过$\pi_{m-1}\hat{v}=\hat{I}\pi_{m-1}\hat{v}$，利用$\sigma(\hat{K})$定义有
+    $$|\hat{v}-\hat{I}\hat{v}|_{W_p^i(\hat{K})}\le\|\hat{v}-\pi_{m-1}\hat{v}\|_{W_p^m(\hat{K})}+\sigma(\hat{K})\|\pi_{m-1}\hat{v}-\hat{v}\|_{C^l(\hat{K})}$$
+    再通过嵌入定理与B-H引理可得
+    $$|\hat{v}-\hat{I}\hat{v}|_{W_p^i(\hat{K})}\le(1+C(\hat{K})\sigma(\hat{K}))|\hat{v}|_{W_p^m(\hat{K})}\le\tilde{C}(\hat{K})|\hat{v}|_{W_p^m(\hat{K})}$$
+    最终利用
+    $$|\hat{v}|_{W_p^m(\hat{K})}\le C\|B\|^m|\det B|^{-1/p}|v|_{W_p^m}$$
+    得到估计
+    $$|v-Iv|_{W_p^i}\le C(\hat{K})\frac{h_k^{m+n/p}}{\rho_k^{i+n/p}}|v|_{W_p^m}$$
+}
+
+\
+
+\textbf{拟一致性}：对划分区域$\Omega$且满足
+$$\forall h,\quad\max_{K\in T_h}\{\diam K\}\le h\diam\Omega$$
+的一族网格$\{T^h\},0<h\le1$，若存在$\rho>0$使得
+$$\forall h,\quad\min_{K\in T_h}\{\diam B_K\}\ge\rho h\diam\Omega$$
+则称其为拟一致的，这里$B_K$表示$K$所有中心构成的点集中半径最大的球。
+
+\
+
+\textbf{形状正则性}：对划分区域$\Omega$且满足
+$$\forall h,\quad\max_{K\in T_h}\{\diam K\}\le h\diam\Omega$$
+的一族网格$\{T^h\},0<h\le1$，若存在$\rho>0$使得
+$$\forall h,\quad\forall K\in T^h,\quad\diam B_K\ge\rho\diam K$$
+则称其为形状正则的(或\textbf{非退化}的)。
+
+
+*由此之前定理中$h_K/\rho_K$也可消去，得到其中
+$$|v-Iv|_{W_p^i}\le C'(\hat{K})h_K^{m-i}|v|_{W_p^m}$$
+
+*事实上拟一致性可以推出形状正则性，我们只讨论形状正则性满足的网格。
+
+\
+
+拟一致性性质：若$P^{k-1}\subset P$，对任何$s\le m\le k$有
+$$\bigg(\sum_{K\in T^h}\|v-I_nv\|^p_{W_p^s(K)}\bigg)^{1/p}\le ch^{m-s}|v|_{W_p^m}$$
+
+*也即事实上能达到$\min(m,k)$阶光滑性，之前分片线性单元即对应$k=2$的估算。
+
+\subsection{反向估算}
+设$\hat{K}=\frac{1}{h_K}K$，也即只进行伸缩后的网格，对应可得到规范化后的$\hat{P}$。
+
+设$\sigma h\le h_K\le h$，其中$0<h\le 1$。要求$P\subset W_p^l(K)\cap W_q^m(K)$，且$p,q\in[1,+\infty]$，$0\le m\le l$，则存在与$\hat{P}$、$\hat{K}$、$\rho_K$、$p$、$q$、$\sigma$相关的$C$使得(省略范数后的区域$K$)
+$$\forall v\in P,\quad\|v\|_{W_p^l}\le Ch^{m-l+n/p-n/q}\|v\|_{W_q^m}$$
+
+\proo{
+    当$m=0$时，将$v$变换到$\hat{K}$上得$\hat{v}$，通过有限维空间范数等价可知存在与$\hat{P}$相关的$C_1$使得
+    $$\|\hat{v}\|_{W_p^l(\hat{K})}\le C_1\|\hat{v}\|_{L^q(\hat{K})}$$
+    利用伸缩变换性质可知
+    $$|v|_{W_p^j}h_K^{j-n/p}=|\hat{v}|_{W_p^j(\hat{K})}\le C_1\|\hat{v}\|_{L^q(\hat{K})}=C_1 h_K^{-n/q}\|v\|_{L^q}$$
+    也即
+    $$|v|_{W_p^j}\le C_1 h_K^{-j+n/p-n/q}\|v\|_{L^q}$$
+    由于上式对一切$j\le l$成立，计算范数可得存在$C_2$使得
+    $$\|v\|_{W_p^l}\le C_2 h^{-j+n/p-n/q}\|v\|_{L^q}$$
+
+    对一般的$m\le l$，分类放缩：
+    \begin{enumerate}
+        \item 当$l-m\le k\le l$时，对任何$|\alpha|=k$，存在$|\gamma|=k+m-l$，且$\gamma$各分量不超过$\alpha$，此时即有
+        $$\|D^\alpha v\|_{L^p}\le\|D^\gamma v\|_{W_p^{l-m}}\le C_2h^{-(l-m)+n/p-n/q}\|D^\gamma v\|_{L^q}\le C_2h^{-(l-m)+n/p-n/q}\|v\|_{W_q^m}$$
+        \item 当$k<l-m$时，直接控制得
+        $$\|v\|_{W_p^k}\le\|v\|_{W_p^{l-m}}\le C_2h^{-(l-m)+n/p-n/q}\|v\|_{L^q}$$
+    \end{enumerate}
+    拼合即得证。
+}
+
+整体估算，若$\{T_n\}$拟一致，则存在$C=C(\rho,p,q,\sigma)$使得
+$$\bigg(\sum_{n\ge1}\|v\|_{W_p^l(T_n)}^p\bigg)^{1/p}\le Ch^{m-l+\min(0,n/p-n/q)}\sum_{n\ge1}\bigg(\|v\|_{W_q^m(T_n)}^q\bigg)^{1/q}$$
+
+\proo{
+    若$p\ge q$，向量的$p$范数不超过$q$范数，直接将$p$范数放至$q$范数，利用上个定理可知成立。
+
+    若$p<q$，需要利用H\"older不等式放缩得
+    $$\bigg(\sum_{n\ge1}\|v\|_{W_p^l(T_n)}^p\bigg)^{1/p}\le\bigg(\sum_{n\ge1}1\bigg)^{1/p-1/q}\bigg(\sum_{n\ge1}\|v\|_{W_p^l(T_n)}^q\bigg)^{1/q}$$
+    而由于网格个数为$Ch^{-n}$，对右侧利用上个定理可抵消$h^{n/p-n/q}$的部分，从而得到结论。
+}
+
+\
+
+\textbf{其他逼近结果}
+
+方体网格：若$Q_{m-1}\subset P$，有$i\le m$时
+$$|u-I_Ku|_{W_p^i(K)}\le C_{m,n}h^{m-i}\bigg(\sum_{j=1}^n\bigg\|\frac{\partial^jv}{\partial x_j}\bigg\|_{L^p}^p\bigg)^{1/p}$$
+
+等参元多项式逼近[近似\textbf{曲边区域}]：将参考单元$\hat{K}$通过更一般的映射$F$映射到曲边三角形区域$K$，要求$F$为有限元空间中的映射。
+
+例：考虑对圆$\Omega$的近似，先将其某内接多边形$\tilde{\Omega}$剖分为三角单元，每个三角形上考虑$\cp_2$-Lagrange单元。考虑$\tilde{F}:\tilde{\Omega}\to\mathbb{R}^2$，要求其每个分量为$\cp_2$，则新的单元每边可以为二次函数(同样可用推出、拉回对应定义$P$、$N$)，从而更好近似。
+
+*对$\cp_k$-Lagrange可以使得内部仍为直边且边界处最大距离为$h^{k+1}$量级。
+
+\subsection{离散Sobolev不等式}
+回顾$W_n^1$可以嵌入$q<\infty$的$L^q$，但不能嵌入$q=\infty$的情况。我们希望证明有限元空间中(这里$h$如前定义)
+$$\|v\|_{L^\infty}\le C(1+|\ln h|^{1-1/n})\|v\|_{W_n^1}$$
+
+\proo{
+    回顾作业中
+    $$\|v\|_{L^q}\le C(n,\Omega)q^{1-1/n}\|v\|_{W_n^1}$$
+    定义
+    $$\|v\|_{0,(\alpha)}=\sup_{q\ge1}\{q^{-\alpha}\|v\|_{L^q}\}$$
+
+    \
+
+    引理：设$\Omega$有Lipschitz边界，存在$C(n,\Omega)$使得(这里$C^{0,\lambda}$为H\"older模)对任何$\varepsilon,\alpha\in(0,1)$有
+    $$\|u\|_{L^\infty}\le C\bigg(|\log\varepsilon|^\alpha\|u\|_{0,(\alpha)}+\varepsilon^\lambda\|u\|_{C^{0,\lambda}(\bar{\Omega})}\bigg)$$
+
+    引理证明：
+
+    对$x_0\in\Omega$，记$B_\varepsilon(x_0)=D_\varepsilon$其面积正比于$\varepsilon^n$，设为$C\varepsilon^n$，利用H\"older模定义有
+    $$|u(x_0)|\le|u(x)|+\varepsilon^\lambda\|u\|_{C^{0,\lambda}}$$
+    积分可知
+    $$|u(x_0)|\le C^{-1}\varepsilon^{-n}\|u\|_{L^1(D_\varepsilon)}+\varepsilon^\lambda\|u\|_{C^{0,\lambda}}$$
+    再次利用H\"older不等式可知对任何$r$存在$C'$使得
+    $$|u(x_0)|\le C'\varepsilon^{-n/r}\|u\|_{L^r(D_\varepsilon)}+\varepsilon^\lambda\|u\|_{C^{0,\lambda}}\le C'r^\alpha\varepsilon^{-n/r}\|u\|_{0,(\alpha)}+\varepsilon^\lambda\|u\|_{C^{0,\lambda}}$$
+    取$r=|\log\varepsilon|$，代入即得结论。
+
+    \
+
+    原命题证明：记$\alpha=1-1/n$，利用引理并由Sobolev不等式控制$\|u\|_{0,(\alpha)}$为$\|u\|_{W_n^1}$可得
+    $$\|v\|_{L^\infty}\le C|\log\varepsilon|^{1-1/n}\|v\|_{W_n^1}+\varepsilon^\lambda\|v\|_{C^{0,\lambda}}$$
+    利用逆不等式可知
+    $$\|v\|_{W_\infty^1}\le h^{-1}\|v\|_{W_n^1}$$
+    取$\lambda=1$，得到(利用$C^{0,1}$定义考虑中值定理可知$C^{0,1}$范数不超过梯度模长最大值，而这能被$nW_\infty^1$控制，取$\tilde{C}=n$即可)
+    $$\varepsilon\|v\|_{C^{0,1}}\le\tilde{C}\varepsilon h^{-1}\|v\|_{W_n^1}$$
+    最终取$\varepsilon=h$得证。
+}
+
+\
+
+*\textbf{非光滑函数}的插值：考虑$\cp_1$，若$u\in H^1$，希望定义在$\cp_1$-Lagrange单元中的插值
+$$I_hu=\sum_zN_z(u)\Phi_z$$
+这里$\Phi_z$为全局基(即全局每个结点$z$处给一个基，相邻三角形共享顶点)。
+
+只要将$N_z$延拓为$\tilde{N}_z$即可得到构造。例如考虑延拓方式：将$K_z$定义为包含$z$的某个单元，$\tilde{K}_z$包含于$K_z$，考虑$L^2(\tilde{K}_z)$上$\Phi^{\tilde{K}_z}$的对偶基$\Psi^{\tilde{K}_z}$满足
+$$\int_{\tilde{K}_z}\Phi_N^{\tilde{K}_2}(x)\Psi_M^{\tilde{K}_z}(x)=\delta_{MN}$$
+再定义
+$$\tilde{I}_hu=\sum_z\bigg(\int_{\tilde{K}_z}u(x)\Psi_{N_z}^{\tilde{K}_z}(x)\dr x\bigg)\Phi_z$$
+即可。
+
+\section{$n$维问题}
+\subsection{Poisson问题}
+考虑有界区域$\Omega$\ (可近似为多边形区域)内的方程
+$$-\triangle u=f$$
+设$\Gamma\subset\partial\Omega$，边界处法向量记为$\nu$，边界条件取为
+$$\forall x\in\Gamma,\quad u=0$$
+$$\forall x\in\partial\Omega\backslash\Gamma,\quad\frac{\partial u}{\partial\nu}=0$$
+
+\
+
+\textbf{适定性}
+
+若$\Gamma$的$\partial\Omega$上测度非0，记
+$$V=\{u\in H^1(\Omega),v\big|_\Gamma=0\}$$
+则问题可化为变分形式
+$$\forall v\in V,\quad a(u,v)=\int_\Omega\nabla u\cdot\nabla v\dr x=(f,v)$$
+可利用Lax-Milgram引理得到其解在$V$中存在唯一。
+
+若$\Gamma=\varnothing$，由Gauss-Green公式可知
+$$\int_\Omega f(x)\dr x=-\int_{\partial\Omega}\frac{\partial u}{\partial\nu}\dr s=0$$
+记
+$$V=\bigg\{u\in H^1(\Omega),\quad\int_\Omega u(x)\dr x=0\bigg\}$$
+对变分形式$a(u,v)=(f,v)$，仍然可得到其解在$V$中存在唯一(事实上也即相差常数意义下唯一)。
+
+\
+
+\textbf{变分思路}
+
+考虑网格中的$\cp_{m-1}$-Lagrange单元，且$m>2$，对网格$T_h$可找到解$u_h$满足$a(u_h,v_h)=(f,v_h)$对$v_h\in V_h$成立，这里$V_h$为符合边界条件的有限元函数空间。利用之前定理可知对形状正则的单元有
+$$\|u-u_h\|_{H^1}\le C\inf_{V_h}\|u-v_h\|_{H^1}\le C'h^{m-1}|u|_{H^m}$$
+
+*第一个不等号称为\textbf{Ce\`a引理}。
+
+*对于边界条件$v_h\big|_\Gamma=0$，对Lagrange单元只须取$\Gamma$包含的部分的$v$值为0。
+
+*对$\Gamma=\varnothing$的情况，由于相差常数意义唯一，可以考虑固定$v$在某点为0，或利用乘子法，考虑无边界条件的$V_h$，求解(将$r\in\mathbb{R}$作为未知数，相当于方程、未知数都增添一个)
+$$\forall v_h\in V,\quad a(u_h,v_h)+(v_h,r)=(f,v_h)$$
+$$\forall s\in\mathbb{R},\quad(u_h,s)=0$$
+这时第二个方程可保证$u_h$积分为0，而第一个方程可保证对任何积分为0的$v_h$符合变分形式，由此可以求出唯一符合要求解。
+
+\
+
+\textbf{对偶论证}
+
+考虑$e=u-u_h$与方程
+$$\forall x\in\Omega,\quad-\triangle w=e$$
+$$\forall x\in\Gamma,\quad w=0$$
+$$\forall x\in\partial\Omega\backslash\Gamma,\quad\frac{\partial w}{\partial\nu}=0$$
+则对任何$w_h\in V_h$有
+$$\|u-u_h\|_{L^2}^2=a(u-u_h,w)=a(u-u_h,w-w_h)\le C\|u-u_h\|_{H^1}\|w-w_h\|_{H^1}\le C'h\|u-u_h\|_{H^1}|w|_{H^2}$$
+若有\textbf{椭圆正则性}假设$|w|_{H^2}\le C_0\|e\|_{L^2}$，即可得到
+$$\|u-u_h\|_{L^2}\le C'h\|u-u_h\|_{H^1}\le C''h^2|u|_{H^2}$$
+
+\
+
+\textbf{椭圆正则性}
+动机：考虑$\mathbb{R}^n$上
+$$\|\triangle v\|_{L^2}=\|\widehat{\triangle v}\|_{L^2}=\|\|\xi\|^2\hat{v}(\xi)\|_{L^2}$$
+而对任何$|\alpha|=2$计算可得
+$$\|\partial^\alpha v\|_{L^2}\le\|\|\xi\|^2\hat{v}(\xi)\|_{L^2}$$
+
+由此$\triangle v$的二范数可能可以控制任何二阶导数的二范数。
+
+*\textbf{凸区域}情况下$\|D^2v\|_{L^2}\le\|\triangle v\|_{L^2}$对$v\in H^2\cap H_0^1$成立，左侧$D^2v$的范数代表所有二阶导的范数求和，而对一般的$p$，只要$p\ge1$充分小，就能使得$\|v\|_{W_p^2}$被$\|\triangle v\|_{L^p}$控制。
+
+*一般情况\textbf{反例}：区域$\Omega=\{(r,\theta)\mid r\in(0,1),\theta\in(0,\pi/\beta)\}$。考虑函数$v=r^\beta\sin(\beta\theta)$，可发现$\triangle v=0$，考虑$u=(1-r^2)v$，则$\nabla u$有界但$u$并不为$H^2$。
+
+\
+
+\textbf{部分正则性}：对某$0<\alpha\le1$满足
+$$\|w\|_{H^{\alpha+1}}\le C\|\triangle w\|_{H^{\alpha-1}}$$
+
+\subsection{一般二阶椭圆问题}
+假设$a_{ij}(x)\in L^\infty$处处对称，且对于几乎处处的$x$有
+$$\sum_{ij}a_{ij}(x)\xi_i\xi_j\ge\alpha\|\xi\|^2$$
+
+*称为\textbf{一致椭圆}条件，将$a_{ij}(x)$拼成的矩阵记为$a(x)$。
+
+椭圆算子
+$$Au=-\nabla\cdot(a(x)\nabla u)$$
+对应的
+$$a(u,v)=\int_\Omega(a(x)\nabla u)\cdot(\nabla v)\dr x$$
+
+*利用一致椭圆条件可发现$a(v,v)\ge\alpha|v|_{H^1}^2$。
+
+*对应的Neumann边界条件为$(a(x)\nabla u)\cdot\nu=0$，由此对$Au=f$可完全类似Poisson问题处理。
+
+\
+
+\textbf{非对称问题}
+
+$$Au=-\nabla\cdot(a(x)\nabla u)+b(x)\cdot\nabla u+b_0(x)u$$
+其对应的双线性型为
+$$a(u,v)=(a\nabla u,\nabla v)+(b\cdot\nabla u,v)+(b_0u,v)$$
+一般无法得到强制性结论，但只要$b_0(x)\ge0$就能得到解唯一，但无法类似之前估算，需要寻找新的估算方式。
+
+\textbf{G\r{a}rding不等式}：若$b_0,b$均有界，存在$K>0$使得对任何$v\in H^1$有
+$$a(v,v)+K\|v\|_{L^2}^2\ge\frac{\alpha}{2}\|v\|_{H^1}^2$$
+\proo{
+    $$a(v,v)+K\|v\|_{L^2}^2\ge\alpha|v|_{H^1}^2+(b\cdot\nabla v,v)+(b_0v,v)+K\|v\|_{L^2}$$
+    而对$b$、$b_0$均放为共同的上界$B$后可得到
+    $$a(v,v)+K\|v\|_{L^2}^2\ge\alpha|v|_{H^1}^2+(K-B)\|v\|_{L^2}^2-B|v|_{H^1}\|v\|_{L^2}$$
+    对第三项采用基本不等式放缩，再取$K$充分大即得证。
+}
+
+估算：对方程$\forall v\in V\subset H^1,a(u,v)=(f,v)$，若$a(u,v)$与$f$满足：
+\begin{itemize}
+    \item $a(u,v)\le C_1\|u\|_{H^1}\|v\|_{H^1}$；
+    \item $\exists K>0,\alpha>0$，$a(v,v)+K\|v\|_{L^2}^2\ge\alpha\|v\|_{H^1}^2$；
+    \item 方程存唯一解；
+    \item 对偶问题$a(v,w)=(g,v)$的解与原问题解满足正则性假设
+    $$|u|_{H^2}\le C_R\|f\|_{L^2},\quad|w|_{H^2}\le C_R\|g\|_{L^2}$$
+\end{itemize}
+
+考虑有限元空间$V_h\subset V$，在以上假设下，若还有
+$$\inf_{v\in V_h}\|w-v\|\le C_Ah|w|_{H^2}$$
+则可知问题
+$$\forall v_h\in V_h,\quad a(u_h,v_h)=(f,v_h)$$
+在$h\le h_0$时存唯一解$u_h\in V$，且有估计
+$$\|u-u_h\|_{H^1}\le C\inf_{v\in V_h}\|u-v\|_{H^1}$$
+$$\|u-u_h\|_{L^2}\le C_1C_AC_Rh\|u-u_h\|_{H^1}$$
+\proo{
+    由于$a(u-u_h,v_h)=0$可知
+    $$\frac{\alpha}{2}\|u-u_h\|^2\le a(u-u_h,u-u_h)+K\|u-u_h\|_{L^2}^2=a(u-u_h,u-v)+K\|u-u_h\|_{L^2}^2$$
+    于是
+    $$\frac{\alpha}{2}\|u-u_h\|^2\le C_1\|u-u_h\|_{H^1}\|u-v\|_{H^1}+K\|u-u_h\|_{L^2}^2$$
+    设$e=u-u_h$，考虑$a(v,w)=(e,v)$，根据假设可知
+    $$\forall w_h\in V_h,\quad\|e\|_{L^2}^2\le C_1\|u-u_h\|_{H^1}\|w-w_h\|_{H^1}$$
+    从而利用有限元空间的假设与对偶问题正则性可知
+    $$\|e\|_{L^2}^2\le C_1C_AC_Rh\|u-u_h\|_{H^1}\|e\|_{L^2}$$
+    这就得到了二范数的估计，而最终放缩得到
+    $$\frac{\alpha}{2}\|u-u_h\|_{H^1}^2\le C_1\|u-u_h\|_{H^1}\|u-v\|_{H^1}+KC_1^2C_A^2C_R^2h^2\|u-u_h\|_{H^1}^2$$
+    将中间利用基本不等式放缩即得到$H^1$范数的估计。
+
+    由此通过最优逼近可发现解的唯一性，而此为有限维线性问题，解唯一即可得到存在唯一。
+}
+
+\
+
+\textbf{负模估计}
+
+定义区域$\Omega$上的负模
+$$\|u\|_{H^{-s}}=\sup_{v\in H^s}\frac{(u,v)}{\|v\|_{H^s}}$$
+作如下假设：
+\begin{itemize}
+    \item $\|u\|_{H^{s+2}}\le C_R\|f\|_{H^s}$；
+    \item $\inf_{v\in V_h}\|u-v\|_{H^1}\le C_0h^{s+1}\|u\|_{H^{s+2}}$\ (例如对Lagrange单元要求$m$至少为$s+1$)；
+\end{itemize}
+用上述两假设替代之前的第四条假设，可发现存在$C$使得
+$$\|u-u_h\|_{H^{-s}}\le Ch^{s+1}\|u-u_h\|_{H^1}$$
+\proo{
+    完全相同考虑$e=u-u_h$，考虑一般的问题
+    $$\forall v\in V,\quad a(v,w_\phi)=(\phi,v)$$
+    取$v=e$，则可发现
+    $$\forall w_h\in V_h,\quad(\phi,e)=a(u-u_h,w-w_h)\le C_1\|u-u_h\|_{H^1}\|w-w_h\|_{H^1}\le C_1C_0h^{s+1}\|u-u_h\|_{H^1}\|w\|_{H^{s+2}}$$
+    最终有
+    $$(\phi,e)\le C_1C_0C_Rh^{s+1}\|u-u_h\|_{H^1}\|\phi\|_{H^s}$$
+    于是
+    $$\|e\|_{H^{-s}}\le C_1C_0C_Rh^{s+1}\|u-u_h\|_{H^1}$$
+}
+
+\
+
+负模\textbf{下界}估计：由于
+$$(u-u_h,f)=a(u-u_h,u-u_h)\ge\alpha\|u-u_h\|_{H^1}^2$$
+可知
+$$\|u-u_h\|_{H^s}\ge\frac{(u-u_h,f)}{\|f\|_{H^s}}\ge\frac{\alpha}{\|f\|_{H^s}}\|u-u_h\|_{H^1}^2$$
+也即负模误差的下界为$\|u-u_h\|_{H^1}^2$量级。
+
+*直观理解：考虑四阶问题$a(u,v)=(D^2u,D^2v)$，再通过$s=0$情况可得到
+$$\|u-u_h\|_{L^2}\ge\frac{(u-u_h,f)}{\|f\|_{L^2}}\ge C\frac{\|u-u_h\|_{H^2}^2}{\|f\|_{L^2}}$$
+考虑Morley单元，其对应的为二次多项式，因此插值理应能得到$L^2$范数为$O(h^3)$，但实际上$H^1$、$L^2$的范数均为$O(h^2)$，比直接逼近性的阶低一阶。
+
+\
+
+*\textbf{污染效应}(凹点附近影响整体误差)：考虑
+$$\Omega=\{(r,\theta)\mid 0<r<1,0<\theta<\pi/\beta\},\quad\beta\in(1/2,1)$$
+
+考虑$v=r^\beta\sin\theta$，$u=(1-r^2)v$，取$V_k$为$\cp_{k+1}$-Lagrange单元进行逼近，利用数值解不可能好于最优逼近，划分为三角网格$T$有
+$$\|u-u_h\|_{H^1}^2\ge\inf_{v\in V_h}\sum_T\int_T|\nabla u-\nabla v|^2\dr x\ge\sum_T\inf_{\vec{v}\in\vec\cp_k}\int_T|\nabla u-\vec{v}|^2\dr x$$
+这里$\vec\cp_k$表示每个分量都是$k$次多项式的向量函数，由$\nabla v$每个分量在每个单元内必然为$k$次多项式可知成立。进一步放缩可知
+$$\|u-u_h\|_{H^1}^2\ge\inf_{\vec{v}\in\vec\cp_k}\int_{T_0}|\nabla u-\vec{v}|^2\dr x$$
+这里$T_0$代表有一个顶点在原点的三角单元。直接计算可得
+$$\inf_{\vec{v}\in\vec\cp_k}\int_{T_0}|\nabla(r^\beta\sin\theta)-\vec{v}|^2\dr x\ge C_0(\diam T_0)^{2\beta}$$
+从而当$h\to0$时近似有
+$$\inf_{\vec{v}\in\vec\cp_k}\int_{T_0}|\nabla u-\vec{v}|^2\dr x\ge C_0(\diam T_0)^{2\beta}-C_0(\diam T_0)^{2\beta+4}\approx Ch^{2\beta}$$
+从而能量范数至多$h^\beta$阶，其他范数至多$h^{2\beta}$阶。
+
+\subsection{弯曲板方程}
+*四阶方程的重要例子。
+
+考虑二维情况，其微分形式方程为
+$$\triangle^2u=f$$
+分部积分可知其对应$H^2(\Omega)$中的双线性型为
+$$a(u,v)=\int_\Omega\big(\triangle u\triangle v-(1-\nu)(2u_{xx}v_{yy}+2u_{yy}v_{xx}-4u_{xy}v_{xy})\big)\dr x\dr y$$
+其中$\nu\in[0,1/2]$，希望求解$a(u,v)=(f,v)$对任何$v$成立。
+
+其具有性质：
+\begin{enumerate}
+    \item 当$\nu=1/2$时，$a(u,v)=\int_\Omega\sum_{ij}u_{ij}v_{ij}\dr x_1\dr x_2$。
+    \item G\r{a}rding不等式：当$\nu\in(-3,1)$时，存在$K>0$使得
+    $$a(v,v)+K\|v\|_{L^2}^2\ge 2\|v\|_{H^2}^2$$
+    \item 强制性：当$\nu\in(0,1)$时，只要$V\cap \cp_1=\{0\}$，即有$a(v,v)\ge C\|v\|_{H^2}^2$。
+    
+    \proo{
+        记$C_0=\min\{\nu,1-\nu\}$，由于$a(v,v)$为
+        $$\int_\Omega\big(\nu(\triangle v)^2+(1-\nu)((v_{xx}-v_{yy})^2+4v_{xy}^2)\big)\ge C_0\int_\Omega\big((v_{xx}+v_{yy}^2)+(v_{xx}+v_{yy})^2+4v_{xy}^2\big)\dr x\dr y$$
+        从而
+        $$a(v,v)\ge C_0|v|_{H^2}^2$$
+        若结论不成立，可找到一列$v_j$使得$\|v_j\|_{H^2}=1$且$a(v_j,v_j)<1/j$。
+
+        考虑到$P^1$的投影映射$\pi_1v_j$，可发现(直接分不同次数项考虑可知投影算子有界)
+        $$\|\pi_1v_j\|_{H^2}\le C'\|v_j\|_{H^2}\le C'$$
+        由此$\pi_1v_j$存在收敛子列(将收敛子列仍记为$v_j$)，收敛到某一线性函数。利用Bramble-Hilbert引理可知
+        $$\|v_j-\pi_1v_j\|\le C|v_j|_{H^2}$$
+        从而利用子列中$a(v_j,v_j)\le 1/j$可知$v_j-\pi_1v_j$收敛到0，$v_j$收敛到某线性函数，但从闭子空间特性可知此线性函数仍在$V$中，因此$v_j$收敛于0，与$H^2$范数恒为1矛盾。
+    }
+\end{enumerate}
+
+不同边界条件(需要符合强制性要求)：
+\begin{enumerate}
+    \item 夹板情况
+    $$V^o=\bigg\{v\in H^2\mid v\big|_{\partial\Omega}=0,\frac{\partial v}{\partial\nu}\bigg|_{\partial\Omega}=0\bigg\}$$
+    \item 简单支撑
+    $$V^{ss}=\big\{v\in H^2(\Omega)\mid v\big|_{\partial\Omega}=0\big\}$$
+    利用分部积分可发现对应原方程边界条件为($t$表切向导数)
+    $$u\big|_{\partial\Omega}=0,\quad\bigg(\triangle u+(1-\nu)\frac{\partial^2u}{\partial t^2}\bigg)\bigg|_{\partial\Omega}=0$$
+\end{enumerate}
+
+\section{非协调变分}
+之前的理论基本要求一定的协调性，也即$V_h\subset V=H_0^1(\Omega)$，$V_h$能作为真解所在空间$V$的子空间。
+
+其被破坏存在两种可能情况：
+\begin{enumerate}
+    \item 区域边界弯曲，此时对应的曲边边界导致基本单元更难控制，固定边界几个点为0无法保证全为0。
+    \item 单元非全局连续，此时对应非连续有限元[Dicontinuous Galerkin, DG]方法。
+\end{enumerate}
+
+\subsection{Strang引理}
+引理1：若$V,V_h$均在某Hilbert空间$H$中，假设$a(u,v)$在$H$上有界(参数$M$)且在$V_h$上强制(参数$\gamma$)，设$u\in V$满足
+$$\forall v\in V,\quad a(u,v)=F(v)$$
+$u_h\in V_h$满足
+$$\forall v\in V_h,\quad a(u_h,v)=F(v)$$
+则有估算
+$$\|u-u_h\|_H\le\bigg(1+\frac{M}{\gamma}\bigg)\inf_{v_h\in V_h}\|u-v_h\|_H+\frac{1}{\gamma}\sup_{w\in V_h}\frac{|a(u-u_h,w)|}{\|w\|_H}$$
+\proo{
+    对任何$v\in V_h$，利用强制性(注意$v-u_h\in V_h$)放缩第二项可知
+    $$\|u-u_h\|_H\le\|u-v\|_H+\|v-u_h\|_H\le\|u-v\|_H+\frac{1}{\gamma}\sup_{w\in V_h}\frac{a(v-u_h,w)}{\|w\|_H}$$
+    进一步拆分得到
+    $$\|u-u_h\|_H\le\|u-v\|_H+\frac{1}{\gamma}\sup_{w\in V_h}\frac{a(u-v,w)}{\|w\|_H}+\frac{1}{\gamma}\sup_{w\in V_h}\frac{a(u-u_h,w)}{\|w\|_H}$$
+    左侧利用有界性即合并为了第一项，得证。
+}
+
+*利用证明过程，强制性可减弱为inf-sup条件，即
+$$\inf_{v_h\in V_h}\sup_{w_h\in V_h}\frac{a(v_h,w_h)}{\|v_h\|_H\|w_h\|_H}>0$$
+
+*此定理可以直接推出Ce\`a引理。
+
+*下界估算：可发现引理中左侧下界也可被右侧倍数控制。
+
+\
+
+引理2：若$\dim V_h$有限，双线性型$a_h$在$V+V_h$上半正定，其在$V$上的限制为$a$，设$u\in V$满足
+$$\forall v\in V,\quad a(u,v)=F(v)$$
+$u_h\in V_h$满足
+$$\forall v\in V_h,\quad a_h(u_h,v)=F(v)$$
+则
+$$\|u-u_h\|_H\le\inf_{v_h\in V_h}\|u-v\|_H+\sup_{w\in V_h}\frac{a_h(u-u_h,w)}{\|w\|_H}$$
+
+\proo{
+    设$\tilde{u}_h\in V_h$为
+    $$\forall v\in V_h,\quad a_h(\tilde{u}_h,v)=a_h(u,v)$$
+    的解，则
+    $$\|u-u_h\|_H\le\|u-\tilde{u}_h\|_H+\|\tilde{u}_h-u_h\|_H$$
+    根据$\tilde{u}_h$的定义，其事实上即为使得$\|u-v_h\|_H$取inf的$v_h$，于是第二项为
+    $$\sup_{w\in V_h}\frac{a_h(\tilde{u}_h-u_h,w)}{\|w\|_H}$$
+    这就得到了证明。
+}
+
+*一般比引理1应用范围更广。
+
+\subsection{插值点边界条件}
+*引理1的应用。
+
+考虑区域$\Omega\subset\mathbb{R}^2$有光滑曲边，曲边三角形网格$T$满足每个单元存在其包含的圆$D_1$与包含其的圆$D_2$，使得
+$$\frac{\diam D_2}{\diam D_1}\le\rho$$
+此时有估计(设$P$为所有多项式构成的空间)
+$$\forall\phi\in P,\quad\|\phi\|_{W_\infty^{k-1}(D_2)}\le C_{k,\rho}(\diam D_1)^{1-k}\|\phi\|_{H^1(D_1)}$$
+
+利用数值代数知识，考虑一维的Gauss-Lobatto点$\xi_j$，对应权重$w_j$，可得
+$$\int_0^1p(x)\dr x=\sum_{k=0}^{k-1}w_j p(\xi_j)$$
+对任何$2k-1$次多项式成立，从而可估算
+$$\bigg|\int_0^hf(x)\dr x-h\sum_{j=0}^{k-1}w_jf(h\xi_j)\bigg|\le C_kh^{2k-1}\|f^{(2k-2)}\|_{L^\infty}$$
+由此，利用映射将边界拉平，可定义有限元空间
+$$V_h=\{v\in C^0(\bar\Omega)\mid v\big|_T\in \cp_{k-1},v\big|_G=0\}$$
+这里集合$G$为每段曲边的两个边界点与$k-2$个Gauss-Lobatto点。
+
+考虑$-\triangle u=f$，有
+$$a(v,w)=\int_\Omega\nabla v\cdot\nabla w\dr x$$
+解出对应的$u_h$后，为利用引理1，只需对任何$w\in V_h$估计
+$$a(u-u_h,w)=a(u,w)-(f,w)=\int_\Omega\nabla u\cdot\nabla w\dr x-\int_\Omega(-\triangle u)w=\int_{\partial\Omega}\frac{\partial u}{\partial\nu}w\dr s$$
+
+为了进一步估计，需要更多估算的引理：设$T$为有曲边$e$的三角形，满足存在本节开头的界$\rho$，且$u\in W_\infty^{2k-1}(T)$，则有
+$$\bigg|\int_e\frac{\partial u}{\partial\nu}w\dr s\bigg|\le C_{k,\rho}|e|^{2k-1/2}(\diam D_2)^{-k}\|u\|_{W_\infty^{2k-1}}\|w\|_{H^1}$$
+这里$|e|$为弧长。
+
+\proo{
+    考虑弧长参数的映射$s\to x(s)$将弧拉直，可估算
+    $$\bigg|\int_0^{|e|}\frac{\partial u}{\partial\nu}(x(s))w(x(s))\dr s-|e|\sum_j\frac{\partial u}{\partial\nu}(x(s_j))w(x_j)w_j\bigg|$$
+    利用Gauss-Lobatto点的性质即得上式不超过(由$w\in V_h$至多只会涉及$k-1$阶导数)
+    $$C_k|e|^{2k-1}\bigg\|\frac{\partial u}{\partial\nu}\bigg\|_{W^{2k-2}}\|w\|_{W_\infty^{k-1}}$$
+    利用反向估算与局部迹不等式(见下节)即得其
+    $$\le C_{k,\rho}|e|^{2k-1/2}(\diam D_2)^{-k}\|u\|_{W_\infty^{2k-1}}\|w\|_{H^1}$$
+    而根据有限元要求，$u$在$x(s_j)$均为0，从而得证。
+
+    *书上此处有误，未使用局部迹不等式，因此无法转移到边界。
+}
+
+\
+
+整体估计：若$u\in W_\infty^{2k-1}(\Omega)$，则有
+$$\sup_{w\in V_h}\frac{|a(u-u_h,w)|}{\|w\|_{H^1}}\le C_{k,\rho} h^{k-1}\|u\|_{W_\infty^{2k-1}}$$
+
+\proo{
+    由之前的计算可知
+    $$|a(u-u_h,w)|=\bigg|\int_{\partial\Omega}\frac{\partial u}{\partial\nu}w\dr s\bigg|\le\sum_{e\in\ce_h^\partial}\bigg|\int_e\frac{\partial u}{\partial\nu}w\dr s\bigg|$$
+    这里$\ce_h^\partial$指有边界处曲边的单元，其个数应近似为周长除以$h$，从而利用引理得其可被放缩为(将$h^k$拆分为两部分，保留一部分作为$h^{k-1}$，剩下的合并为整体)
+    $$C_{k,\rho}h^{k-1}\|u\|_{W_\infty^{2k-1}}\sum_e|e|^{1/2}\|w\|_{H^1(T)}\le C_{k,\rho}h^{k-1}\|u\|_{W_\infty^{2k-1}}\|w\|_{H^1}\bigg(\sum_e|e|\bigg)^{1/2}$$
+    而$\sum_e|e|$即为周长，从而得证。
+}
+
+下面用整体估计证明$a$在$V_h$上强制。
+
+\proo{
+    利用Poincar\'e不等式可知存在$\beta>0$使得对$v\in H^1$有
+    $$\beta\|v\|_{H^1}\le|v|_{H^1}+\bigg|\int_{\partial\Omega}v\dr s\bigg|$$
+
+    下证存在$\gamma>0$使得对充分小的$h$有
+    $$\forall v\in V_h,\quad a(v,v)\ge\gamma\|v\|_{H^1}^2$$
+    利用整体估计可知
+    $$\bigg|\int_{\partial\Omega}\frac{\partial u}{\partial \nu}v\bigg|\dr s\le Ch^{k-1}\|u\|_{W_\infty^{2k-1}}\|v\|_{H^1}$$
+    由边界光滑性，取满足$\frac{\partial u}{\partial\nu}$恒为1的$u^*$\ (由边界光滑，一定可解出符合要求的)，可知
+    $$\bigg|\int_{\partial\Omega}v\dr s\bigg|\le Ch^{k-1}\|v\|_{H^1}$$
+    再利用证明开始的估计可得证。
+}
+
+由此，结合插值控制第一项可最终通过引理1进行能量范数估算。
+
+\subsection{C-R单元上的估算}
+*引理2的应用。
+
+考虑C-R单元，作三角剖分，以每边中点定义$N_i$，$V_h$要求分片线性，边界处的所有中点处要求为0，内部的所有中点两侧值相等。
+
+定义
+$$a_h(v,w)=\sum_T\int_T\nabla v\cdot\nabla w\dr x,\quad\forall v,w\in V+V_h$$
+对应的$\|w\|_h=\sqrt{a_h(w,w)}$，数值解即为满足
+$$\forall v\in V_h,\quad a_h(u_h,v_h)=(f,v_h)$$
+的$u_h\in V_h$，利用第二个Strang引理可知
+$$\|u-u_h\|_h\le\inf_{v_h\in V}\|u-v_h\|_h+\sup_{w\in V_h}\frac{|a_h(u-u_h,w)|}{\|w\|_h}$$
+第一项可被插值控制得到$O(h)$，从而只需估计$a_h(u-u_h,w)$，下面证明其$O(h)$，由此最终为一阶(能被$Ch|u|_{H^2}$控制)。
+
+\proo{
+    有
+    $$a_h(u-u_h,w)=\sum_T\int\nabla u\cdot\nabla w\dr x-\sum_T\int_T f\omega\dr x$$
+    与上节类似利用Gauss定理计算得
+    $$a_h(u-u_h,w)=\sum_T\int_{\partial T}\frac{\partial u}{\partial\nu}w\dr s$$
+    由于$w$在边的两侧可能不连续，对于内部的所有边界的求和无法反向消去。将此求和记为
+    $$\sum_{e\in\ce_h}\int_e\nabla u\cdot[w]\dr s$$
+    这里$\ce_h$代表对所有内部与边界的边求和，$[w]$在内部边上的值为$(\omega^+-\omega^-)\vec{n}_e$，这里$\omega^+$为$\vec{n}_e$出发一侧的值，$\omega^-$为$\vec{n}_e$指向一侧的值，而对于边界边则假设指向一侧的值为0。
+
+    注意到根据CR单元的假设与$w$的线性性有
+    $$\int_e[w]\dr s=0$$
+    从而任取$c_e$有
+    $$\sum_{e\in\ce_h}\int_e\nabla u\cdot[w]\dr s=\sum_{e\in\ce_h}\int_e(\nabla u\cdot\vec{n}_e-c_e)\vec{n}_e\cdot [w]\dr s$$
+    利用函数的Cauchy不等式可知其
+    $$\le\sum_{e\in\ce_h}|e|^{-1/2}\|\nabla u\cdot\vec{n}_e-c_e\|_{L^2(e)}|e|^{1/2}\|[w]\|_{L^2(e)}$$
+    下面说明利用向量的Cauchy不等式可得其($\ct_e$指以$e$为边的单元)
+    $$\le C\bigg(\sum_{e\in\ce_h}\min_{c_e}\bigg(h_T^{-2}\|\nabla u\cdot\vec{n}_e-c_e\|_{L^2(T)}^2+|u|_{H^2(T)}^2\bigg)\bigg)^{1/2}\bigg(\sum_{e\in\ce_h}\sum_{T\in\ct_e}h_T^2|w|_{H^1(T)}^2\bigg)^{1/2}\le C'h|u|_{H^2}\|w\|_h$$
+
+    这里第一个不等号后左侧的项利用了局部迹不等式
+    $$|e|^{-1/2}\|v\|_{L^2(e)}\le C_0h_T^{-1}\|v\|_{L^2(T)}+|v|_{H^1(T)}$$
+
+    第二个不等号后$|u|_{H^2}$项来自于取使得范数最小的$c_e$后由Poincar\'e不等式估算。
+
+    第一个不等号后右侧的项来自
+    $$\sum_e|e|\|[w]\|_{L^2(e)}^2=\sum_e\bigg\|[w]-\frac{1}{|e|}\int_e[w]\dr x\bigg\|_{L^2(e)}^2$$
+    由Poincar\'e不等式与Minkowski不等式可将其放为
+    $$\sum_eC_0'|e||e|^2|[w]|_{H^1(e)}^2\le\sum_e|e|^3\big(|w^+|_{H^1(e)}^2-|w^-|_{H^1(e)}^2\big)$$
+    由于$w$多项式可得局部迹不等式
+    $$|e|^{-1/2}\|w\|_{L^2(e)}\le C_0h_T^{-1}\|w\|_{L^2(T)}$$
+    由此上式进一步放为
+    $$C'\sum_e|e|^2(|w^+|_{H^1(T^+)}^2+|w^-|_{H^1(T^-)}^2)$$
+    考虑每个单元重复次数即得不超过
+    $$C''|e|^2\|w\|_h^2$$
+    这些结合即能得到最终的估计。
+}
+
+\
+
+对偶论证：若$-\triangle z=u-u_h$，可发现
+$$\forall v\in H_0^1(\Omega),\quad a(v,z)=(v,u-u_h)$$
+
+考虑对偶问题解的离散，即$z_h\in V_h$使得
+$$\forall v\in V_h,\quad a_h(v,z_h)=(v,u-u_h)$$
+
+下面以此估算$\|u-u_h\|_{L^2}$为$O(h^2)$。
+
+\proo{
+    由于利用之前估计已知
+    $$\|z-z_h\|_h\le Ch\|z\|_{H^2}$$
+    为估算$u-u_h$的$L^2$误差，写出等式
+    $$\|u-u_h\|_{L^2}^2=(u-u_h,u-u_h)=a_h(u,z)-a_h(u_h,z_h)=a_h(u-u_h,z-z_h)+a_h(u-u_h,z_h)+a_h(u_h,z-z_h)$$
+    第一项不超过$h^2|u|_{H^2}|z|_{H^2}$的倍数，第二项、第三项完全对称，只需对第二项进行估算。
+
+    第二项可写为
+    $$a_hh(u-u_h,z_h-I_hz)+a_h(u-u_h,I_hz)$$
+    由于$z-z_h$与$z-I_hz$均能被$h|z|_{H^2}$倍数控制，左侧仍然能被$h^2|u|_{H^2}|z|_{H^2}$的倍数控制。对于右侧，与之前证明同理得
+    $$a_h(u-u_h,I_hz)=\sum_{e\in\ce_h}\int\nabla u\cdot[I_hz]\dr s$$
+    任取$c_e$，由于$z$无跳跃可知$[I_hz]=-[z-I_hz]$，于是其为
+    $$-\sum_{e\in\ce_h}\int_e(\nabla u\cdot\vec{n}_e)\vec{n}_e\cdot[z-I_hz]\dr s$$
+    类似利用局部迹不等式可得到上方能被$h^2|u|_{H^2}|z|_{H^2}$的倍数控制。
+
+    综合以上可得存在$C'$使得
+    $$\|u-u_h\|_{L^2}^2\le C'h^2|u|_{H^2}|z|_{H^2}$$
+
+    作正则性假设$|z|_{H^2}\le C''\|u-u_h\|_{L^2}$，即得到了最终结论。
+}
+
+\subsection{非连续有限元}
+考虑对于网格$T$的函数空间
+$$V_h=\{v\in L^2\mid v|_T\in\cp_1\}$$
+也即完全不进行连续性约束，只要求分片线性(事实上定义为$\cp_k$也符合下方推导)。
+
+希望能在此网格为$-\triangle u=f$设计保证相容性的格式：
+\begin{enumerate}
+    \item 对$v\in V_h$，方程两边乘$v$并积分可分部积分计算得到
+    $$\int_T\nabla u\cdot\nabla v\dr x-\int_{\partial T}\nabla u\cdot(v\vec{n})\dr s=\int_Tfv\dr x$$
+    对所有单元求和有
+    $$\sum_T\in_T\nabla u\cdot\nabla v\dr x-\sum_{e\in\ce_h}\int_e\nabla u\cdot[v]\dr s=\sum_T\int_Tfv\dr x$$
+    \item 加入\textbf{内部惩罚}，定义
+    $$a_h^\pm(u,v)=\sum_T\nabla u\cdot\nabla v\dr x-\sum_{e\in\ce_h}\int_e\ave{\nabla u}\cdot[v]\dr s\pm\sum_{e\in\ce_h}\int_e\ave{\nabla v}\cdot[u]\dr s+\eta\sum_{e\in\ce_h}|e|^{-1}\int_e[u]\cdot[v]\dr s$$
+    其中$\ave{g}$为$g$在两侧逼近时的极限的平均，若为边界边则即为单侧的值。
+
+    *这个构造称为IPDG，$\eta>0$为充分大的常数。
+
+    *由于真解$u$连续，$V$中后两项不存在，因此符合要求。
+
+    \item 在此定义下，设$V+V_h$上有
+    $$\forall v\in V_h,\quad a_h^\pm(u_h,v_h)=(f,v_h)$$
+    的解为$u_h^\pm$，我们希望说明其具有良好的近似性质。
+\end{enumerate}
+
+先研究$a_h^\pm$的性质。从形式上可以看出$a_h^-$对称，事实上利用$V_h$为分片多项式，通过局部迹不等式可证明$a_h^\pm$在$V_h$中强制。我们需要先定义合适的范数：
+
+$$\|v\|_h^2=\sum_T\|\nabla v\|_{L^2(T)}^2+\eta^{-1}\sum_{e\in\ce_h}|e|\|\ave{\nabla v}\|_{L^2(e)}^2+2\eta\sum_{e\in\ce_h}|e|^{-1}\|[v]\|_{L^2(e)}^2$$
+
+$$\mm{v}_h^2=\sum_T\|\nabla v\|_{L^2(T)}^2+\eta\sum_{e\in\ce_h}|e|^{-1}\|[v]\|_{L^2(e)}^2$$
+
+\textbf{有界性}：$a_h^\pm(u,v)\le\|u\|_h\|v\|_h$\ (对每项利用Cauchy不等式)。
+
+在$V_h$上由定义$\mm{v}_j\le\|v\|_h$，且$\|v\|_h\le C(1+\eta^{-1})\mm{v}_h$，从而有两范数等价。
+
+\proo{
+    利用局部迹不等式与反向估计可知对多项式有
+    $$|e|^{-1}\|\phi\|_{L^2(e)}^2\le Ch^{-2}\|\phi\|_{L^2(\omega_e)}^2$$
+    这里$\omega_e$为所有闭包与$e$有公共点的单元集合，由Brenner第四章习题，形状正则三角剖分存角度下界，从而$\omega_e$里每个单元出现次数至多有限，代入定义即可验证第二式成立。
+}
+
+于是对$u_h^+$有估计
+$$\|u-u_h^+\|_h\le C(1+\eta^{-1})^2\inf_{v\in V_h}\|u-v\|_h$$
+
+\proo{
+    由于对$v\in V_h$有
+    $$\|u-u_h^+\|_h\le\|u-v\|_h+\|v-u_h^+\|_h$$
+    第二项在离散空间中，利用范数等价性与$a_h^+(v_h,v_h)=\mm{v_h}_h^2$可知
+    $$\|u-u_h^+\|_h\le\|u-v\|_h+C(1+\eta^{-1})\mm{v-u_h^+}_h\le\|u-v\|_h+C(1+\eta^{-1})\sup_{w\in V_h}\frac{a_h^+(u_h^+-v,w)}{\mm{w}_h}$$
+    而由于$u_h^+$在$V_h$中的结果与$u$相同，有
+    $$\|u-u_h^+\|_h\le\|u-v\|_h+C(1+\eta^{-1})\mm{v-u_h^+}_h\le\|u-v\|_h+C(1+\eta^{-1})\sup_{w\in V_h}\frac{a_h^+(u-v,w)}{\mm{w}_h}$$
+    再次利用范数等价性，可将$\mm{w}_h$缩小为$C'(1+\eta^{-1})^{-1}\|w\|_h$，通过有界性结论，并将$\|u-v\|_h$也放大为$(1+\eta^{-1})^2$即得证。
+}
+
+*由于$a_h^+(u,v)\ne a_h^+(v,u)$，无法进行对偶论证。
+
+对$u_h^-$，存在$\eta_*$使得对$\eta>\eta_*$有
+$$\|u-u_h^-\|_h\le C(1+\eta^{-1})^2\inf_{v\in V_h}\|u-v\|_h$$
+
+\proo{
+    可以发现，只要证明了$\eta$充分大时
+    $$\forall v\in V_h,\quad a_h^-(v,v)\ge\frac{1}{2}\mm{v}_h$$
+    即可完全类似上一个证明得到结论。
+
+    直接由Cauchy不等式估算
+    $$\sum_{e\in\ce_h}\int_e\ave{\nabla v}\cdot[v]\dr s\le\sum_{e\in\ce_h}|e|^{1/2}\|\ave{\nabla v}\|_{L^2(e)}|e|^{-1/2}\|[v]\|_{L^2(e)}$$
+    类似范数等价的证明，用局部迹不等式和反向估算可控制$|e|^{1/2}\|\ave{\nabla v}\|_{L^2(e)}$为$\|\nabla v\|_{L^2(\omega_e)}$，从而再利用基本不等式得到
+    $$\sum_{e\in\ce_h}\int_e\ave{\nabla v}\cdot[v]\dr s\le\frac{\varepsilon C_*}{2}\sum_{T\in T_h}\|\nabla v\|_{L^2(T)}^2+\frac{1}{2\varepsilon}\sum_{e\in\ce_h}|e|^{-1}\|[v]\|_{L^2(e)}^2$$
+    取$\varepsilon=\frac{1}{2C_*}$、$\eta_*=4C_*$，利用上式代入验证即可知成立。
+}
+
+*能量范数误差估计(当$\eta>\eta_*$时)
+$$\|u-u_h^\pm\|_h\le C(\eta+\eta^{-5})^{1/2}h|u|_{H^2}$$
+
+\proo{
+    由之前的误差估计，将$v$取为可知
+    $$\|u-u_h^\pm\|_h^2\lesssim(1+\eta^{-1})^4\|u-I_hu\|_h^2$$
+    展开$\|u-I_hu\|_h^2$并通过局部迹不等式拆分可估算出最终结论。
+}
+
+*可以进行对偶论证得到二范数误差估计
+$$\|u-u_h^-\|_{L^2}\le C(\eta+\eta^{-5})h^2|u|_{H^2}$$
+能量范数与二范数的完整估计过程见作业。
+
+\section{自适应网格}
+*本部分参考论文Quasi-Optimal Convergence Rate for an Adaptive Finite Element Method。
+
+*思路：先在某网格下得到解，再从解重新决定网格，以此循环。核心过程为从解更新网格的方式。
+
+考虑变系数Poisson方程的模型问题(一致椭圆条件满足，且$\alpha\in W_\infty^1$)
+$$a(v,w)=\int_\Omega\alpha(x)\nabla v\cdot\nabla w\dr x$$
+有限元空间为$V(\ct)$为网格$\ct$上的$\cp_k$-Lagrange元，数值求解
+$$\forall v\in V(\ct),\quad a(u_h,v_h)=(f,v)$$
+假设真解空间$V\subset H_0^1$。
+
+\subsection{误差估计子}
+设$e_h=u-u_h$，则
+$$\forall v\in V,\quad a(e_h,v)=R(v),\quad R(v)=\sum_T\int_T(f+\nabla\cdot(\alpha\nabla u_h))v\dr x+\sum_e\int_e-[\alpha\nabla u_h]v\dr x$$
+
+\proo{
+    直接计算
+    $$a(u-u_h,v)=\sum_T\int_T\alpha\nabla(u-u_h)\cdot\nabla v\dr x$$
+    利用Gauss公式处理$\nabla v$可知其为
+    $$\sum_T\int_T-\nabla\cdot(\alpha\nabla(u-u_h))v\dr x+\sum_T\int_{\partial T}\alpha\nabla(u-u_h)\cdot\vec{n}v\dr x$$
+    第一项已经符合要求，而由$u$光滑性与$H_0^1$，第二项中$u$相关的部分可以抵消，从而得到结论。
+}
+
+*将$f+\nabla\cdot(\alpha\nabla u_h)$记作$R_A(u_h)$，$-[\alpha\nabla u_h]$记作$R_J(u_h)$。
+
+由此计算可知
+$$\|e_h\|_{H^1}^2=R(e_h)\le\|R\|_{H^{-1}}\|e_h\|_{H^1}$$
+从而
+$$\|e_h\|_{H^1}\le\|R\|_{H^{-1}}$$
+但后者难以估算。
+
+另一方面，有局部性质
+$$\|v-I_hv\|_{L^2(T)}\le  Ch_T|v|_{H^1(\omega_T)}$$
+$$\|v-I_hv\|_{L^2(e)}\le C|e|^{1/2}|v|_{H^1(\omega_e)}$$
+这里$\omega_T$为所有闭包和$T$闭包有公共点的单元集合。从而可发现
+$$|R(v)|=|R(v-I_hv)|=\bigg|\sum_T\int_TR_A(u_h)(v-I_hv)\dr x+\sum_e\int_eR_J(u_h)(v-I_hv)\dr s\bigg|$$
+于是利用Cauchy不等式即得($\omega_T$中每个单元出现次数亦至多有限)
+$$|R(v)|\le C\bigg(\sum_T\|R_A(u_h)\|_{L^2(T)}^2h_T^2+\sum_e\|R_J(u_h)\|_{L^2(e)}^2|e|\bigg)^{1/2}|v|_{H^1}$$
+从而可估算出
+$$\|e_h\|_{H^1}\le C\bigg(\sum_T\|R_A(u_h)\|_{L^2(T)}^2h_T^2+\sum_e\|R_J(u_h)\|_{L^2(e)}^2|e|\bigg)^{1/2}$$
+定义局部误差指示子为
+$$\ce^2(u_h,T)=h_T^2\|f+\nabla\cdot(\alpha\nabla u_h)\|_{L^2}^2+\sum_{e\in\partial T}|e|\|[\alpha\nabla u_h]\|_{L^2}^2$$
+即有
+$$\|e_h\|_{H_1}^2\lesssim\sum_T\ce^2(u_h,T)$$
+
+*可等价利用$\ce(u_h,e)$控制。
+
+\subsection{误差下界}
+记$\alpha_1=\|\alpha\|_{L^\infty}$。对$D\subset V$，任何$H_0^1(D)$中的$v$有
+$$R(v)=a(e_h,v)\le\alpha_1|e_h|_{H^1(D)}|v|_{H^1(D)}$$
+也即
+$$\|R\|_{H^{-1}(D)}\le\alpha_1|e_h|_{H^1(\Omega)}$$
+考虑$D=T$，设$r$是$T$上的$R_A(u_h)$，有(注意此时边界为0，最后一个不等号来自Poincar\'e不等式)
+$$\|R\|_{H^{-1}(T)}=\sup_{v\in H_0^1(T)}\frac{R(v)}{|v|_{H^1(T)}}=\|r\|_{H^{-1}(T)}\le Ch_T\|r\|_{L^2(T)}$$
+由于误差的能量范数为$\|R\|_{H^{-1}}$，这等价于$\big(\sum\|R\|_{H^{-1}}^2\big)^{1/2}$，其又等价于$\big(\sum\|r\|_{H^{-1}}^2\big)^{1/2}$，但直接每项放成$h_T\|r\|_{L^2(T)}$时不再等价，无法再反向控制。
+
+*当$r$是常数时，计算可得反向估算显然成立，因此不成立的主要原因是振荡无法控制。于是希望证明$\|e_h\|_{H^1}$的下界由$R_A$与振荡共同控制。将$\bar{r}_T$记为其单元平均，有(这里$\lesssim$为相差常数倍意义下的小于等于)
+$$h_T\|r\|_{L^2(T)}\le h_T\|\bar{r}_T\|_{L^2(T)}+h_T\|r-\bar{r}_T\|_{L^2(T)}\lesssim \|\bar{r}_T\|_{H^{-1}(T)}+h_T\|r-\bar{r}_T\|_{L^2(T)}$$
+再将第一项拆分为$\bar{r}_t-r_t$与$r_t$，应用$H_1$被$L^2$控制即得
+$$h_T\|r\|_{L^2(T)}\lesssim\|r\|_{H^{-1}(T)}+h_T\|r-\bar{r}_t\|_{L^2(T)}$$
+
+对$R_J$，有类似的估计($\bar{R}_J$为均值)
+$$\|\bar{R}_J\|_{L^2(e)}\lesssim|e|^{1/2}\|R_A\|_{L^2(\omega_e)}+|e|^{-1/2}\|R\|_{H^{-1}(\omega_e)}+\|R_J-\bar{R}_J\|_{L^2(e)}$$
+
+\proo{
+    考虑截断函数$\eta_e$使得其值域为$[0,1]$且支集在$\omega_e$上，使得
+    $$|e|\lesssim\int_e\eta_e\dr s,\quad\|\nabla\eta_e\|_{L^\infty}\lesssim h^{-1}$$
+    此时记$\Psi_e=\bar{R}_J\eta_e$即有
+    $$\|\bar{R}_J\|_{L^2(e)}^2\lesssim\int_e\bar{R}_J\Psi_e\dr s=\int_eR_J\Psi_e\dr s+\int_e(\bar{R}_J-R_J)\Psi_e\dr s$$
+    第一项利用误差公式可知(由$\eta_e$支集可任意延拓)为
+    $$-\int_{\omega_e}R_A\Psi_e+R(\Psi_e)$$
+    从而模长不超过
+    $$\|R_A\|_{L^2(\omega_e)}\|\Psi_e\|_{L^2(\omega_e)}+\|R\|_{H^{-1}}(\omega_e)\|\nabla\Psi_e\|_{L^2(\omega_e)}$$
+    可发现$\|\Psi_e\|_{L^2(\omega_e)}\sim|e|^{1/2}\|\bar{R}_J\|_{L^2(e)}$，$\nabla\|\Psi_e\|_{L^2(\omega_e)}\sim|e|^{-1/2}\|\bar{R}_J\|_{L^2(e)}$，即得到第一项的估算。
+
+    对第二项直接利用Cauchy不等式有
+    $$\bigg|\int_e(\bar{R}_J-R_J)\Psi_e\dr s\bigg|\le\|R_J-\bar{R}_J\|_{L^2(e)}\|\bar{R}_J\|_{L^2(e)}$$
+    综合即得证。
+
+}
+
+利用$R_J$的估计可知
+$$|e|^{1/2}\|R_J\|_{L^2(e)}\le|e|\|R_A\|_{L^2(\omega_e)}+\|R\|_{H^{-1}(\omega_e)}+|e|^{1/2}\|R_J-\bar{R}_J\|_{L^2(e)}$$
+结合之前$r$的估计可为放缩
+$$|e|^{1/2}\|R_J\|_{L^2(e)}\lesssim\|R\|_{H^{-1}(\omega_e)}+|e|\|R_A-\bar{R}_A\|_{L^2(\omega_e)}+|e|^{1/2}\|R_J-\bar{R}_J\|_{L^2(e)}$$
+定义局部振荡为
+$$\osc^2(u_h,T)=h_T^2\|R_A-\bar{R}_A\|_{L^2(\omega_T)}+\sum_{e\in\partial T}|e|\|R_J-\bar{R}_J\|_{L^2(e)}^2$$
+从而最终得到
+$$\ce^2(u_h,T)\lesssim|u-u_h|_{H^1(\omega_T)}^2+\osc^2(u_h,T)$$
+
+\subsection{算法构造}
+分为SOLVE\ (原网格求解)、ESTIMATE\ (估计单元误差)、MARK\ (标记需要加密的单元)、REFINE\ (根据标记进行加密)四步。
+
+*之前已经完成了求解与单元误差估计。
+
+\
+
+\textbf{MARK}
+
+设网格为$\ct$，其中单元为$T$，标记的基本思路：单元误差估计子$\ce_\ct(u_h,T)$从大到小排序，给定参数$\theta\in(0,1]$，标记的单元集合$M$满足
+$$\sum_{T\in\mathcal{M}}\ce_\ct^2(u_h,T)\ge\theta^2\sum_{T\in\ct_h}\ce_\ct^2(u_h,T)$$
+
+*下将左侧记作$\ce_\ct^2(u_h,\mathcal{M})$，右侧同理。
+
+*理论来说希望标记的单元尽量少。
+
+\
+
+\textbf{REFINE}
+
+对所有被标记的三角形，取最长边中点，切分为两个三角形即可[bisection]。
+
+*取最长边：保证拟一致性。
+
+设加密前$\ct$，加密后$\ct_*$，记作$\ct\le\ct_*$，由加密过程知满足
+$$V(\ct)\subset V(\ct_*)$$
+记$h_\ct$为各三角形中为$h_T=|T|^{1/d}$\ ($d$为维数，由形状正则性可如此假设)的分片线性函数，则有
+$$h_{\ct_*}\le h_\ct$$
+且存在$b\ge1$使得对$T\in\ct\backslash T^*$\ (也即加密后的网格)有
+$$h_{\ct_*}\big|_T\le2^{-b/d} h_\ct\big|_{T}$$
+
+\subsection{收缩特性}
+
+*\textbf{收缩特性}[contraction property]：证明某种误差以指数缩小，从而得到某种收敛性。
+
+记$U$为$V(\ct)$上的有限元解，$\ct_*$为$\ct$的加密，$U_*$为加密后的有限元解，且$\mm{\cdot}$表示内积$a(u,v)$对应的范数。
+
+\textbf{正交}性质：由$U\in V(\ct^*)$直接验证可知
+$$\mm{u-U}^2=\mm{u-U_*}^2+\mm{U-U_*}^2$$
+
+\textbf{Lipschitz}性质：
+$$|\ce_\ct(V,T)-\ce_\ct(W,T)|\lesssim\mm{V-W}_{\omega_T}$$
+
+\proo{
+    直接计算可知(利用Minkowski不等式并放缩)
+    $$|\ce_\ct(V,T)-\ce_\ct(W,T)|\lesssim h_T\|R_A(V)-R_A(W)\|_{L^2(T)}+|e|^{1/2}\|R_J(V)-R_J(W)\|_{L^2(\partial T)}$$
+
+    设$E=V-W$，则
+    $$R_A(V)-R_A(W)=(\nabla\cdot\alpha)\nabla E+\alpha\cdot\nabla^2E$$
+    由$\alpha$有界性要求，第一部分已被$\|\nabla E\|_{L^2(T)}$控制，而这又能被$\mm{E}$控制。第二部分利用反向估算即可被$\|\nabla\|_{L^2(T)}$控制，于是$R_A$项可被控制。
+
+    对$R_J$项，写出定义并利用局部迹不等式(注意$V,W$局部为多项式，可直接使用多项式版本)即可被$\|\nabla E\|_{L^2(\omega_T)}$控制，从而得证。
+}
+
+\
+
+\textbf{估计子下降}性：设$\mathcal{M}\subset\ct$为被分割的单元，存在$C_0>0$使得对任何$V\in V(\ct)$、$V_*\in\ct_*$与$\delta>0$有
+$$\ce_{\ct_*}^2(V_*,\ct_*)\le(1+\delta)\big(\ce_\ct^2(V,\ct)-\lambda\ce_\ct^2(V,\mathcal{M})\big)+(1+\delta^{-1})C_0^2\mm{V_*-V}^2,\quad\lambda=1-2^{-b/d}$$
+
+\proo{
+    由Lipschitz性质
+    $$\ce_{\ct_*}(V_*,T)\le\ce_{\ct_*}(V,T)+C\mm{V_*-V}_{L^2(\omega_T)}$$
+    对所有网格累加并使用基本不等式可得
+    $$\ce_{\ct_*}(V_*,\ct_*)\le(1+\delta)\ce_{\ct_*}^2(V,\ct_*)+C_0^2(1+\delta^{-1})\mm{V_*-V}^2$$
+    于是只需估计第一项，而考虑到网格的分解性质，将$\ct_*(T)$表示$\ct$中单元$T\in\mathcal{M}$在$\ct_*$中对应的单元(多个)，则(第二项注意尺度与大小)
+    $$\sum_{T'\in\ct_*(T)}h_{T'}^2\|R_A(V)\|_{L^2(T')}^2\le 2^{-2b/d}h_T^2\|R_A(V)\|_{L^2(T)}^2$$
+    $$\sum_{T'\in\ct_*(T)}h_{T'}\|R_J(V)\|_{L^2(\partial T'\cap\partial T)}^2\le 2^{-b/d}h_T\|R_J(V)\|_{L^2(\partial T)}^2$$
+    由于$V$在$T$上并没有跳跃，在$\ct_*$的跳跃积分即为$T$边界的跳跃积分，从而综合两种情况知被标记的部分有
+    $$\ce_{\ct_*}^2(V,\mathcal{M})\le 2^{-b/d}\ce_\ct^2(V,\mathcal{M})$$
+    其余部分两者相等，于是利用
+    $$\ce_{\ct_*}^2(V,\ct_*)=\ce_{\ct_*}^2(V,\mathcal{M})^2+\ce_{\ct_*}^2(V,\ct_*\backslash\mathcal{M})^2$$
+    直接代入计算得到结论。
+}
+
+*一般AFEM分析的困难：无法保证$\ce_\ct$递减，也无法保证$\mm{u-U}\le\rho\mm{u-U_*}$恒成立，其中$\rho<1$。
+
+\textbf{反例}：考虑$\alpha=1$、$f=1$的Poisson问题，可以构造网格使得加密后数值解不变。
+
+*但注意到此式中误差估计子下降，可以期待误差估计子与误差的某线性组合下降。
+
+存在$\gamma>0$与$\rho\in(0,1)$使得上述自适应算法可以保证
+$$\mm{u-U_*}^2+\gamma\ce_{\ct_*}^2(U_*,\ct_*)\le\rho^2\big(\mm{u-U}^2+\gamma\ce_\ct^2(U,\ct)\big)$$
+
+\proo{
+    利用正交性左侧为
+    $$\mm{u-U}^2-\mm{U_*-U}^2+\gamma\ce_{\ct_*}^2(U_*,\ct_*)$$
+    再利用估计子下降性有其不超过
+    $$\mm{u-U}^2-\mm{U_*-U}^2+\gamma\big((1+\delta)\big(\ce_\ct^2(U,\ct)-\lambda\ce_\ct^2(U,\mathcal{M})\big)+(1+\delta^{-1})C_0^2\mm{U_*-U}^2\big)$$
+    取$\gamma=\frac{1}{C_0^2(1+\delta^{-1})}$\ ($\delta$仍保持待定)，可得不超过
+    $$\mm{u-U}^2+\gamma(1+\delta)\big(\ce_\ct^2(U,\ct)-\lambda\ce_\ct^2(U,\mathcal{M})\big)$$
+    利用MARK步骤的要求，上式可放大为
+    $$\mm{u-U}^2+\gamma(1+\delta)\ce_\ct^2(U,\ct)-\gamma(1+\delta)\lambda\theta^2\ce_\ct^2(U,\ct)$$
+    将减法项平分为两部分，利用$\|e_h\|_{H^1}^2\lesssim\ce_\ct^2(u_h,\ct)$进一步放缩可知$\mm{u-U}^2\le C_1\ce_\ct^2(U,\ct)$，从而可放大为
+    $$\bigg(1-\frac{1}{2C_1}\lambda\gamma(1+\delta)\theta^2\bigg)\mm{u-U}^2+(1+\delta)\bigg(1-\frac{1}{2}\lambda\theta^2\bigg)\gamma\ce_\ct^2(U,\ct)$$
+
+    取充分小的$\delta$计算可验证能使左侧右侧的系数都不超过某$\rho^2<1$。
+}
+
+*过程事实上并未要求从大到小进行标记，但从大开始标记可以保证速度相对快。事实上可证明存在某个与$u$相关的$S$使得
+$$\mm{u-U}+\osc_\ct(U,\ct)\lesssim(\#\mathcal{M})^{-S}$$
+这里$\#$代表单元个数。
+
+\section{Babu\v ska-Brezzi理论}
+*本章中默认涉及的空间\textbf{自反}，即$A$到$A''$的自然嵌入是同构。
+
+\subsection{算子表示}
+\begin{itemize}
+    \item 记$T=-\triangle$，其为$H_0^1\to H^{-1}$的算子，则Poisson方程可以看作$Tu=f$。
+    
+    \item 混合问题：$-\nabla\cdot(\alpha\nabla u)=f$，可看作$-\nabla\cdot\vec\cp=f$与$\vec\cp=\alpha\nabla u$构成的方程组。
+    
+    Stokes方程：$-\triangle\vec{u}+\nabla p=\vec{f}$、$\nabla\cdot\vec{u}=0$。
+
+    以上两者都可以看作
+    $$T=\begin{pmatrix}A&B'\\B&O\end{pmatrix}$$
+    在未知函数上的作用等于给定函数，这里$B'$代表$B$的对偶，利用Gauss公式可知$-(\nabla\cdot)$与$\nabla$互为对偶。
+
+    对混合问题，$A=\alpha^{-1}I$，$B=(\nabla\cdot)$，而对Stokes方程有$A=-\triangle$、$B=-(\nabla\cdot)$。
+\end{itemize}
+
+\subsection{Babu\v ska定理}
+考虑方程$Tu=f$，其中$u\in U$、$v\in V$，$U,V$均为Banach空间。我们需要研究算子$T$符合何种性质时方程唯一可解。下假设$T$为有界线性算子，记$T$的值域为$R(T)$。
+
+\textbf{零空间}：$N(T)=\{u\mid Tu=0\}$。
+
+\textbf{零化子}：对$S\in V$，定义$S^0=\{f\in V'\mid\left<f,v\right>=0,\forall v\in S\}$；对$F\in V'$，定义$\uz{F}=\{v\in V\mid\left<f,v\right>=0,\forall f\in F\}$。
+
+由连续性可验证上述三个集合均为闭集，且有$N(T')=R(T)^0$，$R(T)\subset \uz N(T')$。
+
+\
+
+\textbf{闭值域定理}：以下四者等价：
+\begin{enumerate}
+    \item $R(T)$在$V$中闭。
+    \item $R(T')$在$U'$中闭。
+    \item $R(T)=\uz N(T')$。
+    \item $R(T')=N(T)^0$。
+\end{enumerate}
+
+\textbf{开映射定理}：$T$满射可推出$T$为开映射。
+
+\textbf{Banach定理}：若$T$为双射，则$T^{-1}$连续。
+
+\
+
+$R(T)$闭与$T$为单射等价于$T$有下界，即存在$C>0$使得$\|Tu\|_V\ge C\|u\|_U$。
+
+\proo{
+    右推左：由有下界可看出$Tu=0$当且仅当$u=0$，从而单。而$R(T)$中的柯西列可得到其原像为柯西列，从而由连续性可知闭。
+
+    左推右：由条件可不妨设$T$定义在$U\to R(T)$上，且由闭性$R(T)$为Banach空间，从而其逆$T^{-1}$存在，且有界，这即得到
+    $$\|T^{-1}(Tu)\|_U\le C_0\|Tu\|_V$$
+    且根据双射不可能$C_0=0$，从而得证。
+}
+
+$T$为满射等价于$T'$为单射且$R(T')$闭。
+
+\proo{
+    右推左：根据闭值域定理可知$R(T)$闭，若$v\notin R(T)$，利用Hahn-Banach定理，存在$f\in V'$使得$f(R(T))=0$、$f(v)=1$。此时可发现$T'f=0$，与单射矛盾。
+
+    左推右：由满射可知$R(T)$闭，于是$R(T')$闭。直接由定义可发现$T'f=0$当且仅当$f$作用在$V$中任何元素上都为0，从而为0。
+}
+
+*前两引理可直接推出$T$为满射等价于$T'$有下界。
+
+\
+
+考虑双线性型$a:U\times V\to\mathbb{R}$，定义$A:U\to V'$与$A':V\to U'$满足
+$$\left<Au,v\right>=a(u,v)=\left<u,A'v\right>$$
+由此$a(u,v)=f(v)$即变为了$V'$上的$Au=f$。
+
+\textbf{Babu\v ska定理}：设$|a(u,v)|\le C\|u\|_U\|v\|_V$\ (称为$a$\textbf{有界}，即等价于$A$与$A'$有界，将最优的$C$记为$\|a\|$)，称inf-sup条件为
+$$\inf_{v\in V}\sup_{u\in U}\frac{a(u,v)}{\|u\|_U\|v\|_V}=\alpha_E>0$$
+$$\inf_{u\in U}\sup_{v\in V}\frac{a(u,v)}{\|u\|_U\|v\|_V}=\alpha_U>0$$
+则对有界的$a(u,v)$，$a(u,v)=(f,v)$对任何$f$存唯一解当且仅当inf-sup条件成立。进一步地，inf-sup条件成立时有
+$$\|u\|_U\le\alpha_U^{-1}\|f\|_{V'}$$
+
+\proo{
+    inf-sup的第一个条件等价于
+    $$\forall v\in V,\quad\sup_{u\in U}\frac{a(u,v)}{\|u\|_U}\ge\alpha_E\|v\|_V$$
+    也即$A'$有下界$\alpha_E$，根据之前推论等价于$A$为满射。同理，第二个条件等价于$A$为单射且$R(A)$闭，综合可知它们等价于$A$为双射，这就等价于$Au=f$对任何$f$存唯一解。
+
+    利用逆的算子范数为算子范数的逆，$A$有下界$\alpha_U$可知$A^{-1}$不超过$\alpha_U^{-1}$，从而得证。
+}
+
+*强制性可以推出inf-sup条件，于是其为一个\textbf{充分}条件。
+
+*等价形式：在$U,V$为Hilbert空间时，inf-sup条件的第一条等价于(第二条可完全类似)
+$$\exists C_1,C_2,\quad\forall v\in V,\quad\exists u\in U,\quad a(u,v)\ge C_1\|v\|_V^2,\quad\|u\|_U\le C_2\|v\|_V$$
+
+\proo{
+    等价形式推原形式：由条件可取$u$使得(由线性性可乘倍数)
+    $$\frac{a(u,v)}{\|u\|_U\|v\|_V}\ge\frac{C_1\|v\|_V^2}{C_2\|v\|_V^2}=\frac{C_1}{C_2}$$
+
+    原形式推等价形式：由Riesz表示定理存在$f\in V'$使得$f(v)=\|v\|_V^2$且$\|f\|_{V'}=\|v\|_V$。原形式可以推出$A$为满射，由$f$非零可知存在$u\in N(A)^\bot$\ (其上可定义$A^{-1}$)使得$A(u)=f$。直接计算可发现$a(u,v)=\|v\|_V^2$，且$\|u\|_U\le\|A^{-1}\|\|f\|_{V'}$，从而得证。
+}
+
+\
+
+\textbf{离散}：考虑$U_h\in U$、$V_h\in V$，求解(一般$U$、$V$相同)
+$$\forall v\in V_h,\quad a(u_h,v)=f(v_h)$$
+对应的inf-sup条件为
+$$\inf_{v\in V_h}\sup_{u\in U_h}\frac{a(u,v)}{\|u\|_U\|v\|_V}\ge\alpha_h>0$$
+$$\inf_{u\in U_h}\sup_{v\in V_h}\frac{a(u,v)}{\|u\|_U\|v\|_V}\ge\alpha_h>0$$
+由此仍然能保证离散空间中唯一可解。
+
+*于是满足此条件时必然有$\dim U_h=\dim V_h$。
+
+*希望$\alpha_h$随着网格加密有一致下界。
+
+若连续与离散的inf-sup条件都满足，有误差估计(无歧义，省略范数对应的空间)
+$$\|u-u_h\|\le\bigg(1+\frac{\|a\|}{\alpha_h}\bigg)\inf_{w\in U_h}\|u-w\|$$
+\proo{
+    记算子$\cp_h:u\to u_h$满足$u_h=\cp_hu$。由条件可知
+    $$\|\cp_hu\|\le\frac{1}{\alpha_h}\sup_{v\in V_h}\frac{a(\cp_hu,v)}{\|v\|}=\frac{\|a\|}{\alpha_h}\|u\|$$
+    于是利用$U_h$中$\cp_h$为恒等可知对任何$w\in U_h$有
+    $$\|u-u_h\|=\|(I-\cp_h)u\|=\|(I-\cp_h)(w-u)\|\le\|I-\cp_h\|\|u-w\|$$
+    从而再代入上方$\cp_h$的范数得证。
+}
+
+*事实上可证明$\|I-\cp_h\|=\|\cp_h\|$\ (见作业)，从而原结论可加强。
+
+\subsection{Brezzi理论}
+
+考虑如下形式的算子$T$\ (称为\textbf{鞍点系统}[Saddle Point System])
+$$T=\begin{pmatrix}A&B'\\B&O\end{pmatrix}$$
+设双线性型$a:V\times V\to\mathbb{R}$，$b:V\times Q\to\mathbb{R}$，$a$对应的$A$与$A'$、$b$定义的$B$与$B'$同前一节一致。考虑方程
+$$\begin{cases}Au+B'p&=f\quad\text{in}\ V'\\Bu&=g\quad\text{in}\ Q'\end{cases}$$
+其变分形式为
+$$\begin{cases}a(u,v)+b(v,p)&=(f,v),\quad\forall v\in V\\b(u,q)&=(g,q),\quad\forall q\in Q\end{cases}$$
+
+假定$a,b$有界，下面对此方程组进行分析：
+\begin{enumerate}
+    \item 对任何$f$第二个方程有解等价于$B$为满射，也即等价于$B'$有下界，于是等价于
+    $$\forall q\in Q,\quad\|B'q\|_{V'}\ge\beta\|q\|_Q$$
+    考虑最优的$\beta$，对应inf-sup条件为
+    $$\inf_{q\in Q}\sup_{v\in V}\frac{b(v,q)}{\|v\|_V\|q\|_Q}=\beta>0$$
+    
+    *记$Z=N(B)$，可进一步得到，考虑$Z$的某补空间$Z^\oplus$，对任何$g\in Q'$，存在$u_1\in Z^\oplus$使得$Bu_1=g$且$\|u_1\|_V\le\beta^{-1}\|g\|_{Q'}$。第二个方程的解即对应某$u_1$。
+
+    \item 将$u$分解到$Z$与$Z^\oplus$上成为$u_0+u_1$，则有
+    $$\forall v\in Z,\quad a(u_0,v)=(f,v)-a(u_1,v)$$
+    此方程存在唯一解当且仅当$a$在$Z$上满足inf-sup条件。
+    
+    我们还需要证明，即使$u_1$可能多解，$u_0+u_1$也是恒定的。
+    
+    \proo{
+        若存在$u_1$与$\tilde{u}_1$均满足第二个方程，可知$u_1-\tilde{u}_1\in Z$。设$\tilde{u}_1$对应的唯一解为$\tilde{u}_0$，有
+        $$a(\tilde{u}_0+\tilde{u}_1-u_1,v)=(f,v)-a(u_1,v)$$
+        但根据唯一可解性即得左侧的解必然为$u_0$，从而唯一性得证。
+    }
+
+    \item 最后，考虑$B'p=f-Au$。根据之前的分析可发现$f-Au\in Z^0$，从而$p$存在唯一当且仅当$B'$是$Q\to Z^0$的同构，这可以等价于$B'$为单射且$R(B')=Z^0=N(B)^0$，根据闭值域定理后者等价于$R(B)$为闭集，对应的inf-sup条件与第一种情况完全相同。
+\end{enumerate}
+
+综合以上得到\textbf{Brezzi定理}：在$a,b$有界时，原问题对任何$f,g$存唯一解当且仅当
+$$\inf_{q\in Q}\sup_{v\in V}\frac{b(v,q)}{\|v\|_V\|q\|_Q}=\beta>0$$
+$$\inf_{v\in Z}\sup_{u\in Z}\frac{a(u,v)}{\|u\|\|v\|}\ge\alpha>0$$
+$$\inf_{u\in Z}\sup_{v\in Z}\frac{a(u,v)}{\|u\|\|v\|}\ge\alpha>0$$
+且如上条件满足时有
+$$\|u\|_V+\|p\|_Q\lesssim\|f\|_{V'}+\|g\|_{Q'}$$
+\proo{
+    只需证明估算。由Babu\v ska定理上方第一步已经得到
+    $$\|u_1\|_V\lesssim\|g\|_{Q'}$$
+    第二步可说明(第二个不等号由有界性)
+    $$\|u_0\|_V\lesssim\|f\|_{V'}+\|Au_1\|_{V'}\lesssim\|f\|_{V'}+\|u_1\|_V$$
+    第三步得到
+    $$\|p\|_Q\lesssim\|f-Au\|_{V'}\lesssim\|f\|_{V'}+\|Au\|_{v'}\lesssim\|f\|_{V'}+\|u\|_V$$
+    综合即得到成立。
+}
+
+\subsection{一些例子}
+
+对Stokes方程，设边界条件为速度$u$每个分量$H_0^1$，压力$p$为$L_0^2$\ (指均值为0)，其变分形式为对任何每个分量$H_0^1$的$\vec{v}$与$L_0^2$中的$q$有
+$$\begin{cases}a(\vec{u},\vec{v})+b(\vec{v},p)&=(\vec{f},\vec{v})\\b(\vec{v},q)&=0\end{cases}$$
+其中
+$$a(\vec{u},\vec{v})=2(\mathcal{E}(\vec{u}),\mathcal{E}(\vec{v})),\quad\mathcal{E}(\vec{u})=\frac{1}{2}(\nabla\vec{u}+(\nabla\vec{u})^T),\quad b(\vec{u},q)=-\int_\Omega(\nabla\cdot\vec{u})q\dr x$$
+可验证两者有界，$a$为强制，且$b$符合条件，从而可得存在唯一解。
+
+\
+
+\textbf{混合Poisson问题}
+
+原始形式为
+$$-\nabla\cdot(\alpha\nabla p)=f$$
+$$p\big|_{\partial\Omega}=g_D$$
+记$c=\alpha^{-1}$，$\vec{u}=\alpha\nabla p$有
+$$\begin{cases}c\vec{u}-\nabla p&=0\\\nabla\cdot\vec{u}&=-f\end{cases}$$
+
+设$V=H((\nabla\cdot),\Omega)=\{\vec{v}\in L^2\mid\nabla\cdot\vec{v}\in L^2\}$，其范数为$\|\vec{v}\|_{H(\nabla\cdot)}^2=\|\vec{v}\|_{L^2}^2+\|\nabla\cdot\vec{v}\|_{L^2}^2$\ (这里向量值函数的$L^2$范数为其与自己内积的积分平方根)，而$Q=L^2$，变分形式为
+$$\forall\vec{v}\in V,\quad(c\vec{u},\vec{v})+(p,\nabla\cdot\vec{v})=\int_{\partial\Omega}g_D(\vec{v},\vec{n})\dr s$$
+$$\forall q\in Q,\quad (\nabla\cdot\vec{u},q)=(-f,q)$$
+此时由一致椭圆条件，$a$在$\nabla\cdot\vec{v}=0$的空间中满足强制性
+$$(c\vec{v},\vec{v})\ge\|\vec{v}\|_{H(\nabla\cdot)}^2$$
+要验证的条件即$b$的条件
+$$\inf_{q\in L^2}\sup_{\vec{v}\in H(\nabla\cdot)}\frac{(\nabla\cdot\vec{v},q)}{\|\vec{v}\|_{H(\nabla\cdot)}\|q\|_{L^2}}=\beta>0$$
+
+\proo{
+    也即对任何$q$，需要寻找$v$使得上式成立。考虑满足区域内$-\triangle\phi=q$、边界上为0的$\phi$，取$\vec{v}=-\nabla\phi$，即可验证
+    $$(\nabla\cdot\vec{v},q)=\|q\|_{L^2}^2$$
+    由于$\|\nabla\phi\|_{H(\nabla\cdot)}$可被$\|\phi\|_{H^2}$控制，只要区域满足某些椭圆正则假设即可使得其被$\|q\|_{L^2}$控制，从而得证。
+}
+
+\
+
+*事实上Babu\v ska定理、适定性与Brezzi定理相互\textbf{等价}。Brezzi定理考虑$B=0$可得到Babu\v ska定理，而前者通过将算子$T$看作整体可验证后者。
+
+仍以混合Poisson问题为例，定义
+$$L((\vec{u},p),(\vec{v},q))=(\vec{u},\vec{v})+(\nabla\cdot\vec{u},q)+(\nabla\cdot\vec{v},p)$$
+由之前所述$b$的性质与Hilbert空间中inf-sup的等价表示，对任何$p\in L^2$，存在$\hat{u}\in H(\nabla\cdot)$使得
+$$(\nabla\cdot\hat{u},p)\ge\beta\|p\|_{L^2}^2,\quad\|\hat{u}\|_{H(\nabla\cdot)}\le\|p\|_{L^2}$$
+取$\vec{v}=\vec{u}+\alpha\hat{u}$、$q=-p+\theta\nabla\cdot\vec{u}$，其中$\alpha,\theta$待定，可验证
+$$L((\vec{u},p),(\vec{v},q))=\|\vec{u}\|_{L^2}^2+\alpha(\vec{u},\hat{u})+\theta\|\nabla\cdot\vec{u}\|_{L^2}^2+\alpha(\nabla\cdot\hat{u},p)$$
+最后一项至少为$\alpha\beta\|p\|_{L^2}^2$，进一步由Cauchy不等式缩小为
+$$\bigg(1-\frac{\alpha}{2\varepsilon}\bigg)\|\vec{u}\|_{L^2}^2+\theta\|\nabla\cdot\vec{u}\|_{L^2}^2-\frac{\varepsilon\alpha}{2}\|\hat{u}\|_{L^2}^2+\alpha\beta\|p\|_{L^2}^2$$
+再将$\hat{u}$的范数放大为$p$的范数，并取$\alpha=\varepsilon=\beta$、$\theta=1/2$，即可得到其至少为$\|\vec{u}\|_{H(\nabla\cdot)}^2+\|p\|_{L^2}^2$的某倍数。
+
+另一方面， $\vec{v}$与$q$的范数可被$\vec{u}$与$p$的范数控制，从而可知单侧的inf-sup条件成立，另一侧由对称性可知成立，于是得证。
+
+\subsection{Brezzi理论的离散形式}
+
+考虑$V_h\subset V$，$Q_h\subset Q$，离散问题为找$u_h$、$p_h$使得对任何$v_h$、$q_h$有
+$$\begin{cases}a(u_h,v_h)+b(v_h,p_h)&=(f,v_h)\\b(u_h,q_h)&=(g,q_h)\end{cases}$$
+考虑$B_h:V_h\to Q_h'$，定义$Z_h=N(B_h)$，则适定性条件为
+$$\inf_{v\in Z_h}\sup_{u\in Z_h}\frac{a(u,v)}{\|u\|\|v\|}\gtrsim1$$
+$$\inf_{u\in Z_h}\sup_{v\in Z_h}\frac{a(u,v)}{\|u\|\|v\|}\gtrsim1$$
+$$\inf_{q\in Q_h}\sup_{v\in V_h}\frac{b(v,q)}{\|v\|_V\|q\|_Q}\gtrsim1$$
+
+*任意取$Q_h$与$V_h$未必能保证最后一个条件成立。
+
+*对前两个条件，可发现
+$$Z_h=\{v_h\in V_h\mid\forall q\in Q_h,b(v_h,q_h)=0\}$$
+$$Z=\{v\in V\mid\forall q\in Q,b(v,q)=0\}$$
+于是也未必有$Z_h\subset Z$，仍然取决于$Q_h$、$V_h$的选法。
+
+假设有界性与inf-sup假设均成立，有
+$$\|u-u_h\|_V+\|p-p_h\|_Q\lesssim\inf_{v\in V_h}\|u-v\|_V+\inf_{q\in Q_h}\|p-q\|_Q$$
+
+*证明与之前相同。
+
+\
+
+\textbf{Fortin算子}
+
+问题：如何选取$Q_h$与$V_h$？
+
+假设$Q_h$已给定。定义Fortin算子为有界线性算子$\Pi_h:V\to V_h$，满足
+$$\forall q\in Q_h,\quad b(\Pi_hv,q_h)=b(v,q_h)$$
+
+若其存在，则满足
+$$b(\Pi_hv,q_h)=b(v,q_h)=\beta\|q_h\|_Q^2,\quad\|\Pi_hv\|_V\lesssim\|v\|_V\le\|q_h\|_Q$$
+从而inf-sup条件成立。
+
+\section{向量值有限元空间}
+\subsection{梯度算子与正合列}
+考虑三维空间中
+$$H(D,\Omega)=\{v\in L^2(\Omega)\mid Dv\in L^2(\Omega)\}$$
+常用有$D$为$\nabla$\ (此时即为$H^1$)、$\curl$与$\div$。
+
+*对$H(\div)$与$H(\curl)$也有对应的\textbf{迹定理}。对$H(\curl)$考虑$\vec{n}\times\vec{v}$的边界范数，对$H(\div)$考虑$\vec{n}\cdot\vec{v}$的边界范数，这是由于根据高斯定理
+$$\int_\Omega\nabla u\cdot\vec{v}\dr x=\int_\Omega-(\div\vec{v})u\dr x+\int_{\partial\Omega}u(\vec{v}\cdot\vec{n})\dr s$$
+$$\int_\Omega(\curl\vec{u})\cdot\vec{v}=\int_\Omega\vec{u}\cdot(\curl\vec{v})\dr x+\int_{\partial\Omega}(\vec{n}\times\vec{u})\cdot\vec{v}\dr s$$
+$$\int_\Omega(\div\vec{u})v=\int_\Omega(-\vec{u})\cdot\nabla v\dr x+\int_{\partial\Omega}(\vec{u}\cdot\vec{n})v\dr s$$
+
+*之后无歧义时将$\vec{u}$也记为$u$。
+
+区域$\Omega$被$\Gamma$分为两侧，$u$在每一侧光滑，则
+\begin{itemize}
+    \item $u\in H^1(\Omega)$当且仅当$u$跨过边界连续；
+    \item $u\in H(\curl)$当且仅当$n\times u$跨过边界连续(\textbf{切向分量}连续)；
+    \item $u\in H(\div)$当且仅当$n\cdot u$跨过边界连续(\textbf{法向分量}连续)。
+\end{itemize}
+
+\proo{
+    只证明第二条，其他类似。
+
+    左推右：对任何$\phi\in C_0^\infty(\Omega)$，有
+    $$\int_\Omega(\curl u)\cdot\phi\dr x=\int_\Omega u\cdot(\curl\phi)\dr x$$
+    将左侧利用Gauss公式拆分可得到只剩下边界两侧$(n\times u)\cdot\phi$积分的两项，由它们相互抵消可知$n\times u$在边界附近连续。
+
+    右推左：考虑$\curl u$如上的积分可知成立。
+}
+
+\
+
+*下方单元构造的本质：梯度、旋度、散度算子满足\textbf{正合性}，也即前一个的像空间在后一个的核空间中(它们可统一为外微分$d$)。而对多项式$p$或$\vec{p}$来说，上述的$\nabla$作用对应降阶，$\vec{x}p$、$\vec{x}\times\vec{p}$、$\vec{x}\cdot\vec{p}$对应升阶，且此三作用亦满足正合性(其中标量与向量的转换与$\nabla$算子效果完全类似，它们可统一为算子$K$)。对齐$k$次多项式或齐$k$次向量值多项式(本质上对应齐次多项式的$r$-形式$\omega$)，事实上有
+$$(dK+Kd)\omega=(k+r)\omega$$
+
+\subsection{$H(\div)$的有限元}
+\textbf{Raviart-Thomas单元}
+
+对$k\ge0$，要求每个单元$K$上为$\vec{\mathcal{P}}_{k+1}$的子空间的函数空间
+$$RT_k(K)=\vec{\mathcal{P}}_k+\vec{x}\cp_k$$
+其可以拆分为直和
+$$\vec{\mathcal{P}}_k\oplus\vec{x}\mathbb{H}_k$$
+这里$\mathbb{H}_k$为$k$次齐次多项式。
+
+*维数：$nC_{k+n}^k+C_{k+n-1}^k$。
+
+*若$v\in RT_k$，则$K$的任何表面$F$上$v\cdot n$为$k$次多项式。
+
+\proo{
+    由$x\cdot n$在边界上为常数可知成立。
+}
+
+*若$v\in RT_k$且$\div v=0$，则$v\in\vec\cp_k$。
+
+\proo{
+    将$v$分为两部分，$\vec\cp_k$部分散度为$k-1$次，若$k+1$次齐次部分非零，可计算发现$\div v$的$k$次项非零，矛盾。
+}
+
+\textbf{自由度}：定义所有$N_i$为
+\begin{itemize}
+    \item 在$K$的$n+1$个面$F_i$上，$v\cdot n$与任何$\cp_k$中多项式内积的结果；
+    \item 在$K$中，$v$与任何$\vec\cp_{k-1}$中向量值多项式的内积结果。
+\end{itemize}
+
+
+\proo{
+    直接计算维数可知其为$(n+1)C_{k+n-1}^k+nC_{k+n-1}^{k-1}$，利用组合数公式得空间维数一致。
+
+    若所有自由度全为0，可发现$K$中$(\div v)^2$积分利用Gauss公式转移得为0，于是$v\in\vec\cp_k$。
+
+    由此$v\cdot n$在任何面上只能为0，设$v\cdot n=\lambda_1q_1$，其中$\lambda_1$为第一个面的方程，$q_1$为某$k-1$次多项式，取$p$为$q_1n_1$，其中$n_1$为第一个面的法向量，可从$v\cdot p$积分为0得到$q_1=0$，即得证。
+}
+
+\
+
+\textbf{Brezzi-Douglas-Marini单元}[BDM单元]
+
+对$k\ge1$，每个单元$K$上为$\vec\cp_k$，维数为$nC_{n+k}^k$。
+
+\textbf{自由度}：定义所有$N_i$为
+\begin{itemize}
+    \item 在$K$的$n+1$个面$F_i$上，$v\cdot n$与任何$\cp_k$中多项式内积的结果\ (这条事实上保证了\textbf{法向连续})；
+    \item 在$K$中，$v$与任何$\cp_{k-1}$中多项式的\textbf{梯度}内积结果；
+    \item 在$K$中，$v$与任何$\mathcal{H}_k$中向量值多项式内积的结果，这里
+    $$\mathcal{H}_k=\{\vec{q}_k\in\vec\cp_k\mid\vec{q}_k\cdot\vec{n}\big|_{\partial K}=0,\nabla\cdot\vec{q}_k=0\}$$
+\end{itemize}
+
+*由于$\mathcal{H}_k$的维数难以确定，唯一可解性与之前的证明方式并不相同。
+
+前两种自由度\textbf{线性无关}：对定义在$\partial K$上、每个面为$\cp_k$的$g$与$k-1$次多项式$f$，若
+$$\forall\vec{v}\in\vec\cp_k(K),\quad\int_{\partial K}g\vec{v}\cdot\vec{n}\dr s+\int_K\vec{v}\cdot\nabla f\dr x=0$$
+则$g=0$、$f$为常数。
+
+\proo{
+    只证明三维的情况。设四面体顶点为0到3，且顶点$i$对面方程为$\lambda_i=0$。设0到1的方向向量为$\vec{t}_{01}$，对$q\in \cp_{k-2}$考虑
+    $$\vec{v}=\lambda_0\lambda_1\vec{t}_{01}q$$
+    可发现所有这样的$v$都保证四个面上$\vec{v}\cdot n=0$。由此$\vec{v}\cdot\nabla f=0$，直接将积分写成
+    $$\int_K\lambda_0\lambda_1\frac{\partial f}{\partial\vec{t}_{01}}q\dr x=0$$
+    由内部$\lambda_0$、$\lambda_1$同号且非零可知只能$\frac{\partial f}{\partial\vec{t}_{01}}=0$，对任何$\vec{t}_{ij}$成立可知$f$为常数。
+
+    由此只需证明$g=0$。考虑$\vec{v}=\lambda_1\vec{t}_{01}p$，其中$p\in \cp_{k-1}$，可发现在$i\ne0$的面上有$\vec{v}\cdot n=0$，而在$i=0$时$\vec{t}_{01}$与法向量乘积为常数，由此得到
+    $$\int_{F_0}\lambda_1\vec{p}g\dr s=0$$
+    同理即可知
+    $$\int_{F_0}\lambda_2\vec{p}g\dr s=0,\quad\int_{F_0}\lambda_3\vec{p}g\dr s=0$$
+    可发现这些结合可得$g$在$F_0$上与任何$k$次多项式内积为0，从而只能为0，同理对其他面也可证明，从而成立。
+}
+
+第三种自由度与前两种\textbf{线性无关}，也即对和上一个定理中相同的$g,f$与$\vec{\theta}\in \mathcal{H}_k$，若对任何$\vec{v}\in \cp_k$
+$$\forall\vec{v}\in\vec\cp_k(K),\quad\int_{\partial K}g\vec{v}\cdot\vec{n}\dr s+\int_K\vec{v}\cdot\nabla f\dr x+\int_K\vec{v}\cdot\vec\theta\dr x=0$$。
+则有$g=\vec{\theta}=0$、$f$为常数。
+
+\proo{
+    直接考虑$\vec{v}=\vec{\theta}$，第一部分由定义为0，第二部分由分部积分知为0，从而可得第三部分也为0，即$\vec\theta=0$。
+
+    再由前两自由度线性无关即得证。
+}
+
+若所有自由度都为0，则$v=0$。
+
+\proo{
+    与RT单元类似，第一种自由度为0可推出$v\cdot n$在$\partial K$为0。
+
+    对第二种自由度，利用分部积分可知$v$的散度与任何$k-1$次多项式内积为0，从而$v$的散度为0，有$v\in \mathcal{H}_k$，但自由度已经保证了$v$与任何$\mathcal{H}_k$中多项式内积为0，从而$v=0$。
+}
+
+*于是可以作差算出$\dim \mathcal{H}_k$。$n=2$时事实上$\mathcal{H}_k=\curl(b_K\cp_{k-2}(K))$，其中$b_K=\lambda_1\lambda_2\lambda_3$，也即三边方程乘积。
+
+\subsection{$H(\curl)$的有限元}
+*只考虑三维情况，二维情况下可定义$\curl\phi=\curl(0,0,\phi)$、$\curl\vec{u}=\curl(\vec{u},0)$。
+
+\
+
+\textbf{第一类N\'ed\'elec单元}
+
+对$k\ge0$定义为
+$$N_k=\vec\cp_k+\vec{x}\times\vec\cp_k$$
+也可用直和定义$\vec{\mathcal{P}}_k\oplus\vec{x}\times\vec{\mathbb{H}}_k$，但后者可能有重复，商去和$\vec{x}$平行的部分得到
+$$\dim N_k(K)=3C_{3+k}^k+3C_{2+k}^{2}-C_{k+1}^2=\frac{1}{2}(k+1)(k+3)(k+4)$$
+
+*若$v\in N_k$且$\nabla\times v=0$，则$v\in\vec\cp_k$。
+
+\proo{
+    将$v$分为两部分，$\vec\cp_k$部分旋度为$k-1$次，因此$k+1$次齐次部分(设为$x\times w$)旋度为0，类似作业题可计算发现
+    $$\nabla\times(x\times w)=x(\nabla\cdot w)-(k+2)w$$
+    于是$x(\nabla\cdot w)=(k+2)w$，两侧同叉乘$x$即得$x\times w=0$，得证。
+}
+
+
+\textbf{自由度}：定义所有$N_i$为
+\begin{itemize}
+    \item 在每条棱上，$v\cdot t$\ ($t$为棱的向量)与棱上任何$k$次多项式的内积结果；
+    \item 在每个面上，$n\times v$与面上任何$k-1$次向量值多项式$\phi_{k-1}$的内积结果，这里$n$为面的法向量；
+    \item 与体中任何$k-2$次向量值多项式$\phi_{k-2}$的内积结果。
+\end{itemize}
+
+
+*此处$n\times v$可记为$\mathrm{Tr}_{F_i}v$；而$v\cdot t$可记作$\mathrm{Tr}_{e_i}v$。
+
+\proo{
+    直接计算维数可知为$6C_{k+1}^1+4\cdot2C_{k-1+2}^2+3C_{k-2+3}^3$，与$N_k$维数相同，由此只需证明所有自由度为0时向量为0。记$v=u+x\times w$，这里$u\in\vec\cp_k$，$w\in\vec{\mathbb{H}}_k$，下面的过程事实上与RT单元的证明过程相似。
+    
+    直接计算验证可知$x\times t$在对应的棱上为常数(类似力矩计算)，于是利用$t\cdot(x\times w)=w\cdot(t\times x)$可知$v\cdot t$在每条棱上为$k$次多项式，因此为0。
+
+    下面证明$v\times n$在面上为0。利用叉乘公式可得
+    $$n\times v=n\times u+(n\cdot w)x+(n\cdot x)w$$
+    第一部分为$k$次多项式，第三部分由面上$n\cdot x$为常数可知为$k$次多项式，而从第二部分可发现$n\times v$在每个面上为$RT_k$中向量值多项式，计算验证可发现其$RT_k$中的自由度全为0\ (利用混合积公式可得$n\times v$与每条边法向内积即为$\pm v\cdot t$)，因此$n\times v$在每个面上为0。
+
+    进一步计算验证可得$\nabla\times v$为三维$RT_{k-1}$中向量值多项式，利用分部积分与面上$n\times v=0$可知对$\vec\cp_{k-1}$中多项式有
+    $$\int_K(\nabla\times v)\cdot p\dr x=-\int_Kv\cdot(\nabla\times p)\dr x$$
+    由$\nabla\times p$为$k-2$次可知右侧为0，而根据作业题结论可验证$(\nabla\times v)\cdot n$在面上为0，从而$\nabla\times v$满足在RT单元中的所有自由度为0，因此只能为0。
+
+    此时，利用之前结论得到$v\in\vec\cp_k$，任取三个面对应法向$n_{1,2,3}$，可将$v$分解为$q_1n_1+q_2n_2+q_3n_3$，这里$q_{1,2,3}\in\cp_k$。
+
+    由第一个面上$n_1\times v=0$，代入可发现第一个面上$q_2=q_3=0$，同理可得上述分解式能进一步写为
+    $$v=\lambda_2\lambda_3\tilde{q}_1n_1+\lambda_1\lambda_3\tilde{q}_2n_2+\lambda_1\lambda_2\tilde{q}_3n_3$$
+    可发现棱向量$t_{01}$与$n_2$、$n_3$均垂直，且与$n_1$不垂直，由此取检验函数$\tilde{q}_1t_{01}$，由$v$与$\tilde{q}_1t_{01}$内积为0可知$\tilde{q}_1=0$，同理$\tilde{q}_2=\tilde{q}_3=0$，得证。
+}
+
+\
+
+\textbf{第二类N\'ed\'elec单元}
+
+每个单元上为$\cp_k(K)$，维数为$3C_{3+k}^k$。
+
+\textbf{自由度}：定义所有$N_i$为
+\begin{itemize}
+    \item 在每条棱上，$v\cdot t$\ ($t$为棱的向量)与棱上任何$k$次多项式内积结果；
+    \item 在每个面上，$n\times v$与面上任何$RT_{k-2}(F)$中多项式的内积结果，这里$n$为面的法向量；
+    \item 与体中任何$RT_{k-3}(K)$中向量值多项式的内积结果。
+\end{itemize}
+
+*也可将棱上$\cp_k$看成$RT_{k-1}$，与之后统一。
+
+三类自由度数量求和可得
+$$6C_{k+1}^1+4(2C_k^2+C_{k-1}^1)+(3C_k^3+C_{k-1}^2)=\frac{1}{2}(k+1)(k+2)(k+3)=3C_{k+3}^3$$
+
+为给出唯一可解性的证明，我们先给出BDM单元的另一组自由度：
+\begin{itemize}
+    \item 在每个面上，$v\cdot n$与任何$\cp_k$中多项式内积的结果；
+    \item 与体中任何$N_{k-2}(K)$中向量值多项式内积的结果。
+\end{itemize}
+
+\proo{
+    直接计算可知维数相等，从而只需证明所有自由度为0时只能为0。与之前相同，第一种自由度为0可推出$v\cdot n$在$\partial K$为0。
+
+    对任何$k-1$次多项式$p$，其梯度为$k-2$次，从而$v$与$\nabla p$内积为0，分部积分得到$\div v$与$p$内积为0，由此考虑维数得到$\div v=0$。
+
+    由此，对任何$k-1$次向量值多项式$q$，根据作业题，其可以分解成某$N_{k-2}$中向量值多项式加某$k$次多项式$\theta$的梯度$\nabla\theta$。由$\div v=0$可知$v$与$\nabla\theta$内积为0，从而得到$v$与$q$内积为0。
+
+    (事实上由于$v\in RT_k$，上述过程已经说明了$v$在$RT_k$中的自由度均为0，从而得证，这里考虑另一种证法。)
+
+    由于三条棱$t_{01}$、$t_{02}$、$t_{03}$线性无关，可以将$v$分解成
+    $$v=q_1t_{01}+q_2t_{02}+q_3t_{03},\quad q_{1,2,3}\in\cp_k$$
+    由$v\cdot n_1$在$F_1$上为0可知$q_1t_{01}\cdot n_1$在$F_1$上为0\ ($F_1$为023平面，其他两内积已经为0)，于是$q_1$在$F_1$上为0，从而有$q_1=\lambda_1\tilde{q}_1$，再取检验函数$\tilde{q}_1n_1$，与$v$内积即得到$\lambda_1\tilde{q}_1^2$积分为0，从而$\tilde{q}_1=0$，同理其他两分量为0，得证。
+}
+
+回到原问题的证明。先给出分部积分公式：
+$$\int_\Omega u\cdot(\nabla\times v)\dr x=-\int_\Omega(\nabla\times u)\cdot v\dr x+\int_{\partial\Omega}(u\times n)\cdot v\dr s$$
+
+\proo{
+    与之前同理，从第一种自由度为0可以推得$v\cdot t$在任何棱上为0。
+
+    为从第二种自由度说明$n\times v$在面上是0，先考虑二维的BDM单元。下面说明其可以由如下两组自由度确定：每条边上$v\cdot n$与任何$\cp_k$中多项式内积的结果；与体中任何$RT_{k-2}$中向量值多项式内积的结果。第一种自由度为0仍然可以推出$v\cdot n$在任何边上为0，结合第二种自由度进行分解可发现$v$与任何$\vec\cp_{k-1}$中向量值多项式内积为0，从而得到$v$只能为0。
+
+    回到原问题，可发现$n\times v$在面上为$k$次向量值多项式，且可验证上一部分的自由度均为0，由此只能为0。
+
+    最后，考虑整体。由于$\nabla\times v$为$k-1$次向量值多项式，且根据作业题有
+    $$(\curl v)\cdot n_F=\div(\mathrm{Tr}_Fv)=0$$
+    从而再根据分部积分，可验证$\nabla\times v$看作体中的$k-1$阶BDM单元时所有自由度(按本节定义)全为0，于是只能为0。
+
+    综合上述讨论，分部积分可发现$v$与任何旋度场的内积为0，而与作业题类似可验证任何$k-2$次向量值多项式可分解为$RT_{k-3}$中多项式与某旋度场之和，由此，$v$与任何$k-2$次向量多项式积分为0。由于$v\in N_k$且其在$N_k$中自由度全为0，已经得证$v=0$。
+}
+
+\subsection{逼近性质}
+*对$H(\curl)$对应的变换与估计见参考教材BBF，本节只讨论$H(\div)$作为范例。
+
+*一般的仿射变换$F=B\hat{x}+b$无法保证法向不变，因此一般无法保证$H(\div)$与$H(\curl)$不变。设$F$将$\hat{K}$仿射至$K$。
+
+对$H(\nabla)$，即$H^1$中的函数，其直接构造$v(x)=\hat{v}(F^{-1}(x))$可以在不同仿射单元中对应。
+
+为能进行$H(\div)$单元的对应，设$J(x)=|\det DF(x)|$\ ($D$为Jacobi阵)，考虑向量值函数的变换
+$$q(x)=J^{-1}DF\hat{q}(F^{-1}(x))$$
+此时，两边计算Jacobi阵可得到
+$$D_xq(x)=J^{-1}DF D_{\hat{x}}\hat{q}(DF)^{-1}$$
+于是计算迹可发现
+$$\div_xq=J^{-1}\div_{\hat{x}}\hat{q}$$
+
+事实上，对上述的$q$与$\hat{q}$有
+$$\int_Kq\cdot\nabla_xv\dr x=\int_{\hat{K}}\hat{q}\cdot\nabla_{\hat{x}}\hat{v}\dr\hat{x}$$
+$$\int_Kv\div_xq\dr x=\int_{\hat{K}}\hat{v}\div_{\hat{x}}\hat{q}\dr\hat{x}$$
+证明留作习题。对第二式可以分部积分得到
+$$\int_{\partial K}(q\cdot n)v\dr s=\int_{\partial\hat{K}}(\hat{q}\cdot\hat{n})\hat{v}\dr\hat{s}$$
+
+其范数存在估算
+$$\|q\|_{L^2(K)}\le\bigg(\inf_{\hat{x}}J(\hat{x})\bigg)^{-1/2}\|DF\|_\infty\|\hat{q}\|_{L^2(\hat{K})}$$
+
+\
+
+考虑有限元空间为
+$$RT_k(\ct_h)=\big\{\vec{v}\in H(\div)\mid\vec{v}\big|_T\in RT_k(T)\big\}$$
+
+定义插值$\Pi_T^{RT}v$为单元$T$上所有自由度与$v$对应相等的$RT_k(T)$中函数，将其全部拼接可得$\ct_h$上的插值$\Pi_h^{RT}v$，可发现有
+$$\widehat{\Pi_T^{TR}q}=\Pi_{\hat{T}}^{RT}\hat{q}$$
+
+*这里要求$v$在每个单元$H^1$，否则边界上$v\cdot n$未必有意义。
+
+*对BDM单元可完全类似定义插值。
+
+对$\vec\cp_k\subset M_k$、$\vec\cp_{k+1}\not\subset M_k$的$M_k$，考虑其上的某个自由度与对应的插值$\Pi$，对$s=0$或1，对多项式逼近结论有
+$$\|v-\Pi v\|_{H^s(K)}\lesssim h_K^{m-s}|v|_{H^m(K)},\quad 1\le m\le k+1$$
+
+*例如对RT单元
+$$\|v-\Pi_k^{RT}v\|_{L^2(K)}\lesssim h_K^{k+1}|v|_{H^{k+1}(K)},\quad 1\le m\le k+1$$
+而对BDM单元有完全相同的结论。从$H^0$或$H^1$来看，RT单元增添的部分并无用处。需要考察$H(\div)$下的逼近阶以观察其作用。
+
+事实上，对$v\in \vec{H}^1(K)$有
+$$\div\Pi_k^{RT}v=\Pi_k^0\div v$$
+$$\div\Pi_k^{BDM}v=\Pi_{k-1}^0\div v$$
+这里$\Pi_k^0$代表到$\cp_k$的$L^2$投影(即保证所有内积一致)。
+
+\proo{
+    以第一式为例，由于左右均为$k$次多项式，证明它们相同只需证明它们的差与任何$k$次多项式正交，而对任何$v\in H^1(K)$，$q\in\cp_k(K)$，有
+    $$\int_K\big(\div\Pi_k^{RT}v-\Pi_k^0\div v\big)q\dr x$$
+    利用$L^2$投影可知其为
+    $$\int_K\big(\div\Pi_k^{RT}v-\div v\big)q\dr x$$
+    利用分部积分得其为
+    $$-\int_K\big(\Pi_k^{RT}v-\div v)\cdot\nabla q\dr x+\int_{\partial K}(\Pi_k^{RT}v-v)\cdot nq\dr s$$
+    而根据RT单元的自由度要求，左右两项均为0，从而得证。
+}
+
+由此有
+$$\|\div(v-\Pi_k^{RT}v)\|_{L^2}=\|\div v-\Pi_k^0\div v\|_{L^2}\lesssim h_T^{k+1}|\div v|_{H^{k+1}}$$
+同理
+$$\|\div(v-\Pi_k^{BDM}v)\|_{L^2}\lesssim h_T^k|\div v|_{H^k}$$
+于是结合$L^2$的误差阶可发现$RT_k$单元在$H(\div)$下为$k+1$阶，而BDM单元只有$k$阶。
+
+*对$H(\curl)$中的单元有类似的插值结论，但存在到RT与到BDM两类不同情况。
+
+\section{Poisson问题的混合有限元}
+考虑问题为
+$$-\nabla\cdot(\alpha(x)\nabla u)=f$$
+对应边界条件$u\big|_{\partial\Omega}=0$。$\alpha$满足一致椭圆条件，即有正上下界。
+
+*同样省略向量符号，本节中$\sigma,\tau$均表示向量，$u,v$表示标量。
+
+引入通量$\sigma=\alpha\nabla u$，设$c=\alpha^{-1}$，则问题可以改写为
+$$\begin{cases}c\sigma-\nabla u&=0\\\div\sigma&=-f\end{cases}$$
+这时$\sigma\in H(\div)$，$u\in L^2$，边界条件不变。考虑弱形式
+$$\begin{cases}(c\sigma,\tau)+(\div\tau,u)&=0,\quad\forall\tau\in H(\div)\\(\div\sigma,v)&=(-f,v),\quad\forall v\in L^2\end{cases}$$
+
+*这符合之前Brezzi理论的\textbf{鞍点问题}形式，直观理解为，设
+$$L(\tau,v)=\frac{1}{2}(c\tau,\tau)+(v,\div\tau)+(f,v)$$
+则
+$$L(\sigma,v)\le L(\sigma,u)\le L(\tau,u)$$
+也即$\sigma$为对应的最小，$u$则为对应的最大，由此为鞍点。
+
+*事实上其也可看作$\div\tau=-f$时泛函$J(\tau)=\frac{1}{2}(c\tau,\tau)$的极小值问题。
+
+\subsection{混合有限元}
+考虑
+$$\sigma_h\in RT_k(\ct_h),\quad u_h\in\cp_k^{-1}(\ct_h)$$
+
+*这里$-1$表示分片$\cp_k$且不要求全局连续性。
+
+先证明其满足离散inf-sup条件：
+$$\inf_{v_h\in\cp_k}\sup_{\tau_h\in RT_k}\frac{(\div\tau_h,v_h)}{\|\tau_h\|_{H(\div)}\|v_h\|_{L^2}}\gtrsim1$$
+\proo{
+    利用Stokes方程的inf-sup条件(证明见下一讲)，对任何$v_h\in\cp_k$，存在$\tau\in H^1$使得$\div\tau=v_h$且$\|\tau\|_{H^1}\lesssim\|v_h\|_{L^2}$。
+
+    利用插值构造$\tau_h=\Pi_h^{RT}\tau$，利用插值、投影的交换性有(注意$v_h$为$k$次多项式)
+    $$\div\tau_h=\div\Pi_h^{RT}\tau=\Pi_h^0\div\tau=v_h$$
+    且只需证明$\Pi_h^{RT}$有界即有
+    $$\|\tau_h\|_{H(\div)}\lesssim\|\tau\|_{H^1}\lesssim\|v_h\|_{L^2}$$
+    从而根据之前的等价定义可知inf-sup条件成立。
+
+    将$H(\div)$范数分为两部分，$\div$部分有(中间不等号由投影定义)
+    $$\|\div\Pi_h^{RT}\tau\|_{L^2}=\|\Pi_h^0\div\tau\|_{L^2}\le\|\div\tau\|_{L^2}\le\|\tau\|_{H^1}$$
+    $L^2$部分由插值误差估计
+    $$\|\tau-\Pi_h^{RT}\tau\|_{L^2}\lesssim h\|\tau\|_{H^1}$$
+    从而
+    $$\|\Pi_h^{RT}\tau\|_{L^2}\lesssim h\|\tau\|_{H^1}+\|\tau\|_{L^2}\lesssim\|\tau\|_{H^1}$$
+    综合得证。
+}
+为从Brezzi定理证明唯一可解性，先由定义得到对应的$Z_h$为
+$$\{\tau\in RT_k(T_h)\mid(\div\tau_h,v_h)=0,\forall v_h\in\cp_k\}$$
+直接将$v$每个单元取为$\div\tau_h$可知
+$$Z_h=\{\tau\in RT_k(T_h)\mid\div\tau_h=0\}$$
+而此时有$H(\div)$范数即为$L^2$范数，从而有
+$$\forall \tau_h\in Z_h,\quad(c\tau_h,\tau_h)\gtrsim\|\tau_h\|_{H(\div)}^2$$
+此强制性结论结合inf-sup条件即得证唯一可解。
+
+*类似将$k$次RT单元换为$k+1$次BDM单元也可得到唯一可解。。
+
+\
+
+将$\sigma_h$所在的$\Sigma_h$取为$k$次RT与$k+1$次BDM之一，$u_h$所在的$V_h$取为$\cp_k^{-1}$，根据Brezzi定理有
+$$\|\sigma-\sigma_h\|_{H(\div)}+\|u-u_h\|_{L^2}\lesssim\inf_{\tau_h\in\Sigma_h}\|\sigma-\tau_h\|_{H(\div)}+\inf_{v_h\in V_h}\|u-v_h\|_{L^2}$$
+对右侧考虑取为插值，利用插值误差界定理可知$k$次RT单元时误差阶为
+$$h^{k+1}|\sigma|_{H^{k+1}}+h^{k+1}|\div\sigma|_{H^{k+1}}+h^{k+1}|u|_{H^{k+1}}$$
+$k+1$次BDM单元时误差阶为
+$$h^{k+2}|\sigma|_{H^{k+2}}+h^{k+1}|\div\sigma|_{H^{k+1}}+h^{k+1}|u|_{H^{k+1}}$$
+
+*此估计无法简单区分开$\sigma$与$u$的误差，它们都依赖整体光滑性。
+
+\subsection{更好的估计}
+考虑\textbf{误差方程}，即$\sigma-\sigma_h$与$u-u_h$满足的方程，有
+$$\begin{cases}(c(\sigma-\sigma_h),\tau_h)+(\div\tau_h,u-u_h)&=0,\quad\forall\tau_h\in\Sigma_h\\(\div(\sigma-\sigma_h),v_h)&=0,\quad\forall v_h\in V_h\end{cases}$$
+由此可以给出一些改进估计：
+\begin{enumerate}
+    \item 对两种单元均有
+    $$\|\div(\sigma-\sigma_h)\|_{L^2}\lesssim h^{k+1}|\div\sigma|_{H^{k+1}}$$
+    
+    \proo{
+        从误差方程第二式可得到
+        $$\Pi_h^0\div(\sigma-\sigma_h)=0$$
+        利用$\div\sigma_h$为$k$次多项式也即
+        $$\div\sigma_h=\Pi_h^0\div\sigma$$
+        从而有
+        $$\|\div(\sigma-\sigma_h)\|_{L^2}=\|\div\sigma-\Pi_h^0\div\sigma\|_{L^2}$$
+        再由多项式逼近理论得结论。
+    }
+    
+    \item
+    对$k$次RT单元有
+    $$\|\sigma-\sigma_h\|_{L^2}\lesssim h^{k+1}|\sigma|_{H^{k+1}}$$
+    对$k+1$次BDM单元有
+    $$\|\sigma-\sigma_h\|_{L^2}\lesssim h^{k+2}|\sigma|_{H^{k+2}}$$
+    \proo{
+        在误差方程第一式中取$\tau_h$为$\tau_h^*=\Pi_h^\Sigma\sigma-\sigma_h$\ (这里$\Sigma$投影为RT或BDM投影之一)，有
+        $$\div\tau_h^*=\div\Pi_h^\Sigma\sigma-\div\sigma_h=\Pi_h^0\div\sigma-\div\sigma_h=0$$
+        从而
+        $$(c(\sigma-\sigma_h),\Pi_h^\Sigma\sigma-\sigma_h)=0$$
+        由此有(最后一步由基本不等式)
+        $$\|\sigma-\sigma_h\|_{L^2}^2\lesssim(c(\sigma-\sigma_h),\sigma-\sigma_h)=(c(\sigma-\sigma_h),\sigma-\Pi_h^\Sigma\sigma)\le\varepsilon\|\sigma-\sigma_h\|_{L^2}^2+C_\varepsilon\|\sigma-\Pi_h^\Sigma\sigma\|_{L^2}^2$$
+        取$\varepsilon=\frac{1}{2}$即可利用插值误差得结论。
+    }
+
+    \item 
+    对$k$次RT单元有
+    $$\|u-u_h\|_{L^2}\lesssim h^{k+1}|u|_{H^{k+1}}+h^{k+1}|\sigma|_{H^{k+1}}$$
+    对$k+1$次BDM单元有
+    $$\|u-u_h\|_{L^2}\lesssim h^{k+1}|u|_{H^{k+1}}+h^{k+2}|\sigma|_{H^{k+2}}$$
+    \proo{
+        先证明对两种单元均有$u$的插值误差估计
+        $$\|\Pi_h^0u-u_h\|_{L^2}\lesssim\|\sigma-\sigma_h\|_{L^2}$$
+        利用离散inf-sup条件，存在$\tau_h^*\in\Sigma_h$使得
+        $$\div\tau_h^*=\Pi_h^0u-u_h,\quad\|\tau_h^*\|_{H(\div)}\lesssim\|\Pi_h^0u-u_h\|_{L^2}$$
+        在误差方程第一式中取$\tau_h=\tau_h^*$，有
+        $$\|\Pi_h^0u-u_h\|_{L^2}^2=(\div\tau_h^*,\Pi_h^0u-u_h)=-(c(\sigma-\sigma_h),\tau_*)\le\varepsilon\|\tau_h^*\|_{L^2}^2+C_\varepsilon\|\sigma-\sigma_h\|_{L^2}^2$$
+        由于$\|\tau_h^*\|_{L^2}\le\|\tau_h^*\|_{H(\div)}$，取$\varepsilon=\frac{1}{2}$即得结论。
+
+        由此，利用$\sigma$的误差估计，对$k$次RT单元有
+        $$\|\Pi_h^0u-u_h\|_{L^2}\lesssim h^{k+1}|\sigma|_{H^{k+1}}$$
+        对$k+1$次BDM单元有
+        $$\|\Pi_h^0u-u_h\|_{L^2}\lesssim h^{k+2}|\sigma|_{H^{k+2}}$$
+        再结合$\|u-u_h\|_{L^2}\le\|\Pi_h^0u-u_h\|_{L^2}+\|\Pi_h^0u-u\|_{L^2}$与插值的误差估计结论得结果。
+    }
+
+    *可发现对BDM单元，$u_h$与插值的误差阶比起与真解的误差阶可能更高[super-closeness]。
+\end{enumerate}
+
+为了进一步改善估计，考虑\textbf{对偶问题}
+$$-\nabla\cdot(\alpha(x)\nabla w)=\Pi_h^0u-u_h$$
+$$w\big|_{\partial\Omega}=0$$
+并作正则性假设
+$$\|w\|_{H^2}\lesssim\|\Pi_h^0u-u_h\|_{L^2}$$
+此时若$k\ge1$有
+$$\|\Pi_h^0u-u_h\|_{L^2}\lesssim h\|\sigma-\sigma_h\|_{L^2}+h^2\|\div(\sigma-\sigma_h)\|_{L^2}$$
+在$k=0$时有
+$$\|\Pi_h^0u-u_h\|_{L^2}\lesssim h\|\sigma-\sigma_h\|_{L^2}+h\|\div(\sigma-\sigma_h)\|_{L^2}$$
+
+\proo{
+    记$\tau=\alpha\nabla w$。直接计算可得
+    $$\|\Pi_h^0u-u_h\|_{L^2}^2=(-\nabla\cdot(\alpha(x)\nabla w),\Pi_h^0u-u_h)=(-\div\tau,\Pi_h^0u-u_h)$$
+    由于后方在$V_h$中，对前进行$\Pi_h^0$插值不影响，再利用之前的插值与$\div$可交换性得
+    $$\|\Pi_h^0u-u_h\|_{L^2}^2=-(\div\Pi_h^\Sigma\tau,\Pi_h^0u-u_h)$$
+    对误差方程第一式，由$\div\tau_h\in V_h$可知
+    $$(\div\tau,u-u_h)=(\div\tau,\Pi_h^0u-u_h)$$
+    从而进一步计算得
+    $$\|\Pi_h^0u-u_h\|_{L^2}^2=(c(\sigma-\sigma_h),\Pi_h^\Sigma\tau)=(c(\sigma-\sigma_h),\Pi_h^\Sigma\tau-\tau)+(c(\sigma-\sigma_h),\tau)$$
+    再利用分部积分计算可知
+    $$\|\Pi_h^0u-u_h\|_{L^2}^2=(c(\sigma-\sigma_h),\Pi_h^\Sigma\tau-\tau)-(\div(\sigma-\sigma_h),w)$$
+    利用误差方程第二式即得
+    $$\|\Pi_h^0u-u_h\|_{L^2}^2=(c(\sigma-\sigma_h),\Pi_h^\Sigma\tau-\tau)-(\div(\sigma-\sigma_h),w-\Pi_h^0w)$$
+    对后一项分类讨论，$k=0$时至多利用到一次导数，否则均可利用二次导数，从而得到结论。
+}
+
+由此最终结论分四类，$\|\Pi_h^0u-u_h\|_{L^2}$的最终阶为
+\begin{enumerate}
+    \item 0次RT单元：$h^2|\sigma|_{H^1}+h^2|\div\sigma|_{H^1}$；
+    \item 1次BDM单元：$h^3|\sigma|_{H^2}+h^2|\div\sigma|_{H^1}$；
+    \item $k\ge1$时$k$次RT单元：$h^{k+2}|\sigma|_{H^{k+1}}+h^{k+3}|\div\sigma|_{H^{k+1}}$；
+    \item $k\ge1$时$k+1$次BDM单元：$h^{k+3}|\sigma|_{H^{k+2}}+h^{k+3}|\div\sigma|_{H^{k+1}}$。
+\end{enumerate}
+
+\
+
+估计插值与数值解误差的意义：\textbf{后处理}[post-processing]，考虑$V_h^*$为分片$k+1$次多项式，定义$u_h^*\in V_h^*$，每个单元满足
+$$\forall v\in(I-Q_T)V_h^*,\quad\int_T\alpha(x)\nabla u_h^*\cdot\nabla v\dr x=\int_Tfv\dr x+\int_{\partial T}v\sigma_h\cdot n\dr s$$
+$$Q_Tu_h^*=Q_Tu_h$$
+
+这里$Q_T$可以为$\Pi_0^0$，即局部到常值的投影，或$\Pi_k^0$，即局部到$\cp_k$的投影。
+
+*此算法只需对每个单元求解等同于维数的方程，复杂度很低。
+
+*想法来源：真解每个单元作积分的结果，并利用分部积分后将边界的$\alpha\nabla u$替换为$\sigma_h$。
+
+利用局部迹定理与多项式插值可知对$k$次RT单元
+$$h_T^{1/2}\|\sigma\cdot n-\sigma_h\cdot n\|_{L^2(\partial T)}\lesssim h^{k+1}|\sigma|_{H^{k+1}}$$
+对$k+1$次BDM单元
+$$h_T^{1/2}\|\sigma\cdot n-\sigma_h\cdot n\|_{L^2(\partial T)}\lesssim h^{k+2}|\sigma|_{H^{k+2}}$$
+而可证明
+$$\|u-u_h^*\|_{L^2(T)}\lesssim h_T^{k+2}|u|_{H^{k+2}(T)}+h_T^{3/2}\|\sigma\cdot n-\sigma_h\cdot n\|_{L^2(\partial T)}+\|\Pi_h^0u-u_h\|_{L^2(T)}$$
+结合之前的估计可知误差最终有$k+2$阶。
+
+\proo{
+    设$\tilde{u}_h\in V_h^*$为$u$在$V_h^*$的$L^2$投影。考虑每个单元上定义为
+    $$v\big|_T=(I-Q_T)(\tilde{u}_h-u_h^*)$$
+    的$v$，则其在$(I-Q_T)V_h^*$中，利用$\alpha$的一致椭圆条件可得(以下省略区域$T$)
+    $$|v|_{H^1}^2\lesssim\int_T\alpha(x)\nabla(I-Q_T)(\tilde{u}_h-u_h^*)\cdot\nabla v\dr x$$
+    将积分拆分为
+    $$\int_T\alpha(x)\nabla(\tilde{u}_h-u_h^*)\cdot\nabla v\dr x-\int_T\alpha(x)\nabla Q_T(\tilde{u}_h-u_h^*)\cdot\nabla v\dr x$$
+    第一部分利用$u_h^*$定义可化为
+    $$\int_T\alpha(x)\nabla(\tilde{u}_h-u)\cdot\nabla v\dr x+\int_{\partial T}(\sigma\cdot n-\sigma_h\cdot n)\dr s$$
+    而放缩论证可发现
+    $$h_T^{1/2}\|v\|_{L^2(\partial T)}\lesssim|v|_{H^1}$$
+    于是第二部分可放大为
+    $$|Q_T(\tilde{u}_h-u_h^*)|_{H^1}|v|_{H^1}$$
+    将其进一步放为
+    $$\varepsilon|v|_{H^1}^2+C_\varepsilon|Q_T(\tilde{u}_h-u_h^*)|_{H^1}^2$$
+    取$\varepsilon$充分小综合最终得到(最后一个部分利用了反向估算)
+    $$|v|_{H^1}\lesssim|\tilde{u}_h-u|_{H^1}+h_T^{1/2}\|\sigma\cdot n-\sigma_h\cdot n\|_{L^2(\partial T)}+h_T^{-1}\|Q_T(\tilde{u}_h-u_h^*)\|_{L^2}$$
+    再由$v$为多项式，利用反向估算得到
+    $$\|v\|_{L^2}\lesssim h_T|\tilde{u}_h-u|_{H^1}+h_T^{3/2}\|\sigma\cdot n-\sigma_h\cdot n\|_{L^2(\partial T)}+\|Q_T(\tilde{u}_h-u_h^*)\|_{L^2}$$
+    由$Q_T$的定义可知
+    $$\|Q_T(\tilde{u}_h-u_h^*)\|_{L^2}=\|Q_T(\Pi_h^0u-u_h^*)\|_{L^2}\le\|\Pi_h^0u-u_h\|_{L^2}$$
+    由此再利用
+    $$\|u-u_h^*\|_{L^2}\le\|u-\tilde{u}_h\|_{L^2}+\|v\|_{L^2}+\|Q_T(\tilde{u}_h-u_h^*)\|_{L^2}$$
+    得到最终结论。
+}
+
+\section{Stokes方程的混合有限元}
+考虑方程为
+$$\begin{cases}-\mu\triangle u+\nabla p&=f\\-\div u&=0\end{cases}$$
+记$\varepsilon(u)=(\nabla u+(\nabla u)^T)/2$，利用第二个方程可将第一个方程改写为
+$$-\nabla\cdot(2\mu\varepsilon(u))+\nabla p=f$$
+也即
+$$-\div\sigma=f,\quad\sigma=2\mu\varepsilon(u)-pI$$
+
+*上述$\sigma$、$\varepsilon$、$I$\ (单位阵)为矩阵，$u$、$f$为向量，$\mu$、$p$为标量。
+
+设边界条件为在$\Gamma_D$上$u=0$，$\partial\Omega\backslash\Gamma_D$上
+$$2\mu\varepsilon(u)n-pn=0$$
+
+\
+
+\textbf{变分形式}：第一式两侧同乘$v$后分部积分得到(这里$\vec{H}_D^1$指每个分量在$H^1$中，且边界上$\Gamma_D$中为0，以$H^1$范数定义范数)
+$$\forall v\in\vec{H}_D^1,\quad(f,v)=\int_\Omega-\div\sigma\cdot v=\int_\Omega\sigma:\varepsilon(v)\dr x-\int_{\partial\Omega}(\sigma n)\cdot v\dr s=2\mu(\varepsilon(u),\varepsilon(v))-(p,\div v)$$
+
+*这里$:$代表两矩阵逐元素乘积求和，最后一个等号成立是利用了两种边界条件。从此式中可以看出自然边界条件的定义原因。
+
+由此最终得到变分形式为
+$$\begin{cases}2\mu(\varepsilon(u),\varepsilon(v))-(p,\div v)&=(f,v),\quad\forall v\in H_D^1\\-(\div v,q)&=0,\quad\forall q\in Q\end{cases}$$
+$$Q=\begin{cases}L_0^2&\Gamma_D=\partial\Omega\\L^2&\Gamma_D\ne\partial\Omega\end{cases}$$
+
+*这里$L_0^2$定义同前，为积分均值为0的$L^2$函数。
+
+如无特殊说明，我们\textbf{只考虑}$\Gamma_D=\partial\Omega$，即$V=\vec{H}_0^1$、$Q=L_0^2$的情况。
+
+\subsection{适定性}
+利用Brezzi理论可知只要验证
+$$\inf_{q\in Q}\sup_{v\in V}\frac{(\div v,q)}{\|v\|_{H^1}\|q\|_{L^2}}=\beta>0$$
+$$a(v,v)\gtrsim\|v\|_{H^1}^2,\quad\forall v\in Z$$
+即可得到适定性。
+
+*\ Poisson方程的强制性与Stokes方程在$\Gamma_D=\partial\Omega$时的强制性事实上都无需核空间，从而可以取更广泛的离散方式。
+
+\
+
+先考虑inf-sup条件，从\textbf{二维凸区域}情况可以构造一个简单的证明。
+
+\proo{
+    考察辅助问题
+    $$\begin{cases}\triangle\phi=q&\text{in}\ \Omega\\\frac{\partial\phi}{\partial n}=0&\text{in}\ \partial\Omega\end{cases}$$
+    利用位势方程知识可知其存在解，且$\|\phi\|_{H^2}\lesssim\|q\|_{L^2}$。
+
+    取$v_1=\nabla\phi\in\vec{H}^1$，由条件有
+    $$(\div v_1,q)=\|q\|_{L^2}^2,\quad\|v_1\|_{H^1}\le\|\phi\|_{H^2}\lesssim\|q\|_{L^2}$$
+    但此时$v_1$只保证了边界的法向分量为0，切向未必满足。
+
+    考虑$\psi\in H^2$使得($t$指切向量)
+    $$\psi\big|_{\partial\Omega}=0,\quad\frac{\partial\psi}{\partial n}=v_1\cdot t$$
+    利用$H^2$的迹定理可以验证这样的$\psi$存在，且满足
+    $$\|\psi\|_{H^2}\lesssim\|v_1\|_{H^1}$$
+    进一步取$v_2=\curl\psi$\ (这里旋度为一维二元函数的旋度，定义见第九章开头)。
+
+    由上述条件计算有
+    $$\div v_2=0\ \Longrightarrow\ \div(v_1+v_2)=\div v_1=q$$
+    $$v_2\cdot n=\curl\psi\cdot n=\nabla\psi\cdot t=0\ \Longrightarrow\ (v_1+v_2)\cdot n=0$$
+    $$v_2\cdot t=-\nabla\psi\cdot n=-v_1\cdot t\ \Longrightarrow\ (v_1+v_2)\cdot t=0$$
+    $$\|v_1+v_2\|_{H^1}\le\|v_1\|_{H^1}+\|v_2\|_{H^1}\lesssim\|v_1\|_{H^1}\lesssim\|q\|_{L^2}$$
+    这就已经得到了取$v=v_1+v_2$满足要求。
+}
+
+为了证明更复杂的情况，需要\textbf{Ne\v cas不等式}：$\Omega$为单连通有Lipschitz边界的区域，则($i$对所有维数遍历，$\partial_ip$为对第$i$个分量求导)
+$$\|p\|_{L^2}\simeq\|p\|_{H^{-1}}^2+\sum_{i=1}^d\|\partial_ip\|_{H^{-1}},\quad\forall p\in L^2$$
+
+*右侧比左侧小是容易证明的，另一边相对复杂。
+
+*考虑$\Omega=\mathbb{R}^2$的情况作为验证，利用Fourier变换有
+$$\|p\|_{L^2}=\|\hat{p}\|_{L^2},\quad\|p\|_{H^{-1}}^2\simeq\|(1+|\xi|^2)^{-1/2}\hat{p}\|_{L^2}^2$$
+由此右侧求和中$1+|\xi|^2$的项正好抵消，得到左侧。
+
+我们下面在其成立的情况下验证inf-sup条件。
+
+\proo{
+    Ne\v cas不等式可等价于
+    $$\|p\|_{L^2}\simeq\sum_{i=1}^d\|\partial_ip\|_{H^{-1}},\quad\forall p\in L_0^2$$
+    证明留作习题。
+
+    由此，对$q\in L_0^2$有
+    $$\|q\|_{L^2}\simeq\sum_{i=1}^d\|\partial_iq\|_{H^{-1}}=\sum_{i=1}^d\sup_{v\in H_0^1}\frac{(q,\partial_iv)}{\|v\|_{H^1}}$$
+    于是存在$j$使得(最后一个等号是由于放大了函数空间)
+    $$\|q\|_{L^2}\lesssim\frac{(q,\partial_jv)}{\|v\|_{H^1}}=\sup_{w\in e_jH_0^1}\frac{(\div w,q)}{\|w\|_{H^1}}\le\sup_{\vec{v}\in\vec{H}_0^1}\frac{(\div\vec{v},q)}{\|\vec{v}\|_{H^1}}$$
+
+    事实上，还可以证明inf-sup条件成立能推出Ne\v cas不等式成立。从inf-sup条件展开散度并放缩分母可得
+    $$\|q\|_{L^2}\lesssim\sup_{w\in\vec{H}_0^1}\sum_{i=1}^d\frac{(\partial_iw,q)}{\|w\|_{H^1}}\le\sup_{w\in\vec{H}_0^1}\sum_{i=1}^d\frac{(\partial_iw,q)}{\|w_i\|_{H^1}}$$
+    由此已经可得到成立。
+}
+
+\
+
+最后，我们来证明$a$在$\vec{H}_0^1$的强制性。首先从Ne\v cas不等式推出\textbf{Kern不等式}
+$$\|v\|_{H^1}\lesssim\|v\|_{L^2}+\|\varepsilon(v)\|_{L^2},\quad\forall v\in\vec{H}^1$$
+
+\proo{
+    考虑光滑的$v$，一般情况通过取一列光滑$v$逼近即可。
+
+    在不等式中取$p=\partial_jv_i$有
+    $$\|\partial_jv_i\|_{L^2}\lesssim\|\partial_jv_i\|_{H^{-1}}+\sum_{k=1}^d\|\partial_j\partial_kv_i\|_{H^{-1}}$$
+    利用$H^{-1}$范数定义可得
+    $$\|\partial_jv_i\|_{L^2}\lesssim\|v\|_{L^2}+\sum_{k=1}^d\|\partial_j\partial_kv_i\|_{H^{-1}}$$
+    直接计算验证有
+    $$\partial_j\partial_kv_i=\partial_j\varepsilon_{ik}+\partial_k\varepsilon_{ij}-\partial_i\varepsilon_{jk}$$
+    从而再用$\varepsilon(v)$导数的$H^{-1}$范数可被$\varepsilon(v)$的$L^2$范数控制得到
+    $$\|\partial_jv_i\|_{L^2}\lesssim\|v\|_{L^2}+\|\varepsilon(v)\|_{L^2}$$
+    平方累加并添加$\|v\|_{L^2}$\ (右侧只改变系数，不会出现新的项)得结论。
+}
+
+由此即可推出
+$$\|v\|_{H^1}\lesssim\|\varepsilon(v)\|_{L^2}$$
+对$\Gamma_D$测度非零的$\vec{H}_D^1$中的$v$成立，证明留作习题。从而强制性结论成立。
+
+\
+
+*更一般的适定性要求：对任何$\vec{H}_0^1\subset V\subset\vec{H}^1$，若$V$中所有函数都满足$v\cdot n$在边界积分为0，则须取$Q=L_0^2$，否则取$Q=L^2$即可。
+
+\subsection{Fortin算子}
+由于强制性结论具有一般性，构造空间的主要难点在于inf-sup条件须满足。一般情况的验证是困难的，由此需要利用之前引入的\textbf{Fortin}算子。
+
+*定义见第八章，之后将$b(\Pi_hv,q_h)=b(v,q_h)$称为插值条件，则Fortin算子可以定义为满足插值条件与有界性的线性算子。
+
+我们希望弱化第二个条件使其更容易验证：若$V_h$包含分片线性连续函数，且线性泛函$\Pi_b:V\to V_h$满足
+$$b(\Pi_bv,q_h)=b(b,q_h),\quad\forall q\in Q_h$$
+$$\|\Pi_bv\|_{L^2}\lesssim\|v\|_{L^2}+h|v|_{H^1},\quad\forall v\in\vec{H}_0^1$$
+则一定存在Fortin算子$\Pi_h$。
+
+\proo{
+    用$\vec{\cp}_1$表示向量值$\cp_1$-Lagrange元空间(即分片线性连续函数)，利用Scott-Zhang插值可知存在$\Pi_1:\vec{H}_0^1\to\vec{\cp}_1$使得
+    $$|\Pi_1v|_{H^1}+h^{-1}\|v-\Pi_1v\|_{L^2}\lesssim|v|_{H^1},\quad\|\Pi_1v\|_{L^2}\lesssim\|v\|_{L^2}$$
+
+    定义
+    $$\Pi_hv=\Pi_b(v-\Pi_1v)+\Pi_1v$$
+    下验证其符合要求。
+
+    由于插值条件此时即
+    $$(\div\Pi_hv,q_h)=(\div v,q_h)$$
+    直接利用$\Pi_b$符合插值条件代入计算可得成立。
+
+    为证明有界性，先由边值为0计算可知
+    $$\|\Pi_hv\|_{H^1}\lesssim|\Pi_hv|_{H^1}\lesssim|\Pi_1v|_{H^1}+|\Pi_b(v-\Pi_1v)|_{H^1}$$
+    利用逆不等式与$\Pi_b$的假设可知其
+    $$\lesssim|\Pi_1v|_{H^1}+h^{-1}\|\Pi_b(v-\Pi_1v)\|_{L^2}\lesssim|\Pi_1v|_{H^1}+h^{-1}\|v-\Pi_1v\|_{L^2}+|v-\Pi_1v|_{H^1}$$
+    再由$\Pi_1$的假设可知前两项可被$|v|_{H^1}$控制，第三项拆分并利用逆不等式可知能被$|v|_{H^1}$控制，综合得证。
+}
+
+\subsection{Stokes对}
+*用$\cp_k$表示分片$k$次连续函数，$\cp_k^{-1}$表示分片$k$次函数。
+
+失败的例子(这里将空间写为$V_h-Q_h$的形式，记内点个数$NV$，单元个数$NT$)：
+\begin{itemize}
+    \item $\vec{\cp}_1-\cp_0^{-1}$
+    
+    考虑二维时，左侧维数$2NV$，右侧维数$NT-1$\ (注意需要满足为$L_0^2$子空间)，计算可发现对充分加密的网格左侧维数会小于右侧，而inf-sup条件意味着对任何$q\in Q_h$能找到适当的$v\in V_h$，从直觉上在$\dim V_h<\dim Q_h$时不可能满足。
+
+    *事实上考虑每个顶点处的角度估算可得一般网格左侧维数低于右侧，从而无法使用。
+
+    \item $\vec{\cp}_1-\cp_1$
+    
+    参考教材BBF给出了对应的失败情况，能找到$q_h$使得对所有$v_h$都有$(\div v_h,q_h)=0$，从而无法满足inf-sup条件。
+
+    *我们将满足inf-sup条件的情况称为Stokes对\textbf{稳定}。
+\end{itemize}
+
+\
+
+一个成功的例子如\textbf{二维MINI单元}$\vec{\cp}$，其为(这里$\lambda_i$仍指每边对应的函数)
+$$\vec{\cp}_1\oplus\vec{B}_3-\cp_1,\quad B_3=\oplus_{T\in\ct_h}\{\lambda_1\lambda_2\lambda_3\}$$
+
+*由于$\vec{B}_3$表示每个单元内每个分量为$\lambda_1\lambda_2\lambda_3$倍数的函数，其在三边均为0，因此连续性自动满足。
+
+我们希望能构造出符合要求的$\Pi_b$，从而即能用$\Pi_h$说明inf-sup条件。将插值条件分部积分可发现
+$$0=\sum_{T\in\ct_h}\int_{\partial T}(v-\Pi_bv)\cdot nq_h\dr s-\sum_{T\in\ct_h}\int_T(v-\Pi_bv)\cdot\nabla q_h\dr x$$
+由连续性与$n$通过边界换定向可知第一项恒为0，从而只需$\Pi_b$满足第二项为0，由$\nabla q_h$为分片常值，使$\Pi_b$每个单元上积分与$v$相同即可，由此可取
+$$\Pi_b:V\to\vec{B}_3,\quad\Pi_bv\big|_T=\frac{\int_Tv\dr x}{\int_Tb_T\dr x}b_T(x),\quad b_T=\lambda_1\lambda_2\lambda_3\big|_T$$
+其已经满足像在$V_h$中，从而只需验证不等式性质，有
+$$\|\Pi_bv\|_{L^2(T)}^2=\bigg(\int_Tv\dr x\bigg)^2\frac{\int_Tb_T^2\dr x}{\big(\int_Tb_T\dr x\big)^2}$$
+估算得第二项为$h_T^{-2}$量级，从而由H\"older不等式将$v^2$拆为$v^2\cdot1$有
+$$\|\Pi_bv\|_{L^2(T)}^2\simeq h_T^{-2}\bigg(\int_Tv\dr x\bigg)^2\lesssim\|v\|_{L^2(T)}^2$$
+而这当然可以推出$\|\Pi_bv\|_{L^2}\lesssim\|v\|_{L^2}+h|v|_{H^1}$，得证。
+
+\
+
+对比以上例子，我们发现Stokes对设计需要满足原则：
+\begin{enumerate}
+    \item 为使inf-sup条件满足，须$V_h$充分大。
+    \item 从误差估计角度，希望$\|v-v_h\|_{H^1}$与$\|q-q_h\|_{L^2}$平衡，避免浪费，又由于它们一般可放为$v$、$q$减对应插值的范数，可知希望有形式$\vec{\cp}_k-\cp_{k-1}$或$\vec{\cp}_k-\cp_{k-1}^{-1}$。若不稳定，回到第一条适当扩大。
+    \item 离散的无散度条件成立，即$v_h\in V_h$满足对任何$q\in Q_h$有$(\div v_h,q_h)=0$，能推出$\div v_h=0$。这意味着$V_h$不能过大。
+\end{enumerate}
+
+我们先根据前两原则设计，之后再讨论第三个原则的作用。
+
+*若$\div V_h\subset Q_h$，则插值条件可说明$\div\Pi_h=\Pi_0\div$，这就可以类似之前混合Poisson问题时的讨论做更多精细的估计。
+
+\subsection{基于Fortin算子的构造}
+\begin{enumerate}
+    \item MINI单元
+    
+    这里给出更一般的定义。给定$Q_h\subset Q$，定义
+    $$B(\nabla Q_h)=\big\{\beta\in V\mid\exists q_h\in Q_h,\quad\beta\big|_T=b_T\nabla q_h\big|_T,\big\}$$
+
+    若$Q_h$连续(即$Q_h\subset C^0$)，$\vec{\cp}_1\subset V_h\subset V$，只要$V_h$包含$B(\nabla Q_h)$，$V_h-Q_h$就是稳定的Stokes对。
+
+    \proo{
+        定义$\Pi_bv\big|_T\in B(\nabla Q_h)\big|_T$满足
+        $$\int_T\Pi_bv\cdot\nabla q_h\dr x=\int_Tv\cdot\nabla q_h\dr x$$
+        由于$(b_T\cdot,\cdot)$构成$\nabla Q_h\big|_T$上的内积($b_T$不变号且非退化)，可构造出唯一的$\Pi_bv$，从而此定义良好。
+
+        由于$Q_h$中函数连续，直接计算可知
+        $$\int_\Omega\div(\Pi_bv-v)q_h\dr x=-\int_\Omega(\Pi_bv-v)\cdot\nabla q\dr x=0$$
+
+        这就证明了插值性质。更进一步地，设(考虑合适定向使$b_T>0$在$T$上恒成立)
+        $$\|u\|_{L_{b_T}^2(T)}^2=\int_Tb_Tu^2\dr x$$
+        由$\Pi_b$可看作$b_T$内积下的投影知
+        $$\|\Pi_bv\|_{L_{b_T}(T)}^2\le\|v\|_{L_{b_T}(T)}^2$$
+        由$B(\nabla Q_h)$上范数等价性可将左侧缩小至$\|\Pi_bv\|_{L^2}^2$，再由$b_T$有界知右侧不超过$\|v\|_{L^2}^2$，从而类似之前得证。
+    }
+
+    上节给出的二维MINI单元事实上是这里的特殊情况，$B_3=B(\nabla\cp_1)$，对三维也可给出完全类似的构造。
+
+    \item 二维$\vec{\cp}_2-\cp_0^{-1}$
+    
+    \proo{
+        先构造$\Pi_b$使插值条件满足。将其写为(由于$q_h$分片常数，边界不能消去，但内部散度为0)
+        $$0=\sum_T\int_T\div(v-\Pi_bv)q_h\dr x=\sum_T\int_{\partial T}(v-\Pi_bv)\cdot nq_h\dr s$$
+        由于每个区域$q_h$可任取，只要每条边上$v$与$\Pi_bv$积分相同，上式即可满足。
+
+        *注意$\cp_2$-Lagrange元比$\cp_1$-Lagrange元可额外固定了三个边界中点的值，调整每边中点值使得积分相同即可。
+
+        设顶点$i,j$对应结点基$\phi_i(x),\phi_j(x)$，定义边$i,j$上的函数$b_e=\frac{6}{|e|}\phi_i(x)\phi_j(x)$，可验证其在边上积分为1，从而可定义
+        $$\Pi_bv=\sum_e\bigg(\int_ev\dr s\bigg)b_e$$
+        此时由定义可得到
+        $$\|\Pi_bv\|_{L^2}^2\lesssim\sum_e\bigg|\int_ev\dr s\bigg|^2\|b_e\|_{L^2(e)}^2$$
+        利用阶数估算发现第二项是$O(1)$，对第一项使用局部迹不等式，由形状正则性，每边附近的区域有上界，从而上式
+        $$\lesssim\sum_T\int_T(|v|+h^2|\nabla v|^2)\dr x$$
+        而这就是$\Pi_b$的第二个条件要求的形式。
+    }
+
+    *三维则对应$\vec{\cp}_1\oplus\vec{B}_F-\cp_0^{-1}$，这里$\vec{B}_F$代表某个面上非零，其他为0的多项式函数，在二维时对应的左侧恰好为$\vec{\cp}_2$，但三维时不同。
+
+    *事实上$\vec{\cp}_1^{CR}-\cp_0^{-1}$也是稳定的。这里$\cp_1^{CR}$代表分片线性且每边中点连续的函数集合，这是由于我们上述调整事实上只需中点的值固定，无需顶点的值固定。此时所有的内积、导数等计算都需要分片进行，且误差估计无法简单利用Brezzi理论进行，见作业题。
+
+    \
+
+    一般情况：若$V_h$包含$B(\nabla Q_h)$，且存在$\tilde\Pi_1:V\to V_h$使得
+    $$\forall v\in V,\quad\|\tilde\Pi_1v\|_{H^1}\lesssim\|v\|_{H^1}$$
+    $$\forall v\in V,\quad\int_T\div\big(\tilde\Pi_1v-v\big)\dr x=0$$
+    则$V_h-Q_h$是稳定的。
+
+    \proo{
+        考虑
+        $$V^0=\bigg\{v\mid\forall T\in\ct_h,\int_T\div v\dr x=0\bigg\}$$
+        定义$\Pi_2:V^0\to B(\nabla Q_h)$满足
+        $$\Pi_2v\big|_T\in B(\nabla Q_h)\big|_T$$
+        $$\forall q_h\in Q_h\big|_T,\quad\int_T\div(\Pi_2v-v)q_h\dr x=0$$
+        先说明其良好定义性。$B(\nabla Q_h)$的维数应为$\dim Q_h\big|_T-1$，而条件对应的方程个数$\dim Q_h\big|_T$，但$q_h=1$时利用$V^0$定义与$B(\nabla Q_h)$中元素在每个单元积分为0可得结论一定成立，从而实际上未知数个数与方程个数相同。进一步对第二式作分部积分即可利用内积性质得到$\Pi_2$唯一可解性，且有
+        $$\|\Pi_2v\|_{H^1}\lesssim\|v\|_{H^1}$$
+        证明留作习题。
+
+        下面说明定义
+        $$\Pi_hv=\tilde\Pi_1v+\Pi_2(v-\tilde\Pi_1v)$$
+        即符合要求。
+
+        直接代入可得到$(\div(\Pi_hv-v),q_h)=0$，于是插值性质成立，再由$\tilde\Pi_1$与$\Pi_2$的有界性拆分估算可得$\Pi_h$的有界性，从而得证。
+    }
+
+    *二维情况的$\vec{\cp}_2-\cp_0^{-1}$可直接通过对未知数与方程的考虑得到$\tilde\Pi_1$的存在性。同理，只要$V_h$包含$\vec{\cp}_2$，即可得到$\tilde\Pi_1$的存在性。
+
+    *另一个例子：$\vec{\cp}_2\oplus\vec{B}_3-\cp_1^{-1}$，与上种情况相同得$\tilde\Pi_1$的存在性，再由包含$B(\vec{\cp}_0^{-1})$可得成立。
+
+    *更一般的写法是$(\vec{\cp}_k+\vec{B}_{k+1})-\cp_{k-1}^{-1}$。
+\end{enumerate}
+
+\subsection{Taylor-Hood元}
+*最简单实现、最常用的NS方程有限元。
+
+定义为$\vec{\cp}_k-\cp_{k-1}$，$k\ge2$，对二维或三维均成立。
+
+*其inf-sup性质并不容易证明，通过弱化Fortin算子的证明可参考BBF的8.5.1与8.5.2。
+
+我们只证明一种特殊情况，二维$\vec{\cp}_2-\cp_1$。
+
+\proo{
+    利用连续性仍然可得插值性质等价于
+    $$(v-\Pi_b,v,\nabla q_h)=0,\quad\forall q_h\in\cp_1$$
+    由$\cp_1$中的函数连续，其切向导数一定连续。对边进行分类：记$\ce_0^0$表示两端点都在内部的边，$\ce_\partial^0$表示一个端点在内部、一个端点在边界上的边，$\ce_\partial^\partial$表示两端点都在边界上的边。
+
+    *技术性假设：不会有内边满足两顶点都在边上。
+
+    对$e\in\ce$，记$t_e$为其切向量，$m_e$为其中点，$b_e=4\lambda_i\lambda_j$，这里$\lambda_i$、$\lambda_j$表示两端点对边的方程。
+
+    记
+    $$V_0^B=\left<b_e,\forall e\in\ce^0\right>$$
+    这里$\ce^0$表示内部的边，尖括号表示生成。
+
+    证明分为3步：
+    \begin{itemize}
+        \item 修正Nedelec空间
+        
+        将每条内部边的基函数定义为
+        $$\phi_e=\lambda_i\nabla\lambda_j-\lambda_j\nabla\lambda_i$$
+        可发现其与$t_e$内积后积分为$\pm1$，其他边切向积分为0。
+
+        若$T$有一条边在边界上，设$e_3$在边界上，则修正(实质上修正了所有$\ce_\partial^0$中的边的基函数)
+        $$\tilde\phi_{e_2}=-\nabla\lambda_1,\quad\tilde\phi_{e_1}=-\nabla\lambda_2$$
+        将每条内部边修正后的基生成空间记为$\widetilde{ND}_0$，则$\nabla\cp_1\subset\widetilde{ND}_0$\ (利用$\cp_1$内部$a$的基作梯度可被$a\in e$的$\tilde\phi_e$生成，边界类似分析可得结论)。
+
+        \item $L^2$内积的中点二次积分
+        
+        定义
+        $$(u,v)_{h,T}=\frac{|T|}{3}\sum_{e\in T}u(m_e)\cdot v(m_e)$$
+        $$(u,v)_h=\sum_T(u,v)_{h,T}$$
+        可验证对二次函数此积分公式严格。
+
+        \item $\Pi_b$构造
+        
+        记$\Pi_b:\vec{H}_0^1\to V_0^{Bt}=\left<b_et_e,\forall e\in\ce^0\right>$，使得
+        $$(\Pi_bv,w)_h=(v,w),\quad\forall w\in\widetilde{ND}_0$$
+        验证可发现求解$\Pi_b$对应的矩阵为方阵，且对角，从而进一步得到其良好定义，再进行估计即可得结论。
+    \end{itemize}
+}
+
+\subsection{其他单元}
+\begin{itemize}
+    \item 二维$\vec{\cp}_{1,h/2}-\cp_{0,h}^{-1}$
+    
+    这里下标$h/2$表示相比$h$时的单元进行了一次加密，将每个三角形等分为四个三角形。
+
+    证明思路：$\vec{\cp}_{1,h/2}$考虑自由度实际上类似$\vec{\cp}_{2,h}$，从而此单元与第四节已证类似。
+    
+    \item 二维$\vec{\cp}_{1,h/2}-\cp_{1,h}$
+    
+    证明思路：同理，此单元与Taylor-Hood元类似。
+
+    \item $\vec{\cp}_k-\cp_{k-1}^{-1}$
+    
+    类似HCT元，需要在\textbf{特殊网格}(非正常三角剖分)定义，二维$k\ge2$时成立，三维$k\ge3$时成立，称为\textbf{宏单元}[macro-element]。
+
+    优势：此时$\div V_h\subset Q_h$，误差阶不会浪费，若想在正常三角剖分成立二维时需$k\ge4$，且补充一些条件。
+\end{itemize}
+
+\section{压力健壮的混合有限元}
+考虑方程为
+$$\begin{cases}-\nu\triangle u+\nabla p&=f\\\nabla\cdot u&=0\end{cases}$$
+边界条件为$\partial\Omega$上$u$为0，即$u\in\vec{H}_0^1$，$p\in L_0^2$，之后记$X=\vec{H}_0^1$、$Y=L_0^2$。
+
+定义(这里$u,v\in X$、$q\in Y$)
+$$a(u,v)=2\nu(\varepsilon(u),\varepsilon(v))=\nu(\nabla u,\nabla v)$$
+$$b(v,q)=-(\div v,q)$$
+
+压力健壮\textbf{意义}：类似第十章结尾的估算，NS方程中，当$\nu$很小时，压力误差也可能\textbf{污染速度误差}。之前介绍的MINI单元、$\vec{\cp}_2$-$\cp_0^{-1}$或Taylor-Hood元均会出现此问题。希望能避免这样的污染。
+
+\subsection{不变性与标准误差估计}
+\textbf{不变性}
+
+引理(\textbf{Helmholtz-Hodge分解})：对任何$f\in\vec{L}^2(\Omega)$，可将其唯一分解为$f=f_0+\nabla\phi$，使得$f_0\in H(\div)$、$\phi\in H^1(\Omega)/\mathbb{R}$。
+
+\proo{
+    两侧同取散度后利用调和方程理论可唯一解出$\phi$，进一步得到$f_0$。
+}
+
+\
+
+解的基本估计：将上述$f_0$记作$\mathbb{P}(f)$，则
+$$\|u\|_{H^1}\lesssim\nu^{-1}\|\mathbb{P}(f)\|_{L^2}$$
+$$\|p\|_{L^2}\le\frac{1}{\beta}\|f\|_{L^2}$$
+这里$\beta$为本章开头inf-sup条件中的参数。
+
+\proo{
+    记
+    $$X_{\div}=\{v\in X\mid(\div v,q)=0,\quad\forall q\in Y\}$$
+    也即$\div v$在分布意义下为0的全部$v$，设$X_{\div}$对$X$在内积$a(\cdot,\cdot)$下的正交补为$X_{\div}^\bot$，任何$u\in X$都可以分解为$u^0+u^\bot$，其中$u^0\in X_{\div}$，$u^\bot\in X_{\div}^\bot$。
+
+    由于上方定义已商去了核，即得$\div:X_{\div}^\bot\to Y$为同构，于是由第二个方程即得解$u$满足$u^\bot=0$。
+
+    取定$v=v^0\in X_{\div}$，代入第一个方程的弱形式可发现
+    $$a(u,v^0)+b(v^0,p)=(f,v^0)$$
+    进一步由$v^0$无散度与正交性得到
+    $$a(u^0,v^0)=(\mathbb{P}(f),v^0)$$
+    由此代入$v=u$得估计
+    $$\|u^0\|_{H^1}\lesssim\nu^{-1}\|\mathbb{P}(f)\|_{L^2}$$
+    再由$u=u^0$即得第一式。
+
+    另一方面，将$v^\bot\in X_{\div}^\bot$代入弱形式可发现
+    $$(p,\div v^\bot)+(f,v^\bot)=0$$
+    由inf-sup条件得
+    $$\|p\|_{L^2}\le\frac{1}{\beta}\sup_{v^\bot\in X_{\div}^\bot}\frac{(\div v^\bot,p)}{\|v^\bot\|_{H^1}}$$
+    再代入上式得结论。
+}
+
+*由此可发现速度场可被无散度部分控制，进一步可证明\textbf{不变性}(即当$f$增加某梯度场时，只对应$p$的改变，$u$不变)。我们希望数值上有相同的性质。
+
+\
+
+\textbf{标准误差估计}
+
+对$X_h\in X$、$Y_h\in Y$，设离散inf-sup条件为
+$$\inf_{q_h\in X_h}\sup_{v_h\in Y_h}\frac{(\div v_h,q_h)}{\|v_h\|_{H^1}\|q_h\|_{L^2}}=\beta_h>0$$
+
+定义
+$$X_{h,\div}=\{v_h\in X_h\mid(\div v_h,q_h)=0,\quad\forall q_h\in Y_h\}$$
+其一般不包含在$X_{\div}$中，此时误差方程为
+$$\begin{cases}a(u-u_h,v_h)+b(v_h,p-p_h)&=0,\quad\forall v_h\in X_h\\b(u-u_h,q_h)&=0,\quad\forall p_h\in Y_h\end{cases}$$
+对某个$\tilde{u}_h\in X_{h,\div}$，将$u-u_h$分解为$(u-\tilde{u}_h)-(u_h-\tilde{u}_h)$，并记作$\eta-\phi_h$，由定义可发现$\phi_h\in X_{h,\div}$。
+
+此时取$v_h=\phi_h$即得到
+$$\nu|\phi_h|_{H^1}^2=\nu(\varepsilon(\eta),\varepsilon(\phi_h))-(\div\phi_h,p-p_h)$$
+从而利用之前类似的Cauchy不等式技巧可得
+$$|\phi_h|_{H^1}\lesssim\nu|\eta|_{H^1}+\nu^{-1}\|p-p_h\|_{L^2}$$
+进一步得到
+$$|u-u_h|_{H^1}\le|\eta|_{H^1}+|\phi_h|_{H^1}\lesssim|\eta|_{H^1}+\nu^{-1}\|p-p_h\|_{L^2}$$
+由于$\tilde{u}_h$可任取，最终得到
+$$|u-u_h|_{H^1}\lesssim\inf_{\tilde{u}_h\in X_{h,\div}}|u-\tilde{u}_h|_{H^1}+\nu^{-1}\|p-p_h\|_{L^2}$$
+这就体现了$\nu$很小时压力误差的\textbf{放大}。
+
+\
+
+有结论，离散inf-sup条件成立与Fortin算子$\Pi_F$存在\textbf{等价}，由此可以证明对任何$w\in X_{\div}$有
+$$\inf_{w_h\in X_{h,\div}}\|\nabla(w-w_h)\|_{L^2}\lesssim\inf_{v_h\in X_h}\|\nabla(w-v_h)\|_{L^2}$$
+这样上方估计中的$X_{h,\div}$可以替换为$X_h$。
+
+\proo{
+    对任何$v_h\in X_h$，取
+    $$z_h=\Pi_F(w-v_h)\in X_h$$
+    则由Fortin算子定义有
+    $$\|\nabla z_h\|_{L^2}\lesssim\|\nabla(w-v_h)\|_{L^2}$$
+    定义$w_h=z_h+v_h$，进一步由Fortin算子定义可得$w_h\in X_{h,\div}$，且
+    $$\|\nabla(w-w_h)\|_{L^2}\le\|\nabla(w-v_h)\|_{L^2}+\|\nabla z_h\|_{L^2}$$
+    从而由$v_h$任意性得证。
+}
+
+\subsection{压力健壮的混合方法}
+若$X_h\subset X$、$Y_h\in Y$，且$\div X_h\subset Y_h$，则$|u-u_h|_{H^1}$的估计中不会出现$\nu^{-1}\|p-p_h\|_{L^2}$项。
+
+\
+
+引理：此时
+$$\|\nabla u_h\|_{L^2}\lesssim\nu^{-1}\|\mathbb{P}(f)\|_{L^2}$$
+$$\|p_h\|_{L^2}\lesssim\frac{1}{\beta_h}\|f\|_{L^2}$$
+
+\proo{
+    证明方式与上节对真解的估算过程完全相同。
+}
+
+\
+
+引理：此时记$\Pi_{Y_h}$为$L^2$投影，则
+$$\|\nabla(u-u_h)\|_{L^2}\lesssim\inf_{w_h\in X_h}\|u-w_h\|_{L^2}$$
+$$\|\Pi_{Y_h}p-p_h\|_{L^2}\lesssim\frac{\nu}{\beta_h}\inf_{w_h\in X_h}\|u-w_h\|_{L^2}$$
+
+\proo{
+    由条件得此时$X_{h,\div}\subset X_{\div}$，与对真解的估算过程类似即得第一式成立，下证第二式。
+
+    对任何$v_h\in X_h$，由inf-sup条件得
+    $$\|\Pi_{Y_h}p-p_h\|_{L^2}\le\frac{1}{\beta_h}\sup_{v_h\in X_h}\frac{(\Pi_{Y_h}p-p_h,\div v_h)}{\|v_h\|_{H^1}}$$
+    由$\div X_h\subset Y_h$可知$\div v_h=q_h\in Y_h$，从而利用正交性与误差方程得
+    $$(\Pi_{Y_h}p-p_h,\div v_h)=(p-p_h,\div v_h)=2\nu(\varepsilon(u-u_h),\varepsilon(v_h))$$
+    再代入上式即得证。
+}
+
+*由第一条可进一步得到此时\textbf{不变性}满足。
+
+\
+
+*之前介绍的$\vec{\cp}_k-\cp_{k-1}^{-1}$单元即满足此性质。
+
+\subsection{$H(\div)$一致单元}
+*虽然其可以保证无散度，但直接使用$H(\div)$单元作为$X_h$是不可行的，因为只保证了\textbf{法向}连续性，并不协调。
+
+想法：调整双线性型的形式或改变$H(\div)$空间使得其获得较弱连续性。
+
+\
+
+\textbf{调整双线性型}
+
+2D情况：考虑$w_h\in X_h\subset H(\div)$，使用RT或BDM单元，由法向连续性计算可得(这里$\nabla_h$表示每个单元内部梯度，忽略边界处)
+$$\int_\Omega(-\Delta u)\cdot w_h\dr x=\int_\Omega(\nabla_h u\cdot\nabla_h w_h)\dr x-\sum_{T\in\ct_h}\int_{\partial T}\frac{\partial(u\cdot\tau_T)}{\partial n_T}(w_h\cdot\tau_T)\dr s$$
+这里$\tau_T$表示边界处的切向量。与之前完全类似可按边整理为(由$u$连续性，事实上$\epsilon(u)$中的两项应相等)
+$$\int_\Omega(-\Delta u)\cdot w_h\dr x=\int_\Omega(\nabla_h u\cdot\nabla_h w_h)\dr x-\sum_{e\in\ce}\int_e\epsilon(u)[w_h\cdot\tau_e]\dr s$$
+$$\epsilon(u)=\ave{(u\cdot\tau)_n}=\frac{1}{2}\bigg(\frac{\partial u^+\cdot\tau^+}{\partial n^+}+\frac{\partial u^-\cdot\tau^-}{\partial n^-}\bigg)$$
+由此可定义(这里$[w_h]_\tau$即表示$[w_h\cdot\tau_e]$)
+$$a_h(u_h,w_h)=\nu\int_\Omega(\nabla_h u_h\cdot\nabla_h w_h)\dr x-\sum_{e\in\ce}\int_e\epsilon(u_h)[w_h]_\tau\dr s-\sum_{e\in\ce}\int_e\epsilon(w_h)[u_h]_\tau\dr s+\sigma\sum_{e\in\ce}|e|^{-1}\int_e[w_h]_\tau[u_h]_\tau\dr s$$
+
+要求$\sigma$\textbf{充分大}，此处思路与DG构造完全一致，因此也能得到类似结论：将$a_h$对应的范数记为下标$1,h$，可得估计
+$$\|u-u_h\|_{1,h}\lesssim\inf_{w_h\in X_h}\|u-w_h\|_{1,h}$$
+$$\|p-p_h\|_{L^2}\lesssim\inf_{q_h\in Y_h}\|p-q_h\|_{L^2}+\frac{\nu}{\beta_h}\inf_{w_h\in X_h}\|u-w_h\|_{1,h}$$
+
+\
+
+\textbf{调整空间}
+
+用$W(T)$表示原本的单元$T$上的有限元空间，其在$H(\div)$中，考虑新的有限元空间
+$$\widehat{W(T)}=W(T)+\curl(b_TS(T))$$
+$b_T$定义同前，$S(T)$为某个函数空间。由于后者的法向分量恒为0，不会影响\textbf{法向连续性}，也不会破坏\textbf{无散度条件}。
+
+*如考虑$W(T)$为$RT_0$单元，$S(T)$为$\cp_1$，可得到六维的$\widehat{W(T)}$。将$\widehat{W(T)}$组装成$X_h$，可发现其中函数法向分量无跳跃，且切向跳跃的\textbf{积分}为0，从而由Poincar\'e不等式可被梯度控制。仍将$Y_h$取为$\cp_0^{-1}$，此时弱形式为
+$$\begin{cases}\nu a_h(u_h,v_h)+b(v_h,p_h)&=(f,v_h),\quad\forall v_h\in X_h\\b(u_h,q_h)&=0,\quad\forall q_h\in Y_h\end{cases}$$
+此处由切向弱连续性可直接定义
+$$a_h(u_h,v_h)=\int_\Omega(\nabla_h u_h\cdot\nabla_h v_h)\dr x$$
+仍可得到估计
+$$\|\nabla_h(u-u_h)\|_{L^2}\lesssim h\|u\|_{H^2}$$
+$$\|p-p_h\|_{L^2}\lesssim h(\|p\|_{H^1}+\nu\|u\|_{H^2})$$
+
+*核心思路：类似上一种情况，通过弱连续性控制\textbf{相容性误差}。
+
+\subsection{梯度-散度稳定性}
+*相对\textbf{常用}的压力健壮构造方式。
+
+将一般的$a$修正为
+$$a_0(u_h,v_h)=\nu(\nabla u_h,\nabla v_h)+\gamma(\div u_h,\div v_h)$$
+这里第二项为稳定化项，$\gamma>0$。考虑弱形式
+$$\begin{cases}a_0(u_h,v_h)+b(v_h,p_h)&=(f,v_h),\quad\forall v_h\in X_h\\b(u_h,q_h)&=0,\quad\forall q_h\in Y_h\end{cases}$$
+
+\
+
+作用：
+\begin{enumerate}
+    \item \textbf{控制数值解散度}
+    
+    上方问题可等价为求解$u_h\in X_{h,\div}$使得
+    $$a_0(u_h,v_h)=(f,v_h),\quad\forall v_h\in X_{h,\div}$$
+    取$v_h=u_h$即得
+    $$\nu|u_h|_{H^1}^2+\gamma\|\div u_h\|_{L^2}^2=(f,u_h)$$
+    利用Sobolev不等式放缩即得
+    $$\gamma\|\div u_h\|_{L^2}^2\le\frac{\nu^{-1}}{2}\|f\|_{H^{-1}}^2$$
+    令$\gamma$趋于无穷，即可使得$\|\div u_h\|_{L^2}$趋于0。
+    
+    *有时可观察到$\|\div u_h\|_{L^2}$趋于0的阶数为$\gamma^{-1}$，而非上方理论的$\gamma^{-1/2}$。
+
+    \item \textbf{减少压力对速度误差的影响}
+
+    记$e=u-u_h$，其误差方程可等价写为(由$X_{h,\div}$定义，任取$q_h\in Y_h$仍成立)
+    $$\nu(\nabla e,\nabla v_h)+\gamma(\div e,\div v_h)=(p-q_h,\div v_h),\quad\forall v_h\in X_{h,\div}$$
+    任取$\tilde{u}_h\in X_{h,\div}$，记$\eta=u-\tilde{u}_h$、$\phi_h=u_h-\tilde{u}_h$，取$v_h=\phi_h$可得
+    $$\nu\|\nabla\phi_h\|_{L^2}^2+\gamma\|\div\phi_h\|_{L^2}^2=-(p-q_h,\div\phi_h)+\nu(\nabla\eta,\nabla\phi_h)+\gamma(\div\eta,\div\phi_h)$$
+    与之前完全类似可由基本不等式操作得到
+    $$\nu\|\nabla\phi_h\|_{L^2}^2+\gamma\|\div\phi_h\|_{L^2}^2\le-2(p-q_h,\div\phi_h)+\nu\|\nabla\eta\|_{L^2}^2+\gamma\|\div\eta\|_{L^2}^2$$
+    进一步由基本不等式拆分$(p-q_h,\div\phi_h)$，并将$q_h$、$\tilde{u}_h$取为最佳，最终可得
+    $$\|\nabla(u-u_h)\|_{L^2}^2+\frac{\gamma}{\nu}\|\div(u-u_h)\|_{L^2}^2$$
+    $$\lesssim\frac{1}{\gamma\nu}\inf_{q_h\in Y_h}\|p-q_h\|_{L^2}^2+\inf_{\tilde{u}_h\in X_{h,\div}}\bigg(\|\nabla(u-\tilde{u}_h)\|_{L^2}^2+\frac{\gamma}{\nu}\|\div(u-\tilde{u}_h)\|_{L^2}^2\bigg)$$
+    由此在$\nu$很小时可放大$\gamma$控制压力误差的影响。
+\end{enumerate}
+
+\subsection{测试空间重构}
+*核心想法：\textbf{测试空间}[test space]与\textbf{试探空间}[trial space]地位不同。
+
+\
+
+不妨考虑
+$$X_h=\vec{\cp}_2+B(\nabla Y_h),\quad Y_h=\cp_1^{-1}$$
+类似之前MINI单元可验证其满足inf-sup条件。
+
+定义\textbf{插值}算子$\Pi_h:X_h\to RT_1$，由$RT_1$定义可知其即满足
+$$\int_T(v-\Pi_hv)\dr x=0$$
+$$\int_eq(v-\Pi_hv)\cdot n=0,\quad\forall q\in\cp_1(e)$$
+且其满足对任何$v_h\in X_{h,\div}$有$\div\Pi_hv_h=0$。
+
+\proo{
+    之前已证插值算子满足对任何$v\in X_h$有$\div\Pi_h v=\Pi_h^0\div v$，这里$\Pi_h^0$代表到$Y_h$的$L^2$投影。
+
+    对任何$q_h\in Y_h$，由投影直接计算有
+    $$(q_h,\div\Pi_hv_h)=(q_h,\Pi_h^0\div v_h)=(q_h,\div v_h)=0$$
+}
+
+\
+
+由此，考虑弱形式
+$$\begin{cases}a(u_h,v_h)+b(v_h,p_h)&=(f,\Pi_hv_h),\quad\forall v_h\in X_h\\b(u_h,q_h)&=0,\quad\forall q_h\in Y_h\end{cases}$$
+
+若$u\in H^3$、$v\in X$，有
+$$|(\triangle u,\Pi_hv)+(\nabla u,\nabla v)|\lesssim\sum_{T\in\ct_h}h_T^2|u|_{H^3(T)}|v|_{H^1(T)}$$
+
+\proo{
+    利用解的定义左侧绝对值内即等于$(\triangle u,\Pi_hv-v)$，利用上方性质得
+    $$(\triangle u,\Pi_hv-v)=(\triangle u-\Pi_h\triangle u,\Pi_hv-v)$$
+    再由插值误差界得证。
+}
+
+\
+
+对任何$w_h\in X_{h,\div}$，记$v_h^0=u_h-w_h$，其也在$X_{h,\div}$中，从而$\div\Pi_hv_h^0=0$，取$v_h=v_h^0$代入误差方程，利用上方引理可拆分放缩得到
+$$|u-u_h|_{H^1}\lesssim\inf_{w_h\in X_h}|u-w_h|_{H^1}+h^2|u|_{H^3}$$
+\end{document}

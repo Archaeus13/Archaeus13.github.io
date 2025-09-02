@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>055</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("寻找疑点");
+                    help_flag = 1;
+                }
+                else alert("镜说自己还有8位人质，因此外界看到的人数是6位");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><span>master</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>1月21日</h2>
+<hr>
+<p>今天，白项一脸神秘地告诉我，他要去拜访一位大师，问我要不要跟着。</p>
+<p>“谁？”</p>
+<p>“绮拉大师。”</p>
+<p>白项告诉我，他之前看到网上的乐评后，设法和绮拉大师取得了联系，随后便越聊越投机。得知大师也在鹰吕后，白项便和她约了见面。</p>
+<p>而我跟着，单纯是因为好奇这个颇具传奇色彩的音乐家是什么样。</p>
+<p>——绮拉大师最早出名，是因为在一个知名古典乐网站写乐评。</p>
+<p>老辣而深刻的点评让乐迷们叹服，绮拉这个名字便口口相传开。</p>
+<p>再之后，绮拉开始将目光转向各地的古乐器，并且对它们的复原和推广作了很大的付出。</p>
+<p>几乎已经失传的唢呐，就是绮拉的一个杰出的复原工作。</p>
+<p>正因如此，虽然从未露面，大家都还是称呼绮拉为“大师”。</p>
+<p>当然，按白项的说法，这种称呼是跟风为主，绝大多数人都不知道她真正的水平与贡献。</p>
+<p>白项和绮拉约在了三洲立交旁的那个咖啡馆见面。</p>
+<p>希玻不在这吹唢呐之后，咖啡馆恢复了往日的冷清。</p>
+<p>白项进了咖啡馆，我想了想，没跟进去，便在外面刷起新闻。</p>
+<div class="quoting">
+<p>龟年久未在网上出现，粉丝担心是否有现实情况……</p>
+<p>MOXI公司发表道歉声明，表示要对恶性行为追究到底……</p>
+<p>二期工程顺利进行，工人待遇再度引发争议……</p>
+<p>“镜”已获得Askr渠道提供的全部浏览权限，仍保留<abbr title="056:bishop" style="text-decoration:none">七位人质</abbr>……</p>
+</div>
+<p>之前“审讯”时告诉过我，龟年已经被捕了，他们还怀疑我和龟年有关。</p>
+<p>不过，这种名人的消失，可不像我那么好办。</p>
+<p>听说，MOXI公司的克扣工资引发了对三洲立交工人待遇的争论。不过伯尔娅出面解释说，这是带有救济性质的工作提供，在二期工程完成后还会有更多补偿，事情便没有闹大。</p>
+<p>这也是被翼星整怕了吧。</p>
+<p>新闻刷到这里，白项和一个人并肩走出了咖啡馆，挥手道别。</p>
+<p>从外貌上来看，绮拉是个比较年长的女性。</p>
+<p>“你们聊天怎么样？”</p>
+<p>“绮拉大师果然对古典和现代音乐的见解都很深，感觉受益匪浅。”以我对白项的了解，能让他说出这么高评价的人可不多。</p>
+<p>“所以，你们有聊到那个婉转凄切吗？”</p>
+<p>“她觉得，这是一个作为基底的情绪，在所有乐曲之中，最后还是蕴含了这样的情绪，但是我觉得不同曲子中既可以强化它也可以弱化它，这点和别的情绪一样，不存在基底之分……”</p>
+</div>
+</body>
+</html>

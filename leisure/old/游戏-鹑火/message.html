@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/005.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>089</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("去掉通往052/057的部分后用base64解码051/056的暗语");
+                    help_flag = 1;
+                }
+                else alert("两个暗语的第一个词都是代号");
+            }
+        }
+        document.onclick = function() {
+            if ($("input").val() == "GLOW" || $("input").val() == "glow") $("input").val("typhoon");
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+                $("#c5level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+                $("#c5level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+                $("#c5level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+                $("#c5level").slideUp();
+            });
+            $("#c5").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+                $("#c5level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body style="background-color:rgb(40,40,40);color:rgb(180,180,180);">
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CATASTROPHE</dt>
+            <div id="c4level" style="display:none;">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><a href="decision.html">decision</a></dd>
+            <dd><a href="close.html">close</a></dd>
+            <dd><a href="son.html">son</a></dd>
+            <dd><a href="leaving.html">leaving</a></dd>
+            <dd><a href="guard.html">guard</a></dd>
+            <dd><a href="television.html">television</a></dd>
+            <dd><a href="news.html">news</a></dd>
+            <dd><a href="farewell.html">farewell</a></dd>
+            <dd><a href="empty.html">empty</a></dd>
+            <dd><a href="report.html">report</a></dd>
+            <dd><a href="journalist.html">journalist</a></dd>
+            <dd><a href="rescue.html">rescue</a></dd>
+            <dd><a href="reconstruct.html">reconstruct</a></dd>
+            <dd><a href="enter.html">enter</a></dd>
+            <dd><a href="impulse.html">impulse</a></dd>
+            <dd><a href="attack.html">attack</a></dd>
+            <dd><a href="friend.html">friend</a></dd>
+            <dd><a href="world.html">world</a></dd>
+            </div>
+            <dt id="c5">CHAPTER V</dt>
+            <div id="c5level">
+            <dd><a href="fore.html">fore</a></dd>
+            <dd><a href="bridge.html">bridge</a></dd>
+            <dd><a href="plan.html">plan</a></dd>
+            <dd><a href="spy.html">spy</a></dd>
+            <dd><a href="gather.html">gather</a></dd>
+            <dd><a href="family.html">family</a></dd>
+            <dd><a href="disguise.html">disguise</a></dd>
+            <dd><a href="join.html">join</a></dd>
+            <dd><span>message</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd><a href="victory.html">victory</a></dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>1月24日-真</h2>
+<hr>
+<p>1月7日的暗语中，公布了我失去联系。</p>
+<p>不过，我已经有了计划。</p>
+<p>11号，我将搜集到的MOXI公司罪证，直接公开渠道投稿给了月亮报。</p>
+<p>我的动机很明显：想给温家三口报仇。</p>
+<p>至于为什么给月亮报，他们确实已经塑造了敢于报道的形象。</p>
+<p>在安切斯看到我的投稿之后，必然就能判断出来我还活着。</p>
+<p>而用这样的方式传递信息，想想也知道我被监控了。</p>
+<p>果然，今天的暗语里，公布了我还活着的消息。</p>
+<p>暗语里其实表明了，我在组织里的代号是<input type="text" style="width:50px">，其实取自异类第一代变种人设定里的“霞”的英文。</p>
+<hr>
+<p>这中间，我投稿“附带”的作用也起了效果。</p>
+<p>MOXI公司遭到了大家的声讨，也被警方调查。</p>
+<p>意外的效果是，MOXI公司的自顾不暇加快了镜与Askr公司的谈判进度。</p>
+<p>镜也明白，谈无可谈的时候就是最终决战的时候。</p>
+<p>中途速度的加快，有利有弊。</p>
+<p>1月21日的新闻里，说了镜获得全部浏览权限。</p>
+<p>如果没什么意外，离决战的日子不远了。</p>
+<p>结果，意外真的降临了。</p>
+<p>——如果没有那场台风，翼星估计会更加不利。</p>
+<p>对付好整以暇的政府、Askr公司，实在是个不可能的挑战。</p>
+</div>
+</body>
+</html>

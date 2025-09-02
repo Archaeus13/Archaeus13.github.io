@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/004.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>075</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("寻找新闻中不对的地方，线索在060与065");
+                    help_flag = 1;
+                }
+                else alert("生日真的是刘文兵的吗？");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+            });
+            var count = 0;
+            $("abbr").click(function(){
+                count++;
+                if (count == 5) $("#hide").show();
+
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CHAPTER IV</dt>
+            <div id="c4level">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><a href="decision.html">decision</a></dd>
+            <dd><a href="close.html">close</a></dd>
+            <dd><a href="son.html">son</a></dd>
+            <dd><a href="leaving.html">leaving</a></dd>
+            <dd><a href="guard.html">guard</a></dd>
+            <dd><a href="television.html">television</a></dd>
+            <dd><a href="news.html">news</a></dd>
+            <dd><a href="farewell.html">farewell</a></dd>
+            <dd><a href="empty.html">empty</a></dd>
+            <dd><a href="report.html">report</a></dd>
+            <dd><a href="journalist.html">journalist</a></dd>
+            <dd><a href="rescue.html">rescue</a></dd>
+            <dd><span>reconstruct</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>3月17日</h2>
+<hr>
+<p>新闻里，鹰吕和几个周边城市的重建已经完成了。</p>
+<p>政府抽钱补贴给了二期工程，避免罢工之类的事再次发生。</p>
+<p>——不过，翼星好像这段时间也没有再组织什么。</p>
+<p>但这更让我感到不安。</p>
+<p>翼星的频道也恢复了，说明基本已经从打击中恢复了过来。</p>
+<p>不管之前损失了多少力量，现在恢复了，必定有所行动。</p>
+<p>如果不是放在组织零星的维权上，很大概率是要参与镜的事件。</p>
+<p>我怀着不安，上网随便看看。</p>
+<p>刷着刷着，就看到了那篇名为“从老板到疯子，刘文兵的一生”的小火了一阵的人物故事。</p>
+<div class="quoting">
+<p>在刘文兵终于如愿成为了大老板之后，他买了一辆梭舱，抢到了自己的<abbr title="多点几次" style="text-decoration:none">名字缩写加上生日</abbr>的车牌号，WB0723。</p>
+<p>没想到，这竟成为了多年后悲剧的伏笔。</p>
+<p>当他因公司亏损变卖掉梭舱之后，再一次见到它，便是死期。</p>
+<p>……</p>
+<p>刘文兵的妻子，在公司陷入恶意低价与偷税漏税风波时，彻底与丈夫决裂了。</p>
+<p>她和刘文兵离了婚，唯一的孩子也跟着妻子。</p>
+<p>这成了压垮骆驼的最后一根稻草。</p>
+<p>从此，意气风发的刘老板消失了，取而代之的是挥舞着木棍的疯子。</p>
+<p>而他的儿子，似乎信了教，在各地流浪，居无定所。</p>
+</div>
+<p>我突然想到了一件事——这新闻好像有些地方欠了考究。</p>
+<div id="hide" style="display:none">
+<p>之前查找资料时，通过公司，能查到刘文兵的生日并不是7月23日。</p>
+<p>而上次去教堂时听到过，7月23日，是那个传教士的生日。</p>
+<p>他姓刘，再加上各地流浪，年龄也对得上。</p>
+<p>这么说来，他明明到过鹰吕，却错过了父亲的最后一面。</p>
+<p>不管是否有什么误会，都再也没有解开的机会了……</p>
+<div class="quoting">enter</div>
+</div>
+<p>刘文兵，打拼了半辈子，最后落得这个下场。</p>
+<p>但更多这样下场的人，从没享受过他这样的荣华富贵。</p>
+</div>
+</body>
+</html>

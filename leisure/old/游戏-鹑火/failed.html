@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/001.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>011</title>
+    <script>
+        var help_flag = 0;
+        var secret = 0;
+        var yes = [0,2,3,6,7];
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("注意聊天框中的勾叉符号");
+                    help_flag = 1;
+                }
+                else alert("按顺序点击是否按钮");
+            }
+        }
+        function button1() {
+            $("#content").html("<p>接受并不是一件容易的事。</p><p>预感告诉我，只要它告诉我那串数字，甚至只要我要它帮忙写出文章，我就不会有回头的机会了。</p><p>或许，再等等？</p>");
+            if (yes.indexOf(secret) != -1) secret++;
+            else secret = 0;
+            if (secret == 8) $("#secret").html("rain");
+        }
+        function button2() {
+            $("#content").html("<p>我很想拒绝。</p><p>但是，如果再抓不住这个机会的话，我还能去哪里呢？</p><p>偌大的鹰吕市，并没有给我留下容身之所。</p>");
+            if (yes.indexOf(secret) == -1) secret++;
+            else secret = 0;
+        }
+    </script>
+</head>
+
+<body style="background-color: rgba(0, 88, 104, .2);">
+
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt>CHAPTER I</dt>
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><span>failed</span></dd>
+            <dd>locked</dd>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>10月17日</h2>
+<hr>
+<p>我的面试并没有通过。</p>
+<p>鹰吕的人太多了，想要通过一点技术来获得谋生职位的人也太多了。——这是我这几天联系招聘所得到的结论。</p>
+<p>这样的情况下，我这个半路出家的小说写手没有一点优势。投了这么多家公司，总共就获得了那一次面试资格，而且还没通过。</p>
+<p>“总不会再回去写网络小说吧……”虽然不愿真的狠心放弃，但我明白这实在不是一个理智的决定。</p>
+<p>其实……还有一条路来着。</p>
+<p>去那个什么图灵测试的网页，找对面那个进行“恶魔交易”的家伙。</p>
+<div class="chatting">
+    <p>&#10004;现在想起来找我了？</p>
+    <p style="text-align:right">你一直在等我的消息？&#10006;</p>
+    <p>&#10004;不得不说，你这人疑心还真是重。</p>
+    <p>&#10004;整整12天才做好决定吗？</p>
+    <p style="text-align:right">你已经说过了，你能做到什么。&#10006;</p>
+    <p style="text-align:right">那么，需要我做些什么？&#10006;</p>
+</div>
+<p>我早就想好了这两句回复，保留可能，也试探一下对方的态度。</p>
+<p>只要它能说出需要什么，就有机会知道他的身份。</p>
+<div class="chatting">
+    <p>&#10004;需要你记住一串数字，然后关键时刻，帮我一把。</p>
+    <p>&#10004;如果接受的话，你现在就可以告诉我你需要的文章了。</p>
+</div>
+<p id="secret">接受吗？</p>
+<p>
+    <button onclick="button1()">是</button>
+    <button onclick="button2()">否</button>
+</p>
+<div id="content">我必须进行选择。</div>
+</div>
+</body>
+</html>

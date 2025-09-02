@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>029</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("奇怪的地方在哪里？把鼠标放在对应的字词上。");
+                    help_flag = 1;
+                }
+                else alert("胡与非听到过那次广播吗？");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><span>dog</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>11月23日</h2>
+<hr>
+<p>天气预报再一次预报了大雨，在后天。</p>
+<p>老丰已经音信全无快两个月了，现在，我也只有在听着收音机时会想到他。</p>
+<p>白项又打了一次电话来问我要不要音乐会门票——明天就要表演了。不过，我还是拒绝了。</p>
+<p>今天，生活似乎进入了这段时间罕见的平静，可以在家安心休息了。</p>
+<p>我拉开窗帘，向窗外望去，视线随即被楼下吸引了过去。</p>
+<p>“那好像是……”</p>
+<p>楼下有一条狗。</p>
+<p>如果我没看错的话，是那条名叫“阿贝尔”的<a href="pekingese.html" target="_self">京巴</a>。</p>
+<p>——温禾生和温雅养的狗。</p>
+<p>我冲下楼，仔细看了看。</p>
+<p>它的状态并不好，似乎是几天没人喂，饿瘦了一圈。不过，还是能分辨出来，确实是那条狗。</p>
+<p>我试着靠近它，它却很快跑开了。哪怕是之前温家夫妇在的时候，我们小区也没人能接近这条狗，它似乎很认生，看到我们都会直接试着跑开，不管他俩怎么劝都没用。</p>
+<p>要不要跟上呢……</p>
+<p>“欸，这是他俩的那条狗吧？我去看看发生什么了，说不定能找到线索。”刚下楼的胡与非倒是比我还积极。</p>
+<p>说起来，她之前和黄大姐聊天的时候就感觉她还是挺热心小区事务的，有这么个邻居还挺好。</p>
+<p>过了十几分钟，她回来了。</p>
+<p>“它好像不想让人跟着，主动绕开了。说来也怪，明明是条狗，爬高上低，跟猫似的，想追都追不上。”</p>
+<p>“他俩不会真去找公司要说法了吧……”我隐隐有些担忧。</p>
+<p>“<abbr title="030:poet" style="text-decoration:none">如果那个广播说得是真的</abbr>，哪怕真的有承认，也没证据吧。他们能做什么？”胡与非也在思考。</p>
+<p>“就怕他们冲动之下……而且看阿贝尔的样子，他俩如果状态正常的话，肯定会好好照顾的，多半还是出事了。”</p>
+<p>胡与非今天好像休息，就顺势在下面散起步来。</p>
+<p>似乎有什么奇怪的地方？</p>
+</div>
+</body>
+</html>

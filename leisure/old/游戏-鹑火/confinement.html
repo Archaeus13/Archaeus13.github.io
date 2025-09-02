@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/003.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>046</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("让时间前进，注意只有点的时候");
+                    help_flag = 1;
+                }
+                else alert("点的个数对应字母，按顺序排列");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+            });
+            var s = 0;
+            var texts = ["时间一点点在过去。",
+                    "缺水感比想像中更快地降临。",
+                    "过去多久了。",
+                    "口渴渐渐加剧，似乎占据了我的意识。",
+                    "接下来是饥饿感。",
+                    "..................",
+                    ".....",
+                    "我躺在地上，一点也不想动。",
+                    "耳边好像出现了声音。",
+                    "幻听？",
+                    "我不知道过去了多久，但意识似乎已经在模糊的边缘了。",
+                    "............",
+                    ".....",
+                    ".",
+                    "...................",
+                    "醒了吗。",
+                    "我突然感到世界变得清楚起来。虽然我无法移动，但周围的一切都在感知中变得明晰。",
+                    "然后，再次陷入昏迷。",
+                    "空白的意识中出现了一些痕迹。",
+                    "又听到奇怪的声音了呢。",
+                    ".....",
+                    "我已经逐渐感受不到身体的反馈了。",
+                    "时钟仍然在走着。",
+                    "一瓶水被扔进了房间：“时间到了。”"];
+            $("#s").click(function(){
+                s = (s + 1) % 24;
+                $("#s").text(s + 1);
+                $("#secret").text(texts[s]);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">CHAPTER III</dt>
+            <div id="c3level">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><span>confinement</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>12月28日</h2>
+<hr>
+<p>在房间里待了一周以后，我又一次被叫了出来。</p>
+<p>但这一次，不是审讯，而是更直接的手段：</p>
+<p>我被扔到了一个小黑屋里，除了厕所以外没有任何额外的布置，也没有食物和水。</p>
+<p>狱警的说法是，让我在这里待满24小时，看看能不能想起来什么。</p>
+<p>——刑讯，但不算很夸张，也不会留下什么证据。这既是最后的折磨，也是一种立威。</p>
+<p>我能猜到，挺过这24小时，我应该就会被放出来了。</p>
+<p>当然，放出来之前，警告我一下，让我封口，肯定是少不了的。</p>
+<p>以这几天的了解，从理念来说，我还是挺认可翼星这个组织。温家夫妇那样的事情，如果任由其发生，后果不堪设想。</p>
+<p>既然官方无法解决，诉诸民间也是挺好的方式。</p>
+<p>但是，翼星带来了如此多的冲突，最后伤害到的，很大一部分还是黄大姐这样的普通人。</p>
+<p>不知道三洲立交二期工程建得怎么样了，拆除老城区时花了那么大的力气，决心应该也挺足的吧。</p>
+<p>胡思乱想中，时间一点点过去。</p>
+<p>我知道，先到的是口渴，然后则是饥饿。之前给的盒饭也只是勉强果腹而已，绝对撑不到24小时。</p>
+<p>更何况，上次吃饭是晚上，而现在是早上，实际的禁食禁水时间不止24小时。</p>
+<p>这可不好扛下来啊……</p>
+<p>第<span id="s">1</span>个小时。</p>
+<p id="secret">时间一点点在过去。</p>
+</div>
+</body>
+</html>

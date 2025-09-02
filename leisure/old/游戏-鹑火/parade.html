@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/001.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>016</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("点击屏幕可看到闪电");
+                    help_flag = 1;
+                }
+                else alert("注意闪电中目录的变化");
+            }
+        }
+        document.onclick = function() {
+            $("#next").text("volunteers");
+            $("body").css("background-color","rgba(248, 247, 203, 1)");
+            setTimeout('$("#next").text("parade");$("body").css("background-color","rgba(0, 88, 104, .4)")', 100);
+        };
+    </script>
+</head>
+
+<body style="background-color: rgba(0, 88, 104, .4);">
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt>CHAPTER I</dt>
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><span id="next">parade</span></dd>
+            <dd>locked</dd>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>10月25日</h2>
+<hr>
+<p>外面又在下大雨。</p>
+<p>“这鬼天气什么时候是个头啊……”</p>
+<p>以前每次下楼还能和老丰打打趣，现在他也不知道跑哪里去了，让我心情更加烦闷。</p>
+<p>黄大姐今天好像一早就骑着摩托车出去了，听说是东郊那边的救济站出事了，紧急调动了他们这些人。</p>
+<p>我看了看手机新闻，上面说暴徒最近越来越猖狂了，现在甚至有组织地去抢救济。</p>
+<p>我倒是有点迷惑了。按理说，贫民窟的人应该没那么大的胆子来着，但是除了他们，暴徒还能是谁呢？</p>
+<p>“是农民。妈的，不知道又有谁在背后撺掇。”我正想着，大姐和温家夫妇——住在五楼的养狗夫妇，巧合的是，他们夫妻都姓温——的交谈声传来。</p>
+<p>“大姐？你受伤了？”我打着伞跑到小区门口，正看到大姐额头上的一道划痕。</p>
+<p>“没什么大事。今天真邪了门了，菜农不知道怎么跟贫民窟的搞到一起了。他们说是一个月之前答应的补助还没下来，全活不下去了，逼救济站把仓库放开。”大姐走到楼下，摘下了头盔。</p>
+<p>“真的假的？”温禾生皱起了眉头，温雅则是跑回家去拿创可贴。在他们身旁，那只小狗还在不停叫唤着。</p>
+<p>“谁知道呢？他们这么一闹，假的也成真的。”大姐无奈。</p>
+<p>拖欠补助这事，确实发生过，也不止一次，所以，补助没下来这事多半是真的。</p>
+<p>但是，以现在的情况，几场雨就活不下去，怎么说也太夸张了，这背后确实应该有人推波助澜。</p>
+<p>“他们之前硬抢，抓了一批也就老实了。但现在麻烦，一个个举着横幅搁救济站门口晃荡，你赶了人家过会儿还来。——保安这几个破钱是真不好赚。”</p>
+<p>我听着他们的对话，不知道该作何评价。</p>
+<p>温雅从楼上拿了创可贴，帮黄大姐贴上，顺势又聊起了最近的新闻。</p>
+<p>“你们有没有听说最近那个Askr公司的事？”</p>
+<p>“好像他们弄个什么科技产品把人弄没了？”黄大姐好像也不太懂。</p>
+<p>“告诉你们，那是恶魔！恶魔！来找你们索命了！”谁也没想到，疯子居然这时候下楼了，拿着木棍往地上乱指。</p>
+<p>“给你脸了是吧。”温禾生心情本来就不太好，听疯子这么一说，当场就要动手，然后被温雅、黄大姐和我合力拉住了。</p>
+<p>“回去回去。”疯子一来，大家再也没了聊天的兴致，各自回家。</p>
+</div>
+</body>
+</html>

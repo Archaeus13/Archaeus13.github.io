@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>033</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("知道结果与暴徒的位置，如何绕开他们走到？");
+                    help_flag = 1;
+                }
+                else alert("“直行左拐直行”或“左拐右拐左拐”");
+            }
+        }
+        $(function (){
+            var s1 = 0;
+            var s2 = 1;
+            var s3 = 2;
+            var txt = ["左拐","直行","右拐"];
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+            $("#s1").click(function(){
+                s1 = (s1 + 1) % 3;
+                $("#s1").text(txt[s1]);
+                if (s1 == 0 && s2 == 1) {
+                    $("#be").show();
+                    $("#ne").hide();
+                    $("#he").hide();
+                }
+                else if ((s1 == 0 && s2 == 2 && s3 == 0) || (s1 == 1 && s2 == 0 && s3 == 1)) {
+                    $("#be").hide();
+                    $("#ne").hide();
+                    $("#he").show();
+                }
+                else{
+                    $("#be").hide();
+                    $("#ne").show();
+                    $("#he").hide();
+                }
+            });
+            $("#s2").click(function(){
+                s2 = (s2 + 1) % 3;
+                $("#s2").text(txt[s2]);
+                if (s1 == 0 && s2 == 1) {
+                    $("#be").show();
+                    $("#ne").hide();
+                    $("#he").hide();
+                }
+                else if ((s1 == 0 && s2 == 2 && s3 == 0) || (s1 == 1 && s2 == 0 && s3 == 1)) {
+                    $("#be").hide();
+                    $("#ne").hide();
+                    $("#he").show();
+                }
+                else{
+                    $("#be").hide();
+                    $("#ne").show();
+                    $("#he").hide();
+                }
+            });
+            $(".s3").click(function(){
+                s3 = (s3 + 1) % 3;
+                $(".s3").text(txt[s3]);
+                if (s1 == 0 && s2 == 1) {
+                    $("#be").show();
+                    $("#ne").hide();
+                    $("#he").hide();
+                }
+                else if ((s1 == 0 && s2 == 2 && s3 == 0) || (s1 == 1 && s2 == 0 && s3 == 1)) {
+                    $("#be").hide();
+                    $("#ne").hide();
+                    $("#he").show();
+                }
+                else{
+                    $("#be").hide();
+                    $("#ne").show();
+                    $("#he").hide();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><span>death</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>11月30日</h2>
+<hr>
+<p>关于镜已经好几天没有消息了。</p>
+<p>网上有小道消息说，因为那次镜拿出的筹码，两个公司准备采取强制措施，突破进虚拟世界救出困在其中的意识。</p>
+<p>贫民窟那里，对峙再次进入僵化。黄大姐愤愤地说，那帮暴民现在终于如愿逼政府坐下谈判了。</p>
+<p>和黄大姐聊天时，也好奇提了一句前天送物资的事。她说，其实主要是胡与非的主意，最后送也是胡与非送的。</p>
+<p>她的原话是：“我也没想到那孩子会对邻里这么热心，不过，总归是好事。”</p>
+<p>“那她没和疯子起冲突吗？我记得之前看他俩好像有仇的样子？”我想到那天的事。</p>
+<p>“唉，也没多大事。听说当时刘老板——就是那个疯子——靠钱买通了一些方便，所以就和一些普通人起了冲突。反正，他的报应也已经来了……”</p>
+<p>值得庆幸的是，黄大姐负责的保安工作并不在这块区域，所以上次冲击救济站的时候波及了她，这次贫民窟的情况基本不会影响到她的安全。</p>
+<p>而今天，我又下了楼，因为阿贝尔等在了楼下。</p>
+<p>它似乎有些焦急地叫着，看到我来了就开始跑，但不是上次胡与非追的时候那种逃离，而是像想带我去什么地方。</p>
+<p>麻烦的是，它竟然拐进了水杉亭大街。</p>
+<p>我小心地跟上它，然后，在接下来三个路口，<span id="s1">左拐</span>，<span id="s2">直行</span>，<span class="s3">右拐</span>。</p>
+<div id="be">
+<p>结果，在我最后<span class="s3">右拐</span>时，迎面撞上了几个暴民。</p>
+<p>“你是政府的人？”</p>
+<p>“我——”我还没解释，就被拽到地上打了一顿。</p>
+</div>
+<div id="ne" style="display:none">
+<p>跟丢了……</p>
+<p>什么也没找到。</p>
+<p>它走的路线是什么来着……</p>
+</div>
+<div id="he" style="display:none">
+<p>果然，这样走另一条路到，可以绕过那些暴民。</p>
+<p>然后，在拐角，我看到了我这辈子无法忘却的景象——</p>
+<p>一具尸体扔在那里。</p>
+<p>贫民窟里的人似乎对尸体不算很奇怪。这里的人，病死或是冲突而死，不算罕见。</p>
+<p>但是，那人似乎是……</p>
+<p>“温雅？”</p>
+<p>阿贝尔冲了上去，在温雅的身旁吼叫着。</p>
+<p>从尸体上，能看到明显的外伤，而从身后的血迹来看，致命伤很可能在身后。</p>
+<p>但是，我并没有那个勇气调查，只是转身，一步步走回了家中。</p>
+<p>阿贝尔不知什么时候跑开了。</p>
+<div class="quoting">trick</div>
+</div>
+</div>
+</body>
+</html>

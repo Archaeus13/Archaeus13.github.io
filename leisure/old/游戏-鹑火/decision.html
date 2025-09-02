@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/004.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>063</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("注意异类剧情描述");
+                    help_flag = 1;
+                }
+                else alert("将那段的数字转化为字母排序即可");
+            }
+        }
+        $(function (){
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+                $("#c3level").slideUp();
+                $("#c4level").slideUp();
+            });
+            $("#c3").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideDown();
+                $("#c4level").slideUp();
+            });
+            $("#c4").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideUp();
+                $("#c3level").slideUp();
+                $("#c4level").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">SPECTATOR</dt>
+            <div id="c2level" style="display:none;">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><a href="doubt.html">doubt</a></dd>
+            <dd><a href="talk.html">talk</a></dd>
+            <dd><a href="mirror.html">mirror</a></dd>
+            </div>
+            <dt id="c3">RAMIFICATION</dt>
+            <div id="c3level" style="display:none;">
+            <dd><a href="arrest.html">arrest</a></dd>
+            <dd><a href="jail.html">jail</a></dd>
+            <dd><a href="proof.html">proof</a></dd>
+            <dd><a href="crime.html">crime</a></dd>
+            <dd><a href="waiting.html">waiting</a></dd>
+            <dd><a href="confinement.html">confinement</a></dd>
+            <dd><a href="release.html">release</a></dd>
+            <dd><a href="change.html">change</a></dd>
+            <dd><a href="move.html">move</a></dd>
+            <dd><a href="boss.html">boss</a></dd>
+            <dd><a href="future.html">future</a></dd>
+            <dd><a href="revenge.html">revenge</a></dd>
+            <dd><a href="walk.html">walk</a></dd>
+            <dd><a href="snow.html">snow</a></dd>
+            <dd><a href="master.html">master</a></dd>
+            <dd><a href="bishop.html">bishop</a></dd>
+            <dd><a href="story.html">story</a></dd>
+            <dd><a href="wings.html">wings</a></dd>
+            <dd><a href="coming.html">coming</a></dd>
+            <dd><a href="arrive.html">arrive</a></dd>
+            </div>
+            <dt id="c4">CHAPTER IV</dt>
+            <div id="c4level">
+            <dd><a href="disaster.html">disaster</a></dd>
+            <dd><a href="strike.html">strike</a></dd>
+            <dd><span>decision</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>2月16日</h2>
+<hr>
+<p>罢工的组织者和月亮报大概是早就有联系，昨天，月亮报也明确发布了专题，说要关注诉求的进展情况。从报纸上来看，我认识的那个安切斯也参与了撰稿。</p>
+<p>对我来说更重要的消息是，白项还是加入了翼星。</p>
+<p>怪不得他前几天经常冒着雨出门，原来也是和翼星的人一起参与救灾。</p>
+<p>今天，他终于决定要正式加入翼星，说“要为这个城市做些事”。</p>
+<p>当然，他让我保守这个秘密。</p>
+<p>台风来之前，我自己也通过镜的渠道搜索过翼星的信息，得到的结论是，翼星表面上的“公益救助组织”是有不少人的，而反抗活动的组织者或隐藏在这些人之中，或直接居于幕后。而语境中的“翼星的人”，往往说的都是后者，而不是救助组织里的普通成员。</p>
+<p>现在白项加入，大概也就是普通成员的程度，其实也没那么多保密的必要。</p>
+<p>——不过这种事倒也确实不应该往外乱传。</p>
+<p>台风减小了一些，我终于和镜取得了联系。</p>
+<p>要说Askr公司最近的动作，答案是“没有动作”。</p>
+<p>正如之前所说，能谈的都谈完了，不能谈的也碰不了，再在镜这里交流，实在空间不大。</p>
+<p>至于宣传，也不出所料地公布了他们发现最后那个虚拟体也还活着，所以镜手上还有八位人质。</p>
+<p>这么一来，取得联系的最大意义竟然是，《异类》可以继续写下去了。</p>
+<p>《异类》的故事已经来到了第3年，最初由12位变种人建立的政权拥有远强于原本想象的力量，甚至吸引了不少人类加入。现在的决策层中，已经是15位前几代变种人、19位新代变种人、5位人类的配比。而这个崭新的政权，被命名为“极”。</p>
+<p>翼星的广播频道还是没有恢复，而正常的新闻频道内自然是以救灾为主，和其他媒体看到的差不多。</p>
+<p>鹰吕的情况早就已经稳定下来了，但周边的几个城市没有鹰吕的发展程度，台风还是造成了不小的损失。</p>
+<p>政府派出了几个支援团队，并临时接收了一部分难民，而目前，翼星的救助组织也主要是在这些地方做志愿者。</p>
+<p>颇有些黑色幽默的是，这里的志愿服务也包括保护救济站在内。</p>
+<p>曾经策划冲击救济站的人，现在在保护救济站。究其原因，贪油水一类的事并没有消失，但难民是更加紧集的情况，自然得分出主次。</p>
+</div>
+</body>
+</html>

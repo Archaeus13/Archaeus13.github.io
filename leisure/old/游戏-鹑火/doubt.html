@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="pics/002.png">
+    <link rel="stylesheet" type="text/css" href="csses/style.css">
+    <base target="_blank" rel="noopener noreferrer">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>038</title>
+    <script>
+        var help_flag = 0;
+        document.onkeydown = function() { 
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                if (!help_flag) {
+                    alert("在鼠标经过最后一段之后回到最顶部看看吧");
+                    help_flag = 1;
+                }
+                else alert("重复这个过程几次");
+            }
+        }
+        $(function (){
+            var count = 2;
+            $("#c1").click(function(){
+                $("#c1level").slideDown();
+                $("#c2level").slideUp();
+            });
+            $("#c2").click(function(){
+                $("#c1level").slideUp();
+                $("#c2level").slideDown();
+            });
+            $("#s1").mouseenter(function(){
+                $("#s" + count.toString()).show();
+                count++;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <dl>
+            <dt><a href="readme.html">BEGINNING</a></dt>
+            <dt id="c1">TRANSACTION</dt>
+            <div id="c1level" style="display:none;">
+            <dd><a href="start.html">start</a></dd>
+            <dd><a href="second.html">second</a></dd>
+            <dd><a href="madman.html">madman</a></dd>
+            <dd><a href="demon.html">demon</a></dd>
+            <dd><a href="rorrim.html">rorrim</a></dd>
+            <dd><a href="writer.html">writer</a></dd>
+            <dd><a href="general.html">general</a></dd>
+            <dd><a href="inauguration.html">inauguration</a></dd>
+            <dd><a href="heteroes.html">heteroes</a></dd>
+            <dd><a href="audition.html">audition</a></dd>
+            <dd><a href="failed.html">failed</a></dd>
+            <dd><a href="rain.html">rain</a></dd>
+            <dd><a href="deal.html">deal</a></dd>
+            <dd><a href="slum.html">slum</a></dd>
+            <dd><a href="comments.html">comments</a></dd>
+            <dd><a href="parade.html">parade</a></dd>
+            <dd><a href="volunteers.html">volunteers</a></dd>
+            <dd><a href="warfarin.html">warfarin</a></dd>
+            <dd><a href="inspiration.html">inspiration</a></dd>
+            <dd><a href="truth.html">truth</a></dd>
+            </div>
+            <dt id="c2">CHAPTER II</dt>
+            <div id="c2level">
+            <dd><a href="newcomer.html">newcomer</a></dd>
+            <dd><a href="church.html">church</a></dd>
+            <dd><a href="renovate.html">renovate</a></dd>
+            <dd><a href="cafe.html">cafe</a></dd>
+            <dd><a href="prayer.html">prayer</a></dd>
+            <dd><a href="burya.html">burya</a></dd>
+            <dd><a href="intelligence.html">intelligence</a></dd>
+            <dd><a href="accident.html">accident</a></dd>
+            <dd><a href="dog.html">dog</a></dd>
+            <dd><a href="poet.html">poet</a></dd>
+            <dd><a href="factory.html">factory</a></dd>
+            <dd><a href="riot.html">riot</a></dd>
+            <dd><a href="death.html">death</a></dd>
+            <dd><a href="trick.html">trick</a></dd>
+            <dd><a href="again.html">again</a></dd>
+            <dd><a href="deteriorate.html">deteriorate</a></dd>
+            <dd><a href="faith.html">faith</a></dd>
+            <dd><span>doubt</span></dd>
+            <dd>locked</dd>
+            </div>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>LOCKED</dt>
+            <dt>ENDINGS</dt>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+            <dd>locked</dd>
+        </dl>
+    </div>
+
+
+<div id="mainpart">
+<h2>12月10日 <span id="s2" style="display:none">T</span><span id="s3" style="display:none">A</span><span id="s4" style="display:none">L</span><span id="s5" style="display:none">K</span></h2>
+<hr>
+<p>“大姐，早。”这是几天以来我第一次在楼下见到黄大姐。</p>
+<p>她看起来没有太大变化，但脸上平添了几分阴沉。</p>
+<p>“是小墨啊，早。”黄大姐还是笑了笑，和我打招呼。</p>
+<p>“最近工作忙吗？”</p>
+<p>“还好，那儿事不算多。连这边最近都清净了——政府给贫民窟划出了一片安置房，偏一点，不过条件还行。”</p>
+<p>“之前闹得这么大，结束的时候倒是没声音了。”</p>
+<p>“也算是政府的妥协了，就是不知道……”</p>
+<p>黄大姐的话没说完，但我知道她没说完的话是什么。只不过，我们都很默契地没有提起那件事——</p>
+<p>“呵呵，当然有人要付出代价。”一个声音打破了我们的默契。</p>
+<p>“疯——呃……”看到他，我脱口而出地想喊疯子，却又觉得不合适。此刻我才意识到，我们从来没问过他的名字。</p>
+<p>“就喊我疯子吧，反正，灾难已经不远。”他还拿着那根木棍，突然又痛哭起来。</p>
+<p>“死了，都死了……”疯子慢慢走开了。</p>
+<p>我和黄大姐面面相觑，过了几秒，还是我先打破了尴尬。</p>
+<p>“看新闻的意思，那些暴徒的指挥者已经暴露了。”</p>
+<p>“是啊。”</p>
+<p>如果是以前，黄大姐一定会痛骂几句，顺便祝愿警察早点抓住他们。</p>
+<p>可她只说了两个字。</p>
+<div class="quoting">
+    <p>公司在谈判中作出让步，答应对“镜”开放部分大论坛的阅读权限，以此交换部分人质。</p>
+    <p>这次交换已于昨日达成，三位人质得到释放。</p>
+</div>
+<div id="s1">
+<p>收音机中传来新闻，让气氛缓和了一些。</p>
+<p>事情也该回到正轨了。</p>
+<p>——至少，对黄大姐来说是如此。</p>
+<p>我的目光望向楼上，与一双不存在的眼睛对视。</p>
+</div>
+</div>
+</body>
+</html>
