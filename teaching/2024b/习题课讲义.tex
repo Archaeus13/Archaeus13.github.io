@@ -3055,11 +3055,11 @@ $$\begin{pmatrix}1&-1\\ &1&-1\\ &&\ddots&\ddots\\ &&& 1&-1\\ &&&&1\end{pmatrix}$
     \item 若$n$阶方阵$A$的每行和全为1，证明其所有代数余子式之和为$n\det A$。
     
     记$\gamma$为所有元素均为1的列向量，$A$的每行和全为1可以得到
-    $$\gamma^TA=\gamma^T$$
+    $$A\gamma=\gamma$$
     设$A$的伴随方阵为$A^*$，计算可发现$A$所有代数余子式之和即为
     $$\gamma^TA^*\gamma$$
-    由此利用$AA^*=(\det A)I$计算即得
-    $$\gamma^TA^*\gamma=(\gamma^TA)A^*\gamma=\gamma^T(\det A)I\gamma=(\det A)\gamma^T\gamma=n\det A$$
+    由此利用$A^*A=(\det A)I$计算即得
+    $$\gamma^TA^*\gamma=\gamma^TA^*(A\gamma)=\gamma^T(\det A)I\gamma=(\det A)\gamma^T\gamma=n\det A$$
     
     \item 对$A_{m\times n},B_{n\times m}$，若$I_m-AB$可逆，则$I_n-BA$可逆，并求其逆。
     
@@ -4477,7 +4477,7 @@ $$Hx=x-2uu^Tx=x-2\lambda u=-\lambda u+\lambda_1f_1+\dots+\lambda_{n-1}f_{n-1}$$
 \
 
 我们对其的正交性进行一个简单的验证，利用$u$为单位向量，$u^Tu=1$，计算可得
-$$H^TH=(I-2uu^T)(I-2uu^T)=I-4uu^T+2uu^Tuu^T=I-2uu^T=H$$
+$$H^TH=(I-2uu^T)(I-2uu^T)=I-4uu^T+4uu^Tuu^T=I-2uu^T=H$$
 从上方过程事实上还可以看出，$H$实对称，且$H^2=I$。
 
 就像初等变换阵具有的变换性质，Householder阵存在一个非常重要的操作：对任何$n$维向量$x,y$满足$\|x\|=\|y\|$且$x\ne y$，存在Householder阵$H$使得$Hx=y$。
