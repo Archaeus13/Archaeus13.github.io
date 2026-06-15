@@ -4438,7 +4438,7 @@ $$\dr^nf(x)=f^{(n)}(x)(\dr x)^n$$
     再利用$x''(t)(\dr^tt)^2=(\dr^t)^2x(t)$、$x'(t)\dr^tt=\dr^tx(t)$可得
     $$(\dr^t)^2y(x(t))=y'(x(t))(\dr^t)^2x(t)+y''(x(t))(\dr^t x(t))^2$$
 
-    \note 这里我们仅仅做了\textbf{形式上的替换}，展开为微分的定义后，上式到下式实际上可类似\exref{order 1 diff static}利用极限的四则运算的严格证明。
+    \note 这里我们仅仅做了\textbf{形式上的替换}，展开为微分的定义后，上式到下式实际上可类似\exref{order 1 diff static}利用四则运算的极限的严格证明。
 
     可以发现此结果比起$y''(x(t))(\dr^t x(t))^2$还多出了一项$y'(x(t))(\dr^t)^2x(t)$，从而这项非零时不等号成立。
 }
@@ -6715,7 +6715,7 @@ $$\cm^1(a,b)/\rb\cong\cm(a,b)$$
 }
 \end{framed}
 
-此外，对于三角函数相关的问题，还常用一个重要的公式，即\textbf{等差数列的正弦求和公式}：对任何实数$k$、$b$，有
+此外，对于三角函数相关的问题，还常用一个重要的公式，即\textbf{等差数列的正弦求和公式}：对任何实数$k$、$b$，只要$\sin\frac{k}{2}\ne0$，即有
 $$\sum_{t=0}^n\sin(kt+b)=\frac{\sin\frac{(n+1)k}{2}\sin(\frac{nk}{2}+b)}{\sin\frac{k}{2}}$$
 其证明为，左侧乘$\sin\frac{k}{2}$可得
 $$\sum_{t=0}^n\sin(kt+b)\sin\frac{k}{2}=\frac{1}{2}\sum_{t=0}^n\bigg(\cos\bigg(kt-\frac{k}{2}+b\bigg)-\cos\bigg(kt+\frac{k}{2}+b\bigg)\bigg)$$
@@ -6723,7 +6723,7 @@ $$\sum_{t=0}^n\sin(kt+b)\sin\frac{k}{2}=\frac{1}{2}\sum_{t=0}^n\bigg(\cos\bigg(k
 $$\sum_{t=0}^n\sin(kt+b)\sin\frac{k}{2}=\frac{1}{2}\cos\bigg(-\frac{k}{2}+b\bigg)-\frac{1}{2}\cos\bigg(\frac{2n+1}{2}k+b\bigg)$$
 再重新利用和差化积公式展开得结论。
 
-\note 只要将上方的$b$改为$\frac{\pi}{2}+b$即可得到$\cos$求和的结果。
+\note 只要将上方的$b$改为$\frac{\pi}{2}+b$即可得到$\cos$求和的结果。此外，$\sin\frac{k}{2}=0$意味着公差为$2\pi$的倍数，此时求和即为$(n+1)\sin b$。
 
 利用此公式可以方便地计算一些问题：
 \begin{framed}
@@ -7718,7 +7718,7 @@ $$\int_a^bf(x)\dr x=\frac{1}{2}\int_a^b(f(x)+f(a+b-x))\dr x$$
         从而得到
         $$\frac{1}{x}\int_0^xf(t)\dr t=\frac{n}{x}\int_0^Tf(t)\dr t+\frac{1}{x}\int_0^{x-nT}f(t)\dr t$$
 
-        \item 在上式两侧同取极限，利用极限的四则运算结论，为了得到最终结果还需证明
+        \item 在上式两侧同取极限，利用四则运算的极限结论，为了得到最终结果还需证明
         $$\lim_{x\to\infty}\frac{n}{x}=\frac{1}{T},\quad\lim_{x\to\infty}\frac{1}{x}\int_0^{x-nT}f(t)\dr t=0$$  
         第一式由$nT\le x<(n+1)T$可通过夹逼定理直接得到。
         
@@ -7885,7 +7885,7 @@ $$\int_a^bf(x)\dr x=\frac{1}{2}\int_a^b(f(x)+f(a+b-x))\dr x$$
 \sol{
     分为两步：
     \begin{itemize}
-        \item 首先，$g(x)$的周期性对这题自然有重要的作用，由此我们想到用\textbf{周期}进行拆分。不过，直接拆分计算不太方便，我们可以想到先\textbf{延长区间}，换元$t=\frac{x}{n}$得到左侧积分为
+        \item 首先，$g(x)$的周期性对这题自然有重要的作用，由此我们想到用\textbf{周期}进行拆分。不过，直接拆分计算不太方便，我们可以想到先\textbf{延长区间}，换元$t=nx$得到左侧积分为
         $$\frac{1}{n}\int_0^{2n\pi}f\bigg(\frac{t}{n}\bigg)g(t)\dr t$$
         将其\textbf{按周期拆分}得到其为
         $$\sum_{k=0}^{n-1}\int_{2k\pi}^{2(k+1)\pi}f\bigg(\frac{t}{n}\bigg)g(t)\dr t$$
@@ -9852,7 +9852,7 @@ $$\int_a^bf(x)\dr x=\frac{1}{2}\int_a^b(f(x)+f(a+b-x))\dr x$$
         $$\lim_{x\to+\infty}x\ln(1+\frac{1}{x}-\frac{1}{x^2})=\lim_{x\to\infty}x\bigg(\frac{1}{x}-\frac{1}{x^2}\bigg)=1$$
         于是原极限为$\er$。
 
-        \item 我们可以发现，只要将分母的$k^2$去掉，就能直接\textbf{等比数列求和}得到(最后一个等号是利用$\er^{-(n-1)}$极限是0进行极限的四则运算)
+        \item 我们可以发现，只要将分母的$k^2$去掉，就能直接\textbf{等比数列求和}得到(最后一个等号是利用$\er^{-(n-1)}$极限是0进行四则运算的极限)
         $$\lim_{n\to\infty}\sum_{k=1}^n\frac{\er^k}{\er^n}=\lim_{n\to\infty}\frac{\er^{n+1}-\er}{(\er-1)\er^n}=\lim_{n\to\infty}\frac{\er-\er^{-(n-1)}}{\er-1}=\frac{\er}{\er-1}$$
         可以发现，由于分母加$k^2$相比$\er^n$的\textbf{阶数}更小，应当不影响极限。试着将分母的$k^2$都放大为$n^2$，直接代数变形得到
         $$\lim_{n\to\infty}\sum_{k=1}^n\frac{\er^k}{\er^n+n^2}=\lim_{n\to\infty}\frac{\er^{n+1}-\er}{(\er-1)(\er^n+n^2)}=\lim_{n\to\infty}\frac{\frac{\er}{1+n^2\er^{-n}}-\frac{1}{\er^n+n^2}}{\er-1}$$
@@ -9877,7 +9877,7 @@ $$\int_a^bf(x)\dr x=\frac{1}{2}\int_a^b(f(x)+f(a+b-x))\dr x$$
         $$\lim_{x\to0}\frac{\tan(3x)}{x}=3$$
         $$\lim_{x\to0}\frac{\ln(1+x^2)}{x^2}=1$$
         $$\lim_{x\to0}\frac{\sin(x^3)}{x^2}=\lim_{x\to0}\frac{x^3}{x^2}=0$$
-        从而再由极限的四则运算可知原极限为
+        从而再由四则运算的极限可知原极限为
         $$\frac{3^2}{1+0}=9$$
 
         \item 先\textbf{换到0处}再\textbf{取对数}，换元$t=x-1$得到原极限为
@@ -11245,7 +11245,7 @@ $$\lim_{x\to0}\frac{\sin x^2}{x}=\lim_{x\to0}\frac{x^2+o(x^2)}{x}=\lim_{x\to0}\f
     $$\ln\sqrt{1+x^4}+\sin x^3=\frac{1}{2}(x^4+o(x^4))+x^3+o(x^3)=x^3+o(x^3)$$
     由此最终得到原极限为
     $$\lim_{x\to0}\frac{\frac{7}{12}x^3+o(x^3)}{x^3+o(x^3)}=\lim_{x\to0}\frac{\frac{7}{12}+\frac{o(x^3)}{x^3}}{1+\frac{o(x^3)}{x^3}}=\frac{7}{12}$$
-    最后一步是运用了$o(x^3)$的定义与极限的四则运算结论。
+    最后一步是运用了$o(x^3)$的定义与四则运算的极限结论。
 }
 \end{framed}
 对更一般的情况，若无法直接看出分子或分母的阶数，有两种做法：一种是\textbf{使用洛必达法则}，这相当于将分子分母都降了一阶；另一种是\textbf{从一阶开始逐步尝试展开}。
@@ -15769,7 +15769,7 @@ $$f(\bm{x}_0)+((\bm{x}-\bm{x}_0)\cdot\nabla)f(\bm{x}_0)$$
         $$0\le\frac{|h_{s_1}h_{s_2}\dots h_{s_{n+1}}|}{|\bm{h}^n|}=\frac{|h_{s_1}|}{|\bm{h}|}\dots\frac{|h_{s_n}|}{|\bm{h}|}|h_{s_{n+1}}|\le|h_{s_{n+1}}|$$
         利用初等函数连续性可知右侧极限为0，再通过夹逼定理即知中间极限也为0。
 
-        由此，我们将所有这些项求和并乘$M$，利用\textbf{极限的四则运算}即得
+        由此，我们将所有这些项求和并乘$M$，利用\textbf{四则运算的极限}即得
         $$\lim_{\bm{h}\to0}M\sum_{s_1=1}^m\sum_{s_2=1}^m\cdots\sum_{s_{n+1}=1}^m\frac{|h_{s_1}h_{s_2}\dots h_{s_{n+1}}|}{|\bm{h}^n|}=0$$
         再利用一次夹逼定理得结论。
 
@@ -18420,7 +18420,7 @@ $$L(\bm{x},\bm{\lambda})=f(\bm{x})+\bm{\lambda}\cdot\bm{F}(\bm{x})$$
         $$\lim_{(x,y)\to(0,0)}g(x,y)=0$$
     \end{itemize}
 
-    综合以上与极限的四则运算性质得到原极限为1。
+    综合以上与四则运算的极限性质得到原极限为1。
 }
 \end{framed}
 
