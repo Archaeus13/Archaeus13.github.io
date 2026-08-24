@@ -1,0 +1,69 @@
+\documentclass[a4paper,UTF8,fontset=windows,AutoFakeBold]{ctexart}
+\pagestyle{headings}
+\title{\textbf{线性代数A\ 习题课讲义}}
+\author{原生生物}
+\date{}
+\setcounter{tocdepth}{3}
+\usepackage{amsmath,amssymb,amsthm,enumerate,framed,geometry,hyperref,paralist,pgfplots,ulem,unicode-math}
+
+\geometry{left = 2.0cm, right = 2.0cm, top = 2.0cm, bottom = 2.0cm}
+\ctexset{section={number=\zhnum{section}}}
+\ctexset{subsection={name={\S},number=\arabic{section}.\arabic{subsection}}}
+
+\newcommand*{\dr}{\hspace{0.07em}\mathrm{d}}
+\newcommand*{\cm}{\mathcal{C}}
+\newcommand*{\er}{\mathrm{e}}
+\newcommand*{\Fv}{\vec{F}}
+\newcommand*{\ir}{\mathrm{i}}
+\newcommand*{\nm}{\mathcal{N}}
+\newcommand*{\nv}{\vec{n}}
+\newcommand*{\rb}{\mathbb{R}}
+\newcommand*{\rv}{\vec{r}}
+\newcommand*{\rot}{\mathrm{rot}}
+\newcommand*{\suminf}[1][n=1]{\sum_{#1}^\infty}
+
+\newcommand*{\bm}{\boldsymbol}
+
+\newcommand*{\extra}{\textbf{附加}}
+
+\newcommand*{\note}{\noindent *}
+
+\newtheoremstyle{ex}% name
+{3pt}% Space above
+{3pt}% Space below
+{\songti}% Body font
+{}% Indent amount
+{\bfseries}% Theorem head font
+{.}% Punctuation after theorem head
+{.5em}% Space after theorem head
+{}% Theorem head spec (can be left empty, meaning ‘normal’)
+
+\theoremstyle{ex}
+\newtheorem{exercise}{题}
+\newcommand{\exref}[1]{\textbf{题\;\ref{#1}\;}}
+
+\newcommand{\sol}[1]{{\vspace{5pt}\kaishu\noindent\textbf{解答}：\vspace{-3pt}
+\begin{compactitem}
+    \item[] #1
+\end{compactitem}
+}}
+
+\pgfplotsset{compat=1.18}
+
+\begin{document}
+
+\maketitle
+
+\note 线性代数A [陈阳老师班]习题课讲义。
+
+\note 线性代数习题课的主要组织结构将会是通过\textbf{题目}进行，且大部分题目将从教材的例题中选择，这是由于教材中有不少很不错的题目，但缺乏合理的思维路径讲解，且容量过大。题目的解答将以{\kaishu\textbf{楷书}}展示，对一些相对复杂的定理，如果时间不够可仅了解结论，跳过证明细节。
+
+\tableofcontents
+
+\newpage
+\section{有关大学数学}
+\subsection{数学}
+\subsection{不止数学}
+
+
+\end{document}
